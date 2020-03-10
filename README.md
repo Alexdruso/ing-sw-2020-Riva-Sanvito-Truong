@@ -7,4 +7,4 @@
 **Studenti**:
 - Andrea Riva (matricola: 887449)
 - Alessandro Sanvito (matricola: 891196)
-- Kien Tuong Truong (matricola: TODO)
+- Kien Tuong Truong (matricola: 887907)
