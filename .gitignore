@@ -75,5 +75,11 @@ fabric.properties
 
 # ====
 # Source: custom entries
+
+# MacOS files
 .DS_Store
+
+# Default build dir
+target/
+
 # ====
