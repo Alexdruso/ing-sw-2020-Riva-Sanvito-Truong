@@ -2407,12 +2407,12 @@
 										"$ref": "AAAAAAFwxaBUZZ4RqH0="
 									},
 									"font": "Arial;13;0",
-									"left": 682,
-									"top": 68,
+									"left": 447,
+									"top": 72,
 									"width": 62.8544921875,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 0.0694290507035129,
+									"distance": 235.68835355188853,
 									"hostEdge": {
 										"$ref": "AAAAAAFwxaBUZZ4VDL8="
 									},
@@ -2950,6 +2950,7 @@
 									"model": {
 										"$ref": "AAAAAAFwxaJriaNCbhg="
 									},
+									"visible": false,
 									"font": "Arial;13;0",
 									"left": 222,
 									"top": 65,
@@ -3077,16 +3078,17 @@
 									"model": {
 										"$ref": "AAAAAAFwxaJriaNExgI="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 166,
+									"left": 146,
 									"top": 62,
+									"width": 40.8408203125,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
 									"hostEdge": {
 										"$ref": "AAAAAAFwxaJriaNGOug="
-									}
+									},
+									"text": "-board"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -3117,16 +3119,17 @@
 									"model": {
 										"$ref": "AAAAAAFwxaJriaNExgI="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 163,
+									"left": 160,
 									"top": 35,
+									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
 									"hostEdge": {
 										"$ref": "AAAAAAFwxaJriaNGOug="
-									}
+									},
+									"text": "1"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -18859,7 +18862,6 @@
 							"_parent": {
 								"$ref": "AAAAAAFwxVCO7pePr2I="
 							},
-							"name": "board [1..1]",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFwxaJriaNDvM4=",
@@ -18876,10 +18878,13 @@
 								"_parent": {
 									"$ref": "AAAAAAFwxaJriaNCbhg="
 								},
+								"name": "board",
 								"reference": {
 									"$ref": "AAAAAAFwxVA1AJdlgkU="
 								},
-								"aggregation": "composite"
+								"visibility": "private",
+								"aggregation": "composite",
+								"multiplicity": "1"
 							},
 							"visibility": "private"
 						}
