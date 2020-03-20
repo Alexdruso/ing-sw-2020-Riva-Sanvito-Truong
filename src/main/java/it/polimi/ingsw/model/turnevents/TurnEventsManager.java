@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.turnevents;
 
 import java.util.HashMap;
 
+//TODO: make the process*Events method match the signature of the TurnEvents methods
 /**
  * The TurnEvents manager, which allows the gods to register their powers and executes them when requested to do so by the game.
  */
