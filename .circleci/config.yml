@@ -45,7 +45,7 @@ jobs:
 
             git add docs/javadoc/README.md
             git commit -m "docs(javadoc): update artifacts path [skip ci]"
-            git push
+            git push --set-upstream origin ${CIRCLE_BRANCH}
 
 workflows:
   master_push:
