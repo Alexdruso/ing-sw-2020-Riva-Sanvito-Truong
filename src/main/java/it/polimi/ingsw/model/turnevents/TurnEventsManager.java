@@ -31,6 +31,15 @@ public class TurnEventsManager {
     }
 
     /**
+     * Allows opponents to remove their TurnEvents from the current TurnEventManager.
+     *
+     * @param opponent the opponent who wants to remove its TurnEvents from the current TurnEventManager
+     */
+    public void removeTurnEventsSetByOpponent(Player opponent) {
+        this.turnEventsFromOpponents.remove(opponent);
+    }
+
+    /**
      * Process turn start events.
      */
     public void processTurnStartEvents() {
