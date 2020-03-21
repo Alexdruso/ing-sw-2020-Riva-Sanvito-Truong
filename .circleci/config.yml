@@ -13,6 +13,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Configure git user
+          command: |
+            git config user.email "ci-build@arcloud.it"
+            git config user.name "ci-build"
+      - add_ssh_keys:
+          fingerprints:
+            - "85:53:74:17:3d:df:9e:92:91:97:95:3e:96:09:c5:ec"
+      - run:
           name: Generate javadoc
           command: |
             javadoc \
@@ -23,6 +31,21 @@ jobs:
               it.polimi.ingsw
       - store_artifacts:
           path: javadoc
+      - run:
+          name: Commit new artifacts path
+          command: |
+            touch docs/javadoc/README.md
+            cat <<EOF > docs/javadoc/README.md
+            # javadocs
+
+            Head to the latest [CircleCI build artifacts](https://${CIRCLE_BUILD_NUM}-244441529-gh.circle-artifacts.com/0/javadoc/index.html) to access the javadoc for the project.
+
+            N.B.: you need to be [authenticated to CircleCI](https://circleci.com/vcs-authorize/) in order to access the build artifacts.
+            EOF
+
+            git add docs/javadoc/README.md
+            git commit -m "docs(javadoc): update artifacts path [skip ci]"
+            git push
 
 workflows:
   master_push:
