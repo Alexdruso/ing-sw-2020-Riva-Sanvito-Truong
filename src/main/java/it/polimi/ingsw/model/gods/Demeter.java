@@ -9,21 +9,26 @@ class Demeter extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Demeter god card.
      */
-    class OwnerTurnEvents extends TurnEvents {
+    private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeBuild() {
             //TODO
         }
-    }
+    };
 
     @Override
     public String getName() {
         return "Demeter";
     }
 
+    /**
+     * Gets the TurnEvents for the player owning Demeter.
+     *
+     * @return the TurnEvents for the player owning Demeter
+     */
     @Override
     public TurnEvents getOwnerTurnEvents() {
-        return new OwnerTurnEvents();
+        return ownerTurnEvents;
     }
 
 }

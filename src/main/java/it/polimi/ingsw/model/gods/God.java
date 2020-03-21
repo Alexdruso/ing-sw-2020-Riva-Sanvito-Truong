@@ -3,7 +3,10 @@ package it.polimi.ingsw.model.gods;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
- * The interface God.
+ * The interface of a god.
+ * For each god, it allows to specify a set of hooks that need to be attached either to the current player or to all his opponents.
+ *
+ * @see TurnEvents
  */
 public interface God {
     /**

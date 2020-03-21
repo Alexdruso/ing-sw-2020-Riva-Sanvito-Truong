@@ -9,7 +9,7 @@ class Minotaur extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Minotaur god card.
      */
-    class OwnerTurnEvents extends TurnEvents {
+    private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onTurnStart() {
             //TODO
@@ -19,16 +19,21 @@ class Minotaur extends AbstractGod {
         protected void onAfterMovement() {
             //TODO
         }
-    }
+    };
 
     @Override
     public String getName() {
         return "Minotaur";
     }
 
+    /**
+     * Gets the TurnEvents for the player owning Minotaur.
+     *
+     * @return the TurnEvents for the player owning Minotaur
+     */
     @Override
     public TurnEvents getOwnerTurnEvents() {
-        return new OwnerTurnEvents();
+        return ownerTurnEvents;
     }
 
 }

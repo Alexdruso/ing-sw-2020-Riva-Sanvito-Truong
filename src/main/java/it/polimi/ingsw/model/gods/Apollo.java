@@ -9,7 +9,7 @@ class Apollo extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Apollo god card.
      */
-    class OwnerTurnEvents extends TurnEvents {
+    private static final TurnEvents ownerTurnEvents = new TurnEvents(){
         @Override
         protected void onBeforeMovement() {
             //TODO
@@ -18,18 +18,22 @@ class Apollo extends AbstractGod {
         @Override
         protected void onAfterMovement() {
             //TODO
-            System.out.println("apo");
         }
-    }
+    };
 
     @Override
     public String getName() {
         return "Apollo";
     }
 
+    /**
+     * Gets the TurnEvents for the player owning Apollo.
+     *
+     * @return the TurnEvents for the player owning Apollo
+     */
     @Override
     public TurnEvents getOwnerTurnEvents() {
-        return new OwnerTurnEvents();
+        return ownerTurnEvents;
     }
 
 }

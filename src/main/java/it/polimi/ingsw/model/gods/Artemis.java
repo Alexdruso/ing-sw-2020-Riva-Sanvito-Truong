@@ -9,7 +9,7 @@ class Artemis extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Artemis god card.
      */
-    class OwnerTurnEvents extends TurnEvents {
+    private static final TurnEvents ownerTurnEvents = new TurnEvents(){
         @Override
         protected void onTurnStart() {
             //TODO
@@ -18,18 +18,22 @@ class Artemis extends AbstractGod {
         @Override
         protected void onAfterMovement() {
             //TODO
-            System.out.println("art");
         }
-    }
+    };
 
     @Override
     public String getName() {
         return "Artemis";
     }
 
+    /**
+     * Gets the TurnEvents for the player owning Artemis.
+     *
+     * @return the TurnEvents for the player owning Artemis
+     */
     @Override
     public TurnEvents getOwnerTurnEvents() {
-        return new OwnerTurnEvents();
+        return ownerTurnEvents;
     }
 
 }

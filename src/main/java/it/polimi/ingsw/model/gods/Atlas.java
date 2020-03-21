@@ -9,21 +9,26 @@ class Atlas extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Atlas god card.
      */
-    class OwnerTurnEvents extends TurnEvents {
+    private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeBuild() {
             //TODO
         }
-    }
+    };
 
     @Override
     public String getName() {
         return "Atlas";
     }
 
+    /**
+     * Gets the TurnEvents for the player owning Atlas.
+     *
+     * @return the TurnEvents for the player owning Atlas
+     */
     @Override
     public TurnEvents getOwnerTurnEvents() {
-        return new OwnerTurnEvents();
+        return ownerTurnEvents;
     }
 
 }
