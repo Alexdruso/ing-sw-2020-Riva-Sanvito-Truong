@@ -35,7 +35,7 @@ jobs:
           name: Commit new artifacts path
           command: |
             touch docs/javadoc/README.md
-            cat <<EOF > docs/javadoc/README.md
+            cat \<<EOF > docs/javadoc/README.md
             # javadocs
 
             Head to the latest [CircleCI build artifacts](https://${CIRCLE_BUILD_NUM}-244441529-gh.circle-artifacts.com/0/javadoc/index.html) to access the javadoc for the project.
