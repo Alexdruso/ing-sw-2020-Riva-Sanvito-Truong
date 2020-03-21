@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.turnevents;
 
+import it.polimi.ingsw.model.player.Player;
+
 import java.util.HashMap;
 
 //TODO: make the process*Events method match the signature of the TurnEvents methods
@@ -7,16 +9,16 @@ import java.util.HashMap;
  * The TurnEvents manager, which allows the gods to register their powers and executes them when requested to do so by the game.
  */
 public class TurnEventsManager {
-    private TurnEvents playerTurnEvents;
+    private Player player;
     private HashMap<Player, TurnEvents> turnEventsFromOpponents;
 
     /**
      * The TurnEventsManager constructor.
      *
-     * @param playerTurnEvents the TurnEvents of the current player
+     * @param player the Player for which this TurnEventsManager is being created
      */
-    public TurnEventsManager(TurnEvents playerTurnEvents) {
-        this.playerTurnEvents = playerTurnEvents;
+    public TurnEventsManager(Player player) {
+        this.player = player;
         turnEventsFromOpponents = new HashMap<Player, TurnEvents>();
     }
 
@@ -43,7 +45,7 @@ public class TurnEventsManager {
      * Process turn start events.
      */
     public void processTurnStartEvents() {
-        playerTurnEvents.onTurnStart();
+        player.getGod().getOwnerTurnEvents().onTurnStart();
         turnEventsFromOpponents.values().forEach(TurnEvents::onTurnStart);
     }
 
@@ -51,7 +53,7 @@ public class TurnEventsManager {
      * Process before movement events.
      */
     public void processBeforeMovementEvents() {
-        playerTurnEvents.onBeforeMovement();
+        player.getGod().getOwnerTurnEvents().onBeforeMovement();
         turnEventsFromOpponents.values().forEach(TurnEvents::onBeforeMovement);
     }
 
@@ -59,7 +61,7 @@ public class TurnEventsManager {
      * Process after movement events.
      */
     public void processAfterMovementEvents() {
-        playerTurnEvents.onAfterMovement();
+        player.getGod().getOwnerTurnEvents().onAfterMovement();
         turnEventsFromOpponents.values().forEach(TurnEvents::onAfterMovement);
     }
 
@@ -67,7 +69,7 @@ public class TurnEventsManager {
      * Process before build events.
      */
     public void processBeforeBuildEvents() {
-        playerTurnEvents.onBeforeBuild();
+        player.getGod().getOwnerTurnEvents().onBeforeBuild();
         turnEventsFromOpponents.values().forEach(TurnEvents::onBeforeBuild);
     }
 
@@ -75,7 +77,7 @@ public class TurnEventsManager {
      * Process turn end events.
      */
     public void processTurnEndEvents() {
-        playerTurnEvents.onTurnEnd();
+        player.getGod().getOwnerTurnEvents().onTurnEnd();
         turnEventsFromOpponents.values().forEach(TurnEvents::onTurnEnd);
     }
 
@@ -83,12 +85,7 @@ public class TurnEventsManager {
      * Process win condition events.
      */
     public void processWinConditionEvents() {
-        playerTurnEvents.computeWinCondition();
+        player.getGod().getOwnerTurnEvents().computeWinCondition();
         turnEventsFromOpponents.values().forEach(TurnEvents::computeWinCondition);
     }
 }
-
-/**
- * TODO: REMOVE ME as soon as the real Player is implemented!
- */
-class Player{}
