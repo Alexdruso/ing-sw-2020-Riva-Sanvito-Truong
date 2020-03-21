@@ -16,7 +16,7 @@ jobs:
           name: Generate javadoc
           command: |
             javadoc \
-              -sourcepath src\main\java \
+              -sourcepath src/main/java \
               -d javadoc \
               -private \
               -subpackages \
