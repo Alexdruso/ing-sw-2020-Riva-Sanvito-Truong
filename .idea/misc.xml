@@ -6,7 +6,7 @@
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/javadoc" />
-    <option name="OPTION_SCOPE" value="package" />
+    <option name="OPTION_SCOPE" value="private" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
