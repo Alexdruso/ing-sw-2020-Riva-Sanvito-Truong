@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Commit new artifacts path
           command: |
-            touch docs/javadoc/README.md
+            mkdir -p docs/javadoc
             cat \<<EOF > docs/javadoc/README.md
             # javadocs
 
