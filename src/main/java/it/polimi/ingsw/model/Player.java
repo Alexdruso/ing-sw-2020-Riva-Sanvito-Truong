@@ -16,6 +16,7 @@ public class Player {
      */
     private String nickname;
 
+    //TODO find a more suitable structure
     /**
      * A structure to contain all the player's workers
      */
@@ -50,7 +51,7 @@ public class Player {
     }
 
     /**
-     * getter of nickname
+     * Getter of nickname
      * @return the nickname of the player
      */
     public String getNickname() {
@@ -58,17 +59,15 @@ public class Player {
     }
 
     /**
-     * setter of nickname
+     * Setter of nickname
      * @param nickname a new nickname for the player
      */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
-    //TODO find a more suitable getter
-
     /**
-     * getter of the list of workers
+     * Getter of the list of workers
      * @return a list of the player's workers
      */
     public Worker[] getOwnWorkers() {
@@ -76,26 +75,26 @@ public class Player {
     }
 
     /**
-     * getter of the player's god
+     * Getter of the player's god
      * @return the god bound to the player
      */
     public God getGod() {
         return god;
     }
 
-    /**
-     * setter of the player's god.
-     * Initializes TurnEventManager with the player's god's powers
-     * @param god the god chosen by the plater
+      /**
+     * This method sets up the player's god.
+     * It saves the god card and initializes the TurnEventManager
+     * @param god the god chosen by the player
      */
     public void setGod(God god) {
         this.god = god;
-
+        //not only does the method save the god, but it also initializes the turnEventsManager
         this.turnEventsManager = new TurnEventsManager(this);
     }
 
     /**
-     * getter of the player's TurnEventsManager
+     * Getter of the player's TurnEventsManager
      * @return the player's TurnEventsManager
      */
     public TurnEventsManager getTurnEventsManager() {
