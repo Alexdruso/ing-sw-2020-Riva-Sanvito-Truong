@@ -1,6 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.turnStates.Setup;
+import it.polimi.ingsw.model.turnStates.TurnState;
+
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents a single turn in the match.
@@ -8,7 +13,7 @@ import java.util.HashMap;
  * On initialization it must be bound to a specific player.
  */
 
-public class Turn {
+public class Turn{
 
     /**
      * Reference to the game, which represents the data related to the model
@@ -106,10 +111,10 @@ public class Turn {
      * This method checks if we can end the turn
      * @return if the player can end the turn
      */
-    public boolean canEndTurn();
+    public boolean canEndTurn(){};
 
     /**
      * This method ends the turn
      */
-    public void endTurn(); //Throws WinException or LoseException!!
+    public void endTurn(){}; //Throws WinException or LoseException!!
 }
