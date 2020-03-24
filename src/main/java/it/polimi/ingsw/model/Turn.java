@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnStates.Setup;
 import it.polimi.ingsw.model.turnStates.TurnState;
 

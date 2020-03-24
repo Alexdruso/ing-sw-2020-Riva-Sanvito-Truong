@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.board.Cell;
+
 /**
  * This class is the worker, a pawn of the player.
  * It must be place on a tile.
