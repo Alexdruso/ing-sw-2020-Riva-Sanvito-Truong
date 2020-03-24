@@ -13,6 +13,9 @@ class Atlas extends AbstractGod {
         @Override
         protected void onBeforeBuild() {
             //TODO
+            /*
+            worker.getDomeBuildableCells().addTargets(worker.getBlockBuildableCells());
+             */
         }
     };
 

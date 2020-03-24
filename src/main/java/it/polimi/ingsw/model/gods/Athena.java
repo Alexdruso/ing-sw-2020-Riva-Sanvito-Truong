@@ -13,6 +13,20 @@ class Athena extends AbstractGod {
         @Override
         protected void onBeforeMovement() {
             //TODO
+            /*
+            Player athenaPlayer = game.getPlayerByGod();
+            game.getTurnByPlayer(athenaPlayer).ifPresent(athenaLastTurn -> {
+                List<Action> athenaMoveUpActions = athenaLastTurn.getActions(action -> {
+                    if (!(action instanceof MoveAction)) return false;
+                    MoveAction moveAction = (MoveAction) action;
+                    return action.targetLevel > action.sourceLevel;
+                });
+                if (athenaMoveUpActions.size() > 0) {
+                    TargetCells higherCells = TargetCells.fromMinimumHeight(worker.getCell().getHeight() + 1);
+                    worker.getWalkableCells().removeTargets(higherCells);
+                }
+            });
+             */
         }
     };
 

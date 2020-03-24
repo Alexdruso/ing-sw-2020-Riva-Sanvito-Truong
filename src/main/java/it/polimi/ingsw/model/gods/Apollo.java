@@ -13,11 +13,36 @@ class Apollo extends AbstractGod {
         @Override
         protected void onBeforeMovement() {
             //TODO
+            /*
+            Cell currentCell = worker.getCell();
+            TargetCells walkableCells = worker.getWalkableCells();
+            TargetCells surroundingCells = TargetCells.fromCellAndRadius(worker.getCell(), 1);
+            for (Cell targetCell : surroundingCells.getTargets()) {
+                targetCell.getWorker().ifPresent(targetWorker -> {
+                    if (targetCell.isWalkable() && Cell.computeHeightDifference(targetCell, currentCell) <= 1 && !targetWorker.getPlayer().equals(turn.getPlayer())) {
+                        walkableCells.addTargets(targetCell);
+                    }
+                });
+            }
+             */
         }
 
         @Override
         protected void onAfterMovement() {
             //TODO
+            /*
+            try {
+                MoveAction lastAction = (MoveAction) turn.getAction(-1);
+                lastAction.targetCell.getWorker().ifPresent(targetWorker -> {
+                    if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
+                        game.setWorkerCell(targetWorker, lastAction.sourceCell);
+                    }
+                });
+            }
+            catch (ClassCastException e) {
+                //TODO
+            }
+             */
         }
     };
 

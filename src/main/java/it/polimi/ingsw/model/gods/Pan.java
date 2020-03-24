@@ -12,7 +12,12 @@ class Pan extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void computeWinCondition() {
-            //TODO
+            /*
+            List<MoveAction> moveDownActions = turn.getMoves().stream().filter(action -> action.targetLevel - action.sourceLevel <= -2).collect(Collectors.toList());
+            if (moveDownActions.size() > 0) {
+                turn.setNextState(TurnState.WIN);
+            }
+             */
         }
     };
 

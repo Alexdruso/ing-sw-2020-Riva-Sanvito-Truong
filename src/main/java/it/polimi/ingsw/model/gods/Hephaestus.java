@@ -13,6 +13,36 @@ class Hephaestus extends AbstractGod {
         @Override
         protected void onBeforeBuild() {
             //TODO
+            /*
+            try {
+                List<BuildAction> lastBuildActions = turn.getBuildActions();
+                if (lastBuildActions.size() == 1) {
+                    turn.setAllowSkipBuild(true);
+                    BuildAction lastBuild = (MoveAction) lastBuildActions.get(0);
+                    turn.clearAllowedWorkers();
+                    turn.addAllowedWorker(lastMove.getWorker());
+                    worker.getBlockBuildableCells.removeTargets(TargetCells.allCells);
+                    if (lastBuild.cell.canBuildBlock) {
+                        worker.getBlockBuildableCells.addTargets(lastBuild.cell);
+                    }
+                    worker.getDomeBuildableCells.removeTargets(TargetCells.allCells);
+                }
+            }
+            catch (ClassCastException e) {
+                //TODO
+            }
+             */
+        }
+
+        @Override
+        protected void onAfterBuild() {
+            //TODO
+            /*
+            List<BuildAction> lastBuildActions = turn.getBuildActions();
+            if (lastBuildActions.size() == 1) {
+                turn.setNextState(TurnState.BEFORE_BUILD);
+            }
+             */
         }
     };
 

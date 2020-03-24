@@ -11,13 +11,34 @@ class Artemis extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents(){
         @Override
-        protected void onTurnStart() {
+        protected void onTurnStart() { // diventa onBeforeMovement
             //TODO
+            /*
+            try {
+                List<Action> lastMoveActions = turn.getActions(action -> action instanceof MoveAction);
+                if (lastMoveActions.size() == 1) {
+                    turn.setAllowSkipMove(true);
+                    MoveAction lastMove = (MoveAction) lastMoveActions.get(0);
+                    turn.clearAllowedWorkers();
+                    turn.addAllowedWorker(lastMove.getWorker());
+                    worker.getWalkableCells.removeTargets(lastMove.sourceCell);
+                }
+            }
+            catch (ClassCastException e) {
+                //TODO
+            }
+             */
         }
 
         @Override
         protected void onAfterMovement() {
             //TODO
+            /*
+            List<Action> lastActions = turn.getActions(action -> action instanceof MoveAction);
+            if (lastActions.size() == 1) {
+                turn.setNextState(TurnState.BEFORE_MOVE);
+            }
+             */
         }
     };
 

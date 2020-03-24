@@ -11,13 +11,43 @@ class Minotaur extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
-        protected void onTurnStart() {
+        protected void onBeforeMovement() {
             //TODO
+            /*
+            Cell currentCell = worker.getCell();
+            TargetCells walkableCells = worker.getWalkableCells();
+            TargetCells surroundingCells = TargetCells.fromCellAndRadius(worker.getCell(), 1);
+            for (Cell targetCell : surroundingCells.getTargets()) {
+                targetCell.getWorker().ifPresent(targetWorker -> {
+                    if (targetCell.isWalkable() && Cell.computeHeightDifference(targetCell, currentCell) <= 1 && !targetWorker.getPlayer().equals(turn.getPlayer())) {
+                        board.getCellFromCellAndDelta(targetCell, Cell.computeDelta(targetCell, currentCell)).ifPresent(pushbackCell -> {
+                            if (pushbackCell.isWalkable() && !pushbackCell.getWorker().isPresent()) {
+                                walkableCells.addTargets(targetCell);
+                            }
+                        });
+                    }
+                });
+            }
+             */
         }
 
         @Override
         protected void onAfterMovement() {
             //TODO
+            /*
+            try {
+                //TODO: ensure we have a reference to the previous worker that occupied the cell; maybe we can move the current playing worker AFTER we process the TurnEvents
+                MoveAction lastAction = (MoveAction) turn.getAction(-1);
+                lastAction.targetCell.getWorker().ifPresent(targetWorker -> {
+                    if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
+                        game.setWorkerCell(targetWorker, board.getCellFromCellAndDelta(lastAction.targetCell, Cell.computeDelta(lastAction.targetCell, lastAction.sourceCell)));
+                    }
+                });
+            }
+            catch (ClassCastException e) {
+                //TODO
+            }
+             */
         }
     };
 

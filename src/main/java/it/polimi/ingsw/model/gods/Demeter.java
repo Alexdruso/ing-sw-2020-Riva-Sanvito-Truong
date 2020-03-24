@@ -13,6 +13,33 @@ class Demeter extends AbstractGod {
         @Override
         protected void onBeforeBuild() {
             //TODO
+            /*
+            try {
+                List<BuildAction> lastBuildActions = turn.getBuildActions();
+                if (lastBuildActions.size() == 1) {
+                    turn.setAllowSkipBuild(true);
+                    BuildAction lastBuild = (MoveAction) lastBuildActions.get(0);
+                    turn.clearAllowedWorkers();
+                    turn.addAllowedWorker(lastMove.getWorker());
+                    worker.getBlockBuildableCells.removeTargets(lastBuild.cell);
+                    worker.getDomeBuildableCells.removeTargets(lastBuild.cell);
+                }
+            }
+            catch (ClassCastException e) {
+                //TODO
+            }
+             */
+        }
+
+        @Override
+        protected void onAfterBuild() {
+            //TODO
+            /*
+            List<BuildAction> lastBuildActions = turn.getBuildActions();
+            if (lastBuildActions.size() == 1) {
+                turn.setNextState(TurnState.BEFORE_BUILD);
+            }
+             */
         }
     };
 
