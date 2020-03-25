@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
+import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -11,7 +13,7 @@ class Apollo extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents(){
         @Override
-        protected void onBeforeMovement() {
+        protected void onBeforeMovement(Turn turn) {
             //TODO
             /*
             Cell currentCell = worker.getCell();
@@ -28,7 +30,7 @@ class Apollo extends AbstractGod {
         }
 
         @Override
-        protected void onAfterMovement() {
+        protected void onAfterMovement(Turn turn) {
             //TODO
             /*
             try {

@@ -100,4 +100,5 @@ public class Player {
     public TurnEventsManager getTurnEventsManager() {
         return turnEventsManager;
     }
+
 }

@@ -42,49 +42,55 @@ public class TurnEventsManager {
 
     /**
      * Process turn start events.
+     * @param turn
      */
-    public void processTurnStartEvents() {
-        player.getGod().getOwnerTurnEvents().onTurnStart();
-        turnEventsFromOpponents.values().forEach(TurnEvents::onTurnStart);
+    public void processTurnStartEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().onTurnStart(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.onTurnStart(turn));
     }
 
     /**
      * Process before movement events.
+     * @param turn
      */
-    public void processBeforeMovementEvents() {
-        player.getGod().getOwnerTurnEvents().onBeforeMovement();
-        turnEventsFromOpponents.values().forEach(TurnEvents::onBeforeMovement);
+    public void processBeforeMovementEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().onBeforeMovement(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.onBeforeMovement(turn));
     }
 
     /**
      * Process after movement events.
+     * @param turn
      */
-    public void processAfterMovementEvents() {
-        player.getGod().getOwnerTurnEvents().onAfterMovement();
-        turnEventsFromOpponents.values().forEach(TurnEvents::onAfterMovement);
+    public void processAfterMovementEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().onAfterMovement(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.onAfterMovement(turn));
     }
 
     /**
      * Process before build events.
+     * @param turn
      */
-    public void processBeforeBuildEvents() {
-        player.getGod().getOwnerTurnEvents().onBeforeBuild();
-        turnEventsFromOpponents.values().forEach(TurnEvents::onBeforeBuild);
+    public void processBeforeBuildEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().onBeforeBuild(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.onBeforeBuild(turn));
     }
 
     /**
      * Process turn end events.
+     * @param turn
      */
-    public void processTurnEndEvents() {
-        player.getGod().getOwnerTurnEvents().onTurnEnd();
-        turnEventsFromOpponents.values().forEach(TurnEvents::onTurnEnd);
+    public void processTurnEndEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().onTurnEnd(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.onTurnEnd(turn));
     }
 
     /**
      * Process win condition events.
+     * @param turn
      */
-    public void processWinConditionEvents() {
-        player.getGod().getOwnerTurnEvents().computeWinCondition();
-        turnEventsFromOpponents.values().forEach(TurnEvents::computeWinCondition);
+    public void processWinConditionEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().computeWinCondition(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.computeWinCondition(turn));
     }
 }

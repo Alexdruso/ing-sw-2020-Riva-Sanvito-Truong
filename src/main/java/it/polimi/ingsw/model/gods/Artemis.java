@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gods;
 
+import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -11,7 +12,7 @@ class Artemis extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents(){
         @Override
-        protected void onTurnStart() { // diventa onBeforeMovement
+        protected void onBeforeMovement(Turn turn) {
             //TODO
             /*
             try {
@@ -31,7 +32,7 @@ class Artemis extends AbstractGod {
         }
 
         @Override
-        protected void onAfterMovement() {
+        protected void onAfterMovement(Turn turn) {
             //TODO
             /*
             List<Action> lastActions = turn.getActions(action -> action instanceof MoveAction);

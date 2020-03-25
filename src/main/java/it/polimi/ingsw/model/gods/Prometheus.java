@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gods;
 
+import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -11,7 +12,7 @@ class Prometheus extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
-        protected void onTurnStart() {
+        protected void onTurnStart(Turn turn) {
             //TODO
             /*
             turn.setAllowSkipBuild(true);
@@ -20,7 +21,7 @@ class Prometheus extends AbstractGod {
         }
 
         @Override
-        protected void onBeforeMovement() {
+        protected void onBeforeMovement(Turn turn) {
             //TODO
             /*
            turn.setAllowSkipBuild(false);
@@ -37,7 +38,7 @@ class Prometheus extends AbstractGod {
         }
 
         @Override
-        protected void onAfterBuild() {
+        protected void onAfterBuild(Turn turn) {
             //TODO
             /*
             List<MoveAction> lastMoveActions = turn.getMoveActions();

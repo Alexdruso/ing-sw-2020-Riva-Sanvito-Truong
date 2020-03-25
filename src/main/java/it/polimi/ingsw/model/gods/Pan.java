@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gods;
 
+import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -11,7 +12,7 @@ class Pan extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
-        protected void computeWinCondition() {
+        protected void computeWinCondition(Turn turn) {
             /*
             List<MoveAction> moveDownActions = turn.getMoves().stream().filter(action -> action.targetLevel - action.sourceLevel <= -2).collect(Collectors.toList());
             if (moveDownActions.size() > 0) {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gods;
 
+import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -11,7 +12,7 @@ class Demeter extends AbstractGod {
      */
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
-        protected void onBeforeBuild() {
+        protected void onBeforeBuild(Turn turn) {
             //TODO
             /*
             try {
@@ -32,7 +33,7 @@ class Demeter extends AbstractGod {
         }
 
         @Override
-        protected void onAfterBuild() {
+        protected void onAfterBuild(Turn turn) {
             //TODO
             /*
             List<BuildAction> lastBuildActions = turn.getBuildActions();

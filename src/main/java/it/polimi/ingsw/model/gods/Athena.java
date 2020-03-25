@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gods;
 
+import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -11,7 +12,7 @@ class Athena extends AbstractGod {
      */
     private static final TurnEvents opponentsTurnEvents = new TurnEvents() {
         @Override
-        protected void onBeforeMovement() {
+        protected void onBeforeMovement(Turn turn) {
             //TODO
             /*
             Player athenaPlayer = game.getPlayerByGod();
