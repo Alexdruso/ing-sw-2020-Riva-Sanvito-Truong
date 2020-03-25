@@ -17,11 +17,11 @@ public class AbstractGodTest {
 
     @Test
     public void getOwnerTurnEvents() {
-        assertSame(abstractGodInstance.getOwnerTurnEvents().getClass(), emptyTurnEventsInstance.getClass());
+        assertEquals(abstractGodInstance.getOwnerTurnEvents().getClass(), emptyTurnEventsInstance.getClass());
     }
 
     @Test
     public void getOpponentsTurnEvents() {
-        assertSame(abstractGodInstance.getOpponentsTurnEvents().getClass(), emptyTurnEventsInstance.getClass());
+        assertEquals(abstractGodInstance.getOpponentsTurnEvents().getClass(), emptyTurnEventsInstance.getClass());
     }
 }
