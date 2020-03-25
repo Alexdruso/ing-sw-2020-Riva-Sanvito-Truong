@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
+
+import java.util.List;
 
 /**
  * The god card Demeter.
@@ -13,34 +17,29 @@ class Demeter extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeBuild(Turn turn) {
-            //TODO
-            /*
-            try {
-                List<BuildAction> lastBuildActions = turn.getBuildActions();
-                if (lastBuildActions.size() == 1) {
-                    turn.setAllowSkipBuild(true);
-                    BuildAction lastBuild = (MoveAction) lastBuildActions.get(0);
-                    turn.clearAllowedWorkers();
-                    turn.addAllowedWorker(lastMove.getWorker());
-                    worker.getBlockBuildableCells.removeTargets(lastBuild.cell);
-                    worker.getDomeBuildableCells.removeTargets(lastBuild.cell);
-                }
+            List<BuildAction> lastBuildActions = turn.getBuilds();
+            if (lastBuildActions.size() == 1) {
+//                TODO
+//                turn.setAllowSkipBuild(true);
+                BuildAction lastBuild = lastBuildActions.get(0);
+                Worker lastBuildWorker = lastBuild.getPerformer();
+
+//                TODO
+//                turn.clearAllowedWorkers();
+//                turn.addAllowedWorker(lastMove.getWorker());
+                turn.getWorkerBlockBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), false);
+                turn.getWorkerDomeBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), false);
+
             }
-            catch (ClassCastException e) {
-                //TODO
-            }
-             */
         }
 
         @Override
         protected void onAfterBuild(Turn turn) {
-            //TODO
-            /*
-            List<BuildAction> lastBuildActions = turn.getBuildActions();
+            List<BuildAction> lastBuildActions = turn.getBuilds();
             if (lastBuildActions.size() == 1) {
-                turn.setNextState(TurnState.BEFORE_BUILD);
+//                TODO
+//                turn.setNextState(TurnState.BEFORE_BUILD);
             }
-             */
         }
     };
 
