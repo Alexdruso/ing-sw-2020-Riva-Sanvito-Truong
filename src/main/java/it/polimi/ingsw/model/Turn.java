@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.turnStates.Setup;
-import it.polimi.ingsw.model.turnStates.TurnState;
+import it.polimi.ingsw.model.turnstates.Setup;
+import it.polimi.ingsw.model.turnstates.TurnState;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -92,6 +92,13 @@ public class Turn{
      */
     public List<MoveAction> getMoves(){
         return performedActions.stream().filter(action -> action instanceof MoveAction).map(action -> (MoveAction) action).collect(Collectors.toList());
+    }
+
+    /**
+     * @return the player performing actions in the turn
+     */
+    Player getPlayer(){
+        return player;
     }
 
     //TODO add some code
