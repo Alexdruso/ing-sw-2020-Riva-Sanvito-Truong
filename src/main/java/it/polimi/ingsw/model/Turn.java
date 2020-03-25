@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.actions.Action;
+import it.polimi.ingsw.model.actions.BuildAction;
+import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnStates.Setup;
@@ -8,6 +11,7 @@ import it.polimi.ingsw.model.turnStates.TurnState;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a single turn in the match.
@@ -33,9 +37,14 @@ public class Turn{
     private List<Action> performedActions;
 
     /**
-     * Buildable cells associated with the worker
+     * Cells on which the worker can build a block
      */
-    private HashMap<Worker, TargetCells> buildableCells;
+    private HashMap<Worker, TargetCells> blockBuildableCells;
+
+    /**
+     * Cells on which the worker can build a dome
+     */
+    private HashMap<Worker, TargetCells> domeBuildableCells;
 
     /**
      * Cells the worker can be moved to
@@ -46,6 +55,8 @@ public class Turn{
      * Current state of the turn, part of state pattern
      */
     private TurnState currentState;
+
+
 
     /**
      * Builder of the turn.
@@ -60,10 +71,27 @@ public class Turn{
         this.player = player;
 
         performedActions = new LinkedList<Action>();
-        buildableCells = new HashMap<Worker, TargetCells>();
+        blockBuildableCells = new HashMap<Worker, TargetCells>();
+        domeBuildableCells = new HashMap<Worker, TargetCells>();
         walkableCells = new HashMap<Worker, TargetCells>();
         //we use the first current state to prepare the turn for the first actual state
         currentState = new Setup();
+    }
+
+    /**
+     * This method provides a List of all the performed builds
+     * @return a list of all the performed builds in the turn
+     */
+    public List<BuildAction> getBuilds(){
+        return performedActions.stream().filter(action -> action instanceof BuildAction).map(action -> (BuildAction) action).collect(Collectors.toList());
+    }
+
+    /**
+     * This method provides a List of all the performed moves
+     * @return a list of all the performed moves in the turn
+     */
+    public List<MoveAction> getMoves(){
+        return performedActions.stream().filter(action -> action instanceof MoveAction).map(action -> (MoveAction) action).collect(Collectors.toList());
     }
 
     //TODO add some code
@@ -80,7 +108,7 @@ public class Turn{
      * @param targetCell the cell we want to move the worker to
      * @return if the pawn can move to targetCell
      */
-    public boolean canMoveTo(Worker pawn, Cell targetCell){ }
+    public boolean canMoveTo(Worker pawn, Cell targetCell){ return true; }
 
     /**
      * This method moves the pawn to targetCell
@@ -95,7 +123,7 @@ public class Turn{
      * @param targetCell the cell involved in the build
      * @return if the pawn can build in targetCell
      */
-    public boolean canBuildIn(Worker pawn, Cell targetCell){} //This method should have another parameter to s set block or dome
+    public boolean canBuildIn(Worker pawn, Cell targetCell){ return true; } //This method should have another parameter to s set block or dome
 
     /**
      * This methods builds ((something)) in targetCell
@@ -113,7 +141,9 @@ public class Turn{
      * This method checks if we can end the turn
      * @return if the player can end the turn
      */
-    public boolean canEndTurn(){};
+    public boolean canEndTurn(){
+        return true;
+    }
 
     /**
      * This method ends the turn
