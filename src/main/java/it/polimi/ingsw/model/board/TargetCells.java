@@ -41,6 +41,15 @@ public class TargetCells {
     }
 
     /**
+     * Sets a cell at a given position to the given targeted status
+     * @param cell the cell whose coordinates are object of this update
+     * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
+     */
+    public void setPosition(Cell cell, boolean isTargeted){
+        targets[cell.x][cell.y] = isTargeted;
+    }
+
+    /**
      * Retrieves the targeted status of the cell at a given position
      * @param rowIndex
      * @param columnIndex
