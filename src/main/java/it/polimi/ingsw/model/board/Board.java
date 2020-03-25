@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * This class represents the game board
@@ -49,6 +52,15 @@ public class Board {
      */
     public Cell getCell(int x, int y){
         return tiles[x][y];
+    }
+
+    /**
+     * Gets a List of all the Cells in the board.
+     *
+     * @return the List of the Cells in the board
+     */
+    public List<Cell> getCellsList() {
+        return Arrays.stream(tiles).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 
     /**
