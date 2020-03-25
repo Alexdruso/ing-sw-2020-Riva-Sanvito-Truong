@@ -97,9 +97,37 @@ public class Turn{
     /**
      * @return the player performing actions in the turn
      */
-    Player getPlayer(){
+    public Player getPlayer(){
         return player;
     }
+
+    /**
+     * This method returns TargetCells related to Cells the Worker can build a block in
+     * @param worker the worker involved
+     * @return TargetCells related to Cells the Worker can build a block in
+     */
+    public TargetCells getWorkerBlockBuildableCells(Worker worker) {
+        return blockBuildableCells.get(worker);
+    }
+
+    /**
+     * This method returns TargetCells related to Cells the Worker can build a dome in
+     * @param worker the worker involved
+     * @return TargetCells related to Cells the Worker can build a dome in
+     */
+    public TargetCells getWorkerDomeBuildableCells(Worker worker) {
+        return domeBuildableCells.get(worker);
+    }
+
+    /**
+     * This method returns TargetCells related to Cells the Worker can walk in
+     * @param worker the worker involved
+     * @return TargetCells related to Cells the Worker can walk in
+     */
+    public TargetCells getWorkerWalkableCells(Worker worker) {
+        return walkableCells.get(worker);
+    }
+
 
     //TODO add some code
 
