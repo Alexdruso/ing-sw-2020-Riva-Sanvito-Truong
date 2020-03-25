@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 /**
@@ -13,10 +14,10 @@ class Atlas extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeBuild(Turn turn) {
-            //TODO
-            /*
-            worker.getDomeBuildableCells().addTargets(worker.getBlockBuildableCells());
-             */
+            Worker[] workers = turn.getPlayer().getOwnWorkers();
+            for (Worker worker : workers) {
+                turn.getWorkerDomeBuildableCells(worker).union(turn.getWorkerBlockBuildableCells(worker));
+            }
         }
     };
 
