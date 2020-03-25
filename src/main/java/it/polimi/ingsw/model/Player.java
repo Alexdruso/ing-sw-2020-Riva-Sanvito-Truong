@@ -46,7 +46,7 @@ public class Player {
         this.ownWorkers = new Worker[workerNumber];
 
         for(int i=0; i<workerNumber; i++){
-            ownWorkers[i] = new Worker();
+            ownWorkers[i] = new Worker(this);
         }
     }
 

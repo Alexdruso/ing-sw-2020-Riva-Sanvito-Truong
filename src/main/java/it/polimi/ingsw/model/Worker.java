@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.board.Cell;
  * It must be place on a tile.
  * It has knowledge of the tile it is placed upon.
  */
-
 public class Worker {
 
     /**
@@ -16,10 +15,16 @@ public class Worker {
     private Cell cell;
 
     /**
-     * This method just builds the worker without any cell
+     * The player who owns this worker.
      */
-    public Worker(){
+    private Player player;
 
+    /**
+     * This method just builds the worker without any cell
+     * @param player
+     */
+    public Worker(Player player){
+        this.player = player;
     }
 
     /**
@@ -38,4 +43,14 @@ public class Worker {
     public Cell getCell(){
         return this.cell;
     }
+
+    /**
+     * Gets the player who owns the worker.
+     *
+     * @return the player who owns the worker
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
 }
