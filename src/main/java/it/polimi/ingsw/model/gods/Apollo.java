@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 import java.util.List;

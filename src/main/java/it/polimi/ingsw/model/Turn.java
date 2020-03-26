@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnstates.Setup;
 import it.polimi.ingsw.model.turnstates.TurnState;
+import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.HashMap;
 import java.util.LinkedList;

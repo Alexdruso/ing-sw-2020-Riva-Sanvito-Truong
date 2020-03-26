@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.board.Tower;
 import it.polimi.ingsw.model.turnevents.TurnEvents;

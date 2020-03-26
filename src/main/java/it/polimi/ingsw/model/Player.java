@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.model.workers.WorkerID;
 
 /**
  * This class is the model representation of the physical player.
@@ -46,7 +48,7 @@ public class Player {
         this.ownWorkers = new Worker[workerNumber];
 
         for(int i=0; i<workerNumber; i++){
-            ownWorkers[i] = new Worker(this);
+            ownWorkers[i] = new Worker(this, WorkerID.values()[i]);
         }
     }
 
