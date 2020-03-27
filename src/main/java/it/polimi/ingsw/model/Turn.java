@@ -219,5 +219,5 @@ public class Turn{
     /**
      * This method ends the turn
      */
-    public void endTurn(){}; //Throws WinException or LoseException!!
+    public void endTurn(){} //Throws WinException or LoseException!!
 }
