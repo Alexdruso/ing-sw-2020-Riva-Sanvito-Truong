@@ -1,10 +1,8 @@
 package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.workers.Worker;
 
-public class Start extends TurnState {
+public class Start extends AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state

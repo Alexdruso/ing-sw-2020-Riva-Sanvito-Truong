@@ -31,14 +31,14 @@ public enum TurnCreator {
     END(new End());
 
 
-    private final TurnState turnState;
+    private final AbstractTurnState abstractTurnState;
 
     /**
      * Creator of TurnCreator
-     * @param turnState the turnstate we want to initialize
+     * @param abstractTurnState the turnstate we want to initialize
      */
-    TurnCreator(TurnState turnState) {
-        this.turnState = turnState;
+    TurnCreator(AbstractTurnState abstractTurnState) {
+        this.abstractTurnState = abstractTurnState;
     }
 
     /**
@@ -46,7 +46,7 @@ public enum TurnCreator {
      *
      * @return the state
      */
-    public TurnState getTurnState() {
-        return this.turnState;
+    public AbstractTurnState getTurnState() {
+        return this.abstractTurnState;
     }
 }

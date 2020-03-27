@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
 
-public abstract class TurnState {
+public abstract class AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state

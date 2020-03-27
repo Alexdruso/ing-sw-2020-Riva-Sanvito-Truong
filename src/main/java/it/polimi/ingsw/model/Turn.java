@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.Start;
-import it.polimi.ingsw.model.turnstates.TurnState;
+import it.polimi.ingsw.model.turnstates.AbstractTurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.HashMap;
@@ -56,12 +56,12 @@ public class Turn{
     /**
      * Current state of the turn, part of state pattern
      */
-    private TurnState currentState;
+    private AbstractTurnState currentState;
 
     /**
      * Next state of the turn, part of state pattern
      */
-    private TurnState nextState;
+    private AbstractTurnState nextState;
 
     /**
      * This attribute holds if the turn is a winning or losing turn
@@ -168,7 +168,7 @@ public class Turn{
      * Setter of next state
      * @param nextState the state we want to move next
      */
-    public void setNextState(TurnState nextState){
+    public void setNextState(AbstractTurnState nextState){
         this.nextState = nextState;
     }
 
