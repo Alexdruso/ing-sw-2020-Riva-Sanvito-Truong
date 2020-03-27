@@ -94,7 +94,7 @@ public abstract class AbstractTurnState {
      */
     public void draw(Turn turn){
         turn.setLosingTurn();
-        turn.setNextState(TurnCreator.END.getTurnState());
+        turn.setNextState(TurnState.END.getTurnState());
     }
 
     /**

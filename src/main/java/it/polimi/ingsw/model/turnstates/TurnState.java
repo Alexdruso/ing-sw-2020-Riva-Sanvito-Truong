@@ -4,7 +4,7 @@ package it.polimi.ingsw.model.turnstates;
  * The enum containing all the states.
  * All states of the turn are instantiated as values of the enum TurnCreator; for this reason, it is guaranteed the existence of exactly 1 instance for each turn state at runtime.
  */
-public enum TurnCreator {
+public enum TurnState {
     /**
      * The Start state.
      *
@@ -37,7 +37,7 @@ public enum TurnCreator {
      * Creator of TurnCreator
      * @param abstractTurnState the turnstate we want to initialize
      */
-    TurnCreator(AbstractTurnState abstractTurnState) {
+    TurnState(AbstractTurnState abstractTurnState) {
         this.abstractTurnState = abstractTurnState;
     }
 
