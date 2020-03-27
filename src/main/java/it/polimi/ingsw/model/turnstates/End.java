@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
 
-public class End implements TurnState{
+public class End extends TurnState {
 
     /**
      * This method sets up the first actual state of the turn and performs

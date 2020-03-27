@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
 
-public class Start implements TurnState {
+public class Start extends TurnState {
     /**
      * This method sets up the first actual state of the turn and performs
      * some default calculation on the buildableCells and walkableCells
