@@ -21,7 +21,7 @@ public abstract class TurnState {
      */
     public void startTurn(Turn turn){
 
-    };
+    }
 
     /**
      * This boolean methods checks if the pawn can move to targetCell
@@ -32,7 +32,7 @@ public abstract class TurnState {
      */
     public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn){
         return false;
-    };
+    }
 
     /**
      * This method moves the pawn to targetCell
@@ -42,7 +42,7 @@ public abstract class TurnState {
      */
     public void moveTo(Worker pawn, Cell targetCell, Turn turn){
 
-    };
+    }
 
     /**
      * This boolean methods checks if the pawn can build a Dome in targetCell
@@ -51,9 +51,9 @@ public abstract class TurnState {
      * @param turn the Context
      * @return true if the pawn can build dome in targetCell
      */
-    public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn){
+    public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
         return false;
-    };
+    }
 
     /**
      * This methods builds a dome in targetCell
@@ -63,7 +63,7 @@ public abstract class TurnState {
      */
     public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn){
 
-    };
+    }
 
     /**
      * This boolean methods checks if the pawn can build a block in targetCell
@@ -74,7 +74,7 @@ public abstract class TurnState {
      */
     public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn){
         return false;
-    };
+    }
 
     /**
      * This methods builds a block in targetCell
@@ -84,7 +84,7 @@ public abstract class TurnState {
      */
     public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn){
 
-    };
+    }
 
     /**
      * This method lets the player surrender
@@ -92,7 +92,7 @@ public abstract class TurnState {
      */
     public void draw(Turn turn){
 
-    };
+    }
 
     /**
      * This method checks if we can end the turn
@@ -101,7 +101,7 @@ public abstract class TurnState {
      */
     public boolean canEndTurn(Turn turn){
         return false;
-    };
+    }
 
     /**
      * This method ends the turn
@@ -109,6 +109,6 @@ public abstract class TurnState {
      */
     public void endTurn(Turn turn){
 
-    };
+    }
 
 }
