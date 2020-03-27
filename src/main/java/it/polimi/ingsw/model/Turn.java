@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
+import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.Start;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
@@ -213,14 +214,16 @@ public class Turn{
         return skippable;
     }
 
-
-    //TODO add some code
-
     /**
      * This method sets up the first actual state of the turn and performs
      * some default calculation on the buildableCells and walkableCells
+     * @throws InvalidTurnStateException if in the wrong state
      */
-    public void startTurn(){}
+    public void startTurn() throws InvalidTurnStateException {
+        this.currentState.startTurn(this);
+        this.changeState();
+        this.currentState.setup(this);
+    }
 
     /**
      * This boolean methods checks if the pawn can move to targetCell
@@ -228,14 +231,21 @@ public class Turn{
      * @param targetCell the cell we want to move the worker to
      * @return if the pawn can move to targetCell
      */
-    public boolean canMoveTo(Worker pawn, Cell targetCell){ return true; }
+    public boolean canMoveTo(Worker pawn, Cell targetCell){
+        return this.currentState.canMoveTo(pawn, targetCell, this);
+    }
 
     /**
      * This method moves the pawn to targetCell
      * @param pawn the worker we want to move
      * @param targetCell the cell we want to move the worker to
+     * @throws InvalidTurnStateException if in the wrong state
      */
-    public void moveTo(Worker pawn, Cell targetCell ){}
+    public void moveTo(Worker pawn, Cell targetCell ) throws InvalidTurnStateException {
+        this.currentState.moveTo(pawn, targetCell, this);
+        this.changeState();
+        this.currentState.setup(this);
+    }
 
     /**
      * This boolean methods checks if the pawn can build a Dome in targetCell
@@ -243,14 +253,21 @@ public class Turn{
      * @param targetCell the cell involved in the build
      * @return true if the pawn can build dome in targetCell
      */
-    public boolean canBuildDomeIn(Worker pawn, Cell targetCell){ return true; }
+    public boolean canBuildDomeIn(Worker pawn, Cell targetCell){
+        return this.currentState.canBuildDomeIn(pawn, targetCell, this);
+    }
 
     /**
      * This methods builds a dome in targetCell
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
+     * @throws InvalidTurnStateException if in the wrong state
      */
-    public void buildDomeIn(Worker pawn, Cell targetCell){}
+    public void buildDomeIn(Worker pawn, Cell targetCell) throws InvalidTurnStateException {
+        this.currentState.buildDomeIn(pawn, targetCell, this);
+        this.changeState();
+        this.currentState.setup(this);
+    }
 
     /**
      * This boolean methods checks if the pawn can build a block in targetCell
@@ -258,19 +275,29 @@ public class Turn{
      * @param targetCell the cell involved in the build
      * @return true if the pawn can build a block in targetCell
      */
-    public boolean canBuildBlockIn(Worker pawn, Cell targetCell){ return true; }
+    public boolean canBuildBlockIn(Worker pawn, Cell targetCell){
+        return this.currentState.canBuildBlockIn(pawn, targetCell, this);
+    }
 
     /**
      * This methods builds a block in targetCell
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
+     * @throws InvalidTurnStateException if in the wrong state
      */
-    public void buildBlockIn(Worker pawn, Cell targetCell){}
+    public void buildBlockIn(Worker pawn, Cell targetCell) throws InvalidTurnStateException {
+        this.currentState.buildBlockIn(pawn, targetCell, this);
+        this.changeState();
+        this.currentState.setup(this);
+    }
 
     /**
      * This method lets the player surrender
      */
     public void draw(){
+        this.currentState.draw(this);
+        this.changeState();
+        this.currentState.setup(this);
     }
 
     /**
@@ -278,12 +305,15 @@ public class Turn{
      * @return if the player can end the turn
      */
     public boolean canEndTurn(){
-        return true;
+        return this.currentState.canEndTurn(this);
     }
 
     /**
      * This method ends the turn
+     * @throws InvalidTurnStateException if in the wrong state
      */
-    public void endTurn(){}
+    public void endTurn() throws InvalidTurnStateException {
+        this.currentState.endTurn(this);
+    }
 
 }
