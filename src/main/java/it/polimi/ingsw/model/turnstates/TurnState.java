@@ -19,8 +19,8 @@ public abstract class TurnState {
      * some default calculation on the buildableCells and walkableCells
      * @param turn the Context
      */
-    public void startTurn(Turn turn){
-
+    public void startTurn(Turn turn) throws InvalidTurnStateException{
+        throw new InvalidTurnStateException();
     }
 
     /**
@@ -40,8 +40,8 @@ public abstract class TurnState {
      * @param targetCell the cell we want to move the worker to
      * @param turn the Context
      */
-    public void moveTo(Worker pawn, Cell targetCell, Turn turn){
-
+    public void moveTo(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+        throw new InvalidTurnStateException();
     }
 
     /**
@@ -61,8 +61,8 @@ public abstract class TurnState {
      * @param targetCell the cell involved in the build
      * @param turn the Context
      */
-    public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn){
-
+    public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+        throw new InvalidTurnStateException();
     }
 
     /**
@@ -82,8 +82,8 @@ public abstract class TurnState {
      * @param targetCell the cell involved in the build
      * @param turn the Context
      */
-    public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn){
-
+    public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+        throw new InvalidTurnStateException();
     }
 
     /**
@@ -107,8 +107,8 @@ public abstract class TurnState {
      * This method ends the turn
      * @param turn the Context
      */
-    public void endTurn(Turn turn){
-
+    public void endTurn(Turn turn) throws InvalidTurnStateException {
+        throw new InvalidTurnStateException();
     }
 
 }
