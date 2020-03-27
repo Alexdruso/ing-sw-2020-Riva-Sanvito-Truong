@@ -12,19 +12,19 @@ public enum TurnCreator {
      */
     START(new Start()),
     /**
-     * The Artemis god.
+     * The Move state.
      *
      * @see Move
      */
     MOVE(new Move()),
     /**
-     * The Athena god.
+     * The Build state.
      *
      * @see Build
      */
     BUILD(new Build()),
     /**
-     * The Atlas god.
+     * The End state.
      *
      * @see End
      */
