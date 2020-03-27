@@ -7,26 +7,6 @@ import it.polimi.ingsw.model.workers.Worker;
 public abstract class TurnState {
 
     /**
-     * This attribute signals if the state is skippable
-     */
-    private boolean skippable;
-
-    /**
-     * Sets turn as skippable or not
-     * @param skippable the skip boolean value
-     */
-    public void setSkippable(boolean skippable){
-        this.skippable = skippable;
-    }
-
-    /**
-     * This method checks if the state can be skipped
-     * @return true if the state can be skipped
-     */
-    public boolean canBeSkipped(){
-        return skippable;
-    }
-    /**
      * This method sets up the first actual state of the turn and performs
      * some default calculation on the buildableCells and walkableCells
      * @param turn the Context

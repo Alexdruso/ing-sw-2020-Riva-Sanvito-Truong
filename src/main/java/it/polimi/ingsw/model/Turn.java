@@ -192,6 +192,27 @@ public class Turn{
         this.currentState = this.nextState;
     }
 
+    /**
+     * This attribute signals if the current state is skippable
+     */
+    private boolean skippable;
+
+    /**
+     * Sets current state as skippable or not
+     * @param skippable the skip boolean value
+     */
+    public void setSkippable(boolean skippable){
+        this.skippable = skippable;
+    }
+
+    /**
+     * This method checks if the current state can be skipped
+     * @return true if the state can be skipped
+     */
+    public boolean canBeSkipped(){
+        return skippable;
+    }
+
 
     //TODO add some code
 
