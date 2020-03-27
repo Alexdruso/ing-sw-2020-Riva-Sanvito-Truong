@@ -5,40 +5,15 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
 
 public class Build extends TurnState {
+
     /**
-     * This method sets up the first actual state of the turn and performs
-     * some default calculation on the buildableCells and walkableCells
+     * This method sets things up before we can use the other methods provided by the state
      *
      * @param turn the Context
      */
     @Override
-    public void startTurn(Turn turn) {
-
-    }
-
-    /**
-     * This boolean methods checks if the pawn can move to targetCell
-     *
-     * @param pawn       the worker we want to move
-     * @param targetCell the cell we want to move the worker to
-     * @param turn       the Context
-     * @return if the pawn can move to targetCell
-     */
-    @Override
-    public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
-        return false;
-    }
-
-    /**
-     * This method moves the pawn to targetCell
-     *
-     * @param pawn       the worker we want to move
-     * @param targetCell the cell we want to move the worker to
-     * @param turn       the Context
-     */
-    @Override
-    public void moveTo(Worker pawn, Cell targetCell, Turn turn) {
-
+    public void setup(Turn turn) {
+        super.setup(turn);
     }
 
     /**
@@ -51,7 +26,7 @@ public class Build extends TurnState {
      */
     @Override
     public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-        return false;
+        return super.canBuildDomeIn(pawn, targetCell, turn);
     }
 
     /**
@@ -63,7 +38,7 @@ public class Build extends TurnState {
      */
     @Override
     public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-
+        super.buildDomeIn(pawn, targetCell, turn);
     }
 
     /**
@@ -76,7 +51,7 @@ public class Build extends TurnState {
      */
     @Override
     public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        return false;
+        return super.canBuildBlockIn(pawn, targetCell, turn);
     }
 
     /**
@@ -88,7 +63,7 @@ public class Build extends TurnState {
      */
     @Override
     public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-
+        super.buildBlockIn(pawn, targetCell, turn);
     }
 
     /**
@@ -98,27 +73,6 @@ public class Build extends TurnState {
      */
     @Override
     public void draw(Turn turn) {
-
-    }
-
-    /**
-     * This method checks if we can end the turn
-     *
-     * @param turn the Context
-     * @return if the player can end the turn
-     */
-    @Override
-    public boolean canEndTurn(Turn turn) {
-        return false;
-    }
-
-    /**
-     * This method ends the turn
-     *
-     * @param turn the Context
-     */
-    @Override
-    public void endTurn(Turn turn) {
-
+        super.draw(turn);
     }
 }
