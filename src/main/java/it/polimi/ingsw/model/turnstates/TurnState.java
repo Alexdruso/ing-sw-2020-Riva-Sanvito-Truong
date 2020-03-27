@@ -93,7 +93,8 @@ public abstract class TurnState {
      * @param turn the Context
      */
     public void draw(Turn turn){
-
+        turn.setLosingTurn();
+        turn.setNextState(TurnCreator.END.getTurnState());
     }
 
     /**
