@@ -174,19 +174,34 @@ public class Turn{
     public void moveTo(Worker pawn, Cell targetCell ){}
 
     /**
-     * This boolean methods checks if the pawn can build in targetCell
+     * This boolean methods checks if the pawn can build a Dome in targetCell
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
-     * @return if the pawn can build in targetCell
+     * @return true if the pawn can build dome in targetCell
      */
-    public boolean canBuildIn(Worker pawn, Cell targetCell){ return true; } //This method should have another parameter to s set block or dome
+    public boolean canBuildDomeIn(Worker pawn, Cell targetCell){ return true; }
 
     /**
-     * This methods builds ((something)) in targetCell
+     * This methods builds a dome in targetCell
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
      */
-    public void buildIn(Worker pawn, Cell targetCell, Component component){}
+    public void buildDomeIn(Worker pawn, Cell targetCell){}
+
+    /**
+     * This boolean methods checks if the pawn can build a block in targetCell
+     * @param pawn the worker who performs the build
+     * @param targetCell the cell involved in the build
+     * @return true if the pawn can build a block in targetCell
+     */
+    public boolean canBuildBlockIn(Worker pawn, Cell targetCell){ return true; }
+
+    /**
+     * This methods builds a block in targetCell
+     * @param pawn the worker who performs the build
+     * @param targetCell the cell involved in the build
+     */
+    public void buildBlockIn(Worker pawn, Cell targetCell){}
 
     /**
      * This method lets the player surrender
