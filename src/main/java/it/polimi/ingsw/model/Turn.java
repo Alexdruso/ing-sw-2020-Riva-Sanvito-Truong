@@ -62,6 +62,18 @@ public class Turn{
      */
     private TurnState nextState;
 
+    /**
+     * This attribute holds if the turn is a winning or losing turn
+     */
+    private VictoryConditions winLoseCondition;
+
+    /**
+     * Anonymous class to represent the win, lose or neutral conditions of the turn
+     */
+    enum VictoryConditions{
+        WIN, LOSE, NEUTRAL
+    }
+
 
 
     /**
@@ -75,6 +87,7 @@ public class Turn{
     public Turn(Game game, Player player){
         this.game = game;
         this.player = player;
+        this.winLoseCondition = VictoryConditions.NEUTRAL;
 
         performedActions = new LinkedList<Action>();
         blockBuildableCells = new HashMap<Worker, TargetCells>();
@@ -135,11 +148,41 @@ public class Turn{
     }
 
     /**
+     * This method checks if the turn is a winning turn
+     * @return true if the turn is a winning turn
+     */
+    public boolean isWinningTurn(){
+        return this.winLoseCondition == VictoryConditions.WIN;
+    }
+
+    /**
+     * This methods checks if the turn is a losing turn
+     * @return true if the turn is a winning turn
+     */
+    public boolean isLosingTurn(){
+        return this.winLoseCondition == VictoryConditions.LOSE;
+    }
+
+    /**
      * Setter of next state
      * @param nextState the state we want to move next
      */
     public void setNextState(TurnState nextState){
         this.nextState = nextState;
+    }
+
+    /**
+     * This method sets the turn as a winning turn
+     */
+    public void setWinningTurn(){
+        this.winLoseCondition = VictoryConditions.WIN;
+    }
+
+    /**
+     * This method sets the turn as a losing turn
+     */
+    public void setLosingTurn(){
+        this.winLoseCondition = VictoryConditions.LOSE;
     }
 
     /**
@@ -206,7 +249,8 @@ public class Turn{
     /**
      * This method lets the player surrender
      */
-    public void draw(){}
+    public void draw(){
+    }
 
     /**
      * This method checks if we can end the turn
@@ -219,5 +263,6 @@ public class Turn{
     /**
      * This method ends the turn
      */
-    public void endTurn(){} //Throws WinException or LoseException!!
+    public void endTurn(){}
+
 }
