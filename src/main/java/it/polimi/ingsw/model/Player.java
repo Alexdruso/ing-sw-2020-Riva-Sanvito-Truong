@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;
 
+import java.util.Objects;
+
 /**
  * This class is the model representation of the physical player.
  * It keep all the information regarding the single player.
@@ -103,4 +105,25 @@ public class Player {
         return turnEventsManager;
     }
 
+    /**
+     * Overridden equals method
+     * @param o the object to compare
+     * @return true if the player equals o
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return getNickname().equals(player.getNickname());
+    }
+
+    /**
+     * Overridden hashcode method
+     * @return hashed value of Player
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNickname());
+    }
 }
