@@ -10,14 +10,13 @@ public abstract class TurnState {
      * This method sets things up before we can use the other methods provided by the state
      * @param turn the Context
      */
-    public void setup(Turn turn){
-
-    }
+    abstract public void setup(Turn turn);
 
     /**
      * This method sets up the first actual state of the turn and performs
      * some default calculation on the buildableCells and walkableCells
      * @param turn the Context
+     * @throws InvalidTurnStateException if not in the right state
      */
     public void startTurn(Turn turn) throws InvalidTurnStateException{
         throw new InvalidTurnStateException();
@@ -39,6 +38,7 @@ public abstract class TurnState {
      * @param pawn the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @param turn the Context
+     * @throws InvalidTurnStateException if not in the right state
      */
     public void moveTo(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
@@ -60,6 +60,7 @@ public abstract class TurnState {
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn the Context
+     * @throws InvalidTurnStateException if not in the right state
      */
     public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
@@ -81,6 +82,7 @@ public abstract class TurnState {
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn the Context
+     * @throws InvalidTurnStateException if not in the right state
      */
     public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
@@ -106,6 +108,7 @@ public abstract class TurnState {
     /**
      * This method ends the turn
      * @param turn the Context
+     * @throws InvalidTurnStateException if not in the right state
      */
     public void endTurn(Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
