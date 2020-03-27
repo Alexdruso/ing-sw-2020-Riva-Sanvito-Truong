@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.turnstates.Setup;
+import it.polimi.ingsw.model.turnstates.Start;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
@@ -57,6 +57,11 @@ public class Turn{
      */
     private TurnState currentState;
 
+    /**
+     * Next state of the turn, part of state pattern
+     */
+    private TurnState nextState;
+
 
 
     /**
@@ -76,7 +81,7 @@ public class Turn{
         domeBuildableCells = new HashMap<Worker, TargetCells>();
         walkableCells = new HashMap<Worker, TargetCells>();
         //we use the first current state to prepare the turn for the first actual state
-        currentState = new Setup();
+        currentState = new Start();
     }
 
     /**
@@ -129,6 +134,21 @@ public class Turn{
         return walkableCells.get(worker);
     }
 
+    /**
+     * Setter of next state
+     * @param nextState the state we want to move next
+     */
+    public void setNextState(TurnState nextState){
+        this.nextState = nextState;
+    }
+
+    /**
+     * Sets current state to next state
+     */
+    public void changeState(){
+        this.currentState = this.nextState;
+    }
+
 
     //TODO add some code
 
@@ -166,7 +186,7 @@ public class Turn{
      * @param pawn the worker who performs the build
      * @param targetCell the cell involved in the build
      */
-    public void buildIn(Worker pawn, Cell targetCell){} //This method should have another parameter to s set block or dome
+    public void buildIn(Worker pawn, Cell targetCell, Component component){}
 
     /**
      * This method lets the player surrender
