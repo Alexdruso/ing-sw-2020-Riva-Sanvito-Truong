@@ -1,7 +1,10 @@
 package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.board.Dome;
 import it.polimi.ingsw.model.workers.Worker;
 
 class Build extends AbstractTurnState {
@@ -13,7 +16,8 @@ class Build extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-        super.setup(turn);
+        //TODO add default behavior
+        turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
     }
 
     /**
@@ -26,7 +30,7 @@ class Build extends AbstractTurnState {
      */
     @Override
     public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-        return super.canBuildDomeIn(pawn, targetCell, turn);
+        return turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.x, targetCell.y);
     }
 
     /**
@@ -38,7 +42,13 @@ class Build extends AbstractTurnState {
      */
     @Override
     public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-        super.buildDomeIn(pawn, targetCell, turn);
+        turn.addPerformedAction(new BuildAction(targetCell,//the target cell
+                Component.DOME.getInstance(),//the buildable built
+                targetCell.getTower().getCurrentLevel() + 1,//the new level built
+                pawn));//the performer
+        targetCell.getTower().placeComponent(Component.DOME);
+        //TODO remove if not necessary
+        //turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
     }
 
     /**
@@ -51,7 +61,7 @@ class Build extends AbstractTurnState {
      */
     @Override
     public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        return super.canBuildBlockIn(pawn, targetCell, turn);
+        return turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.x,targetCell.y);
     }
 
     /**
@@ -63,16 +73,13 @@ class Build extends AbstractTurnState {
      */
     @Override
     public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        super.buildBlockIn(pawn, targetCell, turn);
+        turn.addPerformedAction(new BuildAction(targetCell,//the target cell
+                Component.BLOCK.getInstance(),//the buildable built
+                targetCell.getTower().getCurrentLevel() + 1,//the new level built
+                pawn));//the performer
+        targetCell.getTower().placeComponent(Component.BLOCK);
+        //TODO remove if not necessary
+        //turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
     }
 
-    /**
-     * This method lets the player surrender
-     *
-     * @param turn the Context
-     */
-    @Override
-    public void draw(Turn turn) {
-        super.draw(turn);
-    }
 }
