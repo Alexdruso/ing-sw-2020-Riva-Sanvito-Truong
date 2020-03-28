@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
 
@@ -13,7 +14,8 @@ class Move extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-        super.setup(turn);
+        //TODO add default behavior
+        turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
     }
 
     /**
@@ -26,7 +28,7 @@ class Move extends AbstractTurnState {
      */
     @Override
     public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
-        return super.canMoveTo(pawn, targetCell, turn);
+        return turn.getWorkerWalkableCells(pawn).getPosition(targetCell.x,targetCell.y);
     }
 
     /**
@@ -38,6 +40,12 @@ class Move extends AbstractTurnState {
      */
     @Override
     public void moveTo(Worker pawn, Cell targetCell, Turn turn) {
-        super.moveTo(pawn, targetCell, turn);
+        turn.addPerformedAction(new MoveAction(pawn.getCell(), //the source cell
+                                    targetCell, //the target cell
+                                    pawn.getCell().getTower().getCurrentLevel(), //the source cell level
+                                    targetCell.getTower().getCurrentLevel(), //the target cell level
+                                    pawn)); //the performer
+        pawn.setCell(targetCell);
+        turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
     }
 }
