@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
@@ -19,8 +20,7 @@ class Artemis extends AbstractGod {
         protected void onBeforeMovement(Turn turn) {
             List<MoveAction> moveActions = turn.getMoves();
             if (moveActions.size() == 1) {
-                //TODO
-//                turn.setAllowSkipMove(true);
+                turn.setSkippable(true);
                 MoveAction lastMove = (MoveAction) moveActions.get(0);
                 Worker lastMoveWorker = lastMove.getPerformer();
                 //TODO
@@ -34,8 +34,7 @@ class Artemis extends AbstractGod {
         protected void onAfterMovement(Turn turn) {
             List<MoveAction> moveActions = turn.getMoves();
             if (moveActions.size() == 1) {
-                //TODO
-                //turn.setNextState(TurnState.BEFORE_MOVE);
+                turn.setNextState(TurnState.MOVE.getTurnState());
             }
         }
     };
