@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.board;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -19,17 +18,17 @@ public class Board {
     /**
      * This is the constant lenght of a side of the board
      */
-    private static final int dimension = 5;
+    private static final int DIMENSION = 5;
 
     /**
      * This method creates a board with dimension*dimension cells
      */
     public Board() {
-        this.tiles = new Cell[dimension][dimension];
+        this.tiles = new Cell[DIMENSION][DIMENSION];
 
         //initializes the cells with their coordinates
-        for(int x = 0; x < dimension; x++){
-            for(int y = 0; y < dimension; y++ ){
+        for(int x = 0; x < DIMENSION; x++){
+            for(int y = 0; y < DIMENSION; y++ ){
                 tiles[x][y] = new Cell(x,y);
             }
 
@@ -41,7 +40,7 @@ public class Board {
      * @return the side length of the board
      */
     public int getDimension(){
-        return dimension;
+        return DIMENSION;
     }
 
     /**
@@ -70,8 +69,8 @@ public class Board {
      */
     public List<Cell> getTargets(TargetCells target){
         List<Cell> targetedCells = new ArrayList<Cell>();
-        for(int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
+        for(int i = 0; i < DIMENSION; i++) {
+            for (int j = 0; j < DIMENSION; j++) {
                 if (target.getPosition(j, i)) {
                     targetedCells.add(tiles[j][i]);
                 }
