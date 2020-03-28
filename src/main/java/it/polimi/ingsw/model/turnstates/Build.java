@@ -46,9 +46,8 @@ class Build extends AbstractTurnState {
                 Component.DOME.getInstance(),//the buildable built
                 targetCell.getTower().getCurrentLevel() + 1,//the new level built
                 pawn));//the performer
+        turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
         targetCell.getTower().placeComponent(Component.DOME);
-        //TODO remove if not necessary
-        //turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
     }
 
     /**
