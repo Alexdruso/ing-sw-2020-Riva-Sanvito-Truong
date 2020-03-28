@@ -224,6 +224,7 @@ public class Turn{
         // computeWinConditions();
         // if win -> go to state WIN
         this.currentState = this.nextState;
+        this.currentState.setup(this);
     }
 
     // private void computeWinConditions() {
@@ -297,7 +298,6 @@ public class Turn{
     public void moveTo(Worker pawn, Cell targetCell ) throws InvalidTurnStateException {
         this.currentState.moveTo(pawn, targetCell, this);
         this.changeState();
-        this.currentState.setup(this);
     }
 
     /**
@@ -321,7 +321,6 @@ public class Turn{
     public void buildDomeIn(Worker pawn, Cell targetCell) throws InvalidTurnStateException {
         this.currentState.buildDomeIn(pawn, targetCell, this);
         this.changeState();
-        this.currentState.setup(this);
     }
 
     /**
@@ -345,7 +344,6 @@ public class Turn{
     public void buildBlockIn(Worker pawn, Cell targetCell) throws InvalidTurnStateException {
         this.currentState.buildBlockIn(pawn, targetCell, this);
         this.changeState();
-        this.currentState.setup(this);
     }
 
     /**
@@ -354,7 +352,6 @@ public class Turn{
     public void draw(){
         this.currentState.draw(this);
         this.changeState();
-        this.currentState.setup(this);
     }
 
     /**
