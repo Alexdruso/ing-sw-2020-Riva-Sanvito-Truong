@@ -57,6 +57,6 @@ class Move extends AbstractTurnState {
 
         turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
 
-        pawn.setCell(targetCell);
+        turn.getGame().setWorkerCell(pawn, targetCell);
     }
 }
