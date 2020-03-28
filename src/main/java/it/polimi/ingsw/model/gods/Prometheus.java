@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
@@ -19,17 +20,11 @@ class Prometheus extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onTurnStart(Turn turn) {
-            //TODO
-            /*
-            turn.setAllowSkipBuild(true);
-            turn.setNextState(TurnState.BEFORE_BUILD);
-             */
+            turn.setNextState(TurnState.BUILD.getTurnState());
         }
 
         @Override
         protected void onBeforeMovement(Turn turn) {
-            //TODO
-//            turn.setAllowSkipBuild(false);
             List<BuildAction> lastBuildActions = turn.getBuilds();
             if (lastBuildActions.size() > 0) {
                 BuildAction lastBuild = lastBuildActions.get(0);
@@ -39,15 +34,22 @@ class Prometheus extends AbstractGod {
 //                turn.addAllowedWorker(lastBuild.worker);
                 TargetCells notHigherCells = new TargetCells();
                 notHigherCells.setAllTargets(false);
-//                TODO
-//                turn.getGame().getBoard().getCellsList().stream()
-//                        .filter(
-//                                cell -> cell.getTower().getCurrentLevel() <= lastBuildWorker.getCell().getTower().getCurrentLevel()
-//                        )
-//                        .forEach(
-//                                cell -> notHigherCells.setPosition(cell, true)
-//                        );
+                turn.getGame().getBoard().getCellsList().stream()
+                        .filter(
+                                cell -> cell.getTower().getCurrentLevel() <= lastBuildWorker.getCell().getTower().getCurrentLevel()
+                        )
+                        .forEach(
+                                cell -> notHigherCells.setPosition(cell, true)
+                        );
                 turn.getWorkerWalkableCells(lastBuildWorker).intersect(notHigherCells);
+            }
+        }
+
+        @Override
+        protected void onBeforeBuild(Turn turn) {
+            List<MoveAction> moveActions = turn.getMoves();
+            if (moveActions.size() == 0) {
+                turn.setSkippable(true);
             }
         }
 
@@ -55,8 +57,7 @@ class Prometheus extends AbstractGod {
         protected void onAfterBuild(Turn turn) {
             List<MoveAction> lastMoveActions = turn.getMoves();
             if (lastMoveActions.size() == 0) {
-//                TODO
-//                turn.setNextState(TurnState.BEFORE_MOVE);
+                turn.setNextState(TurnState.MOVE.getTurnState());
             }
         }
     };

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
@@ -21,16 +22,20 @@ class Apollo extends AbstractGod {
             Worker[] workers = turn.getPlayer().getOwnWorkers();
             for (Worker worker : workers) {
                 Cell currentCell = worker.getCell();
-                //TODO
-//                TargetCells walkableCells = turn.getWalkableCells(worker);
-//                TargetCells surroundingCells = TargetCells.fromCellAndRadius(worker.getCell(), 1);
-//                for (Cell targetCell : surroundingCells.getTargets()) {
-//                    targetCell.getWorker().ifPresent(targetWorker -> {
-//                        if (targetCell.isWalkable() && Cell.computeHeightDifference(targetCell, currentCell) <= 1 && !targetWorker.getPlayer().equals(turn.getPlayer())) {
-//                            walkableCells.addTargets(targetCell);
-//                        }
-//                    });
-//                }
+                TargetCells walkableTargets = turn.getWorkerWalkableCells(worker);
+                TargetCells surroundingTargets = TargetCells.fromCellAndRadius(worker.getCell(), 1);
+                List<Cell> surroundingCells = turn.getGame().getBoard().getTargets(surroundingTargets);
+                for (Cell targetCell : surroundingCells) {
+                    targetCell.getWorker().ifPresent(targetWorker -> {
+                        if (
+                                !targetCell.getTower().isComplete()
+                                        && targetCell.getTower().getCurrentLevel() - currentCell.getTower().getCurrentLevel() <= 1
+                                        && !targetWorker.getPlayer().equals(turn.getPlayer())
+                        ) {
+                            walkableTargets.setPosition(targetCell, true);
+                        }
+                    });
+                }
             }
         }
 
@@ -41,8 +46,7 @@ class Apollo extends AbstractGod {
             MoveAction lastMove = moveActions.get(moveActions.size() - 1);
             lastMove.getTargetCell().getWorker().ifPresent(targetWorker -> {
                 if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
-//                    TODO
-//                    game.setWorkerCell(targetWorker, lastAction.sourceCell);
+                    turn.getGame().setWorkerCell(targetWorker, lastMove.getSourceCell());
                 }
             });
         }
