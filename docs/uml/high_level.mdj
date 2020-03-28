@@ -481,7 +481,7 @@
 											"top": 76,
 											"width": 168.19384765625,
 											"height": 13,
-											"text": "+getPlayers()",
+											"text": "+getPlayersList()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -498,7 +498,7 @@
 											"top": 91,
 											"width": 168.19384765625,
 											"height": 13,
-											"text": "+getLastRoundTurns()",
+											"text": "+getLastRoundTurnsList()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -19355,7 +19355,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFwxVA1AJdlgkU="
 							},
-							"name": "getPlayers"
+							"name": "getPlayersList"
 						},
 						{
 							"_type": "UMLOperation",
@@ -19363,7 +19363,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFwxVA1AJdlgkU="
 							},
-							"name": "getLastRoundTurns"
+							"name": "getLastRoundTurnsList"
 						},
 						{
 							"_type": "UMLOperation",
