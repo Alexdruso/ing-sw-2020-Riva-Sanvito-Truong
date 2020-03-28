@@ -73,10 +73,12 @@ class Build extends AbstractTurnState {
      */
     @Override
     public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        turn.addPerformedAction(new BuildAction(targetCell,//the target cell
-                Component.BLOCK.getInstance(),//the buildable built
-                targetCell.getTower().getCurrentLevel() + 1,//the new level built
-                pawn));//the performer
+        turn.addPerformedAction(
+                new BuildAction(
+                        targetCell,//the target cell
+                        Component.BLOCK.getInstance(),//the buildable built
+                        targetCell.getTower().getCurrentLevel() + 1,//the new level built
+                        pawn));//the performer
         targetCell.getTower().placeComponent(Component.BLOCK);
         //TODO remove if not necessary
         //turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
