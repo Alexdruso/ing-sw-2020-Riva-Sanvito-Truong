@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
-import it.polimi.ingsw.model.turnstates.Start;
 import it.polimi.ingsw.model.turnstates.AbstractTurnState;
+import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.HashMap;
@@ -85,17 +85,18 @@ public class Turn{
      * @param game the game associated to the turn
      * @param player the player performing actions in the turn
      */
-    public Turn(Game game, Player player){
+    public Turn(Game game, Player player) {
         this.game = game;
         this.player = player;
         this.winLoseCondition = VictoryConditions.NEUTRAL;
 
-        performedActions = new LinkedList<Action>();
-        blockBuildableCells = new HashMap<Worker, TargetCells>();
-        domeBuildableCells = new HashMap<Worker, TargetCells>();
-        walkableCells = new HashMap<Worker, TargetCells>();
+        this.performedActions = new LinkedList<Action>();
+        this.blockBuildableCells = new HashMap<Worker, TargetCells>();
+        this.domeBuildableCells = new HashMap<Worker, TargetCells>();
+        this.walkableCells = new HashMap<Worker, TargetCells>();
         //we use the first current state to prepare the turn for the first actual state
-        currentState = new Start();
+        this.currentState = TurnState.START.getTurnState();
+        this.currentState.setup(this);
     }
 
     /**
@@ -213,6 +214,19 @@ public class Turn{
     public boolean canBeSkipped(){
         return skippable;
     }
+
+    /**
+     * This method adds a performed action
+     * @param performedAction the performed action
+     */
+    public void addPerformedAction(Action performedAction){
+        this.performedActions.add(performedAction);
+    }
+
+
+
+
+
 
     /**
      * This method sets up the first actual state of the turn and performs
