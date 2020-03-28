@@ -10,7 +10,7 @@ class Win extends AbstractTurnState{
      */
     @Override
     public void setup(Turn turn) {
-
+        //TODO
     }
 
     /**
@@ -21,7 +21,7 @@ class Win extends AbstractTurnState{
      */
     @Override
     public boolean canEndTurn(Turn turn) {
-        return super.canEndTurn(turn);
+        return true;
     }
 
     /**
@@ -32,6 +32,6 @@ class Win extends AbstractTurnState{
      */
     @Override
     public void endTurn(Turn turn) throws InvalidTurnStateException {
-        super.endTurn(turn);
+        //TODO
     }
 }
