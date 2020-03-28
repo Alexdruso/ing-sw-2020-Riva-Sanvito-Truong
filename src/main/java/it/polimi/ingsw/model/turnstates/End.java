@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
 
-public class End extends AbstractTurnState {
+class End extends AbstractTurnState {
 
 
     /**

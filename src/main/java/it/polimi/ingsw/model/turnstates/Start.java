@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
 
-public class Start extends AbstractTurnState {
+class Start extends AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state
@@ -11,6 +11,7 @@ public class Start extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
+
         super.setup(turn);
     }
 
