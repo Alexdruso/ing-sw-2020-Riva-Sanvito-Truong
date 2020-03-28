@@ -28,8 +28,19 @@ public enum TurnState {
      *
      * @see End
      */
-    END(new End());
-
+    END(new End()),
+    /**
+     * The Win state.
+     *
+     * @see Win
+     */
+    WIN(new Win()),
+    /**
+     * The Lose state.
+     *
+     * @see Lose
+     */
+    LOSE(new Lose());
 
     private final AbstractTurnState abstractTurnState;
 
