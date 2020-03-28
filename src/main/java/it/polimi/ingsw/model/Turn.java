@@ -221,17 +221,39 @@ public class Turn{
      */
     public void changeState(){
         this.setSkippable(false);
+
         // if lose -> go to state LOSE
+        if(this.isLosingTurn()) this.setNextState(TurnState.LOSE.getTurnState());
+
         // computeWinConditions();
+        this.computeWinConditions();
+
         // if win -> go to state WIN
+        if(this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
+
         this.currentState = this.nextState;
         this.currentState.setup(this);
     }
 
-    // private void computeWinConditions() {
-    //   qui il codice da Move::move
-    //   turnEventManager().computeWinConditions();
-    // }
+    /**
+     * Brings together the default and custom computation of
+     * win conditions
+     */
+    private void computeWinConditions() {
+        //qui il codice da Move::move
+
+        // sets winning turn is there is a the worker is moved from level 2 to level 3
+        List<MoveAction> moves = this.getMoves();
+        if(moves.size()>0){
+            MoveAction lastMove = moves.get(moves.size()-1);
+            if(lastMove.getTargetLevel() == 3 && lastMove.getSourceLevel() == 2){
+                this.setWinningTurn();
+            }
+        }
+
+        //Custom win conditions
+        this.getPlayer().getTurnEventsManager().processWinConditionEvents(this);
+    }
 
     /**
      * This attribute signals if the current state is skippable
