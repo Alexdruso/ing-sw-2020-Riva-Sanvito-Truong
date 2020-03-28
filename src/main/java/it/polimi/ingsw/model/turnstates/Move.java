@@ -14,7 +14,7 @@ class Move extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-        //TODO add default behavior
+        //TODO compute lose conditions
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
     }
 
@@ -49,11 +49,6 @@ class Move extends AbstractTurnState {
                         pawn //the performer
                 )
         );
-
-        // va tutto in Turn::changeState
-        //sets winning turn is there is a the worker is moved from level 2 to level 3
-//        if(targetCell.getTower().getCurrentLevel()==3 &&
-//                targetCell.getTower().getCurrentLevel() == pawn.getCell().getTower().getCurrentLevel()+1) turn.setWinningTurn();
 
         turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
 

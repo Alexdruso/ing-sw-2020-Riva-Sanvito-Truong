@@ -16,7 +16,7 @@ class Build extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-        //TODO add default behavior
+        //TODO compute lose conditions
         turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
     }
 
@@ -79,9 +79,10 @@ class Build extends AbstractTurnState {
                         Component.BLOCK.getInstance(),//the buildable built
                         targetCell.getTower().getCurrentLevel() + 1,//the new level built
                         pawn));//the performer
+
+        turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
+
         targetCell.getTower().placeComponent(Component.BLOCK);
-        //TODO remove if not necessary
-        //turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
     }
 
 }
