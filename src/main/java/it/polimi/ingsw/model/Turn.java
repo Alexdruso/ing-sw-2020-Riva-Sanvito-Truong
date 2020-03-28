@@ -191,8 +191,16 @@ public class Turn{
      * Sets current state to next state
      */
     public void changeState(){
+        // if lose -> go to state LOSE
+        // computeWinConditions();
+        // if win -> go to state WIN
         this.currentState = this.nextState;
     }
+
+    // private void computeWinConditions() {
+    //   qui il codice da Move::move
+    //   turnEventManager().computeWinConditions();
+    // }
 
     /**
      * This attribute signals if the current state is skippable

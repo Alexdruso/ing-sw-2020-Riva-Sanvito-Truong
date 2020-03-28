@@ -40,17 +40,23 @@ class Move extends AbstractTurnState {
      */
     @Override
     public void moveTo(Worker pawn, Cell targetCell, Turn turn) {
-        turn.addPerformedAction(new MoveAction(pawn.getCell(), //the source cell
-                                    targetCell, //the target cell
-                                    pawn.getCell().getTower().getCurrentLevel(), //the source cell level
-                                    targetCell.getTower().getCurrentLevel(), //the target cell level
-                                    pawn)); //the performer
+        turn.addPerformedAction(
+                new MoveAction(
+                        pawn.getCell(), //the source cell
+                        targetCell, //the target cell
+                        pawn.getCell().getTower().getCurrentLevel(), //the source cell level
+                        targetCell.getTower().getCurrentLevel(), //the target cell level
+                        pawn //the performer
+                )
+        );
 
+        // va tutto in Turn::changeState
         //sets winning turn is there is a the worker is moved from level 2 to level 3
-        if(targetCell.getTower().getCurrentLevel()==3 &&
-                targetCell.getTower().getCurrentLevel() == pawn.getCell().getTower().getCurrentLevel()+1) turn.setWinningTurn();
+//        if(targetCell.getTower().getCurrentLevel()==3 &&
+//                targetCell.getTower().getCurrentLevel() == pawn.getCell().getTower().getCurrentLevel()+1) turn.setWinningTurn();
+
+        turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
 
         pawn.setCell(targetCell);
-        turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
     }
 }
