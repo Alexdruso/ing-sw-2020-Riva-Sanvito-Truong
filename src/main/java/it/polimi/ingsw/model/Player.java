@@ -39,7 +39,7 @@ public class Player {
     /**
      * The player's workers number, constant and common to all players
      */
-    private static final int workerNumber=2;
+    private static final int WORKER_NUMBER =2;
 
     /**
      * Constructor of the class, initializes nickname and workers, leaves god and turn event manager to be defined
@@ -47,9 +47,9 @@ public class Player {
      */
     public Player(String nickname) {
         this.nickname = nickname;
-        this.ownWorkers = new Worker[workerNumber];
+        this.ownWorkers = new Worker[WORKER_NUMBER];
 
-        for(int i=0; i<workerNumber; i++){
+        for(int i = 0; i< WORKER_NUMBER; i++){
             ownWorkers[i] = new Worker(this, WorkerID.values()[i]);
         }
     }
