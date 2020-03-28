@@ -220,6 +220,7 @@ public class Turn{
      * Sets current state to next state
      */
     public void changeState(){
+        this.setSkippable(false);
         // if lose -> go to state LOSE
         // computeWinConditions();
         // if win -> go to state WIN
