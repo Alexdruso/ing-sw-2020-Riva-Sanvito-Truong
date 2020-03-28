@@ -20,7 +20,6 @@ public class Player {
      */
     private String nickname;
 
-    //TODO find a more suitable structure
     /**
      * A structure to contain all the player's workers
      */
