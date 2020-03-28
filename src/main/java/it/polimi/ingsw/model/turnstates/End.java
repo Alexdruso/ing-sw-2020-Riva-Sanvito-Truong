@@ -13,7 +13,7 @@ class End extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-        super.setup(turn);
+        //TODO add default behavior
     }
 
     /**
@@ -24,7 +24,7 @@ class End extends AbstractTurnState {
      */
     @Override
     public boolean canEndTurn(Turn turn) {
-        return super.canEndTurn(turn);
+        return true;
     }
 
     /**
@@ -34,6 +34,8 @@ class End extends AbstractTurnState {
      */
     @Override
     public void endTurn(Turn turn) {
-        super.endTurn(turn);
+        turn.getPlayer().getTurnEventsManager().processTurnEndEvents(turn);
+        //TODO see if winning turn default
+        if (!turn.isLosingTurn()) turn.getPlayer().getTurnEventsManager().processWinConditionEvents(turn);
     }
 }
