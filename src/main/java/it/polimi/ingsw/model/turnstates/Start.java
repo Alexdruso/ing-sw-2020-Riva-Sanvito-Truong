@@ -11,8 +11,7 @@ class Start extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-
-        super.setup(turn);
+        //TODO add default behaviour
     }
 
     /**
@@ -23,7 +22,8 @@ class Start extends AbstractTurnState {
      */
     @Override
     public void startTurn(Turn turn) {
-        super.startTurn(turn);
+        //TODO add default behavior
+        turn.getPlayer().getTurnEventsManager().processTurnStartEvents(turn);
     }
 
 }
