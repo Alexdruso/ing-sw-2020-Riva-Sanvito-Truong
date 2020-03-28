@@ -77,6 +77,15 @@ public class TurnEventsManager {
     }
 
     /**
+     * Process after build events.
+     * @param turn
+     */
+    public void processAfterBuildEvents(Turn turn) {
+        player.getGod().getOwnerTurnEvents().onAfterBuild(turn);
+        turnEventsFromOpponents.values().forEach(turnEvents -> turnEvents.onAfterBuild(turn));
+    }
+
+    /**
      * Process turn end events.
      * @param turn
      */
