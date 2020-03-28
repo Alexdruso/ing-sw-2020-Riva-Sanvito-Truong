@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
  * It is implemented with a state pattern.
  * On initialization it must be bound to a specific player.
  */
-
 public class Turn{
 
     /**
@@ -72,9 +71,19 @@ public class Turn{
      * Anonymous class to represent the win, lose or neutral conditions of the turn
      */
     enum VictoryConditions{
-        WIN, LOSE, NEUTRAL
+        /**
+         * Win victory conditions.
+         */
+        WIN,
+        /**
+         * Lose victory conditions.
+         */
+        LOSE,
+        /**
+         * Neutral victory conditions.
+         */
+        NEUTRAL
     }
-
 
 
     /**
@@ -82,7 +91,8 @@ public class Turn{
      * It binds to a specific game and player.
      * It initializes all the relevant structures and sets the first state, then calling .setup() on it
      * to decide the first actual turn.
-     * @param game the game associated to the turn
+     *
+     * @param game   the game associated to the turn
      * @param player the player performing actions in the turn
      */
     public Turn(Game game, Player player) {
@@ -100,7 +110,17 @@ public class Turn{
     }
 
     /**
+     * Gets the game.
+     *
+     * @return the game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+    /**
      * This method provides a List of all the performed builds
+     *
      * @return a list of all the performed builds in the turn
      */
     public List<BuildAction> getBuilds(){
@@ -109,6 +129,7 @@ public class Turn{
 
     /**
      * This method provides a List of all the performed moves
+     *
      * @return a list of all the performed moves in the turn
      */
     public List<MoveAction> getMoves(){
@@ -116,6 +137,8 @@ public class Turn{
     }
 
     /**
+     * Get player player.
+     *
      * @return the player performing actions in the turn
      */
     public Player getPlayer(){
@@ -124,6 +147,7 @@ public class Turn{
 
     /**
      * This method returns TargetCells related to Cells the Worker can build a block in
+     *
      * @param worker the worker involved
      * @return TargetCells related to Cells the Worker can build a block in
      */
@@ -133,6 +157,7 @@ public class Turn{
 
     /**
      * This method returns TargetCells related to Cells the Worker can build a dome in
+     *
      * @param worker the worker involved
      * @return TargetCells related to Cells the Worker can build a dome in
      */
@@ -142,6 +167,7 @@ public class Turn{
 
     /**
      * This method returns TargetCells related to Cells the Worker can walk in
+     *
      * @param worker the worker involved
      * @return TargetCells related to Cells the Worker can walk in
      */
@@ -151,6 +177,7 @@ public class Turn{
 
     /**
      * This method checks if the turn is a winning turn
+     *
      * @return true if the turn is a winning turn
      */
     public boolean isWinningTurn(){
@@ -159,6 +186,7 @@ public class Turn{
 
     /**
      * This methods checks if the turn is a losing turn
+     *
      * @return true if the turn is a winning turn
      */
     public boolean isLosingTurn(){
@@ -167,6 +195,7 @@ public class Turn{
 
     /**
      * Setter of next state
+     *
      * @param nextState the state we want to move next
      */
     public void setNextState(AbstractTurnState nextState){
@@ -209,6 +238,7 @@ public class Turn{
 
     /**
      * Sets current state as skippable or not
+     *
      * @param skippable the skip boolean value
      */
     public void setSkippable(boolean skippable){
@@ -217,6 +247,7 @@ public class Turn{
 
     /**
      * This method checks if the current state can be skipped
+     *
      * @return true if the state can be skipped
      */
     public boolean canBeSkipped(){
@@ -225,6 +256,7 @@ public class Turn{
 
     /**
      * This method adds a performed action
+     *
      * @param performedAction the performed action
      */
     public void addPerformedAction(Action performedAction){
@@ -232,13 +264,10 @@ public class Turn{
     }
 
 
-
-
-
-
     /**
      * This method sets up the first actual state of the turn and performs
      * some default calculation on the buildableCells and walkableCells
+     *
      * @throws InvalidTurnStateException if in the wrong state
      */
     public void startTurn() throws InvalidTurnStateException {
@@ -249,7 +278,8 @@ public class Turn{
 
     /**
      * This boolean methods checks if the pawn can move to targetCell
-     * @param pawn the worker we want to move
+     *
+     * @param pawn       the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @return if the pawn can move to targetCell
      */
@@ -259,7 +289,8 @@ public class Turn{
 
     /**
      * This method moves the pawn to targetCell
-     * @param pawn the worker we want to move
+     *
+     * @param pawn       the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @throws InvalidTurnStateException if in the wrong state
      */
@@ -271,7 +302,8 @@ public class Turn{
 
     /**
      * This boolean methods checks if the pawn can build a Dome in targetCell
-     * @param pawn the worker who performs the build
+     *
+     * @param pawn       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @return true if the pawn can build dome in targetCell
      */
@@ -281,7 +313,8 @@ public class Turn{
 
     /**
      * This methods builds a dome in targetCell
-     * @param pawn the worker who performs the build
+     *
+     * @param pawn       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @throws InvalidTurnStateException if in the wrong state
      */
@@ -293,7 +326,8 @@ public class Turn{
 
     /**
      * This boolean methods checks if the pawn can build a block in targetCell
-     * @param pawn the worker who performs the build
+     *
+     * @param pawn       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @return true if the pawn can build a block in targetCell
      */
@@ -303,7 +337,8 @@ public class Turn{
 
     /**
      * This methods builds a block in targetCell
-     * @param pawn the worker who performs the build
+     *
+     * @param pawn       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @throws InvalidTurnStateException if in the wrong state
      */
@@ -324,6 +359,7 @@ public class Turn{
 
     /**
      * This method checks if we can end the turn
+     *
      * @return if the player can end the turn
      */
     public boolean canEndTurn(){
@@ -332,6 +368,7 @@ public class Turn{
 
     /**
      * This method ends the turn
+     *
      * @throws InvalidTurnStateException if in the wrong state
      */
     public void endTurn() throws InvalidTurnStateException {
