@@ -45,6 +45,11 @@ class Move extends AbstractTurnState {
                                     pawn.getCell().getTower().getCurrentLevel(), //the source cell level
                                     targetCell.getTower().getCurrentLevel(), //the target cell level
                                     pawn)); //the performer
+
+        //sets winning turn is there is a the worker is moved from level 2 to level 3
+        if(targetCell.getTower().getCurrentLevel()==3 &&
+                targetCell.getTower().getCurrentLevel() == pawn.getCell().getTower().getCurrentLevel()+1) turn.setWinningTurn();
+
         pawn.setCell(targetCell);
         turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
     }
