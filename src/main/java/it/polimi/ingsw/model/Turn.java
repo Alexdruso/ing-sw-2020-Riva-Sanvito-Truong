@@ -220,8 +220,6 @@ public class Turn{
      * Sets current state to next state
      */
     public void changeState(){
-        this.setSkippable(false);
-
         // if lose -> go to state LOSE
         if(this.isLosingTurn()) this.setNextState(TurnState.LOSE.getTurnState());
 
@@ -231,6 +229,7 @@ public class Turn{
         // if win -> go to state WIN
         if(this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
 
+        this.setSkippable(false);
         this.currentState = this.nextState;
         this.currentState.setup(this);
     }
