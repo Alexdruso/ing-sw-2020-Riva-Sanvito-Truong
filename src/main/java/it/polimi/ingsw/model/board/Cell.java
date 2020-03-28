@@ -9,16 +9,26 @@ import java.util.Optional;
  * a Tower object.
  */
 public class Cell {
+    /**
+     * The X.
+     */
     public final int x;
+    /**
+     * The Y.
+     */
     public final int y;
 
-    //TODO: [from:ANDR] why is this public?
+    /**
+     * The Tower.
+     */
+//TODO: [from:ANDR] why is this public?
     public Tower tower;
 
     private Optional<Worker> worker;
 
     /**
      * Class constructor
+     *
      * @param x horizontal coordinate of the cell on the board
      * @param y vertical coordinate of the cell on the board
      */
@@ -31,6 +41,7 @@ public class Cell {
 
     /**
      * This method return the Tower instance that is placed on the cell
+     *
      * @return the Tower instance
      */
     public Tower getTower(){
@@ -45,6 +56,22 @@ public class Cell {
      */
     public Optional<Worker> getWorker() {
         return worker;
+    }
+
+    /**
+     * Assign a worker to this cell.
+     *
+     * @param worker the worker to assign to this cell
+     */
+    public void setWorker(Worker worker) {
+        this.worker = Optional.of(worker);
+    }
+
+    /**
+     * Sets this cell as not occupied by any worker.
+     */
+    public void setNoWorker() {
+        this.worker = Optional.empty();
     }
 
 }
