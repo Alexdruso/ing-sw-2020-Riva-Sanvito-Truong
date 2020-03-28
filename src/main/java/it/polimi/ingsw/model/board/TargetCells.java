@@ -18,16 +18,33 @@ public class TargetCells {
     }
 
     /**
+     * This method checks if the TargetCells has any cell set to be targeted
+     * @return true if there are targeted cells, false otherwise
+     */
+    public boolean isEmpty(){
+        for(int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                if(targets[j][i]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * This method sets all cells to the same value
      * @param isTargeted if true, sets all cells to targeted. Otherwise, if false
      *                   sets all cells to un-targeted
+     * @return resulting TargetCells
      */
-    public void setAllTargets(boolean isTargeted){
+    public TargetCells setAllTargets(boolean isTargeted){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
                 targets[i][j] = isTargeted;
             }
         }
+        return this;
     }
 
     /**
@@ -35,18 +52,22 @@ public class TargetCells {
      * @param rowIndex
      * @param columnIndex
      * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
+     * @return resulting TargetCells
      */
-    public void setPosition(int rowIndex, int columnIndex, boolean isTargeted){
+    public TargetCells setPosition(int rowIndex, int columnIndex, boolean isTargeted){
         targets[columnIndex][rowIndex] = isTargeted;
+        return this;
     }
 
     /**
      * Sets a cell at a given position to the given targeted status
      * @param cell the cell whose coordinates are object of this update
      * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
+     * @return resulting TargetCells
      */
-    public void setPosition(Cell cell, boolean isTargeted){
+    public TargetCells setPosition(Cell cell, boolean isTargeted){
         targets[cell.x][cell.y] = isTargeted;
+        return this;
     }
 
     /**
@@ -63,29 +84,34 @@ public class TargetCells {
      * Sets an entire row's targeted status
      * @param rowIndex
      * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
+     * @return resulting TargetCells
      */
-    public void setRow(int rowIndex, boolean isTargeted) {
+    public TargetCells setRow(int rowIndex, boolean isTargeted) {
         for(int i = 0; i < BOARD_SIZE; i++){
             targets[rowIndex][i] = isTargeted;
         }
+        return this;
     }
 
     /**
      * Sets an entire row's targeted status
      * @param columnIndex
      * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
+     * @return resulting TargetCells
      */
-    public void setColumn(int columnIndex, boolean isTargeted) {
+    public TargetCells setColumn(int columnIndex, boolean isTargeted) {
         for(int i = 0; i < BOARD_SIZE; i++){
             targets[i][columnIndex] = isTargeted;
         }
+        return this;
     }
 
     /**
      * Sets the edge cells' targeted status
      * @param isTargeted if true the cells are set to targetd, otherwise to un-targeted
+     * @return resulting TargetCells
      */
-    public void setEdges(boolean isTargeted){
+    public TargetCells setEdges(boolean isTargeted){
         for(int i = 0; i < BOARD_SIZE; i++){
             //Set first and last rows
             targets[0][i] = isTargeted;
@@ -97,6 +123,7 @@ public class TargetCells {
             targets[i][0] = isTargeted;
             targets[i][BOARD_SIZE] = isTargeted;
         }
+        return this;
     }
 
     /**
@@ -104,13 +131,15 @@ public class TargetCells {
      * Cells in this after the method call with be targeted if and only if they were
      * previously targeted and if they are targeted by other
      * @param other the other TargetCells instances with which apply the intersection
+     * @return resulting TargetCells
      */
-    public void intersect(TargetCells other){
+    public TargetCells intersect(TargetCells other){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
                 targets[j][i] = targets[j][i] && other.getPosition(j, i);
             }
         }
+        return this;
     }
 
     /**
@@ -118,21 +147,55 @@ public class TargetCells {
      * Cells in this after the method call with be targeted either if they were
      * previously targeted or if they are targeted by other
      * @param other the other TargetCells instances with which apply the union
+     * @return resulting TargetCells
      */
-    public void union(TargetCells other){
+    public TargetCells union(TargetCells other){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
                 targets[j][i] = targets[j][i] || other.getPosition(j, i);
             }
         }
+        return this;
+    }
+
+    /**
+     * Factory method which creates a new TargetCells that sets to targeted all the cells around the center
+     * with Manhattan distance of radius. This operation excludes the center itself.
+     * @param center The center cell of the targeted area
+     * @param radius The Manhattan distance around the center within which all cells will be targeted,
+     *               excluding the center.
+     * @return the resulting TargetCells
+     * @throws IllegalArgumentException if the radius selects cells outside of the board or if the radius is negative
+     */
+    public static TargetCells fromCellAndRadius(Cell center, int radius) throws IllegalArgumentException{
+        if(radius > BOARD_SIZE / 2){
+            throw new IllegalArgumentException("Radius is outside Board");
+        }
+        if(radius < 0){
+            throw new IllegalArgumentException("Negative Radius");
+        }
+        TargetCells target = new TargetCells();
+        for(int i = -1 * radius; i <= radius; i++){
+            for(int j = -1 * radius; j <= radius; j++){
+                if(i == 0 && j == 0){
+                    continue;
+                }
+                if (center.x + i < 0 || center.x + i > BOARD_SIZE || center.y + j < 0 || center.y + j > BOARD_SIZE){
+                   throw new IllegalArgumentException("Radius is outside Board");
+                }
+                target.setPosition(center.x + i, center.y + j, true);
+            }
+        }
+        return target;
     }
 
     /**
      * Factory method to create a TargetCells method from a boolean matrix
      * @param source the matrix from which to build the TargetCells instance
      * @throws IllegalArgumentException if source is of invalid size
+     * @return resulting TargetCells
      */
-    public static void fromMatrix(boolean[][] source) throws IllegalArgumentException{
+    public static TargetCells fromMatrix(boolean[][] source) throws IllegalArgumentException{
         if(source.length != BOARD_SIZE){
             throw new IllegalArgumentException("Source matrix has invalid number of rows: " + source.length);
         }
@@ -145,5 +208,6 @@ public class TargetCells {
                 target.setPosition(j, i, source[j][i]);
             }
         }
+        return target;
     }
 }
