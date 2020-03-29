@@ -136,6 +136,15 @@ public class Turn{
     }
 
     /**
+     * This method provides a List of all the performed actions
+     *
+     * @return a list of all the performed actions in the turn
+     */
+    public List<Action> getPerformedAction(){
+        return this.performedActions;
+    }
+
+    /**
      * This method provides a List of all the performed builds
      *
      * @return a list of all the performed builds in the turn
