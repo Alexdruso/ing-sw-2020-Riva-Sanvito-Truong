@@ -14,6 +14,9 @@ class Move extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
+        //Sets default next state
+        turn.setNextState(TurnState.BUILD.getTurnState());
+        //TODO add allowedWorkers management
         //TODO compute lose conditions
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
     }

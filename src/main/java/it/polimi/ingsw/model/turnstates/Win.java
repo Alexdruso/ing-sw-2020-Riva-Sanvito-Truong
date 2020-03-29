@@ -10,6 +10,8 @@ class Win extends AbstractTurnState{
      */
     @Override
     public void setup(Turn turn) {
+        //Sets default next state
+        turn.setNextState(TurnState.WIN.getTurnState());
         //TODO
     }
 
