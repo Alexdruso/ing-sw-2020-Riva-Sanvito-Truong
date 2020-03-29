@@ -28,11 +28,7 @@ class Move extends AbstractTurnState {
             TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
             TargetCells nonWalkableCells = (new TargetCells()).setAllTargets(true);
 
-            List<Cell> blockedCells =
-                            turn.
-                            getGame().
-                            getBoard().
-                            getTargets(walkableCellsRadius).
+            List<Cell> blockedCells = turn.getGame().getBoard().getTargets(walkableCellsRadius).
                             stream().
                             filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent()).
                                     collect(Collectors.toList());
@@ -46,10 +42,7 @@ class Move extends AbstractTurnState {
         if(turn. //the turn
                 getAllowedWorkers(). //the set of allowed workers
                 stream(). //the set gets turned into a stream
-                map(allowedWorker -> turn.
-                                        getGame().
-                                        getBoard().
-                                        getTargets( //take all the targetcells related to worker
+                map(allowedWorker -> turn.getGame().getBoard().getTargets( //take all the targetcells related to worker
                                                     turn.
                                                     getWorkerWalkableCells(allowedWorker)
                     ).
