@@ -1,7 +1,13 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.actions.MoveAction;
+import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
+import it.polimi.ingsw.model.workers.Worker;
+
+import java.util.List;
 
 /**
  * The god card Minotaur.
@@ -13,42 +19,39 @@ class Minotaur extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeMovement(Turn turn) {
-            //TODO
-            /*
-            Cell currentCell = worker.getCell();
-            TargetCells walkableCells = worker.getWalkableCells();
-            TargetCells surroundingCells = TargetCells.fromCellAndRadius(worker.getCell(), 1);
-            for (Cell targetCell : surroundingCells.getTargets()) {
-                targetCell.getWorker().ifPresent(targetWorker -> {
-                    if (targetCell.isWalkable() && Cell.computeHeightDifference(targetCell, currentCell) <= 1 && !targetWorker.getPlayer().equals(turn.getPlayer())) {
-                        board.getCellFromCellAndDelta(targetCell, Cell.computeDelta(targetCell, currentCell)).ifPresent(pushbackCell -> {
-                            if (pushbackCell.isWalkable() && !pushbackCell.getWorker().isPresent()) {
-                                walkableCells.addTargets(targetCell);
-                            }
-                        });
-                    }
-                });
+            for (Worker worker : turn.getPlayer().getOwnWorkers()) {
+                Cell currentCell = worker.getCell();
+                TargetCells walkableTargets = turn.getWorkerWalkableCells(worker);
+                TargetCells surroundingTargets = TargetCells.fromCellAndRadius(currentCell, 1);
+                for (Cell targetCell : turn.getGame().getBoard().getTargets(surroundingTargets)) {
+                    targetCell.getWorker().ifPresent(targetWorker -> {
+                        if (
+                                !targetCell.getTower().isComplete()
+                                        && targetCell.getTower().getCurrentLevel() - currentCell.getTower().getCurrentLevel() <= 1
+                                        && !targetWorker.getPlayer().equals(turn.getPlayer())
+                        ) {
+//                            board.getCellFromCellAndDelta(targetCell, Cell.computeDelta(targetCell, currentCell)).ifPresent(pushbackCell -> {
+//                                if (pushbackCell.isWalkable() && !pushbackCell.getWorker().isPresent()) {
+//                                    walkableCells.addTargets(targetCell);
+//                                }
+//                            });
+                        }
+                    });
+                }
             }
-             */
         }
 
         @Override
         protected void onAfterMovement(Turn turn) {
-            //TODO
-            /*
-            try {
-                //TODO: ensure we have a reference to the previous worker that occupied the cell; maybe we can move the current playing worker AFTER we process the TurnEvents
-                MoveAction lastAction = (MoveAction) turn.getAction(-1);
-                lastAction.targetCell.getWorker().ifPresent(targetWorker -> {
-                    if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
-                        game.setWorkerCell(targetWorker, board.getCellFromCellAndDelta(lastAction.targetCell, Cell.computeDelta(lastAction.targetCell, lastAction.sourceCell)));
-                    }
-                });
-            }
-            catch (ClassCastException e) {
-                //TODO
-            }
-             */
+            MoveAction lastMove = turn.getMoves().get(0);
+            lastMove.getTargetCell().getWorker().ifPresent(targetWorker -> {
+                if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
+//                    turn.getGame().setWorkerCell(
+//                            targetWorker,
+//                            board.getCellFromCellAndDelta(lastAction.targetCell, Cell.computeDelta(lastAction.targetCell, lastAction.sourceCell))
+//                    );
+                }
+            });
         }
     };
 

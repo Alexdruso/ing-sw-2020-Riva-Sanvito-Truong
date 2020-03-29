@@ -1,11 +1,8 @@
 package it.polimi.ingsw.model.turnstates;
 
-
 import it.polimi.ingsw.model.Turn;
 
-class End extends AbstractTurnState {
-
-
+class Lose extends AbstractTurnState{
     /**
      * This method sets things up before we can use the other methods provided by the state
      *
@@ -13,7 +10,7 @@ class End extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
-        //TODO add default behavior
+        //TODO
     }
 
     /**
@@ -31,12 +28,10 @@ class End extends AbstractTurnState {
      * This method ends the turn
      *
      * @param turn the Context
+     * @throws InvalidTurnStateException if not in the right state
      */
     @Override
-    public void endTurn(Turn turn) {
-        turn.getPlayer().getTurnEventsManager().processTurnEndEvents(turn);
-        //TODO think about a better way
-        if(turn.getMoves().size() == 0 || turn.getBuilds().size() == 0) turn.setLosingTurn();
-        if (!turn.isLosingTurn()) turn.getPlayer().getTurnEventsManager().processWinConditionEvents(turn);
+    public void endTurn(Turn turn) throws InvalidTurnStateException {
+        //TODO
     }
 }

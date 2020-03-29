@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.board.Tower;
@@ -20,8 +21,7 @@ class Hephaestus extends AbstractGod {
         protected void onBeforeBuild(Turn turn) {
             List<BuildAction> lastBuildActions = turn.getBuilds();
             if (lastBuildActions.size() == 1) {
-//                TODO
-//                turn.setAllowSkipBuild(true);
+                turn.setSkippable(true);
                 BuildAction lastBuild = lastBuildActions.get(0);
                 Worker lastBuildWorker = lastBuild.getPerformer();
 //                TODO
@@ -41,8 +41,7 @@ class Hephaestus extends AbstractGod {
         protected void onAfterBuild(Turn turn) {
             List<BuildAction> lastBuildActions = turn.getBuilds();
             if (lastBuildActions.size() == 1) {
-//                TODO
-//                turn.setNextState(TurnState.BEFORE_BUILD);
+                turn.setNextState(TurnState.BUILD.getTurnState());
             }
         }
     };
