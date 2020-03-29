@@ -22,7 +22,42 @@ class Build extends AbstractTurnState {
         //Sets default next state
         turn.setNextState(TurnState.END.getTurnState());
         setupDefaultAllowedWorkers(turn);
-        //TODO compute lose conditions
+
+
+
+        //compute lose conditions
+        if(turn. //the turn
+                getAllowedWorkers(). //the set of allowed workers
+                stream(). //the set gets turned into a stream
+                map(allowedWorker -> turn.
+                                        getGame().
+                                        getBoard().
+                                        getTargets( //take all the targetcells related to worker
+                                                turn.
+                                                getWorkerDomeBuildableCells(allowedWorker)
+                                                ).
+                                        isEmpty() //check if worker can build dome in some cells
+
+                                        &&
+
+                                        turn.
+                                            getGame().
+                                            getBoard().
+                                            getTargets( //take all the targetcells related to worker
+                                                    turn.
+                                                    getWorkerBlockBuildableCells(allowedWorker)
+                                            ).
+                                        isEmpty() //check if worker can build block in some cells
+                ).
+                reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
+
+                &&
+
+                !turn.canBeSkipped() //see if turn can't be skipped
+        ) turn.setLosingTurn(); //sets the turn to losing turn
+
+
+
         turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
     }
 
