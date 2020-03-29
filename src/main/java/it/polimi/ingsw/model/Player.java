@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.gods.God;
+import it.polimi.ingsw.model.playercommands.PlayerMoveCommand;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;

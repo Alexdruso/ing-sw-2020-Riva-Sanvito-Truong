@@ -2,7 +2,13 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.Dome;
+import it.polimi.ingsw.model.board.Block;
+import it.polimi.ingsw.model.playercommands.PlayerBuildCommand;
+import it.polimi.ingsw.model.playercommands.PlayerMoveCommand;
+import it.polimi.ingsw.model.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -11,6 +17,11 @@ import java.util.List;
  * It provides methods to gain insights on the current state.
  */
 public class Game {
+
+    /**
+     * The Turn object representing the current game turn
+     */
+    private Turn currentTurn;
 
     /**
      * Gets a list of the players that are playing this game.
@@ -56,5 +67,65 @@ public class Game {
         }
         worker.setCell(cell);
         cell.setWorker(worker);
+    }
+
+    public boolean isValidMove(PlayerMoveCommand command){
+        Cell sourceCell = command.getSourceCell();
+        Cell targetCell = command.getTargetCell();
+        if(!sourceCell.getWorker().isPresent()) {
+            //There is no worker in the source cell
+            return false;
+        }
+        if(!sourceCell.getWorker().get().getPlayer().equals(command.getPlayer())){
+            //The worker in the source cell does not belong to the active player
+            return false;
+        }
+        if(!currentTurn.getWorkerWalkableCells(command.getPerformer()).getPosition(targetCell)){
+            //The target cell is not available for movement
+            return false;
+        }
+        return true;
+    }
+
+    public void move(PlayerMoveCommand command) {
+        //TODO
+        throw new NotImplementedException();
+    }
+
+    public boolean isValidBuild(PlayerBuildCommand command){
+        Cell targetCell = command.getTargetCell();
+        Worker worker = command.getPerformer();
+        if(!worker.getPlayer().equals(currentTurn.getPlayer())){
+            //The worker does not belong to the active player
+            return false;
+        }
+        //I'd like this to be more explicit: getComponent should return a Component
+        //instead of a buildable
+        if(command.getComponent().isTargetable()) {
+            if (!currentTurn.getWorkerBlockBuildableCells(worker).getPosition(targetCell)) {
+                return false;
+            }
+        } else {
+            if(!currentTurn.getWorkerDomeBuildableCells(worker).getPosition(targetCell)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void build(PlayerBuildCommand command){
+        //TODO
+        throw new NotImplementedException();
+    }
+
+    public boolean isValidSkip(PlayerSkipCommand command){
+        //TODO
+        return false;
+    }
+
+    public void skip(PlayerSkipCommand command){
+        //TODO
+        throw new NotImplementedException();
+
     }
 }
