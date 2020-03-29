@@ -5,10 +5,11 @@ import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.board.Dome;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 class Build extends AbstractTurnState {
 
@@ -23,7 +24,31 @@ class Build extends AbstractTurnState {
         turn.setNextState(TurnState.END.getTurnState());
         setupDefaultAllowedWorkers(turn);
 
+        //for every allowed worker, intializes a target cell with the radius minus blocked cells
+        for(Worker allowedWorker : turn.getAllowedWorkers()){
+            TargetCells buildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
+            TargetCells nonbuildableCells = (new TargetCells()).setAllTargets(true);
+            TargetCells nonBlockBuildableCells = nonbuildableCells;
+            TargetCells nonDomeBuildableCells = nonbuildableCells;
 
+            List<Cell> blockedCells = turn.getGame().getBoard().getTargets(buildableCellsRadius).
+                                        stream().
+                                        filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() == 3).
+                                        collect(Collectors.toList());
+
+            for(Cell cell : blockedCells) nonBlockBuildableCells = nonBlockBuildableCells.setPosition(cell, false);
+
+            turn.setWorkerBlockBuildableCells(allowedWorker, buildableCellsRadius.intersect(nonBlockBuildableCells));
+
+            blockedCells = turn.getGame().getBoard().getTargets(buildableCellsRadius).
+                            stream().
+                            filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() < 3).
+                            collect(Collectors.toList());
+
+            for(Cell cell : blockedCells) nonDomeBuildableCells = nonDomeBuildableCells.setPosition(cell, false);
+
+            turn.setWorkerDomeBuildableCells(allowedWorker, buildableCellsRadius.intersect(nonDomeBuildableCells));
+        }
 
         //compute lose conditions
         if(turn. //the turn
