@@ -21,8 +21,7 @@ public class Cell {
     /**
      * The Tower.
      */
-//TODO: [from:ANDR] why is this public?
-    public Tower tower;
+    private Tower tower;
 
     private Optional<Worker> worker;
 
