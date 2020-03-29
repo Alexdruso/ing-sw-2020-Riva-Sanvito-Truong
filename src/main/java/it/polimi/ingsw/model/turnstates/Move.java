@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
+
+import java.util.List;
 
 class Move extends AbstractTurnState {
 
@@ -16,9 +19,28 @@ class Move extends AbstractTurnState {
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.BUILD.getTurnState());
+
         //TODO add allowedWorkers management
+        setupDefaultAllowedWorkers(turn);
         //TODO compute lose conditions
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
+    }
+
+    /**
+     * This method sets up the default allowed workers in the context
+     *
+     * @param turn the Context
+     */
+    private void setupDefaultAllowedWorkers(Turn turn){
+        //If there are no performed actions, the player can use all the workers by default
+        //Otherwise he is bound to the last worker who performed the action
+        if(turn.getPerformedAction().isEmpty()){
+            for(Worker pawn : turn.getPlayer().getOwnWorkers()) turn.getAllowedWorkers().add(pawn);
+        }
+        else{
+            List<Action> performedActions = turn.getPerformedAction();
+            turn.getAllowedWorkers().add(performedActions.get(performedActions.size()-1).getPerformer());
+        }
     }
 
     /**
