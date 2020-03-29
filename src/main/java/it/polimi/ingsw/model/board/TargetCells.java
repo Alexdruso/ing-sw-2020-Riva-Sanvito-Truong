@@ -78,12 +78,21 @@ public class TargetCells {
 
     /**
      * Retrieves the targeted status of the cell at a given position
-     * @param rowIndex
-     * @param columnIndex
+     * @param rowIndex int representing the row of the cell to be checked
+     * @param columnIndex int representing the column of the cell to be checked
      * @return true if the cell is targeted, false otherwise
      */
     public boolean getPosition(int rowIndex, int columnIndex){
         return targets[columnIndex][rowIndex];
+    }
+
+    /**
+     * Retrieves the targeted status of the given Cell
+     * @param cell the Cell object to be checked
+     * @return true if the cell is targetd, false otherwise
+     */
+    public boolean getPosition(Cell cell){
+        return targets[cell.y][cell.x];
     }
 
     /**
@@ -177,6 +186,7 @@ public class TargetCells {
         }
         return this;
     }
+
 
     /**
      * Factory method which creates a new TargetCells that sets to targeted all the cells around the center
