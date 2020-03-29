@@ -237,6 +237,8 @@ public class Turn{
 
     /**
      * Sets current state to next state
+     * Doing this it also resets all the structures representing the state of the turn, including targetCells,
+     * skippable and allowedWorkers
      */
     public void changeState(){
         // if lose -> go to state LOSE
