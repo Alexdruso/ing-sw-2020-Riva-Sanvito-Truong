@@ -250,9 +250,9 @@ public class Turn{
 
         //initialization of target cells related to all workers
         for(Worker worker : this.player.getOwnWorkers()){
-            this.blockBuildableCells.put(worker,new TargetCells());
-            this.domeBuildableCells.put(worker,new TargetCells());
-            this.walkableCells.put(worker,new TargetCells());
+            this.blockBuildableCells.put(worker,(new TargetCells()).setAllTargets(false));
+            this.domeBuildableCells.put(worker,(new TargetCells()).setAllTargets(false));
+            this.walkableCells.put(worker,(new TargetCells()).setAllTargets(false));
         }
 
         //Clear allowed workers
