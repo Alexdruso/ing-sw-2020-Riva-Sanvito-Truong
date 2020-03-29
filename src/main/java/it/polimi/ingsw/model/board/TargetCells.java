@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.parsing.ConfigParser;
+
 /**
  * This class represents a set of cells that are targeted for actions.
  * A TargetCells instance should be created either via the fromMatrix() method or via constructor.
@@ -7,7 +9,7 @@ package it.polimi.ingsw.model.board;
  * Finally the Cell instances should be retrieved by the getTargets() method in the board.
  */
 public class TargetCells {
-    private static final int BOARD_SIZE = 5;
+    private static final int BOARD_SIZE = Integer.parseInt(ConfigParser.getInstance().getProperty("boardSize"));
     private boolean[][] targets;
 
     /**
