@@ -10,9 +10,7 @@ import it.polimi.ingsw.model.turnstates.AbstractTurnState;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -40,17 +38,19 @@ public class Turn{
     /**
      * Cells on which the worker can build a block
      */
-    private HashMap<Worker, TargetCells> blockBuildableCells;
+    private Map<Worker, TargetCells> blockBuildableCells;
 
     /**
      * Cells on which the worker can build a dome
      */
-    private HashMap<Worker, TargetCells> domeBuildableCells;
+    private Map<Worker, TargetCells> domeBuildableCells;
 
     /**
      * Cells the worker can be moved to
      */
-    private HashMap<Worker, TargetCells> walkableCells;
+    private Map<Worker, TargetCells> walkableCells;
+
+    private Set<Worker> allowedWorkers;
 
     /**
      * Current state of the turn, part of state pattern
@@ -104,6 +104,15 @@ public class Turn{
         this.blockBuildableCells = new HashMap<Worker, TargetCells>();
         this.domeBuildableCells = new HashMap<Worker, TargetCells>();
         this.walkableCells = new HashMap<Worker, TargetCells>();
+
+        //initialization of target cells related to all workers
+        for(Worker worker : this.player.getOwnWorkers()){
+            this.blockBuildableCells.put(worker,new TargetCells());
+            this.domeBuildableCells.put(worker,new TargetCells());
+            this.walkableCells.put(worker,new TargetCells());
+        }
+        //start with empty set
+        this.allowedWorkers = new HashSet<Worker>();
         //we use the first current state to prepare the turn for the first actual state
         this.currentState = TurnState.START.getTurnState();
         this.currentState.setup(this);
@@ -116,6 +125,14 @@ public class Turn{
      */
     public Game getGame() {
         return game;
+    }
+
+    /**
+     * Returns a set of the allowed workers
+     * @return a set of workers allowed to perform the action
+     */
+    public Set<Worker> getAllowedWorkers(){
+        return this.allowedWorkers;
     }
 
     /**
