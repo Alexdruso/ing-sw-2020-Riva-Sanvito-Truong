@@ -4,9 +4,11 @@ import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 class Move extends AbstractTurnState {
 
@@ -19,10 +21,47 @@ class Move extends AbstractTurnState {
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.BUILD.getTurnState());
-
-        //TODO add allowedWorkers management
         setupDefaultAllowedWorkers(turn);
-        //TODO compute lose conditions
+
+        //for every allowed worker, intializes a target cell with the radius
+        for(Worker allowedWorker : turn.getAllowedWorkers()){
+            TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
+            TargetCells walkableCells = (new TargetCells()).setAllTargets(false);
+
+            List<Cell> trueCells =
+                            turn.
+                            getGame().
+                            getBoard().
+                            getTargets(walkableCellsRadius).
+                            stream().
+                            filter(cell -> !cell.getTower().isComplete() && !cell.getWorker().isPresent()).
+                                    collect(Collectors.toList());
+
+            for(Cell cell : trueCells) walkableCells = walkableCells.setPosition(cell, true);
+
+            turn.setWorkerWalkableCells(allowedWorker, walkableCells);
+        }
+
+        //compute lose conditions
+        if(turn. //the turn
+                getAllowedWorkers(). //the set of allowed workers
+                stream(). //the set gets turned into a stream
+                map(allowedWorker -> turn.
+                                        getGame().
+                                        getBoard().
+                                        getTargets( //take all the targetcells related to worker
+                                                    turn.
+                                                    getWorkerWalkableCells(allowedWorker)
+                    ).
+                    isEmpty() //check if worker can move to some cells
+                ).
+                reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
+
+                &&
+
+                !turn.canBeSkipped() //see if turn can't be skipped
+        ) turn.setLosingTurn(); //sets the turn to losing turn
+
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
     }
 
