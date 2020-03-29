@@ -104,13 +104,6 @@ public class Turn{
         this.blockBuildableCells = new HashMap<Worker, TargetCells>();
         this.domeBuildableCells = new HashMap<Worker, TargetCells>();
         this.walkableCells = new HashMap<Worker, TargetCells>();
-
-        //initialization of target cells related to all workers
-        for(Worker worker : this.player.getOwnWorkers()){
-            this.blockBuildableCells.put(worker,new TargetCells());
-            this.domeBuildableCells.put(worker,new TargetCells());
-            this.walkableCells.put(worker,new TargetCells());
-        }
         //start with empty set
         this.allowedWorkers = new HashSet<Worker>();
         //we use the first current state to prepare the turn for the first actual state
@@ -254,6 +247,13 @@ public class Turn{
 
         // if win -> go to state WIN
         if(this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
+
+        //initialization of target cells related to all workers
+        for(Worker worker : this.player.getOwnWorkers()){
+            this.blockBuildableCells.put(worker,new TargetCells());
+            this.domeBuildableCells.put(worker,new TargetCells());
+            this.walkableCells.put(worker,new TargetCells());
+        }
 
         //Clear allowed workers
         this.getAllowedWorkers().clear();
