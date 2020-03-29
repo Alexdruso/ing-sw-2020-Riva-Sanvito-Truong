@@ -29,7 +29,6 @@ public class ConfigParser {
     /**
      * This method reads a properties configuration file, storing all read variables into configs
      * @param cfg the ConfigFile instance that represents that file that is to be read
-     * @throws IOException if the path specified in cfg does not lead to a valid file
      */
     private void loadConfig(ConfigFile cfg){
         try {
