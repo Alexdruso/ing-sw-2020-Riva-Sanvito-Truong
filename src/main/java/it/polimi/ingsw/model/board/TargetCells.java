@@ -183,7 +183,7 @@ public class TargetCells {
                     continue;
                 }
                 if (center.x + i < 0 || center.x + i > BOARD_SIZE || center.y + j < 0 || center.y + j > BOARD_SIZE){
-                   throw new IllegalArgumentException("Radius is outside Board");
+                    continue;
                 }
                 target.setPosition(center.x + i, center.y + j, true);
             }
