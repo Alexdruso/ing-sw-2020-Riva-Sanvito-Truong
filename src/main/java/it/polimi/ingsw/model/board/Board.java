@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.parsing.ConfigParser;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,17 +21,17 @@ public class Board {
     /**
      * This is the constant lenght of a side of the board
      */
-    private static final int dimension = 5;
+    private static final int BOARD_SIZE = Integer.parseInt(ConfigParser.getInstance().getProperty("boardSize"));
 
     /**
-     * This method creates a board with dimension*dimension cells
+     * This method creates a board with BOARD_SIZE*dimension cells
      */
     public Board() {
-        this.tiles = new Cell[dimension][dimension];
+        this.tiles = new Cell[BOARD_SIZE][BOARD_SIZE];
 
         //initializes the cells with their coordinates
-        for(int x = 0; x < dimension; x++){
-            for(int y = 0; y < dimension; y++ ){
+        for(int x = 0; x < BOARD_SIZE; x++){
+            for(int y = 0; y < BOARD_SIZE; y++ ){
                 tiles[x][y] = new Cell(x,y);
             }
 
@@ -41,7 +43,7 @@ public class Board {
      * @return the side length of the board
      */
     public int getDimension(){
-        return dimension;
+        return BOARD_SIZE;
     }
 
     /**
@@ -70,8 +72,8 @@ public class Board {
      */
     public List<Cell> getTargets(TargetCells target){
         List<Cell> targetedCells = new ArrayList<Cell>();
-        for(int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
+        for(int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 if (target.getPosition(j, i)) {
                     targetedCells.add(tiles[j][i]);
                 }
