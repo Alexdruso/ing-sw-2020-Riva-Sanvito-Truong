@@ -69,6 +69,11 @@ public class Game {
         cell.setWorker(worker);
     }
 
+    /**
+     * Checks if the PlayerMoveCommand can be executed
+     * @param command the command to be checked
+     * @return true if the command is valid, false otherwise
+     */
     public boolean isValidMove(PlayerMoveCommand command){
         Cell sourceCell = command.getSourceCell();
         Cell targetCell = command.getTargetCell();
@@ -87,11 +92,20 @@ public class Game {
         return true;
     }
 
+    /**
+     * Executes the PlayerMoveCommand
+     * @param command the command to be executed
+     */
     public void move(PlayerMoveCommand command) {
         //TODO
         throw new NotImplementedException();
     }
 
+    /**
+     * Checks if the PlayerBuildCommand can be executed
+     * @param command the command to be checked
+     * @return true if the command is valid, false otherwise
+     */
     public boolean isValidBuild(PlayerBuildCommand command){
         Cell targetCell = command.getTargetCell();
         Worker worker = command.getPerformer();
@@ -113,16 +127,29 @@ public class Game {
         return true;
     }
 
+    /**
+     * Executes the PlayerBuildCommand
+     * @param command the command to be executed
+     */
     public void build(PlayerBuildCommand command){
         //TODO
         throw new NotImplementedException();
     }
 
+    /**
+     * Checks if the PlayerSkipCommand can be executed
+     * @param command the command to be checked
+     * @return true if the command is valid, false otherwise
+     */
     public boolean isValidSkip(PlayerSkipCommand command){
         //TODO
         return false;
     }
 
+    /**
+     * Executes the PlayerSkipCommand
+     * @param command the command to be executed
+     */
     public void skip(PlayerSkipCommand command){
         //TODO
         throw new NotImplementedException();
