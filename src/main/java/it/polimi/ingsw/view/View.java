@@ -8,9 +8,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class View extends Observable<PlayerCommand> implements Observer<Object> {
     @Override
-    public void update(Object message) {
+    public void update(Object message) throws UnsupportedOperationException{
         //TODO: define the type for Observer
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     public void handleMessage(StatusMessages message){

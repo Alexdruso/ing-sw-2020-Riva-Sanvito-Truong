@@ -96,9 +96,9 @@ public class Game {
      * Executes the PlayerMoveCommand
      * @param command the command to be executed
      */
-    public void move(PlayerMoveCommand command) {
+    public void move(PlayerMoveCommand command) throws UnsupportedOperationException{
         //TODO
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -131,9 +131,9 @@ public class Game {
      * Executes the PlayerBuildCommand
      * @param command the command to be executed
      */
-    public void build(PlayerBuildCommand command){
+    public void build(PlayerBuildCommand command) throws UnsupportedOperationException{
         //TODO
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -150,9 +150,8 @@ public class Game {
      * Executes the PlayerSkipCommand
      * @param command the command to be executed
      */
-    public void skip(PlayerSkipCommand command){
+    public void skip(PlayerSkipCommand command) throws UnsupportedOperationException{
         //TODO
-        throw new NotImplementedException();
-
+        throw new UnsupportedOperationException();
     }
 }
