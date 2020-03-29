@@ -170,9 +170,6 @@ public class TargetCells {
      * @throws IllegalArgumentException if the radius selects cells outside of the board or if the radius is negative
      */
     public static TargetCells fromCellAndRadius(Cell center, int radius) throws IllegalArgumentException{
-        if(radius > BOARD_SIZE / 2){
-            throw new IllegalArgumentException("Radius is outside Board");
-        }
         if(radius < 0){
             throw new IllegalArgumentException("Negative Radius");
         }
