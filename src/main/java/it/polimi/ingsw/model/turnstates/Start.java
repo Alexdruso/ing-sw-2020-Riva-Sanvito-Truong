@@ -11,6 +11,8 @@ class Start extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
+        //Sets default next state
+        turn.setNextState(TurnState.MOVE.getTurnState());
         //TODO add default behaviour
     }
 

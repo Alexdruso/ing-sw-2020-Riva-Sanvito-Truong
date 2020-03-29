@@ -10,9 +10,7 @@ import it.polimi.ingsw.model.turnstates.AbstractTurnState;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -40,17 +38,19 @@ public class Turn{
     /**
      * Cells on which the worker can build a block
      */
-    private HashMap<Worker, TargetCells> blockBuildableCells;
+    private Map<Worker, TargetCells> blockBuildableCells;
 
     /**
      * Cells on which the worker can build a dome
      */
-    private HashMap<Worker, TargetCells> domeBuildableCells;
+    private Map<Worker, TargetCells> domeBuildableCells;
 
     /**
      * Cells the worker can be moved to
      */
-    private HashMap<Worker, TargetCells> walkableCells;
+    private Map<Worker, TargetCells> walkableCells;
+
+    private Set<Worker> allowedWorkers;
 
     /**
      * Current state of the turn, part of state pattern
@@ -104,6 +104,8 @@ public class Turn{
         this.blockBuildableCells = new HashMap<Worker, TargetCells>();
         this.domeBuildableCells = new HashMap<Worker, TargetCells>();
         this.walkableCells = new HashMap<Worker, TargetCells>();
+        //start with empty set
+        this.allowedWorkers = new HashSet<Worker>();
         //we use the first current state to prepare the turn for the first actual state
         this.currentState = TurnState.START.getTurnState();
         this.currentState.setup(this);
@@ -116,6 +118,23 @@ public class Turn{
      */
     public Game getGame() {
         return game;
+    }
+
+    /**
+     * Returns a set of the allowed workers
+     * @return a set of workers allowed to perform the action
+     */
+    public Set<Worker> getAllowedWorkers(){
+        return this.allowedWorkers;
+    }
+
+    /**
+     * This method provides a List of all the performed actions
+     *
+     * @return a list of all the performed actions in the turn
+     */
+    public List<Action> getPerformedAction(){
+        return this.performedActions;
     }
 
     /**
@@ -176,6 +195,36 @@ public class Turn{
     }
 
     /**
+     * This method sets new block buildable cells for the worker
+     *
+     * @param worker the worker involved
+     * @param targetCells TargetCells related to Cells the Worker can build a block in
+     */
+    public void setWorkerBlockBuildableCells(Worker worker, TargetCells targetCells){
+        this.blockBuildableCells.put(worker, targetCells);
+    }
+
+    /**
+     * This method sets new dome buildable cells for the worker
+     *
+     * @param worker the worker involved
+     * @param targetCells TargetCells related to Cells the Worker can build a dome in
+     */
+    public void setWorkerDomeBuildableCells(Worker worker, TargetCells targetCells){
+        this.domeBuildableCells.put(worker, targetCells);
+    }
+
+    /**
+     * This method sets new walkable cells for the worker
+     *
+     * @param worker the worker involved
+     * @param targetCells TargetCells related to Cells the Worker can walk in
+     */
+    public void setWorkerWalkableCells(Worker worker, TargetCells targetCells){
+        this.walkableCells.put(worker, targetCells);
+    }
+
+    /**
      * This method checks if the turn is a winning turn
      *
      * @return true if the turn is a winning turn
@@ -218,6 +267,8 @@ public class Turn{
 
     /**
      * Sets current state to next state
+     * Doing this it also resets all the structures representing the state of the turn, including targetCells,
+     * skippable and allowedWorkers
      */
     public void changeState(){
         // if lose -> go to state LOSE
@@ -229,6 +280,15 @@ public class Turn{
         // if win -> go to state WIN
         if(this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
 
+        //initialization of target cells related to all workers
+        for(Worker worker : this.player.getOwnWorkers()){
+            this.blockBuildableCells.put(worker,(new TargetCells()).setAllTargets(false));
+            this.domeBuildableCells.put(worker,(new TargetCells()).setAllTargets(false));
+            this.walkableCells.put(worker,(new TargetCells()).setAllTargets(false));
+        }
+
+        //Clear allowed workers
+        this.getAllowedWorkers().clear();
         this.setSkippable(false);
         this.currentState = this.nextState;
         this.currentState.setup(this);
@@ -243,7 +303,7 @@ public class Turn{
 
         // sets winning turn is there is a the worker is moved from level 2 to level 3
         List<MoveAction> moves = this.getMoves();
-        if(moves.size()>0){
+        if(!moves.isEmpty()){
             MoveAction lastMove = moves.get(moves.size()-1);
             if(lastMove.getTargetLevel() == 3 && lastMove.getSourceLevel() == 2){
                 this.setWinningTurn();
@@ -369,11 +429,13 @@ public class Turn{
     }
 
     /**
-     * This method lets the player surrender
+     * This method lets the player surrender.
+     * It doesn't call changeState and goes directly to Lose to avoid computing winConditions
      */
     public void draw(){
         this.currentState.draw(this);
-        this.changeState();
+        this.currentState = this.nextState;
+        this.currentState.setup(this);
     }
 
     /**

@@ -13,6 +13,8 @@ class End extends AbstractTurnState {
      */
     @Override
     public void setup(Turn turn) {
+        //Sets default next state
+        turn.setNextState(TurnState.END.getTurnState());
         //TODO add default behavior
     }
 
