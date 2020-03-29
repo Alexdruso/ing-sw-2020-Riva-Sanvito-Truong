@@ -243,7 +243,7 @@ public class Turn{
 
         // sets winning turn is there is a the worker is moved from level 2 to level 3
         List<MoveAction> moves = this.getMoves();
-        if(moves.size()>0){
+        if(!moves.isEmpty()){
             MoveAction lastMove = moves.get(moves.size()-1);
             if(lastMove.getTargetLevel() == 3 && lastMove.getSourceLevel() == 2){
                 this.setWinningTurn();
