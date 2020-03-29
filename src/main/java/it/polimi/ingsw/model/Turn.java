@@ -246,6 +246,8 @@ public class Turn{
         // if win -> go to state WIN
         if(this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
 
+        //Clear allowed workers
+        this.getAllowedWorkers().clear();
         this.setSkippable(false);
         this.currentState = this.nextState;
         this.currentState.setup(this);
