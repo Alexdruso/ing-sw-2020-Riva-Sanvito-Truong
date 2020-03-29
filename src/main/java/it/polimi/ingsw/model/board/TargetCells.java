@@ -19,6 +19,10 @@ public class TargetCells {
         targets = new boolean[BOARD_SIZE][BOARD_SIZE];
     }
 
+    private static boolean isValidCoord(int x, int y){
+        return x >= 0  && x < BOARD_SIZE && y >= 0  && y < BOARD_SIZE;
+    }
+
     /**
      * This method checks if the TargetCells has any cell set to be targeted
      * @return true if there are targeted cells, false otherwise
@@ -145,6 +149,20 @@ public class TargetCells {
     }
 
     /**
+     * This method inverts each cell's targeted status. i.e. a targeted cell becomes untargeted and viceversa
+     * @return the resulting TargetCells
+     */
+    public TargetCells invert(){
+        for(int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                targets[j][i] = !targets[j][i];
+            }
+        }
+        return this;
+    }
+
+
+    /**
      * Sets this to be the union of this and other.
      * Cells in this after the method call with be targeted either if they were
      * previously targeted or if they are targeted by other
@@ -164,25 +182,32 @@ public class TargetCells {
      * Factory method which creates a new TargetCells that sets to targeted all the cells around the center
      * with Manhattan distance of radius. This operation excludes the center itself.
      * @param center The center cell of the targeted area
-     * @param radius The Manhattan distance around the center within which all cells will be targeted,
+     * @param radius The Manhattan distance around the center at which all cells will be targeted,
      *               excluding the center.
      * @return the resulting TargetCells
-     * @throws IllegalArgumentException if the radius selects cells outside of the board or if the radius is negative
+     * @throws IllegalArgumentException if the radius is non-positive
      */
     public static TargetCells fromCellAndRadius(Cell center, int radius) throws IllegalArgumentException{
-        if(radius < 0){
-            throw new IllegalArgumentException("Negative Radius");
+        if(radius <= 0){
+            throw new IllegalArgumentException("Non-Positive Radius");
         }
         TargetCells target = new TargetCells();
+
         for(int i = -1 * radius; i <= radius; i++){
-            for(int j = -1 * radius; j <= radius; j++){
-                if(i == 0 && j == 0){
-                    continue;
-                }
-                if (center.x + i < 0 || center.x + i > BOARD_SIZE || center.y + j < 0 || center.y + j > BOARD_SIZE){
-                    continue;
-                }
-                target.setPosition(center.x + i, center.y + j, true);
+            if (isValidCoord(center.x + i, center.y + radius)){
+                target.setPosition(center.x + i, radius, true);
+            }
+            if (isValidCoord(center.x + i, center.y -radius)) {
+                target.setPosition(center.x + i, 0, true);
+            }
+        }
+
+        for(int i = -1 * radius; i <= radius; i++){
+            if (isValidCoord(center.x + radius, center.y + i)){
+                target.setPosition(center.x + i, radius, true);
+            }
+            if (isValidCoord(center.x - radius, center.y + i)) {
+                target.setPosition(center.x + i, 0, true);
             }
         }
         return target;
