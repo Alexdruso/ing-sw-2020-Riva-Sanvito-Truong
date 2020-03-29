@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.playeractions;
+package it.polimi.ingsw.model.playercommands;
 
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.view.View;
@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.View;
 /**
  * This abstract class must be extended by every object representing an action that the player can perform.
  */
-public abstract class PlayerAction {
+public abstract class PlayerCommand {
     private Player player;
     private View view;
     /**
@@ -24,4 +24,10 @@ public abstract class PlayerAction {
     public View getView(){
         return view;
     }
+
+    /**
+     * This method returns the type of the current action
+     * @return the type of the current action, as an instance of PlayerActions
+     */
+    public abstract PlayerCommands getActionType();
 }
