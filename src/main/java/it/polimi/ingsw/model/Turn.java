@@ -369,11 +369,13 @@ public class Turn{
     }
 
     /**
-     * This method lets the player surrender
+     * This method lets the player surrender.
+     * It doesn't call changeState and goes directly to Lose to avoid computing winConditions
      */
     public void draw(){
         this.currentState.draw(this);
-        this.changeState();
+        this.currentState = this.nextState;
+        this.currentState.setup(this);
     }
 
     /**
