@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.playercommands;
+package it.polimi.ingsw.utils.playercommands;
 
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;

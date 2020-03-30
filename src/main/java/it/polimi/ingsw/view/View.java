@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.playercommands.PlayerCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerCommand;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;

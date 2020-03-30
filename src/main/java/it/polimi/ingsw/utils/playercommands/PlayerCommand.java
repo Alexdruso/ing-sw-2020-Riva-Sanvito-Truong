@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.playercommands;
+package it.polimi.ingsw.utils.playercommands;
 
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.view.View;

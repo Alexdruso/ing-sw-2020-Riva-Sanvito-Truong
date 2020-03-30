@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.playercommands;
+package it.polimi.ingsw.utils.playercommands;
 
 /**
  * This enum represents all possible commands of which the player can request the execution

@@ -2,11 +2,9 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.board.Dome;
-import it.polimi.ingsw.model.board.Block;
-import it.polimi.ingsw.model.playercommands.PlayerBuildCommand;
-import it.polimi.ingsw.model.playercommands.PlayerMoveCommand;
-import it.polimi.ingsw.model.playercommands.PlayerSkipCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.List;

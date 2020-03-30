@@ -2,10 +2,10 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.playercommands.PlayerCommand;
-import it.polimi.ingsw.model.playercommands.PlayerBuildCommand;
-import it.polimi.ingsw.model.playercommands.PlayerMoveCommand;
-import it.polimi.ingsw.model.playercommands.PlayerSkipCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
+import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 

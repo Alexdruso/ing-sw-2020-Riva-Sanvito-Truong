@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.playercommands;
+package it.polimi.ingsw.utils.playercommands;
 
 public class PlayerSkipCommand extends PlayerCommand {
     /**
