@@ -26,16 +26,14 @@ class Move extends AbstractTurnState {
         //for every allowed worker, intializes a target cell with the radius minus blocked cells
         for(Worker allowedWorker : turn.getAllowedWorkers()){
             TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
-            TargetCells nonWalkableCells = (new TargetCells()).setAllTargets(true);
+            //TargetCells nonWalkableCells = (new TargetCells()).setAllTargets(true);
 
-            List<Cell> blockedCells = turn.getGame().getBoard().getTargets(walkableCellsRadius).
+            turn.getGame().getBoard().getTargets(walkableCellsRadius).
                             stream().
                             filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent()).
-                                    collect(Collectors.toList());
+                            forEach(cell -> walkableCellsRadius.setPosition(cell,false));
 
-            for(Cell cell : blockedCells) nonWalkableCells = nonWalkableCells.setPosition(cell, false);
-
-            turn.setWorkerWalkableCells(allowedWorker, walkableCellsRadius.intersect(nonWalkableCells));
+            turn.setWorkerWalkableCells(allowedWorker, walkableCellsRadius);
         }
 
         //compute lose conditions
