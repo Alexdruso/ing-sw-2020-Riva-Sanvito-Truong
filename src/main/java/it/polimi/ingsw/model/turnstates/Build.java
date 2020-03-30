@@ -26,28 +26,22 @@ class Build extends AbstractTurnState {
 
         //for every allowed worker, intializes a target cell with the radius minus blocked cells
         for(Worker allowedWorker : turn.getAllowedWorkers()){
-            TargetCells buildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
-            TargetCells nonbuildableCells = (new TargetCells()).setAllTargets(true);
-            TargetCells nonBlockBuildableCells = nonbuildableCells;
-            TargetCells nonDomeBuildableCells = nonbuildableCells;
+            TargetCells blockBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
+            TargetCells domeBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
 
-            List<Cell> blockedCells = turn.getGame().getBoard().getTargets(buildableCellsRadius).
-                                        stream().
-                                        filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() == 3).
-                                        collect(Collectors.toList());
+            turn.getGame().getBoard().getTargets(blockBuildableCellsRadius).
+                    stream().
+                    filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() == 3).
+                    forEach(cell -> blockBuildableCellsRadius.setPosition(cell, false));
 
-            for(Cell cell : blockedCells) nonBlockBuildableCells = nonBlockBuildableCells.setPosition(cell, false);
+            turn.setWorkerBlockBuildableCells(allowedWorker, blockBuildableCellsRadius);
 
-            turn.setWorkerBlockBuildableCells(allowedWorker, buildableCellsRadius.intersect(nonBlockBuildableCells));
+            turn.getGame().getBoard().getTargets(domeBuildableCellsRadius).
+                    stream().
+                    filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() < 3).
+                    forEach(cell -> domeBuildableCellsRadius.setPosition(cell, false));
 
-            blockedCells = turn.getGame().getBoard().getTargets(buildableCellsRadius).
-                            stream().
-                            filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() < 3).
-                            collect(Collectors.toList());
-
-            for(Cell cell : blockedCells) nonDomeBuildableCells = nonDomeBuildableCells.setPosition(cell, false);
-
-            turn.setWorkerDomeBuildableCells(allowedWorker, buildableCellsRadius.intersect(nonDomeBuildableCells));
+            turn.setWorkerDomeBuildableCells(allowedWorker, domeBuildableCellsRadius);
         }
 
         //compute lose conditions
