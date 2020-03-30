@@ -5,6 +5,7 @@ import it.polimi.ingsw.parsing.ConfigParser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -79,5 +80,22 @@ public class Board {
             }
         }
         return targetedCells;
+    }
+
+    /**
+     * From a given base cell and a direction, this method retrieves the cell starting from base
+     * and moving by towards the given Direction
+     * @param base the base Cell
+     * @param direction the Direction
+     * @return the resulting Cell, calculated starting from base and doing a translation towards Direction
+     */
+    public Optional<Cell> fromBaseCellAndDirection(Cell base, Direction direction){
+        int newX = base.x + direction.dx;
+        int newY = base.y + direction.dy;
+        if(0 <= newX && newX < BOARD_SIZE && 0 <= newY && newY < BOARD_SIZE){
+            return Optional.of(getCell(newX, newY));
+        } else {
+            return Optional.empty();
+        }
     }
 }

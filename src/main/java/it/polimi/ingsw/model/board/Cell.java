@@ -73,4 +73,15 @@ public class Cell {
         this.worker = Optional.empty();
     }
 
+    /**
+     * Computes the height difference between two towers. The difference is taken by calculating the height of other
+     * minus the height of this. The towers must not be complete
+     * (i.e. They must not have a Dome on top)
+     * @param other the other Cell with which to compute the difference
+     * @return an int representing the height difference.
+     */
+    public int getHeightDifference(Cell other){
+        return other.getTower().getCurrentLevel() - this.getTower().getCurrentLevel();
+    }
+
 }
