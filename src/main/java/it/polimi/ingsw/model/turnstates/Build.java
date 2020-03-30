@@ -51,7 +51,11 @@ class Build extends AbstractTurnState {
         }
 
         //compute lose conditions
-        if(turn. //the turn
+        if(     !turn.isSkippable() //see if turn can't be skipped
+
+                &&
+
+                turn. //the turn
                 getAllowedWorkers(). //the set of allowed workers
                 stream(). //the set gets turned into a stream
                 map(allowedWorker -> turn.
@@ -76,9 +80,8 @@ class Build extends AbstractTurnState {
                 ).
                 reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
 
-                &&
 
-                !turn.isSkippable() //see if turn can't be skipped
+
         ) turn.setLosingTurn(); //sets the turn to losing turn
 
 
