@@ -225,6 +225,15 @@ public class Turn{
     }
 
     /**
+     * This method sets a new set of allowed workers
+     *
+     * @param allowedWorkers the allowed workers
+     */
+    public void setAllowedWorkers(Set<Worker> allowedWorkers){
+        this.allowedWorkers = allowedWorkers;
+    }
+
+    /**
      * This method checks if the turn is a winning turn
      *
      * @return true if the turn is a winning turn
