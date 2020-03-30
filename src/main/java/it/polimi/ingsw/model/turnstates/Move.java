@@ -67,9 +67,9 @@ class Move extends AbstractTurnState {
     private void setupDefaultAllowedWorkers(Turn turn){
         //If there are no performed actions, the player can use all the workers by default
         //Otherwise he is bound to the last worker who performed the action
-        Set<Worker> allowedWorkers = new HashSet<Worker>():
+        Set<Worker> allowedWorkers = new HashSet<Worker>();
         if(turn.getPerformedAction().isEmpty()){
-             allowedWorkers.addAll(Arrays.asList(turn.getPlayer().getOwnWorkers()));
+            allowedWorkers.addAll(Arrays.asList(turn.getPlayer().getOwnWorkers()));
         }
         else{
             List<Action> performedActions = turn.getPerformedAction();
