@@ -24,7 +24,7 @@ class Move extends AbstractTurnState {
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.BUILD.getTurnState());
-        setupDefaultAllowedWorkers(turn);
+        turn.setupDefaultAllowedWorkers();
 
         //for every allowed worker, intializes a target cell with the radius minus blocked cells
         for(Worker allowedWorker : turn.getAllowedWorkers()){
@@ -57,25 +57,6 @@ class Move extends AbstractTurnState {
         ) turn.setLosingTurn(); //sets the turn to losing turn
 
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
-    }
-
-    /**
-     * This method sets up the default allowed workers in the context
-     *
-     * @param turn the Context
-     */
-    private void setupDefaultAllowedWorkers(Turn turn){
-        //If there are no performed actions, the player can use all the workers by default
-        //Otherwise he is bound to the last worker who performed the action
-        Set<Worker> allowedWorkers = new HashSet<Worker>();
-        if(turn.getPerformedAction().isEmpty()){
-            allowedWorkers.addAll(Arrays.asList(turn.getPlayer().getOwnWorkers()));
-        }
-        else{
-            List<Action> performedActions = turn.getPerformedAction();
-            allowedWorkers.add(performedActions.get(performedActions.size()-1).getPerformer());
-        }
-        turn.setAllowedWorkers(allowedWorkers);
     }
 
     /**

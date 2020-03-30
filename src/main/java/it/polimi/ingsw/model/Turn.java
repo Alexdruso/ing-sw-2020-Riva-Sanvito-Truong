@@ -121,14 +121,6 @@ public class Turn{
     }
 
     /**
-     * Returns a set of the allowed workers
-     * @return a set of workers allowed to perform the action
-     */
-    public Set<Worker> getAllowedWorkers(){
-        return new HashSet<Worker>(this.allowedWorkers);
-    }
-
-    /**
      * This method provides a List of all the performed actions
      *
      * @return a list of all the performed actions in the turn
@@ -225,12 +217,60 @@ public class Turn{
     }
 
     /**
-     * This method sets a new set of allowed workers
-     *
-     * @param allowedWorkers the allowed workers
+     * Returns a set of the allowed workers
+     * @return a set of workers allowed to perform the action
      */
-    public void setAllowedWorkers(Set<Worker> allowedWorkers){
-        this.allowedWorkers = allowedWorkers;
+    public Set<Worker> getAllowedWorkers(){
+        return new HashSet<Worker>(this.allowedWorkers);
+    }
+
+    /**
+     * Clears the workers allowed to perform operations on this turn.
+     */
+    public void clearAllowedWorkers(){
+        allowedWorkers.clear();
+    }
+
+    /**
+     * Allows a worker to perform operations on this turn.
+     *
+     * @param allowedWorker the worker to allow performing operations on this turn
+     */
+    public void addAllowedWorker(Worker allowedWorker){
+        allowedWorkers.add(allowedWorker);
+    }
+
+    /**
+     * Allows a collection of workers to perform operations on this turn.
+     *
+     * @param allowedWorkers the workers to allow performing operations on this turn
+     */
+    public void addAllowedWorkers(Collection<Worker> allowedWorkers){
+        this.allowedWorkers.addAll(allowedWorkers);
+    }
+
+    /**
+     * Allows an array of workers to perform operations on this turn.
+     *
+     * @param allowedWorkers the workers to allow performing operations on this turn
+     */
+    public void addAllowedWorkers(Worker[] allowedWorkers){
+        this.allowedWorkers.addAll(Arrays.asList(allowedWorkers));
+    }
+
+    /**
+     * This method sets up the default allowed workers in the context
+     */
+    public void setupDefaultAllowedWorkers(){
+        //If there are no performed actions, the player can use all the workers by default
+        //Otherwise he is bound to the last worker who performed the action
+        if(getPerformedAction().isEmpty()){
+            addAllowedWorkers(getPlayer().getOwnWorkers());
+        }
+        else{
+            List<Action> performedActions = getPerformedAction();
+            addAllowedWorker(performedActions.get(performedActions.size()-1).getPerformer());
+        }
     }
 
     /**
@@ -297,7 +337,7 @@ public class Turn{
         }
 
         //Clear allowed workers
-        this.setAllowedWorkers(new HashSet<Worker>());
+        this.clearAllowedWorkers();
         this.setSkippable(false);
         this.currentState = this.nextState;
         this.currentState.setup(this);
