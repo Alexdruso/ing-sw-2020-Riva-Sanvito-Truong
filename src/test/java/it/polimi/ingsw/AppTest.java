@@ -2,6 +2,8 @@ package it.polimi.ingsw;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.model.board.BoardTest;
+import it.polimi.ingsw.model.board.BoardTestingUtils;
 import org.junit.jupiter.api.Test;
 
 /**
