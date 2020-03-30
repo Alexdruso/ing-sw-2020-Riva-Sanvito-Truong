@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gods;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.actions.MoveAction;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 import it.polimi.ingsw.model.workers.Worker;
 
@@ -19,8 +20,6 @@ class Athena extends AbstractGod {
     private static final TurnEvents opponentsTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeMovement(Turn turn) {
-            //TODO
-
             Player athenaPlayer = turn.getGame().getPlayersList().stream().filter(
                     player -> player.getGod().equals(GodCard.ATHENA.getGod())
             ).findFirst().orElse(null);
@@ -31,11 +30,13 @@ class Athena extends AbstractGod {
                         action -> action.getTargetLevel() > action.getSourceLevel()
                 ).collect(Collectors.toList());
                 if (athenaMoveUpActions.size() > 0) {
-//                    TODO
-//                    TargetCells higherCells = TargetCells.fromMinimumHeight(worker.getCell().getHeight() + 1);
                     for (Worker worker : turn.getPlayer().getOwnWorkers()) {
-//                        TODO
-//                        turn.getWorkerWalkableCells(worker).removeTargets(higherCells);
+                        TargetCells lowerOrEqualCells = TargetCells.fromCells(
+                            turn.getGame().getBoard().getCellsList().stream().filter(
+                                    cell -> cell.getTower().getCurrentLevel() <= worker.getCell().getTower().getCurrentLevel()
+                            ).collect(Collectors.toList())
+                        );
+                        turn.getWorkerWalkableCells(worker).intersect(lowerOrEqualCells);
                     }
                 }
             });
