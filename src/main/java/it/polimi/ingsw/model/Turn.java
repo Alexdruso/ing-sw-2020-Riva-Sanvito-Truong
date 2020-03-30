@@ -305,7 +305,7 @@ public class Turn{
         List<MoveAction> moves = this.getMoves();
         if(!moves.isEmpty()){
             MoveAction lastMove = moves.get(moves.size()-1);
-            if(lastMove.getTargetLevel() == 3 && lastMove.getSourceLevel() == 2){
+            if(lastMove.getTargetLevel() == 3 && lastMove.getSourceLevel() < 3){
                 this.setWinningTurn();
             }
         }
