@@ -33,23 +33,22 @@ class Move extends AbstractTurnState {
         }
 
         //compute lose conditions
-        if(     !turn.isSkippable() //see if turn can't be skipped
-
-                &&
-
-                turn. //the turn
-                getAllowedWorkers(). //the set of allowed workers
-                stream(). //the set gets turned into a stream
-                map(allowedWorker -> turn.getGame().getBoard().getTargets( //take all the targetcells related to worker
-                                                    turn.
-                                                    getWorkerWalkableCells(allowedWorker)
-                    ).
-                    isEmpty() //check if worker can move to some cells
-                ).
-                reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
-        ) turn.setLosingTurn(); //sets the turn to losing turn
-
-        turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
+        if (
+                !turn.isSkippable()  //see if turn can't be skipped
+                        && turn.getAllowedWorkers().stream().map(
+                                allowedWorker -> turn.getGame().getBoard().getTargets(
+                                        turn.getWorkerWalkableCells(allowedWorker)
+                                )
+                                .isEmpty() //check if worker can move to some cells
+                        )
+                        .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction)
+        ) {
+            turn.setLosingTurn(); //sets the turn to losing turn
+        }
+        else {
+            turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
+            // notify();
+        }
     }
 
     /**

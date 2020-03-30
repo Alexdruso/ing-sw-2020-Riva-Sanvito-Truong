@@ -25,58 +25,38 @@ class Build extends AbstractTurnState {
             TargetCells blockBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
             TargetCells domeBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
 
-            turn.getGame().getBoard().getTargets(blockBuildableCellsRadius).
-                    stream().
-                    filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() == 3).
-                    forEach(cell -> blockBuildableCellsRadius.setPosition(cell, false));
+            turn.getGame().getBoard().getTargets(blockBuildableCellsRadius)
+                    .stream()
+                    .filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() == 3)
+                    .forEach(cell -> blockBuildableCellsRadius.setPosition(cell, false)
+            );
 
             turn.setWorkerBlockBuildableCells(allowedWorker, blockBuildableCellsRadius);
 
-            turn.getGame().getBoard().getTargets(domeBuildableCellsRadius).
-                    stream().
-                    filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() < 3).
-                    forEach(cell -> domeBuildableCellsRadius.setPosition(cell, false));
+            turn.getGame().getBoard().getTargets(domeBuildableCellsRadius)
+                    .stream()
+                    .filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() < 3)
+                    .forEach(cell -> domeBuildableCellsRadius.setPosition(cell, false)
+            );
 
             turn.setWorkerDomeBuildableCells(allowedWorker, domeBuildableCellsRadius);
         }
 
         //compute lose conditions
-        if(     !turn.isSkippable() //see if turn can't be skipped
-
-                &&
-
-                turn. //the turn
-                getAllowedWorkers(). //the set of allowed workers
-                stream(). //the set gets turned into a stream
-                map(allowedWorker -> turn.
-                                        getGame().
-                                        getBoard().
-                                        getTargets( //take all the targetcells related to worker
-                                                turn.
-                                                getWorkerDomeBuildableCells(allowedWorker)
-                                                ).
-                                        isEmpty() //check if worker can build dome in some cells
-
-                                        &&
-
-                                        turn.
-                                            getGame().
-                                            getBoard().
-                                            getTargets( //take all the targetcells related to worker
-                                                    turn.
-                                                    getWorkerBlockBuildableCells(allowedWorker)
-                                            ).
-                                        isEmpty() //check if worker can build block in some cells
-                ).
-                reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
-
-
-
-        ) turn.setLosingTurn(); //sets the turn to losing turn
-
-
-
-        turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
+        if (
+                !turn.isSkippable() //see if turn can't be skipped
+                    && turn.getAllowedWorkers().stream().map(
+                            allowedWorker -> turn.getGame().getBoard().getTargets(turn.getWorkerDomeBuildableCells(allowedWorker)).isEmpty() //check if worker can build dome in some cells
+                                    && turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker)).isEmpty() //check if worker can build block in some cells
+                        )
+                    .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
+        ) {
+            turn.setLosingTurn(); //sets the turn to losing turn
+        }
+        else {
+            turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
+            // notify();
+        }
     }
 
     /**
