@@ -24,12 +24,12 @@ class Demeter extends AbstractGod {
                 BuildAction lastBuild = lastBuildActions.get(0);
                 Worker lastBuildWorker = lastBuild.getPerformer();
 
-//                TODO
-//                turn.clearAllowedWorkers();
-//                turn.addAllowedWorker(lastMove.getWorker());
-                turn.getWorkerBlockBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), false);
-                turn.getWorkerDomeBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), false);
+                turn.clearAllowedWorkers();
+                turn.addAllowedWorker(lastBuildWorker);
 
+                turn.getWorkerBlockBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), false);
+
+                turn.getWorkerDomeBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), false);
             }
         }
 

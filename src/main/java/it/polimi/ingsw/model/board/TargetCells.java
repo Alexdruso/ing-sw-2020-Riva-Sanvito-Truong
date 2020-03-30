@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.parsing.ConfigParser;
 
+import java.util.Collection;
+
 /**
  * This class represents a set of cells that are targeted for actions.
  * A TargetCells instance should be created either via the fromMatrix() method or via constructor.
@@ -25,6 +27,7 @@ public class TargetCells {
 
     /**
      * This method checks if the TargetCells has any cell set to be targeted
+     *
      * @return true if there are targeted cells, false otherwise
      */
     public boolean isEmpty(){
@@ -40,8 +43,8 @@ public class TargetCells {
 
     /**
      * This method sets all cells to the same value
-     * @param isTargeted if true, sets all cells to targeted. Otherwise, if false
-     *                   sets all cells to un-targeted
+     *
+     * @param isTargeted if true, sets all cells to targeted. Otherwise, if false sets all cells to un-targeted
      * @return resulting TargetCells
      */
     public TargetCells setAllTargets(boolean isTargeted){
@@ -55,9 +58,10 @@ public class TargetCells {
 
     /**
      * Sets a cell at a given position to the given targeted status
-     * @param rowIndex
-     * @param columnIndex
-     * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
+     *
+     * @param rowIndex    the row index
+     * @param columnIndex the column index
+     * @param isTargeted  if true the cell is set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
     public TargetCells setPosition(int rowIndex, int columnIndex, boolean isTargeted){
@@ -67,7 +71,8 @@ public class TargetCells {
 
     /**
      * Sets a cell at a given position to the given targeted status
-     * @param cell the cell whose coordinates are object of this update
+     *
+     * @param cell       the cell whose coordinates are object of this update
      * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
@@ -78,7 +83,8 @@ public class TargetCells {
 
     /**
      * Retrieves the targeted status of the cell at a given position
-     * @param rowIndex int representing the row of the cell to be checked
+     *
+     * @param rowIndex    int representing the row of the cell to be checked
      * @param columnIndex int representing the column of the cell to be checked
      * @return true if the cell is targeted, false otherwise
      */
@@ -88,6 +94,7 @@ public class TargetCells {
 
     /**
      * Retrieves the targeted status of the given Cell
+     *
      * @param cell the Cell object to be checked
      * @return true if the cell is targetd, false otherwise
      */
@@ -97,7 +104,8 @@ public class TargetCells {
 
     /**
      * Sets an entire row's targeted status
-     * @param rowIndex
+     *
+     * @param rowIndex   the row index
      * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
@@ -110,8 +118,9 @@ public class TargetCells {
 
     /**
      * Sets an entire row's targeted status
-     * @param columnIndex
-     * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
+     *
+     * @param columnIndex the column index
+     * @param isTargeted  if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
     public TargetCells setColumn(int columnIndex, boolean isTargeted) {
@@ -123,6 +132,7 @@ public class TargetCells {
 
     /**
      * Sets the edge cells' targeted status
+     *
      * @param isTargeted if true the cells are set to targetd, otherwise to un-targeted
      * @return resulting TargetCells
      */
@@ -145,6 +155,7 @@ public class TargetCells {
      * Sets this to be the intersection of this and other.
      * Cells in this after the method call with be targeted if and only if they were
      * previously targeted and if they are targeted by other
+     *
      * @param other the other TargetCells instances with which apply the intersection
      * @return resulting TargetCells
      */
@@ -159,6 +170,7 @@ public class TargetCells {
 
     /**
      * This method inverts each cell's targeted status. i.e. a targeted cell becomes untargeted and viceversa
+     *
      * @return the resulting TargetCells
      */
     public TargetCells invert(){
@@ -175,6 +187,7 @@ public class TargetCells {
      * Sets this to be the union of this and other.
      * Cells in this after the method call with be targeted either if they were
      * previously targeted or if they are targeted by other
+     *
      * @param other the other TargetCells instances with which apply the union
      * @return resulting TargetCells
      */
@@ -191,9 +204,9 @@ public class TargetCells {
     /**
      * Factory method which creates a new TargetCells that sets to targeted all the cells around the center
      * with Manhattan distance of radius. This operation excludes the center itself.
+     *
      * @param center The center cell of the targeted area
-     * @param radius The Manhattan distance around the center at which all cells will be targeted,
-     *               excluding the center.
+     * @param radius The Manhattan distance around the center at which all cells will be targeted, excluding the center.
      * @return the resulting TargetCells
      * @throws IllegalArgumentException if the radius is non-positive
      */
@@ -225,9 +238,10 @@ public class TargetCells {
 
     /**
      * Factory method to create a TargetCells method from a boolean matrix
+     *
      * @param source the matrix from which to build the TargetCells instance
-     * @throws IllegalArgumentException if source is of invalid size
      * @return resulting TargetCells
+     * @throws IllegalArgumentException if source is of invalid size
      */
     public static TargetCells fromMatrix(boolean[][] source) throws IllegalArgumentException{
         if(source.length != BOARD_SIZE){
@@ -241,6 +255,20 @@ public class TargetCells {
             for(int j = 0; j < BOARD_SIZE; j++){
                 target.setPosition(j, i, source[j][i]);
             }
+        }
+        return target;
+    }
+
+    /**
+     * Factory method to create a TargetCells method from a collection of cells.
+     *
+     * @param cells the cells whose positions will be marked as targeted
+     * @return resulting TargetCells
+     */
+    public static TargetCells fromCells(Collection<Cell> cells) {
+        TargetCells target = new TargetCells();
+        for (Cell cell : cells) {
+            target.setPosition(cell, true);
         }
         return target;
     }

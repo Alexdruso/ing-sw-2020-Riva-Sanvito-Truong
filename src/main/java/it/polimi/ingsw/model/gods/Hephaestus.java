@@ -24,15 +24,17 @@ class Hephaestus extends AbstractGod {
                 turn.setSkippable(true);
                 BuildAction lastBuild = lastBuildActions.get(0);
                 Worker lastBuildWorker = lastBuild.getPerformer();
-//                TODO
-//                turn.clearAllowedWorkers();
-//                turn.addAllowedWorker(lastMove.getWorker());
+
+                turn.clearAllowedWorkers();
+                turn.addAllowedWorker(lastBuildWorker);
+
                 turn.getWorkerBlockBuildableCells(lastBuildWorker).setAllTargets(false);
                 Tower lastBuildTower = lastBuild.getTargetCell().getTower();
                 //TODO: let's decide if this check is better suited here or in Tower (like Tower::isBlockBuildable())
                 if (!lastBuildTower.isComplete() && lastBuildTower.getCurrentLevel() < 3) {
                     turn.getWorkerBlockBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), true);
                 }
+
                 turn.getWorkerDomeBuildableCells(lastBuildWorker).setAllTargets(false);
             }
         }
