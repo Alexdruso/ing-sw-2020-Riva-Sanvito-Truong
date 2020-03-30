@@ -43,7 +43,7 @@ class Move extends AbstractTurnState {
                         )
                         .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction)
         ) {
-            turn.setLosingTurn(); //sets the turn to losing turn
+            turn.triggerLosingTurn(); //sets the turn to losing turn
         }
         else {
             turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);

@@ -36,9 +36,6 @@ class End extends AbstractTurnState {
      */
     @Override
     public void endTurn(Turn turn) {
-        turn.getPlayer().getTurnEventsManager().processTurnEndEvents(turn);
-        //TODO think about a better way
-        if(turn.getMoves().size() == 0 || turn.getBuilds().size() == 0) turn.setLosingTurn();
-        if (!turn.isLosingTurn()) turn.getPlayer().getTurnEventsManager().processWinConditionEvents(turn);
+
     }
 }

@@ -96,7 +96,7 @@ public abstract class AbstractTurnState {
      * @param turn the Context
      */
     public void draw(Turn turn){
-        turn.setLosingTurn();
+        turn.triggerLosingTurn();
         turn.setNextState(TurnState.LOSE.getTurnState());
     }
 

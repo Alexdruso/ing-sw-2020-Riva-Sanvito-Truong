@@ -51,7 +51,7 @@ class Build extends AbstractTurnState {
                         )
                     .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
         ) {
-            turn.setLosingTurn(); //sets the turn to losing turn
+            turn.triggerLosingTurn(); //sets the turn to losing turn
         }
         else {
             turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);

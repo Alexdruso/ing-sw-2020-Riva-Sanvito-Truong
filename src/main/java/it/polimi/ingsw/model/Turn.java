@@ -295,8 +295,9 @@ public class Turn{
     /**
      * This method sets the turn as a losing turn
      */
-    public void setLosingTurn(){
+    public void triggerLosingTurn(){
         this.winLoseCondition = VictoryConditions.LOSE;
+        this.changeState();
     }
 
     /**
