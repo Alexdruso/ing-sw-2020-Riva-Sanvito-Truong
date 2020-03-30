@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.gods;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 public class GodCardTest {
 
