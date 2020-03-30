@@ -333,7 +333,7 @@ public class Turn{
      *
      * @return true if the state can be skipped
      */
-    public boolean canBeSkipped(){
+    public boolean isSkippable(){
         return skippable;
     }
 

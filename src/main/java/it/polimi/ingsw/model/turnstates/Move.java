@@ -52,7 +52,7 @@ class Move extends AbstractTurnState {
 
                 &&
 
-                !turn.canBeSkipped() //see if turn can't be skipped
+                !turn.isSkippable() //see if turn can't be skipped
         ) turn.setLosingTurn(); //sets the turn to losing turn
 
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
