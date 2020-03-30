@@ -7,7 +7,10 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 class Move extends AbstractTurnState {
@@ -64,13 +67,15 @@ class Move extends AbstractTurnState {
     private void setupDefaultAllowedWorkers(Turn turn){
         //If there are no performed actions, the player can use all the workers by default
         //Otherwise he is bound to the last worker who performed the action
+        Set<Worker> allowedWorkers = new HashSet<Worker>():
         if(turn.getPerformedAction().isEmpty()){
-            for(Worker pawn : turn.getPlayer().getOwnWorkers()) turn.getAllowedWorkers().add(pawn);
+             allowedWorkers.addAll(Arrays.asList(turn.getPlayer().getOwnWorkers()));
         }
         else{
             List<Action> performedActions = turn.getPerformedAction();
-            turn.getAllowedWorkers().add(performedActions.get(performedActions.size()-1).getPerformer());
+            allowedWorkers.add(performedActions.get(performedActions.size()-1).getPerformer());
         }
+        turn.setAllowedWorkers(allowedWorkers);
     }
 
     /**
