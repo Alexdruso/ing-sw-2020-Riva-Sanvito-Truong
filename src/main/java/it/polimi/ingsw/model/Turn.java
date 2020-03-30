@@ -125,7 +125,7 @@ public class Turn{
      * @return a set of workers allowed to perform the action
      */
     public Set<Worker> getAllowedWorkers(){
-        return this.allowedWorkers;
+        return new HashSet<Worker>(this.allowedWorkers);
     }
 
     /**
@@ -134,7 +134,7 @@ public class Turn{
      * @return a list of all the performed actions in the turn
      */
     public List<Action> getPerformedAction(){
-        return this.performedActions;
+        return new LinkedList<Action>(this.performedActions);
     }
 
     /**
@@ -297,7 +297,7 @@ public class Turn{
         }
 
         //Clear allowed workers
-        this.getAllowedWorkers().clear();
+        this.setAllowedWorkers(new HashSet<Worker>());
         this.setSkippable(false);
         this.currentState = this.nextState;
         this.currentState.setup(this);
