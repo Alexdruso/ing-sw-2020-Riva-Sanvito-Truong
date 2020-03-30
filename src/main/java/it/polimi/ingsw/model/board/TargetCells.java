@@ -28,17 +28,17 @@ public class TargetCells {
     /**
      * This method checks if the TargetCells has any cell set to be targeted
      *
-     * @return true if there are targeted cells, false otherwise
+     * @return false if there are targeted cells, true otherwise
      */
     public boolean isEmpty(){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
                 if(targets[j][i]){
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     /**
