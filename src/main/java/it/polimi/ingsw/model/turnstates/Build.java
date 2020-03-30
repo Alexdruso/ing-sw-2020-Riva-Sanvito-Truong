@@ -27,7 +27,7 @@ class Build extends AbstractTurnState {
         turn.setNextState(TurnState.END.getTurnState());
         setupDefaultAllowedWorkers(turn);
 
-        //for every allowed worker, intializes a target cell with the radius minus blocked cells
+        //for every allowed worker, initializes a target cell with the radius minus blocked cells
         for(Worker allowedWorker : turn.getAllowedWorkers()){
             TargetCells blockBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
             TargetCells domeBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
