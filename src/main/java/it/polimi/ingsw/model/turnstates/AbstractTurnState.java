@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
+
+import java.util.List;
 
 public abstract class AbstractTurnState {
 
@@ -115,4 +118,19 @@ public abstract class AbstractTurnState {
         throw new InvalidTurnStateException();
     }
 
+    /**
+     * This method sets up the default allowed workers in the context
+     * @param turn
+     */
+    void setupDefaultAllowedWorkers(Turn turn){
+        //If there are no performed actions, the player can use all the workers by default
+        //Otherwise he is bound to the last worker who performed the action
+        if(turn.getPerformedAction().isEmpty()){
+            turn.addAllowedWorkers(turn.getPlayer().getOwnWorkers());
+        }
+        else{
+            List<Action> performedActions = turn.getPerformedAction();
+            turn.addAllowedWorker(performedActions.get(performedActions.size()-1).getPerformer());
+        }
+    }
 }

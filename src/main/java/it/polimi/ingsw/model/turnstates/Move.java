@@ -1,17 +1,10 @@
 package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 class Move extends AbstractTurnState {
 
@@ -24,7 +17,7 @@ class Move extends AbstractTurnState {
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.BUILD.getTurnState());
-        turn.setupDefaultAllowedWorkers();
+        setupDefaultAllowedWorkers(turn);
 
         //for every allowed worker, intializes a target cell with the radius minus blocked cells
         for(Worker allowedWorker : turn.getAllowedWorkers()){

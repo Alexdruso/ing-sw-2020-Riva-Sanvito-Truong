@@ -259,21 +259,6 @@ public class Turn{
     }
 
     /**
-     * This method sets up the default allowed workers in the context
-     */
-    public void setupDefaultAllowedWorkers(){
-        //If there are no performed actions, the player can use all the workers by default
-        //Otherwise he is bound to the last worker who performed the action
-        if(getPerformedAction().isEmpty()){
-            addAllowedWorkers(getPlayer().getOwnWorkers());
-        }
-        else{
-            List<Action> performedActions = getPerformedAction();
-            addAllowedWorker(performedActions.get(performedActions.size()-1).getPerformer());
-        }
-    }
-
-    /**
      * This method checks if the turn is a winning turn
      *
      * @return true if the turn is a winning turn
