@@ -45,9 +45,9 @@ class Apollo extends AbstractGod {
             //TODO: shall we check there is at least 1 move? After all, if we got here, there at least 1 move was performed
             MoveAction lastMove = moveActions.get(moveActions.size() - 1);
             lastMove.getTargetCell().getWorker().ifPresent(targetWorker -> {
-                if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
-                    turn.getGame().setWorkerCell(targetWorker, lastMove.getSourceCell());
-                }
+                // already checked in onBeforeMovement if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
+                turn.getGame().setWorkerCell(targetWorker, lastMove.getSourceCell());
+                // already checked in onBeforeMovement }
             });
         }
     };
