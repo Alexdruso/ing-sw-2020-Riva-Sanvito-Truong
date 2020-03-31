@@ -74,8 +74,8 @@ public class Board {
         List<Cell> targetedCells = new ArrayList<Cell>();
         for(int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                if (target.getPosition(j, i)) {
-                    targetedCells.add(tiles[j][i]);
+                if (target.getPosition(i, j)) {
+                    targetedCells.add(tiles[i][j]);
                 }
             }
         }

@@ -33,7 +33,7 @@ public class TargetCells {
     public boolean isEmpty(){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
-                if(targets[j][i]){
+                if(targets[i][j]){
                     return false;
                 }
             }
@@ -59,13 +59,13 @@ public class TargetCells {
     /**
      * Sets a cell at a given position to the given targeted status
      *
-     * @param rowIndex    the row index
-     * @param columnIndex the column index
+     * @param x the x coord
+     * @param y the y coord
      * @param isTargeted  if true the cell is set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
-    public TargetCells setPosition(int rowIndex, int columnIndex, boolean isTargeted){
-        targets[columnIndex][rowIndex] = isTargeted;
+    public TargetCells setPosition(int x, int y, boolean isTargeted){
+        targets[x][y] = isTargeted;
         return this;
     }
 
@@ -84,12 +84,12 @@ public class TargetCells {
     /**
      * Retrieves the targeted status of the cell at a given position
      *
-     * @param rowIndex    int representing the row of the cell to be checked
-     * @param columnIndex int representing the column of the cell to be checked
+     * @param x int representing the x coord of the cell to be checked
+     * @param y int representing the y coord of the cell to be checked
      * @return true if the cell is targeted, false otherwise
      */
-    public boolean getPosition(int rowIndex, int columnIndex){
-        return targets[columnIndex][rowIndex];
+    public boolean getPosition(int x, int y){
+        return targets[x][y];
     }
 
     /**
@@ -99,19 +99,19 @@ public class TargetCells {
      * @return true if the cell is targetd, false otherwise
      */
     public boolean getPosition(Cell cell){
-        return targets[cell.y][cell.x];
+        return targets[cell.x][cell.y];
     }
 
     /**
      * Sets an entire row's targeted status
      *
-     * @param rowIndex   the row index
+     * @param y the y coord
      * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
-    public TargetCells setRow(int rowIndex, boolean isTargeted) {
+    public TargetCells setRow(int y, boolean isTargeted) {
         for(int i = 0; i < BOARD_SIZE; i++){
-            targets[rowIndex][i] = isTargeted;
+            targets[i][y] = isTargeted;
         }
         return this;
     }
@@ -119,13 +119,13 @@ public class TargetCells {
     /**
      * Sets an entire row's targeted status
      *
-     * @param columnIndex the column index
+     * @param x the x coord
      * @param isTargeted  if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
-    public TargetCells setColumn(int columnIndex, boolean isTargeted) {
+    public TargetCells setColumn(int x, boolean isTargeted) {
         for(int i = 0; i < BOARD_SIZE; i++){
-            targets[i][columnIndex] = isTargeted;
+            targets[x][i] = isTargeted;
         }
         return this;
     }
@@ -138,13 +138,11 @@ public class TargetCells {
      */
     public TargetCells setEdges(boolean isTargeted){
         for(int i = 0; i < BOARD_SIZE; i++){
-            //Set first and last rows
             targets[0][i] = isTargeted;
             targets[BOARD_SIZE][i] = isTargeted;
         }
 
         for(int i = 1; i < BOARD_SIZE - 1; i++){
-            //Set first and last columns
             targets[i][0] = isTargeted;
             targets[i][BOARD_SIZE] = isTargeted;
         }
@@ -162,7 +160,7 @@ public class TargetCells {
     public TargetCells intersect(TargetCells other){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
-                targets[j][i] = targets[j][i] && other.getPosition(j, i);
+                targets[i][j] = targets[i][j] && other.getPosition(i, j);
             }
         }
         return this;
@@ -176,7 +174,7 @@ public class TargetCells {
     public TargetCells invert(){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
-                targets[j][i] = !targets[j][i];
+                targets[i][j] = !targets[i][j];
             }
         }
         return this;
@@ -194,7 +192,7 @@ public class TargetCells {
     public TargetCells union(TargetCells other){
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
-                targets[j][i] = targets[j][i] || other.getPosition(j, i);
+                targets[i][j] = targets[i][j] || other.getPosition(i, j);
             }
         }
         return this;
@@ -221,7 +219,7 @@ public class TargetCells {
                 target.setPosition(center.x + i, radius, true);
             }
             if (isValidCoord(center.x + i, center.y -radius)) {
-                target.setPosition(center.x + i, 0, true);
+                target.setPosition(center.x + i, -1 * radius, true);
             }
         }
 
@@ -230,7 +228,7 @@ public class TargetCells {
                 target.setPosition(center.x + i, radius, true);
             }
             if (isValidCoord(center.x - radius, center.y + i)) {
-                target.setPosition(center.x + i, 0, true);
+                target.setPosition(center.x + i, -1 * radius, true);
             }
         }
         return target;
@@ -253,7 +251,7 @@ public class TargetCells {
                 throw new IllegalArgumentException("Source matrix has invalid number of columns at row " + i + ": " + source[i].length);
             }
             for(int j = 0; j < BOARD_SIZE; j++){
-                target.setPosition(j, i, source[j][i]);
+                target.setPosition(i, j, source[i][j]);
             }
         }
         return target;
