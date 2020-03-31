@@ -36,8 +36,8 @@ public class BoardTest {
         Optional<Cell> resultCell = board.fromBaseCellAndDirection(baseCell, direction);
         if(expectedCell.isPresent()){
             assertTrue(resultCell.isPresent());
-            assertEquals(resultCell.get().x, expectedCell.get().x);
-            assertEquals(resultCell.get().y, expectedCell.get().y);
+            assertEquals(resultCell.get().getX(), expectedCell.get().getX());
+            assertEquals(resultCell.get().getY(), expectedCell.get().getY());
         } else {
             assertFalse(resultCell.isPresent());
         }

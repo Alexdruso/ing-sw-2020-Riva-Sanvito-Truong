@@ -61,7 +61,7 @@ class Move extends AbstractTurnState {
      */
     @Override
     public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getWorkerWalkableCells(pawn).getPosition(targetCell.x,targetCell.y);
+        return turn.getWorkerWalkableCells(pawn).getPosition(targetCell.getX(),targetCell.getY());
     }
 
     /**

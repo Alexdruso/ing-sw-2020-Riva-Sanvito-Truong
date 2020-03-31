@@ -77,7 +77,7 @@ public class TargetCells {
      * @return resulting TargetCells
      */
     public TargetCells setPosition(Cell cell, boolean isTargeted){
-        targets[cell.x][cell.y] = isTargeted;
+        targets[cell.getX()][cell.getY()] = isTargeted;
         return this;
     }
 
@@ -99,7 +99,7 @@ public class TargetCells {
      * @return true if the cell is targetd, false otherwise
      */
     public boolean getPosition(Cell cell){
-        return targets[cell.x][cell.y];
+        return targets[cell.getX()][cell.getY()];
     }
 
     /**
@@ -215,20 +215,20 @@ public class TargetCells {
         TargetCells target = new TargetCells();
 
         for(int i = -1 * radius; i <= radius; i++){
-            if (isValidCoord(center.x + i, center.y + radius)){
-                target.setPosition(center.x + i, center.y + radius, true);
+            if (isValidCoord(center.getX() + i, center.getY() + radius)){
+                target.setPosition(center.getX() + i, center.getY() + radius, true);
             }
-            if (isValidCoord(center.x + i, center.y -radius)) {
-                target.setPosition(center.x + i, center. y - radius, true);
+            if (isValidCoord(center.getX() + i, center.getY() -radius)) {
+                target.setPosition(center.getX() + i, center.getY() - radius, true);
             }
         }
 
         for(int i = -1 * radius; i <= radius; i++){
-            if (isValidCoord(center.x + radius, center.y + i)){
-                target.setPosition(center.x + radius, center.y + i, true);
+            if (isValidCoord(center.getX() + radius, center.getY() + i)){
+                target.setPosition(center.getX() + radius, center.getY() + i, true);
             }
-            if (isValidCoord(center.x - radius, center.y + i)) {
-                target.setPosition(center.x - radius , center.y + i, true);
+            if (isValidCoord(center.getX() - radius, center.getY() + i)) {
+                target.setPosition(center.getX() - radius , center.getY() + i, true);
             }
         }
         return target;

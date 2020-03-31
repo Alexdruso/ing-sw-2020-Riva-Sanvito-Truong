@@ -90,8 +90,8 @@ public class Board {
      * @return the resulting Cell, calculated starting from base and doing a translation towards Direction
      */
     public Optional<Cell> fromBaseCellAndDirection(Cell base, Direction direction){
-        int newX = base.x + direction.dx;
-        int newY = base.y + direction.dy;
+        int newX = base.getX() + direction.dx;
+        int newY = base.getY() + direction.dy;
         if(0 <= newX && newX < BOARD_SIZE && 0 <= newY && newY < BOARD_SIZE){
             return Optional.of(getCell(newX, newY));
         } else {

@@ -69,7 +69,7 @@ class Build extends AbstractTurnState {
      */
     @Override
     public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.x, targetCell.y);
+        return turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**
@@ -99,7 +99,7 @@ class Build extends AbstractTurnState {
      */
     @Override
     public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.x,targetCell.y);
+        return turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.getX(),targetCell.getY());
     }
 
     /**

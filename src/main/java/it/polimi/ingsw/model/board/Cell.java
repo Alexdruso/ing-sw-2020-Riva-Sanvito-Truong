@@ -12,11 +12,11 @@ public class Cell {
     /**
      * The X.
      */
-    public final int x;
+    private final int x;
     /**
      * The Y.
      */
-    public final int y;
+    private final int y;
 
     /**
      * The Tower.
@@ -36,6 +36,14 @@ public class Cell {
         this.x = x;
         this.y = y;
         worker = Optional.empty();
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     /**

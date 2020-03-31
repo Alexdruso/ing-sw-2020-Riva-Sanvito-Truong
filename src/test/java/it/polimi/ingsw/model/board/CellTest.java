@@ -36,8 +36,8 @@ public class CellTest {
     @MethodSource("getCoordPairs")
     public void checkCoords(int x, int y){
         Cell cell = new Cell(x, y);
-        assertEquals(cell.x, x);
-        assertEquals(cell.y, y);
+        assertEquals(cell.getX(), x);
+        assertEquals(cell.getY(), y);
     }
 
 
