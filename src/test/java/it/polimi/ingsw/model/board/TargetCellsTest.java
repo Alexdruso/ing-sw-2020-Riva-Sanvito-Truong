@@ -23,6 +23,7 @@ public class TargetCellsTest {
 
     public void targetInitShouldBeEmpty(){
         TargetCells target = new TargetCells();
+        assertTrue(target.isEmpty());
         for(int i = 0; i < BOARD_SIZE; i++){
            for(int j = 0; j < BOARD_SIZE; j++){
                assertFalse(target.getPosition(i, j));
@@ -102,7 +103,21 @@ public class TargetCellsTest {
         }
     }
 
-    public static Stream<Arguments> getValidMatrices(){
+
+    /*
+    @ParameterizedTest
+    @MethodSource("getValidMatrices")
+    public void fromValidMatrices(boolean[][] mtx){
+       TargetCells target = TargetCells.fromMatrix(mtx);
+       for(int i = 0; i < BOARD_SIZE; i++){
+           for(int j = 0; j < BOARD_SIZE; j++){
+               assertEquals(target.getPosition(j, i), mtx[i][j]);
+           }
+       }
+    }
+     */
+
+    public static ArrayList<Arguments> getValidMatrices(){
         ArrayList<Arguments> matrices = new ArrayList<Arguments>();
         boolean[][] matrix1 = new boolean[][]
                 {{true, false, false, true, false},
@@ -129,12 +144,22 @@ public class TargetCellsTest {
                         {false, true, false, true, false},
                         {true, false, true, false, true}};
 
+        matrices.add(Arguments.of(matrix1));
+        matrices.add(Arguments.of(matrix2));
+        matrices.add(Arguments.of(matrix3));
+        matrices.add(Arguments.of(matrix4));
+
+        //return matrices.stream();
+        return matrices;
+
+        /*
         return Arrays.asList(
                 Arguments.of(matrix1),
                 Arguments.of(matrix2),
                 Arguments.of(matrix3),
                 Arguments.of(matrix4)
         ).stream();
+         */
     }
 
     public static Stream<Arguments> getInvalidMatrices(){
