@@ -216,19 +216,19 @@ public class TargetCells {
 
         for(int i = -1 * radius; i <= radius; i++){
             if (isValidCoord(center.x + i, center.y + radius)){
-                target.setPosition(center.x + i, radius, true);
+                target.setPosition(center.x + i, center.y + radius, true);
             }
             if (isValidCoord(center.x + i, center.y -radius)) {
-                target.setPosition(center.x + i, -1 * radius, true);
+                target.setPosition(center.x + i, center. y - radius, true);
             }
         }
 
         for(int i = -1 * radius; i <= radius; i++){
             if (isValidCoord(center.x + radius, center.y + i)){
-                target.setPosition(center.x + i, radius, true);
+                target.setPosition(center.x + radius, center.y + i, true);
             }
             if (isValidCoord(center.x - radius, center.y + i)) {
-                target.setPosition(center.x + i, -1 * radius, true);
+                target.setPosition(center.x - radius , center.y + i, true);
             }
         }
         return target;
