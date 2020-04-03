@@ -469,8 +469,6 @@ public class Turn{
      */
     public void draw(){
         this.currentState.draw(this);
-        this.currentState = this.nextState;
-        this.currentState.setup(this);
     }
 
     /**
