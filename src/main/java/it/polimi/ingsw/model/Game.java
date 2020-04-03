@@ -8,6 +8,7 @@ import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -74,15 +75,13 @@ public class Game {
     public boolean isValidMove(PlayerMoveCommand command){
         Cell sourceCell = command.getSourceCell();
         Cell targetCell = command.getTargetCell();
-        if(!sourceCell.getWorker().isPresent()) {
-            //There is no worker in the source cell
+        Optional<Worker> sourceCellWorker = sourceCell.getWorker();
+        if(!sourceCellWorker.isPresent() || !sourceCellWorker.get().getPlayer().equals(command.getPlayer())) {
+            // Sanity check failed: illegal move!
+            // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
-        if(!sourceCell.getWorker().get().getPlayer().equals(command.getPlayer())){
-            //The worker in the source cell does not belong to the active player
-            return false;
-        }
-        if(!currentTurn.getWorkerWalkableCells(command.getPerformer()).getPosition(targetCell)){
+        if (!currentTurn.getWorkerWalkableCells(command.getPerformer()).getPosition(targetCell)){
             //The target cell is not available for movement
             return false;
         }
@@ -108,6 +107,7 @@ public class Game {
         Worker worker = command.getPerformer();
         if(!worker.getPlayer().equals(currentTurn.getPlayer())){
             //The worker does not belong to the active player
+            // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
         //I'd like this to be more explicit: getComponent should return a Component
