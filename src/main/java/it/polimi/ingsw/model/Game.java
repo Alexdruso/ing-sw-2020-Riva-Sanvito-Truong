@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
@@ -81,7 +82,7 @@ public class Game {
             // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
-        if (!currentTurn.getWorkerWalkableCells(command.getPerformer()).getPosition(targetCell)){
+        if (!currentTurn.canMoveTo(sourceCellWorker.get(), targetCell)){
             //The target cell is not available for movement
             return false;
         }
@@ -92,9 +93,14 @@ public class Game {
      * Executes the PlayerMoveCommand
      * @param command the command to be executed
      */
-    public void move(PlayerMoveCommand command) throws UnsupportedOperationException{
-        //TODO
-        throw new UnsupportedOperationException();
+    public void move(PlayerMoveCommand command) {
+        Worker worker = command.getPerformer();
+        Cell targetCell = command.getTargetCell();
+        try{
+            currentTurn.moveTo(worker, targetCell);
+        } catch (InvalidTurnStateException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -113,11 +119,11 @@ public class Game {
         //I'd like this to be more explicit: getComponent should return a Component
         //instead of a buildable
         if(command.getComponent().isTargetable()) {
-            if (!currentTurn.getWorkerBlockBuildableCells(worker).getPosition(targetCell)) {
+            if (!currentTurn.canBuildBlockIn(worker, targetCell)) {
                 return false;
             }
         } else {
-            if(!currentTurn.getWorkerDomeBuildableCells(worker).getPosition(targetCell)){
+            if(!currentTurn.canBuildDomeIn(worker, targetCell)){
                 return false;
             }
         }
@@ -128,9 +134,18 @@ public class Game {
      * Executes the PlayerBuildCommand
      * @param command the command to be executed
      */
-    public void build(PlayerBuildCommand command) throws UnsupportedOperationException{
-        //TODO
-        throw new UnsupportedOperationException();
+    public void build(PlayerBuildCommand command) {
+        Cell targetCell = command.getTargetCell();
+        Worker worker = command.getPerformer();
+        try{
+            if(command.getComponent().isTargetable()){
+                currentTurn.buildBlockIn(worker, targetCell);
+            } else {
+                currentTurn.buildDomeIn(worker, targetCell);
+            }
+        } catch (InvalidTurnStateException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -139,8 +154,7 @@ public class Game {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidSkip(PlayerSkipCommand command){
-        //TODO
-        return false;
+        return currentTurn.isSkippable();
     }
 
     /**
