@@ -33,6 +33,7 @@ public class TargetCellsTest {
 
     @Test
     public void setUnsetAllBoard(){
+        Board board = new Board();
         TargetCells target = new TargetCells();
         target.setAllTargets(true);
         for(int i = 0; i < BOARD_SIZE; i++){
@@ -58,6 +59,7 @@ public class TargetCellsTest {
         List<Cell> targeted = board.getTargets(target);
         assertEquals(targeted.size(), 1, "Only a single cell should be targeted");
         assertSame(targeted.get(0), board.getCell(x, y));
+        assertTrue(target.getPosition(targeted.get(0)));
         target.setPosition(x, y, false);
         targeted = board.getTargets(target);
         assertEquals(targeted.size(), 0);
@@ -223,6 +225,34 @@ public class TargetCellsTest {
          Cell base = new Cell(2, 2);
          int radius = -1;
          assertThrows(IllegalArgumentException.class, () -> TargetCells.fromCellAndRadius(base, radius));
+    }
+
+    @Test
+    public void testSetEdges(){
+        boolean[][] result = new boolean[][]
+                {{true, true, true, true, true},
+                        {true, false, false, false, true},
+                        {true, false, false, false, true},
+                        {true, false, false, false, true},
+                        {true, true, true, true, true}};
+
+        TargetCells target = new TargetCells();
+
+        target.setEdges(true);
+
+        for(int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                assertEquals(target.getPosition(i, j), result[i][j]);
+            }
+        }
+
+        target.setEdges(false);
+
+        for(int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                assertFalse(target.getPosition(i, j));
+            }
+        }
     }
 
     @Test
