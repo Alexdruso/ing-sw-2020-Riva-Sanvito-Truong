@@ -135,7 +135,10 @@ public class Turn{
      * @return a list of all the performed builds in the turn
      */
     public List<BuildAction> getBuilds(){
-        return performedActions.stream().filter(action -> action instanceof BuildAction).map(action -> (BuildAction) action).collect(Collectors.toList());
+        return performedActions.stream()
+                .filter(action -> action instanceof BuildAction)
+                .map(action -> (BuildAction) action)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -144,7 +147,10 @@ public class Turn{
      * @return a list of all the performed moves in the turn
      */
     public List<MoveAction> getMoves(){
-        return performedActions.stream().filter(action -> action instanceof MoveAction).map(action -> (MoveAction) action).collect(Collectors.toList());
+        return performedActions.stream()
+                .filter(action -> action instanceof MoveAction)
+                .map(action -> (MoveAction) action)
+                .collect(Collectors.toList());
     }
 
     /**

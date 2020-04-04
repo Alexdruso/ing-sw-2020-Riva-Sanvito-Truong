@@ -139,12 +139,12 @@ public class TargetCells {
     public TargetCells setEdges(boolean isTargeted){
         for(int i = 0; i < BOARD_SIZE; i++){
             targets[0][i] = isTargeted;
-            targets[BOARD_SIZE][i] = isTargeted;
+            targets[BOARD_SIZE-1][i] = isTargeted;
         }
 
         for(int i = 1; i < BOARD_SIZE - 1; i++){
             targets[i][0] = isTargeted;
-            targets[i][BOARD_SIZE] = isTargeted;
+            targets[i][BOARD_SIZE-1] = isTargeted;
         }
         return this;
     }

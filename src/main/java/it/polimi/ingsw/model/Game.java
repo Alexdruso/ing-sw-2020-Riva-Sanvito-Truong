@@ -2,12 +2,14 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -74,15 +76,13 @@ public class Game {
     public boolean isValidMove(PlayerMoveCommand command){
         Cell sourceCell = command.getSourceCell();
         Cell targetCell = command.getTargetCell();
-        if(!sourceCell.getWorker().isPresent()) {
-            //There is no worker in the source cell
+        Optional<Worker> sourceCellWorker = sourceCell.getWorker();
+        if(!sourceCellWorker.isPresent() || !sourceCellWorker.get().getPlayer().equals(command.getPlayer())) {
+            // Sanity check failed: illegal move!
+            // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
-        if(!sourceCell.getWorker().get().getPlayer().equals(command.getPlayer())){
-            //The worker in the source cell does not belong to the active player
-            return false;
-        }
-        if(!currentTurn.getWorkerWalkableCells(command.getPerformer()).getPosition(targetCell)){
+        if (!currentTurn.canMoveTo(sourceCellWorker.get(), targetCell)){
             //The target cell is not available for movement
             return false;
         }
@@ -93,9 +93,14 @@ public class Game {
      * Executes the PlayerMoveCommand
      * @param command the command to be executed
      */
-    public void move(PlayerMoveCommand command) throws UnsupportedOperationException{
-        //TODO
-        throw new UnsupportedOperationException();
+    public void move(PlayerMoveCommand command) {
+        Worker worker = command.getPerformer();
+        Cell targetCell = command.getTargetCell();
+        try{
+            currentTurn.moveTo(worker, targetCell);
+        } catch (InvalidTurnStateException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -108,16 +113,17 @@ public class Game {
         Worker worker = command.getPerformer();
         if(!worker.getPlayer().equals(currentTurn.getPlayer())){
             //The worker does not belong to the active player
+            // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
         //I'd like this to be more explicit: getComponent should return a Component
         //instead of a buildable
         if(command.getComponent().isTargetable()) {
-            if (!currentTurn.getWorkerBlockBuildableCells(worker).getPosition(targetCell)) {
+            if (!currentTurn.canBuildBlockIn(worker, targetCell)) {
                 return false;
             }
         } else {
-            if(!currentTurn.getWorkerDomeBuildableCells(worker).getPosition(targetCell)){
+            if(!currentTurn.canBuildDomeIn(worker, targetCell)){
                 return false;
             }
         }
@@ -128,9 +134,18 @@ public class Game {
      * Executes the PlayerBuildCommand
      * @param command the command to be executed
      */
-    public void build(PlayerBuildCommand command) throws UnsupportedOperationException{
-        //TODO
-        throw new UnsupportedOperationException();
+    public void build(PlayerBuildCommand command) {
+        Cell targetCell = command.getTargetCell();
+        Worker worker = command.getPerformer();
+        try{
+            if(command.getComponent().isTargetable()){
+                currentTurn.buildBlockIn(worker, targetCell);
+            } else {
+                currentTurn.buildDomeIn(worker, targetCell);
+            }
+        } catch (InvalidTurnStateException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -139,8 +154,7 @@ public class Game {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidSkip(PlayerSkipCommand command){
-        //TODO
-        return false;
+        return currentTurn.isSkippable();
     }
 
     /**
