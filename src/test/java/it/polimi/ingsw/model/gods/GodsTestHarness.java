@@ -138,6 +138,10 @@ public class GodsTestHarness {
         return turnEventsManager;
     }
 
+    public Worker getWorker(int workerNumber) {
+        return getWorker(MockedPlayer.OWNER.player, workerNumber);
+    }
+
     public Worker getWorker(Player player, int workerNumber) {
         return mockedWorkers.get(player).get(workerNumber);
     }
