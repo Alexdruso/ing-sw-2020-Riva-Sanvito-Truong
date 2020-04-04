@@ -28,6 +28,8 @@ public class GodsTestHarness {
     private Map<Player, List<Worker>> mockedWorkers;
     private Cell[][] mockedBoardCells;
     private Map<Turn, Map<Worker, TargetCells>> mockedWalkableTargets;
+    private Map<Turn, Map<Worker, TargetCells>> mockedBlockBuildableTargets;
+    private Map<Turn, Map<Worker, TargetCells>> mockedDomeBuildableTargets;
     private Map<MockedPlayer, God> mockedPlayersGods;
     private Map<Turn, List<MoveAction>> mockedMoveActions;
     private List<Turn> mockedLastRoundTurnsList;
@@ -50,6 +52,8 @@ public class GodsTestHarness {
 
     GodsTestHarness(MockedPlayer godPlayer, God god) {
         mockedWalkableTargets = new HashMap<>();
+        mockedBlockBuildableTargets = new HashMap<>();
+        mockedDomeBuildableTargets = new HashMap<>();
         mockedWorkers = new HashMap<>();
         mockedPlayersGods = new HashMap<>();
         mockedMoveActions = new HashMap<>();
@@ -114,6 +118,8 @@ public class GodsTestHarness {
     Turn makeMockTurn(MockedPlayer mockedPlayer) {
         Turn turn = mock(Turn.class);
         mockedWalkableTargets.put(turn, new HashMap<>());
+        mockedBlockBuildableTargets.put(turn, new HashMap<>());
+        mockedDomeBuildableTargets.put(turn, new HashMap<>());
         mockedMoveActions.put(turn, new LinkedList<>());
         when(turn.getPlayer()).thenReturn(mockedPlayer.player);
         when(turn.getMoves()).thenReturn(mockedMoveActions.get(turn));
@@ -121,6 +127,14 @@ public class GodsTestHarness {
         when(turn.getWorkerWalkableCells(any(Worker.class))).thenAnswer(mockedCall -> {
             Worker worker = mockedCall.getArgument(0);
             return mockedWalkableTargets.get(turn).get(worker);
+        });
+        when(turn.getWorkerBlockBuildableCells(any(Worker.class))).thenAnswer(mockedCall -> {
+            Worker worker = mockedCall.getArgument(0);
+            return mockedBlockBuildableTargets.get(turn).get(worker);
+        });
+        when(turn.getWorkerDomeBuildableCells(any(Worker.class))).thenAnswer(mockedCall -> {
+            Worker worker = mockedCall.getArgument(0);
+            return mockedDomeBuildableTargets.get(turn).get(worker);
         });
 
         return turn;
@@ -156,6 +170,30 @@ public class GodsTestHarness {
 
     public TargetCells getWalkableTargetCells(Turn turn, Player player, int workerNumber) {
         return mockedWalkableTargets.get(turn).get(getWorker(player, workerNumber));
+    }
+
+    public TargetCells getBlockBuildableTargetCells(int workerNumber) {
+        return getBlockBuildableTargetCells(mockedTurn, MockedPlayer.OWNER.player, workerNumber);
+    }
+
+    public TargetCells getBlockBuildableTargetCells(Player player, int workerNumber) {
+        return getBlockBuildableTargetCells(mockedTurn, player, workerNumber);
+    }
+
+    public TargetCells getBlockBuildableTargetCells(Turn turn, Player player, int workerNumber) {
+        return mockedBlockBuildableTargets.get(turn).get(getWorker(player, workerNumber));
+    }
+
+    public TargetCells getDomeBuildableTargetCells(int workerNumber) {
+        return getDomeBuildableTargetCells(mockedTurn, MockedPlayer.OWNER.player, workerNumber);
+    }
+
+    public TargetCells getDomeBuildableTargetCells(Player player, int workerNumber) {
+        return getDomeBuildableTargetCells(mockedTurn, player, workerNumber);
+    }
+
+    public TargetCells getDomeBuildableTargetCells(Turn turn, Player player, int workerNumber) {
+        return mockedDomeBuildableTargets.get(turn).get(getWorker(player, workerNumber));
     }
 
     Tower makeMockTower(boolean isComplete, int height) {
@@ -202,6 +240,36 @@ public class GodsTestHarness {
                 .filter(lambdaCell -> lambdaCell.getTower().isComplete() || lambdaCell.getWorker().isPresent())
                 .forEach(lambdaCell -> walkableCellsRadius.setPosition(lambdaCell,false));
         mockedWalkableTargets.get(turn).put(worker, walkableCellsRadius);
+    }
+
+    void computeBlockBuildableTargets(Turn turn) {
+        mockedWorkers.values().stream().flatMap(List::stream).forEach(worker -> {
+            computeBlockBuildableTargets(turn, worker);
+        });
+    }
+
+    void computeBlockBuildableTargets(Turn turn, Worker worker) {
+        TargetCells blockBuildableCellRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
+        mockedBoard.getTargets(blockBuildableCellRadius)
+                .stream()
+                .filter(lambdaCell -> lambdaCell.getTower().isComplete() || lambdaCell.getWorker().isPresent() || lambdaCell.getTower().getCurrentLevel() == 3)
+                .forEach(lambdaCell -> blockBuildableCellRadius.setPosition(lambdaCell,false));
+        mockedBlockBuildableTargets.get(turn).put(worker, blockBuildableCellRadius);
+    }
+
+    void computeDomeBuildableTargets(Turn turn) {
+        mockedWorkers.values().stream().flatMap(List::stream).forEach(worker -> {
+            computeDomeBuildableTargets(turn, worker);
+        });
+    }
+
+    void computeDomeBuildableTargets(Turn turn, Worker worker) {
+        TargetCells domeBuildableCellRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
+        mockedBoard.getTargets(domeBuildableCellRadius)
+                .stream()
+                .filter(lambdaCell -> lambdaCell.getTower().isComplete() || lambdaCell.getWorker().isPresent() || lambdaCell.getTower().getCurrentLevel() < 3)
+                .forEach(lambdaCell -> domeBuildableCellRadius.setPosition(lambdaCell,false));
+        mockedDomeBuildableTargets.get(turn).put(worker, domeBuildableCellRadius);
     }
 
     Cell makeMockCell(int x, int y) {
@@ -254,6 +322,8 @@ public class GodsTestHarness {
 
     void commitState() {
         computeWalkableTargets(mockedTurn);
+        computeBlockBuildableTargets(mockedTurn);
+        computeDomeBuildableTargets(mockedTurn);
     }
 }
 
