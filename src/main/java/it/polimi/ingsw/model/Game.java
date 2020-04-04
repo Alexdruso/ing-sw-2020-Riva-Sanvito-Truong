@@ -96,7 +96,7 @@ public class Game {
     public void move(PlayerMoveCommand command) {
         Worker worker = command.getPerformer();
         Cell targetCell = command.getTargetCell();
-        try{
+        try {
             currentTurn.moveTo(worker, targetCell);
         } catch (InvalidTurnStateException e){
             e.printStackTrace();
