@@ -1,19 +1,24 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.turnstates.AbstractTurnState;
+import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class ApolloTest {
+class MinotaurTest {
     private GodsTestHarness testHarness;
 
     @BeforeEach
     void initGodTestHarness() {
-        testHarness = new GodsTestHarness(GodCard.APOLLO.getGod());
+        testHarness = new GodsTestHarness(GodCard.MINOTAUR.getGod());
     }
 
     @Test
@@ -26,6 +31,18 @@ class ApolloTest {
         testHarness.getTurnEventsManager().processBeforeMovementEvents(testHarness.getTurn());
 
         assertTrue(testHarness.getWalkableTargetCells(0).getPosition(1, 1));
+    }
+
+    @Test
+    void doNotAllowMoveToOpponentOutOfBoard() {
+        testHarness.setCell(1, 1, GodsTestHarness.MockedPlayer.OWNER.player, false, 1);
+        testHarness.setCell(0, 0, GodsTestHarness.MockedPlayer.OPPONENT1.player, false, 1);
+
+        testHarness.commitState();
+
+        testHarness.getTurnEventsManager().processBeforeMovementEvents(testHarness.getTurn());
+
+        assertFalse(testHarness.getWalkableTargetCells(0).getPosition(0, 0));
     }
 
     @Test
@@ -61,7 +78,7 @@ class ApolloTest {
                 testHarness.getGame()
         ).setWorkerCell(
                 testHarness.getWorker(GodsTestHarness.MockedPlayer.OPPONENT1.player, 0),
-                testHarness.getCell(0, 0)
+                testHarness.getCell(2, 2)
         );
     }
 

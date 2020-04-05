@@ -84,6 +84,12 @@ public class GodsTestHarness {
 //                (retVal, mockedPlayer) -> {retVal.add(mockedPlayer); return retVal;}
 //                ));
         when(mockedBoard.getDimension()).thenCallRealMethod();
+        when(mockedBoard.getCell(any(int.class), any(int.class))).thenAnswer(mockedCall -> {
+            int x = mockedCall.getArgument(0);
+            int y = mockedCall.getArgument(1);
+            return mockedBoardCells[x][y];
+        });
+        when(mockedBoard.fromBaseCellAndDirection(any(Cell.class), any(Direction.class))).thenCallRealMethod();
         when(mockedBoard.getCellsList()).thenAnswer(mockedCall -> Arrays.stream(mockedBoardCells).flatMap(Arrays::stream).collect(Collectors.toList()));
         when(mockedBoard.getTargets(any(TargetCells.class))).thenAnswer(mockedCall -> {
             TargetCells target = mockedCall.getArgument(0);
