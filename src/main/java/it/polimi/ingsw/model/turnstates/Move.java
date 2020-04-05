@@ -26,7 +26,7 @@ class Move extends AbstractTurnState {
 
             turn.getGame().getBoard().getTargets(walkableCellsRadius).
                             stream().
-                            filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent()).
+                            filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || allowedWorker.getCell().getHeightDifference(cell) > 1).
                             forEach(cell -> walkableCellsRadius.setPosition(cell,false));
 
             turn.setWorkerWalkableCells(allowedWorker, walkableCellsRadius);
