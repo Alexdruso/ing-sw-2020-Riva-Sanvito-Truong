@@ -3,11 +3,9 @@ package it.polimi.ingsw.model.gods;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.board.Tower;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +30,7 @@ public class GodsTestHarness {
     private Map<Turn, Map<Worker, TargetCells>> mockedDomeBuildableTargets;
     private Map<MockedPlayer, God> mockedPlayersGods;
     private Map<Turn, List<MoveAction>> mockedMoveActions;
+    private Map<Turn, List<BuildAction>> mockedBuildActions;
     private List<Turn> mockedLastRoundTurnsList;
 
     public enum MockedPlayer {
@@ -57,6 +56,7 @@ public class GodsTestHarness {
         mockedWorkers = new HashMap<>();
         mockedPlayersGods = new HashMap<>();
         mockedMoveActions = new HashMap<>();
+        mockedBuildActions = new HashMap<>();
         mockedLastRoundTurnsList = new LinkedList<>();
 
         mockedTurn = makeMockTurn();
@@ -121,8 +121,10 @@ public class GodsTestHarness {
         mockedBlockBuildableTargets.put(turn, new HashMap<>());
         mockedDomeBuildableTargets.put(turn, new HashMap<>());
         mockedMoveActions.put(turn, new LinkedList<>());
+        mockedBuildActions.put(turn, new LinkedList<>());
         when(turn.getPlayer()).thenReturn(mockedPlayer.player);
         when(turn.getMoves()).thenReturn(mockedMoveActions.get(turn));
+        when(turn.getBuilds()).thenReturn(mockedBuildActions.get(turn));
         when(turn.getGame()).thenReturn(mockedGame);
         when(turn.getWorkerWalkableCells(any(Worker.class))).thenAnswer(mockedCall -> {
             Worker worker = mockedCall.getArgument(0);
@@ -309,6 +311,19 @@ public class GodsTestHarness {
                 mockedBoardCells[sourceX][sourceY],
                 mockedBoardCells[targetX][targetY],
                 sourceLevel,
+                targetLevel,
+                mockedWorkers.get(turn.getPlayer()).get(workerNumber)
+        ));
+    }
+
+    void addBuildAction(int targetX, int targetY, Buildable component, int targetLevel, int workerNumber) {
+        addBuildAction(mockedTurn, targetX, targetY, component, targetLevel, workerNumber);
+    }
+
+    void addBuildAction(Turn turn, int targetX, int targetY, Buildable component, int targetLevel, int workerNumber) {
+        mockedBuildActions.get(turn).add(new BuildAction(
+                mockedBoardCells[targetX][targetY],
+                component,
                 targetLevel,
                 mockedWorkers.get(turn.getPlayer()).get(workerNumber)
         ));
