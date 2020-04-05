@@ -29,17 +29,17 @@ class BuildTest {
     Game mockGame;
     Turn mockTurn;
     Worker mockWorker;
-    Cell spiedCell ;
+    Cell spiedCell;
     TargetCells mockTargetCells;
     Player mockPlayer;
     TurnEventsManager mockTurnEventsManager;
 
     @BeforeEach
-    void reset(){
+    void reset() {
         this.mockGame = mock(Game.class);
         this.mockTurn = mock(Turn.class);
         this.mockWorker = mock(Worker.class);
-        this.spiedCell = spy(new Cell(0,0));
+        this.spiedCell = spy(new Cell(0, 0));
         this.mockTargetCells = mock(TargetCells.class);
         this.mockPlayer = mock(Player.class);
         this.mockTurnEventsManager = mock(TurnEventsManager.class);
@@ -156,7 +156,7 @@ class BuildTest {
     }
 
     @Test
-    void setUpOneWorkerAllowedNoOccupiedCell(){
+    void setUpOneWorkerAllowedNoOccupiedCell() {
 //1 allowed worker scenario w/ faked win
         Board spiedBoard = spy(new Board());
         Worker mockWorker2 = mock(Worker.class);
@@ -235,13 +235,12 @@ class BuildTest {
     }
 
 
-
     @Test
     void canBuildDomeIn() {
         when(mockTurn.getWorkerDomeBuildableCells(mockWorker)).thenReturn(mockTargetCells);
         when(mockTargetCells.getPosition(spiedCell.getX(), spiedCell.getY())).thenReturn(true).thenReturn(false);
-        assertTrue(this.testBuild.canBuildDomeIn(this.mockWorker,this.spiedCell,this.mockTurn));
-        assertFalse(this.testBuild.canBuildDomeIn(this.mockWorker,this.spiedCell,this.mockTurn));
+        assertTrue(this.testBuild.canBuildDomeIn(this.mockWorker, this.spiedCell, this.mockTurn));
+        assertFalse(this.testBuild.canBuildDomeIn(this.mockWorker, this.spiedCell, this.mockTurn));
         verify(this.mockTurn, times(2)).getWorkerDomeBuildableCells(this.mockWorker);
         verify(this.mockTargetCells, times(2)).getPosition(spiedCell.getX(), spiedCell.getY());
     }
@@ -263,8 +262,8 @@ class BuildTest {
     void canBuildBlockIn() {
         when(mockTurn.getWorkerBlockBuildableCells(mockWorker)).thenReturn(mockTargetCells);
         when(mockTargetCells.getPosition(spiedCell.getX(), spiedCell.getY())).thenReturn(true).thenReturn(false);
-        assertTrue(this.testBuild.canBuildBlockIn(this.mockWorker,this.spiedCell,this.mockTurn));
-        assertFalse(this.testBuild.canBuildBlockIn(this.mockWorker,this.spiedCell,this.mockTurn));
+        assertTrue(this.testBuild.canBuildBlockIn(this.mockWorker, this.spiedCell, this.mockTurn));
+        assertFalse(this.testBuild.canBuildBlockIn(this.mockWorker, this.spiedCell, this.mockTurn));
         verify(this.mockTurn, times(2)).getWorkerBlockBuildableCells(this.mockWorker);
         verify(this.mockTargetCells, times(2)).getPosition(spiedCell.getX(), spiedCell.getY());
     }
