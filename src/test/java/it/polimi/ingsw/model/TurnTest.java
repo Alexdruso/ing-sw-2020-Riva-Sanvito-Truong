@@ -267,4 +267,63 @@ class TurnTest {
         verify(myTurn).changeState();
         assertTrue(myTurn.canEndTurn());
     }
+
+    @Test
+    void testStandardTurnWithDomeBuid() throws InvalidTurnStateException {
+        //Our own default TurnEventsManager
+        TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
+        //Funny easter egg for JoJo fans
+        Player myPlayer = spy(new Player("Giorno Giovanna"));
+        //The trick to make it work without a god
+        when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
+        //Mock game 'cause it's too complex
+        Game myGame = spy(new Game());
+        //A real board because why not
+        Board myBoard = spy(new Board());
+        //Give Game a meaning
+        when(myGame.getBoard()).thenReturn(myBoard);
+
+        //Setup the state
+        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1,1));
+        myBoard.getCell(1,1).setWorker(myPlayer.getOwnWorkers()[0]);
+        myBoard.getCell(1,0).getTower().placeComponent(Component.BLOCK);
+        myBoard.getCell(1,0).getTower().placeComponent(Component.BLOCK);
+        myBoard.getCell(1,0).getTower().placeComponent(Component.BLOCK);
+        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3,3));
+        myBoard.getCell(3,3).setWorker(myPlayer.getOwnWorkers()[1]);
+        //Create the turn
+        Turn myTurn = spy(new Turn(myGame, myPlayer));
+        //Start the turn
+        myTurn.startTurn();
+        //Just another check that all is right
+        assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1],myBoard.getCell(0,0)));
+        //Now we check if we can move :)
+        assertTrue(myTurn.canMoveTo(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0)));
+        //Now move
+        myTurn.moveTo(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0));
+        //Check if movement happened
+        assertEquals(myPlayer.getOwnWorkers()[0].getCell(),myBoard.getCell(0,0));
+        assertEquals(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0).getWorker().get());
+        assertEquals(1, myTurn.getMoves().size());
+        //Check if movement was registered
+        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(),myPlayer.getOwnWorkers()[0]);
+        //Check that worker 2 is not in allowedWorkers anymore
+        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getOwnWorkers()[1]));
+        //Trigger exception
+        try{myTurn.moveTo(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0));}
+        catch (Exception e){ assertTrue(true);}
+        //Now we check and build a dome where we can
+        assertTrue(myTurn.canBuildDomeIn(myPlayer.getOwnWorkers()[0],myBoard.getCell(1,0)));
+        myTurn.buildDomeIn(myPlayer.getOwnWorkers()[0],myBoard.getCell(1,0));
+        //Check the build happened
+        assertTrue(myBoard.getCell(1,0).getTower().isComplete());
+        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(),myPlayer.getOwnWorkers()[0]);
+        assertEquals(1, myTurn.getBuilds().size());
+        //Check no more allowed workers
+        assertEquals(0,myTurn.getAllowedWorkers().size());
+        //Check if we can end turn
+        assertTrue(myTurn.canEndTurn());
+        //End turn :)
+        myTurn.endTurn();
+    }
 }
