@@ -11,6 +11,8 @@ import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import org.junit.jupiter.api.Test;
 
+import java.security.spec.ECField;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -86,7 +88,7 @@ class TurnTest {
     }
 
     @Test
-    void testLosingTurn(){
+    void testLosingTurn() throws InvalidTurnStateException {
         //Our own default TurnEventsManager
         TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
@@ -99,11 +101,43 @@ class TurnTest {
         Board myBoard = spy(new Board());
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+
+        //Setup the state to lose
+        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1,1));
+        myBoard.getCell(1,1).setWorker(myPlayer.getOwnWorkers()[0]);
+        myBoard.getCell(0,0).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(1,0).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(2,0).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(0,1).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(2,1).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(0,2).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(1,2).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(2,2).getTower().placeComponent(Component.DOME);
+        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3,3));
+        myBoard.getCell(3,3).setWorker(myPlayer.getOwnWorkers()[1]);
+        myBoard.getCell(3,2).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(4,2).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(2,3).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(4,3).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(2,4).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(3,4).getTower().placeComponent(Component.DOME);
+        myBoard.getCell(4,4).getTower().placeComponent(Component.DOME);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
+        //Start the turn
+        myTurn.startTurn();
+        //Check if moving throws exception -> we are in lose state
+        try {myTurn.moveTo(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0));}
+        catch (Exception e){assertTrue(true);}
+        //Check if it is a losing turn :(
+        assertTrue(myTurn.isLosingTurn());
+        //Check if we can end the turn :((
+        assertTrue(myTurn.canEndTurn());
+        //End the turn :(((((
+        myTurn.endTurn();
     }
 
-    @Test void testWinningTurn(){
+    @Test void testWinningTurn() throws InvalidTurnStateException {
         //Our own default TurnEventsManager
         TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
@@ -116,10 +150,41 @@ class TurnTest {
         Board myBoard = spy(new Board());
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+
+        //Setup the state to win
+        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1,1));
+        myBoard.getCell(1,1).setWorker(myPlayer.getOwnWorkers()[0]);
+        myBoard.getCell(1,1).getTower().placeComponent(Component.BLOCK);
+        myBoard.getCell(1,1).getTower().placeComponent(Component.BLOCK);
+        myBoard.getCell(0,0).getTower().placeComponent(Component.BLOCK);
+        myBoard.getCell(0,0).getTower().placeComponent(Component.BLOCK);
+        myBoard.getCell(0,0).getTower().placeComponent(Component.BLOCK);
+        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3,3));
+        myBoard.getCell(3,3).setWorker(myPlayer.getOwnWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
-
-
+        //Start the turn
+        myTurn.startTurn();
+        //Just another check that all is right
+        assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1],myBoard.getCell(0,0)));
+        //Now we check if we can move :)
+        assertTrue(myTurn.canMoveTo(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0)));
+        //Now move to win!
+        myTurn.moveTo(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0));
+        //Check if movement happened
+        assertEquals(myPlayer.getOwnWorkers()[0].getCell(),myBoard.getCell(0,0));
+        assertEquals(myPlayer.getOwnWorkers()[0],myBoard.getCell(0,0).getWorker().get());
+        assertEquals(1, myTurn.getMoves().size());
+        //Check if movement was registered
+        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(),myPlayer.getOwnWorkers()[0]);
+        //Check no more allowed workers
+        assertEquals(0,myTurn.getAllowedWorkers().size());
+        //Check is winning turn
+        assertTrue(myTurn.isWinningTurn());
+        //Check if we can end turn
+        assertTrue(myTurn.canEndTurn());
+        //End turn :)
+        myTurn.endTurn();
     }
 
     @Test
@@ -170,6 +235,8 @@ class TurnTest {
         assertEquals(1, myBoard.getCell(1, 1).getTower().getCurrentLevel());
         assertEquals(myTurn.getPerformedAction().get(1).getPerformer(),myPlayer.getOwnWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
+        //Check no more allowed workers
+        assertEquals(0,myTurn.getAllowedWorkers().size());
         //Check if we can end turn
         assertTrue(myTurn.canEndTurn());
         //End turn :)
