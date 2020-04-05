@@ -99,6 +99,7 @@ public class Turn{
         this.game = game;
         this.player = player;
         this.winLoseCondition = VictoryConditions.NEUTRAL;
+        this.setSkippable(false);
 
         this.performedActions = new LinkedList<Action>();
         this.blockBuildableCells = new HashMap<Worker, TargetCells>();
