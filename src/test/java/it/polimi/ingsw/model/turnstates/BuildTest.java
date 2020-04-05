@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 class BuildTest {
-    Build testBuild;
+    Build testBuild = new Build();
     Game mockGame;
     Turn mockTurn;
     Worker mockWorker;
@@ -28,7 +29,6 @@ class BuildTest {
 
     @BeforeEach
     void reset(){
-        this.testBuild = new Build();
         this.mockGame = mock(Game.class);
         this.mockTurn = mock(Turn.class);
         this.mockWorker = mock(Worker.class);
@@ -37,9 +37,24 @@ class BuildTest {
         this.mockPlayer = mock(Player.class);
         this.mockTurnEventsManager = mock(TurnEventsManager.class);
     }
+
     @Test
-    void setup() {
+    void setupWithAllWorkerAllowedAndNoOccupiedCell() {
+        Worker mockWorker2 = mock(Worker.class);
+        Board board = new Board();
+        board.getCell(1,1).setWorker(this.mockWorker);
+        board.getCell(3,3).setWorker(mockWorker2);
+
+        this.testBuild.setup(this.mockTurn);
+
     }
+
+    @Test
+    void setUpOneWorkerAllowedNoOccupiedCell(){
+
+    }
+
+
 
     @Test
     void canBuildDomeIn() {
