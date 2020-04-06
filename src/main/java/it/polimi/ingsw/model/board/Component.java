@@ -12,7 +12,7 @@ public enum Component {
          * @return the Block instance
          */
         public Buildable getInstance(){
-            return new Block();
+            return Block.getInstance();
         }
     },
     DOME {
@@ -20,7 +20,7 @@ public enum Component {
          * This method creates an instance of a Dome
          * @return the Dome instance
          */
-        public Buildable getInstance() { return new Dome(); }
+        public Buildable getInstance() { return Dome.getInstance(); }
     };
 
     public abstract Buildable getInstance();
