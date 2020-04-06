@@ -26,6 +26,32 @@ public class TargetCells {
     }
 
     /**
+     * Overridden equals method to provide equality between two TargetCells instances
+     * @param other the other TargetCells with which to compare
+     * @return true if this and other are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object other){
+        //TODO: we should think about TargetCells sizes, I don't think they can ever be different but checking wouldn't
+        //be too bad
+        if(this == other){
+            return true;
+        }
+        if(!(other instanceof TargetCells)){
+            return false;
+        }
+        TargetCells target = (TargetCells) other;
+        for(int i = 0; i < BOARD_SIZE; i++){
+            for(int j = 0; j < BOARD_SIZE; j++){
+                if(this.getPosition(i, j) != target.getPosition(i, j)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * This method checks if the TargetCells has any cell set to be targeted
      *
      * @return false if there are targeted cells, true otherwise
