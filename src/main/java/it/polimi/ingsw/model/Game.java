@@ -12,7 +12,6 @@ import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -47,7 +46,6 @@ public class Game {
     /**
      * The class constructor
      */
-
     public Game(int numberOfPlayers){
         NUMBER_OF_PLAYERS = numberOfPlayers;
         subscribedUsers = new LinkedHashMap<>();
@@ -55,7 +53,11 @@ public class Game {
     }
 
     /**
-     *
+     * This method takes the nickname and the divinity of a player and creates the Player and User instances.
+     * The two instances are added to the subscribedUsers list attribute.
+     * @param nickname a String representing the name chosen by the player for the game
+     * @param god the God instance chosen by the player
+     * @return the User instance representing the player
      */
     public User subscribeUser(String nickname, God god){
         Player player = new Player(nickname);
