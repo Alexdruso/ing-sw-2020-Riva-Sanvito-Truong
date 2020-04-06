@@ -88,15 +88,16 @@ public class Game {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidMove(PlayerMoveCommand command){
-        Cell sourceCell = command.getSourceCell();
-        Cell targetCell = command.getTargetCell();
-        Optional<Worker> sourceCellWorker = sourceCell.getWorker();
-        if(!sourceCellWorker.isPresent() || !sourceCellWorker.get().getPlayer().equals(command.getPlayer())) {
+        Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
+        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
+        Player player = subscribedUsers.get(command.getUser());
+        Worker worker = player.getWorkerByID(command.performer);
+        if(sourceCell.getWorker().isEmpty()
+                || !sourceCell.getWorker().equals(worker)) {
             // Sanity check failed: illegal move!
-            // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
-        if (!currentTurn.canMoveTo(sourceCellWorker.get(), targetCell)){
+        if (!currentTurn.canMoveTo(worker, targetCell)){
             //The target cell is not available for movement
             return false;
         }
@@ -108,8 +109,9 @@ public class Game {
      * @param command the command to be executed
      */
     public void move(PlayerMoveCommand command) {
-        Worker worker = command.getPerformer();
-        Cell targetCell = command.getTargetCell();
+        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
+        Player player = subscribedUsers.get(command.getUser());
+        Worker worker = player.getWorkerByID(command.performer);
         try {
             currentTurn.moveTo(worker, targetCell);
         } catch (InvalidTurnStateException e){
