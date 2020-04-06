@@ -65,7 +65,6 @@ public class Controller implements Observer<PlayerCommand> {
      * @param action the PlayerMoveCommand that has been requested
      */
     private void dispatchMoveAction(PlayerMoveCommand action){
-        Player currentPlayer = action.getPlayer();
         if(model.isValidMove(action)){
             model.move(action);
         } else {
@@ -78,7 +77,6 @@ public class Controller implements Observer<PlayerCommand> {
      * @param action the PlayerSkipCommand that has been requested
      */
     private void dispatchSkipAction(PlayerSkipCommand action){
-        Player currentPlayer = action.getPlayer();
         if(model.isValidSkip(action)){
             model.skip(action);
         } else {
