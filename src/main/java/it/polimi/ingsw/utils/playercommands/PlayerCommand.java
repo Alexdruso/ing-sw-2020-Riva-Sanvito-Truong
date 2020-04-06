@@ -29,22 +29,6 @@ public abstract class PlayerCommand {
     }
 
     /**
-     * This method retrieves the User object who requested the execution of the action.
-     * @return the User who requested the execution of the action.
-     */
-    public User getUser(){
-        return user;
-    }
-
-    /**
-     * This method retrieves the View from which the action request arrived
-     * @return the View from which the action request arrived
-     */
-    public View getView(){
-        return view;
-    }
-
-    /**
      * This method returns the type of the current action
      * @return the type of the current action, as an instance of PlayerActions
      */
