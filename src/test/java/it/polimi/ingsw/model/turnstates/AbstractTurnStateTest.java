@@ -3,11 +3,11 @@ package it.polimi.ingsw.model.turnstates;
 import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -19,14 +19,9 @@ class AbstractTurnStateTest {
 
     @Test
     void startTurn() {
-        try{
+        assertThrows(InvalidTurnStateException.class, () -> {
             this.mockAbstractTurnState.startTurn(this.mockTurn);
-            fail();
-        }
-        catch (Exception e){
-            assertEquals(e.getClass(), InvalidTurnStateException.class);
-            assertTrue(true);
-        }
+        });
     }
 
     @Test
@@ -36,14 +31,9 @@ class AbstractTurnStateTest {
 
     @Test
     void moveTo() {
-        try{
+        assertThrows(InvalidTurnStateException.class, () -> {
             this.mockAbstractTurnState.moveTo(this.mockWorker, this.mockCell, this.mockTurn);
-            fail();
-        }
-        catch (Exception e){
-            assertEquals(e.getClass(), InvalidTurnStateException.class);
-            assertTrue(true);
-        }
+        });
     }
 
     @Test
@@ -53,14 +43,9 @@ class AbstractTurnStateTest {
 
     @Test
     void buildDomeIn() {
-        try{
+        assertThrows(InvalidTurnStateException.class, () -> {
             this.mockAbstractTurnState.buildDomeIn(this.mockWorker, this.mockCell, this.mockTurn);
-            fail();
-        }
-        catch (Exception e){
-            assertEquals(e.getClass(), InvalidTurnStateException.class);
-            assertTrue(true);
-        }
+        });
     }
 
     @Test
@@ -70,14 +55,9 @@ class AbstractTurnStateTest {
 
     @Test
     void buildBlockIn() {
-        try{
+        assertThrows(InvalidTurnStateException.class, () -> {
             this.mockAbstractTurnState.buildBlockIn(this.mockWorker, this.mockCell, this.mockTurn);
-            fail();
-        }
-        catch (Exception e){
-            assertEquals(e.getClass(), InvalidTurnStateException.class);
-            assertTrue(true);
-        }
+        });
     }
 
     @Test
@@ -93,13 +73,8 @@ class AbstractTurnStateTest {
 
     @Test
     void endTurn() {
-        try{
+        assertThrows(InvalidTurnStateException.class, () -> {
             this.mockAbstractTurnState.endTurn(this.mockTurn);
-            fail();
-        }
-        catch (Exception e){
-            assertEquals(e.getClass(), InvalidTurnStateException.class);
-            assertTrue(true);
-        }
+        });
     }
 }
