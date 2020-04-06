@@ -8,9 +8,14 @@ import it.polimi.ingsw.view.View;
  * This abstract class must be extended by every object representing an action that the player can perform.
  */
 public abstract class PlayerCommand {
-    // TODO: must be changed to User (instead of Player)
-    private User user;
-    private View view;
+    public final User user;
+    public final View view;
+
+    protected PlayerCommand(User user, View view) {
+        this.user = user;
+        this.view = view;
+    }
+
     /**
      * This method retrieves the User object who requested the execution of the action.
      * @return the User who requested the execution of the action.

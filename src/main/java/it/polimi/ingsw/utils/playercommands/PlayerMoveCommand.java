@@ -1,6 +1,8 @@
 package it.polimi.ingsw.utils.playercommands;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
+import it.polimi.ingsw.view.View;
 
 /**
  * This class represents a command given by the player to move a worker to another cell.
@@ -39,8 +41,9 @@ public class PlayerMoveCommand extends PlayerCommand {
      * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer The worker who performed the move
      */
-    public PlayerMoveCommand(int sourceCellX, int sourceCellY, int targetCellX,
-                             int targetCellY, WorkerID performer) {
+    public PlayerMoveCommand(User user, View view, int sourceCellX, int sourceCellY,
+                             int targetCellX, int targetCellY, WorkerID performer) {
+        super(user, view);
         this.sourceCellX = sourceCellX;
         this.sourceCellY = sourceCellY;
         this.targetCellX = targetCellX;

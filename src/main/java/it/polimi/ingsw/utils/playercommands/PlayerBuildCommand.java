@@ -1,7 +1,9 @@
 package it.polimi.ingsw.utils.playercommands;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.workers.WorkerID;
+import it.polimi.ingsw.view.View;
 
 public class PlayerBuildCommand extends PlayerCommand {
     /**
@@ -37,7 +39,9 @@ public class PlayerBuildCommand extends PlayerCommand {
      * @param builtLevel The level built by the worker
      * @param performer The worker who performed the build
      */
-    public PlayerBuildCommand(int targetCellX, int targetCellY, Component component, int builtLevel, WorkerID performer) {
+    public PlayerBuildCommand(User user, View view, int targetCellX, int targetCellY,
+                              Component component, int builtLevel, WorkerID performer) {
+        super(user, view);
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.component = component;
