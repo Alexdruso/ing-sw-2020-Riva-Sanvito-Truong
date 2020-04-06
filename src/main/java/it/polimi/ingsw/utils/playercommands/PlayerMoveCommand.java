@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.view.View;
 
 /**
- * This class represents a command given by the player to move a worker to another cell.
+ * This immutable class represents a command given by the player to move a worker to another cell.
  */
 public class PlayerMoveCommand extends PlayerCommand {
     /**
@@ -35,6 +35,8 @@ public class PlayerMoveCommand extends PlayerCommand {
 
     /**
      * Constructor, stores all the variables by reference
+     * @param user the User that authored the command
+     * @param view the View from which the command has been received
      * @param sourceCellX The x coordinate of the cell from which the worker moved
      * @param sourceCellY The y coordinate of the cell from which the worker moved
      * @param targetCellX The x coordinate of the cell to which the worker moved

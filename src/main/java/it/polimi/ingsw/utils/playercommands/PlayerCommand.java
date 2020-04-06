@@ -8,9 +8,21 @@ import it.polimi.ingsw.view.View;
  * This abstract class must be extended by every object representing an action that the player can perform.
  */
 public abstract class PlayerCommand {
+    /**
+     * The User that authored the command
+     */
     public final User user;
+
+    /**
+     * The View from which the command has been received
+     */
     public final View view;
 
+    /**
+     * Class constructor
+     * @param user the User that authored the command
+     * @param view the View from which the command has been received
+     */
     protected PlayerCommand(User user, View view) {
         this.user = user;
         this.view = view;

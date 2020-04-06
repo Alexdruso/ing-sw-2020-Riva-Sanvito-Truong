@@ -3,8 +3,15 @@ package it.polimi.ingsw.utils.playercommands;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.view.View;
 
+/**
+ * This immutable class represents a command given by the player to skip the current stage of the turn.
+ */
 public class PlayerSkipCommand extends PlayerCommand {
-
+    /**
+     * Class constructor
+     * @param user the User that authored the command
+     * @param view the View from which the command has been received
+     */
    public PlayerSkipCommand(User user, View view){
        super(user, view);
    }

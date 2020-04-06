@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.view.View;
 
+/**
+ * This immutable class represents a command given by the player to make a worker build on a given cell.
+ */
 public class PlayerBuildCommand extends PlayerCommand {
     /**
      * The X coordinate of the cell on which the worker intends to build
@@ -33,6 +36,8 @@ public class PlayerBuildCommand extends PlayerCommand {
 
     /**
      * Constructor, stores all the variables by reference
+     * @param user the User that authored the command
+     * @param view the View from which the command has been received
      * @param targetCellX The x coordinate of the cell on which the worker built
      * @param targetCellY The y coordinate of the cell on which the worker built
      * @param component The component built on the cell
