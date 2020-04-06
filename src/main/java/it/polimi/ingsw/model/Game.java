@@ -60,6 +60,10 @@ public class Game {
      * @return the User instance representing the player
      */
     public User subscribeUser(String nickname, God god){
+        if(subscribedUsers.size() == NUMBER_OF_PLAYERS){
+            //This means that adding one will get us over the limit
+            throw new IllegalStateException("Too many players");
+        }
         Player player = new Player(nickname);
         player.setGod(god);
         User user = new User(nickname);
