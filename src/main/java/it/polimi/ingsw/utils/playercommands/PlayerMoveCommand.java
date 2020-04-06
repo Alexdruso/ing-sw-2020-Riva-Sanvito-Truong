@@ -2,57 +2,52 @@ package it.polimi.ingsw.utils.playercommands;
 
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.model.workers.WorkerID;
 
 /**
  * This class represents a command given by the player to move a worker to another cell.
  */
 public class PlayerMoveCommand extends PlayerCommand {
     /**
-     * The cell from which the worker moved
+     * The x coordinate of the cell from which the worker moved
      */
-    private Cell sourceCell;
+    private final int sourceCellX;
 
     /**
-     * The cell to which the worker moved
+     * The y coordinate of the cell from which the worker moved
      */
-    private Cell targetCell;
+    private final int sourceCellY;
+
+    /**
+     * The x coordinate of the cell to which the worker moved
+     */
+    private final int targetCellX;
+
+    /**
+     * The y coordinate of the cell to which the worker moved
+     */
+    private final int targetCellY;
 
     /**
      * The worker who performed the move
      */
-    private Worker performer;
+    private final WorkerID performer;
 
     /**
      * Constructor, stores all the variables by reference
-     * @param sourceCell The cell from which the worker moved
-     * @param targetCell The cell to which the worker moved
+     * @param sourceCellX The x coordinate of the cell from which the worker moved
+     * @param sourceCellY The y coordinate of the cell from which the worker moved
+     * @param targetCellX The x coordinate of the cell to which the worker moved
+     * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer The worker who performed the move
      */
-    public PlayerMoveCommand(Cell sourceCell, Cell targetCell, Worker performer) {
-        this.sourceCell = sourceCell;
-        this.targetCell = targetCell;
+    public PlayerMoveCommand(int sourceCellX, int sourceCellY, int targetCellX,
+                             int targetCellY, WorkerID performer) {
+        this.sourceCellX = sourceCellX;
+        this.sourceCellY = sourceCellY;
+        this.targetCellX = targetCellX;
+        this.targetCellY = targetCellY;
         this.performer = performer;
-    }
-
-    /**
-     * @return The cell from which the worker moved
-     */
-    public Cell getSourceCell() {
-        return sourceCell;
-    }
-
-    /**
-     * @return The cell to which the worker moved
-     */
-    public Cell getTargetCell() {
-        return targetCell;
-    }
-
-    /**
-     * @return The worker who performed the move
-     */
-    public Worker getPerformer() {
-        return performer;
     }
 
     /**
