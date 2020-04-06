@@ -78,6 +78,20 @@ public class Player {
     }
 
     /**
+     * Retrieves the player's worker by its ID
+     * @param id the ID of the worker to be retrieved
+     * @return the Worker which corresponds to the provided ID
+     */
+    public Worker getWorkerByID(WorkerID id){
+        for(Worker w: ownWorkers){
+            if(w.getWorkerID().equals(id)){
+                return w;
+            }
+        }
+        throw new IllegalArgumentException("No such worker found");
+    }
+
+    /**
      * Getter of the player's god
      * @return the god bound to the player
      */
