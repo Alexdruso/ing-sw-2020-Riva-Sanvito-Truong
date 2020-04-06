@@ -11,6 +11,8 @@ import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -67,6 +69,12 @@ class TurnTest {
         assertTrue(myTurn.getAllowedWorkers().isEmpty());
         myTurn.addAllowedWorker(myPlayer.getOwnWorkers()[0]);
         assertEquals(1, myTurn.getAllowedWorkers().size());
+        myTurn.clearAllowedWorkers();
+        assertTrue(myTurn.getAllowedWorkers().isEmpty());
+        myTurn.addAllowedWorkers(Arrays.asList(myPlayer.getOwnWorkers()));
+        assertEquals(2, myTurn.getAllowedWorkers().size());
+        myTurn.clearAllowedWorkers();
+        assertTrue(myTurn.getAllowedWorkers().isEmpty());
 
         TargetCells myTargetCells1 = new TargetCells();
         TargetCells myTargetCells2 = new TargetCells();
