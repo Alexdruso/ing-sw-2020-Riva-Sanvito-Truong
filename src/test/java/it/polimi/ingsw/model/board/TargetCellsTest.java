@@ -124,11 +124,16 @@ public class TargetCellsTest {
 
     public void fromValidMatrices(boolean[][] mtx){
        TargetCells target = TargetCells.fromMatrix(mtx);
+       TargetCells target2 = new TargetCells();
        for(int i = 0; i < BOARD_SIZE; i++){
            for(int j = 0; j < BOARD_SIZE; j++){
                assertEquals(target.getPosition(i, j), mtx[i][j]);
+               if (mtx[i][j]){
+                   target2.setPosition(i, j, true);
+               }
            }
        }
+       assertTrue(target.equals(target2));
     }
 
     @Test
@@ -356,6 +361,23 @@ public class TargetCellsTest {
             }
         }
         return true;
+    }
+
+    @Test
+    public void testEquals(){
+        TargetCells t1 = new TargetCells();
+        TargetCells t2 = t1;
+        TargetCells t3 = new TargetCells().setAllTargets(true);
+        TargetCells t4 = new TargetCells();
+        Object o = new Object();
+        assertTrue(t1.equals(t1)); //Reflexivity
+        assertTrue(t2.equals(t1));
+        assertTrue(t1.equals(t2));
+        assertFalse(t1.equals(t3));
+        assertFalse(t3.equals(t1));
+        assertTrue(t1.equals(t4));
+        assertTrue(t2.equals(t4));
+        assertFalse(t1.equals(o));
     }
 
     public static Stream<Arguments> getCoordRange(){
