@@ -1,7 +1,5 @@
 package it.polimi.ingsw.utils.playercommands;
 
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;
 
 /**
@@ -11,27 +9,27 @@ public class PlayerMoveCommand extends PlayerCommand {
     /**
      * The x coordinate of the cell from which the worker moved
      */
-    private final int sourceCellX;
+    public final int sourceCellX;
 
     /**
      * The y coordinate of the cell from which the worker moved
      */
-    private final int sourceCellY;
+    public final int sourceCellY;
 
     /**
      * The x coordinate of the cell to which the worker moved
      */
-    private final int targetCellX;
+    public final int targetCellX;
 
     /**
      * The y coordinate of the cell to which the worker moved
      */
-    private final int targetCellY;
+    public final int targetCellY;
 
     /**
      * The worker who performed the move
      */
-    private final WorkerID performer;
+    public final WorkerID performer;
 
     /**
      * Constructor, stores all the variables by reference
