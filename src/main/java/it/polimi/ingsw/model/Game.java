@@ -90,7 +90,7 @@ public class Game {
     public boolean isValidMove(PlayerMoveCommand command){
         Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Player player = subscribedUsers.get(command.getUser());
+        Player player = subscribedUsers.get(command.user);
         Worker worker = player.getWorkerByID(command.performer);
         if(sourceCell.getWorker().isEmpty()
                 || !sourceCell.getWorker().equals(worker)) {
@@ -110,7 +110,7 @@ public class Game {
      */
     public void move(PlayerMoveCommand command) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Player player = subscribedUsers.get(command.getUser());
+        Player player = subscribedUsers.get(command.user);
         Worker worker = player.getWorkerByID(command.performer);
         try {
             currentTurn.moveTo(worker, targetCell);
@@ -126,7 +126,7 @@ public class Game {
      */
     public boolean isValidBuild(PlayerBuildCommand command){
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        User user = command.getUser();
+        User user = command.user;
         Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
         if(!worker.getPlayer().equals(currentTurn.getPlayer())){
             //The worker does not belong to the active player
@@ -150,7 +150,7 @@ public class Game {
      */
     public void build(PlayerBuildCommand command) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        User user = command.getUser();
+        User user = command.user;
         Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
         try{
             if(command.component == Component.BLOCK){
