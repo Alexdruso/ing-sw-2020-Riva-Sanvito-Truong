@@ -74,7 +74,7 @@ public class Player {
      * @return a list of the player's workers
      */
     public Worker[] getOwnWorkers() {
-        return ownWorkers;
+        return ownWorkers.clone();
     }
 
     /**
