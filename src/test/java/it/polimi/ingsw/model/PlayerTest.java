@@ -2,10 +2,12 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,6 +42,14 @@ class PlayerTest {
         }
 
         assertNotSame(testPlayer.getOwnWorkers(), testPlayer.getOwnWorkers());
+    }
+
+    @ParameterizedTest
+    @EnumSource(WorkerID.class)
+    void testWorkerByID(WorkerID id){
+        Player testPlayer = new Player("Marco Bevaldo");
+        Worker worker = testPlayer.getWorkerByID(id);
+        assertEquals(worker.getWorkerID(), id);
     }
 
     @Test
