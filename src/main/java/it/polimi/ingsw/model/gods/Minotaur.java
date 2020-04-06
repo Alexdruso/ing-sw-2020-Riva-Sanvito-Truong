@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gods;
 import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.Direction;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 import it.polimi.ingsw.model.workers.Worker;
@@ -30,11 +31,13 @@ class Minotaur extends AbstractGod {
                                         && targetCell.getTower().getCurrentLevel() - currentCell.getTower().getCurrentLevel() <= 1
                                         && !targetWorker.getPlayer().equals(turn.getPlayer())
                         ) {
-//                            board.getCellFromCellAndDelta(targetCell, Cell.computeDelta(targetCell, currentCell)).ifPresent(pushbackCell -> {
-//                                if (pushbackCell.isWalkable() && !pushbackCell.getWorker().isPresent()) {
-//                                    walkableCells.addTargets(targetCell);
-//                                }
-//                            });
+                            turn.getGame().getBoard().fromBaseCellAndDirection(
+                                    targetCell, new Direction(currentCell, targetCell)
+                            ).ifPresent(pushbackCell -> {
+                                if (!pushbackCell.getTower().isComplete() && !pushbackCell.getWorker().isPresent()) {
+                                    walkableTargets.setPosition(targetCell, true);
+                                }
+                            });
                         }
                     });
                 }
@@ -46,10 +49,12 @@ class Minotaur extends AbstractGod {
             MoveAction lastMove = turn.getMoves().get(0);
             lastMove.getTargetCell().getWorker().ifPresent(targetWorker -> {
                 if (!targetWorker.getPlayer().equals(turn.getPlayer())) {
-//                    turn.getGame().setWorkerCell(
-//                            targetWorker,
-//                            board.getCellFromCellAndDelta(lastAction.targetCell, Cell.computeDelta(lastAction.targetCell, lastAction.sourceCell))
-//                    );
+                    turn.getGame().setWorkerCell(
+                            targetWorker,
+                            turn.getGame().getBoard().fromBaseCellAndDirection(
+                                    lastMove.getTargetCell(), new Direction(lastMove.getSourceCell(), lastMove.getTargetCell())
+                            ).get()
+                    );
                 }
             });
         }
