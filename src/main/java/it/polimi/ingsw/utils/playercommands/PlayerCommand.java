@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.playercommands;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.view.View;
 
@@ -8,14 +9,14 @@ import it.polimi.ingsw.view.View;
  */
 public abstract class PlayerCommand {
     // TODO: must be changed to User (instead of Player)
-    private Player player;
+    private User user;
     private View view;
     /**
-     * This method retrieves the Player object who requested the execution of the action.
-     * @return the Player who requested the execution of the action.
+     * This method retrieves the User object who requested the execution of the action.
+     * @return the User who requested the execution of the action.
      */
-    public Player getPlayer(){
-        return player;
+    public User getUser(){
+        return user;
     }
 
     /**
