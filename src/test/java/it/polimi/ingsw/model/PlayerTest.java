@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +38,8 @@ class PlayerTest {
             assertEquals(testPlayer.getOwnWorkers()[i].getWorkerID(), WorkerID.values()[i]);
             assertEquals(testPlayer.getOwnWorkers()[i].getPlayer(), testPlayer);
         }
+
+        assertNotSame(testPlayer.getOwnWorkers(), testPlayer.getOwnWorkers());
     }
 
     @Test
