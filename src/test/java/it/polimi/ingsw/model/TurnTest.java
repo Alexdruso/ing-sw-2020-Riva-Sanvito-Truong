@@ -102,7 +102,7 @@ class TurnTest {
         //The trick to make it work without a god
         when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
-        Game myGame = spy(new Game());
+        Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //Give Game a meaning
@@ -153,7 +153,7 @@ class TurnTest {
         //The trick to make it work without a god
         when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
-        Game myGame = spy(new Game());
+        Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //Give Game a meaning
@@ -204,7 +204,7 @@ class TurnTest {
         //The trick to make it work without a god
         when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
-        Game myGame = spy(new Game());
+        Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //Give Game a meaning
@@ -286,7 +286,7 @@ class TurnTest {
         //The trick to make it work without a god
         when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
-        Game myGame = spy(new Game());
+        Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //Give Game a meaning

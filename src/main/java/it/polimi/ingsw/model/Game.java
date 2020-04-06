@@ -4,21 +4,25 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
  * It provides methods to gain insights on the current state.
  */
 public class Game {
+    /**
+     * The number of players of the game
+     */
+    private final int NUMBER_OF_PLAYERS;
 
     /**
      * The Turn object representing the current game turn
@@ -30,21 +34,45 @@ public class Game {
      */
     private Board board;
 
+    /**
+     * The mapping from the User to its relative Player instace
+     */
+    private Map<User, Player> subscribedUsers;
 
-    private HashMap<User, Player> subscribedUsers;
+    /**
+     * The last round of turns, ordered by oldest to newest.
+     */
+    private LinkedList<Turn> lastRound;
 
-    public Game(){
-        subscribedUsers = new HashMap<User, Player>();
+    /**
+     * The class constructor
+     */
+
+    public Game(int numberOfPlayers){
+        NUMBER_OF_PLAYERS = numberOfPlayers;
+        subscribedUsers = new LinkedHashMap<>();
+        lastRound = new LinkedList<>();
     }
 
     /**
-     * Gets a list of the players that are playing this game.
      *
-     * @return the list of players of this game
+     */
+    public User subscribeUser(String nickname, God god){
+        Player player = new Player(nickname);
+        player.setGod(god);
+        User user = new User(nickname);
+        subscribedUsers.put(user, player);
+        return user;
+    }
+
+    /**
+     * Gets a List of the players that are playing the game.
+     * The order provided is the same as the playing order, from first to last
+     *
+     * @return the List of players of this game
      */
     public List<Player> getPlayersList() {
-        //TODO
-        return null;
+        return new ArrayList<Player>(subscribedUsers.values());
     }
 
     /**
@@ -53,8 +81,24 @@ public class Game {
      * @return the list of the turns of the last round
      */
     public List<Turn> getLastRoundTurnsList() {
-        //TODO
-        return null;
+        return (List<Turn>) lastRound.clone();
+    }
+
+    /**
+     * Adds new turn to the round, replacing the precedent turn belonging to the player
+     * @param player the player that is playing the turn
+     */
+    public Turn addNewTurn(Player player){
+        Turn turn = new Turn(this, player);
+        if(lastRound.size() < NUMBER_OF_PLAYERS){
+            lastRound.addLast(turn);
+        } else {
+            Collections.rotate(lastRound, -1);
+            lastRound.removeLast();
+            lastRound.addLast(turn);
+            currentTurn = lastRound.getLast();
+        }
+        return turn;
     }
 
     /**
