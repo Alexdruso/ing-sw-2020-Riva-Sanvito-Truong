@@ -1,13 +1,16 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
 import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
 import it.polimi.ingsw.model.workers.Worker;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,18 @@ public class Game {
      * The Turn object representing the current game turn
      */
     private Turn currentTurn;
+
+    /**
+     * The Board object of the game
+     */
+    private Board board;
+
+
+    private HashMap<User, Player> subscribedUsers;
+
+    public Game(){
+        subscribedUsers = new HashMap<User, Player>();
+    }
 
     /**
      * Gets a list of the players that are playing this game.
@@ -48,8 +63,7 @@ public class Game {
      * @return the board
      */
     public Board getBoard() {
-        //TODO
-        return null;
+        return board;
     }
 
     /**
@@ -109,16 +123,14 @@ public class Game {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidBuild(PlayerBuildCommand command){
-        Cell targetCell = command.getTargetCell();
-        Worker worker = command.getPerformer();
+        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
+        User user = command.getUser();
+        Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
         if(!worker.getPlayer().equals(currentTurn.getPlayer())){
             //The worker does not belong to the active player
-            // TODO: we could even raise an exception here... Let's think about it
             return false;
         }
-        //I'd like this to be more explicit: getComponent should return a Component
-        //instead of a buildable
-        if(command.getComponent().isTargetable()) {
+        if(command.component == Component.BLOCK) {
             if (!currentTurn.canBuildBlockIn(worker, targetCell)) {
                 return false;
             }
@@ -135,10 +147,11 @@ public class Game {
      * @param command the command to be executed
      */
     public void build(PlayerBuildCommand command) {
-        Cell targetCell = command.getTargetCell();
-        Worker worker = command.getPerformer();
+        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
+        User user = command.getUser();
+        Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
         try{
-            if(command.getComponent().isTargetable()){
+            if(command.component == Component.BLOCK){
                 currentTurn.buildBlockIn(worker, targetCell);
             } else {
                 currentTurn.buildDomeIn(worker, targetCell);
