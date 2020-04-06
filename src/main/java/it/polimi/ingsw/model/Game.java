@@ -19,9 +19,14 @@ import java.util.*;
  */
 public class Game {
     /**
-     * The number of players of the game
+     * The number of maximum players of the game
      */
-    private final int NUMBER_OF_PLAYERS;
+    private final int MAX_NUMBER_OF_PLAYERS;
+
+    /**
+     * The number of players that have not lost yet and are still playing
+     */
+    private int playersInGame;
 
     /**
      * The Turn object representing the current game turn
@@ -47,7 +52,8 @@ public class Game {
      * The class constructor
      */
     public Game(int numberOfPlayers){
-        NUMBER_OF_PLAYERS = numberOfPlayers;
+        MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
+        playersInGame = MAX_NUMBER_OF_PLAYERS;
         subscribedUsers = new LinkedHashMap<>();
         lastRound = new LinkedList<>();
     }
@@ -60,7 +66,7 @@ public class Game {
      * @return the User instance representing the player
      */
     public User subscribeUser(String nickname, God god){
-        if(subscribedUsers.size() == NUMBER_OF_PLAYERS){
+        if(subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS){
             //This means that adding one will get us over the limit
             throw new IllegalStateException("Too many players");
         }
@@ -72,7 +78,20 @@ public class Game {
     }
 
     /**
-     * Gets a List of the players that are playing the game.
+     * This method removes the Player from the game by its User.
+     * This deletes the entry from the subscribedUsers map and decreases the number of players in game
+     * @param user the user to remove from the game
+     */
+    public void unsubscribeUser(User user){
+        if(subscribedUsers.size() == 0 || !subscribedUsers.containsKey(user)){
+            throw new IllegalArgumentException("No such user");
+        }
+        subscribedUsers.remove(user);
+        playersInGame--;
+    }
+
+    /**
+     * Gets a List of the players that are currently still playing the game. (i.e. they've not lost yet)
      * The order provided is the same as the playing order, from first to last
      *
      * @return the List of players of this game
@@ -92,14 +111,20 @@ public class Game {
 
     /**
      * Adds new turn to the round, replacing the precedent turn belonging to the player
+     * This method automatically resizes the lastRound Map in order to match the number
+     * of players still in the game.
      * @param player the player that is playing the turn
      */
     public Turn addNewTurn(Player player){
         Turn turn = new Turn(this, player);
-        if(lastRound.size() < NUMBER_OF_PLAYERS){
+        if(lastRound.size() < MAX_NUMBER_OF_PLAYERS){
             lastRound.addLast(turn);
         } else {
             Collections.rotate(lastRound, -1);
+            if(!getPlayersList().contains(lastRound.getLast().getPlayer())){
+                //Make the lastRound list shorter to match the number of players
+                lastRound.removeLast();
+            }
             lastRound.removeLast();
             lastRound.addLast(turn);
             currentTurn = lastRound.getLast();
