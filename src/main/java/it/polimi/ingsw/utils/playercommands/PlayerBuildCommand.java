@@ -1,70 +1,48 @@
 package it.polimi.ingsw.utils.playercommands;
 
-import it.polimi.ingsw.model.board.Buildable;
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.workers.WorkerID;
 
 public class PlayerBuildCommand extends PlayerCommand {
     /**
-     * The cell on which the worker intends to build
+     * The X coordinate of the cell on which the worker intends to build
      */
-    private Cell targetCell;
+    public final int targetCellX;
+
+    /**
+     * The Y coordinate of the cell on which the worker intends to build
+     */
+    public final int targetCellY;
 
     /**
      * The component that is to be built on the cell
      */
-    private Buildable component;
+    public final Component component;
 
     /**
      * The level that is to be built by the worker.
      */
-    private int builtLevel;
+    public final int builtLevel;
 
     /**
      * The worker who is to perform the build
      */
-    private Worker performer;
+    public final WorkerID performer;
 
     /**
      * Constructor, stores all the variables by reference
-     * @param targetCell The cell on which the worker built
+     * @param targetCellX The x coordinate of the cell on which the worker built
+     * @param targetCellY The y coordinate of the cell on which the worker built
      * @param component The component built on the cell
      * @param builtLevel The level built by the worker
      * @param performer The worker who performed the build
      */
-    public PlayerBuildCommand(Cell targetCell, Buildable component, int builtLevel, Worker performer) {
-        this.targetCell = targetCell;
+    public PlayerBuildCommand(int targetCellX, int targetCellY, Component component, int builtLevel, WorkerID performer) {
+        this.targetCellX = targetCellX;
+        this.targetCellY = targetCellY;
         this.component = component;
         this.builtLevel = builtLevel;
         this.performer = performer;
-    }
-
-    /**
-     * @return The cell on which the worker built
-     */
-    public Cell getTargetCell() {
-        return targetCell;
-    }
-
-    /**
-     * @return The component built on the cell
-     */
-    public Buildable getComponent() {
-        return component;
-    }
-
-    /**
-     * @return The level built by the worker
-     */
-    public int getBuiltLevel() {
-        return builtLevel;
-    }
-
-    /**
-     * @return The worker who performed the build
-     */
-    public Worker getPerformer() {
-        return performer;
     }
 
     /**
