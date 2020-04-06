@@ -75,7 +75,7 @@ public class Game {
      * @param cell   the cell
      */
     public void setWorkerCell(Worker worker, Cell cell) {
-        if (!cell.getWorker().isPresent()) {
+        if (cell.getWorker().isEmpty()) {
             worker.getCell().setNoWorker();
         }
         worker.setCell(cell);
@@ -93,15 +93,12 @@ public class Game {
         Player player = subscribedUsers.get(command.user);
         Worker worker = player.getWorkerByID(command.performer);
         if(sourceCell.getWorker().isEmpty()
-                || !sourceCell.getWorker().equals(worker)) {
+                || !sourceCell.getWorker().get().equals(worker)) {
             // Sanity check failed: illegal move!
             return false;
         }
-        if (!currentTurn.canMoveTo(worker, targetCell)){
-            //The target cell is not available for movement
-            return false;
-        }
-        return true;
+        //The target cell is not available for movement
+        return currentTurn.canMoveTo(worker, targetCell);
     }
 
     /**
@@ -133,15 +130,10 @@ public class Game {
             return false;
         }
         if(command.component == Component.BLOCK) {
-            if (!currentTurn.canBuildBlockIn(worker, targetCell)) {
-                return false;
-            }
+            return currentTurn.canBuildBlockIn(worker, targetCell);
         } else {
-            if(!currentTurn.canBuildDomeIn(worker, targetCell)){
-                return false;
-            }
+            return currentTurn.canBuildDomeIn(worker, targetCell);
         }
-        return true;
     }
 
     /**
