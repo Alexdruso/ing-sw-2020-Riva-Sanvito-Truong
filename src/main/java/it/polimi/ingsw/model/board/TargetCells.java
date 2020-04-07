@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.parsing.ConfigParser;
+import it.polimi.ingsw.config.ConfigParser;
 
 import java.util.Collection;
 

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.parsing.ConfigParser;
+import it.polimi.ingsw.config.ConfigParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

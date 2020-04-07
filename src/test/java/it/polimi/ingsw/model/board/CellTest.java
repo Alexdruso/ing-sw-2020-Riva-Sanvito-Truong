@@ -3,22 +3,17 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;
-import it.polimi.ingsw.parsing.ConfigParser;
-import org.junit.jupiter.api.Test;
+import it.polimi.ingsw.config.ConfigParser;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class CellTest {
     private final Cell cell = new Cell(0, 0);

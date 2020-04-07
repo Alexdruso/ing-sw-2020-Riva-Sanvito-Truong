@@ -1,4 +1,4 @@
-package it.polimi.ingsw.parsing;
+package it.polimi.ingsw.config;
 
 /**
  * This enum holds the paths of all config files

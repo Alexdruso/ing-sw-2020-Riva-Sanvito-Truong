@@ -1,4 +1,4 @@
-package it.polimi.ingsw.parsing;
+package it.polimi.ingsw.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
