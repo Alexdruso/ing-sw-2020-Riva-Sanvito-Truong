@@ -42,7 +42,7 @@ public class WorkerTest {
                 new Worker(new Player(null), null),
                 new Worker(null,null)
         };
-        assertEquals(workers[0], workers[1]);
+        assertNotEquals(workers[0], workers[1]);
         assertNotEquals(workers[0], workers[2]);
         assertNotEquals(workers[0], workers[3]);
         assertNotEquals(workers[0], workers[4]);
@@ -61,7 +61,7 @@ public class WorkerTest {
                 new Worker(new Player(null), null),
                 new Worker(null,null)
         };
-        assertEquals(workers[0].hashCode(), workers[1].hashCode());
+        assertNotEquals(workers[0].hashCode(), workers[1].hashCode());
         assertNotEquals(workers[0].hashCode(), workers[2].hashCode());
         assertNotEquals(workers[0].hashCode(), workers[3].hashCode());
         assertNotEquals(workers[0].hashCode(), workers[4].hashCode());
