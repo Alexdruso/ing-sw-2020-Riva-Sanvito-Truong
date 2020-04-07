@@ -14,18 +14,7 @@ class Dome implements Buildable {
      * Class constructor.
      * This method is private as the instance should only be created from the Component enum.
      */
-    private Dome(){};
-
-    /**
-     * This method retrieves the singleton instance of the Dome
-     * @return the Dome instance
-     */
-    protected static Dome getInstance(){
-        if(instance == null){
-            instance = new Dome();
-        }
-        return instance;
-    }
+    Dome(){};
 
     /**
      * This method represents whether a worker can walk or build on this block.

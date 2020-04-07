@@ -6,22 +6,17 @@ package it.polimi.ingsw.model.board;
  * relative class.
  */
 public enum Component {
-    BLOCK {
-        /**
-         * This method creates an instance of a Block
-         * @return the Block instance
-         */
-        public Buildable getInstance(){
-            return Block.getInstance();
-        }
-    },
-    DOME {
-        /**
-         * This method creates an instance of a Dome
-         * @return the Dome instance
-         */
-        public Buildable getInstance() { return Dome.getInstance(); }
-    };
+    BLOCK(new Block()),
+    DOME(new Dome());
 
-    public abstract Buildable getInstance();
+    private final Buildable buildable;
+
+    Component(Buildable buildable){
+        this.buildable = buildable;
+    }
+
+    public Buildable getInstance(){
+        return buildable;
+    }
+
 }

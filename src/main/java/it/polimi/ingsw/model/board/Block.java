@@ -14,14 +14,7 @@ class Block implements Buildable{
      * Class constructor.
      * This method is private as the instance should only be created from the Component enum
      */
-    private Block(){};
-
-    protected static Block getInstance(){
-        if(instance == null){
-            instance = new Block();
-        }
-        return instance;
-    }
+    protected Block(){};
 
     /**
      * This method represents whether a worker can walk or build on this block.
