@@ -7,6 +7,7 @@
   <groupId>it.polimi.ingsw</groupId>
   <artifactId>GC2</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>GC2</name>
   <url>https://github.com/Alexdruso/ing-sw-2020-Riva-Sanvito-Truong</url>
@@ -27,7 +28,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>5.4.2</version>
+      <version>5.5.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -45,6 +46,11 @@
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>3.3.3</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.fusesource.jansi</groupId>
+      <artifactId>jansi</artifactId>
+      <version>1.18</version>
     </dependency>
   </dependencies>
 
@@ -101,6 +107,43 @@
                   <target>13</target>
               </configuration>
           </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>2.4.1</version>
+          <executions>
+            <execution>
+              <id>server</id>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>it.polimi.ingsw.ServerApp</mainClass>
+                  </transformer>
+                </transformers>
+                <finalName>Santorini-Server</finalName>
+              </configuration>
+            </execution>
+            <execution>
+              <id>client</id>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>it.polimi.ingsw.ClientApp</mainClass>
+                  </transformer>
+                </transformers>
+                <finalName>Santorini-Client</finalName>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
   </build>
 </project>
