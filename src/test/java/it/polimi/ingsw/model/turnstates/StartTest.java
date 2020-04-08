@@ -15,21 +15,12 @@ class StartTest {
     static TurnEventsManager mockTurnEventsManager = mock(TurnEventsManager.class);
     Start testStart = new Start();
 
-    @BeforeAll
-    static void setMock(){
-        when(mockPlayer.getTurnEventsManager()).thenReturn(mockTurnEventsManager);
-        when(mockTurn.getPlayer()).thenReturn(mockPlayer);
-    }
-
     @Test
     void setup() {
+        when(mockPlayer.getTurnEventsManager()).thenReturn(mockTurnEventsManager);
+        when(mockTurn.getPlayer()).thenReturn(mockPlayer);
         this.testStart.setup(mockTurn);
         verify(mockTurn).setNextState(TurnState.MOVE.getTurnState());
-    }
-
-    @Test
-    void startTurn() {
-        this.testStart.startTurn(mockTurn);
         verify(mockTurnEventsManager).processTurnStartEvents(mockTurn);
     }
 }

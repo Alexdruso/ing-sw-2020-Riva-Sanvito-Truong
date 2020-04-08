@@ -14,26 +14,4 @@ class Win extends AbstractTurnState{
         turn.setNextState(TurnState.WIN.getTurnState());
         //TODO
     }
-
-    /**
-     * This method checks if we can end the turn
-     *
-     * @param turn the Context
-     * @return if the player can end the turn
-     */
-    @Override
-    public boolean canEndTurn(Turn turn) {
-        return true;
-    }
-
-    /**
-     * This method ends the turn
-     *
-     * @param turn the Context
-     * @throws InvalidTurnStateException if not in the right state
-     */
-    @Override
-    public void endTurn(Turn turn) throws InvalidTurnStateException {
-        //TODO
-    }
 }

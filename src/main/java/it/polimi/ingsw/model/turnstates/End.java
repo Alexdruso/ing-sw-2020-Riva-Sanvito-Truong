@@ -17,25 +17,4 @@ class End extends AbstractTurnState {
         turn.setNextState(TurnState.END.getTurnState());
         //TODO add default behavior
     }
-
-    /**
-     * This method checks if we can end the turn
-     *
-     * @param turn the Context
-     * @return if the player can end the turn
-     */
-    @Override
-    public boolean canEndTurn(Turn turn) {
-        return true;
-    }
-
-    /**
-     * This method ends the turn
-     *
-     * @param turn the Context
-     */
-    @Override
-    public void endTurn(Turn turn) {
-
-    }
 }

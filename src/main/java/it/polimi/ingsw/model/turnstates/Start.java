@@ -13,19 +13,7 @@ class Start extends AbstractTurnState {
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.MOVE.getTurnState());
+        turn.getPlayer().getTurnEventsManager().processTurnStartEvents(turn);
         //TODO add default behaviour
     }
-
-    /**
-     * This method sets up the first actual state of the turn and performs
-     * some default calculation on the buildableCells and walkableCells
-     *
-     * @param turn the Context
-     */
-    @Override
-    public void startTurn(Turn turn) {
-        //TODO add default behavior
-        turn.getPlayer().getTurnEventsManager().processTurnStartEvents(turn);
-    }
-
 }

@@ -14,17 +14,6 @@ public abstract class AbstractTurnState {
      * @param turn the Context
      */
     abstract public void setup(Turn turn);
-
-    /**
-     * This method sets up the first actual state of the turn and performs
-     * some default calculation on the buildableCells and walkableCells
-     * @param turn the Context
-     * @throws InvalidTurnStateException if not in the right state
-     */
-    public void startTurn(Turn turn) throws InvalidTurnStateException{
-        throw new InvalidTurnStateException();
-    }
-
     /**
      * This boolean methods checks if the pawn can move to targetCell
      * @param pawn the worker we want to move
@@ -100,26 +89,8 @@ public abstract class AbstractTurnState {
     }
 
     /**
-     * This method checks if we can end the turn
-     * @param turn the Context
-     * @return if the player can end the turn
-     */
-    public boolean canEndTurn(Turn turn){
-        return false;
-    }
-
-    /**
-     * This method ends the turn
-     * @param turn the Context
-     * @throws InvalidTurnStateException if not in the right state
-     */
-    public void endTurn(Turn turn) throws InvalidTurnStateException {
-        throw new InvalidTurnStateException();
-    }
-
-    /**
      * This method sets up the default allowed workers in the context
-     * @param turn
+     * @param turn the Context
      */
     void setupDefaultAllowedWorkers(Turn turn){
         //If there are no performed actions, the player can use all the workers by default

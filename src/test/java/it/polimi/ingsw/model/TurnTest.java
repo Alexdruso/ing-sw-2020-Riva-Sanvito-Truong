@@ -20,14 +20,21 @@ class TurnTest {
 
     @Test
     void setUpTestWithGetterAndSetters() {
+        //Our own default TurnEventsManager
+        TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
         Player myPlayer = spy(new Player("Giorno Giovanna"));
+        //The trick to make it work without a god
+        when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
         Game mockGame = mock(Game.class);
         //A real board because why not
         Board myBoard = spy(new Board());
         //Give Game a meaning
         when(mockGame.getBoard()).thenReturn(myBoard);
+        //Setup player's workers now that we invoke move.setup before starting the turn
+        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
         //Create the turn
         Turn myTurn = spy(new Turn(mockGame, myPlayer));
 
@@ -40,11 +47,10 @@ class TurnTest {
         assertNotSame(myTurn.getMoves(), myTurn.getMoves());
         assertTrue(myTurn.getBuilds().isEmpty());
         assertNotSame(myTurn.getBuilds(), myTurn.getBuilds());
-        assertTrue(myTurn.getAllowedWorkers().isEmpty());
-        assertFalse(myTurn.isWinningTurn());
-        assertFalse(myTurn.isLosingTurn());
-        assertFalse(myTurn.isSkippable());
-        assertFalse(myTurn.canEndTurn());
+        //assertTrue(myTurn.getAllowedWorkers().isEmpty());
+        //assertFalse(myTurn.isWinningTurn());
+        //assertFalse(myTurn.isLosingTurn());
+        //assertFalse(myTurn.isSkippable());
 
         //Now play a little with setters
         myTurn.setSkippable(true);
@@ -130,18 +136,12 @@ class TurnTest {
         myBoard.getCell(4, 4).getTower().placeComponent(Component.DOME);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
-        //Start the turn
-        myTurn.startTurn();
         //Check if moving throws exception -> we are in lose state
         assertThrows(InvalidTurnStateException.class, () -> {
             myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
         });
         //Check if it is a losing turn :(
         assertTrue(myTurn.isLosingTurn());
-        //Check if we can end the turn :((
-        assertTrue(myTurn.canEndTurn());
-        //End the turn :(((((
-        myTurn.endTurn();
     }
 
     @Test
@@ -171,8 +171,6 @@ class TurnTest {
         myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
-        //Start the turn
-        myTurn.startTurn();
         //Just another check that all is right
         assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
@@ -189,10 +187,6 @@ class TurnTest {
         assertEquals(0, myTurn.getAllowedWorkers().size());
         //Check is winning turn
         assertTrue(myTurn.isWinningTurn());
-        //Check if we can end turn
-        assertTrue(myTurn.canEndTurn());
-        //End turn :)
-        myTurn.endTurn();
     }
 
     @Test
@@ -217,8 +211,6 @@ class TurnTest {
         myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
-        //Start the turn
-        myTurn.startTurn();
         //Just another check that all is right
         assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
@@ -246,10 +238,6 @@ class TurnTest {
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
-        //Check if we can end turn
-        assertTrue(myTurn.canEndTurn());
-        //End turn :)
-        myTurn.endTurn();
     }
 
     @Test
@@ -266,6 +254,9 @@ class TurnTest {
         Board myBoard = spy(new Board());
         //Give Game a meaning
         when(mockGame.getBoard()).thenReturn(myBoard);
+        //Setup player's workers now that we invoke move.setup before starting the turn
+        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
         //Create the turn
         Turn myTurn = spy(new Turn(mockGame, myPlayer));
 
@@ -274,11 +265,10 @@ class TurnTest {
         verify(myTurn).triggerLosingTurn();
         verify(myTurn, times(2)).setNextState(TurnState.LOSE.getTurnState());
         verify(myTurn).changeState();
-        assertTrue(myTurn.canEndTurn());
     }
 
     @Test
-    void testStandardTurnWithDomeBuid() throws InvalidTurnStateException {
+    void testStandardTurnWithDomeBuild() throws InvalidTurnStateException {
         //Our own default TurnEventsManager
         TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
@@ -302,8 +292,6 @@ class TurnTest {
         myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
-        //Start the turn
-        myTurn.startTurn();
         //Just another check that all is right
         assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
@@ -331,9 +319,5 @@ class TurnTest {
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
-        //Check if we can end turn
-        assertTrue(myTurn.canEndTurn());
-        //End turn :)
-        myTurn.endTurn();
     }
 }

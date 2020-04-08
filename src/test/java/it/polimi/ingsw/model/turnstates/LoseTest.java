@@ -16,20 +16,4 @@ class LoseTest {
         loseTest.setup(this.mockTurn);
         verify(this.mockTurn).setNextState(TurnState.LOSE.getTurnState());
     }
-
-    @Test
-    void canEndTurn() {
-        assertTrue(loseTest.canEndTurn(this.mockTurn));
-    }
-
-    @Test
-    void endTurn() {
-        try{
-            this.loseTest.endTurn(this.mockTurn);
-            assertTrue(true);
-        }
-        catch (Exception e){
-            fail();
-        }
-    }
 }

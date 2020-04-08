@@ -18,13 +18,6 @@ class AbstractTurnStateTest {
     AbstractTurnState mockAbstractTurnState = mock(AbstractTurnState.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
-    void startTurn() {
-        assertThrows(InvalidTurnStateException.class, () -> {
-            this.mockAbstractTurnState.startTurn(this.mockTurn);
-        });
-    }
-
-    @Test
     void canMoveTo() {
         assertFalse(this.mockAbstractTurnState.canMoveTo(this.mockWorker, this.mockCell, this.mockTurn));
     }
@@ -64,17 +57,5 @@ class AbstractTurnStateTest {
     void draw() {
         this.mockAbstractTurnState.draw(this.mockTurn);
         verify(this.mockTurn).triggerLosingTurn();
-    }
-
-    @Test
-    void canEndTurn() {
-        assertFalse(this.mockAbstractTurnState.canEndTurn(this.mockTurn));
-    }
-
-    @Test
-    void endTurn() {
-        assertThrows(InvalidTurnStateException.class, () -> {
-            this.mockAbstractTurnState.endTurn(this.mockTurn);
-        });
     }
 }

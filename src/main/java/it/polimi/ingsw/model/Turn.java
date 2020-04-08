@@ -110,6 +110,9 @@ public class Turn{
         //we use the first current state to prepare the turn for the first actual state
         this.currentState = TurnState.START.getTurnState();
         this.currentState.setup(this);
+        //Go to the next state
+        this.changeState();
+        this.currentState.setup(this);
     }
 
     /**
@@ -388,19 +391,6 @@ public class Turn{
         this.performedActions.add(performedAction);
     }
 
-
-    /**
-     * This method sets up the first actual state of the turn and performs
-     * some default calculation on the buildableCells and walkableCells
-     *
-     * @throws InvalidTurnStateException if in the wrong state
-     */
-    public void startTurn() throws InvalidTurnStateException {
-        this.currentState.startTurn(this);
-        this.changeState();
-        this.currentState.setup(this);
-    }
-
     /**
      * This boolean methods checks if the pawn can move to targetCell
      *
@@ -477,23 +467,4 @@ public class Turn{
     public void draw(){
         this.currentState.draw(this);
     }
-
-    /**
-     * This method checks if we can end the turn
-     *
-     * @return if the player can end the turn
-     */
-    public boolean canEndTurn(){
-        return this.currentState.canEndTurn(this);
-    }
-
-    /**
-     * This method ends the turn
-     *
-     * @throws InvalidTurnStateException if in the wrong state
-     */
-    public void endTurn() throws InvalidTurnStateException {
-        this.currentState.endTurn(this);
-    }
-
 }

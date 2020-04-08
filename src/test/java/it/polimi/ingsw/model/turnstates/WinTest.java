@@ -16,20 +16,4 @@ class WinTest {
         this.winTest.setup(this.mockTurn);
         verify(this.mockTurn).setNextState(TurnState.WIN.getTurnState());
     }
-
-    @Test
-    void canEndTurn() {
-        assertTrue(winTest.canEndTurn(this.mockTurn));
-    }
-
-    @Test
-    void endTurn() {
-        try{
-            this.winTest.endTurn(this.mockTurn);
-            assertTrue(true);
-        }
-        catch (Exception e){
-            fail();
-        }
-    }
 }
