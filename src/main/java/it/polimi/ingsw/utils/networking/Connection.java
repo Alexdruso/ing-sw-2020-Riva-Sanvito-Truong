@@ -33,6 +33,7 @@ public class Connection<T> extends Observable<T> {
      */
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
+        setActive(true);
         socketIn = new ObjectInputStream(socket.getInputStream());
         socketOut = new ObjectOutputStream(socket.getOutputStream());
         receiveThread = startSocketReceiveThread();
