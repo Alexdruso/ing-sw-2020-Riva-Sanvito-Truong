@@ -12,6 +12,6 @@ class Lose extends AbstractTurnState{
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.LOSE.getTurnState());
-        //TODO discuss adding a notification method to game
+        //TODO add separate handlers methods to game to handle win, lose and end
     }
 }
