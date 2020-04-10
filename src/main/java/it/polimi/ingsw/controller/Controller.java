@@ -44,7 +44,7 @@ public class Controller implements Observer<PlayerCommand> {
                 dispatchSkipAction((PlayerSkipCommand)action);
                 break;
             default:
-                action.view.handleMessage(StatusMessages.NON_EXISTING_ACTION);
+                action.view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -56,7 +56,7 @@ public class Controller implements Observer<PlayerCommand> {
         if(model.isValidBuild(action)) {
             model.build(action);
         } else {
-            action.view.handleMessage(StatusMessages.BUILD_ERROR);
+            action.view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -68,7 +68,7 @@ public class Controller implements Observer<PlayerCommand> {
         if(model.isValidMove(action)){
             model.move(action);
         } else {
-            action.view.handleMessage(StatusMessages.MOVE_ERROR);
+            action.view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -80,7 +80,7 @@ public class Controller implements Observer<PlayerCommand> {
         if(model.isValidSkip(action)){
             model.skip(action);
         } else {
-            action.view.handleMessage(StatusMessages.SKIP_ERROR);
+            action.view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 }

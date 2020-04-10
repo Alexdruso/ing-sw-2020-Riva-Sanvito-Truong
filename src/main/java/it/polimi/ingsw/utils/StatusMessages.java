@@ -1,43 +1,31 @@
 package it.polimi.ingsw.utils;
 
+import it.polimi.ingsw.utils.networking.Transmittable;
+
 /**
  * An enum to contain all possible messages that can be sent from the Controller to the View
  */
-public enum StatusMessages {
+public enum StatusMessages implements Transmittable {
     /**
-     * Response message if the command requested has been executed successfully
+     * Response message if the command could not be executed due to a bad request from the client.
+     */
+    CLIENT_ERROR,
+    /**
+     * Response message if the command succeeded, but the other party needs additional information to complete it.
+     */
+    CONTINUE,
+    /**
+     * Response message if the command has been executed successfully.
      */
     OK,
     /**
-     * Response message if the command did not match any existing possible action
+     * Response message if the command could not be executed due to an unexpected server error.
      */
-    NON_EXISTING_ACTION,
+    SERVER_ERROR,
     /**
-     * Response message if the command represented a non valid move action
+     * Response message if the server received an invalid request because it's just a teapot.
+     *
+     * @see <a href="https://tools.ietf.org/html/rfc2324">RFC 2324</a>
      */
-    MOVE_ERROR,
-    /**
-     * Response message if the command represented a non valid build action
-     */
-    BUILD_ERROR,
-    /**
-     * Response message if the command represented a skip on a non-skippable turn state
-     */
-    SKIP_ERROR,
-    /**
-     * Message to notify the View that the player has won the game
-     */
-    VICTORY,
-    /**
-     * Message to notify the View that the player has lost the game
-     */
-    LOSS,
-    /**
-     * Message to notify the View that the player can play its turn
-     */
-    YOUR_TURN,
-    /**
-     * Message to notify the View that the player should wait for the opponent's turn to end
-     */
-    OPPONENT_TURN
+    TEAPOT,
 }

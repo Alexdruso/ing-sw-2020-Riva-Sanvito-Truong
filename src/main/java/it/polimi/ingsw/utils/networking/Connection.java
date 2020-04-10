@@ -10,10 +10,8 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * A bidirectional connection to a remote host.
- *
- * @param <T> the class of the messages sent from/to the remote host
  */
-public class Connection<T> extends Observable<T> {
+public class Connection extends Observable<Transmittable> {
     private Socket socket;
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
@@ -22,7 +20,7 @@ public class Connection<T> extends Observable<T> {
     /**
      * The queue containing the messages to be sent out.
      */
-    BlockingQueue<T> sendQueue;
+    BlockingQueue<Transmittable> sendQueue;
     private boolean isActive;
 
     /**
@@ -94,7 +92,7 @@ public class Connection<T> extends Observable<T> {
      *
      * @param message the message to be sent
      */
-    public void send(T message) {
+    public void send(Transmittable message) {
         try {
             sendQueue.put(message);
         } catch (InterruptedException ignored) {
@@ -108,13 +106,13 @@ public class Connection<T> extends Observable<T> {
      * @return the thread that handles the messages incoming from the remote host
      */
     private Thread startSocketReceiveThread(){
-        Connection<T> connectionInstance = this;
+        Connection connectionInstance = this;
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
-                        T inputObject = (T) connectionInstance.socketIn.readObject();
+                        Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
                         connectionInstance.notify(inputObject);
                     } catch (IOException e) {
                         connectionInstance.close();
@@ -134,7 +132,7 @@ public class Connection<T> extends Observable<T> {
      * @return the thread that handles the messages to be sent to the remote host
      */
     private Thread startSocketSendThread(){
-        Connection<T> connectionInstance = this;
+        Connection connectionInstance = this;
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {

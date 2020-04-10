@@ -2,12 +2,13 @@ package it.polimi.ingsw.utils.playercommands;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.view.View;
 
 /**
  * This abstract class must be extended by every object representing an action that the player can perform.
  */
-public abstract class PlayerCommand {
+public abstract class PlayerCommand implements Transmittable {
     /**
      * The User that authored the command
      */
