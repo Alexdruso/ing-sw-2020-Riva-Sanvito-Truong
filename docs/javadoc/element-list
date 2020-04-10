@@ -1,0 +1,15 @@
+it.polimi.ingsw
+it.polimi.ingsw.config
+it.polimi.ingsw.controller
+it.polimi.ingsw.model
+it.polimi.ingsw.model.actions
+it.polimi.ingsw.model.board
+it.polimi.ingsw.model.gods
+it.polimi.ingsw.model.turnevents
+it.polimi.ingsw.model.turnstates
+it.polimi.ingsw.model.workers
+it.polimi.ingsw.observer
+it.polimi.ingsw.utils
+it.polimi.ingsw.utils.networking
+it.polimi.ingsw.utils.playercommands
+it.polimi.ingsw.view
