@@ -25,26 +25,25 @@ jobs:
           command: |
             javadoc \
               -sourcepath src/main/java \
-              -d javadoc \
+              -d docs/javadoc \
               -private \
               -subpackages \
               it.polimi.ingsw
       - store_artifacts:
-          path: javadoc
+          path: docs/javadoc
       - run:
           name: Commit new artifacts path
           command: |
-            mkdir -p docs/javadoc
             cat \<<EOF > docs/javadoc/README.md
             # javadocs
 
-            Head to the latest [CircleCI build artifacts](https://${CIRCLE_BUILD_NUM}-244441529-gh.circle-artifacts.com/0/javadoc/index.html) to access the javadoc for the project.
+            Head to the latest [CircleCI build artifacts](https://${CIRCLE_BUILD_NUM}-244441529-gh.circle-artifacts.com/0/docs/javadoc/index.html) to access the javadoc for the project.
 
             N.B.: you need to be [authenticated to CircleCI](https://circleci.com/vcs-authorize/) in order to access the build artifacts.
             EOF
 
-            git add docs/javadoc/README.md
-            git commit -m "docs(javadoc): update artifacts path [skip ci]"
+            git add docs/javadoc/*
+            git commit -m "docs(javadoc): update javadoc [skip ci]"
             git push --set-upstream origin ${CIRCLE_BRANCH}
 
 workflows:
