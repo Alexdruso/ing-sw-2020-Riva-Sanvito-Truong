@@ -4270,7 +4270,7 @@
 												"$ref": "AAAAAAFxRa2y+MjgFrs="
 											},
 											"edgePosition": 1,
-											"text": "32 : match_started(nickname1, nickname2)"
+											"text": "32 : start_match(nickname1, nickname2)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4381,7 +4381,7 @@
 												"$ref": "AAAAAAFxRa9lH8j7UeA="
 											},
 											"edgePosition": 1,
-											"text": "33 : match_started(nickname1, nickname2)"
+											"text": "33 : start_match(nickname1, nickname2)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4492,7 +4492,7 @@
 												"$ref": "AAAAAAFxRa+t1ckTwA0="
 											},
 											"edgePosition": 1,
-											"text": "34 : match_started(nickname1, nickname2)"
+											"text": "34 : start_match(nickname1, nickname2)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4603,7 +4603,7 @@
 												"$ref": "AAAAAAFxRbAaZskqRt4="
 											},
 											"edgePosition": 1,
-											"text": "35 : match_started(nickname1, nickname2)"
+											"text": "35 : start_match(nickname1, nickname2)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4704,9 +4704,9 @@
 												"$ref": "AAAAAAFxRbCNFslA+Qw="
 											},
 											"font": "Arial;13;0",
-											"left": 783,
+											"left": 766,
 											"top": 1158,
-											"width": 102.63525390625,
+											"width": 137.29345703125,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -4714,7 +4714,7 @@
 												"$ref": "AAAAAAFxRbCNFslBIqA="
 											},
 											"edgePosition": 1,
-											"text": "36 : ask_gods"
+											"text": "36 : ask_gods_from_list"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -4815,9 +4815,9 @@
 												"$ref": "AAAAAAFxRbC+JMlWC6s="
 											},
 											"font": "Arial;13;0",
-											"left": 304,
+											"left": 287,
 											"top": 1186,
-											"width": 102.63525390625,
+											"width": 137.29345703125,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -4825,7 +4825,7 @@
 												"$ref": "AAAAAAFxRbC+JMlXfwI="
 											},
 											"edgePosition": 1,
-											"text": "37 : ask_gods"
+											"text": "37 : ask_gods_from_list"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5370,9 +5370,9 @@
 												"$ref": "AAAAAAFxRbIYNMmfJnc="
 											},
 											"font": "Arial;13;0",
-											"left": 868,
+											"left": 840,
 											"top": 1316,
-											"width": 148.1669921875,
+											"width": 204.51513671875,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -5380,7 +5380,7 @@
 												"$ref": "AAAAAAFxRbIYNMmg2W8="
 											},
 											"edgePosition": 1,
-											"text": "42 : ask_god(god1, god2)"
+											"text": "42 : ask_god_from_list(god1, god2)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -5481,9 +5481,9 @@
 												"$ref": "AAAAAAFxRbI0t8m1gIc="
 											},
 											"font": "Arial;13;0",
-											"left": 473,
+											"left": 445,
 											"top": 1340,
-											"width": 148.1669921875,
+											"width": 204.51513671875,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 10,
@@ -5491,7 +5491,7 @@
 												"$ref": "AAAAAAFxRbI0t8m2Uow="
 											},
 											"edgePosition": 1,
-											"text": "43 : ask_god(god1, god2)"
+											"text": "43 : ask_god_from_list(god1, god2)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -10296,7 +10296,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "match_started",
+							"name": "start_match",
 							"source": {
 								"$ref": "AAAAAAFxRaYTd8hvyxI="
 							},
@@ -10312,7 +10312,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "match_started",
+							"name": "start_match",
 							"source": {
 								"$ref": "AAAAAAFxRZKVs8TTFp4="
 							},
@@ -10328,7 +10328,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "match_started",
+							"name": "start_match",
 							"source": {
 								"$ref": "AAAAAAFxRaYTd8hvyxI="
 							},
@@ -10344,7 +10344,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "match_started",
+							"name": "start_match",
 							"source": {
 								"$ref": "AAAAAAFxRZkfO8Y9c3Q="
 							},
@@ -10360,7 +10360,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "ask_gods",
+							"name": "ask_gods_from_list",
 							"source": {
 								"$ref": "AAAAAAFxRaYTd8hvyxI="
 							},
@@ -10375,7 +10375,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "ask_gods",
+							"name": "ask_gods_from_list",
 							"source": {
 								"$ref": "AAAAAAFxRZKVs8TTFp4="
 							},
@@ -10452,7 +10452,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "ask_god",
+							"name": "ask_god_from_list",
 							"source": {
 								"$ref": "AAAAAAFxRaYTd8hvyxI="
 							},
@@ -10468,7 +10468,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "ask_god",
+							"name": "ask_god_from_list",
 							"source": {
 								"$ref": "AAAAAAFxRZkfO8Y9c3Q="
 							},
