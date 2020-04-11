@@ -1,11 +1,10 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.utils.playercommands.PlayerCommand;
-import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
-import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
-import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
+import it.polimi.ingsw.utils.messages.ClientMessage;
+import it.polimi.ingsw.utils.messages.ClientBuildMessage;
+import it.polimi.ingsw.utils.messages.ClientMoveMessage;
+import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 
@@ -13,7 +12,7 @@ import it.polimi.ingsw.utils.StatusMessages;
  * This class represents the Controller of the MVC Architectural pattern. It observes the View and gets
  * notified whenever the user submits an input in order to handle it.
  */
-public class Controller implements Observer<PlayerCommand> {
+public class Controller implements Observer<ClientMessage> {
     /**
      * The reference to the Model
      */
@@ -32,16 +31,16 @@ public class Controller implements Observer<PlayerCommand> {
      * It selects the appropriate dispatcher in order to handle the requested action.
      * @param action the PlayerCommand object that represents the requested action.
      */
-    public void update(PlayerCommand action){
+    public void update(ClientMessage action){
         switch(action.getActionType()){
             case MOVE:
-                dispatchMoveAction((PlayerMoveCommand)action);
+                dispatchMoveAction((ClientMoveMessage)action);
                 break;
             case BUILD:
-                dispatchBuildAction((PlayerBuildCommand)action);
+                dispatchBuildAction((ClientBuildMessage)action);
                 break;
             case SKIP:
-                dispatchSkipAction((PlayerSkipCommand)action);
+                dispatchSkipAction((ClientSkipMessage)action);
                 break;
             default:
                 action.view.handleMessage(StatusMessages.CLIENT_ERROR);
@@ -52,7 +51,7 @@ public class Controller implements Observer<PlayerCommand> {
      * This method handles building actions
      * @param action the PlayerBuildCommand that has been requested
      */
-    private void dispatchBuildAction(PlayerBuildCommand action){
+    private void dispatchBuildAction(ClientBuildMessage action){
         if(model.isValidBuild(action)) {
             model.build(action);
         } else {
@@ -64,7 +63,7 @@ public class Controller implements Observer<PlayerCommand> {
      * This method handles movement actions
      * @param action the PlayerMoveCommand that has been requested
      */
-    private void dispatchMoveAction(PlayerMoveCommand action){
+    private void dispatchMoveAction(ClientMoveMessage action){
         if(model.isValidMove(action)){
             model.move(action);
         } else {
@@ -76,7 +75,7 @@ public class Controller implements Observer<PlayerCommand> {
      * This method handles skip actions
      * @param action the PlayerSkipCommand that has been requested
      */
-    private void dispatchSkipAction(PlayerSkipCommand action){
+    private void dispatchSkipAction(ClientSkipMessage action){
         if(model.isValidSkip(action)){
             model.skip(action);
         } else {

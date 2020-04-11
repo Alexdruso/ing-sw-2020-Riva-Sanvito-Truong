@@ -1,4 +1,4 @@
-package it.polimi.ingsw.utils.playercommands;
+package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.view.View;
@@ -6,13 +6,13 @@ import it.polimi.ingsw.view.View;
 /**
  * This immutable class represents a command given by the player to skip the current stage of the turn.
  */
-public class PlayerSkipCommand extends PlayerCommand {
+public class ClientSkipMessage extends ClientMessage {
     /**
      * Class constructor
      * @param user the User that authored the command
      * @param view the View from which the command has been received
      */
-   public PlayerSkipCommand(User user, View view){
+   public ClientSkipMessage(User user, View view){
        super(user, view);
    }
 
@@ -21,7 +21,7 @@ public class PlayerSkipCommand extends PlayerCommand {
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override
-    public PlayerCommands getActionType() {
-        return PlayerCommands.SKIP;
+    public ClientMessages getActionType() {
+        return ClientMessages.SKIP;
     }
 }

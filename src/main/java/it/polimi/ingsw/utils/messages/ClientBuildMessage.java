@@ -1,4 +1,4 @@
-package it.polimi.ingsw.utils.playercommands;
+package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Component;
@@ -8,7 +8,7 @@ import it.polimi.ingsw.view.View;
 /**
  * This immutable class represents a command given by the player to make a worker build on a given cell.
  */
-public class PlayerBuildCommand extends PlayerCommand {
+public class ClientBuildMessage extends ClientMessage {
     /**
      * The X coordinate of the cell on which the worker intends to build
      */
@@ -44,7 +44,7 @@ public class PlayerBuildCommand extends PlayerCommand {
      * @param builtLevel The level built by the worker
      * @param performer The worker who performed the build
      */
-    public PlayerBuildCommand(User user, View view, int targetCellX, int targetCellY,
+    public ClientBuildMessage(User user, View view, int targetCellX, int targetCellY,
                               Component component, int builtLevel, WorkerID performer) {
         super(user, view);
         this.targetCellX = targetCellX;
@@ -59,7 +59,7 @@ public class PlayerBuildCommand extends PlayerCommand {
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override
-    public PlayerCommands getActionType() {
-        return PlayerCommands.BUILD;
+    public ClientMessages getActionType() {
+        return ClientMessages.BUILD;
     }
 }

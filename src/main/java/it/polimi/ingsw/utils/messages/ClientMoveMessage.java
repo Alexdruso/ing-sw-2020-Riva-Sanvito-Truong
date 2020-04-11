@@ -1,4 +1,4 @@
-package it.polimi.ingsw.utils.playercommands;
+package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
@@ -7,7 +7,7 @@ import it.polimi.ingsw.view.View;
 /**
  * This immutable class represents a command given by the player to move a worker to another cell.
  */
-public class PlayerMoveCommand extends PlayerCommand {
+public class ClientMoveMessage extends ClientMessage {
     /**
      * The x coordinate of the cell from which the worker moved
      */
@@ -43,7 +43,7 @@ public class PlayerMoveCommand extends PlayerCommand {
      * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer The worker who performed the move
      */
-    public PlayerMoveCommand(User user, View view, int sourceCellX, int sourceCellY,
+    public ClientMoveMessage(User user, View view, int sourceCellX, int sourceCellY,
                              int targetCellX, int targetCellY, WorkerID performer) {
         super(user, view);
         this.sourceCellX = sourceCellX;
@@ -58,7 +58,7 @@ public class PlayerMoveCommand extends PlayerCommand {
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override
-    public PlayerCommands getActionType() {
-        return PlayerCommands.MOVE;
+    public ClientMessages getActionType() {
+        return ClientMessages.MOVE;
     }
 }

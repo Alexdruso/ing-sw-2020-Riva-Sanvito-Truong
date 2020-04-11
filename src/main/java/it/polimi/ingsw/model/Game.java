@@ -6,9 +6,9 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
-import it.polimi.ingsw.utils.playercommands.PlayerBuildCommand;
-import it.polimi.ingsw.utils.playercommands.PlayerMoveCommand;
-import it.polimi.ingsw.utils.playercommands.PlayerSkipCommand;
+import it.polimi.ingsw.utils.messages.ClientBuildMessage;
+import it.polimi.ingsw.utils.messages.ClientMoveMessage;
+import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.model.workers.Worker;
 
 import java.util.*;
@@ -162,7 +162,7 @@ public class Game {
      * @param command the command to be checked
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidMove(PlayerMoveCommand command){
+    public boolean isValidMove(ClientMoveMessage command){
         Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Player player = subscribedUsers.get(command.user);
@@ -180,7 +180,7 @@ public class Game {
      * Executes the PlayerMoveCommand
      * @param command the command to be executed
      */
-    public void move(PlayerMoveCommand command) {
+    public void move(ClientMoveMessage command) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Player player = subscribedUsers.get(command.user);
         Worker worker = player.getWorkerByID(command.performer);
@@ -196,7 +196,7 @@ public class Game {
      * @param command the command to be checked
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidBuild(PlayerBuildCommand command){
+    public boolean isValidBuild(ClientBuildMessage command){
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         User user = command.user;
         Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
@@ -215,7 +215,7 @@ public class Game {
      * Executes the PlayerBuildCommand
      * @param command the command to be executed
      */
-    public void build(PlayerBuildCommand command) {
+    public void build(ClientBuildMessage command) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         User user = command.user;
         Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
@@ -235,7 +235,7 @@ public class Game {
      * @param command the command to be checked
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidSkip(PlayerSkipCommand command){
+    public boolean isValidSkip(ClientSkipMessage command){
         return currentTurn.isSkippable();
     }
 
@@ -243,7 +243,7 @@ public class Game {
      * Executes the PlayerSkipCommand
      * @param command the command to be executed
      */
-    public void skip(PlayerSkipCommand command) throws UnsupportedOperationException{
+    public void skip(ClientSkipMessage command) throws UnsupportedOperationException{
         //TODO
         throw new UnsupportedOperationException();
     }

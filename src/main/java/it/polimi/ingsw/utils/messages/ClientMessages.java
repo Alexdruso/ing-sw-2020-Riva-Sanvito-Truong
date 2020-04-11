@@ -1,9 +1,9 @@
-package it.polimi.ingsw.utils.playercommands;
+package it.polimi.ingsw.utils.messages;
 
 /**
  * This enum represents all possible commands of which the player can request the execution
  */
-public enum PlayerCommands {
+public enum ClientMessages {
     /**
      * A movement command
      */
