@@ -32,7 +32,7 @@ public class Controller implements Observer<ClientMessage> {
      * @param action the PlayerCommand object that represents the requested action.
      */
     public void update(ClientMessage action){
-        switch(action.getActionType()){
+        switch(action.getMessageType()){
             case MOVE:
                 dispatchMoveAction((ClientMoveMessage)action);
                 break;

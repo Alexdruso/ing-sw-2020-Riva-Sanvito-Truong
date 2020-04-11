@@ -59,7 +59,7 @@ public class ClientBuildMessage extends ClientMessage {
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override
-    public ClientMessages getActionType() {
+    public ClientMessages getMessageType() {
         return ClientMessages.BUILD;
     }
 }

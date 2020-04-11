@@ -32,5 +32,5 @@ public abstract class ClientMessage implements Transmittable {
      * This method returns the type of the current action
      * @return the type of the current action, as an instance of PlayerActions
      */
-    public abstract ClientMessages getActionType();
+    public abstract ClientMessages getMessageType();
 }
