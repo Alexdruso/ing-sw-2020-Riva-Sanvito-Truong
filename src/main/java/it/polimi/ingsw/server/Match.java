@@ -23,8 +23,6 @@ public class Match implements Runnable, Observer<Transmittable> {
      * The structures which holds all the nicknames of the joining players
      */
     private final String[] nicknames;
-    private Controller controller;
-    private View[] virtualViews;
 
     /**
      * Constructor of a 2 players match
