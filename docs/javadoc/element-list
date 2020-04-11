@@ -11,6 +11,6 @@ it.polimi.ingsw.model.workers
 it.polimi.ingsw.observer
 it.polimi.ingsw.server
 it.polimi.ingsw.utils
-it.polimi.ingsw.utils.networking
 it.polimi.ingsw.utils.messages
+it.polimi.ingsw.utils.networking
 it.polimi.ingsw.view
