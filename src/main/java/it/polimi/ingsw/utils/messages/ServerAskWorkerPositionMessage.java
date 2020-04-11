@@ -21,6 +21,6 @@ public class ServerAskWorkerPositionMessage extends ServerMessage{
      */
     @Override
     public ServerMessages getMessageType() {
-        return null;
+        return ServerMessages.ASK_WORKER_POSITION;
     }
 }

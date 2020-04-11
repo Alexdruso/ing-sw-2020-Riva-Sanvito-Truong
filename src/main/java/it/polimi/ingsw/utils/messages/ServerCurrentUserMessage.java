@@ -19,6 +19,6 @@ public class ServerCurrentUserMessage extends ServerMessage{
      */
     @Override
     public ServerMessages getMessageType() {
-        return null;
+        return ServerMessages.CURRENT_USER;
     }
 }

@@ -22,6 +22,6 @@ public class ServerSetGodMessage extends ServerMessage{
      */
     @Override
     public ServerMessages getMessageType() {
-        return null;
+        return ServerMessages.SET_GOD;
     }
 }

@@ -26,6 +26,6 @@ public class ServerAskGodsFromListMessage extends ServerMessage{
      */
     @Override
     public ServerMessages getMessageType() {
-        return null;
+        return ServerMessages.ASK_GOD_FROM_LIST;
     }
 }
