@@ -1,4 +1,6 @@
 package it.polimi.ingsw.utils.networking;
 
-public interface Transmittable {
+import java.io.Serializable;
+
+public interface Transmittable extends Serializable {
 }
