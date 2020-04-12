@@ -3,10 +3,12 @@ package it.polimi.ingsw.utils.networking;
 import it.polimi.ingsw.observer.Observable;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * A bidirectional connection to a remote host.
@@ -31,9 +33,11 @@ public class Connection extends Observable<Transmittable> {
      */
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
-        setActive(true);
-        socketIn = new ObjectInputStream(socket.getInputStream());
+        logInfo("Connection established");
+        sendQueue = new LinkedBlockingQueue<>();
+        isActive = true;
         socketOut = new ObjectOutputStream(socket.getOutputStream());
+        socketIn = new ObjectInputStream(socket.getInputStream());
         receiveThread = startSocketReceiveThread();
         sendThread = startSocketSendThread();
     }
@@ -49,6 +53,18 @@ public class Connection extends Observable<Transmittable> {
         this(new Socket(host, port));
     }
 
+    private void log(String message) {
+        System.err.println(String.format("[socket %s] %s", socket.getRemoteSocketAddress().toString().substring(1), message));
+    }
+
+    private void logInfo(String message) {
+        log(String.format("[INFO] %s", message));
+    }
+
+    private void logError(String message) {
+        log(String.format("[ERROR] %s", message));
+    }
+
     /**
      * Checks if the connection is active.
      *
@@ -58,15 +74,11 @@ public class Connection extends Observable<Transmittable> {
         return isActive;
     }
 
-    private void setActive(boolean active) {
-        isActive = active;
-    }
-
     /**
      * Closes the connection.
      */
     public void close() {
-        setActive(false);
+        isActive = false;
         try {
             socketOut.close();
         } catch (IOException ignored) {}
@@ -84,6 +96,11 @@ public class Connection extends Observable<Transmittable> {
             receiveThread.interrupt();
             receiveThread.join();
         } catch (Exception ignored) {}
+    }
+
+    private void close(Exception e) {
+        logError("Closing the connection: " + (e.getMessage() != null ? e.getMessage() : e.getClass().getName()));
+        close();
     }
 
     /**
@@ -110,13 +127,15 @@ public class Connection extends Observable<Transmittable> {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+                connectionInstance.logInfo("Receive thread ready");
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
                         Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
                         connectionInstance.notify(inputObject);
                     } catch (IOException e) {
-                        connectionInstance.close();
+                        connectionInstance.close(e);
                     } catch (ClassNotFoundException | ClassCastException e) {
+                        logError("Exception in receive thread");
                         e.printStackTrace();
                     }
                 }
@@ -136,11 +155,12 @@ public class Connection extends Observable<Transmittable> {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+                connectionInstance.logInfo("Send thread ready");
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
                         connectionInstance.socketOut.writeObject(connectionInstance.sendQueue.take());
                     } catch (IOException e) {
-                        connectionInstance.close();
+                        connectionInstance.close(e);
                     } catch (InterruptedException ignored) {
                         Thread.currentThread().interrupt();
                     }
