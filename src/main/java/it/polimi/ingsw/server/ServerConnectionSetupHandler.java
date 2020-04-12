@@ -21,10 +21,6 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         this.hasJoinedLobby = false;
     }
 
-    public void AskPlayersCount(){
-        connection.send(StatusMessages.CONTINUE);
-    }
-
     /**
      * This method is called by the Observable to update the observer
      *
@@ -40,7 +36,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
             connection.send(StatusMessages.OK);
         } else if(message instanceof ClientSetPlayersCountMessage) {
             if(hasJoinedLobby){
-                int playerCount = ((ClientPlayerCountMessage) message).playerCount;
+                int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
                 boolean status = server.setPlayerCount(playerCount);
                 if(status){
                     connection.send(StatusMessages.OK);
@@ -58,6 +54,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
             } else {
                 server.joinLobby(nickname.get(), connection);
                 hasJoinedLobby = true;
+                connection.removeObserver(this); //From now on, the connection is to be handled by the Matc
             }
         } else {
             //Received wrong kind of message
