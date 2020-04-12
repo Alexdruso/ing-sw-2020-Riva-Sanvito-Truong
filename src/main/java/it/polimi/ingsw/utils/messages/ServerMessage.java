@@ -2,8 +2,9 @@ package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.server.Match;
+import it.polimi.ingsw.utils.networking.Transmittable;
 
-public abstract class ServerMessage {
+public abstract class ServerMessage implements Transmittable {
 
     public final Match match;
 
