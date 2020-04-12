@@ -9,8 +9,8 @@ public class ServerSetGodMessage extends ServerMessage{
     public final GodCard godCard;
     public final User user;
 
-    public ServerSetGodMessage(Match match, GodCard godCard, User user){
-        super(match);
+    public ServerSetGodMessage(GodCard godCard, User user){
+        super();
         this.godCard = godCard;
         this.user = user;
     }

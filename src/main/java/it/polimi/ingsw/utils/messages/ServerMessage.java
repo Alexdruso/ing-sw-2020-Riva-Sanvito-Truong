@@ -6,19 +6,15 @@ import it.polimi.ingsw.utils.networking.Transmittable;
 
 public abstract class ServerMessage implements Transmittable {
 
-    public final Match match;
-
     public User user;
 
     /**
      * Class constructor
-     * @param match the Match object from which the message has been sent
      */
-    protected ServerMessage(Match match) {
-        this.match = match;
+    protected ServerMessage() {
     }
 
-    public void setUser(User user){
+    protected ServerMessage(User user){
         //Either do this and check for null or use an optional
         this.user = user;
     }

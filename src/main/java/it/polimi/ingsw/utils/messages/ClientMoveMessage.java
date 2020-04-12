@@ -35,17 +35,15 @@ public class ClientMoveMessage extends ClientMessage {
 
     /**
      * Constructor, stores all the variables by reference
-     * @param user the User that authored the command
-     * @param view the View from which the command has been received
      * @param sourceCellX The x coordinate of the cell from which the worker moved
      * @param sourceCellY The y coordinate of the cell from which the worker moved
      * @param targetCellX The x coordinate of the cell to which the worker moved
      * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer The worker who performed the move
      */
-    public ClientMoveMessage(User user, View view, int sourceCellX, int sourceCellY,
+    public ClientMoveMessage(int sourceCellX, int sourceCellY,
                              int targetCellX, int targetCellY, WorkerID performer) {
-        super(user, view);
+        super();
         this.sourceCellX = sourceCellX;
         this.sourceCellY = sourceCellY;
         this.targetCellX = targetCellX;

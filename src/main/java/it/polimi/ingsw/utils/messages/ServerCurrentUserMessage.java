@@ -7,8 +7,8 @@ public class ServerCurrentUserMessage extends ServerMessage{
 
     public final User user;
 
-    public ServerCurrentUserMessage(Match match, User user){
-        super(match);
+    public ServerCurrentUserMessage(User user){
+        super();
         this.user = user;
     }
 

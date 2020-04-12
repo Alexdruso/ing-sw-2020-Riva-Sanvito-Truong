@@ -10,8 +10,8 @@ public class ServerAskGodsFromListMessage extends ServerMessage{
 
     private List<GodCard> godList;
 
-    public ServerAskGodsFromListMessage(Match match, List<GodCard> godList){
-        super(match);
+    public ServerAskGodsFromListMessage(List<GodCard> godList){
+        super();
         this.godList = godList;
     }
 

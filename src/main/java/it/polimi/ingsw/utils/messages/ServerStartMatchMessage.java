@@ -7,8 +7,8 @@ public class ServerStartMatchMessage extends ServerMessage{
 
     public final User[] userList;
 
-    public ServerStartMatchMessage(Match match, User[] userList){
-        super(match);
+    public ServerStartMatchMessage(User[] userList){
+        super();
         this.userList = userList;
     }
 

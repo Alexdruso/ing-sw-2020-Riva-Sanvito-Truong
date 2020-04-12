@@ -8,8 +8,8 @@ public class ServerAskWorkerPositionMessage extends ServerMessage{
 
     public final WorkerID worker;
     public final User user;
-    public ServerAskWorkerPositionMessage(Match match, WorkerID worker, User user){
-        super(match);
+    public ServerAskWorkerPositionMessage(WorkerID worker, User user){
+        super();
         this.worker = worker;
         this.user = user;
     }

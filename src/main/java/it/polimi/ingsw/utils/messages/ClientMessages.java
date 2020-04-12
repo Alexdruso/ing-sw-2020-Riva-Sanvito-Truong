@@ -13,7 +13,11 @@ public enum ClientMessages {
      */
     BUILD,
     /**
+     * A set nickname command
+     */
+    SET_NICKNAME,
+    /**
      * A skip command
      */
-    SKIP
+    SKIP,
 }

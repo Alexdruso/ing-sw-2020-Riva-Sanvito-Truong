@@ -9,23 +9,10 @@ import it.polimi.ingsw.view.View;
  */
 public abstract class ClientMessage implements Transmittable {
     /**
-     * The User that authored the command
-     */
-    public final User user;
-
-    /**
-     * The View from which the command has been received
-     */
-    public final View view;
-
-    /**
      * Class constructor
-     * @param user the User that authored the command
-     * @param view the View from which the command has been received
      */
-    protected ClientMessage(User user, View view) {
-        this.user = user;
-        this.view = view;
+    protected ClientMessage() {
+
     }
 
     /**

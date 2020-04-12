@@ -9,11 +9,9 @@ import it.polimi.ingsw.view.View;
 public class ClientSkipMessage extends ClientMessage {
     /**
      * Class constructor
-     * @param user the User that authored the command
-     * @param view the View from which the command has been received
      */
-   public ClientSkipMessage(User user, View view){
-       super(user, view);
+   public ClientSkipMessage(){
+       super();
    }
 
     /**

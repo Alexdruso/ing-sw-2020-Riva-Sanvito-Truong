@@ -50,6 +50,8 @@ public class Game {
 
     /**
      * The class constructor
+     *
+     * @param numberOfPlayers the number of players
      */
     public Game(int numberOfPlayers){
         MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
@@ -61,8 +63,9 @@ public class Game {
     /**
      * This method takes the nickname and the divinity of a player and creates the Player and User instances.
      * The two instances are added to the subscribedUsers list attribute.
+     *
      * @param nickname a String representing the name chosen by the player for the game
-     * @param god the God instance chosen by the player
+     * @param god      the God instance chosen by the player
      * @return the User instance representing the player
      */
     public User subscribeUser(String nickname, God god){
@@ -80,6 +83,7 @@ public class Game {
     /**
      * This method removes the Player from the game by its User.
      * This deletes the entry from the subscribedUsers map and decreases the number of players in game
+     *
      * @param user the user to remove from the game
      */
     public void unsubscribeUser(User user){
@@ -113,7 +117,9 @@ public class Game {
      * Adds new turn to the round, replacing the precedent turn belonging to the player
      * This method automatically resizes the lastRound Map in order to match the number
      * of players still in the game.
+     *
      * @param player the player that is playing the turn
+     * @return the turn
      */
     public Turn addNewTurn(Player player){
         Turn turn = new Turn(this, player);
@@ -159,13 +165,15 @@ public class Game {
 
     /**
      * Checks if the PlayerMoveCommand can be executed
+     *
      * @param command the command to be checked
+     * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidMove(ClientMoveMessage command){
+    public boolean isValidMove(ClientMoveMessage command, User user){
         Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Player player = subscribedUsers.get(command.user);
+        Player player = subscribedUsers.get(user);
         Worker worker = player.getWorkerByID(command.performer);
         if(sourceCell.getWorker().isEmpty()
                 || !sourceCell.getWorker().get().equals(worker)) {
@@ -178,11 +186,13 @@ public class Game {
 
     /**
      * Executes the PlayerMoveCommand
+     *
      * @param command the command to be executed
+     * @param user    the user that triggered the command
      */
-    public void move(ClientMoveMessage command) {
+    public void move(ClientMoveMessage command, User user) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Player player = subscribedUsers.get(command.user);
+        Player player = subscribedUsers.get(user);
         Worker worker = player.getWorkerByID(command.performer);
         try {
             currentTurn.moveTo(worker, targetCell);
@@ -193,12 +203,13 @@ public class Game {
 
     /**
      * Checks if the PlayerBuildCommand can be executed
+     *
      * @param command the command to be checked
+     * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidBuild(ClientBuildMessage command){
+    public boolean isValidBuild(ClientBuildMessage command, User user){
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        User user = command.user;
         Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
         if(!worker.getPlayer().equals(currentTurn.getPlayer())){
             //The worker does not belong to the active player
@@ -213,11 +224,12 @@ public class Game {
 
     /**
      * Executes the PlayerBuildCommand
+     *
      * @param command the command to be executed
+     * @param user    the user that triggered the command
      */
-    public void build(ClientBuildMessage command) {
+    public void build(ClientBuildMessage command, User user) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        User user = command.user;
         Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
         try{
             if(command.component == Component.BLOCK){
@@ -232,18 +244,23 @@ public class Game {
 
     /**
      * Checks if the PlayerSkipCommand can be executed
+     *
      * @param command the command to be checked
+     * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidSkip(ClientSkipMessage command){
+    public boolean isValidSkip(ClientSkipMessage command, User user){
         return currentTurn.isSkippable();
     }
 
     /**
      * Executes the PlayerSkipCommand
+     *
      * @param command the command to be executed
+     * @param user    the user that triggered the command
+     * @throws UnsupportedOperationException the unsupported operation exception
      */
-    public void skip(ClientSkipMessage command) throws UnsupportedOperationException{
+    public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException{
         //TODO
         throw new UnsupportedOperationException();
     }
