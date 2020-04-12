@@ -4,7 +4,8 @@ package it.polimi.ingsw.config;
  * This enum holds the paths of all config files
  */
 public enum ConfigFile {
-    GLOBAL_CONFIG("config/global.properties");
+    GLOBAL_CONFIG("config/global.properties"),
+    SERVER_CONFIG("config/server.properties");
 
     public final String path;
 

@@ -1,40 +1,42 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.Connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-    //TODO: Read these values from configuration
-    public final int SERVER_PORT = 5427;
-    public final int N_THREADS = 32;
     private ServerSocket serverSocket;
     private ExecutorService executor;
     private ArrayList<ServerLobby> lobbies;
 
     public Server() throws IOException {
+        ConfigParser configParser = ConfigParser.getInstance();
+        int SERVER_PORT = Integer.parseInt(configParser.getProperty("serverPort"));
+        int n_THREADS = Integer.parseInt(configParser.getProperty("numberOfThreads"));
         serverSocket = new ServerSocket(SERVER_PORT);
-        executor = Executors.newFixedThreadPool(N_THREADS);
+        executor = Executors.newFixedThreadPool(n_THREADS);
         lobbies = new ArrayList<ServerLobby>();
         lobbies.add(new ServerLobby(this)); //For now we create only one lobby, however it is easily expandable
     }
 
-    public boolean setPlayerCount(int playerCount){
+    boolean setPlayerCount(int playerCount){
         return lobbies.get(0).setPlayerCount(playerCount);
     }
 
-    public void joinLobby(String nickname, Connection connection) {
+    void joinLobby(String nickname, Connection connection) {
         //WIP: currently joins only single lobby
         lobbies.get(0).joinLobby(nickname, connection);
     }
 
-    public void createMatch(ServerLobby lobby){
+    void createMatch(ServerLobby lobby){
         Map<String, Connection> connectedUsers = lobby.getConnectedUsers();
         Match match;
         if(connectedUsers.size() == 2){
@@ -51,6 +53,14 @@ public class Server {
         lobbies.add(0, new ServerLobby(this));
     }
 
+    public void shutdown(){
+        try {
+            serverSocket.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void start(){
         while(true){
             try{
@@ -60,7 +70,8 @@ public class Server {
                 currentConnection.addObserver(connectionHandler);
             } catch (IOException e){
                 //TODO: Send to logger instead of stdout
-                System.out.println("Could not create new socket from connection attempt");
+                e.printStackTrace();
+                System.out.println("Socket closed");
             }
         }
     }

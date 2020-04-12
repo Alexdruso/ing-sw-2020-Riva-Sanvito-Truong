@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 
@@ -10,11 +11,13 @@ public class ServerLobby {
     private Map<String, Connection> connectedUsers;
     private int lobbyPlayerCount; //Note: not using an Optional here since it is highly discouraged to synchronize on an optional
     private Server server;
-    //TODO: Read from config
-    private final int MIN_PLAYERS_PER_GAME = 2;
-    private final int MAX_PLAYERS_PER_GAME = 3;
+    private final int MIN_PLAYERS_PER_GAME;
+    private final int MAX_PLAYERS_PER_GAME;
 
     public ServerLobby(Server server){
+        ConfigParser configParser = ConfigParser.getInstance();
+        MIN_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("minPlayersPerGame"));
+        MAX_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("maxPlayersPerGame"));
         this.connectedUsers = new HashMap<String, Connection>();
         this.server= server;
         this.lobbyPlayerCount = 0;
