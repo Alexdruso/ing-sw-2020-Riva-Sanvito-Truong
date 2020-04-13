@@ -38,7 +38,6 @@ public class Match implements Runnable{
         //create the controller
         Controller controller = new Controller(model);
         //Create the views and add the player to the Game
-        LinkedList<View> virtualViews = new LinkedList<View>();
         for(Connection connection : this.participants.keySet()){
             //create the view
             View virtualView = new View(connection,this.participants.get(connection));
@@ -51,8 +50,6 @@ public class Match implements Runnable{
             //the controller observes the view
             //TODO remove comment when controller implements Observer<Transmittable>
             //virtualView.addObserver(controller);
-            //add virtualView to virtualViews list
-            virtualViews.add(virtualView);
         }
         //Start the game setup
         ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(
