@@ -20,17 +20,20 @@ public class ServerLobby {
     /**
      * The number of players in the lobby
      */
-    private int lobbyMaxPlayerCount; //Note: not using an Optional here since it is highly discouraged to synchronize on an optional
+    private int lobbyMaxPlayerCount;
 
     /**
      * The reference to the server
      */
     private Server server;
 
-    private Optional<String> firstUser;
+    private Optional<String> firstUsername;
+    private Optional<Connection> firstConnection;
 
     private final int MIN_PLAYERS_PER_GAME;
     private final int MAX_PLAYERS_PER_GAME;
+
+    private final Object lock;
 
     /**
      * The class constructor
@@ -43,12 +46,16 @@ public class ServerLobby {
         this.connectedUsers = new LinkedHashMap<String, Connection>();
         this.server= server;
         this.lobbyMaxPlayerCount = 0;
-        this.firstUser = Optional.empty();
+        this.firstUsername = Optional.empty();
+        this.firstConnection = Optional.empty();
+        lock = new Object();
     }
 
 
     public int getLobbyMaxPlayerCount() {
-        return lobbyMaxPlayerCount;
+        synchronized(lock){
+            return lobbyMaxPlayerCount;
+        }
     }
 
     /**
@@ -56,13 +63,21 @@ public class ServerLobby {
      * @param playerCount the number of players that need to join before the game can begin
      * @return true if the playerCount has been set correctly, false otherwise
      */
-    public synchronized boolean setLobbyMaxPlayerCount(int playerCount){
-        if(lobbyMaxPlayerCount == 0 && playerCount >= MIN_PLAYERS_PER_GAME && playerCount <= MAX_PLAYERS_PER_GAME){
-            lobbyMaxPlayerCount = playerCount;
-            notifyAll();
-            return true;
-        } else {
+    public boolean setLobbyMaxPlayerCount(int playerCount, String username, Connection connection){
+        if(firstConnection.isEmpty() || firstUsername.isEmpty()){
             return false;
+        }
+        if(!username.equals(firstUsername.get()) || !connection.equals(firstConnection.get())){
+            return false;
+        }
+        synchronized (lock){
+            if(lobbyMaxPlayerCount == 0 && playerCount >= MIN_PLAYERS_PER_GAME && playerCount <= MAX_PLAYERS_PER_GAME){
+                lobbyMaxPlayerCount = playerCount;
+                lock.notifyAll();
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -71,26 +86,29 @@ public class ServerLobby {
      * @param username the chosen username
      * @param connection the Connection object
      */
-    public synchronized void joinLobby(String username, Connection connection){
-        if(lobbyMaxPlayerCount == 0){
-            if(firstUser.isEmpty()) {
-                firstUser = Optional.of(username);
-                connection.send(StatusMessages.CONTINUE); //Ask for the player count
-            }
-            while (lobbyMaxPlayerCount == 0) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    public void joinLobby(String username, Connection connection){
+        synchronized(lock){
+            if(lobbyMaxPlayerCount == 0){
+                if(firstUsername.isEmpty()) {
+                    firstUsername = Optional.of(username);
+                    firstConnection = Optional.of(connection);
+                    connection.send(StatusMessages.CONTINUE); //Ask for the player count
+                }
+                while (lobbyMaxPlayerCount == 0) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
-        connectedUsers.put(username, connection);
+            connectedUsers.put(username, connection);
 
-        if(connectedUsers.size() == lobbyMaxPlayerCount){
-           server.createMatch(this);
+            if(connectedUsers.size() == lobbyMaxPlayerCount){
+                server.createMatch(this);
+            }
+            connection.send(StatusMessages.OK);
         }
-        connection.send(StatusMessages.OK);
     }
 
     /**
@@ -98,7 +116,9 @@ public class ServerLobby {
      * @return the copy of connectedUsers
      */
     public Map<String, Connection> getConnectedUsers(){
-        return new LinkedHashMap<String, Connection>(connectedUsers);
+        synchronized (lock){
+            return new LinkedHashMap<String, Connection>(connectedUsers);
+        }
     }
 
 }

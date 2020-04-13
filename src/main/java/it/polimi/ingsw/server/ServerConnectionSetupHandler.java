@@ -64,9 +64,9 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
                 connection.send(StatusMessages.CLIENT_ERROR);
             }
         } else if(message instanceof ClientSetPlayersCountMessage) {
-            if(hasJoinedLobby){
+            if(hasJoinedLobby && nickname.isPresent()){
                 int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
-                boolean status = server.getLobby().setLobbyMaxPlayerCount(playerCount);
+                boolean status = server.setLobbyMaxPlayerCount(playerCount, nickname.get(), connection);
                 if(status){
                     connection.send(StatusMessages.OK);
                 } else {
@@ -81,8 +81,8 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
             if(nickname.isEmpty()){
                 connection.send(StatusMessages.CLIENT_ERROR);
             } else {
-                server.getLobby().joinLobby(nickname.get(), connection);
                 hasJoinedLobby = true;
+                server.joinLobby(nickname.get(), connection);
                 connection.removeObserver(this); //From now on, the connection is to be handled by the Matc
             }
         } else {

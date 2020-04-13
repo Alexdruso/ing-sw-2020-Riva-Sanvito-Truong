@@ -77,8 +77,20 @@ public class Server {
         return new ArrayList<>(ongoingMatches);
     }
 
-    public ServerLobby getLobby(){
-        return lobby;
+    public boolean setLobbyMaxPlayerCount(int playerCount, String username, Connection connection){
+        return lobby.setLobbyMaxPlayerCount(playerCount, username, connection);
+    }
+
+    public int getLobbyMaxPlayerCount(){
+        return lobby.getLobbyMaxPlayerCount();
+    }
+
+    public Map<String, Connection> getConnectedUsers(){
+        return lobby.getConnectedUsers();
+    }
+
+    public synchronized void joinLobby(String username, Connection connection){
+        lobby.joinLobby(username, connection);
     }
 
     /**
