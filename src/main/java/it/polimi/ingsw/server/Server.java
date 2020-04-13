@@ -6,7 +6,6 @@ import it.polimi.ingsw.utils.networking.Connection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +26,7 @@ public class Server {
     /**
      * The List of lobbies that are incomplete
      */
-    private ArrayList<ServerLobby> lobbies;
+    private final ServerLobby[] lobbies;
 
     /**
      * Class constructor
@@ -36,10 +35,10 @@ public class Server {
         ConfigParser configParser = ConfigParser.getInstance();
         int SERVER_PORT = Integer.parseInt(configParser.getProperty("serverPort"));
         int n_THREADS = Integer.parseInt(configParser.getProperty("numberOfThreads"));
+        int MAX_LOBBIES = Integer.parseInt(configParser.getProperty("maxNumberOfLobbies"));
         serverSocket = new ServerSocket(SERVER_PORT);
         executor = Executors.newFixedThreadPool(n_THREADS);
-        lobbies = new ArrayList<ServerLobby>();
-        lobbies.add(new ServerLobby(this));
+        lobbies = new ServerLobby[MAX_LOBBIES];
     }
 
     /**
@@ -49,7 +48,7 @@ public class Server {
      * or the number given is invalid
      */
     boolean setPlayerCount(int playerCount){
-        return lobbies.get(0).setPlayerCount(playerCount);
+        return lobbies[0].setPlayerCount(playerCount);
     }
 
     /**
@@ -58,7 +57,7 @@ public class Server {
      * @param connection
      */
     void joinLobby(String nickname, Connection connection) {
-        lobbies.get(0).joinLobby(nickname, connection);
+        lobbies[0].joinLobby(nickname, connection);
     }
 
     /**
@@ -79,8 +78,7 @@ public class Server {
             match = new Match(connections[0], usernames[0], connections[1], usernames[1], connections[2], usernames[2]);
         }
         executor.submit(match);
-        lobbies.remove(0);
-        lobbies.add(0, new ServerLobby(this));
+        lobbies[0] = new ServerLobby(this);
     }
 
     /**
