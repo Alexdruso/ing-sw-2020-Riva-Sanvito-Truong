@@ -79,6 +79,7 @@ public class ServerLobby {
             }
         }
         connectedUsers.put(username, connection);
+        connection.send(StatusMessages.OK);
         if(connectedUsers.size() == lobbyMaxPlayerCount){
            server.createMatch(this);
         }
