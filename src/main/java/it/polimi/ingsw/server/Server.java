@@ -36,9 +36,13 @@ public class Server {
         int SERVER_PORT = Integer.parseInt(configParser.getProperty("serverPort"));
         int n_THREADS = Integer.parseInt(configParser.getProperty("numberOfThreads"));
         int MAX_LOBBIES = Integer.parseInt(configParser.getProperty("maxNumberOfLobbies"));
-        serverSocket = new ServerSocket(SERVER_PORT);
+        serverSocket = getServerSocket(SERVER_PORT);
         executor = Executors.newFixedThreadPool(n_THREADS);
         lobbies = new ServerLobby[MAX_LOBBIES];
+    }
+
+    ServerSocket getServerSocket(int port) throws IOException{
+        return new ServerSocket(port);
     }
 
     /**
