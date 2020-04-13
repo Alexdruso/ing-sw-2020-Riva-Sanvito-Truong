@@ -56,8 +56,13 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         //This implies that the function getMessageType is moved from ClientMessage and ServerMessage to Transmittable
         if(message instanceof ClientSetNicknameMessage) {
             String nickname = ((ClientSetNicknameMessage) message).getNickname();
-            this.nickname = Optional.of(nickname);
-            connection.send(StatusMessages.OK);
+            boolean status = server.registerNickname(nickname, connection);
+            if(status){
+                this.nickname = Optional.of(nickname);
+                connection.send(StatusMessages.OK);
+            } else {
+                connection.send(StatusMessages.CLIENT_ERROR);
+            }
         } else if(message instanceof ClientSetPlayersCountMessage) {
             if(hasJoinedLobby){
                 int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();

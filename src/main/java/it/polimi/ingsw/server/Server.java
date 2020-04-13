@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,6 +35,10 @@ public class Server {
      *
      */
     private final ArrayList<Match> ongoingMatches;
+    /**
+     *
+     */
+    private final Map<String, Connection> registeredNicknames;
 
     /**
      * Class constructor
@@ -43,8 +49,20 @@ public class Server {
         int n_THREADS = Integer.parseInt(configParser.getProperty("numberOfThreads"));
         serverSocket = getServerSocket(SERVER_PORT);
         ongoingMatches = new ArrayList<>();
+        registeredNicknames = new ConcurrentHashMap<>();
         executor = Executors.newFixedThreadPool(n_THREADS);
         lobby = new ServerLobby(this);
+    }
+
+    boolean registerNickname(String nickname, Connection connection){
+        synchronized(registeredNicknames){
+            if(registeredNicknames.containsKey(nickname)){
+                return false;
+            } else {
+                registeredNicknames.put(nickname, connection);
+                return true;
+            }
+        }
     }
 
     ServerSocket getServerSocket(int port) throws IOException{
