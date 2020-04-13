@@ -1,13 +1,11 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.server.Match;
 
-public class ServerStartMatchMessage extends ServerMessage{
-
+public class ServerStartPlayMatchMessage extends ServerMessage {
     public final User[] userList;
 
-    public ServerStartMatchMessage(User[] userList){
+    public ServerStartPlayMatchMessage(User[] userList){
         super();
         this.userList = userList;
     }
@@ -19,6 +17,6 @@ public class ServerStartMatchMessage extends ServerMessage{
      */
     @Override
     public ServerMessages getMessageType() {
-        return ServerMessages.START_MATCH;
+        return ServerMessages.START_MATCH_PLAY;
     }
 }

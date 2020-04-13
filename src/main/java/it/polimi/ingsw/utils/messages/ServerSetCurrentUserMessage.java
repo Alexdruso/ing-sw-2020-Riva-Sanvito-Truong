@@ -3,11 +3,11 @@ package it.polimi.ingsw.utils.messages;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.server.Match;
 
-public class ServerCurrentUserMessage extends ServerMessage{
+public class ServerSetCurrentUserMessage extends ServerMessage{
 
     public final User user;
 
-    public ServerCurrentUserMessage(User user){
+    public ServerSetCurrentUserMessage(User user){
         super();
         this.user = user;
     }
