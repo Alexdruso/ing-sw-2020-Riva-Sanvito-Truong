@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +28,7 @@ public class Server {
     /**
      * The ServerLobby that is currently being filled
      */
-    private final ServerLobby lobby;
+    private ServerLobby lobby;
     /**
      *
      */
@@ -54,6 +55,10 @@ public class Server {
         return new Connection(inboundSocket);
     }
 
+    List<Match> getOngoingMatches(){
+        return new ArrayList<>(ongoingMatches);
+    }
+
     public ServerLobby getLobby(){
         return lobby;
     }
@@ -77,7 +82,7 @@ public class Server {
         }
         executor.submit(match);
         ongoingMatches.add(match);
-        lobby = new ServerLobby(this);
+        this.lobby = new ServerLobby(this);
     }
 
     /**
