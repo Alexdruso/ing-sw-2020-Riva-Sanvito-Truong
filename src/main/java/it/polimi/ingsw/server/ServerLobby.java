@@ -47,7 +47,7 @@ public class ServerLobby {
      * @param playerCount the number of players that need to join before the game can begin
      * @return true if the playerCount has been set correctly, false otherwise
      */
-    public boolean setPlayerCount(int playerCount){
+    public synchronized boolean setPlayerCount(int playerCount){
         if(lobbyPlayerCount == 0 && playerCount >= MIN_PLAYERS_PER_GAME && playerCount <= MAX_PLAYERS_PER_GAME){
             lobbyPlayerCount = playerCount;
             notifyAll();
@@ -62,7 +62,7 @@ public class ServerLobby {
      * @param username the chosen username
      * @param connection the Connection object
      */
-    public void joinLobby(String username, Connection connection){
+    public synchronized void joinLobby(String username, Connection connection){
         if(lobbyPlayerCount == 0) {
             connection.send(StatusMessages.CONTINUE); //Ask for the player count
             while (lobbyPlayerCount == 0) {
