@@ -6,10 +6,7 @@ import it.polimi.ingsw.utils.networking.Connection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -100,16 +97,16 @@ public class Server {
      */
     void createMatch(ServerLobby lobby){
         Map<String, Connection> connectedUsers = lobby.getConnectedUsers();
-        Match match;
-        if(connectedUsers.size() == 2){
-            String[] usernames = connectedUsers.keySet().toArray(new String[2]);
-            Connection[] connections = connectedUsers.values().toArray(new Connection[2]);
-            match = new Match(connections[0], usernames[0], connections[1], usernames[1]);
-        } else {
-            String[] usernames = connectedUsers.keySet().toArray(new String[3]);
-            Connection[] connections = connectedUsers.values().toArray(new Connection[3]);
-            match = new Match(connections[0], usernames[0], connections[1], usernames[1], connections[2], usernames[2]);
+        Match match = new Match();
+
+        //Horrible hack ahead, need to fix inconsistency between Server and Match
+        //TODO: clean this up and create consistency
+        LinkedHashMap<Connection, String> invertedConnectedUsers = new LinkedHashMap<>();
+        for(Map.Entry<String, Connection> entry: connectedUsers.entrySet()){
+            invertedConnectedUsers.put(entry.getValue(), entry.getKey());
         }
+
+        match.addParticipants(invertedConnectedUsers);
         executor.submit(match);
         ongoingMatches.add(match);
         this.lobby = new ServerLobby(this);

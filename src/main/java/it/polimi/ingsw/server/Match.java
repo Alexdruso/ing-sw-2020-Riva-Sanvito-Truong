@@ -85,8 +85,4 @@ public class Match implements Runnable{
     public LinkedHashMap<Connection,String> getParticipants(){
         return new LinkedHashMap<Connection,String>(this.participants);
     }
-
-    //TODO delet dis
-    public Match(Connection connection1, String nickname1, Connection connection2, String nickname2){}
-    public Match(Connection connection1, String nickname1, Connection connection2, String nickname2, Connection connection3, String nickname3){}
 }
