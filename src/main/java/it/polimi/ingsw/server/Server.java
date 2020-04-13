@@ -97,7 +97,7 @@ public class Server {
      * This method accepts inbound connections and dispatches them
      */
     public void start(){
-        while(true){
+        while(!serverSocket.isClosed()){
             try{
                 Socket inboundSocket = serverSocket.accept();
                 Connection currentConnection = new Connection(inboundSocket);
