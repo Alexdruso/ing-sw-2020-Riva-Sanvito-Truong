@@ -61,19 +61,17 @@ public class Game {
     }
 
     /**
-     * This method takes the user and the divinity of a player and creates the Player.
+     * This method takes the user and creates the Player.
      * The two instances are added to the subscribedUsers list attribute.
      *
      * @param user the representation of the user
-     * @param god      the God instance chosen by the player
      */
-    public void subscribeUser(User user, God god){
+    public void subscribeUser(User user){
         if(subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS){
             //This means that adding one will get us over the limit
             throw new IllegalStateException("Too many players");
         }
         Player player = new Player(user.nickname);
-        player.setGod(god);
         subscribedUsers.put(user, player);
     }
 
