@@ -6,10 +6,12 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
+import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
 
@@ -17,7 +19,7 @@ import java.util.*;
  * This class is the game and its main purpose is to keep the general state of the match.
  * It provides methods to gain insights on the current state.
  */
-public class Game {
+public class Game extends Observable<Transmittable> {
     /**
      * The number of maximum players of the game
      */
