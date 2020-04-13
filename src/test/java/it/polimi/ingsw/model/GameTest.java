@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.gods.GodCard;
 import org.junit.jupiter.api.Test;
 
@@ -12,30 +13,27 @@ public class GameTest {
     @Test
     public void cannotRegisterMoreUsersThanDeclared(){
         Game game = new Game(3);
-        game.subscribeUser("Romano Prodi", GodCard.ATHENA.getGod());
-        game.subscribeUser("Sghiribizou", GodCard.APOLLO.getGod());
-        game.subscribeUser("Nick Name", GodCard.ARTEMIS.getGod());
+        game.subscribeUser(new User("Romano Prodi"));
+        game.subscribeUser(new User("Sghiribizou"));
+        game.subscribeUser(new User("Nick Name"));
         assertThrows(IllegalStateException.class,
-                ()-> game.subscribeUser("Luccio", GodCard.DEMETER.getGod()));
+                ()-> game.subscribeUser(new User("Luccio")));
         Game game2 = new Game(2);
-        game2.subscribeUser("Nagito Komaeda", GodCard.ARTEMIS.getGod());
-        game2.subscribeUser("Francesco Totti", GodCard.APOLLO.getGod());
+        game2.subscribeUser(new User("Nagito Komaeda"));
+        game2.subscribeUser(new User("Francesco Totti"));
         assertThrows(IllegalStateException.class,
-                () -> game.subscribeUser("Genoveffo Brombeis", GodCard.HEPHAESTUS.getGod()));
+                () -> game.subscribeUser(new User("Genoveffo Brombeis")));
     }
 
     @Test
     public void testRegisterPlayers(){
         Game game = new Game(3);
-        game.subscribeUser("Maria Ortigli", GodCard.APOLLO.getGod());
-        game.subscribeUser("Buggo", GodCard.ARTEMIS.getGod());
-        game.subscribeUser("Zeb89", GodCard.DEMETER.getGod());
+        game.subscribeUser(new User("Maria Ortigli"));
+        game.subscribeUser(new User("Buggo"));
+        game.subscribeUser(new User("Zeb89"));
         List<Player> playerList = game.getPlayersList();
         assertEquals(playerList.get(0).getNickname(), "Maria Ortigli");
-        assertSame(playerList.get(0).getGod(), GodCard.APOLLO.getGod());
         assertEquals(playerList.get(1).getNickname(), "Buggo");
-        assertSame(playerList.get(1).getGod(), GodCard.ARTEMIS.getGod());
         assertEquals(playerList.get(2).getNickname(), "Zeb89");
-        assertSame(playerList.get(2).getGod(), GodCard.DEMETER.getGod());
     }
 }

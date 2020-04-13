@@ -6,10 +6,12 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
+import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
 
@@ -17,7 +19,7 @@ import java.util.*;
  * This class is the game and its main purpose is to keep the general state of the match.
  * It provides methods to gain insights on the current state.
  */
-public class Game {
+public class Game extends Observable<Transmittable> {
     /**
      * The number of maximum players of the game
      */
@@ -61,23 +63,18 @@ public class Game {
     }
 
     /**
-     * This method takes the nickname and the divinity of a player and creates the Player and User instances.
+     * This method takes the user and creates the Player.
      * The two instances are added to the subscribedUsers list attribute.
      *
-     * @param nickname a String representing the name chosen by the player for the game
-     * @param god      the God instance chosen by the player
-     * @return the User instance representing the player
+     * @param user the representation of the user
      */
-    public User subscribeUser(String nickname, God god){
+    public void subscribeUser(User user){
         if(subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS){
             //This means that adding one will get us over the limit
             throw new IllegalStateException("Too many players");
         }
-        Player player = new Player(nickname);
-        player.setGod(god);
-        User user = new User(nickname);
+        Player player = new Player(user.nickname);
         subscribedUsers.put(user, player);
-        return user;
     }
 
     /**
