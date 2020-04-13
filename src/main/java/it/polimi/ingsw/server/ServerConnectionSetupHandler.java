@@ -8,13 +8,37 @@ import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.Optional;
 
+/**
+ * This class has the responsibility of handling the first steps of game setup.
+ * In particular it handles the request for a nickname and the joining of a lobby for a newly connected
+ * client
+ */
 public class ServerConnectionSetupHandler implements Observer<Transmittable> {
-
+    /**
+     * The reference to the server
+     */
     private final Server server;
+
+    /**
+     * The connection of which this object is Observer and to which it needs to send messages
+     */
     private final Connection connection;
+
+    /**
+     * The nickname of the player
+     */
     private Optional<String> nickname;
+
+    /**
+     * The flag to indicate whether the connection has been inserted into a lobby or not
+     */
     private boolean hasJoinedLobby;
 
+    /**
+     * The class constructor
+     * @param server the Server instance
+     * @param connection the Connection instance
+     */
     public ServerConnectionSetupHandler(Server server, Connection connection){
         this.server = server;
         this.connection = connection;
