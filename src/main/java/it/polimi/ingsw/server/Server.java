@@ -45,6 +45,10 @@ public class Server {
         return new ServerSocket(port);
     }
 
+    Connection getConnection(Socket inboundSocket) throws IOException{
+        return new Connection(inboundSocket);
+    }
+
     /**
      * This method is called whenever a Connection receives a setPlayersCount message
      * @param playerCount the number of players
@@ -104,7 +108,7 @@ public class Server {
         while(!serverSocket.isClosed()){
             try{
                 Socket inboundSocket = serverSocket.accept();
-                Connection currentConnection = new Connection(inboundSocket);
+                Connection currentConnection = getConnection(inboundSocket);
                 ServerConnectionSetupHandler connectionHandler = new ServerConnectionSetupHandler(this, currentConnection);
                 currentConnection.addObserver(connectionHandler);
             } catch (IOException e){
