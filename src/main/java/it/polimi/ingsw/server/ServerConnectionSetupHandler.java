@@ -61,7 +61,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         } else if(message instanceof ClientSetPlayersCountMessage) {
             if(hasJoinedLobby){
                 int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
-                boolean status = server.setPlayerCount(playerCount);
+                boolean status = server.setLobbyMaxPlayerCount(playerCount);
                 if(status){
                     connection.send(StatusMessages.OK);
                 } else {

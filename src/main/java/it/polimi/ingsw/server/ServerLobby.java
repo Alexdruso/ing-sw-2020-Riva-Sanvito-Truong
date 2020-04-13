@@ -19,7 +19,7 @@ public class ServerLobby {
     /**
      * The number of players in the lobby
      */
-    private int lobbyPlayerCount; //Note: not using an Optional here since it is highly discouraged to synchronize on an optional
+    private int lobbyMaxPlayerCount; //Note: not using an Optional here since it is highly discouraged to synchronize on an optional
 
     /**
      * The reference to the server
@@ -39,7 +39,12 @@ public class ServerLobby {
         MAX_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("maxPlayersPerGame"));
         this.connectedUsers = new LinkedHashMap<String, Connection>();
         this.server= server;
-        this.lobbyPlayerCount = 0;
+        this.lobbyMaxPlayerCount = 0;
+    }
+
+
+    public int getLobbyMaxPlayerCount() {
+        return lobbyMaxPlayerCount;
     }
 
     /**
@@ -47,9 +52,9 @@ public class ServerLobby {
      * @param playerCount the number of players that need to join before the game can begin
      * @return true if the playerCount has been set correctly, false otherwise
      */
-    public synchronized boolean setPlayerCount(int playerCount){
-        if(lobbyPlayerCount == 0 && playerCount >= MIN_PLAYERS_PER_GAME && playerCount <= MAX_PLAYERS_PER_GAME){
-            lobbyPlayerCount = playerCount;
+    public synchronized boolean setLobbyMaxPlayerCount(int playerCount){
+        if(lobbyMaxPlayerCount == 0 && playerCount >= MIN_PLAYERS_PER_GAME && playerCount <= MAX_PLAYERS_PER_GAME){
+            lobbyMaxPlayerCount = playerCount;
             notifyAll();
             return true;
         } else {
@@ -63,9 +68,9 @@ public class ServerLobby {
      * @param connection the Connection object
      */
     public synchronized void joinLobby(String username, Connection connection){
-        if(lobbyPlayerCount == 0) {
+        if(lobbyMaxPlayerCount == 0) {
             connection.send(StatusMessages.CONTINUE); //Ask for the player count
-            while (lobbyPlayerCount == 0) {
+            while (lobbyMaxPlayerCount == 0) {
                 try {
                     wait();
                 } catch (InterruptedException e) {
@@ -74,7 +79,7 @@ public class ServerLobby {
             }
         }
         connectedUsers.put(username, connection);
-        if(connectedUsers.size() == lobbyPlayerCount){
+        if(connectedUsers.size() == lobbyMaxPlayerCount){
            server.createMatch(this);
         }
     }

@@ -39,6 +39,7 @@ public class Server {
         serverSocket = getServerSocket(SERVER_PORT);
         executor = Executors.newFixedThreadPool(n_THREADS);
         lobbies = new ServerLobby[MAX_LOBBIES];
+        lobbies[0] = new ServerLobby(this);
     }
 
     ServerSocket getServerSocket(int port) throws IOException{
@@ -55,8 +56,12 @@ public class Server {
      * @return true if the count has been set correctly, false otherwise (the count has been already set
      * or the number given is invalid
      */
-    boolean setPlayerCount(int playerCount){
-        return lobbies[0].setPlayerCount(playerCount);
+    boolean setLobbyMaxPlayerCount(int playerCount){
+        return lobbies[0].setLobbyMaxPlayerCount(playerCount);
+    }
+
+    int getLobbyMaxPlayerCount(){
+        return lobbies[0].getLobbyMaxPlayerCount();
     }
 
     /**
