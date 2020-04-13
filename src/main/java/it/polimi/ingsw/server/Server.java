@@ -6,6 +6,7 @@ import it.polimi.ingsw.utils.networking.Connection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,9 +25,13 @@ public class Server {
      */
     private ExecutorService executor;
     /**
-     * The List of lobbies that are incomplete
+     * The ServerLobby that is currently being filled
      */
-    private final ServerLobby[] lobbies;
+    private final ServerLobby lobby;
+    /**
+     *
+     */
+    private final ArrayList<Match> ongoingMatches;
 
     /**
      * Class constructor
@@ -35,11 +40,10 @@ public class Server {
         ConfigParser configParser = ConfigParser.getInstance();
         int SERVER_PORT = Integer.parseInt(configParser.getProperty("serverPort"));
         int n_THREADS = Integer.parseInt(configParser.getProperty("numberOfThreads"));
-        int MAX_LOBBIES = Integer.parseInt(configParser.getProperty("maxNumberOfLobbies"));
         serverSocket = getServerSocket(SERVER_PORT);
+        ongoingMatches = new ArrayList<>();
         executor = Executors.newFixedThreadPool(n_THREADS);
-        lobbies = new ServerLobby[MAX_LOBBIES];
-        lobbies[0] = new ServerLobby(this);
+        lobby = new ServerLobby(this);
     }
 
     ServerSocket getServerSocket(int port) throws IOException{
@@ -50,27 +54,8 @@ public class Server {
         return new Connection(inboundSocket);
     }
 
-    /**
-     * This method is called whenever a Connection receives a setPlayersCount message
-     * @param playerCount the number of players
-     * @return true if the count has been set correctly, false otherwise (the count has been already set
-     * or the number given is invalid
-     */
-    boolean setLobbyMaxPlayerCount(int playerCount){
-        return lobbies[0].setLobbyMaxPlayerCount(playerCount);
-    }
-
-    int getLobbyMaxPlayerCount(){
-        return lobbies[0].getLobbyMaxPlayerCount();
-    }
-
-    /**
-     * This method is called whenever a Connection receives a request to join a lobby
-     * @param nickname
-     * @param connection
-     */
-    void joinLobby(String nickname, Connection connection) {
-        lobbies[0].joinLobby(nickname, connection);
+    public ServerLobby getLobby(){
+        return lobby;
     }
 
     /**
@@ -91,7 +76,8 @@ public class Server {
             match = new Match(connections[0], usernames[0], connections[1], usernames[1], connections[2], usernames[2]);
         }
         executor.submit(match);
-        lobbies[0] = new ServerLobby(this);
+        ongoingMatches.add(match);
+        lobby = new ServerLobby(this);
     }
 
     /**
