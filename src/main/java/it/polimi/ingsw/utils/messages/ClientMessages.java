@@ -37,6 +37,10 @@ public enum ClientMessages {
      */
     SET_WORKER_POSITION,
     /**
+     * A set worker starting position command
+     */
+    SET_WORKER_START_POSITION,
+    /**
      * A skip command
      */
     SKIP,
