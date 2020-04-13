@@ -6,6 +6,7 @@ import it.polimi.ingsw.utils.networking.Connection;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * This class represents a single game lobby, to which players may join
@@ -26,6 +27,8 @@ public class ServerLobby {
      */
     private Server server;
 
+    private Optional<String> firstUser;
+
     private final int MIN_PLAYERS_PER_GAME;
     private final int MAX_PLAYERS_PER_GAME;
 
@@ -40,6 +43,7 @@ public class ServerLobby {
         this.connectedUsers = new LinkedHashMap<String, Connection>();
         this.server= server;
         this.lobbyMaxPlayerCount = 0;
+        this.firstUser = Optional.empty();
     }
 
 
@@ -68,8 +72,11 @@ public class ServerLobby {
      * @param connection the Connection object
      */
     public synchronized void joinLobby(String username, Connection connection){
-        if(lobbyMaxPlayerCount == 0) {
-            connection.send(StatusMessages.CONTINUE); //Ask for the player count
+        if(lobbyMaxPlayerCount == 0){
+            if(firstUser.isEmpty()) {
+                firstUser = Optional.of(username);
+                connection.send(StatusMessages.CONTINUE); //Ask for the player count
+            }
             while (lobbyMaxPlayerCount == 0) {
                 try {
                     wait();
@@ -79,6 +86,7 @@ public class ServerLobby {
             }
         }
         connectedUsers.put(username, connection);
+
         if(connectedUsers.size() == lobbyMaxPlayerCount){
            server.createMatch(this);
         }
