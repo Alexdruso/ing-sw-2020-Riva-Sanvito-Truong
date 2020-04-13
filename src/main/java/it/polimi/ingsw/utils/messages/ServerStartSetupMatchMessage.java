@@ -3,11 +3,11 @@ package it.polimi.ingsw.utils.messages;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.server.Match;
 
-public class ServerStartMatchMessage extends ServerMessage{
+public class ServerStartSetupMatchMessage extends ServerMessage{
 
     public final User[] userList;
 
-    public ServerStartMatchMessage(User[] userList){
+    public ServerStartSetupMatchMessage(User[] userList){
         super();
         this.userList = userList;
     }
