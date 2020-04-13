@@ -44,7 +44,12 @@ public class ConfigParser {
      * @return the value of the property
      */
     public String getProperty(String key){
-        return configs.getProperty(key);
+        String property = configs.getProperty(key);
+        if(property == null){
+            throw new IllegalArgumentException("Key does not exist");
+        } else {
+            return property;
+        }
     }
 
     /**
