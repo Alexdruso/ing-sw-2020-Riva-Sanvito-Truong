@@ -23,7 +23,7 @@ public class AndrMockServerApp {
                     Socket s = ss.accept();
                     System.out.println("accepted connection");
                     Connection connection = new Connection(s);
-                    connection.addObserver(new ServerTestReceiver(connection));
+                    connection.addObserver(new AndrServerTestReceiver(connection));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -49,7 +49,7 @@ class AndrServerTestReceiver implements Observer<Transmittable> {
             e.printStackTrace();
         }
         User[] users = new User[]{new User("nick1"), new User("nick2"), new User("nick3")};
-        connection.send(new ServerStartMatchMessage(users));
+        connection.send(new ServerStartSetupMatchMessage(users));
     }
 
     @Override
