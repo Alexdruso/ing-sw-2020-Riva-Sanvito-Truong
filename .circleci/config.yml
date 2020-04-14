@@ -47,8 +47,13 @@ jobs:
             git push --set-upstream origin ${CIRCLE_BRANCH}
 
 workflows:
+  version: 2
   master_push:
     jobs:
-      - generate_javadoc
+      - generate_javadoc:
+          filters:
+            branches:
+              only:
+                  - master
 #      - maven/test:
 #          command: '-X verify'
