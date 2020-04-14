@@ -46,8 +46,7 @@ public class Match implements Runnable{
             //the view observes the model
             model.addObserver(virtualView);
             //the controller observes the view
-            //TODO remove comment when controller implements Observer<Transmittable>
-            //virtualView.addObserver(controller);
+            virtualView.addObserver(controller);
         }
         //Start the game setup, first creating serverStartSetupMatchMessage
         //with the array of users, then sending the message over the connections
