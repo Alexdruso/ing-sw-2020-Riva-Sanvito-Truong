@@ -1,6 +1,8 @@
 package it.polimi.ingsw.utils.networking;
 
 import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.utils.StringCapturedStackTrace;
+import it.polimi.ingsw.utils.messages.DisconnectMessage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -99,7 +101,24 @@ public class Connection extends Observable<Transmittable> {
     }
 
     private void close(Exception e) {
-        logError("Closing the connection: " + (e.getMessage() != null ? e.getMessage() : e.getClass().getName()));
+        close(new StringCapturedStackTrace(e).toString());
+    }
+
+    private void close(String message) {
+        if (isActive) {
+            logError("Abruptly closing the connection: " + message);
+        }
+        close();
+    }
+
+    public void close(DisconnectMessage disconnectMessage) {
+        synchronized (socketOut) {
+            try {
+                socketOut.writeObject(disconnectMessage);
+            } catch (Exception e) {
+                logError("Unable to notify the remote that the connection is closing: " + new StringCapturedStackTrace(e).toString());
+            }
+        }
         close();
     }
 
@@ -158,7 +177,10 @@ public class Connection extends Observable<Transmittable> {
                 connectionInstance.logInfo("Send thread ready");
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
-                        connectionInstance.socketOut.writeObject(connectionInstance.sendQueue.take());
+                        Transmittable message = connectionInstance.sendQueue.take();
+                        synchronized (connectionInstance.socketOut) {
+                            connectionInstance.socketOut.writeObject(message);
+                        }
                     } catch (IOException e) {
                         connectionInstance.close(e);
                     } catch (InterruptedException ignored) {

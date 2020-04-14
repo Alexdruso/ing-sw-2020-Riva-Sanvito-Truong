@@ -17,6 +17,10 @@ public enum ClientMessages {
      */
     CHOOSE_GODS,
     /**
+     * A disconnect command
+     */
+    DISCONNECT,
+    /**
      * A movement command
      */
     MOVE,

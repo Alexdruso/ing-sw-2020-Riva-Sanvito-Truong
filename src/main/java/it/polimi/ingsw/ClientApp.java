@@ -1,8 +1,12 @@
 package it.polimi.ingsw;
 
+
+import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.ui.cli.CLI;
+
 public class ClientApp {
     public static void main(String[] args) {
-        //TODO
-
+        Client client = new Client(new CLI());
+        client.run();
     }
 }
