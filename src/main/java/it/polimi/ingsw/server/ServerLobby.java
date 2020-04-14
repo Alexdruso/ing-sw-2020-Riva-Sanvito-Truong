@@ -15,7 +15,7 @@ public class ServerLobby {
     /**
      * The map containing the (Nickname, Connection) pairs
      */
-    private Map<String, Connection> connectedUsers;
+    private LinkedHashMap<String, Connection> connectedUsers;
 
     /**
      * The number of players in the lobby
@@ -115,7 +115,7 @@ public class ServerLobby {
      * This method returns a copy of the connectedUsers map
      * @return the copy of connectedUsers
      */
-    public Map<String, Connection> getConnectedUsers(){
+    public LinkedHashMap<String, Connection> getConnectedUsers(){
         synchronized (lock){
             return new LinkedHashMap<String, Connection>(connectedUsers);
         }

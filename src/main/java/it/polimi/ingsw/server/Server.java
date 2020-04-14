@@ -96,7 +96,7 @@ public class Server {
      * @param lobby
      */
     void createMatch(ServerLobby lobby){
-        LinkedHashMap<String, Connection> connectedUsers =(LinkedHashMap<String, Connection>) lobby.getConnectedUsers();
+        LinkedHashMap<String, Connection> connectedUsers = lobby.getConnectedUsers();
         Match match = new Match();
 
         match.addParticipants(connectedUsers);
