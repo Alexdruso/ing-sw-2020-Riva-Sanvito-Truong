@@ -5,14 +5,15 @@ import it.polimi.ingsw.utils.messages.ClientMessage;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
-public class View extends Observable<Transmittable> implements Observer<Transmittable> {
+public class View extends Observable<ViewClientMessage> implements Observer<ServerMessage> {
     private final User user;
     private final Connection connection;
     @Override
-    public void update(Transmittable message) throws UnsupportedOperationException{
+    public void update(ServerMessage message) throws UnsupportedOperationException{
         //TODO: define the type for Observer
         throw new UnsupportedOperationException();
     }
