@@ -30,7 +30,7 @@ public abstract class AbstractWaitPlayersClientState extends AbstractClientState
     @Override
     public boolean handleServerMessage(ServerMessage message) {
         switch (message.getMessageType()) {
-            case START_MATCH:
+            case START_MATCH_SETUP:
                 client.moveToState(ClientState.SHOW_GAME_PASSIVE);
                 return true;
             default:
