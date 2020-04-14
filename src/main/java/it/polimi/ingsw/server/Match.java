@@ -8,8 +8,6 @@ import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 /**
  * This class is designed to be able to run on a separate thread and initialize all the classes
@@ -17,7 +15,7 @@ import java.util.LinkedList;
  * Before calling the "run" method, the server should add nicknames and connections in order.
  */
 public class Match implements Runnable{
-    LinkedHashMap<Connection, String> participants = new LinkedHashMap<Connection,String>();
+    LinkedHashMap<String, Connection> participants = new LinkedHashMap<String, Connection>();
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -38,9 +36,9 @@ public class Match implements Runnable{
         //create the controller
         Controller controller = new Controller(model);
         //Create the views and add the player to the Game
-        for(Connection connection : this.participants.keySet()){
+        for(String nickname : this.participants.keySet()){
             //create the view
-            View virtualView = new View(connection,this.participants.get(connection));
+            View virtualView = new View(this.participants.get(nickname), nickname);
             //get the user from the view
             User user = virtualView.getUser();
             //add the user as a player in the model
@@ -51,22 +49,23 @@ public class Match implements Runnable{
             //TODO remove comment when controller implements Observer<Transmittable>
             //virtualView.addObserver(controller);
         }
-        //Start the game setup
+        //Start the game setup, first creating serverStartSetupMatchMessage
+        //with the array of users, then sending the message over the connections
         ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(
-                (User[]) this.participants.values().stream().map(User::new).toArray()
+                (User[]) this.participants.keySet().stream().map(User::new).toArray()
         );
-        for(Connection connection : this.participants.keySet()){
+        for(Connection connection : this.participants.values()){
             connection.send(serverStartSetupMatchMessage);
         }
     }
 
     /**
      * Adds the connection and the nickname to the match own participants
-     * @param connection the connection of the participant
      * @param nickname the nickname chosen by the participants
+     * @param connection the connection of the participant
      */
-    public void addParticipant(Connection connection, String nickname){
-        this.participants.put(connection,nickname);
+    public void addParticipant(String nickname, Connection connection){
+        this.participants.put(nickname,connection);
     }
 
     /**
@@ -74,15 +73,15 @@ public class Match implements Runnable{
      * It should be called only before executing run.
      * @param participants the structure holding the participants to be added
      */
-    public void addParticipants(LinkedHashMap<Connection,String> participants){
+    public void addParticipants(LinkedHashMap<String,Connection> participants){
         this.participants.putAll(participants);
     }
 
     /**
-     * Returns the participants to the match, represented by their connection and nickname
+     * Returns the participants to the match, represented by their nickname and connection
      * @return the participants to the match
      */
-    public LinkedHashMap<Connection,String> getParticipants(){
-        return new LinkedHashMap<Connection,String>(this.participants);
+    public LinkedHashMap<String,Connection> getParticipants(){
+        return new LinkedHashMap<String, Connection>(this.participants);
     }
 }

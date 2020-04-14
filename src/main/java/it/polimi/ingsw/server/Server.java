@@ -96,17 +96,10 @@ public class Server {
      * @param lobby
      */
     void createMatch(ServerLobby lobby){
-        Map<String, Connection> connectedUsers = lobby.getConnectedUsers();
+        LinkedHashMap<String, Connection> connectedUsers =(LinkedHashMap<String, Connection>) lobby.getConnectedUsers();
         Match match = new Match();
 
-        //Horrible hack ahead, need to fix inconsistency between Server and Match
-        //TODO: clean this up and create consistency
-        LinkedHashMap<Connection, String> invertedConnectedUsers = new LinkedHashMap<>();
-        for(Map.Entry<String, Connection> entry: connectedUsers.entrySet()){
-            invertedConnectedUsers.put(entry.getValue(), entry.getKey());
-        }
-
-        match.addParticipants(invertedConnectedUsers);
+        match.addParticipants(connectedUsers);
         executor.submit(match);
         ongoingMatches.add(match);
         this.lobby = new ServerLobby(this);
