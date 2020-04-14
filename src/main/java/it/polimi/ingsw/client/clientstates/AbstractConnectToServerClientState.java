@@ -6,10 +6,24 @@ import it.polimi.ingsw.utils.networking.Connection;
 
 import java.io.IOException;
 
+/**
+ * A generic CONNECT_TO_SERVER ClientState, to be extended by a UI-specific class.
+ */
 public abstract class AbstractConnectToServerClientState extends AbstractClientState {
+    /**
+     * The server host address.
+     */
     protected String host;
+    /**
+     * The server port.
+     */
     protected int port;
 
+    /**
+     * Instantiates a new CONNECT_TO_SERVER ClientState.
+     *
+     * @param client the client
+     */
     public AbstractConnectToServerClientState(Client client) {
         super(client);
     }
@@ -19,46 +33,17 @@ public abstract class AbstractConnectToServerClientState extends AbstractClientS
         triggerRender();
     }
 
-
     @Override
     public void notifyUiInteraction() {
         try {
             Connection connection = new Connection(host, port);
-            System.out.println("connected");
-            //cli.readString("aaa");
-//            AbstractClientState asc = new ClientStateSetNickname();
-//            connection.addObserver(asc);
-//            connection.send(new ClientSetNicknameMessage("nick123"));
-//            cliUtils.readString("aaa");
-            connection.close();
+            client.setConnection(connection);
+            client.moveToState(ClientState.SET_NICKNAME);
         } catch (IOException e) {
-//            cliUtils.error("Impossibile stabilire una connessione con il sevrer specificato. Dettagli:");
-//            e.printStackTrace();
             client.getUi().notifyError("Impossibile stabilire una connessione con il sevrer specificato.", e);
+            client.moveToState(ClientState.CONNECT_TO_SERVER);
         }
     }
 
 
 }
-
-
-/*
-        CliUtils cliUtils = new CliUtils();
-
-        String host = "127.0.0.1"; //cli.readString("Indirizzo del server:");
-        int port = 1337; //cli.readInt("Porta del server:", 7268);
-
-        try {
-            Connection connection = new Connection(host, port);
-            System.out.println("connected");
-            //cli.readString("aaa");
-            AbstractClientState asc = new ClientStateSetNickname();
-            connection.addObserver(asc);
-            connection.send(new ClientSetNicknameMessage("nick123"));
-            cliUtils.readString("aaa");
-            connection.close();
-        } catch (IOException e) {
-            cliUtils.error("Impossibile stabilire una connessione con il sevrer specificato. Dettagli:");
-            e.printStackTrace();
-        }
- */

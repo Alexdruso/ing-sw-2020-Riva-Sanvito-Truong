@@ -4,6 +4,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
 import it.polimi.ingsw.utils.messages.ClientSetNicknameMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
@@ -44,8 +45,18 @@ class ServerTestReceiver implements Observer<Transmittable> {
     @Override
     public void update(Transmittable message) {
         System.out.println("received message");
+        if (message instanceof ClientDisconnectMessage) {
+            System.out.println("client disconnected");
+            connection.close();
+            return;
+        }
         if (message instanceof ClientSetNicknameMessage) {
-            System.out.println("was set nickname: " + ((ClientSetNicknameMessage) message).getNickname());
+            String nick = ((ClientSetNicknameMessage) message).getNickname();
+            System.out.println("was set nickname: " + nick);
+            if (nick.equals("nak")) {
+                connection.send(StatusMessages.CLIENT_ERROR);
+                return;
+            }
         }
         connection.send(StatusMessages.OK);
     }
