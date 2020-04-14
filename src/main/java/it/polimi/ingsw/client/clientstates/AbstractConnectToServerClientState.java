@@ -39,7 +39,7 @@ public abstract class AbstractConnectToServerClientState extends AbstractClientS
             client.setConnection(connection);
             client.moveToState(ClientState.SET_NICKNAME);
         } catch (IOException e) {
-            client.getUi().notifyError("Impossibile stabilire una connessione con il server specificato.", e);
+            client.getUI().notifyError("Impossibile stabilire una connessione con il server specificato.", e);
             client.moveToState(ClientState.CONNECT_TO_SERVER);
         }
     }

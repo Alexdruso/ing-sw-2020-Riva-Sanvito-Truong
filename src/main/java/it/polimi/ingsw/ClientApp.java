@@ -2,11 +2,11 @@ package it.polimi.ingsw;
 
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.ui.cli.Cli;
+import it.polimi.ingsw.client.ui.cli.CLI;
 
 public class ClientApp {
     public static void main(String[] args) {
-        Client client = new Client(new Cli());
+        Client client = new Client(new CLI());
         client.run();
     }
 }

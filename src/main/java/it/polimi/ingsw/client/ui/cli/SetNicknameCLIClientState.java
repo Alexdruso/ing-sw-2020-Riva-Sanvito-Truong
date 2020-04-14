@@ -6,17 +6,17 @@ import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
 /**
  * The CLI-specific SET_NICKNAME ClientState.
  */
-public class SetNicknameCliClientState extends AbstractSetNicknameClientState {
-    private final Cli cli;
+public class SetNicknameCLIClientState extends AbstractSetNicknameClientState {
+    private final CLI cli;
 
     /**
      * Instantiates a new CLI-specific SET_NICKNAME ClientState.
      *
      * @param client the client
      */
-    public SetNicknameCliClientState(Client client) {
+    public SetNicknameCLIClientState(Client client) {
         super(client);
-        cli = (Cli) client.getUi();
+        cli = (CLI) client.getUI();
     }
 
     @Override

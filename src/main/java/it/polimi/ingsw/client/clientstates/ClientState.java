@@ -17,6 +17,18 @@ public enum ClientState {
      */
     JOIN_LOBBY,
     /**
+     * Set players count client state.
+     */
+    SET_PLAYERS_COUNT,
+    /**
+     * Wait players client state.
+     */
+    WAIT_PLAYERS,
+    /**
+     * Show game passive client state.
+     */
+    SHOW_GAME_PASSIVE,
+    /**
      * Disconnect client state.
      */
     DISCONNECT,

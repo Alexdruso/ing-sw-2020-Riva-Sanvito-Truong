@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.Ui;
+import it.polimi.ingsw.client.ui.UI;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -16,7 +16,7 @@ import static org.fusesource.jansi.Ansi.ansi;
 /**
  * Represents the CLI.
  */
-public class Cli extends Ui {
+public class CLI extends UI {
     private Scanner in;
     private PrintWriter out;
 
@@ -34,13 +34,19 @@ public class Cli extends Ui {
     public AbstractClientState getClientState(ClientState clientState, Client client) {
         switch (clientState) {
             case CONNECT_TO_SERVER:
-                return new ConnectToServerCliClientState(client);
-            case JOIN_LOBBY:
-                return new JoinLobbyCliClientState(client);
-            case SET_NICKNAME:
-                return new SetNicknameCliClientState(client);
+                return new ConnectToServerCLIClientState(client);
             case DISCONNECT:
-                return new DisconnectCliClientState(client);
+                return new DisconnectCLIClientState(client);
+            case JOIN_LOBBY:
+                return new JoinLobbyCLIClientState(client);
+            case SET_NICKNAME:
+                return new SetNicknameCLIClientState(client);
+            case SET_PLAYERS_COUNT:
+                return new SetPlayersCountCLIClientState(client);
+            case SHOW_GAME_PASSIVE:
+                return new ShowGamePassiveCLIClientState(client);
+            case WAIT_PLAYERS:
+                return new WaitPlayersCLIClientState(client);
             default:
                 throw new IllegalStateException();
 
@@ -180,7 +186,7 @@ public class Cli extends Ui {
         try {
             return Integer.parseInt(line);
         }
-        catch (InputMismatchException e) {
+        catch (NumberFormatException e) {
             error(String.format("%s non e' un intero", line));
             return readInt(prompt, def, expected_input_length);
         }

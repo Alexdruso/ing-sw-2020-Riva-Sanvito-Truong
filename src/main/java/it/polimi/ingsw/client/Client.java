@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
-import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.Ui;
-import it.polimi.ingsw.client.ui.cli.Cli;
+import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
@@ -23,7 +21,7 @@ public class Client implements Observer<Transmittable> {
     private ClientState nextState;
     private String nickname;
     private final AtomicBoolean renderRequested;
-    private final Ui ui;
+    private final UI ui;
     private boolean exitRequested;
 
     /**
@@ -31,7 +29,7 @@ public class Client implements Observer<Transmittable> {
      *
      * @param ui the user interface this Client will use
      */
-    public Client(Ui ui) {
+    public Client(UI ui) {
         this.ui = ui;
         nextState = ClientState.CONNECT_TO_SERVER;
         renderRequested = new AtomicBoolean(false);
@@ -158,6 +156,12 @@ public class Client implements Observer<Transmittable> {
     /**
      * Requests the user interface to render the current state.
      * The actual rendering is performed by the main thread (the one that invoked Client::run).
+     * Please, be aware that calls to the render of the current state are not guaranteed, since calls to render
+     * can be concurrent with calls to changeState, thus resulting in the call of render in the context of the new
+     * state.
+     * This means that either:
+     * - you guarantee that there will be no chances that changeState is called before render has finished rendering
+     * - or each call to render is self-sufficient (i.e., it does not depend on previous calls to render)
      */
     public void requestRender() {
         synchronized (renderRequested) {
@@ -171,7 +175,7 @@ public class Client implements Observer<Transmittable> {
      *
      * @return the user interface
      */
-    public Ui getUi() {
+    public UI getUI() {
         return ui;
     }
 

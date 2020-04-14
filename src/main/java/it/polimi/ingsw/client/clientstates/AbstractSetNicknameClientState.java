@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.messages.ClientSetNicknameMessage;
 
 /**
- * A generic SET_NICKNAME CLientState, to be extended by a UI-specific class.
+ * A generic SET_NICKNAME ClientState, to be extended by a UI-specific class.
  */
 public abstract class AbstractSetNicknameClientState extends AbstractClientState {
     /**
@@ -13,7 +13,7 @@ public abstract class AbstractSetNicknameClientState extends AbstractClientState
     protected String nickname;
 
     /**
-     * Instantiates a new SET_NICKNAME CLientState.
+     * Instantiates a new SET_NICKNAME ClientState.
      *
      * @param client the client
      */
@@ -33,7 +33,7 @@ public abstract class AbstractSetNicknameClientState extends AbstractClientState
 
     @Override
     public void handleClientError() {
-        client.getUi().notifyError("Il nickname scelto e' gia' in uso.");
+        client.getUI().notifyError("Il nickname scelto e' gia' in uso.");
         client.moveToState(ClientState.SET_NICKNAME);
     }
 

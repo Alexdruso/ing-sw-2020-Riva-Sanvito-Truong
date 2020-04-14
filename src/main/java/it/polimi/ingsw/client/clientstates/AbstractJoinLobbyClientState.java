@@ -23,7 +23,17 @@ public abstract class AbstractJoinLobbyClientState extends AbstractClientState {
     }
 
     @Override
+    public void notifyUiInteraction() {
+        // No user interaction expected while waiting for match
+    }
+
+    @Override
     public void handleOk() {
-        client.moveToState(ClientState.DISCONNECT);
+        client.moveToState(ClientState.WAIT_PLAYERS);
+    }
+
+    @Override
+    public void handleContinue() {
+        client.moveToState(ClientState.SET_PLAYERS_COUNT);
     }
 }

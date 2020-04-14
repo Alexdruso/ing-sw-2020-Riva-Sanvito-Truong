@@ -8,7 +8,7 @@ import it.polimi.ingsw.utils.StringCapturedStackTrace;
 /**
  * A generic user interface.
  */
-public abstract class Ui {
+public abstract class UI {
     /**
      * Initialize the user interface.
      */
@@ -32,6 +32,9 @@ public abstract class Ui {
 
     /**
      * Displays an error on the user interface.
+     * Please, be aware that this function is not intended to display debug messages to developers,
+     * but to render nicely-formatted error messages to the end user, hoping that they will be useful
+     * to her/him in order to identify what she/he did wrong.
      *
      * @param ex the exception
      */
