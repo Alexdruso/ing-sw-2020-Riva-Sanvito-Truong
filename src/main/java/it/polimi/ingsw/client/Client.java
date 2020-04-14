@@ -10,6 +10,9 @@ import it.polimi.ingsw.utils.networking.Connection;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The Client.
+ */
 public class Client {
     private Connection connection;
     private AbstractClientState currentState;
@@ -19,6 +22,11 @@ public class Client {
     private final Ui ui;
     private boolean exitRequested;
 
+    /**
+     * Instantiates a new Client.
+     *
+     * @param ui the user interface this Client will use
+     */
     public Client(Ui ui) {
         this.ui = ui;
         nextState = ClientState.CONNECT_TO_SERVER;
@@ -26,6 +34,10 @@ public class Client {
         exitRequested = false;
     }
 
+    /**
+     * Runs the client.
+     * The user interface renders itself in this function, in the thread that originally called Client::run.
+     */
     public void run() {
         ui.init();
         changeState();
@@ -47,46 +59,82 @@ public class Client {
         close();
     }
 
+    /**
+     * Closes the connection to the server, if established.
+     */
     private void close() {
         if (connection != null) {
             connection.close(new ClientDisconnectMessage());
         }
     }
 
+    /**
+     * Gets the connection to the server.
+     *
+     * @return the connection to the server
+     */
     public Connection getConnection() {
         return connection;
     }
 
-    public void setConnection(Connection connection) {
+    /**
+     * Sets the connection to the server.
+     *
+     * @param connection the connection to the server
+     * @throws IllegalStateException if trying to set a connection after the client already has one
+     */
+    public void setConnection(Connection connection) throws IllegalStateException {
         if (this.connection == null) {
             this.connection = connection;
         }
         else {
-            throw new RuntimeException("Illegal attempt to reassign the connection");
+            throw new IllegalStateException("Illegal attempt to reassign the connection");
         }
     }
 
+    /**
+     * Gets the nickname of the user.
+     *
+     * @return the nickname of the user
+     */
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    /**
+     * Sets the nickname of the user.
+     *
+     * @param nickname the nickname of the user
+     * @throws IllegalStateException tf trying to set the nickname after the client already has one
+     */
+    public void setNickname(String nickname) throws IllegalStateException {
         if (this.nickname == null) {
             this.nickname = nickname;
         }
         else {
-            throw new RuntimeException("Illegal attempt to reassign the nickname");
+            throw new IllegalStateException("Illegal attempt to reassign the nickname");
         }
     }
 
+    /**
+     * Disconnect cleanly from the server.
+     */
     public void disconnect() {
         exitRequested = true;
     }
 
+    /**
+     * Sets the next state for the Client.
+     *
+     * @param nextState the next state
+     */
     public void setNextState(ClientState nextState) {
         this.nextState = nextState;
     }
 
+    /**
+     * Moves the client to a previously set next state.
+     */
     public void changeState() {
         if (connection != null && currentState != null) {
             connection.removeObserver(currentState);
@@ -98,11 +146,20 @@ public class Client {
         currentState.setup();
     }
 
+    /**
+     * Move the client to a specific state.
+     *
+     * @param nextState the next state
+     */
     public void moveToState(ClientState nextState) {
         setNextState(nextState);
         changeState();
     }
 
+    /**
+     * Requests the user interface to render the current state.
+     * The actual rendering is performed by the main thread (the one that invoked Client::run).
+     */
     public void requestRender() {
         synchronized (renderRequested) {
             renderRequested.set(true);
@@ -110,6 +167,11 @@ public class Client {
         }
     }
 
+    /**
+     * Gets the user interface.
+     *
+     * @return the user interface
+     */
     public Ui getUi() {
         return ui;
     }
