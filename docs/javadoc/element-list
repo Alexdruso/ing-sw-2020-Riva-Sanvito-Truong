@@ -1,4 +1,9 @@
 it.polimi.ingsw
+it.polimi.ingsw.client
+it.polimi.ingsw.client.clientstates
+it.polimi.ingsw.client.ui
+it.polimi.ingsw.client.ui.cli
+it.polimi.ingsw.client.ui.gui
 it.polimi.ingsw.config
 it.polimi.ingsw.controller
 it.polimi.ingsw.model
