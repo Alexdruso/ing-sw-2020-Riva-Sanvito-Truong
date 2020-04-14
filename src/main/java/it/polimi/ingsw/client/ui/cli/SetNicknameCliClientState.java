@@ -26,7 +26,7 @@ public class SetNicknameCliClientState extends AbstractSetNicknameClientState {
     }
 
     @Override
-    protected void handleOk() {
+    public void handleOk() {
         cli.println(String.format("Benvenuto nel server, %s!", nickname));
         super.handleOk();
     }

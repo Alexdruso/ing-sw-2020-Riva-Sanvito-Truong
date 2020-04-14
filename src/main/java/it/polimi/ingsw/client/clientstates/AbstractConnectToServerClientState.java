@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.ui.Ui;
 import it.polimi.ingsw.utils.networking.Connection;
 
 import java.io.IOException;

@@ -5,15 +5,19 @@ import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.Ui;
 import it.polimi.ingsw.client.ui.cli.Cli;
+import it.polimi.ingsw.observer.Observer;
+import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
+import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The Client.
  */
-public class Client {
+public class Client implements Observer<Transmittable> {
     private Connection connection;
     private AbstractClientState currentState;
     private ClientState nextState;
@@ -90,6 +94,7 @@ public class Client {
         else {
             throw new IllegalStateException("Illegal attempt to reassign the connection");
         }
+        connection.addObserver(this);
     }
 
     /**
@@ -136,13 +141,7 @@ public class Client {
      * Moves the client to a previously set next state.
      */
     public void changeState() {
-        if (connection != null && currentState != null) {
-            connection.removeObserver(currentState);
-        }
         currentState = ui.getClientState(nextState, this);
-        if (connection != null) {
-            connection.addObserver(currentState);
-        }
         currentState.setup();
     }
 
@@ -174,5 +173,41 @@ public class Client {
      */
     public Ui getUi() {
         return ui;
+    }
+
+
+    /**
+     * Handles the messages received from the server.
+     *
+     * @param message the message received from the server
+     */
+    public void update(Transmittable message) {
+        if (message instanceof StatusMessages) {
+            switch ((StatusMessages) message) {
+                case CLIENT_ERROR:
+                    currentState.handleClientError();
+                    break;
+                case CONTINUE:
+                    currentState.handleContinue();
+                    break;
+                case OK:
+                    currentState.handleOk();
+                    break;
+                case TEAPOT:
+                    currentState.handleTeapot();
+                    break;
+                case SERVER_ERROR:
+                    currentState.handleServerError();
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+        }
+        else if (message instanceof ServerMessage) {
+            currentState.handleServerMessage((ServerMessage) message);
+        }
+        else {
+            throw new IllegalStateException();
+        }
     }
 }

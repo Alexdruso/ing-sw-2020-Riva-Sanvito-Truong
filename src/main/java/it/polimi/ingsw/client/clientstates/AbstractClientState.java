@@ -1,14 +1,12 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.observer.Observer;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.networking.Transmittable;
+import it.polimi.ingsw.utils.messages.ServerMessage;
 
 /**
  * A generic Client state, to be extended by each state.
  */
-public abstract class AbstractClientState implements Observer<Transmittable> {
+public abstract class AbstractClientState {
     /**
      * The Client.
      */
@@ -47,11 +45,21 @@ public abstract class AbstractClientState implements Observer<Transmittable> {
     }
 
     /**
+     * Handles a message received from the server.
+     *
+     * @param message the message from the server
+     * @return true if the message has been handled by the current state
+     */
+    public boolean handleServerMessage(ServerMessage message) {
+        return false;
+    }
+
+    /**
      * Handles a CLIENT_ERROR StatusMessage sent by the server.
      *
      * @throws UnsupportedOperationException if CLIENT_ERROR is not a valid StatusMessage for the current state
      */
-    protected void handleClientError() throws UnsupportedOperationException {
+    public void handleClientError() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
@@ -60,7 +68,7 @@ public abstract class AbstractClientState implements Observer<Transmittable> {
      *
      * @throws UnsupportedOperationException if CONTINUE is not a valid StatusMessage for the current state
      */
-    protected void handleContinue() throws UnsupportedOperationException {
+    public void handleContinue() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
@@ -69,7 +77,7 @@ public abstract class AbstractClientState implements Observer<Transmittable> {
      *
      * @throws UnsupportedOperationException if OK is not a valid StatusMessage for the current state
      */
-    protected void handleOk() throws UnsupportedOperationException {
+    public void handleOk() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
@@ -78,7 +86,7 @@ public abstract class AbstractClientState implements Observer<Transmittable> {
      *
      * @throws UnsupportedOperationException if TEAPOT is not a valid StatusMessage for the current state
      */
-    protected void handleTeapot() throws UnsupportedOperationException {
+    public void handleTeapot() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
@@ -87,38 +95,8 @@ public abstract class AbstractClientState implements Observer<Transmittable> {
      *
      * @throws UnsupportedOperationException if SERVER_ERROR is not a valid StatusMessage for the current state
      */
-    protected void handleServerError() throws UnsupportedOperationException {
+    public void handleServerError() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Handles the messages received from the server.
-     *
-     * @param message the message received from the server
-     */
-    public void update(Transmittable message) {
-        if (!(message instanceof StatusMessages)) {
-            return;
-        }
-
-        switch ((StatusMessages) message) {
-            case CLIENT_ERROR:
-                handleClientError();
-                break;
-            case CONTINUE:
-                handleContinue();
-                break;
-            case OK:
-                handleOk();
-                break;
-            case TEAPOT:
-                handleTeapot();
-                break;
-            case SERVER_ERROR:
-                handleServerError();
-                break;
-            default:
-                throw new IllegalStateException();
-        }
-    }
 }

@@ -23,7 +23,7 @@ public abstract class AbstractJoinLobbyClientState extends AbstractClientState {
     }
 
     @Override
-    protected void handleOk() {
+    public void handleOk() {
         client.moveToState(ClientState.DISCONNECT);
     }
 }
