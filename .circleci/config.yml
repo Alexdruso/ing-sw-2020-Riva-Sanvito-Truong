@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/ing-sw-2020-Riva-Sanvito-Truong
 
     docker:
-      - image: cimg/openjdk:13.0
+      - image: circleci/openjdk:13-jdk-buster
 
     steps:
       - checkout
