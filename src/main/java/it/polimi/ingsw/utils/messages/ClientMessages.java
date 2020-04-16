@@ -48,4 +48,8 @@ public enum ClientMessages {
      * A skip command
      */
     SKIP,
+    /**
+     * A set start player command
+     */
+    SET_START_PLAYER
 }
