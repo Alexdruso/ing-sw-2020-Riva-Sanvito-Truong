@@ -9,11 +9,11 @@ import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
-public class View extends Observable<ViewClientMessage> implements Observer<ServerMessage> {
+public class View extends Observable<ViewClientMessage> implements Observer<Transmittable>{
     private final User user;
     private final Connection connection;
     @Override
-    public void update(ServerMessage message) throws UnsupportedOperationException{
+    public void update(Transmittable message) throws UnsupportedOperationException{
         //TODO: define the type for Observer
         throw new UnsupportedOperationException();
     }
@@ -24,6 +24,7 @@ public class View extends Observable<ViewClientMessage> implements Observer<Serv
 
     public View(Connection connection, String nickname){
         this.connection = connection;
+        connection.addObserver(this);
         this.user = new User(nickname);
     }
 
