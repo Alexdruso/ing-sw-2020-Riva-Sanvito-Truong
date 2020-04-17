@@ -36,24 +36,30 @@ public class Match implements Runnable{
         Game model = new Game(this.participants.size());
         //create the controller
         Controller controller = new Controller(model);
+        //create array to hold users
+        User[] users = new User[this.participants.size()];
+        //initialize array index
+        int usersIndex = 0;
         //Create the views and add the player to the Game
         for(String nickname : this.participants.keySet()){
             //create the view
             View virtualView = new View(this.participants.get(nickname), nickname);
             //get the user from the view
             User user = virtualView.getUser();
+            //add user to user array
+            users[usersIndex] = user;
             //add the user as a player in the model
             model.subscribeUser(user);
             //the view observes the model
             model.addObserver(virtualView);
             //the controller observes the view
             virtualView.addObserver(controller);
+            //increment usersIndex
+            usersIndex++;
         }
         //Start the game setup, first creating serverStartSetupMatchMessage
         //with the array of users, then sending the message over the connections
-        ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(
-                (User[]) this.participants.keySet().stream().map(User::new).toArray()
-        );
+        ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(users);
         for(Connection connection : this.participants.values()){
             connection.send(serverStartSetupMatchMessage);
         }
