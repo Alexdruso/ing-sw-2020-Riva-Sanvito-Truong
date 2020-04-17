@@ -8,6 +8,7 @@ import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class is designed to be able to run on a separate thread and initialize all the classes
@@ -15,7 +16,7 @@ import java.util.LinkedHashMap;
  * Before calling the "run" method, the server should add nicknames and connections in order.
  */
 public class Match implements Runnable{
-    LinkedHashMap<String, Connection> participants = new LinkedHashMap<String, Connection>();
+    private LinkedHashMap<String, Connection> participants = new LinkedHashMap<String, Connection>();
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
