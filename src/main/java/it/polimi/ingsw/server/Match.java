@@ -36,7 +36,7 @@ public class Match implements Runnable {
     /**
      * Boolean flag to shutdown the Match.
      */
-    private boolean playing;
+    private boolean isPlaying;
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -153,15 +153,15 @@ public class Match implements Runnable {
      * @return the boolean
      */
     public boolean isPlaying() {
-        return playing;
+        return isPlaying;
     }
 
     /**
      * Sets playing.
      *
-     * @param playing the playing
+     * @param isPlaying the playing
      */
-    public void setPlaying(boolean playing) {
-        this.playing = playing;
+    public void setPlaying(boolean isPlaying) {
+        this.isPlaying = isPlaying;
     }
 }
