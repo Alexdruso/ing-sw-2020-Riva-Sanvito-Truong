@@ -61,7 +61,7 @@ public class CLI extends UI {
     /**
      * Clears the screen.
      */
-    public void clear() {
+    void clear() {
         out.println(ansi().cursor(0, 0).eraseScreen());
     }
 
@@ -91,7 +91,7 @@ public class CLI extends UI {
      *
      * @param s the String to print
      */
-    public void println(String s) {
+    void println(String s) {
         println(ansi().a(s));
     }
 
@@ -100,7 +100,7 @@ public class CLI extends UI {
      *
      * @param i the int to print
      */
-    public void println(int i) {
+    void println(int i) {
         println(ansi().a(i));
     }
 
@@ -113,7 +113,7 @@ public class CLI extends UI {
      *
      * @param s the error message
      */
-    public void error(String s) {
+    void error(String s) {
         println(ansi().render("@|bold,red Errore:|@ %s", s));
     }
 
@@ -123,7 +123,7 @@ public class CLI extends UI {
      * @param prompt the prompt to show when asking for input
      * @return the string read from the CLI
      */
-    public String readString(String prompt) {
+    String readString(String prompt) {
         return readString(prompt, "", 15);
     }
 
@@ -134,7 +134,7 @@ public class CLI extends UI {
      * @param def    the default value, suggested to the user
      * @return the string read from the CLI
      */
-    public String readString(String prompt, String def) {
+    String readString(String prompt, String def) {
         return readString(prompt, def, def.length() + 2);
     }
 
@@ -146,7 +146,7 @@ public class CLI extends UI {
      * @param expected_input_length the expected input length
      * @return the string read from the CLI
      */
-    public String readString(String prompt, String def, int expected_input_length) {
+    String readString(String prompt, String def, int expected_input_length) {
         printReadPrompt(prompt, def, expected_input_length);
         return in.nextLine();
     }
@@ -157,7 +157,7 @@ public class CLI extends UI {
      * @param prompt the prompt to show when asking for input
      * @return the int read from the CLI
      */
-    public int readInt(String prompt) {
+    int readInt(String prompt) {
         return readInt(prompt, null, 6);
     }
 
@@ -168,7 +168,7 @@ public class CLI extends UI {
      * @param def    the default value, suggested to the user
      * @return the int read from the CLI
      */
-    public int readInt(String prompt, Integer def) {
+    int readInt(String prompt, Integer def) {
         return readInt(prompt, def, (int) (Math.ceil(Math.log10(def)) + 2));
     }
 
@@ -180,7 +180,7 @@ public class CLI extends UI {
      * @param expected_input_length the expected input length
      * @return the int read from the CLI
      */
-    public int readInt(String prompt, Integer def, int expected_input_length) {
+    int readInt(String prompt, Integer def, int expected_input_length) {
         printReadPrompt(prompt, def != null ? Integer.toString(def) : "", expected_input_length);
         String line = in.nextLine();
         try {
