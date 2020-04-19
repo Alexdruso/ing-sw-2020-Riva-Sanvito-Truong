@@ -26,7 +26,7 @@ public class Controller implements Observer<ViewClientMessage> {
     /**
      * The queue containing the messages to be processed.
      */
-    BlockingQueue<ViewClientMessage> processingQueue = new LinkedBlockingQueue<ViewClientMessage>();
+    private BlockingQueue<ViewClientMessage> processingQueue = new LinkedBlockingQueue<ViewClientMessage>();
 
     /**
      * The class constructor
