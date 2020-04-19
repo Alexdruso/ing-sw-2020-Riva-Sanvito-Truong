@@ -1,6 +1,6 @@
 package it.polimi.ingsw.utils.messages;
 
-public class ServerAskStarPlayerMessage extends ServerMessage {
+public class ServerAskStartPlayerMessage extends ServerMessage {
     /**
      * This method returns the type of the current action
      *
