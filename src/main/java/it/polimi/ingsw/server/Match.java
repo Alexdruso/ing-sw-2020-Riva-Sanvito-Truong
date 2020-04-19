@@ -16,11 +16,26 @@ import java.util.List;
  * needed to start the game, in particular Game,VirtualView and Controller.
  * Before calling the "run" method, the server should add nicknames and connections in order.
  */
-public class Match implements Runnable{
+public class Match implements Runnable {
+    /**
+     * The participants, represented by nickname and connection.
+     */
     private LinkedHashMap<String, Connection> participants = new LinkedHashMap<String, Connection>();
+    /**
+     * The model.
+     */
     private Game model;
+    /**
+     * The views related to each participant
+     */
     private List<View> virtualViews = new LinkedList<View>();
+    /**
+     * The controller.
+     */
     private Controller controller;
+    /**
+     * Boolean flag to shutdown the Match.
+     */
     private boolean playing;
 
     /**
