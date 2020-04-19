@@ -33,10 +33,14 @@ class ControllerTest {
         //ready steady go
         //create a new controller
         Controller myController = new Controller(myGame);
-        //call all the updates
+        //add all the updates
         myController.update(buildViewClientMessage);
         myController.update(moveViewClientMessage);
         myController.update(skipViewClientMessage);
+        //process the updates
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
         //verify the right calls
         verify(myGame, times(1)).isValidBuild(myBuildCommand, myUser);
         verify(myGame, times(1)).build(myBuildCommand, myUser);
@@ -69,10 +73,14 @@ class ControllerTest {
         //ready steady go
         //create a new controller
         Controller myController = new Controller(myGame);
-        //call all the updates
+        //add all the updates
         myController.update(buildViewClientMessage);
         myController.update(moveViewClientMessage);
         myController.update(skipViewClientMessage);
+        //process the updates
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
         //verify right calls
         verify(myGame, times(1)).isValidBuild(myBuildCommand, myUser);
         verify(myGame, times(0)).build(myBuildCommand, myUser);
