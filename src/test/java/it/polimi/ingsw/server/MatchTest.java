@@ -32,7 +32,7 @@ class MatchTest {
         //now try first to add as a LinkedHashMap
         myMatch.addParticipants(myMap);
         //make myMatch not enter the loop
-        myMatch.setPlaying(false);
+        myMatch.setIsPlaying(false);
         //invoke myMatch.run
         myMatch.run();
         //verify all fields are set

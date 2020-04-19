@@ -161,7 +161,7 @@ public class Match implements Runnable {
      *
      * @param isPlaying the playing
      */
-    public void setPlaying(boolean isPlaying) {
+    public void setIsPlaying(boolean isPlaying) {
         this.isPlaying = isPlaying;
     }
 }
