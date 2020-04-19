@@ -8,7 +8,8 @@ import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class is designed to be able to run on a separate thread and initialize all the classes
@@ -17,6 +18,10 @@ import java.util.Map;
  */
 public class Match implements Runnable{
     private LinkedHashMap<String, Connection> participants = new LinkedHashMap<String, Connection>();
+    private Game model;
+    private List<View> virtualViews = new LinkedList<View>();
+    private Controller controller;
+    private boolean playing;
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -33,9 +38,9 @@ public class Match implements Runnable{
     @Override
     public void run() {
         //create a new game
-        Game model = new Game(this.participants.size());
+        this.model = new Game(this.participants.size());
         //create the controller
-        Controller controller = new Controller(model);
+        this.controller = new Controller(model);
         //create array to hold users
         User[] users = new User[this.participants.size()];
         //initialize array index
@@ -54,6 +59,8 @@ public class Match implements Runnable{
             model.addObserver(virtualView);
             //the controller observes the view
             virtualView.addObserver(controller);
+            //add virtualView to the virtualViews
+            this.virtualViews.add(virtualView);
             //increment usersIndex
             usersIndex++;
         }
@@ -63,11 +70,16 @@ public class Match implements Runnable{
         for(Connection connection : this.participants.values()){
             connection.send(serverStartSetupMatchMessage);
         }
+        //now just make the controller work on this thread
+        while(this.isPlaying()){
+            this.controller.dispatchViewClientMessages();
+        }
     }
 
     /**
      * Adds the connection and the nickname to the match own participants
-     * @param nickname the nickname chosen by the participants
+     *
+     * @param nickname   the nickname chosen by the participants
      * @param connection the connection of the participant
      */
     public void addParticipant(String nickname, Connection connection){
@@ -77,6 +89,7 @@ public class Match implements Runnable{
     /**
      * Adds all the participants from the parameter to the match own participants.
      * It should be called only before executing run.
+     *
      * @param participants the structure holding the participants to be added
      */
     public void addParticipants(LinkedHashMap<String,Connection> participants){
@@ -85,9 +98,55 @@ public class Match implements Runnable{
 
     /**
      * Returns the participants to the match, represented by their nickname and connection
+     *
      * @return the participants to the match
      */
     public LinkedHashMap<String,Connection> getParticipants(){
         return new LinkedHashMap<String, Connection>(this.participants);
+    }
+
+    /**
+     * Gets model.
+     *
+     * @return the model
+     */
+    public Game getModel() {
+        return model;
+    }
+
+    /**
+     * Gets virtual views.
+     *
+     * @return the virtual views
+     */
+    public List<View> getVirtualViews() {
+        return new LinkedList<>(virtualViews);
+    }
+
+    /**
+     * Gets controller.
+     *
+     * @return the controller
+     */
+    public Controller getController() {
+        return controller;
+    }
+
+    /**
+     * Is playing boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    /**
+     * Sets playing.
+     *
+     * @param playing the playing
+     */
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 }
