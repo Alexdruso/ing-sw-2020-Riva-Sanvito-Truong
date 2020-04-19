@@ -14,8 +14,12 @@ public class View extends Observable<ViewClientMessage> implements Observer<Tran
     private final Connection connection;
     @Override
     public void update(Transmittable message) throws UnsupportedOperationException{
-        //TODO: define the type for Observer
-        throw new UnsupportedOperationException();
+        //TODO: fix this with lambda functions
+        if(message instanceof ClientMessage){
+            this.notify(new ViewClientMessage((ClientMessage) message, this, this.getUser()));
+        }else{
+            this.connection.send(message);
+        }
     }
 
     public void handleMessage(StatusMessages message) throws UnsupportedOperationException{
