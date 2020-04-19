@@ -15,15 +15,15 @@ import static org.mockito.Mockito.*;
 class MatchTest {
 
     @Test
-    void run() {
+    void setupRun() {
         /*
-        In this method we test the setup of a 3-players match.
+        In this method we test the setup of a 3-players match without starting the infinite loop of the controller.
         Keep in mind that this method will be running on a separate thread which sets up all the classes needed.
          */
 
         //setup test source, this is going to be a quite weird and important match
         LinkedHashMap<String, Connection> myMap = new LinkedHashMap<String, Connection>();
-        String[] nicknames = new String[]{"Alan Turing","Steve Wozniak","Edsger W. Dijkstra"};
+        String[] nicknames = new String[]{"Alan Turing", "Steve Wozniak", "Edsger W. Dijkstra"};
         myMap.put(nicknames[0], mock(Connection.class));
         myMap.put(nicknames[1], mock(Connection.class));
         myMap.put(nicknames[2], mock(Connection.class));
@@ -31,17 +31,22 @@ class MatchTest {
         Match myMatch = new Match();
         //now try first to add as a LinkedHashMap
         myMatch.addParticipants(myMap);
+        //make myMatch not enter the loop
+        myMatch.setPlaying(false);
         //invoke myMatch.run
         myMatch.run();
-        //try to catch the view
-        ArgumentCaptor<View> myViewCaptor = ArgumentCaptor.forClass(View.class);
+        //verify all fields are set
+        assertNotNull(myMatch.getModel());
+        assertNotNull(myMatch.getController());
+        assertNotNull(myMatch.getVirtualViews());
+        assertEquals(3, myMatch.getVirtualViews().size());
         //Verify calls
-        for(Connection connection : myMap.values()){
-            verify(connection, times(1)).addObserver(myViewCaptor.capture());
+        for (Connection connection : myMap.values()) {
+            verify(connection, times(1)).addObserver(any(View.class));
         }
         //check that ServerStartSetupMatchMessage has been sent
         ArgumentCaptor<ServerStartSetupMatchMessage> myMessageCaptor = ArgumentCaptor.forClass(ServerStartSetupMatchMessage.class);
-        for(Connection connection : myMap.values()){
+        for (Connection connection : myMap.values()) {
             verify(connection, times(1)).send(myMessageCaptor.capture());
         }
         assertEquals(3, myMessageCaptor.getAllValues().size());
