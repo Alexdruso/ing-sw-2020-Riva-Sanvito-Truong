@@ -23,7 +23,7 @@ public class View extends Observable<ViewClientMessage> implements Observer<Tran
     }
 
     public void handleMessage(StatusMessages message) throws UnsupportedOperationException{
-        throw new UnsupportedOperationException();
+        this.connection.send(message);
     }
 
     public View(Connection connection, String nickname){
