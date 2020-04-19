@@ -58,6 +58,7 @@ public class Game extends Observable<Transmittable> {
         playersInGame = MAX_NUMBER_OF_PLAYERS;
         subscribedUsers = new LinkedHashMap<>();
         lastRound = new LinkedList<>();
+        board = new Board();
     }
 
     /**
