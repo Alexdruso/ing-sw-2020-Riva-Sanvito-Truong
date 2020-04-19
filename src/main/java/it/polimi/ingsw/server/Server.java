@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 
 import java.io.IOException;
@@ -35,8 +36,18 @@ public class Server {
     /**
      *
      */
-    private final Map<String, Connection> registeredNicknames;
+    private final Map<Connection, String> registeredNicknames;
+    /**
+     *
+     */
+    private final LinkedList<Connection> lobbyRequestingConnections;
+    private Connection firstConnection;
 
+    private int currentLobbyPlayerCount;
+
+    private final Object playerCountLock;
+
+    private boolean active;
     /**
      * Class constructor
      */
@@ -48,15 +59,17 @@ public class Server {
         ongoingMatches = new ArrayList<>();
         registeredNicknames = new ConcurrentHashMap<>();
         executor = Executors.newFixedThreadPool(n_THREADS);
-        lobby = new ServerLobby(this);
+        lobbyRequestingConnections = new LinkedList<>();
+        playerCountLock = new Object();
+        active = true;
     }
 
     boolean registerNickname(String nickname, Connection connection){
         synchronized(registeredNicknames){
-            if(registeredNicknames.containsKey(nickname)){
+            if(registeredNicknames.containsValue(nickname)){
                 return false;
             } else {
-                registeredNicknames.put(nickname, connection);
+                registeredNicknames.put(connection, nickname);
                 return true;
             }
         }
@@ -74,20 +87,39 @@ public class Server {
         return new ArrayList<>(ongoingMatches);
     }
 
-    public boolean setLobbyMaxPlayerCount(int playerCount, String username, Connection connection){
-        return lobby.setLobbyMaxPlayerCount(playerCount, username, connection);
+    int getCurrentLobbyPlayerCount(){
+        return currentLobbyPlayerCount;
     }
 
-    public int getLobbyMaxPlayerCount(){
-        return lobby.getLobbyMaxPlayerCount();
+    public boolean setLobbyMaxPlayerCount(int playerCount, Connection connection){
+        if(firstConnection == null || connection != firstConnection){
+            return false;
+        }
+
+        ConfigParser configParser = ConfigParser.getInstance();
+        int MIN_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("minPlayersPerGame"));
+        int MAX_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("maxPlayersPerGame"));
+
+        if(playerCount > MAX_PLAYERS_PER_GAME || playerCount < MIN_PLAYERS_PER_GAME){
+            return false;
+        }
+
+        synchronized(playerCountLock){
+            if(currentLobbyPlayerCount != 0){
+                return false;
+            }
+            currentLobbyPlayerCount = playerCount;
+            playerCountLock.notify();
+        }
+        return true;
     }
 
-    public Map<String, Connection> getConnectedUsers(){
-        return lobby.getConnectedUsers();
-    }
-
-    public synchronized void joinLobby(String username, Connection connection){
-        lobby.joinLobby(username, connection);
+    public void handleLobbyRequest(String nickname, Connection connection){
+        synchronized(lobbyRequestingConnections){
+            lobbyRequestingConnections.add(connection);
+            lobbyRequestingConnections.notify();
+            connection.send(StatusMessages.OK);
+        }
     }
 
     /**
@@ -102,7 +134,6 @@ public class Server {
         match.addParticipants(connectedUsers);
         executor.submit(match);
         ongoingMatches.add(match);
-        this.lobby = new ServerLobby(this);
     }
 
     /**
@@ -114,13 +145,52 @@ public class Server {
         } catch (IOException e){
             e.printStackTrace();
         }
+        active = false;
+    }
+
+    public void startLobbyThread(){
+        while(active){
+            synchronized(lobbyRequestingConnections){
+                while(lobbyRequestingConnections.size() == 0){
+                    try{
+                        lobbyRequestingConnections.wait();
+                    } catch (InterruptedException ignored){ }
+                }
+                firstConnection = lobbyRequestingConnections.getFirst();
+            }
+            synchronized(playerCountLock) {
+                currentLobbyPlayerCount = 0;
+                firstConnection.send(StatusMessages.CONTINUE);
+                while (currentLobbyPlayerCount == 0) {
+                    try {
+                        playerCountLock.wait();
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+            }
+            synchronized(lobbyRequestingConnections){
+                while(lobbyRequestingConnections.size() < currentLobbyPlayerCount){
+                    try {
+                        lobbyRequestingConnections.wait();
+                    } catch (InterruptedException ignored) { }
+                }
+            }
+            lobby = new ServerLobby(this, currentLobbyPlayerCount);
+            for(int i = 0; i < currentLobbyPlayerCount; i++){
+                Connection connection = lobbyRequestingConnections.removeFirst();
+                String nickname = registeredNicknames.get(connection);
+                lobby.joinLobby(nickname, connection);
+            }
+            createMatch(lobby);
+            lobby = null;
+        }
     }
 
     /**
      * This is the main method of the server, which runs infinitely until the server is shut down.
      * This method accepts inbound connections and dispatches them
      */
-    public void start(){
+    public void startAcceptingThread(){
         while(!serverSocket.isClosed()){
             try{
                 Socket inboundSocket = serverSocket.accept();

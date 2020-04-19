@@ -4,6 +4,7 @@ import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientJoinLobbyMessage;
 import it.polimi.ingsw.utils.messages.ClientSetNicknameMessage;
 import it.polimi.ingsw.utils.messages.ClientSetPlayersCountMessage;
+import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 import jdk.jshell.Snippet;
@@ -38,6 +39,8 @@ public class ServerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Thread t1 = new Thread(server::startLobbyThread);
+        t1.start();
     }
 
     @AfterEach
@@ -61,7 +64,7 @@ public class ServerTest {
 
     @Test
     void serverStartAndStop(){
-        Thread t = new Thread(server::start);
+        Thread t = new Thread(server::startAcceptingThread);
         t.start();
         server.shutdown();
     }
@@ -84,13 +87,13 @@ public class ServerTest {
         t.start();
 
         Transmittable message = waitForMessage(queues[index]);
+        assertEquals(StatusMessages.OK, message);
 
         if(isWaitingForCount){
+            message = waitForMessage(queues[index]);
             assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
             connHandlers[index].update(new ClientSetPlayersCountMessage(count));
             message = waitForMessage(queues[index]);
-            assertEquals(StatusMessages.OK, message);
-        } else {
             assertEquals(StatusMessages.OK, message);
         }
 
@@ -107,17 +110,12 @@ public class ServerTest {
         setCheckNickname(0, "Boris");
         setCheckJoinLobby(0, true, 2);
 
-        assertEquals(server.getLobbyMaxPlayerCount(), 2);
-        Map<String, Connection> connectedUsers = server.getConnectedUsers();
-        assertEquals(connectedUsers.size(), 1);
-        assertTrue(connectedUsers.containsKey("Boris"));
-        assertSame(connectedUsers.get("Boris"), connections[0]);
+        assertEquals(server.getCurrentLobbyPlayerCount(), 2);
 
         setCheckNickname(1, "Rene Ferretti");
         setCheckJoinLobby(1, false, 0);
 
         assertEquals(1, server.getOngoingMatches().size()); //There should be one match
-        assertEquals(0, server.getLobbyMaxPlayerCount()); //The lobby should be reset
 
         Match match = server.getOngoingMatches().get(0);
 
@@ -150,6 +148,9 @@ public class ServerTest {
         });
         t.start();
 
+        message = waitForMessage(queues[0]);
+        assertEquals(StatusMessages.OK, message);
+
         //Player1 is requested a playerCount
         message = waitForMessage(queues[0]);
         assertEquals(StatusMessages.CONTINUE, message);
@@ -171,16 +172,13 @@ public class ServerTest {
         Thread t1 = new Thread( () -> {
             connHandlers[1].update(new ClientJoinLobbyMessage());
         });
-        t1.start();
 
         Thread t2 = new Thread( () -> {
             connHandlers[2].update(new ClientJoinLobbyMessage());
         });
-        t2.start();
 
-        assertTrue(t.isAlive()); //First thread should be waiting
-        assertTrue(t1.isAlive()); //Second thread should be waiting
-        assertTrue(t2.isAlive()); //Third thread should be waiting
+        t1.start();
+        t2.start();
 
         //Player3 tries to set player count, should get rejected
         connHandlers[2].update(new ClientSetPlayersCountMessage(3));
@@ -191,39 +189,35 @@ public class ServerTest {
         connHandlers[0].update(new ClientSetPlayersCountMessage(2));
 
         message = waitForMessage(queues[0]);
-        assertEquals(message, StatusMessages.OK); // Player1 should join lobby correctly
-
         Transmittable message1 = waitForMessage(queues[1]);
         Transmittable message2 = waitForMessage(queues[2]);
 
+        assertEquals(message, StatusMessages.OK); // Player1 should join lobby correctly
+        assertEquals(StatusMessages.OK, message1);
+        assertEquals(StatusMessages.OK, message2);
 
-        //One and only one of the remaining players gets put in the newly created lobby
+        message = waitForMessage(queues[0]);
+        message1 = waitForMessage(queues[1]);
+        message2 = waitForMessage(queues[2]);
+
         assertTrue(message1.equals(StatusMessages.CONTINUE) ^ message2.equals(StatusMessages.CONTINUE));
 
         int index;
         String nick;
         if(message1.equals(StatusMessages.CONTINUE)){
+            assertTrue(message2 instanceof ServerStartSetupMatchMessage);
             index = 1;
             nick = "Rene Ferretti";
         } else {
+            assertTrue(message1 instanceof ServerStartSetupMatchMessage);
             index = 2;
             nick = "Stanis";
         }
-
-        //Lobby should be newly created, with only one and no PlayerCount set
-        assertEquals(0, server.getLobbyMaxPlayerCount());
-        Map<String, Connection> connectedUsers = server.getConnectedUsers();
-        assertEquals(0, connectedUsers.size());
 
         connHandlers[index].update(new ClientSetPlayersCountMessage(3));
 
         message = waitForMessage(queues[index]);
         assertEquals(StatusMessages.OK, message);
-
-        connectedUsers = server.getConnectedUsers();
-        assertEquals(1, connectedUsers.size());
-        assertTrue(connectedUsers.containsKey(nick));
-        assertEquals(connections[index], connectedUsers.get(nick));
     }
 
     @Test
@@ -236,31 +230,18 @@ public class ServerTest {
         setCheckNickname(0, "Boris");
         setCheckJoinLobby(0, true, 3);
 
-        //Check if the only player is present and with the right connection
-        Map<String, Connection> connectedUsers = server.getConnectedUsers();
-        assertEquals(1, connectedUsers.size());
-        assertTrue(connectedUsers.containsKey("Boris"));
-        assertSame(connectedUsers.get("Boris"), connections[0]);
+        assertEquals(3, server.getCurrentLobbyPlayerCount());
 
         setCheckNickname(1, "Rene Ferretti");
         setCheckJoinLobby(1, false, 3);
 
         //Check if maintains playerCount
-        assertEquals(3, server.getLobbyMaxPlayerCount());
-
-        //Check if all users are present
-        connectedUsers = server.getConnectedUsers();
-        assertEquals(2, connectedUsers.size());
-        assertTrue(connectedUsers.containsKey("Boris"));
-        assertSame(connectedUsers.get("Boris"), connections[0]);
-        assertTrue(connectedUsers.containsKey("Rene Ferretti"));
-        assertSame(connectedUsers.get("Rene Ferretti"), connections[1]);
+        assertEquals(3, server.getCurrentLobbyPlayerCount());
 
         setCheckNickname(2, "Stanis");
         setCheckJoinLobby(2, false, 0);
 
         assertEquals(1, server.getOngoingMatches().size()); //There should be one match
-        assertEquals(0, server.getLobbyMaxPlayerCount()); //The lobby should be reset
 
         //Check match
         Match match = server.getOngoingMatches().get(0);
