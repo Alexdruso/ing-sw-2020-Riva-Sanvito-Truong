@@ -1,12 +1,17 @@
 package it.polimi.ingsw.utils.messages;
 
+import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.model.workers.WorkerID;
+import it.polimi.ingsw.utils.networking.ControllerHandleable;
+import it.polimi.ingsw.utils.networking.TransmittableHandler;
+import it.polimi.ingsw.view.View;
 
 /**
  * This immutable class represents a command to set the initial position of a worker.
  */
-public class ClientSetWorkerPositionMessage extends ClientMessage {
+public class ClientSetWorkerPositionMessage extends ClientMessage implements ControllerHandleable {
     private final WorkerID workerID;
 
     private final int targetX;
@@ -51,6 +56,11 @@ public class ClientSetWorkerPositionMessage extends ClientMessage {
      */
     public int getTargetY() {
         return targetY;
+    }
+
+    @Override
+    public boolean handleTransmittable(Controller handler, View view, User user) {
+        return false;
     }
 
     /**

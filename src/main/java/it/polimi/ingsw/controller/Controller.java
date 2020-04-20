@@ -6,6 +6,7 @@ import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.ViewClientMessage;
@@ -56,20 +57,9 @@ public class Controller implements Observer<ViewClientMessage> {
      */
     public void dispatchViewClientMessages(){
         try {
-            ViewClientMessage action = this.processingQueue.take();
-            switch(action.clientMessage.getMessageType()){
-                case MOVE:
-                    dispatchMoveAction((ClientMoveMessage)action.clientMessage, action.view, action.user);
-                    break;
-                case BUILD:
-                    dispatchBuildAction((ClientBuildMessage)action.clientMessage, action.view, action.user);
-                    break;
-                case SKIP:
-                    dispatchSkipAction((ClientSkipMessage)action.clientMessage, action.view, action.user);
-                    break;
-                default:
-                    action.view.handleMessage(StatusMessages.CLIENT_ERROR);
-            }
+            ViewClientMessage message = this.processingQueue.take();
+            ControllerHandleable handleable = (ControllerHandleable) message.clientMessage;
+            handleable.handleTransmittable(this, message.view, message.user);
         }catch(InterruptedException ignored) {
             Thread.currentThread().interrupt();
         }
@@ -82,7 +72,7 @@ public class Controller implements Observer<ViewClientMessage> {
      * @param view   the View that triggered this command
      * @param user   the User that triggered this command
      */
-    private void dispatchBuildAction(ClientBuildMessage action, View view, User user){
+    public void dispatchBuildAction(ClientBuildMessage action, View view, User user){
         if(model.isValidBuild(action, user)) {
             model.build(action, user);
         } else {
@@ -97,7 +87,7 @@ public class Controller implements Observer<ViewClientMessage> {
      * @param view   the View that triggered this command
      * @param user   the User that triggered this command
      */
-    private void dispatchMoveAction(ClientMoveMessage action, View view, User user){
+    public void dispatchMoveAction(ClientMoveMessage action, View view, User user){
         if(model.isValidMove(action, user)){
             model.move(action, user);
         } else {
@@ -112,7 +102,7 @@ public class Controller implements Observer<ViewClientMessage> {
      * @param view   the View that triggered this command
      * @param user   the User that triggered this command
      */
-    private void dispatchSkipAction(ClientSkipMessage action, View view, User user){
+    public void dispatchSkipAction(ClientSkipMessage action, View view, User user){
         if(model.isValidSkip(action, user)){
             model.skip(action, user);
         } else {

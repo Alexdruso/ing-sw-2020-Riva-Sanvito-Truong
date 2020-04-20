@@ -60,7 +60,7 @@ public class ServerLobbyBuilder {
      * @param connection the Connection from which the user is communicating
      * @return true if the registering has been successful, false otherwise
      */
-    boolean registerNickname(String nickname, Connection connection){
+    public boolean registerNickname(String nickname, Connection connection){
         synchronized(registeredNicknames){
             if(registeredNicknames.containsValue(nickname) || registeredNicknames.containsKey(connection)){
                 return false;

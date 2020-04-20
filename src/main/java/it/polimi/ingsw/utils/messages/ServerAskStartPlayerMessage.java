@@ -1,6 +1,10 @@
 package it.polimi.ingsw.utils.messages;
 
-public class ServerAskStartPlayerMessage extends ServerMessage {
+import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.utils.networking.ClientHandleable;
+import it.polimi.ingsw.utils.networking.TransmittableHandler;
+
+public class ServerAskStartPlayerMessage extends ServerMessage implements ClientHandleable {
     /**
      * This method returns the type of the current action
      *
@@ -9,5 +13,10 @@ public class ServerAskStartPlayerMessage extends ServerMessage {
     @Override
     public ServerMessages getMessageType() {
         return ServerMessages.ASK_START_PLAYER;
+    }
+
+    @Override
+    public boolean handleTransmittable(Client handler) {
+        return false;
     }
 }

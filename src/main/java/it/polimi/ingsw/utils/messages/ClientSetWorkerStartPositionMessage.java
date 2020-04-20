@@ -1,8 +1,13 @@
 package it.polimi.ingsw.utils.messages;
 
+import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
+import it.polimi.ingsw.utils.networking.ControllerHandleable;
+import it.polimi.ingsw.utils.networking.TransmittableHandler;
+import it.polimi.ingsw.view.View;
 
-public class ClientSetWorkerStartPositionMessage extends ClientMessage {
+public class ClientSetWorkerStartPositionMessage extends ClientMessage implements ControllerHandleable {
     /**
      * The x coordinate of the cell to which the worker is positioned
      */
@@ -29,6 +34,11 @@ public class ClientSetWorkerStartPositionMessage extends ClientMessage {
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.performer = performer;
+    }
+
+    @Override
+    public boolean handleTransmittable(Controller handler, View view, User user) {
+        return false;
     }
 
     /**

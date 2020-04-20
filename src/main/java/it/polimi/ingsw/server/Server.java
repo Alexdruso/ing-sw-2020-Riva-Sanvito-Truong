@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
  * This class represents the Server. Whenever one Server object is created and run, it waits for
  * connections arriving over the network and dispatches the setup to a ServerConnectionSetupHandler object
  */
-public class Server {
+public class Server{
     /**
      * The socket from which the Server listens for new requests
      */

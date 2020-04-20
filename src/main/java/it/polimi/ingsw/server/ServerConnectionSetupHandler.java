@@ -4,7 +4,9 @@ import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.utils.networking.Transmittable;
+import it.polimi.ingsw.utils.networking.TransmittableHandler;
 
 import java.util.Optional;
 
@@ -13,7 +15,7 @@ import java.util.Optional;
  * In particular it handles the request for a nickname and the joining of a lobby for a newly connected
  * client
  */
-public class ServerConnectionSetupHandler implements Observer<Transmittable> {
+public class ServerConnectionSetupHandler implements Observer<Transmittable>, TransmittableHandler {
     /**
      * The reference to the server
      */
@@ -25,7 +27,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
     /**
      * The nickname of the player
      */
-    private Optional<String> nickname;
+    private String nickname;
     /**
      * The reference to the ServerLobbyBuilder in server
      */
@@ -42,6 +44,15 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         this.lobbyBuilder = server.getLobbyBuilder();
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public ServerLobbyBuilder getLobbyBuilder() {
+        return lobbyBuilder;
+    }
+
+
     /**
      * This method is called by the Observable to update the observer
      *
@@ -49,32 +60,14 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
      */
     @Override
     public void update(Transmittable message) {
-        if(message instanceof ClientSetNicknameMessage) {
-            String nickname = ((ClientSetNicknameMessage) message).getNickname();
-            boolean status = lobbyBuilder.registerNickname(nickname, connection);
-            if(status){
-                connection.send(StatusMessages.OK);
-                this.nickname = Optional.of(nickname);
-            } else {
-                connection.send(StatusMessages.CLIENT_ERROR);
-            }
-        } else if(message instanceof ClientSetPlayersCountMessage) {
-            int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
-            boolean status = lobbyBuilder.setLobbyMaxPlayerCount(playerCount, connection);
-            if(status){
-                connection.send(StatusMessages.OK);
-            } else {
-                //Player count has already been set
-                connection.send(StatusMessages.CLIENT_ERROR);
-            }
-        } else if(message instanceof ClientJoinLobbyMessage){
-            boolean status = lobbyBuilder.handleLobbyRequest(nickname.get(), connection);
-            if(!status){
-                connection.send(StatusMessages.CLIENT_ERROR);
-            }
-        } else {
-            //Received wrong kind of message
-            connection.send(StatusMessages.CLIENT_ERROR);
-        }
+        ((ServerHandleable)message).handleTransmittable(this);
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getNickname() {
+        return this.nickname;
     }
 }

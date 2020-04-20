@@ -27,5 +27,5 @@ public enum StatusMessages implements Transmittable {
      *
      * @see <a href="https://tools.ietf.org/html/rfc2324">RFC 2324</a>
      */
-    TEAPOT,
+    TEAPOT;
 }

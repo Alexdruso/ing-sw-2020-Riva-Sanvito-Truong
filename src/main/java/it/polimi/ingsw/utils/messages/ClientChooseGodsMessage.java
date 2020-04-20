@@ -1,14 +1,20 @@
 package it.polimi.ingsw.utils.messages;
 
+import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.gods.GodCard;
+import it.polimi.ingsw.utils.networking.ControllerHandleable;
+import it.polimi.ingsw.utils.networking.TransmittableHandler;
+import it.polimi.ingsw.view.View;
 
+import javax.naming.ldap.Control;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This immutable class represents a command to set the gods allowed in a game.
  */
-public class ClientChooseGodsMessage extends ClientMessage {
+public class ClientChooseGodsMessage extends ClientMessage implements ControllerHandleable {
     private final List<GodCard> gods;
 
     /**
@@ -20,6 +26,11 @@ public class ClientChooseGodsMessage extends ClientMessage {
        super();
        this.gods = gods;
    }
+
+    @Override
+    public boolean handleTransmittable(Controller handler, View view, User user) {
+        return false;
+    }
 
     /**
      * Gets the gods chosen by the user.

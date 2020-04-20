@@ -1,12 +1,16 @@
 package it.polimi.ingsw.utils.messages;
 
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.ServerConnectionSetupHandler;
+import it.polimi.ingsw.server.ServerLobbyBuilder;
+import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.ServerHandleable;
+import it.polimi.ingsw.utils.networking.TransmittableHandler;
 
 /**
  * This immutable class represents a command given by the player to set its nickname.
  */
-public class ClientSetNicknameMessage extends ClientMessage {
+public class ClientSetNicknameMessage extends ClientMessage implements ServerHandleable {
     private final String nickname;
 
     /**
@@ -35,5 +39,22 @@ public class ClientSetNicknameMessage extends ClientMessage {
     @Override
     public ClientMessages getMessageType() {
         return ClientMessages.SET_NICKNAME;
+    }
+
+    @Override
+    public boolean handleTransmittable(ServerConnectionSetupHandler handler) {
+        ServerLobbyBuilder lobbyBuilder = handler.getLobbyBuilder();
+        Connection connection = handler.getConnection();
+
+        boolean status = lobbyBuilder.registerNickname(nickname, connection);
+
+        if(status){
+            connection.send(StatusMessages.OK);
+            handler.setNickname(nickname);
+        } else {
+            connection.send(StatusMessages.CLIENT_ERROR);
+        }
+
+        return status;
     }
 }
