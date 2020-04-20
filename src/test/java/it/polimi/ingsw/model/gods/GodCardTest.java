@@ -16,6 +16,7 @@ public class GodCardTest {
                 "Demeter",
                 "Hephaestus",
                 "Hera",
+                "Hestia",
                 "Minotaur",
                 "Pan",
                 "Prometheus",
