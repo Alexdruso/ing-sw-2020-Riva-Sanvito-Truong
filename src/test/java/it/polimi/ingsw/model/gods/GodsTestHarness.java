@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,11 +17,11 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.lenient;
 
 public class GodsTestHarness {
-//    private final God god;
     private final Game mockedGame = mock(Game.class);
     private final Board mockedBoard = mock(Board.class);
     private final TurnEventsManager turnEventsManager = new TurnEventsManager(MockedPlayer.OWNER.player);
     private Turn mockedTurn;
+    private MockedTurnWinCondition mockedWinCondition;
     private Map<Player, List<Worker>> mockedWorkers;
     private Cell[][] mockedBoardCells;
     private Map<Turn, Map<Worker, TargetCells>> mockedWalkableTargets;
@@ -60,6 +59,7 @@ public class GodsTestHarness {
         mockedLastRoundTurnsList = new LinkedList<>();
 
         mockedTurn = makeMockTurn();
+        mockedWinCondition = MockedTurnWinCondition.NEUTRAL;
 
         mockedWorkers.put(godPlayer.player, new ArrayList<>());
         mockedPlayersGods.put(godPlayer, god);
@@ -79,10 +79,6 @@ public class GodsTestHarness {
             }
             return retVal;
         });
-//        when(mockedGame.getPlayersList()).thenReturn(Arrays.stream(MockedPlayer.values()).reduce(
-//                new ArrayList<Player>(),
-//                (retVal, mockedPlayer) -> {retVal.add(mockedPlayer); return retVal;}
-//                ));
         when(mockedBoard.getDimension()).thenCallRealMethod();
         when(mockedBoard.getCell(any(int.class), any(int.class))).thenAnswer(mockedCall -> {
             int x = mockedCall.getArgument(0);
@@ -106,7 +102,6 @@ public class GodsTestHarness {
         for (MockedPlayer mockedPlayer : MockedPlayer.values()) {
             when(mockedPlayer.player.getGod()).thenAnswer(mockedCall -> mockedPlayersGods.get(mockedPlayer) != null ? mockedPlayersGods.get(mockedPlayer) : new EmptyGod());
         }
-//        when(MockedPlayer.OWNER.player.getGod()).thenReturn(this.god);
         when(MockedPlayer.OWNER.player.getOwnWorkers()).thenAnswer(mockedCall -> mockedWorkers.get(MockedPlayer.OWNER.player).toArray(Worker[]::new));
 
         mockedBoardCells = new Cell[mockedBoard.getDimension()][mockedBoard.getDimension()];
@@ -144,6 +139,8 @@ public class GodsTestHarness {
             Worker worker = mockedCall.getArgument(0);
             return mockedDomeBuildableTargets.get(turn).get(worker);
         });
+        when(turn.isWinningTurn()).thenAnswer(mockedCall -> mockedWinCondition.equals(MockedTurnWinCondition.WIN));
+        when(turn.isLosingTurn()).thenAnswer(mockedCall -> mockedWinCondition.equals(MockedTurnWinCondition.LOSE));
 
         return turn;
     }
@@ -341,6 +338,10 @@ public class GodsTestHarness {
         return turn;
     }
 
+    void setMockedWinCondition(MockedTurnWinCondition winCondition) {
+        mockedWinCondition = winCondition;
+    }
+
     void commitState() {
         computeWalkableTargets(mockedTurn);
         computeBlockBuildableTargets(mockedTurn);
@@ -353,4 +354,8 @@ class EmptyGod extends AbstractGod{
     public String getName() {
         return null;
     }
+}
+
+enum MockedTurnWinCondition {
+    LOSE, NEUTRAL, WIN;
 }
