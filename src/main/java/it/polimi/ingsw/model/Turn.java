@@ -303,6 +303,13 @@ public class Turn{
     }
 
     /**
+     * This method sets the turn as a neutral turn
+     */
+    public void setNeutralTurn(){
+        this.winLoseCondition = VictoryConditions.NEUTRAL;
+    }
+
+    /**
      * This method sets the turn as a losing turn
      */
     public void triggerLosingTurn(){

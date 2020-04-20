@@ -64,9 +64,7 @@ public class Match implements Runnable {
         //initialize array index
         int usersIndex = 0;
         //Create the views and add the player to the Game
-        for(String nickname : this.participants.keySet()){
-            //create the view
-            View virtualView = new View(this.participants.get(nickname), nickname);
+        for (View virtualView : this.virtualViews) {
             //get the user from the view
             User user = virtualView.getUser();
             //add user to user array
@@ -77,8 +75,6 @@ public class Match implements Runnable {
             model.addObserver(virtualView);
             //the controller observes the view
             virtualView.addObserver(controller);
-            //add virtualView to the virtualViews
-            this.virtualViews.add(virtualView);
             //increment usersIndex
             usersIndex++;
         }
@@ -95,23 +91,28 @@ public class Match implements Runnable {
     }
 
     /**
-     * Adds the connection and the nickname to the match own participants
+     * Adds the connection and the nickname to the match own participants initializing the view.
      *
      * @param nickname   the nickname chosen by the participants
      * @param connection the connection of the participant
      */
     public void addParticipant(String nickname, Connection connection){
-        this.participants.put(nickname,connection);
+        this.participants.put(nickname, connection);
+        virtualViews.add(new View(connection, nickname));
     }
 
     /**
-     * Adds all the participants from the parameter to the match own participants.
+     * Adds all the participants from the parameter to the match own participants initializing the views.
      * It should be called only before executing run.
      *
      * @param participants the structure holding the participants to be added
      */
-    public void addParticipants(LinkedHashMap<String,Connection> participants){
+    public void addParticipants(LinkedHashMap<String,Connection> participants) {
         this.participants.putAll(participants);
+
+        for (String nickname : participants.keySet()) {
+            virtualViews.add(new View(participants.get(nickname), nickname));
+        }
     }
 
     /**

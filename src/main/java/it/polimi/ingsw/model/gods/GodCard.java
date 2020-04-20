@@ -42,6 +42,18 @@ public enum GodCard {
      */
     HEPHAESTUS(new Hephaestus()),
     /**
+     * The Hera god.
+     *
+     * @see Hera
+     */
+    HERA(new Hera()),
+    /**
+     * The Hestia god.
+     *
+     * @see Hestia
+     */
+    HESTIA(new Hestia()),
+    /**
      * The Minotaur god.
      *
      * @see Minotaur

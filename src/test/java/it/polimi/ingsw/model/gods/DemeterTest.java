@@ -197,7 +197,7 @@ class DemeterTest {
     }
 
     @Test
-    void allowSecondMoveAfterFirst() {
+    void allowSecondBuildAfterFirst() {
         testHarness.setCell(0, 0, GodsTestHarness.MockedPlayer.OWNER.player, false, 1);
         testHarness.setCell(1, 1, false, 1);
 

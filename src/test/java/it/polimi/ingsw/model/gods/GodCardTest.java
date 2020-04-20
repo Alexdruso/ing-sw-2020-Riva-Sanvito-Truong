@@ -15,6 +15,8 @@ public class GodCardTest {
                 "Atlas",
                 "Demeter",
                 "Hephaestus",
+                "Hera",
+                "Hestia",
                 "Minotaur",
                 "Pan",
                 "Prometheus",
@@ -23,5 +25,6 @@ public class GodCardTest {
             God god = GodCard.valueOf(godName.toUpperCase()).getGod();
             assertEquals(god.getName(), godName);
         }
+        assertEquals(godNames.length, GodCard.values().length);
     }
 }
