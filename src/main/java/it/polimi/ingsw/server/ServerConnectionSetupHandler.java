@@ -34,6 +34,8 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
      */
     private boolean hasJoinedLobby;
 
+    private ServerLobbyBuilder lobbyBuilder;
+
     /**
      * The class constructor
      * @param server the Server instance
@@ -43,6 +45,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         this.server = server;
         this.connection = connection;
         this.hasJoinedLobby = false;
+        this.lobbyBuilder = server.getLobbyBuilder();
     }
 
     /**
@@ -56,7 +59,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         //This implies that the function getMessageType is moved from ClientMessage and ServerMessage to Transmittable
         if(message instanceof ClientSetNicknameMessage) {
             String nickname = ((ClientSetNicknameMessage) message).getNickname();
-            boolean status = server.registerNickname(nickname, connection);
+            boolean status = lobbyBuilder.registerNickname(nickname, connection);
             if(status){
                 this.nickname = Optional.of(nickname);
                 connection.send(StatusMessages.OK);
@@ -66,7 +69,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
         } else if(message instanceof ClientSetPlayersCountMessage) {
             if(hasJoinedLobby && nickname.isPresent()){
                 int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
-                boolean status = server.setLobbyMaxPlayerCount(playerCount, connection);
+                boolean status = lobbyBuilder.setLobbyMaxPlayerCount(playerCount, connection);
                 if(status){
                     connection.send(StatusMessages.OK);
                 } else {
@@ -82,7 +85,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
                 connection.send(StatusMessages.CLIENT_ERROR);
             } else {
                 hasJoinedLobby = true;
-                server.handleLobbyRequest(nickname.get(), connection);
+                lobbyBuilder.handleLobbyRequest(nickname.get(), connection);
                 //connection.removeObserver(this); //From now on, the connection is to be handled by the Match
             }
         } else {

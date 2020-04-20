@@ -9,8 +9,7 @@ public class ServerApp {
         Server server;
         try{
             server = new Server();
-            new Thread(server::startAcceptingThread).run();
-            server.startLobbyThread();
+            server.start();
         } catch (IOException e){
             e.printStackTrace();
             System.out.println("Could not initialize server");

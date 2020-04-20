@@ -7,20 +7,14 @@ import it.polimi.ingsw.utils.messages.ClientSetPlayersCountMessage;
 import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
-import jdk.jshell.Snippet;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.beans.Transient;
 import java.io.IOException;
-import java.net.Socket;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 
-import static java.lang.Thread.sleep;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,6 +22,7 @@ import static org.mockito.Mockito.*;
 
 public class ServerTest {
     Server server = null;
+    ServerLobbyBuilder lobbyBuilder;
     Connection[] connections = new Connection[3];
     Queue<Transmittable>[] queues = new LinkedList[3];
     ServerConnectionSetupHandler[] connHandlers = new ServerConnectionSetupHandler[3];
@@ -39,8 +34,7 @@ public class ServerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Thread t1 = new Thread(server::startLobbyThread);
-        t1.start();
+        lobbyBuilder = server.getLobbyBuilder();
     }
 
     @AfterEach
@@ -64,7 +58,7 @@ public class ServerTest {
 
     @Test
     void serverStartAndStop(){
-        Thread t = new Thread(server::startAcceptingThread);
+        Thread t = new Thread(server::start);
         t.start();
         server.shutdown();
     }
@@ -110,7 +104,7 @@ public class ServerTest {
         setCheckNickname(0, "Boris");
         setCheckJoinLobby(0, true, 2);
 
-        assertEquals(server.getCurrentLobbyPlayerCount(), 2);
+        assertEquals(lobbyBuilder.getCurrentLobbyPlayerCount(), 2);
 
         setCheckNickname(1, "Rene Ferretti");
         setCheckJoinLobby(1, false, 0);
@@ -230,13 +224,13 @@ public class ServerTest {
         setCheckNickname(0, "Boris");
         setCheckJoinLobby(0, true, 3);
 
-        assertEquals(3, server.getCurrentLobbyPlayerCount());
+        assertEquals(3, lobbyBuilder.getCurrentLobbyPlayerCount());
 
         setCheckNickname(1, "Rene Ferretti");
         setCheckJoinLobby(1, false, 3);
 
         //Check if maintains playerCount
-        assertEquals(3, server.getCurrentLobbyPlayerCount());
+        assertEquals(3, lobbyBuilder.getCurrentLobbyPlayerCount());
 
         setCheckNickname(2, "Stanis");
         setCheckJoinLobby(2, false, 0);
