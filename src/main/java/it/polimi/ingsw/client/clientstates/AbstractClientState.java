@@ -95,11 +95,9 @@ public abstract class AbstractClientState {
 
     /**
      * Handles a SERVER_ERROR StatusMessage sent by the server.
-     *
-     * @throws UnsupportedOperationException if SERVER_ERROR is not a valid StatusMessage for the current state
      */
-    public void handleServerError() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+    public void handleServerError() {
+        client.getUI().notifyError("Si e' verificato un errore del server.");
     }
 
 }
