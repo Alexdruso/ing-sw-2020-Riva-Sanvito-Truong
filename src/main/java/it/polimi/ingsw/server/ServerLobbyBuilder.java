@@ -39,7 +39,7 @@ public class ServerLobbyBuilder {
     /**
      * The current status of the LobbyBuilder Thread
      */
-    private boolean active;
+    private volatile boolean active;
 
     /**
      * The class constructor
@@ -167,4 +167,10 @@ public class ServerLobbyBuilder {
         }
     }
 
+    /**
+     * This method stops the main ServerLobbyBuilder thread
+     */
+    public void stop(){
+        active = false;
+    }
 }
