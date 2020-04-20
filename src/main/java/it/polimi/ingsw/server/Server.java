@@ -34,7 +34,7 @@ public class Server {
 
 
     /**
-     * Class constructor
+     * Class constructor. This method also creates a lobby builder and starts its thread
      */
     public Server() throws IOException {
         ConfigParser configParser = ConfigParser.getInstance();
@@ -47,26 +47,46 @@ public class Server {
         new Thread(() -> lobbyBuilder.start()).start();
     }
 
+    /**
+     * This method retrieves a new ServerSocket on a given port
+     * @param port the port on which the socket is to be opened
+     * @return the ServerSocket instance
+     * @throws IOException
+     */
     ServerSocket getServerSocket(int port) throws IOException{
         return new ServerSocket(port);
     }
 
+    /**
+     * This method retrieves a new Connection object, when given an inbound socket created by the
+     * ServerSocket when it receives a connection over the newtork.
+     * @param inboundSocket
+     * @return
+     * @throws IOException
+     */
     Connection getConnection(Socket inboundSocket) throws IOException{
         return new Connection(inboundSocket);
     }
 
+    /**
+     * This method returns a list containing all matches that have been created
+     * @return the list with the reference to the created matches
+     */
     List<Match> getOngoingMatches(){
         return new ArrayList<>(ongoingMatches);
     }
 
+    /**
+     * This method returns the ServerLobbyBuilder connected to the server
+     * @return the ServerLobbyBuilder instance
+     */
     ServerLobbyBuilder getLobbyBuilder(){
         return lobbyBuilder;
     }
 
     /**
-     * When a ServerLobby is complete, it calls this method to create a Match object and execute it
-     * as a different thread
-     * @param match
+     * This method accepts a Match instance and executes it in a different thread
+     * @param match the Match to be executed
      */
     void submitMatch(Match match){
         executor.submit(match);

@@ -32,10 +32,14 @@ public class ServerLobbyBuilder {
      * The maximum number of players for the current lobby
      */
     private int currentLobbyPlayerCount;
-
-    private boolean active;
-
+    /**
+     * The lock used to synchronize over currentLobbyPlayerCount
+     */
     private final Object playerCountLock;
+    /**
+     * The current status of the LobbyBuilder Thread
+     */
+    private boolean active;
 
     /**
      * The class constructor
@@ -49,6 +53,13 @@ public class ServerLobbyBuilder {
         this.playerCountLock = new Object();
     }
 
+    /**
+     * This method accepts a nickname and a connection and, if both are valid, registers the nickname, along with the
+     * connection
+     * @param nickname a String representing the nickname of the user
+     * @param connection the Connection from which the user is communicating
+     * @return true if the registering has been successful, false otherwise
+     */
     boolean registerNickname(String nickname, Connection connection){
         synchronized(registeredNicknames){
             if(registeredNicknames.containsValue(nickname)){
@@ -60,6 +71,13 @@ public class ServerLobbyBuilder {
         }
     }
 
+    /**
+     * This method accepts a playerCount and a connection and, if both are valid, sets the maximum player count
+     * This method also notifies all threads that are synchronized with playerCountLock
+     * @param playerCount an int representing the maximum number of players to allow in the lobby
+     * @param connection the Connection from which the user is communicating
+     * @return true if the count has been set correctly, false otherwise
+     */
     public boolean setLobbyMaxPlayerCount(int playerCount, Connection connection){
         if(firstConnection == null || connection != firstConnection){
             return false;
@@ -83,10 +101,21 @@ public class ServerLobbyBuilder {
         return true;
     }
 
+    /**
+     * This method retrieves the maximum number of players allowed in the lobby.
+     * If the player count has not been set, it returns 0
+     * @return the maximum number of players allowed in the lobby
+     */
     public int getCurrentLobbyPlayerCount(){
         return currentLobbyPlayerCount;
     }
 
+    /**
+     * This method handles a request to join the lobby by a player. If nickname and connection are both valid,
+     * the method adds the user to the queue, notifies all waiting threads and sends an OK on the connection
+     * @param nickname a String representing the nickname of the user is communicating
+     * @param connection the Connection from which the user is
+     */
     public void handleLobbyRequest(String nickname, Connection connection){
         synchronized(lobbyRequestingConnections){
             lobbyRequestingConnections.add(connection);
@@ -95,6 +124,10 @@ public class ServerLobbyBuilder {
         }
     }
 
+    /**
+     * This method begins the main ServerLobbyBuilder thread, waiting for lobby requests and handling them
+     * in order to generate a Match.
+     */
     public void start(){
         while(active){
             synchronized(lobbyRequestingConnections){
