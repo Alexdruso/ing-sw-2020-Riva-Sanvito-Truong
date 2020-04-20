@@ -52,6 +52,9 @@ public class Match implements Runnable {
      */
     @Override
     public void run() {
+        //TODO: Put this in constructor, maybe? ~Kien
+        //This would help when the match is created and we have to deregister observers on the SetupHandler side
+
         //create a new game
         this.model = new Game(this.participants.size());
         //create the controller

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,7 +32,10 @@ public class Server {
      * A List of created and ongoing matches
      */
     private final ArrayList<Match> ongoingMatches;
-
+    /**
+     * A Map with Connections as keys and the relative SetupHandler as values
+     */
+    private final Map<Connection, ServerConnectionSetupHandler> handlers;
 
     /**
      * Class constructor. This method also creates a lobby builder and starts its thread
@@ -43,8 +47,9 @@ public class Server {
         serverSocket = getServerSocket(SERVER_PORT);
         executor = Executors.newFixedThreadPool(n_THREADS);
         ongoingMatches = new ArrayList<>();
+        handlers = new ConcurrentHashMap<>();
         lobbyBuilder = new ServerLobbyBuilder(this);
-        new Thread(() -> lobbyBuilder.start()).start();
+        new Thread(lobbyBuilder::start).start();
     }
 
     /**
@@ -91,6 +96,9 @@ public class Server {
     void submitMatch(Match match){
         executor.submit(match);
         ongoingMatches.add(match);
+        for (Connection connection : match.getParticipants().values()) {
+            connection.removeObserver(handlers.get(connection));
+        }
     }
 
     /**
@@ -114,6 +122,7 @@ public class Server {
                 Socket inboundSocket = serverSocket.accept();
                 Connection currentConnection = getConnection(inboundSocket);
                 ServerConnectionSetupHandler connectionHandler = new ServerConnectionSetupHandler(this, currentConnection);
+                handlers.put(currentConnection, connectionHandler);
                 currentConnection.addObserver(connectionHandler);
             } catch (IOException e){
                 //TODO: Send to logger instead of stdout

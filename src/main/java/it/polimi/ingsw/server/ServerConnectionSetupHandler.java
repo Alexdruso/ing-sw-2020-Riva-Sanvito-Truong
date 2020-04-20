@@ -18,22 +18,17 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
      * The reference to the server
      */
     private final Server server;
-
     /**
      * The connection of which this object is Observer and to which it needs to send messages
      */
     private final Connection connection;
-
     /**
      * The nickname of the player
      */
     private Optional<String> nickname;
-
     /**
-     * The flag to indicate whether the connection has been inserted into a lobby or not
+     * The reference to the ServerLobbyBuilder in server
      */
-    private boolean hasJoinedLobby;
-
     private ServerLobbyBuilder lobbyBuilder;
 
     /**
@@ -44,7 +39,6 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
     public ServerConnectionSetupHandler(Server server, Connection connection){
         this.server = server;
         this.connection = connection;
-        this.hasJoinedLobby = false;
         this.lobbyBuilder = server.getLobbyBuilder();
     }
 
@@ -55,38 +49,28 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable> {
      */
     @Override
     public void update(Transmittable message) {
-        //TODO: This lines needs to become if(!message.getMessageType != ClientMessages.NICKNAME)
-        //This implies that the function getMessageType is moved from ClientMessage and ServerMessage to Transmittable
         if(message instanceof ClientSetNicknameMessage) {
             String nickname = ((ClientSetNicknameMessage) message).getNickname();
             boolean status = lobbyBuilder.registerNickname(nickname, connection);
             if(status){
-                this.nickname = Optional.of(nickname);
                 connection.send(StatusMessages.OK);
+                this.nickname = Optional.of(nickname);
             } else {
                 connection.send(StatusMessages.CLIENT_ERROR);
             }
         } else if(message instanceof ClientSetPlayersCountMessage) {
-            if(hasJoinedLobby && nickname.isPresent()){
-                int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
-                boolean status = lobbyBuilder.setLobbyMaxPlayerCount(playerCount, connection);
-                if(status){
-                    connection.send(StatusMessages.OK);
-                } else {
-                    //Player count has already been set
-                    connection.send(StatusMessages.CLIENT_ERROR);
-                }
+            int playerCount = ((ClientSetPlayersCountMessage) message).getPlayersCount();
+            boolean status = lobbyBuilder.setLobbyMaxPlayerCount(playerCount, connection);
+            if(status){
+                connection.send(StatusMessages.OK);
             } else {
-                //Client trying to set player count before being asked to
+                //Player count has already been set
                 connection.send(StatusMessages.CLIENT_ERROR);
             }
         } else if(message instanceof ClientJoinLobbyMessage){
-            if(nickname.isEmpty()){
+            boolean status = lobbyBuilder.handleLobbyRequest(nickname.get(), connection);
+            if(!status){
                 connection.send(StatusMessages.CLIENT_ERROR);
-            } else {
-                hasJoinedLobby = true;
-                lobbyBuilder.handleLobbyRequest(nickname.get(), connection);
-                //connection.removeObserver(this); //From now on, the connection is to be handled by the Match
             }
         } else {
             //Received wrong kind of message

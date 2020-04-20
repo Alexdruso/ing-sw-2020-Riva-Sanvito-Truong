@@ -62,7 +62,7 @@ public class ServerLobbyBuilder {
      */
     boolean registerNickname(String nickname, Connection connection){
         synchronized(registeredNicknames){
-            if(registeredNicknames.containsValue(nickname)){
+            if(registeredNicknames.containsValue(nickname) || registeredNicknames.containsKey(connection)){
                 return false;
             } else {
                 registeredNicknames.put(connection, nickname);
@@ -116,12 +116,18 @@ public class ServerLobbyBuilder {
      * @param nickname a String representing the nickname of the user is communicating
      * @param connection the Connection from which the user is
      */
-    public void handleLobbyRequest(String nickname, Connection connection){
+    public boolean handleLobbyRequest(String nickname, Connection connection){
+        synchronized(registeredNicknames){
+            if(!registeredNicknames.containsValue(nickname) || !registeredNicknames.containsKey(connection)){
+                return false;
+            }
+        }
         synchronized(lobbyRequestingConnections){
             lobbyRequestingConnections.add(connection);
-            lobbyRequestingConnections.notify();
             connection.send(StatusMessages.OK);
+            lobbyRequestingConnections.notify();
         }
+        return true;
     }
 
     /**
