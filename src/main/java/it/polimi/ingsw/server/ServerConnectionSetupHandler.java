@@ -28,10 +28,6 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable>, Tr
      * The nickname of the player
      */
     private String nickname;
-    /**
-     * The reference to the ServerLobbyBuilder in server
-     */
-    private ServerLobbyBuilder lobbyBuilder;
 
     /**
      * The class constructor
@@ -41,7 +37,6 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable>, Tr
     public ServerConnectionSetupHandler(Server server, Connection connection){
         this.server = server;
         this.connection = connection;
-        this.lobbyBuilder = server.getLobbyBuilder();
     }
 
     public Connection getConnection() {
@@ -49,7 +44,7 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable>, Tr
     }
 
     public ServerLobbyBuilder getLobbyBuilder() {
-        return lobbyBuilder;
+        return server.getLobbyBuilder();
     }
 
 
