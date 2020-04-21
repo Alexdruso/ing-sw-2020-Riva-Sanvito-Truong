@@ -55,7 +55,7 @@ public class Observable<T> {
      */
     protected void notify(T message, boolean requireAtLeastOneObserver){
         synchronized (observers) {
-            while (observers.size() == 0) {
+            while (requireAtLeastOneObserver && observers.size() == 0) {
                 try {
                     observers.wait();
                 } catch (InterruptedException ignored) {
