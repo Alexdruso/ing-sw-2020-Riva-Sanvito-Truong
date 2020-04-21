@@ -150,7 +150,7 @@ public class Connection extends Observable<Transmittable> {
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
                         Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
-                        connectionInstance.notify(inputObject);
+                        connectionInstance.notify(inputObject, true);
                     } catch (IOException e) {
                         connectionInstance.close(e);
                     } catch (ClassNotFoundException | ClassCastException e) {
