@@ -11,7 +11,7 @@ import java.util.Collection;
  * Finally the Cell instances should be retrieved by the getTargets() method in the board.
  */
 public class TargetCells {
-    private static final int BOARD_SIZE = Integer.parseInt(ConfigParser.getInstance().getProperty("boardSize"));
+    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
     private boolean[][] targets;
 
     /**

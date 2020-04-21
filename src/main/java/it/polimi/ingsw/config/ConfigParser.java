@@ -39,11 +39,13 @@ public class ConfigParser {
     }
 
     /**
-     * This method encapsulates the getProperty function on configs to make it read-only
+     * Reads the value bound to the specified key from the configuration.
+     *
      * @param key the name of the property to be retrieved
-     * @return the value of the property
+     * @return the value bound to the property
+     * @throws IllegalArgumentException if the specified key does not exist
      */
-    public String getProperty(String key){
+    public String getProperty(String key) throws IllegalArgumentException{
         String property = configs.getProperty(key);
         if(property == null){
             throw new IllegalArgumentException("Key does not exist");
@@ -53,8 +55,20 @@ public class ConfigParser {
     }
 
     /**
+     * Reads the value bound to the specified key from the configuration, casting it to an int.
+     *
+     * @param key the name of the property to be retrieved
+     * @return the value bound to the property
+     * @throws IllegalArgumentException if the specified key does not exist
+     */
+    public int getIntProperty(String key) throws IllegalArgumentException {
+        return Integer.parseInt(getProperty(key));
+    }
+
+    /**
      * This method allows to retrieve the instance of ConfigParser, if it exists, otherwise it creates one
      * and returns the newly created instance
+     *
      * @return the ConfigParser singleton instance
      */
     public static ConfigParser getInstance(){

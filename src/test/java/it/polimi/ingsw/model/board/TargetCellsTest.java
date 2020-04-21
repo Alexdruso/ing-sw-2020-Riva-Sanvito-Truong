@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TargetCellsTest {
 
-    private static final int BOARD_SIZE = Integer.parseInt(ConfigParser.getInstance().getProperty("boardSize"));
+    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
 
     @Test
     public void targetInitShouldBeEmpty(){

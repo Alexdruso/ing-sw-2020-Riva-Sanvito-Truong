@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class BoardTestingUtils {
-    private static final int BOARD_SIZE = Integer.parseInt(ConfigParser.getInstance().getProperty("boardSize"));
+    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
 
     public static Stream<Arguments> getCoordPairs(){
         ArrayList<Arguments> coords = new ArrayList<Arguments>();

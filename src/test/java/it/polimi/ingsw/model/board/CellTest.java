@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTest {
     private final Cell cell = new Cell(0, 0);
-    private static final int BOARD_SIZE = Integer.parseInt(ConfigParser.getInstance().getProperty("boardSize"));
+    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
 
     @ParameterizedTest
     @EnumSource(WorkerID.class)
