@@ -2,7 +2,7 @@
 
 **Docente:** Prof. Gianpaolo Cugola
 
-**Gruppo:** GC2
+**Gruppo:** GC02
 
 **Studenti**:
 - Andrea Riva (matricola: 887449)
