@@ -161,9 +161,9 @@ public class Match implements Runnable {
     }
 
     /**
-     * Sets playing.
+     * Sets isPlaying.
      *
-     * @param isPlaying the playing
+     * @param isPlaying the parameter telling if the match is still active
      */
     public void setIsPlaying(boolean isPlaying) {
         this.isPlaying = isPlaying;
