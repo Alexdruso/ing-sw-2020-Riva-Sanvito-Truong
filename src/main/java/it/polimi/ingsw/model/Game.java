@@ -10,6 +10,7 @@ import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.messages.ClientSkipMessage;
+import it.polimi.ingsw.utils.messages.ServerMoveMessage;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
@@ -158,6 +159,8 @@ public class Game extends Observable<Transmittable> {
         }
         worker.setCell(cell);
         cell.setWorker(worker);
+        //notify the move action
+        notify(new ServerMoveMessage(new User(currentTurn.getPlayer().getNickname()), cell.getX(), cell.getY(), worker.getWorkerID()));
     }
 
     /**
