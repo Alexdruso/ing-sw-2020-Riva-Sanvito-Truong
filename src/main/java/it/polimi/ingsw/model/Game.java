@@ -37,7 +37,7 @@ public class Game extends Observable<Transmittable> {
      */
     private final Map<User, Player> subscribedUsers;
     /**
-     *
+     * The participating players, in order
      */
     private final LinkedList<Player> players;
 
