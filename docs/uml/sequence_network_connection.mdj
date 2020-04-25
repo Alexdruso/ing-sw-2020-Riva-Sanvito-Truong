@@ -5617,7 +5617,7 @@
 												"$ref": "AAAAAAFxcuXl0XnX6GU="
 											},
 											"edgePosition": 1,
-											"text": "38 : add_player(user_I)"
+											"text": "38 : subscribeUser(user_I)"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -18579,7 +18579,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFxRYj5l8PGOnk="
 							},
-							"name": "add_player",
+							"name": "subscribeUser",
 							"source": {
 								"$ref": "AAAAAAFxct3GwXjkQxY="
 							},
