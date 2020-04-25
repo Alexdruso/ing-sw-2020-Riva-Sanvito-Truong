@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.AbstractTurnState;
+import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
@@ -465,13 +465,5 @@ public class Turn{
     public void buildBlockIn(Worker pawn, Cell targetCell) throws InvalidTurnStateException {
         this.currentState.buildBlockIn(pawn, targetCell, this);
         this.changeState();
-    }
-
-    /**
-     * This method lets the player surrender.
-     * It doesn't call changeState and goes directly to Lose to avoid computing winConditions
-     */
-    public void draw(){
-        this.currentState.draw(this);
     }
 }

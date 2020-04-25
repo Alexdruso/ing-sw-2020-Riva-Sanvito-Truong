@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
-import it.polimi.ingsw.model.turnstates.TurnState;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -245,33 +244,6 @@ class TurnTest {
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
-    }
-
-    @Test
-    void testTurnWithDraw() {
-        //Our own default TurnEventsManager
-        TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
-        //Funny easter egg for JoJo fans
-        Player myPlayer = spy(new Player("Giorno Giovanna"));
-        //The trick to make it work without a god
-        when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
-        //Mock game 'cause it's too complex
-        Game mockGame = mock(Game.class);
-        //A real board because why not
-        Board myBoard = spy(new Board());
-        //Give Game a meaning
-        when(mockGame.getBoard()).thenReturn(myBoard);
-        //Setup player's workers now that we invoke move.setup before starting the turn
-        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
-        //Create the turn
-        Turn myTurn = spy(new Turn(mockGame, myPlayer));
-
-        //Oh no, we decide to draw immediately, just like France
-        myTurn.draw();
-        verify(myTurn).triggerLosingTurn();
-        verify(myTurn, times(2)).setNextState(TurnState.LOSE.getTurnState());
-        verify(myTurn).changeState();
     }
 
     @Test

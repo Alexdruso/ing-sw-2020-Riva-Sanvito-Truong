@@ -81,14 +81,6 @@ public abstract class AbstractTurnState {
     }
 
     /**
-     * This method lets the player surrender
-     * @param turn the Context
-     */
-    public void draw(Turn turn){
-        turn.triggerLosingTurn();
-    }
-
-    /**
      * This method sets up the default allowed workers in the context
      * @param turn the Context
      */
