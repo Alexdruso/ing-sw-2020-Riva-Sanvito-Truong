@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.AbstractTurnState;
+import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.turnstates.TurnState;
 import it.polimi.ingsw.model.workers.Worker;
 
@@ -33,24 +33,24 @@ public class Turn{
     /**
      * List of all the actions performed in the turn
      */
-    private List<Action> performedActions;
+    private final List<Action> performedActions;
 
     /**
      * Cells on which the worker can build a block
      */
-    private Map<Worker, TargetCells> blockBuildableCells;
+    private final Map<Worker, TargetCells> blockBuildableCells;
 
     /**
      * Cells on which the worker can build a dome
      */
-    private Map<Worker, TargetCells> domeBuildableCells;
+    private final Map<Worker, TargetCells> domeBuildableCells;
 
     /**
      * Cells the worker can be moved to
      */
-    private Map<Worker, TargetCells> walkableCells;
+    private final Map<Worker, TargetCells> walkableCells;
 
-    private Set<Worker> allowedWorkers;
+    private final Set<Worker> allowedWorkers;
 
     /**
      * Current state of the turn, part of state pattern
@@ -101,12 +101,12 @@ public class Turn{
         this.winLoseCondition = VictoryConditions.NEUTRAL;
         this.setSkippable(false);
 
-        this.performedActions = new LinkedList<Action>();
-        this.blockBuildableCells = new HashMap<Worker, TargetCells>();
-        this.domeBuildableCells = new HashMap<Worker, TargetCells>();
-        this.walkableCells = new HashMap<Worker, TargetCells>();
+        this.performedActions = new LinkedList<>();
+        this.blockBuildableCells = new HashMap<>();
+        this.domeBuildableCells = new HashMap<>();
+        this.walkableCells = new HashMap<>();
         //start with empty set
-        this.allowedWorkers = new HashSet<Worker>();
+        this.allowedWorkers = new HashSet<>();
         //we use the first current state to prepare the turn for the first actual state
         this.currentState = TurnState.START.getTurnState();
         this.currentState.setup(this);
@@ -130,7 +130,7 @@ public class Turn{
      * @return a list of all the performed actions in the turn
      */
     public List<Action> getPerformedAction(){
-        return new LinkedList<Action>(this.performedActions);
+        return new LinkedList<>(this.performedActions);
     }
 
     /**
@@ -231,7 +231,7 @@ public class Turn{
      * @return a set of workers allowed to perform the action
      */
     public Set<Worker> getAllowedWorkers(){
-        return new HashSet<Worker>(this.allowedWorkers);
+        return new HashSet<>(this.allowedWorkers);
     }
 
     /**
@@ -465,13 +465,5 @@ public class Turn{
     public void buildBlockIn(Worker pawn, Cell targetCell) throws InvalidTurnStateException {
         this.currentState.buildBlockIn(pawn, targetCell, this);
         this.changeState();
-    }
-
-    /**
-     * This method lets the player surrender.
-     * It doesn't call changeState and goes directly to Lose to avoid computing winConditions
-     */
-    public void draw(){
-        this.currentState.draw(this);
     }
 }

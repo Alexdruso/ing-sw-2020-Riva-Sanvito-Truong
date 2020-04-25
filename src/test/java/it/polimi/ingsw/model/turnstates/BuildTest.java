@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.turnstates;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
@@ -22,7 +23,6 @@ import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 class BuildTest {
     Build testBuild = new Build();
@@ -36,13 +36,14 @@ class BuildTest {
 
     @BeforeEach
     void reset() {
-        this.mockGame = mock(Game.class);
+        this.mockGame = spy(new Game(2));
         this.mockTurn = mock(Turn.class);
         this.mockWorker = mock(Worker.class);
         this.spiedCell = spy(new Cell(0, 0));
         this.mockTargetCells = mock(TargetCells.class);
-        this.mockPlayer = mock(Player.class);
+        this.mockPlayer = spy(new Player("Giosuè"));
         this.mockTurnEventsManager = mock(TurnEventsManager.class);
+        mockGame.subscribeUser(new User(mockPlayer.getNickname()));
     }
 
     @Test
@@ -63,8 +64,8 @@ class BuildTest {
         when(this.mockTurn.getGame()).thenReturn(this.mockGame);
         //non skippable turn
         when(this.mockTurn.isSkippable()).thenReturn(false);
-        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<Action>());
-        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<Worker>(Arrays.asList(this.mockWorker, mockWorker2)));
+        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<>());
+        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Arrays.asList(this.mockWorker, mockWorker2)));
         when(this.mockTurn.getWorkerDomeBuildableCells(any())).thenReturn((new TargetCells()).setAllTargets(false));
         when(this.mockTurn.getWorkerBlockBuildableCells(any())).thenReturn((new TargetCells()).setAllTargets(false));
         //setup obstacles in board

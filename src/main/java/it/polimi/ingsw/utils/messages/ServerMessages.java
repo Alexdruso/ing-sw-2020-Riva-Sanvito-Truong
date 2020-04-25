@@ -33,6 +33,12 @@ public enum ServerMessages {
      * A start player request
      */
     ASK_START_PLAYER,
-
-    MOVE, BUILD
+    /**
+     * A move notification
+     */
+    MOVE,
+    /**
+     * A build notification
+     */
+    BUILD
 }

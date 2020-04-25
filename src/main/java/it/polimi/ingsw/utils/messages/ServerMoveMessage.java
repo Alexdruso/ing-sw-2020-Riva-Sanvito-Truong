@@ -1,20 +1,12 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
+
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerMoveMessage extends ServerMessage implements ClientHandleable {
-    /**
-     * The x coordinate of the cell from which the worker moved
-     */
-    public final int sourceCellX;
-
-    /**
-     * The y coordinate of the cell from which the worker moved
-     */
-    public final int sourceCellY;
-
     /**
      * The x coordinate of the cell to which the worker moved
      */
@@ -32,17 +24,12 @@ public class ServerMoveMessage extends ServerMessage implements ClientHandleable
 
     /**
      * Constructor, stores all the variables by reference
-     * @param sourceCellX The x coordinate of the cell from which the worker moved
-     * @param sourceCellY The y coordinate of the cell from which the worker moved
      * @param targetCellX The x coordinate of the cell to which the worker moved
      * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer The worker who performed the move
      */
-    public ServerMoveMessage(int sourceCellX, int sourceCellY,
-                             int targetCellX, int targetCellY, WorkerID performer) {
-        super();
-        this.sourceCellX = sourceCellX;
-        this.sourceCellY = sourceCellY;
+    public ServerMoveMessage(User user, int targetCellX, int targetCellY, WorkerID performer) {
+        super(user);
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.performer = performer;
@@ -50,6 +37,10 @@ public class ServerMoveMessage extends ServerMessage implements ClientHandleable
 
     /**
      * This method returns the type of the current action
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> 1cd5d89cb42032ace9d18dc772a7cfa16f99d999
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override

@@ -86,7 +86,8 @@ class Build extends AbstractTurnState {
                 targetCell.getTower().getCurrentLevel() + 1,//the new level built
                 pawn));//the performer
         turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
-        targetCell.getTower().placeComponent(Component.DOME);
+
+        turn.getGame().buildInCell(pawn, targetCell, Component.DOME, targetCell.getTower().getCurrentLevel() + 1);
     }
 
     /**
@@ -120,7 +121,7 @@ class Build extends AbstractTurnState {
 
         turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
 
-        targetCell.getTower().placeComponent(Component.BLOCK);
+        turn.getGame().buildInCell(pawn, targetCell, Component.BLOCK, targetCell.getTower().getCurrentLevel() + 1);
     }
 
 }

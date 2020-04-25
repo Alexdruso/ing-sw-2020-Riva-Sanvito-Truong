@@ -1,47 +1,50 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerBuildMessage extends ServerMessage implements ClientHandleable {
     /**
-     * The X coordinate of the cell on which the worker intends to build
+     * The X coordinate of the cell on which the worker built
      */
     public final int targetCellX;
 
     /**
-     * The Y coordinate of the cell on which the worker intends to build
+     * The Y coordinate of the cell on which the worker built
      */
     public final int targetCellY;
 
     /**
-     * The component that is to be built on the cell
+     * The component that is built on the cell
      */
     public final Component component;
 
     /**
-     * The level that is to be built by the worker.
+     * The level that is built by the worker.
      */
     public final int builtLevel;
 
     /**
-     * The worker who is to perform the build
+     * The worker who performed the build
      */
     public final WorkerID performer;
 
     /**
      * Constructor, stores all the variables by reference
+     *
+     * @param user        the user who ordered the build
      * @param targetCellX The x coordinate of the cell on which the worker built
      * @param targetCellY The y coordinate of the cell on which the worker built
-     * @param component The component built on the cell
-     * @param builtLevel The level built by the worker
-     * @param performer The worker who performed the build
+     * @param component   The component built on the cell
+     * @param builtLevel  The level built by the worker
+     * @param performer   The worker who performed the build
      */
-    public ServerBuildMessage(int targetCellX, int targetCellY,
+    public ServerBuildMessage(User user, int targetCellX, int targetCellY,
                               Component component, int builtLevel, WorkerID performer) {
-        super();
+        super(user);
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.component = component;
@@ -51,6 +54,10 @@ public class ServerBuildMessage extends ServerMessage implements ClientHandleabl
 
     /**
      * This method returns the type of the current action
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> 1cd5d89cb42032ace9d18dc772a7cfa16f99d999
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override

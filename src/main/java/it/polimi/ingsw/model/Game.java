@@ -4,12 +4,10 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.observer.LambdaObservable;
-import it.polimi.ingsw.observer.Observable;
-import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
@@ -25,11 +23,6 @@ public class Game extends LambdaObservable<Transmittable> {
     private final int MAX_NUMBER_OF_PLAYERS;
 
     /**
-     * The number of players that have not lost yet and are still playing
-     */
-    private int playersInGame;
-
-    /**
      * The Turn object representing the current game turn
      */
     private Turn currentTurn;
@@ -37,17 +30,21 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * The Board object of the game
      */
-    private Board board;
+    private final Board board;
 
     /**
-     * The mapping from the User to its relative Player instace
+     * The mapping from the User to its relative Player instance
      */
-    private Map<User, Player> subscribedUsers;
+    private final Map<User, Player> subscribedUsers;
+    /**
+     * The participating players, in order
+     */
+    private final LinkedList<Player> players;
 
     /**
      * The last round of turns, ordered by oldest to newest.
      */
-    private LinkedList<Turn> lastRound;
+    private final LinkedList<Turn> lastRound;
 
     /**
      * The class constructor
@@ -56,8 +53,8 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public Game(int numberOfPlayers){
         MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
-        playersInGame = MAX_NUMBER_OF_PLAYERS;
         subscribedUsers = new LinkedHashMap<>();
+        players = new LinkedList<>();
         lastRound = new LinkedList<>();
         board = new Board();
     }
@@ -75,6 +72,7 @@ public class Game extends LambdaObservable<Transmittable> {
         }
         Player player = new Player(user.nickname);
         subscribedUsers.put(user, player);
+        players.add(player);
     }
 
     /**
@@ -88,7 +86,7 @@ public class Game extends LambdaObservable<Transmittable> {
             throw new IllegalArgumentException("No such user");
         }
         subscribedUsers.remove(user);
-        playersInGame--;
+        players.removeIf(player -> player.getNickname().equals(user.nickname));
     }
 
     /**
@@ -98,7 +96,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return the List of players of this game
      */
     public List<Player> getPlayersList() {
-        return new ArrayList<Player>(subscribedUsers.values());
+        return new ArrayList<>(subscribedUsers.values());
     }
 
     /**
@@ -107,7 +105,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return the list of the turns of the last round
      */
     public List<Turn> getLastRoundTurnsList() {
-        return (List<Turn>) lastRound.clone();
+        return new LinkedList<>(lastRound);
     }
 
     /**
@@ -158,6 +156,22 @@ public class Game extends LambdaObservable<Transmittable> {
         }
         worker.setCell(cell);
         cell.setWorker(worker);
+        //notify the move action
+        notify(new ServerMoveMessage(new User(players.peek().getNickname()), cell.getX(), cell.getY(), worker.getWorkerID()));
+    }
+
+    /**
+     * Builds a component on a cell on behalf of the worker.
+     *
+     * @param worker     the building worker
+     * @param cell       the cell to build on
+     * @param component  the component to be built
+     * @param builtLevel the built level
+     */
+    public void buildInCell(Worker worker, Cell cell, Component component, int builtLevel) {
+        cell.getTower().placeComponent(component);
+        //notify the build action
+        notify(new ServerBuildMessage(new User(players.peek().getNickname()), cell.getX(), cell.getY(), component, builtLevel, worker.getWorkerID()));
     }
 
     /**
@@ -167,7 +181,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidMove(ClientMoveMessage command, User user){
+    public boolean isValidMove(ClientMoveMessage command, User user) {
         Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Player player = subscribedUsers.get(user);
@@ -247,6 +261,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidSkip(ClientSkipMessage command, User user){
+        //TODO check if right player
         return currentTurn.isSkippable();
     }
 
@@ -257,8 +272,43 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user    the user that triggered the command
      * @throws UnsupportedOperationException the unsupported operation exception
      */
-    public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException{
-        //TODO
-        throw new UnsupportedOperationException();
+    public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException {
+        currentTurn.changeState();
+    }
+
+    //TODO implement these methods
+    public void draw() {
+    }
+
+    //sends ask gods from list message, must be invoked by the match
+    public void setup() {
+    }
+
+    public boolean isValidGodsChoice(ClientChooseGodsMessage command, User user) {
+        return false;
+    }
+
+    public void setAvailableGodsList(ClientChooseGodsMessage command, User user) {
+    }
+
+    public boolean isValidGodChoice(ClientChooseGodMessage command, User user) {
+        return false;
+    }
+
+    public void setGod(ClientChooseGodMessage command, User user) {
+    }
+
+    public boolean isValidStartPlayerChoice() {
+        return false;
+    }
+
+    public void setStartPlayer() {
+    }
+
+    public boolean isValidPositioning(ClientSetWorkerStartPositionMessage command, User user) {
+        return false;
+    }
+
+    public void setWorkerPosition(ClientSetWorkerStartPositionMessage command, User user) {
     }
 }

@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 class AbstractTurnStateTest {
     Turn mockTurn = mock(Turn.class);
@@ -24,9 +23,7 @@ class AbstractTurnStateTest {
 
     @Test
     void moveTo() {
-        assertThrows(InvalidTurnStateException.class, () -> {
-            this.mockAbstractTurnState.moveTo(this.mockWorker, this.mockCell, this.mockTurn);
-        });
+        assertThrows(InvalidTurnStateException.class, () -> this.mockAbstractTurnState.moveTo(this.mockWorker, this.mockCell, this.mockTurn));
     }
 
     @Test
@@ -36,9 +33,7 @@ class AbstractTurnStateTest {
 
     @Test
     void buildDomeIn() {
-        assertThrows(InvalidTurnStateException.class, () -> {
-            this.mockAbstractTurnState.buildDomeIn(this.mockWorker, this.mockCell, this.mockTurn);
-        });
+        assertThrows(InvalidTurnStateException.class, () -> this.mockAbstractTurnState.buildDomeIn(this.mockWorker, this.mockCell, this.mockTurn));
     }
 
     @Test
@@ -48,14 +43,6 @@ class AbstractTurnStateTest {
 
     @Test
     void buildBlockIn() {
-        assertThrows(InvalidTurnStateException.class, () -> {
-            this.mockAbstractTurnState.buildBlockIn(this.mockWorker, this.mockCell, this.mockTurn);
-        });
-    }
-
-    @Test
-    void draw() {
-        this.mockAbstractTurnState.draw(this.mockTurn);
-        verify(this.mockTurn).triggerLosingTurn();
+        assertThrows(InvalidTurnStateException.class, () -> this.mockAbstractTurnState.buildBlockIn(this.mockWorker, this.mockCell, this.mockTurn));
     }
 }
