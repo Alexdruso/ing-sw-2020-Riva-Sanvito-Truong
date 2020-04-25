@@ -1,23 +1,23 @@
 package it.polimi.ingsw.observer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
-public abstract class LambdaObservable {
+public class LambdaObservable<T> {
     /**
      * The list of observers
      */
-    private final List<LambdaObserver> observers = new ArrayList<>();
+    private final Map<LambdaObserver, BiConsumer<LambdaObserver, T>> observers = new HashMap<>();
 
     /**
      * This method can be used to register an observer on the current object
      *
      * @param observer the observer to be registered
      */
-    public void addObserver(LambdaObserver observer){
+    public void addObserver(LambdaObserver observer, BiConsumer<LambdaObserver, T> lambda){
         synchronized (observers) {
-            observers.add(observer);
+            observers.put(observer, lambda);
             observers.notifyAll();
         }
     }
@@ -36,19 +36,19 @@ public abstract class LambdaObservable {
     /**
      * This method is called when the Observable changes state and needs to update its Observers.
      *
-     * @param lambda the function to be executed on all observers
+     * @param message the message that is sent to all observers
      */
-    protected void notify(Consumer<LambdaObserver> lambda){
-        notify(lambda, false);
+    protected void notify(T message){
+        notify(message, false);
     }
 
     /**
      * This method is called when the Observable changes state and needs to update its Observers.
      *
-     * @param lambda the function to be executed on all observers
+     * @param message the message that is sent to all observers
      * @param requireAtLeastOneObserver if true, puts the current thread in wait until at least one observer is present
      */
-    protected void notify(Consumer<LambdaObserver> lambda, boolean requireAtLeastOneObserver){
+    protected void notify(T message, boolean requireAtLeastOneObserver){
         synchronized (observers) {
             while (requireAtLeastOneObserver && observers.size() == 0) {
                 try {
@@ -57,8 +57,8 @@ public abstract class LambdaObservable {
                     Thread.currentThread().interrupt();
                 }
             }
-            for(LambdaObserver observer : observers){
-                lambda.accept(observer);
+            for(Map.Entry<LambdaObserver, BiConsumer<LambdaObserver, T>> entry: observers.entrySet()){
+                entry.getValue().accept(entry.getKey(), message);
             }
         }
     }
