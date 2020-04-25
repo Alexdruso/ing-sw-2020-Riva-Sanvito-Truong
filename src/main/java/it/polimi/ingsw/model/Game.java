@@ -23,11 +23,6 @@ public class Game extends Observable<Transmittable> {
     private final int MAX_NUMBER_OF_PLAYERS;
 
     /**
-     * The number of players that have not lost yet and are still playing
-     */
-    private int playersInGame;
-
-    /**
      * The Turn object representing the current game turn
      */
     private Turn currentTurn;
@@ -44,7 +39,7 @@ public class Game extends Observable<Transmittable> {
     /**
      *
      */
-    private final Queue<Player> players;
+    private final LinkedList<Player> players;
 
     /**
      * The last round of turns, ordered by oldest to newest.
@@ -58,7 +53,6 @@ public class Game extends Observable<Transmittable> {
      */
     public Game(int numberOfPlayers){
         MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
-        playersInGame = MAX_NUMBER_OF_PLAYERS;
         subscribedUsers = new LinkedHashMap<>();
         players = new LinkedList<>();
         lastRound = new LinkedList<>();
@@ -92,8 +86,7 @@ public class Game extends Observable<Transmittable> {
             throw new IllegalArgumentException("No such user");
         }
         subscribedUsers.remove(user);
-        //TODO update players
-        playersInGame--;
+        players.removeIf(player -> player.getNickname().equals(user.nickname));
     }
 
     /**
@@ -279,7 +272,6 @@ public class Game extends Observable<Transmittable> {
      * @throws UnsupportedOperationException the unsupported operation exception
      */
     public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException{
-        //TODO
-        throw new UnsupportedOperationException();
+        currentTurn.changeState();
     }
 }
