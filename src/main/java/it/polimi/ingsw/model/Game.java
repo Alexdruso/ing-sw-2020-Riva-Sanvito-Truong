@@ -41,9 +41,13 @@ public class Game extends Observable<Transmittable> {
     private final Board board;
 
     /**
-     * The mapping from the User to its relative Player instace
+     * The mapping from the User to its relative Player instance
      */
     private final Map<User, Player> subscribedUsers;
+    /**
+     *
+     */
+    private final Queue<Player> players;
 
     /**
      * The last round of turns, ordered by oldest to newest.
@@ -59,6 +63,7 @@ public class Game extends Observable<Transmittable> {
         MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
         playersInGame = MAX_NUMBER_OF_PLAYERS;
         subscribedUsers = new LinkedHashMap<>();
+        players = new LinkedList<>();
         lastRound = new LinkedList<>();
         board = new Board();
     }
@@ -76,6 +81,7 @@ public class Game extends Observable<Transmittable> {
         }
         Player player = new Player(user.nickname);
         subscribedUsers.put(user, player);
+        players.add(player);
     }
 
     /**
@@ -89,6 +95,7 @@ public class Game extends Observable<Transmittable> {
             throw new IllegalArgumentException("No such user");
         }
         subscribedUsers.remove(user);
+        //TODO update players
         playersInGame--;
     }
 
@@ -160,7 +167,7 @@ public class Game extends Observable<Transmittable> {
         worker.setCell(cell);
         cell.setWorker(worker);
         //notify the move action
-        notify(new ServerMoveMessage(new User(currentTurn.getPlayer().getNickname()), cell.getX(), cell.getY(), worker.getWorkerID()));
+        notify(new ServerMoveMessage(new User(players.peek().getNickname()), cell.getX(), cell.getY(), worker.getWorkerID()));
     }
 
     /**
