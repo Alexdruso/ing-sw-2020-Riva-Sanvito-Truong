@@ -261,6 +261,7 @@ public class Game extends Observable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidSkip(ClientSkipMessage command, User user){
+        //TODO check if right player
         return currentTurn.isSkippable();
     }
 
@@ -271,7 +272,43 @@ public class Game extends Observable<Transmittable> {
      * @param user    the user that triggered the command
      * @throws UnsupportedOperationException the unsupported operation exception
      */
-    public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException{
+    public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException {
         currentTurn.changeState();
+    }
+
+    //TODO implement these methods
+    public void draw() {
+    }
+
+    //sends ask gods from list message, must be invoked by the match
+    public void setup() {
+    }
+
+    public boolean isValidGodsChoice(ClientChooseGodsMessage command, User user) {
+        return false;
+    }
+
+    public void setAvailableGodsList(ClientChooseGodsMessage command, User user) {
+    }
+
+    public boolean isValidGodChoice(ClientChooseGodMessage command, User user) {
+        return false;
+    }
+
+    public void setGod(ClientChooseGodMessage command, User user) {
+    }
+
+    public boolean isValidStartPlayerChoice() {
+        return false;
+    }
+
+    public void setStartPlayer() {
+    }
+
+    public boolean isValidPositioning(ClientSetWorkerPositionMessage command, User user) {
+        return false;
+    }
+
+    public void setWorkerPosition(ClientSetWorkerPositionMessage command, User user) {
     }
 }
