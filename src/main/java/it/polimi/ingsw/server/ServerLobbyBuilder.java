@@ -124,7 +124,6 @@ public class ServerLobbyBuilder {
         }
         synchronized(lobbyRequestingConnections){
             lobbyRequestingConnections.add(connection);
-            connection.send(StatusMessages.OK);
             lobbyRequestingConnections.notify();
         }
         return true;

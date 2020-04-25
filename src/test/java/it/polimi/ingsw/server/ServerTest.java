@@ -80,15 +80,10 @@ public class ServerTest {
         );
         t.start();
 
-        Transmittable message = waitForMessage(queues[index]);
-        assertEquals(StatusMessages.OK, message);
-
         if(isWaitingForCount){
-            message = waitForMessage(queues[index]);
+            Transmittable message = waitForMessage(queues[index]);
             assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
             connHandlers[index].update(new ClientSetPlayersCountMessage(count));
-            message = waitForMessage(queues[index]);
-            assertEquals(StatusMessages.OK, message);
         }
 
         await().until(() -> !t.isAlive()); //Thread should terminate here
@@ -142,9 +137,6 @@ public class ServerTest {
         });
         t.start();
 
-        message = waitForMessage(queues[0]);
-        assertEquals(StatusMessages.OK, message);
-
         //Player1 is requested a playerCount
         message = waitForMessage(queues[0]);
         assertEquals(StatusMessages.CONTINUE, message);
@@ -182,17 +174,8 @@ public class ServerTest {
         //Player1 sets player count
         connHandlers[0].update(new ClientSetPlayersCountMessage(2));
 
-        message = waitForMessage(queues[0]);
         Transmittable message1 = waitForMessage(queues[1]);
         Transmittable message2 = waitForMessage(queues[2]);
-
-        assertEquals(message, StatusMessages.OK); // Player1 should join lobby correctly
-        assertEquals(StatusMessages.OK, message1);
-        assertEquals(StatusMessages.OK, message2);
-
-        message = waitForMessage(queues[0]);
-        message1 = waitForMessage(queues[1]);
-        message2 = waitForMessage(queues[2]);
 
         assertTrue(message1.equals(StatusMessages.CONTINUE) ^ message2.equals(StatusMessages.CONTINUE));
 
