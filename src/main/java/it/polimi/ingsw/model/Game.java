@@ -7,10 +7,7 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.observer.Observable;
-import it.polimi.ingsw.utils.messages.ClientBuildMessage;
-import it.polimi.ingsw.utils.messages.ClientMoveMessage;
-import it.polimi.ingsw.utils.messages.ClientSkipMessage;
-import it.polimi.ingsw.utils.messages.ServerMoveMessage;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
@@ -171,13 +168,27 @@ public class Game extends Observable<Transmittable> {
     }
 
     /**
+     * Builds a component on a cell on behalf of the worker.
+     *
+     * @param worker     the building worker
+     * @param cell       the cell to build on
+     * @param component  the component to be built
+     * @param builtLevel the built level
+     */
+    public void buildInCell(Worker worker, Cell cell, Component component, int builtLevel) {
+        cell.getTower().placeComponent(component);
+        //notify the build action
+        notify(new ServerBuildMessage(new User(players.peek().getNickname()), cell.getX(), cell.getY(), component, builtLevel, worker.getWorkerID()));
+    }
+
+    /**
      * Checks if the PlayerMoveCommand can be executed
      *
      * @param command the command to be checked
      * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidMove(ClientMoveMessage command, User user){
+    public boolean isValidMove(ClientMoveMessage command, User user) {
         Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Player player = subscribedUsers.get(user);
