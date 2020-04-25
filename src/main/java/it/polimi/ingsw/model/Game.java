@@ -4,11 +4,12 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
-import it.polimi.ingsw.observer.Observable;
-import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.observer.Observable;
+import it.polimi.ingsw.utils.messages.ClientBuildMessage;
+import it.polimi.ingsw.utils.messages.ClientMoveMessage;
+import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
@@ -36,17 +37,17 @@ public class Game extends Observable<Transmittable> {
     /**
      * The Board object of the game
      */
-    private Board board;
+    private final Board board;
 
     /**
      * The mapping from the User to its relative Player instace
      */
-    private Map<User, Player> subscribedUsers;
+    private final Map<User, Player> subscribedUsers;
 
     /**
      * The last round of turns, ordered by oldest to newest.
      */
-    private LinkedList<Turn> lastRound;
+    private final LinkedList<Turn> lastRound;
 
     /**
      * The class constructor
@@ -97,7 +98,7 @@ public class Game extends Observable<Transmittable> {
      * @return the List of players of this game
      */
     public List<Player> getPlayersList() {
-        return new ArrayList<Player>(subscribedUsers.values());
+        return new ArrayList<>(subscribedUsers.values());
     }
 
     /**
@@ -106,7 +107,7 @@ public class Game extends Observable<Transmittable> {
      * @return the list of the turns of the last round
      */
     public List<Turn> getLastRoundTurnsList() {
-        return (List<Turn>) lastRound.clone();
+        return new LinkedList<>(lastRound);
     }
 
     /**
