@@ -123,7 +123,8 @@ public class Server{
                 Connection currentConnection = getConnection(inboundSocket);
                 ServerConnectionSetupHandler connectionHandler = new ServerConnectionSetupHandler(this, currentConnection);
                 handlers.put(currentConnection, connectionHandler);
-                currentConnection.addObserver(connectionHandler);
+                currentConnection.addObserver(connectionHandler, (obs, message) ->
+                        ((ServerConnectionSetupHandler)obs).update(message));
             } catch (IOException e){
                 //TODO: Send to logger instead of stdout
                 e.printStackTrace();

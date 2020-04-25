@@ -3,6 +3,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
@@ -23,7 +24,8 @@ public class AndrMockServerApp {
                     Socket s = ss.accept();
                     System.out.println("accepted connection");
                     Connection connection = new Connection(s);
-                    connection.addObserver(new AndrServerTestReceiver(connection));
+                    connection.addObserver(new AndrServerTestReceiver(connection), (o, m) ->
+                            ((AndrServerTestReceiver)o).update(m));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -35,7 +37,7 @@ public class AndrMockServerApp {
     }
 }
 
-class AndrServerTestReceiver implements Observer<Transmittable> {
+class AndrServerTestReceiver implements LambdaObserver {
     Connection connection;
 
     public AndrServerTestReceiver(Connection connection) {
@@ -52,7 +54,6 @@ class AndrServerTestReceiver implements Observer<Transmittable> {
         connection.send(new ServerStartSetupMatchMessage(users));
     }
 
-    @Override
     public void update(Transmittable message) {
         System.out.println("received message");
         if (message instanceof ClientDisconnectMessage) {

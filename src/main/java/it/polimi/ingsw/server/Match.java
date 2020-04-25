@@ -72,9 +72,11 @@ public class Match implements Runnable {
             //add the user as a player in the model
             model.subscribeUser(user);
             //the view observes the model
-            model.addObserver(virtualView);
+            model.addObserver(virtualView, (obs, message) ->
+                    ((View)obs).updateFromGame(message));
             //the controller observes the view
-            virtualView.addObserver(controller);
+            virtualView.addObserver(controller, (obs, message) ->
+                    ((Controller)obs).update(message));
             //increment usersIndex
             usersIndex++;
         }

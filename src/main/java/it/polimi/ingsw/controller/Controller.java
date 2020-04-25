@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.messages.ClientSkipMessage;
@@ -18,7 +19,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * This class represents the Controller of the MVC Architectural pattern. It observes the View and gets
  * notified whenever the user submits an input in order to handle it.
  */
-public class Controller implements Observer<ViewClientMessage> {
+public class Controller implements LambdaObserver {
     /**
      * The reference to the Model
      */

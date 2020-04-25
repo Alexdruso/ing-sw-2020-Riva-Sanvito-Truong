@@ -1,13 +1,16 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.view.View;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.LinkedHashMap;
+import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -42,7 +45,7 @@ class MatchTest {
         assertEquals(3, myMatch.getVirtualViews().size());
         //Verify calls
         for (Connection connection : myMap.values()) {
-            verify(connection, times(1)).addObserver(any(View.class));
+            verify(connection, times(1)).addObserver(any(View.class), any(BiConsumer.class));
         }
         //check that ServerStartSetupMatchMessage has been sent
         ArgumentCaptor<ServerStartSetupMatchMessage> myMessageCaptor = ArgumentCaptor.forClass(ServerStartSetupMatchMessage.class);

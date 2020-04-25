@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.UI;
+import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * The Client.
  */
-public class Client implements Observer<Transmittable> {
+public class Client implements LambdaObserver {
     private Connection connection;
     private AbstractClientState currentState;
     private ClientState nextState;
@@ -92,7 +93,8 @@ public class Client implements Observer<Transmittable> {
         else {
             throw new IllegalStateException("Illegal attempt to reassign the connection");
         }
-        connection.addObserver(this);
+        connection.addObserver(this, (obs, message) ->
+                ((Client)obs).update(message));
     }
 
     /**

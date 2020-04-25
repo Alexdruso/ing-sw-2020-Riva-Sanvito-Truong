@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.networking;
 
+import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.StringCapturedStackTrace;
 import it.polimi.ingsw.utils.messages.DisconnectMessage;
@@ -15,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * A bidirectional connection to a remote host.
  */
-public class Connection extends Observable<Transmittable> {
+public class Connection extends LambdaObservable<Transmittable> {
     private Socket socket;
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;

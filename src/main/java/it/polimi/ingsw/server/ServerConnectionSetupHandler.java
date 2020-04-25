@@ -1,21 +1,17 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.observer.Observer;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.*;
+import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.utils.networking.TransmittableHandler;
-
-import java.util.Optional;
 
 /**
  * This class has the responsibility of handling the first steps of game setup.
  * In particular it handles the request for a nickname and the joining of a lobby for a newly connected
  * client
  */
-public class ServerConnectionSetupHandler implements Observer<Transmittable>, TransmittableHandler {
+public class ServerConnectionSetupHandler implements LambdaObserver, TransmittableHandler {
     /**
      * The reference to the server
      */
@@ -53,7 +49,6 @@ public class ServerConnectionSetupHandler implements Observer<Transmittable>, Tr
      *
      * @param message the message to be received
      */
-    @Override
     public void update(Transmittable message) {
         ((ServerHandleable)message).handleTransmittable(this);
     }

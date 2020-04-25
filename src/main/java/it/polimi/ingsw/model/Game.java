@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
+import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.model.workers.Worker;
@@ -17,7 +18,7 @@ import java.util.*;
  * This class is the game and its main purpose is to keep the general state of the match.
  * It provides methods to gain insights on the current state.
  */
-public class Game extends Observable<Transmittable> {
+public class Game extends LambdaObservable<Transmittable> {
     /**
      * The number of maximum players of the game
      */
