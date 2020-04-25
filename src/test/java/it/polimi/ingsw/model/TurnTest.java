@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Board;
@@ -156,8 +157,11 @@ class TurnTest {
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
+        //A user
+        User myUser = spy(new User(myPlayer.getNickname()));
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+        myGame.subscribeUser(myUser);
 
         //Setup the state to win
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
@@ -201,8 +205,11 @@ class TurnTest {
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
+        //A user
+        User myUser = spy(new User(myPlayer.getNickname()));
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+        myGame.subscribeUser(myUser);
 
         //Setup the state
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
@@ -279,9 +286,11 @@ class TurnTest {
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
+        //A user
+        User myUser = spy(new User(myPlayer.getNickname()));
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
-
+        myGame.subscribeUser(myUser);
         //Setup the state
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
         myBoard.getCell(1, 1).setWorker(myPlayer.getOwnWorkers()[0]);
