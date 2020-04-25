@@ -37,10 +37,7 @@ public class ServerMoveMessage extends ServerMessage implements ClientHandleable
 
     /**
      * This method returns the type of the current action
-<<<<<<< HEAD
-=======
      *
->>>>>>> 1cd5d89cb42032ace9d18dc772a7cfa16f99d999
      * @return the type of the current action, as an instance of PlayerActions
      */
     @Override
