@@ -4,13 +4,12 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 import it.polimi.ingsw.view.View;
 
 /**
  * This immutable class represents a command given by the player to move a worker to another cell.
  */
-public class ClientMoveMessage extends ClientMessage implements ControllerHandleable{
+public class ClientMoveMessage implements ClientMessage, ControllerHandleable{
     /**
      * The x coordinate of the cell from which the worker moved
      */
@@ -58,14 +57,5 @@ public class ClientMoveMessage extends ClientMessage implements ControllerHandle
     public boolean handleTransmittable(Controller handler, View view, User user) {
         handler.dispatchMoveAction(this, view, user);
         return true;
-    }
-
-    /**
-     * This method returns the type of the current action
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ClientMessages getMessageType() {
-        return ClientMessages.MOVE;
     }
 }

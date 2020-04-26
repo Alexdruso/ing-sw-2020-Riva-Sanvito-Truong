@@ -1,13 +1,11 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.server.Match;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 
-public class ServerStartSetupMatchMessage extends ServerMessage implements ClientHandleable {
-
+public class ServerStartSetupMatchMessage implements ServerMessage, ClientHandleable {
     public final User[] userList;
 
     public ServerStartSetupMatchMessage(User[] userList){
@@ -17,16 +15,7 @@ public class ServerStartSetupMatchMessage extends ServerMessage implements Clien
 
     @Override
     public boolean handleTransmittable(Client handler) {
-        return false;
-    }
-
-    /**
-     * This method returns the type of the current action
-     *
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ServerMessages getMessageType() {
-        return ServerMessages.START_MATCH_SETUP;
+        handler.moveToState(ClientState.SHOW_GAME_PASSIVE);
+        return true;
     }
 }

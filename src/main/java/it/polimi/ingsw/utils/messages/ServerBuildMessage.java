@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
-public class ServerBuildMessage extends ServerMessage implements ClientHandleable {
+public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The X coordinate of the cell on which the worker built
      */
@@ -33,6 +33,11 @@ public class ServerBuildMessage extends ServerMessage implements ClientHandleabl
     public final WorkerID performer;
 
     /**
+     * The user who performed the action
+     */
+    public final User user;
+
+    /**
      * Constructor, stores all the variables by reference
      *
      * @param user        the user who ordered the build
@@ -44,22 +49,12 @@ public class ServerBuildMessage extends ServerMessage implements ClientHandleabl
      */
     public ServerBuildMessage(User user, int targetCellX, int targetCellY,
                               Component component, int builtLevel, WorkerID performer) {
-        super(user);
+        this.user = user;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.component = component;
         this.builtLevel = builtLevel;
         this.performer = performer;
-    }
-
-    /**
-     * This method returns the type of the current action
-     *
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ServerMessages getMessageType() {
-        return ServerMessages.BUILD;
     }
 
     @Override

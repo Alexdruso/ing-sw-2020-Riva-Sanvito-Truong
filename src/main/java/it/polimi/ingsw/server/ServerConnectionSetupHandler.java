@@ -4,14 +4,13 @@ import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.utils.networking.Transmittable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 
 /**
  * This class has the responsibility of handling the first steps of game setup.
  * In particular it handles the request for a nickname and the joining of a lobby for a newly connected
  * client
  */
-public class ServerConnectionSetupHandler implements LambdaObserver, TransmittableHandler {
+public class ServerConnectionSetupHandler implements LambdaObserver {
     /**
      * The reference to the server
      */

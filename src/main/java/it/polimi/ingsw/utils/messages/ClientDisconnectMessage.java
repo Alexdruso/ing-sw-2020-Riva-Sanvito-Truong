@@ -7,13 +7,7 @@ import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.view.View;
 
-public class ClientDisconnectMessage extends ClientMessage implements DisconnectMessage, ControllerHandleable, ServerHandleable {
-
-    @Override
-    public ClientMessages getMessageType() {
-        return ClientMessages.DISCONNECT;
-    }
-
+public class ClientDisconnectMessage implements ClientMessage, DisconnectMessage, ControllerHandleable, ServerHandleable {
     @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
         return false;

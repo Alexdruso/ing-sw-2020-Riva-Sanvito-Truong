@@ -5,13 +5,12 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 import it.polimi.ingsw.view.View;
 
 /**
  * This immutable class represents a command given by the player to make a worker build on a given cell.
  */
-public class ClientBuildMessage extends ClientMessage implements ControllerHandleable{
+public class ClientBuildMessage implements ClientMessage, ControllerHandleable{
     /**
      * The X coordinate of the cell on which the worker intends to build
      */
@@ -53,15 +52,6 @@ public class ClientBuildMessage extends ClientMessage implements ControllerHandl
         this.component = component;
         this.builtLevel = builtLevel;
         this.performer = performer;
-    }
-
-    /**
-     * This method returns the type of the current action
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ClientMessages getMessageType() {
-        return ClientMessages.BUILD;
     }
 
     @Override

@@ -4,16 +4,12 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 import it.polimi.ingsw.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This immutable class represents a command to choose a specific god for a player.
  */
-public class ClientChooseGodMessage extends ClientMessage implements ControllerHandleable {
+public class ClientChooseGodMessage implements ClientMessage, ControllerHandleable {
     private final GodCard god;
 
     /**
@@ -39,13 +35,4 @@ public class ClientChooseGodMessage extends ClientMessage implements ControllerH
     public GodCard getGod() {
         return god;
    }
-
-    /**
-     * This method returns the type of the current action
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ClientMessages getMessageType() {
-        return ClientMessages.CHOOSE_GOD;
-    }
 }

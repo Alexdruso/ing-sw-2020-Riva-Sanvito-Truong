@@ -29,9 +29,6 @@ public abstract class AbstractShowGamePassiveClientState extends AbstractClientS
 
     @Override
     public boolean handleServerMessage(ServerMessage message) {
-        switch (message.getMessageType()) {
-            default:
-                return false;
-        }
+        return false;
     }
 }

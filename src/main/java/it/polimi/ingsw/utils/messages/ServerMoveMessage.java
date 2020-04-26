@@ -6,7 +6,7 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
-public class ServerMoveMessage extends ServerMessage implements ClientHandleable {
+public class ServerMoveMessage implements ServerMessage, ClientHandleable {
     /**
      * The x coordinate of the cell to which the worker moved
      */
@@ -23,26 +23,21 @@ public class ServerMoveMessage extends ServerMessage implements ClientHandleable
     public final WorkerID performer;
 
     /**
+     * The user who performed the action
+     */
+    public final User user;
+
+    /**
      * Constructor, stores all the variables by reference
      * @param targetCellX The x coordinate of the cell to which the worker moved
      * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer The worker who performed the move
      */
     public ServerMoveMessage(User user, int targetCellX, int targetCellY, WorkerID performer) {
-        super(user);
+        this.user = user;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.performer = performer;
-    }
-
-    /**
-     * This method returns the type of the current action
-     *
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ServerMessages getMessageType() {
-        return ServerMessages.MOVE;
     }
 
     @Override

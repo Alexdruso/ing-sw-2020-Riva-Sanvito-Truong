@@ -5,12 +5,11 @@ import it.polimi.ingsw.server.ServerLobbyBuilder;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 
 /**
  * This immutable class represents a command given by set the players count in a new game.
  */
-public class ClientSetPlayersCountMessage extends ClientMessage implements ServerHandleable {
+public class ClientSetPlayersCountMessage implements ClientMessage, ServerHandleable {
     private final int playersCount;
 
     /**
@@ -31,15 +30,6 @@ public class ClientSetPlayersCountMessage extends ClientMessage implements Serve
     public int getPlayersCount() {
         return playersCount;
    }
-
-    /**
-     * This method returns the type of the current action
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ClientMessages getMessageType() {
-        return ClientMessages.SET_PLAYERS_COUNT;
-    }
 
     @Override
     public boolean handleTransmittable(ServerConnectionSetupHandler handler) {

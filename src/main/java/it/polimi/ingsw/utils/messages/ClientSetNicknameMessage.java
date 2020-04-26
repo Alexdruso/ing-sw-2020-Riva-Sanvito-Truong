@@ -5,12 +5,11 @@ import it.polimi.ingsw.server.ServerLobbyBuilder;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
-import it.polimi.ingsw.utils.networking.TransmittableHandler;
 
 /**
  * This immutable class represents a command given by the player to set its nickname.
  */
-public class ClientSetNicknameMessage extends ClientMessage implements ServerHandleable {
+public class ClientSetNicknameMessage implements ClientMessage, ServerHandleable {
     private final String nickname;
 
     /**
@@ -31,15 +30,6 @@ public class ClientSetNicknameMessage extends ClientMessage implements ServerHan
     public String getNickname() {
         return nickname;
    }
-
-    /**
-     * This method returns the type of the current action
-     * @return the type of the current action, as an instance of PlayerActions
-     */
-    @Override
-    public ClientMessages getMessageType() {
-        return ClientMessages.SET_NICKNAME;
-    }
 
     @Override
     public boolean handleTransmittable(ServerConnectionSetupHandler handler) {
