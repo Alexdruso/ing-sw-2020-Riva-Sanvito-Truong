@@ -1,56 +1,79 @@
 package it.polimi.ingsw.observer;
 
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.LinkedHashMap;
+
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ObservableTest {
 
+    class LoggingObserver implements LambdaObserver {
+        LinkedHashMap<Integer, Object> calls = new LinkedHashMap<>();
+        public void foo1(Object o){
+            calls.put(1, o);
+        }
+
+        public void foo2(Object o){
+            calls.put(2, o);
+        }
+
+        public void foo3(Object o){
+            calls.put(3, o);
+        }
+
+        void clearCalls(){
+            calls = new LinkedHashMap<>();
+        }
+    }
+
     @Test
     void behavioralTest() {
-        //as we cannot see the rep or internal state of this class, we are going to test it from a behavioral pov
-        //initialize our test class
-        Observable<Object> myObservable = new Observable<>();
-        //mock two observers to check various combination
-        Observer<Object> observer1 = mock(Observer.class);
-        Observer<Object> observer2 = mock(Observer.class);
-        //Create an object to pass as message
+        LambdaObservable<Object> myObservable = new LambdaObservable<>();
+        LoggingObserver observer1 = new LoggingObserver();
+        LoggingObserver observer2 = new LoggingObserver();
+
         Object message = new Object();
-        //register the first mock to observable
-        myObservable.addObserver(observer1);
-        //try to notify it
+
+        myObservable.addObserver(observer1, (obs, obj) -> ((LoggingObserver)obs).foo1(obj));
+        myObservable.addObserver(observer2, (obs, obj) -> ((LoggingObserver)obs).foo2(obj));
+
+        //Same observer, called twice so this should register only foo3
+        myObservable.addObserver(observer2, (obs, obj) -> ((LoggingObserver)obs).foo3(obj));
+
         myObservable.notify(message);
-        //check our observer was notified
-        verify(observer1).update(message);
-        //if ok then remove
-        myObservable.removeObserver(observer1);
-        //change object
-        message = new Object();
-        //try to notify again
-        myObservable.notify(message);
-        //check that now there was no update called
-        verify(observer1, times(0)).update(message);
-        //change object
-        message = new Object();
-        //register two observers
-        myObservable.addObserver(observer1);
-        myObservable.addObserver(observer2);
-        //notify
-        myObservable.notify(message);
-        //check correct method called on mocks
-        verify(observer1).update(message);
-        verify(observer2).update(message);
-        //remove both
+
+        assertEquals(1, observer1.calls.size());
+        assertEquals(1, observer2.calls.size());
+
+        assertEquals(message, observer1.calls.get(1));
+        assertFalse(observer1.calls.containsKey(2));
+        assertFalse(observer1.calls.containsKey(3));
+
+        assertEquals(message, observer2.calls.get(3));
+        assertFalse(observer2.calls.containsKey(1));
+        assertFalse(observer2.calls.containsKey(2));
+
         myObservable.removeObserver(observer1);
         myObservable.removeObserver(observer2);
-        //change object
+
         message = new Object();
-        //notify
-        myObservable.notify(message);
-        //check not called
-        verify(observer1, times(0)).update(message);
-        verify(observer2, times(0)).update(message);
+
+        Object finalMessage = message;
+        Thread t = new Thread( () -> myObservable.notify(finalMessage, true)); //Should get stuck
+        t.start();
+
+        assertTrue(t.isAlive());
+
+        observer1.clearCalls();
+        myObservable.addObserver(observer1, (obs, obj) -> ((LoggingObserver)obs).foo1(obj));
+
+        Awaitility.await().until(() -> !t.isAlive());
+
+        assertEquals(1, observer1.calls.size());
+        assertEquals(message, observer1.calls.get(1));
 
         //we are reasonably sure it works :)
     }
