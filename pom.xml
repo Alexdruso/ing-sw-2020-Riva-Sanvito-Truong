@@ -122,8 +122,6 @@
             <version>0.0.4</version>
             <configuration>
                 <mainClass>it.polimi.ingsw.JavaFXApp</mainClass> <!-- this is a test class, might get modified later -->
-                <executable>/usr/lib/jvm/jdk-14.0.1/bin/java</executable> <!-- this is because my pc wouldn't work otherwise
-                                                                                hopefully it doesn't break on your pc ~Kien-->
             </configuration>
         </plugin>
         <plugin>
