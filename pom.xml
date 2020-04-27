@@ -16,9 +16,20 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.14</maven.compiler.source>
     <maven.compiler.target>1.14</maven.compiler.target>
+    <javafx.version>14</javafx.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>14</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>14</version>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -105,14 +116,24 @@
       </plugins>
     </pluginManagement>
       <plugins>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <configuration>
-                  <source>14</source>
-                  <target>14</target>
-              </configuration>
-          </plugin>
+        <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.4</version>
+            <configuration>
+                <mainClass>it.polimi.ingsw.JavaFXApp</mainClass> <!-- this is a test class, might get modified later -->
+                <executable>/usr/lib/jvm/jdk-14.0.1/bin/java</executable> <!-- this is because my pc wouldn't work otherwise
+                                                                                hopefully it doesn't break on your pc ~Kien-->
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>14</source>
+                <target>14</target>
+            </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
