@@ -9,6 +9,8 @@ import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Transmittable;
+import it.polimi.ingsw.utils.structures.BidirectionalLinkedHashMap;
+import it.polimi.ingsw.utils.structures.BidirectionalMap;
 
 import java.util.*;
 
@@ -35,7 +37,7 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * The mapping from the User to its relative Player instance
      */
-    private final Map<User, Player> subscribedUsers;
+    private final BidirectionalMap<User, Player> subscribedUsers;
     /**
      * The participating players, in order
      */
@@ -53,7 +55,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public Game(int numberOfPlayers){
         MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
-        subscribedUsers = new LinkedHashMap<>();
+        subscribedUsers = new BidirectionalLinkedHashMap<>();
         players = new LinkedList<>();
         lastRound = new LinkedList<>();
         board = new Board();
@@ -85,7 +87,7 @@ public class Game extends LambdaObservable<Transmittable> {
         if(subscribedUsers.size() == 0 || !subscribedUsers.containsKey(user)){
             throw new IllegalArgumentException("No such user");
         }
-        subscribedUsers.remove(user);
+        subscribedUsers.removeByKey(user);
         players.removeIf(player -> player.getNickname().equals(user.nickname));
     }
 
@@ -184,7 +186,7 @@ public class Game extends LambdaObservable<Transmittable> {
     public boolean isValidMove(ClientMoveMessage command, User user) {
         Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Player player = subscribedUsers.get(user);
+        Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(command.performer);
         if(sourceCell.getWorker().isEmpty()
                 || !sourceCell.getWorker().get().equals(worker)) {
@@ -203,7 +205,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void move(ClientMoveMessage command, User user) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Player player = subscribedUsers.get(user);
+        Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(command.performer);
         try {
             currentTurn.moveTo(worker, targetCell);
@@ -221,7 +223,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public boolean isValidBuild(ClientBuildMessage command, User user){
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
+        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(command.performer);
         if(!worker.getPlayer().equals(currentTurn.getPlayer())){
             //The worker does not belong to the active player
             return false;
@@ -241,7 +243,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void build(ClientBuildMessage command, User user) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Worker worker = subscribedUsers.get(user).getWorkerByID(command.performer);
+        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(command.performer);
         try{
             if(command.component == Component.BLOCK){
                 currentTurn.buildBlockIn(worker, targetCell);
