@@ -3,9 +3,7 @@ package it.polimi.ingsw;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 
 public class JavaFXApp extends Application {
     @Override

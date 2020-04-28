@@ -121,7 +121,7 @@
             <artifactId>javafx-maven-plugin</artifactId>
             <version>0.0.4</version>
             <configuration>
-                <mainClass>it.polimi.ingsw.JavaFXApp</mainClass> <!-- this is a test class, might get modified later -->
+                <mainClass>it.polimi.ingsw.TestGUIApp</mainClass> <!-- this is a test class, might get modified later -->
             </configuration>
         </plugin>
         <plugin>
