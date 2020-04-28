@@ -1,0 +1,11 @@
+#maintitle {
+    -fx-font-family: "Montserrat Black";
+    -fx-font-size: 9em;
+    /*-fx-effect: dropshadow(gaussian, black, 30, 0.0, 2, 2)*/
+}
+
+#authorsSubtitle {
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 2.3em;
+    -fx-text-fill: white;
+}

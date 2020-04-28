@@ -1,0 +1,15 @@
+#blur-pane {
+    -fx-background-image: url('../assets/MainSceneBackground.png');
+    -fx-background-size: cover, auto;
+}
+
+#darken-pane {
+    -fx-background-color: #00000055;
+}
+
+#credit-text {
+    -fx-background-color: #FFFFFF55;
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 2.2em;
+    -fx-text-fill: white;
+}
