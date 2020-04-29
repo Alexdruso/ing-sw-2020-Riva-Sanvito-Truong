@@ -21,12 +21,12 @@ public class Controller implements LambdaObserver {
     /**
      * The reference to the Model
      */
-    private Game model;
+    private final Game model;
 
     /**
      * The queue containing the messages to be processed.
      */
-    private BlockingQueue<ViewClientMessage> processingQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<ViewClientMessage> processingQueue = new LinkedBlockingQueue<>();
 
     /**
      * The class constructor
