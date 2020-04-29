@@ -222,13 +222,16 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Executes the PlayerMoveCommand
      *
-     * @param command the command to be executed
-     * @param user    the user that triggered the command
+     * @param targetCellX The x coordinate of the cell to which the worker moved
+     * @param targetCellY The y coordinate of the cell to which the worker moved
+     * @param performer   The worker who performed the move
+     * @param user        the user that triggered the command
      */
-    public void move(ClientMoveMessage command, User user) {
-        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
+    public void move(int targetCellX, int targetCellY,
+                     WorkerID performer, User user) {
+        Cell targetCell = board.getCell(targetCellX, targetCellY);
         Player player = subscribedUsers.getValueFromKey(user);
-        Worker worker = player.getWorkerByID(command.performer);
+        Worker worker = player.getWorkerByID(performer);
         try {
             currentTurn.moveTo(worker, targetCell);
         } catch (InvalidTurnStateException e) {

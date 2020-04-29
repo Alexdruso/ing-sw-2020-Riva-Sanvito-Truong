@@ -55,7 +55,9 @@ class ControllerTest {
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
                 myMoveCommand.performer, myUser);
-        verify(myGame, times(1)).move(myMoveCommand, myUser);
+        verify(myGame, times(1)).move(
+                myMoveCommand.targetCellX, myMoveCommand.targetCellY,
+                myMoveCommand.performer, myUser);
         verify(myGame, times(1)).isValidSkip(mySkipCommand, myUser);
         verify(myGame, times(1)).skip(mySkipCommand, myUser);
         verify(myView, times(0)).handleMessage(StatusMessages.CLIENT_ERROR);
@@ -102,7 +104,9 @@ class ControllerTest {
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
                 myMoveCommand.performer, myUser);
-        verify(myGame, times(0)).move(myMoveCommand, myUser);
+        verify(myGame, times(0)).move(
+                myMoveCommand.targetCellX, myMoveCommand.targetCellY,
+                myMoveCommand.performer, myUser);
         verify(myGame, times(1)).isValidSkip(mySkipCommand, myUser);
         verify(myGame, times(0)).skip(mySkipCommand, myUser);
         verify(myView, times(3)).handleMessage(StatusMessages.CLIENT_ERROR);

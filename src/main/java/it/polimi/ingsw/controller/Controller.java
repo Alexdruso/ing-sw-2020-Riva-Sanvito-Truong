@@ -26,7 +26,7 @@ public class Controller implements LambdaObserver {
     /**
      * The queue containing the messages to be processed.
      */
-    private BlockingQueue<ViewClientMessage> processingQueue = new LinkedBlockingQueue<ViewClientMessage>();
+    private BlockingQueue<ViewClientMessage> processingQueue = new LinkedBlockingQueue<>();
 
     /**
      * The class constructor
@@ -87,11 +87,15 @@ public class Controller implements LambdaObserver {
      * @param user   the User that triggered this command
      */
     public void dispatchMoveAction(ClientMoveMessage action, View view, User user) {
-        if (model.isValidMove(
+        boolean isValidMove = model.isValidMove(
                 action.sourceCellX, action.sourceCellY,
                 action.targetCellX, action.targetCellY,
-                action.performer, user)) {
-            model.move(action, user);
+                action.performer, user);
+
+        if (isValidMove) {
+            model.move(
+                    action.targetCellX, action.targetCellY,
+                    action.performer, user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
