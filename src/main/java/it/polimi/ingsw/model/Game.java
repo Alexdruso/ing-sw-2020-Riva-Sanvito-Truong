@@ -5,14 +5,17 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
-import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.utils.structures.BidirectionalLinkedHashMap;
 import it.polimi.ingsw.utils.structures.BidirectionalMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -23,17 +26,10 @@ public class Game extends LambdaObservable<Transmittable> {
      * The number of maximum players of the game
      */
     private final int MAX_NUMBER_OF_PLAYERS;
-
-    /**
-     * The Turn object representing the current game turn
-     */
-    private Turn currentTurn;
-
     /**
      * The Board object of the game
      */
     private final Board board;
-
     /**
      * The mapping from the User to its relative Player instance
      */
@@ -42,18 +38,21 @@ public class Game extends LambdaObservable<Transmittable> {
      * The participating players, in order
      */
     private final LinkedList<Player> players;
-
     /**
      * The last round of turns, ordered by oldest to newest.
      */
     private final LinkedList<Turn> lastRound;
+    /**
+     * The Turn object representing the current game turn
+     */
+    private Turn currentTurn;
 
     /**
      * The class constructor
      *
      * @param numberOfPlayers the number of players
      */
-    public Game(int numberOfPlayers){
+    public Game(int numberOfPlayers) {
         MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
         subscribedUsers = new BidirectionalLinkedHashMap<>();
         players = new LinkedList<>();
@@ -67,8 +66,8 @@ public class Game extends LambdaObservable<Transmittable> {
      *
      * @param user the representation of the user
      */
-    public void subscribeUser(User user){
-        if(subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS){
+    public void subscribeUser(User user) {
+        if (subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS) {
             //This means that adding one will get us over the limit
             throw new IllegalStateException("Too many players");
         }
@@ -83,8 +82,8 @@ public class Game extends LambdaObservable<Transmittable> {
      *
      * @param user the user to remove from the game
      */
-    public void unsubscribeUser(User user){
-        if(subscribedUsers.size() == 0 || !subscribedUsers.containsKey(user)){
+    public void unsubscribeUser(User user) {
+        if (subscribedUsers.size() == 0 || !subscribedUsers.containsKey(user)) {
             throw new IllegalArgumentException("No such user");
         }
         subscribedUsers.removeByKey(user);
@@ -118,13 +117,13 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param player the player that is playing the turn
      * @return the turn
      */
-    public Turn addNewTurn(Player player){
+    public Turn addNewTurn(Player player) {
         Turn turn = new Turn(this, player);
-        if(lastRound.size() < MAX_NUMBER_OF_PLAYERS){
+        if (lastRound.size() < MAX_NUMBER_OF_PLAYERS) {
             lastRound.addLast(turn);
         } else {
             Collections.rotate(lastRound, -1);
-            if(!getPlayersList().contains(lastRound.getLast().getPlayer())){
+            if (!getPlayersList().contains(lastRound.getLast().getPlayer())) {
                 //Make the lastRound list shorter to match the number of players
                 lastRound.removeLast();
             }
@@ -153,13 +152,22 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param cell   the cell
      */
     public void setWorkerCell(Worker worker, Cell cell) {
+        int startX = worker.getCell().getX();
+        int startY = worker.getCell().getY();
         if (cell.getWorker().isEmpty()) {
             worker.getCell().setNoWorker();
         }
         worker.setCell(cell);
         cell.setWorker(worker);
         //notify the move action
-        notify(new ServerMoveMessage(new User(players.peek().getNickname()), cell.getX(), cell.getY(), worker.getWorkerID()));
+        notify(
+                new ServerMoveMessage(
+                        this.subscribedUsers.getKeyFromValue(players.peek()),
+                        startX,
+                        startY,
+                        cell.getX(),
+                        cell.getY(),
+                        worker.getWorkerID()));
     }
 
     /**
@@ -173,7 +181,14 @@ public class Game extends LambdaObservable<Transmittable> {
     public void buildInCell(Worker worker, Cell cell, Component component, int builtLevel) {
         cell.getTower().placeComponent(component);
         //notify the build action
-        notify(new ServerBuildMessage(new User(players.peek().getNickname()), cell.getX(), cell.getY(), component, builtLevel, worker.getWorkerID()));
+        notify(
+                new ServerBuildMessage(
+                        this.subscribedUsers.getKeyFromValue(players.peek()),
+                        cell.getX(),
+                        cell.getY(),
+                        component,
+                        builtLevel,
+                        worker.getWorkerID()));
     }
 
     /**
@@ -188,7 +203,7 @@ public class Game extends LambdaObservable<Transmittable> {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(command.performer);
-        if(sourceCell.getWorker().isEmpty()
+        if (sourceCell.getWorker().isEmpty()
                 || !sourceCell.getWorker().get().equals(worker)) {
             // Sanity check failed: illegal move!
             return false;
@@ -209,7 +224,7 @@ public class Game extends LambdaObservable<Transmittable> {
         Worker worker = player.getWorkerByID(command.performer);
         try {
             currentTurn.moveTo(worker, targetCell);
-        } catch (InvalidTurnStateException e){
+        } catch (InvalidTurnStateException e) {
             e.printStackTrace();
         }
     }
@@ -221,14 +236,14 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidBuild(ClientBuildMessage command, User user){
+    public boolean isValidBuild(ClientBuildMessage command, User user) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(command.performer);
-        if(!worker.getPlayer().equals(currentTurn.getPlayer())){
+        if (!worker.getPlayer().equals(currentTurn.getPlayer())) {
             //The worker does not belong to the active player
             return false;
         }
-        if(command.component == Component.BLOCK) {
+        if (command.component == Component.BLOCK) {
             return currentTurn.canBuildBlockIn(worker, targetCell);
         } else {
             return currentTurn.canBuildDomeIn(worker, targetCell);
@@ -244,13 +259,13 @@ public class Game extends LambdaObservable<Transmittable> {
     public void build(ClientBuildMessage command, User user) {
         Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
         Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(command.performer);
-        try{
-            if(command.component == Component.BLOCK){
+        try {
+            if (command.component == Component.BLOCK) {
                 currentTurn.buildBlockIn(worker, targetCell);
             } else {
                 currentTurn.buildDomeIn(worker, targetCell);
             }
-        } catch (InvalidTurnStateException e){
+        } catch (InvalidTurnStateException e) {
             e.printStackTrace();
         }
     }
@@ -262,7 +277,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user    the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidSkip(ClientSkipMessage command, User user){
+    public boolean isValidSkip(ClientSkipMessage command, User user) {
         //TODO check if right player
         return currentTurn.isSkippable();
     }
