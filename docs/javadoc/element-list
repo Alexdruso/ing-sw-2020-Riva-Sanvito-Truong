@@ -1,6 +1,7 @@
 it.polimi.ingsw
 it.polimi.ingsw.client
 it.polimi.ingsw.client.clientstates
+it.polimi.ingsw.client.reducedmodel
 it.polimi.ingsw.client.ui
 it.polimi.ingsw.client.ui.cli
 it.polimi.ingsw.client.ui.gui
@@ -18,4 +19,5 @@ it.polimi.ingsw.server
 it.polimi.ingsw.utils
 it.polimi.ingsw.utils.messages
 it.polimi.ingsw.utils.networking
+it.polimi.ingsw.utils.structures
 it.polimi.ingsw.view
