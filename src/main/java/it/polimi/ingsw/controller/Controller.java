@@ -122,5 +122,10 @@ public class Controller implements LambdaObserver {
         }
     }
 
+    public void dispatchDrawAction(View view, User user) {
+        //TODO: discuss how to close view connection
+        model.draw();
+    }
+
 
 }

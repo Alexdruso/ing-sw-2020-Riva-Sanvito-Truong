@@ -49,6 +49,22 @@ public class Game extends LambdaObservable<Transmittable> {
     private Turn currentTurn;
 
     /**
+     * True if the game is still going on
+     */
+    private boolean active;
+    /**
+     * The current state of the game
+     */
+    private GameState gameState;
+
+    /**
+     * All the possible states of the game
+     */
+    enum GameState {
+
+    }
+
+    /**
      * The class constructor
      *
      * @param numberOfPlayers the number of players
@@ -59,6 +75,7 @@ public class Game extends LambdaObservable<Transmittable> {
         players = new LinkedList<>();
         lastRound = new LinkedList<>();
         board = new Board();
+        active = true;
     }
 
     /**
@@ -312,12 +329,16 @@ public class Game extends LambdaObservable<Transmittable> {
         currentTurn.changeState();
     }
 
-    //TODO implement these methods
-    public void draw() {
-    }
 
     //sends ask gods from list message, must be invoked by the match
     public void setup() {
+    }
+
+    /**
+     * Signals the match to end
+     */
+    public void draw() {
+        this.setActive(false);
     }
 
     public boolean isValidGodsChoice(ClientChooseGodsMessage command, User user) {
@@ -346,5 +367,27 @@ public class Game extends LambdaObservable<Transmittable> {
     }
 
     public void setWorkerPosition(ClientSetWorkerStartPositionMessage command, User user) {
+    }
+
+    /*
+    Getters and setters section
+     */
+
+    /**
+     * Returns true if the game is active.
+     *
+     * @return true if the game is active
+     */
+    public boolean isActive() {
+        return active;
+    }
+
+    /**
+     * Sets active.
+     *
+     * @param active active value
+     */
+    private void setActive(boolean active) {
+        this.active = active;
     }
 }
