@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
+import it.polimi.ingsw.utils.messages.ClientChooseGodsMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.view.View;
@@ -53,15 +54,30 @@ public class Controller implements LambdaObserver {
      * This method is called continuously by the Match thread.
      * It selects the appropriate dispatcher in order to handle the requested action.
      */
-    public void dispatchViewClientMessages(){
+    public void dispatchViewClientMessages() {
         try {
             ViewClientMessage message = this.processingQueue.take();
             ControllerHandleable handleable = (ControllerHandleable) message.clientMessage;
             handleable.handleTransmittable(this, message.view, message.user);
-        }catch(InterruptedException ignored) {
+        } catch (InterruptedException ignored) {
             Thread.currentThread().interrupt();
         }
     }
+
+    /**
+     * This method handles the draw action
+     *
+     * @param view the View that triggered this command
+     * @param user the User that triggered this command
+     */
+    public void dispatchDrawAction(View view, User user) {
+        //TODO: discuss how to close view connection
+        model.draw();
+    }
+
+    public void dispatchChooseGodsAction(ClientChooseGodsMessage, View view, User user) {
+    }
+
 
     /**
      * This method handles building actions.
@@ -70,7 +86,7 @@ public class Controller implements LambdaObserver {
      * @param view   the View that triggered this command
      * @param user   the User that triggered this command
      */
-    public void dispatchBuildAction(ClientBuildMessage action, View view, User user){
+    public void dispatchBuildAction(ClientBuildMessage action, View view, User user) {
         boolean isValidBuild = model.isValidBuild(
                 action.targetCellX, action.targetCellY,
                 action.component, action.performer,
@@ -121,11 +137,5 @@ public class Controller implements LambdaObserver {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
     }
-
-    public void dispatchDrawAction(View view, User user) {
-        //TODO: discuss how to close view connection
-        model.draw();
-    }
-
 
 }

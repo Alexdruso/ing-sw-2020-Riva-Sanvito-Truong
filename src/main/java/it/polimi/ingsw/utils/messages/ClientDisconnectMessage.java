@@ -8,7 +8,7 @@ import it.polimi.ingsw.view.View;
 public class ClientDisconnectMessage implements ClientMessage, DisconnectMessage, ControllerHandleable {
     @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
-        handler.dispatchSkipAction(view, user);
+        handler.dispatchDrawAction(view, user);
         return true;
     }
 }
