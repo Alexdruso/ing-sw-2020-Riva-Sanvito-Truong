@@ -42,8 +42,8 @@ public class Server{
      */
     public Server() throws IOException {
         ConfigParser configParser = ConfigParser.getInstance();
-        int SERVER_PORT = Integer.parseInt(configParser.getProperty("serverPort"));
-        int n_THREADS = Integer.parseInt(configParser.getProperty("numberOfThreads"));
+        int SERVER_PORT = configParser.getIntProperty("serverPort");
+        int n_THREADS = configParser.getIntProperty("numberOfThreads");
         serverSocket = getServerSocket(SERVER_PORT);
         executor = Executors.newFixedThreadPool(n_THREADS);
         ongoingMatches = new ArrayList<>();

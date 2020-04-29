@@ -17,7 +17,7 @@ public class BoardTest {
 
     @Test
     public void TestBoardMeasurements(){
-        assertEquals(board.getDimension(), Integer.parseInt(cfg.getProperty("boardSize")));
+        assertEquals(board.getDimension(), cfg.getIntProperty("boardSize"));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class BoardTest {
         Board board = new Board();
         List<Cell> cellList = board.getCellsList();
         Set<Cell> cellSet = new HashSet<Cell>(cellList);
-        assertEquals(cellList.size(), Math.pow(Integer.parseInt(cfg.getProperty("boardSize")), 2));
+        assertEquals(cellList.size(), Math.pow(cfg.getIntProperty("boardSize"), 2));
         assertEquals(cellList.size(), cellSet.size(), "There should be no duplicate Cells");
     }
 
@@ -71,7 +71,7 @@ public class BoardTest {
 
         List<Arguments> args = new ArrayList<Arguments>();
         ConfigParser cfg = ConfigParser.getInstance();
-        final int BOARD_SIZE = Integer.parseInt(cfg.getProperty("boardSize"));
+        final int BOARD_SIZE = cfg.getIntProperty("boardSize");
 
         for (int[][] pp: coordArray){
             Cell firstCell = new Cell(pp[1][0], pp[1][1]);

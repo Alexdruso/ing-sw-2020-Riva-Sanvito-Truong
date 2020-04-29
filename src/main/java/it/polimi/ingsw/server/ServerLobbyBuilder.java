@@ -84,8 +84,8 @@ public class ServerLobbyBuilder {
         }
 
         ConfigParser configParser = ConfigParser.getInstance();
-        int MIN_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("minPlayersPerGame"));
-        int MAX_PLAYERS_PER_GAME = Integer.parseInt(configParser.getProperty("maxPlayersPerGame"));
+        int MIN_PLAYERS_PER_GAME = configParser.getIntProperty("minPlayersPerGame");
+        int MAX_PLAYERS_PER_GAME = configParser.getIntProperty("maxPlayersPerGame");
 
         if(playerCount > MAX_PLAYERS_PER_GAME || playerCount < MIN_PLAYERS_PER_GAME){
             return false;
