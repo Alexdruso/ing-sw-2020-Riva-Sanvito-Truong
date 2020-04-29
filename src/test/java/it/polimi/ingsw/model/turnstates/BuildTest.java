@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.actions.BuildAction;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Board;
@@ -18,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -176,8 +176,8 @@ class BuildTest {
         when(this.mockTurn.isSkippable()).thenReturn(false);
         Cell cell3 = spiedBoard.getCell(0, 0);
         Cell cell4 = spiedBoard.getCell(1, 1);
-        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<Action>(Arrays.asList(new MoveAction(cell3, cell4, cell3.getTower().getCurrentLevel(), cell4.getTower().getCurrentLevel(), this.mockWorker))));
-        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<Worker>(Arrays.asList(this.mockWorker)));
+        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<>(Collections.singletonList(new MoveAction(cell3, cell4, cell3.getTower().getCurrentLevel(), cell4.getTower().getCurrentLevel(), this.mockWorker))));
+        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Collections.singletonList(this.mockWorker)));
         when(this.mockTurn.getWorkerDomeBuildableCells(any())).thenReturn((new TargetCells()).setAllTargets(true));
         when(this.mockTurn.getWorkerBlockBuildableCells(any())).thenReturn((new TargetCells()).setAllTargets(true));
         //setup obstacles in board
@@ -242,7 +242,7 @@ class BuildTest {
 
     @Test
     void canBuildDomeIn() {
-        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Arrays.asList(mockWorker)));
+        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Collections.singletonList(mockWorker)));
         when(mockTurn.getWorkerDomeBuildableCells(mockWorker)).thenReturn(mockTargetCells);
         when(mockTargetCells.getPosition(spiedCell.getX(), spiedCell.getY())).thenReturn(true).thenReturn(false);
         assertTrue(this.testBuild.canBuildDomeIn(this.mockWorker, this.spiedCell, this.mockTurn));
@@ -266,7 +266,7 @@ class BuildTest {
 
     @Test
     void canBuildBlockIn() {
-        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Arrays.asList(mockWorker)));
+        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Collections.singletonList(mockWorker)));
         when(mockTurn.getWorkerBlockBuildableCells(mockWorker)).thenReturn(mockTargetCells);
         when(mockTargetCells.getPosition(spiedCell.getX(), spiedCell.getY())).thenReturn(true).thenReturn(false);
         assertTrue(this.testBuild.canBuildBlockIn(this.mockWorker, this.spiedCell, this.mockTurn));
