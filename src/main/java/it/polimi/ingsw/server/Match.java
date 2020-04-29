@@ -20,7 +20,7 @@ public class Match implements Runnable {
     /**
      * The participants, represented by nickname and connection.
      */
-    private final LinkedHashMap<String, Connection> participants = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Connection> participantsNicknameToConnection = new LinkedHashMap<>();
     /**
      * The model.
      */
@@ -56,11 +56,11 @@ public class Match implements Runnable {
         //This would help when the match is created and we have to deregister observers on the SetupHandler side
 
         //create a new game
-        this.model = new Game(this.participants.size());
+        this.model = new Game(this.participantsNicknameToConnection.size());
         //create the controller
         this.controller = new Controller(model);
         //create array to hold users
-        User[] users = new User[this.participants.size()];
+        User[] users = new User[this.participantsNicknameToConnection.size()];
         //initialize array index
         int usersIndex = 0;
         //Create the views and add the player to the Game
@@ -83,7 +83,7 @@ public class Match implements Runnable {
         //Start the game setup, first creating serverStartSetupMatchMessage
         //with the array of users, then sending the message over the connections
         ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(users);
-        for(Connection connection : this.participants.values()){
+        for (Connection connection : this.participantsNicknameToConnection.values()) {
             connection.send(serverStartSetupMatchMessage);
         }
         //now just make the controller work on this thread
@@ -99,7 +99,7 @@ public class Match implements Runnable {
      * @param connection the connection of the participant
      */
     public void addParticipant(String nickname, Connection connection){
-        this.participants.put(nickname, connection);
+        this.participantsNicknameToConnection.put(nickname, connection);
         virtualViews.add(new View(connection, nickname));
     }
 
@@ -110,7 +110,7 @@ public class Match implements Runnable {
      * @param participants the structure holding the participants to be added
      */
     public void addParticipants(LinkedHashMap<String,Connection> participants) {
-        this.participants.putAll(participants);
+        this.participantsNicknameToConnection.putAll(participants);
 
         for (String nickname : participants.keySet()) {
             virtualViews.add(new View(participants.get(nickname), nickname));
@@ -122,8 +122,8 @@ public class Match implements Runnable {
      *
      * @return the participants to the match
      */
-    public LinkedHashMap<String,Connection> getParticipants(){
-        return new LinkedHashMap<>(this.participants);
+    public LinkedHashMap<String, Connection> getParticipantsNicknameToConnection() {
+        return new LinkedHashMap<>(this.participantsNicknameToConnection);
     }
 
     /**

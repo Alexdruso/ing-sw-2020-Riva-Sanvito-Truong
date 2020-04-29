@@ -6,7 +6,9 @@ import it.polimi.ingsw.utils.networking.Connection;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -96,7 +98,7 @@ public class Server{
     void submitMatch(Match match){
         executor.submit(match);
         ongoingMatches.add(match);
-        for (Connection connection : match.getParticipants().values()) {
+        for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
             connection.removeObserver(handlers.get(connection));
         }
     }

@@ -1,10 +1,8 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
-import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.view.View;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -81,18 +79,18 @@ class MatchTest {
         //now try first to add as a LinkedHashMap
         myMatch.addParticipants(myMap);
         //see if it was added
-        assertEquals(myMap, myMatch.getParticipants());
-        assertNotSame(myMap, myMatch.getParticipants());
+        assertEquals(myMap, myMatch.getParticipantsNicknameToConnection());
+        assertNotSame(myMap, myMatch.getParticipantsNicknameToConnection());
         //initialize a new match
         myMatch = new Match();
         //try sequential adds
         for (String nickname : nicknames) myMatch.addParticipant(nickname, myMap.get(nickname));
         //check if values inside are the same and in the correct order
-        assertEquals(myMap, myMatch.getParticipants());
-        assertNotSame(myMap, myMatch.getParticipants());
+        assertEquals(myMap, myMatch.getParticipantsNicknameToConnection());
+        assertNotSame(myMap, myMatch.getParticipantsNicknameToConnection());
         //initialize a new match
         myMatch = new Match();
         //check empty participants
-        assertTrue(myMatch.getParticipants().isEmpty());
+        assertTrue(myMatch.getParticipantsNicknameToConnection().isEmpty());
     }
 }
