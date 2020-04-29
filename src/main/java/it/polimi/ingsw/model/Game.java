@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Transmittable;
@@ -194,15 +195,21 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Checks if the PlayerMoveCommand can be executed
      *
-     * @param command the command to be checked
-     * @param user    the user that triggered the command
+     * @param sourceCellX The x coordinate of the cell from which the worker moved
+     * @param sourceCellY The y coordinate of the cell from which the worker moved
+     * @param targetCellX The x coordinate of the cell to which the worker moved
+     * @param targetCellY The y coordinate of the cell to which the worker moved
+     * @param performer   The worker who performed the move
+     * @param user        the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidMove(ClientMoveMessage command, User user) {
-        Cell sourceCell = board.getCell(command.sourceCellX, command.sourceCellY);
-        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
+    public boolean isValidMove(int sourceCellX, int sourceCellY,
+                               int targetCellX, int targetCellY,
+                               WorkerID performer, User user) {
+        Cell sourceCell = board.getCell(sourceCellX, sourceCellY);
+        Cell targetCell = board.getCell(targetCellX, targetCellY);
         Player player = subscribedUsers.getValueFromKey(user);
-        Worker worker = player.getWorkerByID(command.performer);
+        Worker worker = player.getWorkerByID(performer);
         if (sourceCell.getWorker().isEmpty()
                 || !sourceCell.getWorker().get().equals(worker)) {
             // Sanity check failed: illegal move!

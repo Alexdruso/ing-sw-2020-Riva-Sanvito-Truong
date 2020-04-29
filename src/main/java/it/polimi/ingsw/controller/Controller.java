@@ -2,13 +2,11 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.LambdaObserver;
+import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.messages.ClientSkipMessage;
-import it.polimi.ingsw.observer.Observer;
-import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
-import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.ViewClientMessage;
 
@@ -88,8 +86,11 @@ public class Controller implements LambdaObserver {
      * @param view   the View that triggered this command
      * @param user   the User that triggered this command
      */
-    public void dispatchMoveAction(ClientMoveMessage action, View view, User user){
-        if(model.isValidMove(action, user)){
+    public void dispatchMoveAction(ClientMoveMessage action, View view, User user) {
+        if (model.isValidMove(
+                action.sourceCellX, action.sourceCellY,
+                action.targetCellX, action.targetCellY,
+                action.performer, user)) {
             model.move(action, user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
