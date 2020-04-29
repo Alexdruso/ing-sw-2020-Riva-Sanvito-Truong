@@ -35,6 +35,10 @@ jobs:
           command: |
             javadoc \
               -classpath ~/.m2/repository/org/fusesource/jansi/jansi/1.18/jansi-1.18.jar \
+              -classpath ~/.m2/repository/org/openjfx/javafx-controls/14/javafx-controls-14.jar \
+              -classpath ~/.m2/repository/org/openjfx/javafx-graphics/14/javafx-graphics-14.jar \
+              -classpath ~/.m2/repository/org/openjfx/javafx-base/14/javafx-base-14.jar \
+              -classpath ~/.m2/repository/org/openjfx/javafx-fxml/14/javafx-fxml-14.jar \
               -sourcepath src/main/java \
               -d docs/javadoc \
               -private \
