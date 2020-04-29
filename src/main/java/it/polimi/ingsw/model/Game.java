@@ -269,14 +269,19 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Executes the PlayerBuildCommand
      *
-     * @param command the command to be executed
-     * @param user    the user that triggered the command
+     * @param targetCellX The x coordinate of the cell on which the worker built
+     * @param targetCellY The y coordinate of the cell on which the worker built
+     * @param component   The component built on the cell
+     * @param performer   The worker who performed the build
+     * @param user        the user that triggered the command
      */
-    public void build(ClientBuildMessage command, User user) {
-        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(command.performer);
+    public void build(int targetCellX, int targetCellY,
+                      Component component, WorkerID performer,
+                      User user) {
+        Cell targetCell = board.getCell(targetCellX, targetCellY);
+        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(performer);
         try {
-            if (command.component == Component.BLOCK) {
+            if (component == Component.BLOCK) {
                 currentTurn.buildBlockIn(worker, targetCell);
             } else {
                 currentTurn.buildDomeIn(worker, targetCell);

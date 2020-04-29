@@ -58,7 +58,10 @@ class ControllerTest {
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
                 myBuildCommand.component, myBuildCommand.performer,
                 myUser);
-        verify(myGame, times(1)).build(myBuildCommand, myUser);
+        verify(myGame, times(1)).build(
+                myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                myBuildCommand.component, myBuildCommand.performer,
+                myUser);
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
@@ -116,7 +119,10 @@ class ControllerTest {
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
                 myBuildCommand.component, myBuildCommand.performer,
                 myUser);
-        verify(myGame, times(0)).build(myBuildCommand, myUser);
+        verify(myGame, times(0)).build(
+                myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                myBuildCommand.component, myBuildCommand.performer,
+                myUser);
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,

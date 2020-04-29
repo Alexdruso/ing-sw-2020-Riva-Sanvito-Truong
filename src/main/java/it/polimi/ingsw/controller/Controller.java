@@ -78,7 +78,10 @@ public class Controller implements LambdaObserver {
                 user);
 
         if (isValidBuild) {
-            model.build(action, user);
+            model.build(
+                    action.targetCellX, action.targetCellY,
+                    action.component, action.performer,
+                    user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
