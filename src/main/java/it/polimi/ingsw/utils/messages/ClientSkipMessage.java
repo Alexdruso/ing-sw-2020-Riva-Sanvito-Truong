@@ -18,7 +18,7 @@ public class ClientSkipMessage implements ClientMessage, ControllerHandleable{
 
    @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
-        handler.dispatchSkipAction(this, view, user);
+        handler.dispatchSkipAction(view, user);
         return true;
     }
 }

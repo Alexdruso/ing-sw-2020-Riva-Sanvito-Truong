@@ -294,23 +294,21 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Checks if the PlayerSkipCommand can be executed
      *
-     * @param command the command to be checked
-     * @param user    the user that triggered the command
+     * @param user the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidSkip(ClientSkipMessage command, User user) {
-        //TODO check if right player
-        return currentTurn.isSkippable();
+    public boolean isValidSkip(User user) {
+        return currentTurn.getPlayer().equals(subscribedUsers.getValueFromKey(user))
+                && currentTurn.isSkippable();
     }
 
     /**
      * Executes the PlayerSkipCommand
      *
-     * @param command the command to be executed
      * @param user    the user that triggered the command
      * @throws UnsupportedOperationException the unsupported operation exception
      */
-    public void skip(ClientSkipMessage command, User user) throws UnsupportedOperationException {
+    public void skip(User user) throws UnsupportedOperationException {
         currentTurn.changeState();
     }
 

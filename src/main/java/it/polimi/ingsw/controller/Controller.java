@@ -5,7 +5,6 @@ import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
-import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.ViewClientMessage;
@@ -111,14 +110,13 @@ public class Controller implements LambdaObserver {
 
     /**
      * This method handles skip actions
-     * 
-     * @param action the PlayerSkipCommand that has been requested
-     * @param view   the View that triggered this command
-     * @param user   the User that triggered this command
+     *
+     * @param view the View that triggered this command
+     * @param user the User that triggered this command
      */
-    public void dispatchSkipAction(ClientSkipMessage action, View view, User user){
-        if(model.isValidSkip(action, user)){
-            model.skip(action, user);
+    public void dispatchSkipAction(View view, User user) {
+        if (model.isValidSkip(user)) {
+            model.skip(user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }

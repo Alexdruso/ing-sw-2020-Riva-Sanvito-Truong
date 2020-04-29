@@ -41,7 +41,7 @@ class ControllerTest {
                         myMoveCommand.targetCellX, myMoveCommand.targetCellY,
                         myMoveCommand.performer, myUser))
                 .thenReturn(true);
-        when(myGame.isValidSkip(mySkipCommand, myUser)).thenReturn(true);
+        when(myGame.isValidSkip(myUser)).thenReturn(true);
         //ready steady go
         //create a new controller
         Controller myController = new Controller(myGame);
@@ -69,8 +69,8 @@ class ControllerTest {
         verify(myGame, times(1)).move(
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
                 myMoveCommand.performer, myUser);
-        verify(myGame, times(1)).isValidSkip(mySkipCommand, myUser);
-        verify(myGame, times(1)).skip(mySkipCommand, myUser);
+        verify(myGame, times(1)).isValidSkip(myUser);
+        verify(myGame, times(1)).skip(myUser);
         verify(myView, times(0)).handleMessage(StatusMessages.CLIENT_ERROR);
     }
 
@@ -101,7 +101,7 @@ class ControllerTest {
                         myMoveCommand.targetCellX, myMoveCommand.targetCellY,
                         myMoveCommand.performer, myUser))
                 .thenReturn(false);
-        when(myGame.isValidSkip(mySkipCommand, myUser)).thenReturn(false);
+        when(myGame.isValidSkip(myUser)).thenReturn(false);
         //ready, steady, go
         //ready steady go
         //create a new controller
@@ -130,8 +130,8 @@ class ControllerTest {
         verify(myGame, times(0)).move(
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
                 myMoveCommand.performer, myUser);
-        verify(myGame, times(1)).isValidSkip(mySkipCommand, myUser);
-        verify(myGame, times(0)).skip(mySkipCommand, myUser);
+        verify(myGame, times(1)).isValidSkip(myUser);
+        verify(myGame, times(0)).skip(myUser);
         verify(myView, times(3)).handleMessage(StatusMessages.CLIENT_ERROR);
     }
 }
