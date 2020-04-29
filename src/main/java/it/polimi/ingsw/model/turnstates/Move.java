@@ -19,34 +19,32 @@ class Move extends AbstractTurnState {
         turn.setNextState(TurnState.BUILD.getTurnState());
         setupDefaultAllowedWorkers(turn);
 
-        //for every allowed worker, intializes a target cell with the radius minus blocked cells
-        for(Worker allowedWorker : turn.getAllowedWorkers()){
-            TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
+        //for every allowed worker, initializes a target cell with the radius minus blocked cells
+        for (Worker worker : turn.getPlayer().getOwnWorkers()) {
+            TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
             //TargetCells nonWalkableCells = (new TargetCells()).setAllTargets(true);
 
             turn.getGame().getBoard().getTargets(walkableCellsRadius).
-                            stream().
-                            filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || allowedWorker.getCell().getHeightDifference(cell) > 1).
-                            forEach(cell -> walkableCellsRadius.setPosition(cell,false));
+                    stream()
+                    .filter(cell -> cell.getTower().isComplete()
+                            || cell.getWorker().isPresent()
+                            || worker.getCell().getHeightDifference(cell) > 1)
+                    .forEach(cell -> walkableCellsRadius.setPosition(cell, false));
 
-            turn.setWorkerWalkableCells(allowedWorker, walkableCellsRadius);
+            turn.setWorkerWalkableCells(worker, walkableCellsRadius);
         }
-
+        //use powers
+        turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
         //compute lose conditions
-        if (
-                !turn.isSkippable()  //see if turn can't be skipped
-                        && turn.getAllowedWorkers().stream().map(
-                                allowedWorker -> turn.getGame().getBoard().getTargets(
-                                        turn.getWorkerWalkableCells(allowedWorker)
-                                )
-                                .isEmpty() //check if worker can move to some cells
-                        )
-                        .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction)
-        ) {
+        boolean isNoMove = turn.getAllowedWorkers().stream().map(
+                allowedWorker -> turn.getGame().getBoard()
+                        .getTargets(turn.getWorkerWalkableCells(allowedWorker))
+                        .isEmpty())
+                .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction);
+
+        if (!turn.isSkippable() && isNoMove) {
             turn.triggerLosingTurn(); //sets the turn to losing turn
-        }
-        else {
-            turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
+        } else {
             // notify();
         }
     }
@@ -61,7 +59,8 @@ class Move extends AbstractTurnState {
      */
     @Override
     public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getWorkerWalkableCells(pawn).getPosition(targetCell.getX(),targetCell.getY());
+        return turn.getAllowedWorkers().contains(pawn)
+                && turn.getWorkerWalkableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**

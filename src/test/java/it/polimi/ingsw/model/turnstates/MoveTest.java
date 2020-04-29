@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.turnstates;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.actions.Action;
 import it.polimi.ingsw.model.actions.MoveAction;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
@@ -13,11 +12,12 @@ import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -61,8 +61,8 @@ class MoveTest {
         when(this.mockTurn.getGame()).thenReturn(this.mockGame);
         //non skippable turn
         when(this.mockTurn.isSkippable()).thenReturn(false);
-        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<Action>());
-        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<Worker>(Arrays.asList(this.mockWorker, mockWorker2)));
+        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<>());
+        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Arrays.asList(this.mockWorker, mockWorker2)));
         when(this.mockTurn.getWorkerWalkableCells(any())).thenReturn((new TargetCells()).setAllTargets(false));
         //setup obstacles in board
         spiedBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
@@ -82,7 +82,7 @@ class MoveTest {
         this.testMove.setup(this.mockTurn);
 
         //verify call on processBeforeMovementsBeforeMovementEvents(this.mockTurn);
-        verify(this.mockTurnEventsManager, times(0)).processBeforeMovementEvents(this.mockTurn);
+        verify(this.mockTurnEventsManager, times(1)).processBeforeMovementEvents(this.mockTurn);
 
         //verify calls on allowedWorkers
         verify(this.mockTurn).addAllowedWorkers(this.mockPlayer.getOwnWorkers());
@@ -144,8 +144,8 @@ class MoveTest {
         when(this.mockTurn.isSkippable()).thenReturn(false);
         Cell cell3 = spiedBoard.getCell(0, 0);
         Cell cell4 = spiedBoard.getCell(1, 1);
-        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<Action>(Arrays.asList(new MoveAction(cell3, cell4, cell3.getTower().getCurrentLevel(), cell4.getTower().getCurrentLevel(), this.mockWorker))));
-        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<Worker>(Arrays.asList(this.mockWorker)));
+        when(this.mockTurn.getPerformedAction()).thenReturn(new LinkedList<>(Collections.singletonList(new MoveAction(cell3, cell4, cell3.getTower().getCurrentLevel(), cell4.getTower().getCurrentLevel(), this.mockWorker))));
+        when(this.mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Collections.singletonList(this.mockWorker)));
         when(this.mockTurn.getWorkerWalkableCells(any())).thenReturn((new TargetCells()).setAllTargets(true));
         //setup obstacles in board
         spiedBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
@@ -172,18 +172,21 @@ class MoveTest {
         //verify calls on target cells
         ArgumentCaptor<TargetCells> acTargetCell = ArgumentCaptor.forClass(TargetCells.class);
         ArgumentCaptor<Worker> acWorker = ArgumentCaptor.forClass(Worker.class);
-        verify(this.mockTurn, times(1)).setWorkerWalkableCells(acWorker.capture(), acTargetCell.capture());
+        verify(this.mockTurn, times(2)).setWorkerWalkableCells(acWorker.capture(), acTargetCell.capture());
 
         //mockWorker 1 movements
-        assertEquals(acWorker.getValue(), this.mockWorker);
-        assertFalse(acTargetCell.getValue().getPosition(1, 0));
-        assertFalse(acTargetCell.getValue().getPosition(0, 1));
-        assertFalse(acTargetCell.getValue().getPosition(2, 2));
-        assertTrue(acTargetCell.getValue().getPosition(0, 0));
-        assertTrue(acTargetCell.getValue().getPosition(2, 0));
-        assertTrue(acTargetCell.getValue().getPosition(2, 1));
-        assertTrue(acTargetCell.getValue().getPosition(0, 2));
-        assertTrue(acTargetCell.getValue().getPosition(1, 2));
+        assertTrue(acWorker.getAllValues().contains(this.mockWorker));
+        int index = acWorker.getAllValues().indexOf(this.mockWorker);
+        assertEquals(acWorker.getAllValues().get(index), this.mockWorker);
+        TargetCells targetCells = acTargetCell.getAllValues().get(index);
+        assertFalse(targetCells.getPosition(1, 0));
+        assertFalse(targetCells.getPosition(0, 1));
+        assertFalse(targetCells.getPosition(2, 2));
+        assertTrue(targetCells.getPosition(0, 0));
+        assertTrue(targetCells.getPosition(2, 0));
+        assertTrue(targetCells.getPosition(2, 1));
+        assertTrue(targetCells.getPosition(0, 2));
+        assertTrue(targetCells.getPosition(1, 2));
 
         //verify no losing turn
         verify(this.mockTurn, times(0)).triggerLosingTurn();
@@ -192,6 +195,7 @@ class MoveTest {
 
     @Test
     void canMoveTo() {
+        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Collections.singletonList(mockWorker)));
         when(this.mockTurn.getWorkerWalkableCells(this.mockWorker)).thenReturn(this.mockTargetCells);
         when(this.mockTargetCells.getPosition(this.spiedCell.getX(), this.spiedCell.getY())).thenReturn(true).thenReturn(false);
         assertTrue(this.testMove.canMoveTo(this.mockWorker, this.spiedCell, this.mockTurn));
