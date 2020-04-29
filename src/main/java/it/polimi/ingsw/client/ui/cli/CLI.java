@@ -3,13 +3,13 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.PrintWriter;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -19,6 +19,54 @@ import static org.fusesource.jansi.Ansi.ansi;
 public class CLI extends UI {
     private Scanner in;
     private PrintWriter out;
+    private static final Ansi.Color[] levelsBgColors = new Ansi.Color[]{
+            Ansi.Color.GREEN,   // level 0
+            Ansi.Color.YELLOW,  // level 1
+            Ansi.Color.YELLOW,  // level 2
+            Ansi.Color.YELLOW,  // level 3
+            Ansi.Color.RED      // dome
+    };
+    private static final String boardColumnsFormatString = "    %c    ";
+    private static final String boardRowsFormatString = "     \n     \n  %d  \n     \n     ";
+    private static final String emptyCellString = "   ";
+    private static final String domeCellString = "\u2591\u2591\u2591";
+    private static final String[] levelFormatString = new String[]{
+            "         \n" +
+                    "         \n" +
+                    "   %s   \n" +
+                    "         \n" +
+                    "         ",
+            "         \n" +
+                    "         \n" +
+                    "   %s   \n" +
+                    "         \n" +
+                    "         ",
+            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n" +
+                    "\u2502       \u2502\n" +
+                    "\u2502  %s  \u2502\n" +
+                    "\u2502       \u2502\n" +
+                    "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n" +
+                    "\u2502 \u250c\u2500\u2500\u2500\u2510 \u2502\n" +
+                    "\u2502 \u2502%s\u2502 \u2502\n" +
+                    "\u2502 \u2514\u2500\u2500\u2500\u2518 \u2502\n" +
+                    "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+    };
+    private static final String[][] workersStrings = new String[][]{
+            {" A ", " a "},
+            {" B ", " b "},
+            {" C ", " c "},
+    };
+//    private static final Ansi.Color[][] workersColors = new Ansi.Color[][]{
+//            {Ansi.Color.BLUE, Ansi.Color.BLUE},
+//            {Ansi.Color.MAGENTA, Ansi.Color.MAGENTA},
+//            {Ansi.Color.BLACK, Ansi.Color.BLACK},
+//    };
+//    private static final boolean[][] workersBright = new boolean[][]{
+//            {true, false},
+//            {true, false},
+//            {true, false},
+//    };
 
     @Override
     public void init() {
@@ -95,6 +143,10 @@ public class CLI extends UI {
         println(ansi().a(s));
     }
 
+    void println(String s, int row, int column) {
+        println(ansi().a(s), row, column);
+    }
+
     /**
      * Prints an int, adding a newline at the end.
      *
@@ -106,6 +158,10 @@ public class CLI extends UI {
 
     private void println(Ansi s) {
         out.println(s);
+    }
+
+    private void println(Ansi s, int row, int column) {
+        println(ansi().cursor(row, column).a(s.toString().replaceAll("\n", ansi().a('\n').cursorRight(column - 1).toString())));
     }
 
     /**
@@ -124,7 +180,7 @@ public class CLI extends UI {
      * @return the string read from the CLI
      */
     String readString(String prompt) {
-        return readString(prompt, "", 15);
+        return readString(prompt, null, 15);
     }
 
     /**
@@ -148,7 +204,11 @@ public class CLI extends UI {
      */
     String readString(String prompt, String def, int expected_input_length) {
         printReadPrompt(prompt, def, expected_input_length);
-        return in.nextLine();
+        String line = in.nextLine();
+        if (def != null && line.equals("")) {
+            return def;
+        }
+        return line;
     }
 
     /**
@@ -187,6 +247,9 @@ public class CLI extends UI {
             return Integer.parseInt(line);
         }
         catch (NumberFormatException e) {
+            if (def != null && line.equals("")) {
+                return def;
+            }
             error(String.format("%s non e' un intero", line));
             return readInt(prompt, def, expected_input_length);
         }
@@ -201,7 +264,110 @@ public class CLI extends UI {
      */
     private void printReadPrompt(String prompt, String def, int expected_input_length) {
         String underscores = "_".repeat(expected_input_length);
-        String defText = def.length() > 0 ? String.format(" (default: %s)", def) : "";
+        String defText = def != null ? String.format(" (default: %s)", def) : "";
         print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expected_input_length));
     }
+
+    void printPlayers(ReducedGame game) {
+        StringBuilder res = new StringBuilder();
+        res.append(ansi().a("GIOCATORI:\n"));
+        for (ReducedPlayer player : game.getPlayersList()) {
+            Ansi resPlayer = ansi();
+            if (player.isLocalPlayer()) {
+                resPlayer = resPlayer.bold();
+            }
+            ReducedTurn turn = game.getTurn();
+            if (turn != null && turn.getPlayer().equals(player)) {
+                resPlayer = resPlayer.fgBrightCyan().a("\u25cf ");
+            }
+            else {
+                resPlayer = resPlayer.a("  ");
+            }
+            resPlayer = resPlayer.a(player.getNickname() + '\n').reset();
+            res.append(resPlayer);
+        }
+        println(ansi().a(res.toString()).reset(), 15, 80);
+    }
+
+    /**
+     * Draw board.
+     *
+     * @param board the board
+     */
+    void drawBoard(ReducedBoard board) {
+        int dimension = board.getDimension();
+        StringBuilder boardStr = new StringBuilder((dimension+1)*(dimension+1)*9*5);
+        boardStr.append("\n");
+        boardStr.append("     ");
+        for (int i = 0; i < dimension; i++) {
+            boardStr.append(String.format(boardColumnsFormatString, (char) (i + 65)));
+        }
+        boardStr.append("\n");
+        for (int x = 0; x < dimension; x++) {
+            Ansi[][] rowAnsi = new Ansi[dimension+1][];
+            String[] rowHeaders = String.format(boardRowsFormatString, x + 1).split("\n");
+            rowAnsi[0] = new Ansi[rowHeaders.length];
+            for (int i = 0; i < rowHeaders.length; i++) {
+                rowAnsi[0][i] = ansi().a(rowHeaders[i]);
+            }
+            for (int y = 0; y < dimension; y++) {
+                rowAnsi[y+1] = getCellAnsi(board.getCell(x, y));
+            }
+            for (int i = 0; i < rowAnsi[0].length; i++) {
+                for (int j = 0; j < dimension + 1; j++) {
+                    boardStr.append(rowAnsi[j][i]);
+                }
+                boardStr.append('\n');
+            }
+
+        }
+
+        print(ansi().cursor(0, 0).a(boardStr.toString()));
+    }
+
+    private Ansi[] getCellAnsi(ReducedCell cell) {
+        Ansi[] ret;
+        Ansi.Color bg;
+        Ansi.Color fg = Ansi.Color.DEFAULT;
+        String[] retStr;
+
+        if (cell.hasDome()) {
+            bg = levelsBgColors[4];
+            retStr = String.format(levelFormatString[cell.getTowerHeight()], domeCellString).split("\n");
+        }
+        else {
+            bg = levelsBgColors[cell.getTowerHeight()];
+            retStr = String.format(levelFormatString[cell.getTowerHeight()], getCellWorkerChar(cell)).split("\n");
+        }
+
+        ret = new Ansi[retStr.length];
+        for (int i = 0; i < retStr.length; i++) {
+            ret[i] = ansi().reset().fg(fg).bg(bg).a(retStr[i]).reset();
+        }
+        return ret;
+    }
+
+    private Ansi getCellWorkerChar(ReducedCell cell) {
+        Ansi ret = ansi();
+        if (cell.getWorker().isEmpty()) {
+            return ret.a(emptyCellString);
+        }
+        ReducedWorker worker = cell.getWorker().get();
+//        if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
+//            ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+//        }
+//        else {
+//            ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+//        }
+//        ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
+//        if (brightToRestore) {
+//            ret = ret.bgBright(colorToRestore);
+//        }
+//        else {
+//            ret = ret.bg(colorToRestore);
+//        }
+        ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+        return ret;
+    }
+
 }
