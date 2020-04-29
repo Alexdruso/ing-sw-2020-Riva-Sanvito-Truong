@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.clientstates.AbstractJoinLobbyClientState;
 /**
  * The CLI-specific JOIN_LOBBY ClientState.
  */
-public class JoinLobbyCLIClientState extends AbstractJoinLobbyClientState {
+public class JoinLobbyCLIClientState extends AbstractJoinLobbyClientState implements CLIClientState {
     private final CLI cli;
 
     /**

@@ -82,7 +82,7 @@ public class ReducedCell {
         this.worker = Optional.of(worker);
     }
 
-    public void removeWorker() {
+    public void setNoWorker() {
         worker = Optional.empty();
     }
 }

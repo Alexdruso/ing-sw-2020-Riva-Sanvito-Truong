@@ -2,6 +2,7 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.observer.Observer;
@@ -11,6 +12,8 @@ import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -24,6 +27,7 @@ public class Client implements LambdaObserver {
     private final AtomicBoolean renderRequested;
     private final UI ui;
     private boolean exitRequested;
+    private Set<ReducedCell> changedCells;
 
     /**
      * Instantiates a new Client.
@@ -35,6 +39,7 @@ public class Client implements LambdaObserver {
         nextState = ClientState.CONNECT_TO_SERVER;
         renderRequested = new AtomicBoolean(false);
         exitRequested = false;
+        changedCells = new HashSet<>();
     }
 
     /**
@@ -215,5 +220,17 @@ public class Client implements LambdaObserver {
         else {
             throw new IllegalStateException();
         }
+    }
+
+    public void addChangedCell(ReducedCell cell) {
+        changedCells.add(cell);
+    }
+
+    public Set<ReducedCell> getChangedCells() {
+        return new HashSet<>(changedCells);
+    }
+
+    public void clearChangedCells() {
+        changedCells.clear();
     }
 }

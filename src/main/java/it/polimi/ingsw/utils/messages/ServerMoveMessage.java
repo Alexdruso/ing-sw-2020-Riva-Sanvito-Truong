@@ -2,6 +2,7 @@ package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
 
+import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
@@ -42,6 +43,12 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
 
     @Override
     public boolean handleTransmittable(Client handler) {
+//         ReducedCell targetCell = handler.getGame().getCell(targetCellX, targetCellY);
+//         handler.getGame().move(woker, sourceCell, targetCell);
+
+//        handler.addChangedCell(sourceCell);
+//        handler.addChangedCell(targetCell);
+
         return false;
     }
 }

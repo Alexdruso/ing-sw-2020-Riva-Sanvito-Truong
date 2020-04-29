@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.clientstates.AbstractDisconnectClientState;
 /**
  * The CLI-specific DISCONNECT ClientState.
  */
-public class DisconnectCLIClientState extends AbstractDisconnectClientState {
+public class DisconnectCLIClientState extends AbstractDisconnectClientState implements CLIClientState {
     private final CLI cli;
 
     /**
