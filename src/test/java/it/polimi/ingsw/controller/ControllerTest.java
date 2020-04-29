@@ -29,7 +29,12 @@ class ControllerTest {
         ViewClientMessage moveViewClientMessage = new ViewClientMessage(myMoveCommand, myView, myUser);
         ViewClientMessage skipViewClientMessage = new ViewClientMessage(mySkipCommand, myView, myUser);
         //establish mock behavior, in this case a positive behavior
-        when(myGame.isValidBuild(myBuildCommand, myUser)).thenReturn(true);
+        when(myGame
+                .isValidBuild(
+                        myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                        myBuildCommand.component, myBuildCommand.performer,
+                        myUser))
+                .thenReturn(true);
         when(myGame
                 .isValidMove(
                         myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
@@ -49,7 +54,10 @@ class ControllerTest {
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         //verify the right calls
-        verify(myGame, times(1)).isValidBuild(myBuildCommand, myUser);
+        verify(myGame, times(1)).isValidBuild(
+                myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                myBuildCommand.component, myBuildCommand.performer,
+                myUser);
         verify(myGame, times(1)).build(myBuildCommand, myUser);
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
@@ -78,11 +86,17 @@ class ControllerTest {
         ViewClientMessage moveViewClientMessage = new ViewClientMessage(myMoveCommand, myView, myUser);
         ViewClientMessage skipViewClientMessage = new ViewClientMessage(mySkipCommand, myView, myUser);
         //establish mock behavior, in this case a negative behavior
-        when(myGame.isValidBuild(myBuildCommand, myUser)).thenReturn(false);
-        when(myGame.isValidMove(
-                myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
-                myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser))
+        when(myGame
+                .isValidBuild(
+                        myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                        myBuildCommand.component, myBuildCommand.performer,
+                        myUser))
+                .thenReturn(false);
+        when(myGame
+                .isValidMove(
+                        myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
+                        myMoveCommand.targetCellX, myMoveCommand.targetCellY,
+                        myMoveCommand.performer, myUser))
                 .thenReturn(false);
         when(myGame.isValidSkip(mySkipCommand, myUser)).thenReturn(false);
         //ready, steady, go
@@ -98,7 +112,10 @@ class ControllerTest {
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         //verify right calls
-        verify(myGame, times(1)).isValidBuild(myBuildCommand, myUser);
+        verify(myGame, times(1)).isValidBuild(
+                myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                myBuildCommand.component, myBuildCommand.performer,
+                myUser);
         verify(myGame, times(0)).build(myBuildCommand, myUser);
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,

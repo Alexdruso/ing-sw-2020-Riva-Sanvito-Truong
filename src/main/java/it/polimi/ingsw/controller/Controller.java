@@ -72,7 +72,12 @@ public class Controller implements LambdaObserver {
      * @param user   the User that triggered this command
      */
     public void dispatchBuildAction(ClientBuildMessage action, View view, User user){
-        if(model.isValidBuild(action, user)) {
+        boolean isValidBuild = model.isValidBuild(
+                action.targetCellX, action.targetCellY,
+                action.component, action.performer,
+                user);
+
+        if (isValidBuild) {
             model.build(action, user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);

@@ -216,7 +216,8 @@ public class Game extends LambdaObservable<Transmittable> {
             return false;
         }
         //The target cell is not available for movement
-        return currentTurn.canMoveTo(worker, targetCell);
+        return currentTurn.getPlayer().equals(player)
+                && currentTurn.canMoveTo(worker, targetCell);
     }
 
     /**
@@ -242,18 +243,23 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Checks if the PlayerBuildCommand can be executed
      *
-     * @param command the command to be checked
-     * @param user    the user that triggered the command
+     * @param targetCellX The x coordinate of the cell on which the worker built
+     * @param targetCellY The y coordinate of the cell on which the worker built
+     * @param component   The component built on the cell
+     * @param performer   The worker who performed the build
+     * @param user        the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidBuild(ClientBuildMessage command, User user) {
-        Cell targetCell = board.getCell(command.targetCellX, command.targetCellY);
-        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(command.performer);
+    public boolean isValidBuild(int targetCellX, int targetCellY,
+                                Component component, WorkerID performer,
+                                User user) {
+        Cell targetCell = board.getCell(targetCellX, targetCellY);
+        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(performer);
         if (!worker.getPlayer().equals(currentTurn.getPlayer())) {
             //The worker does not belong to the active player
             return false;
         }
-        if (command.component == Component.BLOCK) {
+        if (component == Component.BLOCK) {
             return currentTurn.canBuildBlockIn(worker, targetCell);
         } else {
             return currentTurn.canBuildDomeIn(worker, targetCell);
