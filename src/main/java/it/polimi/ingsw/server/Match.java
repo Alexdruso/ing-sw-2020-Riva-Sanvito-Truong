@@ -20,7 +20,7 @@ public class Match implements Runnable {
     /**
      * The participants, represented by nickname and connection.
      */
-    private LinkedHashMap<String, Connection> participants = new LinkedHashMap<String, Connection>();
+    private final LinkedHashMap<String, Connection> participants = new LinkedHashMap<>();
     /**
      * The model.
      */
@@ -28,7 +28,7 @@ public class Match implements Runnable {
     /**
      * The views related to each participant
      */
-    private List<View> virtualViews = new LinkedList<View>();
+    private final List<View> virtualViews = new LinkedList<>();
     /**
      * The controller.
      */
@@ -123,7 +123,7 @@ public class Match implements Runnable {
      * @return the participants to the match
      */
     public LinkedHashMap<String,Connection> getParticipants(){
-        return new LinkedHashMap<String, Connection>(this.participants);
+        return new LinkedHashMap<>(this.participants);
     }
 
     /**
