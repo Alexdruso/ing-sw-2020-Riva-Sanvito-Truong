@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;
@@ -13,10 +14,7 @@ import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.utils.structures.BidirectionalLinkedHashMap;
 import it.polimi.ingsw.utils.structures.BidirectionalMap;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -61,7 +59,14 @@ public class Game extends LambdaObservable<Transmittable> {
      * All the possible states of the game
      */
     enum GameState {
-
+        /**
+         * The first state
+         */
+        START_SETUP,
+        /**
+         * Waiting for a gods list
+         */
+        ASK_GODS_LIST
     }
 
     /**
@@ -76,6 +81,7 @@ public class Game extends LambdaObservable<Transmittable> {
         lastRound = new LinkedList<>();
         board = new Board();
         active = true;
+        gameState = GameState.START_SETUP;
     }
 
     /**
@@ -322,20 +328,23 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Executes the PlayerSkipCommand
      *
-     * @param user    the user that triggered the command
+     * @param user the user that triggered the command
      * @throws UnsupportedOperationException the unsupported operation exception
      */
     public void skip(User user) throws UnsupportedOperationException {
         currentTurn.changeState();
     }
 
-
-    //sends ask gods from list message, must be invoked by the match
+    /**
+     * First method to be called by the match, sends the request of a god sub list to the player who created the game
+     */
     public void setup() {
+        User firstUser = subscribedUsers.getKeyFromValue(players.peek());
+        notify(new ServerAskGodsFromListMessage(firstUser, Arrays.asList(GodCard.values())));
     }
 
     /**
-     * Signals the match to end
+     * Signals the match to terminate
      */
     public void draw() {
         this.setActive(false);

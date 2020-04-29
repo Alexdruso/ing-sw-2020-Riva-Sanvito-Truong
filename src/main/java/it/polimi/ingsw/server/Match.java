@@ -77,7 +77,7 @@ public class Match implements Runnable {
                     ((View)obs).updateFromGame(message));
             //the controller observes the view
             virtualView.addObserver(controller, (obs, message) ->
-                    ((Controller)obs).update(message));
+                    ((Controller) obs).update(message));
             //increment usersIndex
             usersIndex++;
         }
@@ -87,6 +87,8 @@ public class Match implements Runnable {
         for (Connection connection : this.participantsNicknameToConnection.values()) {
             connection.send(serverStartSetupMatchMessage);
         }
+        //Start setup procedure
+        model.setup();
         //now just make the controller work on this thread
         while (this.isPlaying()) {
             this.controller.dispatchViewClientMessages();
