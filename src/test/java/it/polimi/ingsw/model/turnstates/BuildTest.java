@@ -86,7 +86,7 @@ class BuildTest {
         this.testBuild.setup(this.mockTurn);
 
         //verify call on processBeforeMovementsBeforeBuildEvents(this.mockTurn);
-        verify(this.mockTurnEventsManager, times(0)).processBeforeBuildEvents(this.mockTurn);
+        verify(this.mockTurnEventsManager, times(1)).processBeforeBuildEvents(this.mockTurn);
 
         //verify calls on allowedWorkers
         verify(this.mockTurn).addAllowedWorkers(this.mockPlayer.getOwnWorkers());
@@ -205,31 +205,35 @@ class BuildTest {
         //verify calls on target cells
         ArgumentCaptor<TargetCells> acDomeTargetCell = ArgumentCaptor.forClass(TargetCells.class);
         ArgumentCaptor<Worker> acDomeWorker = ArgumentCaptor.forClass(Worker.class);
-        verify(this.mockTurn, times(1)).setWorkerDomeBuildableCells(acDomeWorker.capture(), acDomeTargetCell.capture());
+        verify(this.mockTurn, times(2)).setWorkerDomeBuildableCells(acDomeWorker.capture(), acDomeTargetCell.capture());
         ArgumentCaptor<TargetCells> acBlockTargetCell = ArgumentCaptor.forClass(TargetCells.class);
         ArgumentCaptor<Worker> acBlockWorker = ArgumentCaptor.forClass(Worker.class);
-        verify(this.mockTurn, times(1)).setWorkerBlockBuildableCells(acBlockWorker.capture(), acBlockTargetCell.capture());
+        verify(this.mockTurn, times(2)).setWorkerBlockBuildableCells(acBlockWorker.capture(), acBlockTargetCell.capture());
 
         //mockWorker 1 builds
-        assertEquals(acDomeWorker.getValue(), this.mockWorker);
-        assertFalse(acDomeTargetCell.getValue().getPosition(0, 1));
-        assertFalse(acDomeTargetCell.getValue().getPosition(2, 2));
-        assertFalse(acDomeTargetCell.getValue().getPosition(0, 0));
-        assertFalse(acDomeTargetCell.getValue().getPosition(2, 0));
-        assertFalse(acDomeTargetCell.getValue().getPosition(2, 1));
-        assertFalse(acDomeTargetCell.getValue().getPosition(0, 2));
-        assertFalse(acDomeTargetCell.getValue().getPosition(1, 2));
-        assertTrue(acDomeTargetCell.getValue().getPosition(1, 0));
+        int index = acBlockWorker.getAllValues().indexOf(mockWorker);
+        TargetCells domeTargetCell = acDomeTargetCell.getAllValues().get(index);
+        assertTrue(acDomeWorker.getAllValues().contains(this.mockWorker));
+        assertFalse(domeTargetCell.getPosition(0, 1));
+        assertFalse(domeTargetCell.getPosition(2, 2));
+        assertFalse(domeTargetCell.getPosition(0, 0));
+        assertFalse(domeTargetCell.getPosition(2, 0));
+        assertFalse(domeTargetCell.getPosition(2, 1));
+        assertFalse(domeTargetCell.getPosition(0, 2));
+        assertFalse(domeTargetCell.getPosition(1, 2));
+        assertTrue(domeTargetCell.getPosition(1, 0));
 
-        assertEquals(acBlockWorker.getValue(), this.mockWorker);
-        assertFalse(acBlockTargetCell.getValue().getPosition(1, 0));
-        assertFalse(acBlockTargetCell.getValue().getPosition(2, 2));
-        assertTrue(acBlockTargetCell.getValue().getPosition(0, 1));
-        assertTrue(acBlockTargetCell.getValue().getPosition(0, 0));
-        assertTrue(acBlockTargetCell.getValue().getPosition(2, 0));
-        assertTrue(acBlockTargetCell.getValue().getPosition(2, 1));
-        assertTrue(acBlockTargetCell.getValue().getPosition(0, 2));
-        assertTrue(acBlockTargetCell.getValue().getPosition(1, 2));
+        index = acBlockWorker.getAllValues().indexOf(mockWorker);
+        assertTrue(acBlockWorker.getAllValues().contains(this.mockWorker));
+        TargetCells blockTargetCell = acBlockTargetCell.getAllValues().get(index);
+        assertFalse(blockTargetCell.getPosition(1, 0));
+        assertFalse(blockTargetCell.getPosition(2, 2));
+        assertTrue(blockTargetCell.getPosition(0, 1));
+        assertTrue(blockTargetCell.getPosition(0, 0));
+        assertTrue(blockTargetCell.getPosition(2, 0));
+        assertTrue(blockTargetCell.getPosition(2, 1));
+        assertTrue(blockTargetCell.getPosition(0, 2));
+        assertTrue(blockTargetCell.getPosition(1, 2));
 
         //verify no losing turn
         verify(this.mockTurn, times(0)).triggerLosingTurn();
@@ -238,6 +242,7 @@ class BuildTest {
 
     @Test
     void canBuildDomeIn() {
+        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Arrays.asList(mockWorker)));
         when(mockTurn.getWorkerDomeBuildableCells(mockWorker)).thenReturn(mockTargetCells);
         when(mockTargetCells.getPosition(spiedCell.getX(), spiedCell.getY())).thenReturn(true).thenReturn(false);
         assertTrue(this.testBuild.canBuildDomeIn(this.mockWorker, this.spiedCell, this.mockTurn));
@@ -261,6 +266,7 @@ class BuildTest {
 
     @Test
     void canBuildBlockIn() {
+        when(mockTurn.getAllowedWorkers()).thenReturn(new HashSet<>(Arrays.asList(mockWorker)));
         when(mockTurn.getWorkerBlockBuildableCells(mockWorker)).thenReturn(mockTargetCells);
         when(mockTargetCells.getPosition(spiedCell.getX(), spiedCell.getY())).thenReturn(true).thenReturn(false);
         assertTrue(this.testBuild.canBuildBlockIn(this.mockWorker, this.spiedCell, this.mockTurn));

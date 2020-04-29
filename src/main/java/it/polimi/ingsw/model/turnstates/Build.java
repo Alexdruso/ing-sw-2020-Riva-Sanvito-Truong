@@ -21,40 +21,40 @@ class Build extends AbstractTurnState {
         setupDefaultAllowedWorkers(turn);
 
         //for every allowed worker, initializes a target cell with the radius minus blocked cells
-        for(Worker allowedWorker : turn.getAllowedWorkers()){
-            TargetCells blockBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
-            TargetCells domeBuildableCellsRadius = TargetCells.fromCellAndRadius(allowedWorker.getCell(), 1);
+        for (Worker worker : turn.getPlayer().getOwnWorkers()) {
+            TargetCells blockBuildableCellsRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
+            TargetCells domeBuildableCellsRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
 
             turn.getGame().getBoard().getTargets(blockBuildableCellsRadius)
                     .stream()
                     .filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() == 3)
                     .forEach(cell -> blockBuildableCellsRadius.setPosition(cell, false)
-            );
+                    );
 
-            turn.setWorkerBlockBuildableCells(allowedWorker, blockBuildableCellsRadius);
+            turn.setWorkerBlockBuildableCells(worker, blockBuildableCellsRadius);
 
             turn.getGame().getBoard().getTargets(domeBuildableCellsRadius)
                     .stream()
                     .filter(cell -> cell.getTower().isComplete() || cell.getWorker().isPresent() || cell.getTower().getCurrentLevel() < 3)
                     .forEach(cell -> domeBuildableCellsRadius.setPosition(cell, false)
-            );
+                    );
 
-            turn.setWorkerDomeBuildableCells(allowedWorker, domeBuildableCellsRadius);
+            turn.setWorkerDomeBuildableCells(worker, domeBuildableCellsRadius);
         }
-
+        //use powers
+        turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
         //compute lose conditions
-        if (
-                !turn.isSkippable() //see if turn can't be skipped
-                    && turn.getAllowedWorkers().stream().map(
-                            allowedWorker -> turn.getGame().getBoard().getTargets(turn.getWorkerDomeBuildableCells(allowedWorker)).isEmpty() //check if worker can build dome in some cells
-                                    && turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker)).isEmpty() //check if worker can build block in some cells
-                        )
-                    .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction) //see if no worker can perform a move
-        ) {
+        boolean isNoBuild = turn.getAllowedWorkers().stream().map(
+                allowedWorker -> turn.getGame().getBoard()
+                        .getTargets(turn.getWorkerDomeBuildableCells(allowedWorker))
+                        .isEmpty() //check if worker can build dome in some cells
+                        && turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker))
+                        .isEmpty())
+                .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction);
+
+        if (!turn.isSkippable() && isNoBuild) {
             turn.triggerLosingTurn(); //sets the turn to losing turn
-        }
-        else {
-            turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
+        } else {
             // notify();
         }
     }
@@ -69,7 +69,8 @@ class Build extends AbstractTurnState {
      */
     @Override
     public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
+        return turn.getAllowedWorkers().contains(pawn) &&
+                turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**
@@ -100,7 +101,8 @@ class Build extends AbstractTurnState {
      */
     @Override
     public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.getX(),targetCell.getY());
+        return turn.getAllowedWorkers().contains(pawn)
+                && turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**
