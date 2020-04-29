@@ -75,7 +75,21 @@ public class Controller implements LambdaObserver {
         model.draw();
     }
 
-    public void dispatchChooseGodsAction(ClientChooseGodsMessage, View view, User user) {
+    /**
+     * This method handles the choose gods action.
+     *
+     * @param action the ClientChooseGodsMessage requested
+     * @param view   the view that triggered this command
+     * @param user   the user that triggered this command
+     */
+    public void dispatchChooseGodsAction(ClientChooseGodsMessage action, View view, User user) {
+        boolean isValidGodsChoice = model.isValidGodsChoice(action.getGods(), user);
+
+        if (isValidGodsChoice) {
+            model.setAvailableGodsList(action.getGods(), user);
+        } else {
+            view.handleMessage(StatusMessages.CLIENT_ERROR);
+        }
     }
 
 

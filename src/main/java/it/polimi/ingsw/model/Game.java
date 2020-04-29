@@ -45,6 +45,10 @@ public class Game extends LambdaObservable<Transmittable> {
      * The Turn object representing the current game turn
      */
     private Turn currentTurn;
+    /**
+     * The list of all the gods in game
+     */
+    private final List<GodCard> availableGods = new LinkedList<>();
 
     /**
      * True if the game is still going on
@@ -66,7 +70,11 @@ public class Game extends LambdaObservable<Transmittable> {
         /**
          * Waiting for a gods list
          */
-        ASK_GODS_LIST
+        ASK_GODS_LIST,
+        /**
+         * Setting each player's god
+         */
+        SET_GODS
     }
 
     /**
@@ -350,11 +358,36 @@ public class Game extends LambdaObservable<Transmittable> {
         this.setActive(false);
     }
 
-    public boolean isValidGodsChoice(ClientChooseGodsMessage command, User user) {
-        return false;
+    /**
+     * Checks if the Gods choice is fine
+     *
+     * @param chosenGods the list of gods chosen by the player
+     * @param user       the user of the player
+     * @return true if the command is valid, false otherwise
+     */
+    public boolean isValidGodsChoice(List<GodCard> chosenGods, User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+        return gameState == GameState.ASK_GODS_LIST //check right state
+                && player.equals(players.peek()) //check the player is right
+                && chosenGods.size() == players.size() //check right number of gods
+                && (new HashSet<>(chosenGods)).size() == players.size(); //check no duplicates
     }
 
-    public void setAvailableGodsList(ClientChooseGodsMessage command, User user) {
+    /**
+     * Sets the available gods list
+     *
+     * @param chosenGods the list of gods chosen by the player
+     * @param user       the user of the player
+     */
+    public void setAvailableGodsList(List<GodCard> chosenGods, User user) {
+        availableGods.addAll(chosenGods);
+        //rotate the player
+        Player player = players.poll();
+        players.add(player);
+        //change state
+        gameState = GameState.SET_GODS;
+        //send god request
+        notify(new ServerAskGodFromListMessage(subscribedUsers.getKeyFromValue(players.peek()), chosenGods));
     }
 
     public boolean isValidGodChoice(ClientChooseGodMessage command, User user) {
