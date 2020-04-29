@@ -23,4 +23,11 @@ public class ReducedGame {
     public void setTurn(ReducedTurn turn) {
         this.turn = turn;
     }
+
+    public void setWorkerCell(ReducedWorker worker, ReducedCell sourceCell, ReducedCell targetCell) {
+        if (targetCell.getWorker().isEmpty()) {
+            sourceCell.setNoWorker();
+        }
+        targetCell.setWorker(worker);
+    }
 }

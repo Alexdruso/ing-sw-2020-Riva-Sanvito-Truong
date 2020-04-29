@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+//TODO: REMOVE ME!!!
 public class ServerSetCurrentUserMessage implements ServerMessage, ClientHandleable {
     public final User user;
 

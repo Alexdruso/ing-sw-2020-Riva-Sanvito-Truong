@@ -7,7 +7,7 @@ import it.polimi.ingsw.config.ConfigParser;
 /**
  * The CLI-specific CONNECT_TO_SERVER ClientState.
  */
-public class ConnectToServerCLIClientState extends AbstractConnectToServerClientState {
+public class ConnectToServerCLIClientState extends AbstractConnectToServerClientState implements CLIClientState {
     private final CLI cli;
 
     /**

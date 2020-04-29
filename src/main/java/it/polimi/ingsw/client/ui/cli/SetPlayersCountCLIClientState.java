@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.clientstates.AbstractSetPlayersCountClientState;
 /**
  * The CLI-specific SET_PLAYERS_COUNT ClientState.
  */
-public class SetPlayersCountCLIClientState extends AbstractSetPlayersCountClientState {
+public class SetPlayersCountCLIClientState extends AbstractSetPlayersCountClientState implements CLIClientState {
     private final CLI cli;
 
     /**

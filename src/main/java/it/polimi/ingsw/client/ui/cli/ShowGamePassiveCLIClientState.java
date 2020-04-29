@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  * The CLI-specific SHOW_GAME_PASSIVE ClientState.
  */
-public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClientState {
+public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClientState implements CLIClientState {
     private final CLI cli;
 
     /**

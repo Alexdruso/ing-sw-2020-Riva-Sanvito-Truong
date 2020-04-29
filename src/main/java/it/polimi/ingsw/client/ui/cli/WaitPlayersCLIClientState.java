@@ -7,7 +7,7 @@ import it.polimi.ingsw.client.clientstates.AbstractWaitPlayersClientState;
 /**
  * The CLI-specific JOIN_LOBBY ClientState.
  */
-public class WaitPlayersCLIClientState extends AbstractWaitPlayersClientState {
+public class WaitPlayersCLIClientState extends AbstractWaitPlayersClientState implements CLIClientState {
     private final CLI cli;
 
     /**
