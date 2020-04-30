@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
+import it.polimi.ingsw.model.workers.Worker;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -351,8 +352,9 @@ public class CLI extends UI {
 
     private Ansi getCellWorkerChar(ReducedCell cell) {
         Ansi ret = ansi();
-        if (cell.getWorker().isPresent()) {
-            ReducedWorker worker = cell.getWorker().get();
+        Optional<ReducedWorker> maybeWorker = cell.getWorker();
+        if (maybeWorker.isPresent()) {
+            ReducedWorker worker = maybeWorker.get();
 //            if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
 //                ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
 //            }
