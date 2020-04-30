@@ -3,10 +3,8 @@ package it.polimi.ingsw.model.turnstates;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class StartTest {

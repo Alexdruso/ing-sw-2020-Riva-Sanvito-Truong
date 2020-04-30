@@ -1,13 +1,10 @@
 package it.polimi.ingsw.model.gods;
 
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.workers.Worker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
 
 class AtlasTest {
     private GodsTestHarness testHarness;

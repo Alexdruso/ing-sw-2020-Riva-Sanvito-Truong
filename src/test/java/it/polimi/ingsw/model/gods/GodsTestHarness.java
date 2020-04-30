@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.lenient;
 
 public class GodsTestHarness {
     private final Game mockedGame = mock(Game.class);

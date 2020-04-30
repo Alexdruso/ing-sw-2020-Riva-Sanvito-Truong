@@ -1,7 +1,6 @@
 package it.polimi.ingsw.utils.structures;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 

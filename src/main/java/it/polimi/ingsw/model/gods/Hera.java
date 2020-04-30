@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The god card Hera.

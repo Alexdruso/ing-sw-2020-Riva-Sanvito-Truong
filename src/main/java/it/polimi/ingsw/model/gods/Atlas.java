@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
+import it.polimi.ingsw.model.workers.Worker;
 
 /**
  * The god card Atlas.

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.ServerApp;
 import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.Connection;
 

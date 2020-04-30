@@ -5,8 +5,6 @@ import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.workers.WorkerID;
 
-import java.util.Objects;
-
 /**
  * This class is the model representation of the physical player.
  * It keep all the information regarding the single player.

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.turnevents;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Turn;
+
 import java.util.HashMap;
 
 //TODO: make the process*Events method match the signature of the TurnEvents methods

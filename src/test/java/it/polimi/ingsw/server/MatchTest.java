@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;

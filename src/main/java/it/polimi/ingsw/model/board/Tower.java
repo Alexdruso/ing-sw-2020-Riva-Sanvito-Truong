@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.board;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A Tower object is an aggregation of Buildable components and may represent a complete

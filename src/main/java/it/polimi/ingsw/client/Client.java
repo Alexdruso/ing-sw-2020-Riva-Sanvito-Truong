@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.ServerApp;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
@@ -8,17 +7,18 @@ import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.observer.LambdaObserver;
-import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 import it.polimi.ingsw.utils.messages.ReducedUser;
-import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;

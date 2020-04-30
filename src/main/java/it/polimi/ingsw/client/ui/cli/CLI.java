@@ -5,12 +5,12 @@ import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
-import it.polimi.ingsw.model.workers.Worker;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Optional;
+import java.util.Scanner;
 
 import static org.fusesource.jansi.Ansi.ansi;
 

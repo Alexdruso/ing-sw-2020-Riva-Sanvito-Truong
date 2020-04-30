@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Turn;
 import it.polimi.ingsw.model.gods.God;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

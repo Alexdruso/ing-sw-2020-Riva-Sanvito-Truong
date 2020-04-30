@@ -1,11 +1,9 @@
 package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.AbstractJoinLobbyClientState;
 import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
 import it.polimi.ingsw.client.reducedmodel.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
