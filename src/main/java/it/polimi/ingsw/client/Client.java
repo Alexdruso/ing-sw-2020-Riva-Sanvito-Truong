@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.ServerApp;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
@@ -19,11 +20,14 @@ import it.polimi.ingsw.utils.networking.Transmittable;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Client.
  */
 public class Client implements LambdaObserver {
+    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
     private Connection connection;
     private final Object currentStateLock = new Object();
     private AbstractClientState currentState;
@@ -62,7 +66,7 @@ public class Client implements LambdaObserver {
                     try {
                         renderRequested.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        LOGGER.log(Level.WARNING, e.getMessage(), e);
                         close();
                         Thread.currentThread().interrupt();
                         return;

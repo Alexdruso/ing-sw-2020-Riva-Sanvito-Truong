@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.ServerApp;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
@@ -15,12 +16,16 @@ import it.polimi.ingsw.utils.structures.BidirectionalLinkedHashMap;
 import it.polimi.ingsw.utils.structures.BidirectionalMap;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
  * It provides methods to gain insights on the current state.
  */
 public class Game extends LambdaObservable<Transmittable> {
+    private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
+
     /**
      * The number of maximum players of the game
      */
@@ -265,7 +270,7 @@ public class Game extends LambdaObservable<Transmittable> {
         try {
             currentTurn.moveTo(worker, targetCell);
         } catch (InvalidTurnStateException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -316,7 +321,7 @@ public class Game extends LambdaObservable<Transmittable> {
                 currentTurn.buildDomeIn(worker, targetCell);
             }
         } catch (InvalidTurnStateException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 

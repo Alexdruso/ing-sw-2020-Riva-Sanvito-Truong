@@ -1,22 +1,23 @@
 package it.polimi.ingsw.utils.networking;
 
 import it.polimi.ingsw.observer.LambdaObservable;
-import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.utils.StringCapturedStackTrace;
 import it.polimi.ingsw.utils.messages.DisconnectMessage;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A bidirectional connection to a remote host.
  */
 public class Connection extends LambdaObservable<Transmittable> {
+    private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());
     private Socket socket;
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
@@ -56,20 +57,20 @@ public class Connection extends LambdaObservable<Transmittable> {
         this(new Socket(host, port));
     }
 
-    private void log(String message) {
-        System.err.println(String.format("[socket %s] %s", socket.getRemoteSocketAddress().toString().substring(1), message));
+    private void log(Level level, String message) {
+        LOGGER.log(level, () -> String.format("[socket %s] %s", socket.getRemoteSocketAddress().toString().substring(1), message));
     }
 
-    private void logDebug(String message) {
-        log(String.format("[DEBUG] %s", message));
+    private void logFine(String message) {
+        log(Level.FINE, message);
     }
 
     private void logInfo(String message) {
-        log(String.format("[INFO] %s", message));
+        log(Level.INFO, message);
     }
 
-    private void logError(String message) {
-        log(String.format("[ERROR] %s", message));
+    private void logSevere(String message) {
+        log(Level.SEVERE, message);
     }
 
     /**
@@ -111,7 +112,7 @@ public class Connection extends LambdaObservable<Transmittable> {
 
     private void close(String message) {
         if (isActive) {
-            logError("Abruptly closing the connection: " + message);
+            logSevere("Abruptly closing the connection: " + message);
         }
         close();
     }
@@ -121,7 +122,7 @@ public class Connection extends LambdaObservable<Transmittable> {
             try {
                 socketOut.writeObject(disconnectMessage);
             } catch (Exception e) {
-                logError("Unable to notify the remote that the connection is closing: " + new StringCapturedStackTrace(e).toString());
+                logSevere("Unable to notify the remote that the connection is closing: " + new StringCapturedStackTrace(e).toString());
             }
         }
         close();
@@ -155,13 +156,12 @@ public class Connection extends LambdaObservable<Transmittable> {
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
                         Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
-                        logDebug(String.format("Received message %s", inputObject.getClass().getName()));
+                        logFine(String.format("Received message %s", inputObject.getClass().getName()));
                         connectionInstance.notify(inputObject, true);
                     } catch (IOException e) {
                         connectionInstance.close(e);
                     } catch (ClassNotFoundException | ClassCastException e) {
-                        logError("Exception in receive thread");
-                        e.printStackTrace();
+                        LOGGER.log(Level.SEVERE, "Exception in receive thread", e);
                     }
                 }
             }
@@ -185,7 +185,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                     try {
                         Transmittable message = connectionInstance.sendQueue.take();
                         synchronized (connectionInstance.socketOut) {
-                            logDebug(String.format("Sending message %s...", message.getClass().getName()));
+                            logFine(String.format("Sending message %s...", message.getClass().getName()));
                             connectionInstance.socketOut.writeObject(message);
                         }
                     } catch (IOException e) {
