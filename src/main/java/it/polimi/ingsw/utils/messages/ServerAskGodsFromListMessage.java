@@ -22,7 +22,7 @@ public class ServerAskGodsFromListMessage implements ServerMessage, ClientHandle
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
         return false;
     }
 }

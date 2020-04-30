@@ -28,11 +28,6 @@ public abstract class AbstractJoinLobbyClientState extends AbstractClientState {
     }
 
     @Override
-    public void handleOk() {
-        client.moveToState(ClientState.WAIT_PLAYERS);
-    }
-
-    @Override
     public void handleContinue() {
         client.moveToState(ClientState.SET_PLAYERS_COUNT);
     }

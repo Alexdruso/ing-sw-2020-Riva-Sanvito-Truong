@@ -5,7 +5,7 @@ import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerDisconnectMessage implements ServerMessage, DisconnectMessage, ClientHandleable {
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
         return false;
     }
 }

@@ -25,7 +25,7 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
 //         if (handler.getGame().getLocalUser().equals(user)) {
 //          handler.getGame().setTurnState(BUILD);
 //         }
@@ -33,7 +33,7 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
 //          handler.getGame().setTurnState(PASSIVE);
 //        }
 
-        handler.requestRender();
+        client.requestRender();
         return false;
     }
 }

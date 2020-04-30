@@ -33,7 +33,7 @@ public class ServerSetWorkerStartPositionMessage implements ServerMessage, Clien
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
         return false;
     }
 }

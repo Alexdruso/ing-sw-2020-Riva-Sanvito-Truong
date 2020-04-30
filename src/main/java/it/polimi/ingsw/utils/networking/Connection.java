@@ -60,6 +60,10 @@ public class Connection extends LambdaObservable<Transmittable> {
         System.err.println(String.format("[socket %s] %s", socket.getRemoteSocketAddress().toString().substring(1), message));
     }
 
+    private void logDebug(String message) {
+        log(String.format("[DEBUG] %s", message));
+    }
+
     private void logInfo(String message) {
         log(String.format("[INFO] %s", message));
     }
@@ -151,6 +155,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                 while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
                     try {
                         Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
+                        logDebug(String.format("Received message %s", inputObject.getClass().getName()));
                         connectionInstance.notify(inputObject, true);
                     } catch (IOException e) {
                         connectionInstance.close(e);
@@ -180,6 +185,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                     try {
                         Transmittable message = connectionInstance.sendQueue.take();
                         synchronized (connectionInstance.socketOut) {
+                            logDebug(String.format("Sending message %s...", message.getClass().getName()));
                             connectionInstance.socketOut.writeObject(message);
                         }
                     } catch (IOException e) {

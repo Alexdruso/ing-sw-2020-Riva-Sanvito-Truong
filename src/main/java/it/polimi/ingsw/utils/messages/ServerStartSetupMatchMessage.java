@@ -14,8 +14,8 @@ public class ServerStartSetupMatchMessage implements ServerMessage, ClientHandle
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
-        handler.moveToState(ClientState.SHOW_GAME_PASSIVE);
+    public boolean handleTransmittable(Client client) {
+        client.moveToState(ClientState.SHOW_GAME_PASSIVE);
         return true;
     }
 }

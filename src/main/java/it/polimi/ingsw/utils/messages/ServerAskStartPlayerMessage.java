@@ -5,7 +5,7 @@ import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerAskStartPlayerMessage implements ServerMessage, ClientHandleable {
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
         return false;
     }
 }

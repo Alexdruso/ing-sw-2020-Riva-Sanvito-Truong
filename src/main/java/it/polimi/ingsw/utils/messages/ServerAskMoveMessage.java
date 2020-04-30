@@ -20,7 +20,7 @@ public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
 //        if (handler.getGame().getLocalUser().equals(user)) {
 //          handler.getGame().setTurnState(MOVE);
 //        }
@@ -28,7 +28,7 @@ public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
 //          handler.getGame().setTurnState(PASSIVE);
 //        }
 
-        handler.requestRender();
+        client.requestRender();
         return false;
     }
 }

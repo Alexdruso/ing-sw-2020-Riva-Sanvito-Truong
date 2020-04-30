@@ -45,7 +45,7 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
 //         ReducedCell targetCell = handler.getGame().getCell(targetCellX, targetCellY);
 //         handler.getGame().move(woker, sourceCell, targetCell);
 

@@ -15,7 +15,7 @@ public class ServerAskWorkerPositionMessage implements ServerMessage, ClientHand
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
         return false;
     }
 }

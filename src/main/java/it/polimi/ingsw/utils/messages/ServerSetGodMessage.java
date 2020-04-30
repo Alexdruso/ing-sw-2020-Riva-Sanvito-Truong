@@ -15,7 +15,7 @@ public class ServerSetGodMessage implements ServerMessage, ClientHandleable {
     }
 
     @Override
-    public boolean handleTransmittable(Client handler) {
+    public boolean handleTransmittable(Client client) {
         return false;
     }
 }
