@@ -354,22 +354,24 @@ public class CLI extends UI {
         if (cell.getWorker().isEmpty()) {
             return ret.a(emptyCellString);
         }
-        ReducedWorker worker = cell.getWorker().get();
-//        if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
-//            ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//        }
-//        else {
-//            ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//        }
-//        ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
-//        if (brightToRestore) {
-//            ret = ret.bgBright(colorToRestore);
-//        }
-//        else {
-//            ret = ret.bg(colorToRestore);
-//        }
-        ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-        return ret;
+        else {
+            ReducedWorker worker = cell.getWorker().get();
+//            if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
+//                ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+//            }
+//            else {
+//                ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+//            }
+//            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
+//            if (brightToRestore) {
+//                ret = ret.bgBright(colorToRestore);
+//            }
+//            else {
+//                ret = ret.bg(colorToRestore);
+//            }
+            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+            return ret;
+        }
     }
 
 }

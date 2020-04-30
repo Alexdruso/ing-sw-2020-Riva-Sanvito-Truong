@@ -15,11 +15,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class AndrMockServerApp {
+    public static boolean isActive = true;
     public static void main(String[] args) {
         //TODO: write real implementation. At the moment, this is just a boilerplate
+        ServerSocket ss = null;
         try {
-            ServerSocket ss = new ServerSocket(1337);
-            while (true) {
+            ss = new ServerSocket(1337);
+            while (isActive) {
                 try {
                     Socket s = ss.accept();
                     System.out.println("accepted connection");
@@ -33,6 +35,13 @@ public class AndrMockServerApp {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                ss.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
@@ -49,6 +58,7 @@ class AndrServerTestReceiver implements LambdaObserver {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         User[] users = new User[]{new User("nick1"), new User("nick2"), new User("nick3")};
         connection.send(new ServerStartSetupMatchMessage(users));
@@ -70,20 +80,23 @@ class AndrServerTestReceiver implements LambdaObserver {
             }
         }
         if (message instanceof ClientJoinLobbyMessage) {
-            if (false && Math.random() > 0.5) {
-                connection.send(StatusMessages.CONTINUE);
-                return;
-            }
-            else {
-                connection.send(StatusMessages.OK);
-                waitAndSendMatchStart();
-                return;
-            }
+//            if (false && Math.random() > 0.5) {
+//                connection.send(StatusMessages.CONTINUE);
+//                return;
+//            }
+//            else {
+//                connection.send(StatusMessages.OK);
+            waitAndSendMatchStart();
+            return;
+//            }
         }
         if (message instanceof ClientSetPlayersCountMessage) {
             connection.send(StatusMessages.OK);
             waitAndSendMatchStart();
             return;
+        }
+        if (message instanceof StatusMessages && ((StatusMessages)message).equals(StatusMessages.TEAPOT)) {
+            AndrMockServerApp.isActive = false;
         }
         connection.send(StatusMessages.OK);
     }

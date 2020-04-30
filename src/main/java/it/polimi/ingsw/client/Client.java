@@ -25,14 +25,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class Client implements LambdaObserver {
     private Connection connection;
+    private final Object currentStateLock = new Object();
     private AbstractClientState currentState;
     private ClientState nextState;
     private String nickname;
-    private final AtomicBoolean renderRequested;
+    private final AtomicBoolean renderRequested = new AtomicBoolean(false);
     private final UI ui;
-    private boolean exitRequested;
-    private Set<ReducedCell> changedCells;
+    private boolean exitRequested = false;
+    private final Set<ReducedCell> changedCells = new HashSet<>();
+    private final Object gameLock = new Object();
     private ReducedGame game;
+    private final Object godsLock = new Object();
     private List<ReducedGod> gods;
 
     /**
@@ -43,9 +46,6 @@ public class Client implements LambdaObserver {
     public Client(UI ui) {
         this.ui = ui;
         nextState = ClientState.CONNECT_TO_SERVER;
-        renderRequested = new AtomicBoolean(false);
-        exitRequested = false;
-        changedCells = new HashSet<>();
     }
 
     /**
@@ -54,8 +54,7 @@ public class Client implements LambdaObserver {
      */
     public void run() {
         ui.init();
-        currentState = ui.getClientState(nextState, this);
-        currentState.setup();
+        changeState();
 
         while (!exitRequested) {
             synchronized (renderRequested) {
@@ -65,6 +64,7 @@ public class Client implements LambdaObserver {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         close();
+                        Thread.currentThread().interrupt();
                         return;
                     }
                 }
@@ -153,7 +153,7 @@ public class Client implements LambdaObserver {
      * Moves the client to a previously set next state.
      */
     public void changeState() {
-        synchronized (currentState) {
+        synchronized (currentStateLock) {
             currentState = ui.getClientState(nextState, this);
         }
         currentState.setup();
@@ -259,22 +259,26 @@ public class Client implements LambdaObserver {
             ));
         }
 
-        game = new ReducedGame(players);
+        synchronized (gameLock) {
+            game = new ReducedGame(players);
+        }
     }
 
     public ReducedGame getGame() {
-        synchronized (game) {
+        synchronized (gameLock) {
             return game;
         }
     }
 
     public List<ReducedGod> getGods() {
-        synchronized (gods) {
+        synchronized (godsLock) {
             return gods;
         }
     }
 
     public void setGods(List<ReducedGod> gods) {
-        this.gods = new ArrayList<>(gods);
+        synchronized (godsLock) {
+            this.gods = new ArrayList<>(gods);
+        }
     }
 }
