@@ -13,14 +13,20 @@ import it.polimi.ingsw.utils.networking.Transmittable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AndrMockServerApp {
-    public static boolean isActive = true;
+    private final static Logger LOGGER = Logger.getLogger(AndrMockServerApp.class.getName());
+    private static boolean isActive = true;
+    public static void stop() {
+        isActive = false;
+    }
     public static void main(String[] args) {
         //TODO: write real implementation. At the moment, this is just a boilerplate
-        ServerSocket ss = null;
-        try {
-            ss = new ServerSocket(1337);
+        try (
+                ServerSocket ss = new ServerSocket(1337)
+        ){
             while (isActive) {
                 try {
                     Socket s = ss.accept();
@@ -30,23 +36,17 @@ public class AndrMockServerApp {
                             ((AndrServerTestReceiver)o).update(m));
                 }
                 catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                ss.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
     }
 }
 
 class AndrServerTestReceiver implements LambdaObserver {
+    private final static Logger LOGGER = Logger.getLogger(AndrServerTestReceiver.class.getName());
     Connection connection;
 
     public AndrServerTestReceiver(Connection connection) {
@@ -57,7 +57,7 @@ class AndrServerTestReceiver implements LambdaObserver {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             Thread.currentThread().interrupt();
         }
         User[] users = new User[]{new User("nick1"), new User("nick2"), new User("nick3")};
@@ -96,7 +96,7 @@ class AndrServerTestReceiver implements LambdaObserver {
             return;
         }
         if (message instanceof StatusMessages && ((StatusMessages)message).equals(StatusMessages.TEAPOT)) {
-            AndrMockServerApp.isActive = false;
+            AndrMockServerApp.stop();
         }
         connection.send(StatusMessages.OK);
     }
