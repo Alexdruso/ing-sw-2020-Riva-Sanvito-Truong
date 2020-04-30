@@ -49,11 +49,6 @@ public class Game extends LambdaObservable<Transmittable> {
      * The list of all the gods in game
      */
     private final List<GodCard> availableGods = new LinkedList<>();
-
-    /**
-     * True if the game is still going on
-     */
-    private boolean active;
     /**
      * The current state of the game
      */
@@ -74,7 +69,11 @@ public class Game extends LambdaObservable<Transmittable> {
         /**
          * Setting each player's god
          */
-        SET_GODS
+        SET_GODS,
+        /**
+         * The last state of the Game, possible just after a win or a draw
+         */
+        END_GAME
     }
 
     /**
@@ -88,7 +87,6 @@ public class Game extends LambdaObservable<Transmittable> {
         players = new LinkedList<>();
         lastRound = new LinkedList<>();
         board = new Board();
-        active = true;
         gameState = GameState.START_SETUP;
     }
 
@@ -355,7 +353,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * Signals the match to terminate
      */
     public void draw() {
-        this.setActive(false);
+        gameState = GameState.END_GAME;
     }
 
     /**
@@ -421,15 +419,6 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the game is active
      */
     public boolean isActive() {
-        return active;
-    }
-
-    /**
-     * Sets active.
-     *
-     * @param active active value
-     */
-    private void setActive(boolean active) {
-        this.active = active;
+        return gameState != GameState.END_GAME;
     }
 }
