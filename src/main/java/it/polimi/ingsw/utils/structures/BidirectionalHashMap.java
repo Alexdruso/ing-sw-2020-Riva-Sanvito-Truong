@@ -14,7 +14,7 @@ import java.util.Set;
  * This means that for each element of the Key set there is only one corresponding element in the Value set and
  * vice-versa.
  *
- * This interface is based on the Map<K, V> interface, yet it does not extend it as it does not follow Liskov's
+ * This interface is based on the Map&lt;K, V&gt; interface, yet it does not extend it as it does not follow Liskov's
  * substitution rule. As a matter of fact, a BidirectionalMap requires that the values be unique,
  * a condition that does not have to hold true for a Map.
  *
