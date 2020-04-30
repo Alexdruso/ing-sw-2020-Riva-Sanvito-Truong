@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AndrMockServerApp {
-    private final static Logger LOGGER = Logger.getLogger(AndrMockServerApp.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AndrMockServerApp.class.getName());
     private static boolean isActive = true;
     public static void stop() {
         isActive = false;
@@ -46,7 +46,7 @@ public class AndrMockServerApp {
 }
 
 class AndrServerTestReceiver implements LambdaObserver {
-    private final static Logger LOGGER = Logger.getLogger(AndrServerTestReceiver.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AndrServerTestReceiver.class.getName());
     Connection connection;
 
     public AndrServerTestReceiver(Connection connection) {
