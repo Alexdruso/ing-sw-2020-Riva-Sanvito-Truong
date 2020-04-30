@@ -351,10 +351,7 @@ public class CLI extends UI {
 
     private Ansi getCellWorkerChar(ReducedCell cell) {
         Ansi ret = ansi();
-        if (cell.getWorker().isEmpty()) {
-            return ret.a(emptyCellString);
-        }
-        else {
+        if (cell.getWorker().isPresent()) {
             ReducedWorker worker = cell.getWorker().get();
 //            if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
 //                ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
@@ -371,6 +368,9 @@ public class CLI extends UI {
 //            }
             ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
             return ret;
+        }
+        else {
+            return ret.a(emptyCellString);
         }
     }
 

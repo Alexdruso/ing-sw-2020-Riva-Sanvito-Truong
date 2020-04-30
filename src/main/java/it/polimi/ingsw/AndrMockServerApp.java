@@ -4,7 +4,6 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.observer.LambdaObserver;
-import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
@@ -22,24 +21,29 @@ public class AndrMockServerApp {
     public static void stop() {
         isActive = false;
     }
+
     public static void main(String[] args) {
         //TODO: write real implementation. At the moment, this is just a boilerplate
         try (
                 ServerSocket ss = new ServerSocket(1337)
         ){
             while (isActive) {
-                try {
-                    Socket s = ss.accept();
-                    System.out.println("accepted connection");
-                    Connection connection = new Connection(s);
-                    connection.addObserver(new AndrServerTestReceiver(connection), (o, m) ->
-                            ((AndrServerTestReceiver)o).update(m));
-                }
-                catch (Exception e) {
-                    LOGGER.log(Level.WARNING, e.getMessage(), e);
-                }
+                acceptConnections(ss);
             }
         } catch (IOException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
+        }
+    }
+
+    public static void acceptConnections(ServerSocket ss) {
+        try {
+            Socket s = ss.accept();
+            LOGGER.log(Level.INFO, "accepted connection");
+            Connection connection = new Connection(s);
+            connection.addObserver(new AndrServerTestReceiver(connection), (o, m) ->
+                    ((AndrServerTestReceiver)o).update(m));
+        }
+        catch (Exception e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
     }
@@ -65,15 +69,15 @@ class AndrServerTestReceiver implements LambdaObserver {
     }
 
     public void update(Transmittable message) {
-        System.out.println("received message");
+        LOGGER.log(Level.INFO, "received message");
         if (message instanceof ClientDisconnectMessage) {
-            System.out.println("client disconnected");
+            LOGGER.log(Level.INFO, "client disconnected");
             connection.close();
             return;
         }
         if (message instanceof ClientSetNicknameMessage) {
             String nick = ((ClientSetNicknameMessage) message).getNickname();
-            System.out.println("was set nickname: " + nick);
+            LOGGER.log(Level.INFO, "set nickname: " + nick);
             if (nick.equals("nak")) {
                 connection.send(StatusMessages.CLIENT_ERROR);
                 return;
