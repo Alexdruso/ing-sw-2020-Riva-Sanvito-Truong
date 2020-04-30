@@ -240,7 +240,7 @@ public class Game extends LambdaObservable<Transmittable> {
         Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(performer);
         if (sourceCell.getWorker().isEmpty()
-                || !sourceCell.getWorker().get().equals(worker)) {
+                || (sourceCell.getWorker().isPresent() && !sourceCell.getWorker().get().equals(worker))) {
             // Sanity check failed: illegal move!
             return false;
         }
@@ -346,7 +346,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void setup() {
         User firstUser = subscribedUsers.getKeyFromValue(players.peek());
-        List<ReducedGod> godsList = new ArrayList<ReducedGod>();
+        List<ReducedGod> godsList = new ArrayList<>();
         for (GodCard godCard : GodCard.values()) {
             godsList.add(new ReducedGod(godCard.getGod().getName()));
         }
