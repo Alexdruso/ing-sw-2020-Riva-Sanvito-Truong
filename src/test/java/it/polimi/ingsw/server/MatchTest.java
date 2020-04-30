@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
@@ -8,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -46,13 +49,17 @@ class MatchTest {
             verify(connection, times(1)).addObserver(any(View.class), any(BiConsumer.class));
         }
         //check that ServerStartSetupMatchMessage has been sent
-        ArgumentCaptor<ServerStartSetupMatchMessage> myMessageCaptor = ArgumentCaptor.forClass(ServerStartSetupMatchMessage.class);
+        ArgumentCaptor<ServerMessage> myMessageCaptor = ArgumentCaptor.forClass(ServerMessage.class);
         for (Connection connection : myMap.values()) {
-            verify(connection, times(1)).send(myMessageCaptor.capture());
+            verify(connection, times(2)).send(myMessageCaptor.capture());
         }
-        assertEquals(3, myMessageCaptor.getAllValues().size());
-        assertEquals(myMap.keySet().size(), myMessageCaptor.getValue().userList.length);
-        for(User user: myMessageCaptor.getValue().userList){
+        assertEquals(6, myMessageCaptor.getAllValues().size());
+        List<ServerStartSetupMatchMessage> startSetupMatchMessageList = myMessageCaptor.getAllValues().stream()
+                .filter(x -> x instanceof ServerStartSetupMatchMessage).map(x -> (ServerStartSetupMatchMessage) x)
+                .collect(Collectors.toList());
+        assertEquals(3, startSetupMatchMessageList.size());
+        assertEquals(myMap.keySet().size(), startSetupMatchMessageList.get(0).userList.length);
+        for (User user : startSetupMatchMessageList.get(0).userList) {
             assertTrue(myMap.containsKey(user.nickname));
         }
     }

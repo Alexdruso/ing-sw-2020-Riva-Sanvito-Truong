@@ -83,6 +83,7 @@ public class Match implements Runnable {
         }
         //Start the game setup, first creating serverStartSetupMatchMessage
         //with the array of users, then sending the message over the connections
+        //TODO move in game setup
         ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(users);
         for (Connection connection : this.participantsNicknameToConnection.values()) {
             connection.send(serverStartSetupMatchMessage);
