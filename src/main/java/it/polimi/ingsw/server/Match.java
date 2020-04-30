@@ -91,11 +91,11 @@ public class Match implements Runnable {
         //Start setup procedure
         model.setup();
         //now just make the controller work on this thread
-        while (this.isPlaying()) {
+        do {
             this.controller.dispatchViewClientMessages();
             //check if the game is active
             this.setIsPlaying(this.model.isActive());
-        }
+        } while (this.isPlaying());
         //close all the still active connections
         participantsNicknameToConnection.values().stream()
                 .filter(Connection::isActive).forEach(connection -> connection.close(new ServerDisconnectMessage()));
