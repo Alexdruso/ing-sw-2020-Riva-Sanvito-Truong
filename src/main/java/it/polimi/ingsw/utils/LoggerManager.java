@@ -17,6 +17,10 @@ public class LoggerManager {
      */
     public static final String LOG_LEVEL_ENV_VAR_NAME = "LOG_LEVEL";
 
+    private LoggerManager() {
+        throw new IllegalStateException("Do not try to instantiate this utility class");
+    }
+
     /**
      * Sets the log level specified in the environment variable.
      */
