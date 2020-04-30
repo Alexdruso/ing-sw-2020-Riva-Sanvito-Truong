@@ -77,7 +77,7 @@ class AndrServerTestReceiver implements LambdaObserver {
         }
         if (message instanceof ClientSetNicknameMessage) {
             String nick = ((ClientSetNicknameMessage) message).getNickname();
-            LOGGER.log(Level.INFO, "set nickname: " + nick);
+            LOGGER.log(Level.INFO, String.format("set nickname: %s", nick));
             if (nick.equals("nak")) {
                 connection.send(StatusMessages.CLIENT_ERROR);
                 return;
