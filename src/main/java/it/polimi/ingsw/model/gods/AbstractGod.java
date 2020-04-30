@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gods;
 
 import it.polimi.ingsw.model.turnevents.TurnEvents;
+import it.polimi.ingsw.utils.messages.ReducedGod;
 
 /**
  * The base representation of a god card.
@@ -36,5 +37,9 @@ abstract class AbstractGod implements God {
      */
     public TurnEvents getOpponentsTurnEvents() {
         return opponentsTurnEvents;
+    }
+
+    public ReducedGod toReducedGod() {
+        return new ReducedGod(this.getName());
     }
 }

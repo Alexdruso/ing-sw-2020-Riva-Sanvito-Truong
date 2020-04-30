@@ -7,9 +7,9 @@ import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerSetGodMessage implements ServerMessage, ClientHandleable {
     public final GodCard godCard;
-    public final User user;
+    public final ReducedUser user;
 
-    public ServerSetGodMessage(GodCard godCard, User user){
+    public ServerSetGodMessage(GodCard godCard, ReducedUser user){
         this.godCard = godCard;
         this.user = user;
     }

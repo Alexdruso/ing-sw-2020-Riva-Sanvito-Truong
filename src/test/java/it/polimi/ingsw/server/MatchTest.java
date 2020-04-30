@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
@@ -59,7 +60,7 @@ class MatchTest {
                 .collect(Collectors.toList());
         assertEquals(3, startSetupMatchMessageList.size());
         assertEquals(myMap.keySet().size(), startSetupMatchMessageList.get(0).userList.length);
-        for (User user : startSetupMatchMessageList.get(0).userList) {
+        for (ReducedUser user : startSetupMatchMessageList.get(0).userList) {
             assertTrue(myMap.containsKey(user.nickname));
         }
     }

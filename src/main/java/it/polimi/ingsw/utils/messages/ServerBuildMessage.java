@@ -35,7 +35,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The user who performed the action
      */
-    public final User user;
+    public final ReducedUser user;
 
     /**
      * Constructor, stores all the variables by reference
@@ -47,7 +47,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
      * @param builtLevel  The level built by the worker
      * @param performer   The worker who performed the build
      */
-    public ServerBuildMessage(User user, int targetCellX, int targetCellY,
+    public ServerBuildMessage(ReducedUser user, int targetCellX, int targetCellY,
                               Component component, int builtLevel, WorkerID performer) {
         this.user = user;
         this.targetCellX = targetCellX;

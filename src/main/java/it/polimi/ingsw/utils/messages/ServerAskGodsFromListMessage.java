@@ -1,28 +1,29 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.model.gods.GodCard;
+import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServerAskGodsFromListMessage implements ServerMessage, ClientHandleable {
-    private User user;
-    private List<GodCard> godList;
+    private ReducedUser user;
+    private List<ReducedGod> godsList;
 
-    public ServerAskGodsFromListMessage(User user, List<GodCard> godList) {
+    public ServerAskGodsFromListMessage(ReducedUser user, List<ReducedGod> godsList) {
         this.user = user;
-        this.godList = godList;
+        this.godsList = godsList;
     }
 
-    public List<GodCard> getGodList() {
-        return new ArrayList<>(godList);
+    public List<ReducedGod> getGodsList() {
+        return new ArrayList<>(godsList);
     }
 
     @Override
     public boolean handleTransmittable(Client client) {
-        return false;
+        client.setGods(godsList);
+        client.moveToState(ClientState.ASK_GODS_FROM_LIST);
+        return true;
     }
 }

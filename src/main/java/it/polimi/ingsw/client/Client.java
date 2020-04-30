@@ -3,17 +3,21 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
+import it.polimi.ingsw.client.reducedmodel.ReducedGame;
+import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
+import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ServerMessage;
+import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -28,6 +32,8 @@ public class Client implements LambdaObserver {
     private final UI ui;
     private boolean exitRequested;
     private Set<ReducedCell> changedCells;
+    private ReducedGame game;
+    private List<ReducedGod> gods;
 
     /**
      * Instantiates a new Client.
@@ -48,7 +54,8 @@ public class Client implements LambdaObserver {
      */
     public void run() {
         ui.init();
-        changeState();
+        currentState = ui.getClientState(nextState, this);
+        currentState.setup();
 
         while (!exitRequested) {
             synchronized (renderRequested) {
@@ -146,7 +153,9 @@ public class Client implements LambdaObserver {
      * Moves the client to a previously set next state.
      */
     public void changeState() {
-        currentState = ui.getClientState(nextState, this);
+        synchronized (currentState) {
+            currentState = ui.getClientState(nextState, this);
+        }
         currentState.setup();
     }
 
@@ -214,8 +223,8 @@ public class Client implements LambdaObserver {
                     throw new IllegalStateException();
             }
         }
-        else if (message instanceof ServerMessage) {
-            currentState.handleServerMessage((ServerMessage) message);
+        else if (message instanceof ClientHandleable) {
+            ((ClientHandleable) message).handleTransmittable(this);
         }
         else {
             throw new IllegalStateException();
@@ -223,14 +232,49 @@ public class Client implements LambdaObserver {
     }
 
     public void addChangedCell(ReducedCell cell) {
-        changedCells.add(cell);
+        synchronized (changedCells) {
+            changedCells.add(cell);
+        }
     }
 
     public Set<ReducedCell> getChangedCells() {
-        return new HashSet<>(changedCells);
+        synchronized (changedCells) {
+            return new HashSet<>(changedCells);
+        }
     }
 
     public void clearChangedCells() {
-        changedCells.clear();
+        synchronized (changedCells) {
+            changedCells.clear();
+        }
+    }
+
+    public void createGame(ReducedUser[] users) {
+        List<ReducedPlayer> players = new ArrayList<>();
+        for (ReducedUser user : users) {
+            players.add(new ReducedPlayer(
+                    user.nickname,
+                    user.nickname.equals(this.nickname),
+                    players.size()
+            ));
+        }
+
+        game = new ReducedGame(players);
+    }
+
+    public ReducedGame getGame() {
+        synchronized (game) {
+            return game;
+        }
+    }
+
+    public List<ReducedGod> getGods() {
+        synchronized (gods) {
+            return gods;
+        }
+    }
+
+    public void setGods(List<ReducedGod> gods) {
+        this.gods = new ArrayList<>(gods);
     }
 }

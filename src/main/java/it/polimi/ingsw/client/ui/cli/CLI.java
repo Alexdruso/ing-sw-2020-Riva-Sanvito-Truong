@@ -81,6 +81,8 @@ public class CLI extends UI {
     @Override
     public AbstractClientState getClientState(ClientState clientState, Client client) {
         switch (clientState) {
+            case ASK_GODS_FROM_LIST:
+                return new AskGodsFromListCLIClientState(client);
             case CONNECT_TO_SERVER:
                 return new ConnectToServerCLIClientState(client);
             case DISCONNECT:

@@ -24,7 +24,7 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
     /**
      * The user who performed the action
      */
-    public final User user;
+    public final ReducedUser user;
 
     /**
      * Constructor, stores all the variables by reference
@@ -36,7 +36,7 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
      * @param targetCellY The y coordinate of the cell to which the worker moved
      * @param performer   The worker who performed the move
      */
-    public ServerMoveMessage(User user, int sourceCellX, int sourceCellY,
+    public ServerMoveMessage(ReducedUser user, int sourceCellX, int sourceCellY,
                              int targetCellX, int targetCellY, WorkerID performer) {
         this.user = user;
         this.targetCellX = targetCellX;

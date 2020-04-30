@@ -5,6 +5,10 @@ package it.polimi.ingsw.client.clientstates;
  */
 public enum ClientState {
     /**
+     * Ask gods from list client state.
+     */
+    ASK_GODS_FROM_LIST,
+    /**
      * Connect to server client state.
      */
     CONNECT_TO_SERVER,

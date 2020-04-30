@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
-    public final User user;
+    public final ReducedUser user;
     public final boolean isSkippable;
     public final List<WorkerID> allowedWorkers;
     public final HashMap<WorkerID, TargetCells> workerBlockBuildableCells;
     public final HashMap<WorkerID, TargetCells> workerDomeBuildableCells;
 
-    public ServerAskBuildMessage(User user, boolean isSkippable, List<WorkerID> allowedWorkers, HashMap<WorkerID, TargetCells> workerBlockBuildableCells, HashMap<WorkerID, TargetCells> workerDomeBuildableCells){
+    public ServerAskBuildMessage(ReducedUser user, boolean isSkippable, List<WorkerID> allowedWorkers, HashMap<WorkerID, TargetCells> workerBlockBuildableCells, HashMap<WorkerID, TargetCells> workerDomeBuildableCells){
         this.user = user;
         this.isSkippable = isSkippable;
         this.allowedWorkers = allowedWorkers;

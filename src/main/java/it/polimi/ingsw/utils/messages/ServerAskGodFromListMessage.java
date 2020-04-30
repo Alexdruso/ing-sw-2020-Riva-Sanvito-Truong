@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerAskGodFromListMessage implements ServerMessage, ClientHandleable {
-    private User user;
+    private ReducedUser user;
     private List<GodCard> godList;
 
-    public ServerAskGodFromListMessage(User user, List<GodCard> godList) {
+    public ServerAskGodFromListMessage(ReducedUser user, List<GodCard> godList) {
         this.user = user;
         this.godList = godList;
     }

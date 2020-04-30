@@ -192,7 +192,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify the move action
         notify(
                 new ServerMoveMessage(
-                        this.subscribedUsers.getKeyFromValue(players.peek()),
+                        this.subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
                         startX,
                         startY,
                         cell.getX(),
@@ -213,7 +213,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify the build action
         notify(
                 new ServerBuildMessage(
-                        this.subscribedUsers.getKeyFromValue(players.peek()),
+                        this.subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
                         cell.getX(),
                         cell.getY(),
                         component,
@@ -346,7 +346,17 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void setup() {
         User firstUser = subscribedUsers.getKeyFromValue(players.peek());
-        notify(new ServerAskGodsFromListMessage(firstUser, Arrays.asList(GodCard.values())));
+        List<ReducedGod> godsList = new ArrayList<ReducedGod>();
+        for (GodCard godCard : GodCard.values()) {
+            godsList.add(new ReducedGod(godCard.getGod().getName()));
+        }
+
+        notify(
+                new ServerAskGodsFromListMessage(
+                        firstUser.toReducedUser(),
+                        godsList
+                )
+        );
     }
 
     /**
@@ -385,7 +395,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //change state
         gameState = GameState.SET_GODS;
         //send god request
-        notify(new ServerAskGodFromListMessage(subscribedUsers.getKeyFromValue(players.peek()), chosenGods));
+        notify(new ServerAskGodFromListMessage(subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(), chosenGods));
     }
 
     public boolean isValidGodChoice(ClientChooseGodMessage command, User user) {

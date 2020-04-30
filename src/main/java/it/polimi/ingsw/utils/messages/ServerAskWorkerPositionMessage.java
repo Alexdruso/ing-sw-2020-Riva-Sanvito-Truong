@@ -7,9 +7,9 @@ import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerAskWorkerPositionMessage implements ServerMessage, ClientHandleable {
     public final WorkerID worker;
-    public final User user;
+    public final ReducedUser user;
 
-    public ServerAskWorkerPositionMessage(WorkerID worker, User user){
+    public ServerAskWorkerPositionMessage(WorkerID worker, ReducedUser user){
         this.worker = worker;
         this.user = user;
     }
