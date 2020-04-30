@@ -37,7 +37,7 @@ public class Match implements Runnable {
     /**
      * Boolean flag to shutdown the Match.
      */
-    private boolean isPlaying;
+    private boolean isPlaying = true;
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -91,11 +91,11 @@ public class Match implements Runnable {
         //Start setup procedure
         model.setup();
         //now just make the controller work on this thread
-        do {
+        while (this.isPlaying()) {
             this.controller.dispatchViewClientMessages();
             //check if the game is active
             this.setIsPlaying(this.model.isActive());
-        } while (this.isPlaying());
+        }
         //close all the still active connections
         participantsNicknameToConnection.values().stream()
                 .filter(Connection::isActive).forEach(connection -> connection.close(new ServerDisconnectMessage()));
