@@ -9,7 +9,7 @@ public enum WorkerID {
         try {
             return WorkerID.valueOf(reducedWorkerID.toString());
         }
-        catch (IllegalArgumentException e) {
+        catch (IllegalArgumentException|NullPointerException e) {
             return null;
         }
     }
