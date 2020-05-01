@@ -56,6 +56,7 @@ class Move implements AbstractTurnState {
      * @param turn       the Context
      * @return if the pawn can move to targetCell
      */
+    @Override
     public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
         return turn.getAllowedWorkers().contains(pawn)
                 && turn.getWorkerWalkableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
@@ -68,6 +69,7 @@ class Move implements AbstractTurnState {
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
      */
+    @Override
     public void moveTo(Worker pawn, Cell targetCell, Turn turn) {
         turn.addPerformedAction(
                 new MoveAction(
