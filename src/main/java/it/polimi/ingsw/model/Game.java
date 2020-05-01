@@ -18,7 +18,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -440,11 +439,12 @@ public class Game extends LambdaObservable<Transmittable> {
         List<String> takenGods = players.stream().filter(x -> x.getGod() != null)
                 .map(x -> x.getGod().getName()).collect(Collectors.toList());
         //checks gods left available
-        Stream<GodCard> remainingGods = availableGods.stream().filter(x -> !takenGods.contains(x.toString()));
-        if (remainingGods.count() == 1) {
+        List<GodCard> remainingGods = availableGods.stream().filter(x -> !takenGods.contains(x.toString()))
+                .collect(Collectors.toList());
+        if (remainingGods.size() == 1) {
             gameState = GameState.SET_START_PLAYER;
             //sets the last god to the player
-            remainingGods.findFirst().ifPresent(godCard -> {
+            remainingGods.stream().findFirst().ifPresent(godCard -> {
                 assert players.peek() != null;
                 players.peek().setGod(godCard.getGod());
                 notify(new ServerSetGodMessage(new ReducedGod(godCard.toString()),
@@ -457,7 +457,7 @@ public class Game extends LambdaObservable<Transmittable> {
             //sends gods request
             notify(new ServerAskGodFromListMessage(
                     new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname),
-                    remainingGods.map(x -> new ReducedGod(x.toString())).collect(Collectors.toList())));
+                    remainingGods.stream().map(x -> new ReducedGod(x.toString())).collect(Collectors.toList())));
         }
     }
 
