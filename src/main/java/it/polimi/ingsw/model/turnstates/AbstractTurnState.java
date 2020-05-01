@@ -11,17 +11,20 @@ public abstract class AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state
+     *
      * @param turn the Context
      */
-    abstract public void setup(Turn turn);
+    public abstract void setup(Turn turn);
+
     /**
      * This boolean methods checks if the pawn can move to targetCell
-     * @param pawn the worker we want to move
+     *
+     * @param pawn       the worker we want to move
      * @param targetCell the cell we want to move the worker to
-     * @param turn the Context
+     * @param turn       the Context
      * @return if the pawn can move to targetCell
      */
-    public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn){
+    public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
         return false;
     }
 
