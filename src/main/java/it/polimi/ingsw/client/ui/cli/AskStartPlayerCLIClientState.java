@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
 import it.polimi.ingsw.client.clientstates.AbstractAskStartPlayerClientState;
+import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 
@@ -27,15 +28,15 @@ public class AskStartPlayerCLIClientState extends AbstractAskStartPlayerClientSt
     public void render() {
         if (client.isCurrentlyActive()) {
             cli.println("I giocatori di questa partita sono:");
-            List<ReducedUser> players = client.getGame().getPlayersList().stream().map(player -> player.getUser()).collect(Collectors.toList());
-            for (int i = 0; i < players.size(); i++) {
-                cli.println(String.format("[%d] %s", i + 1, players.get(i).nickname));
+            List<ReducedUser> users = client.getGame().getPlayersList().stream().map(ReducedPlayer::getUser).collect(Collectors.toList());
+            for (int i = 0; i < users.size(); i++) {
+                cli.println(String.format("[%d] %s", i + 1, users.get(i).nickname));
             }
 
             while (chosenUser == null) {
                 int choice = cli.readInt("Scegli il giocatore che iniziera' per primo:") - 1;
                 try {
-                    chosenUser = players.get(choice);
+                    chosenUser = users.get(choice);
                 } catch (IndexOutOfBoundsException e) {
                     cli.error("Il giocatore indicato non e' valido");
                 }
