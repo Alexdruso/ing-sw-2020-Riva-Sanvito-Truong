@@ -1,20 +1,28 @@
 package it.polimi.ingsw.client.reducedmodel;
 
+import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.messages.ReducedUser;
+
 public class ReducedPlayer {
-    private final String nickname;
+    private final ReducedUser user;
     private final boolean isLocalPlayer;
     private boolean isInGame;
     private final int playerIndex;
+    private ReducedGod god;
 
-    public ReducedPlayer(String nickname, boolean isLocalPlayer, int playerIndex) {
-        this.nickname = nickname;
+    public ReducedPlayer(ReducedUser user, boolean isLocalPlayer, int playerIndex) {
+        this.user = user;
         this.isLocalPlayer = isLocalPlayer;
         isInGame = true;
         this.playerIndex = playerIndex;
     }
 
     public String getNickname() {
-        return nickname;
+        return user.nickname;
+    }
+
+    public ReducedUser getUser() {
+        return user;
     }
 
     public boolean isLocalPlayer() {
@@ -31,5 +39,13 @@ public class ReducedPlayer {
 
     public int getPlayerIndex() {
         return playerIndex;
+    }
+
+    public ReducedGod getGod() {
+        return god;
+    }
+
+    public void setGod(ReducedGod god) {
+        this.god = god.clone();
     }
 }

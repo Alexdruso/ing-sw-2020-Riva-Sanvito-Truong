@@ -86,6 +86,8 @@ public class CLI extends UI {
                 return new AskGodFromListCLIClientState(client);
             case ASK_GODS_FROM_LIST:
                 return new AskGodsFromListCLIClientState(client);
+            case ASK_START_PLAYER:
+                return new AskStartPlayerCLIClientState(client);
             case CONNECT_TO_SERVER:
                 return new ConnectToServerCLIClientState(client);
             case DISCONNECT:

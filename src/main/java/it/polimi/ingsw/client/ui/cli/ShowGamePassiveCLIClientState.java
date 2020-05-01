@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
 import it.polimi.ingsw.client.reducedmodel.*;
+import it.polimi.ingsw.utils.messages.ReducedUser;
 
 import java.util.Arrays;
 
@@ -26,9 +27,9 @@ public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClient
     public void render() {
         cli.clear();
 
-        ReducedPlayer p1 = new ReducedPlayer("pippo", false, 0);
-        ReducedPlayer p2 = new ReducedPlayer("LOC", true, 1);
-        ReducedPlayer p3 = new ReducedPlayer("zaza", false, 2);
+        ReducedPlayer p1 = new ReducedPlayer(new ReducedUser("pippo"), false, 0);
+        ReducedPlayer p2 = new ReducedPlayer(new ReducedUser("LOL"), true, 1);
+        ReducedPlayer p3 = new ReducedPlayer(new ReducedUser("zaza"), false, 2);
         ReducedGame tempgame = new ReducedGame(Arrays.asList(p1, p2, p3));
         tempgame.setTurn(new ReducedTurn(p1));
         ReducedBoard temp = new ReducedBoard();
