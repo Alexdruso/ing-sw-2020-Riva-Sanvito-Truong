@@ -258,7 +258,7 @@ public class Client implements LambdaObserver {
         List<ReducedPlayer> players = new ArrayList<>();
         for (ReducedUser user : users) {
             players.add(new ReducedPlayer(
-                    user.nickname,
+                    user,
                     user.nickname.equals(this.nickname),
                     players.size()
             ));

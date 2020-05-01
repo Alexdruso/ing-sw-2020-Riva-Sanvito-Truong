@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.reducedmodel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class ReducedGame {
     private final List<ReducedPlayer> players;
@@ -14,6 +15,10 @@ public class ReducedGame {
 
     public ArrayList<ReducedPlayer> getPlayersList() {
         return new ArrayList<>(players);
+    }
+
+    public Optional<ReducedPlayer> getPlayerByNickname(String nickname) {
+        return players.stream().filter(x -> x.getNickname().equals(nickname)).findFirst();
     }
 
     public ReducedTurn getTurn() {
