@@ -455,11 +455,15 @@ public class Game extends LambdaObservable<Transmittable> {
             remainingGods.stream().findFirst().ifPresent(lastGod -> {
                 assert players.peek() != null;
                 players.peek().setGod(lastGod);
-                notify(new ServerSetGodMessage(new ReducedGod(lastGod.getName()),
-                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
+                notify(
+                        new ServerSetGodMessage(
+                            new ReducedGod(lastGod.getName()),
+                            subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()
+                        )
+                );
             });
             //sends a first player request
-            new ServerAskStartPlayerMessage(subscribedUsers.getKeyFromValue(players.peek()).toReducedUser());
+            notify(new ServerAskStartPlayerMessage(subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
         } else {
             gameState = GameState.SET_GODS;
             //sends gods request
