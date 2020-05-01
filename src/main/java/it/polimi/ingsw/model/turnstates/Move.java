@@ -6,14 +6,13 @@ import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 
-class Move extends AbstractTurnState {
+class Move implements AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state
      *
      * @param turn the Context
      */
-    @Override
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.BUILD.getTurnState());
@@ -57,7 +56,6 @@ class Move extends AbstractTurnState {
      * @param turn       the Context
      * @return if the pawn can move to targetCell
      */
-    @Override
     public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
         return turn.getAllowedWorkers().contains(pawn)
                 && turn.getWorkerWalkableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
@@ -70,7 +68,6 @@ class Move extends AbstractTurnState {
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
      */
-    @Override
     public void moveTo(Worker pawn, Cell targetCell, Turn turn) {
         turn.addPerformedAction(
                 new MoveAction(

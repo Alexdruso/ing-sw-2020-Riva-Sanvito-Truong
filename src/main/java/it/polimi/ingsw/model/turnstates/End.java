@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.turnstates;
 
 import it.polimi.ingsw.model.Turn;
 
-class End extends AbstractTurnState {
+class End implements AbstractTurnState {
 
 
     /**
@@ -11,7 +11,6 @@ class End extends AbstractTurnState {
      *
      * @param turn the Context
      */
-    @Override
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.END.getTurnState());

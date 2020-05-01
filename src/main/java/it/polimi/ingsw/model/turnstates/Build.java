@@ -7,14 +7,13 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 
-class Build extends AbstractTurnState {
+class Build implements AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state
      *
      * @param turn the Context
      */
-    @Override
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.END.getTurnState());
@@ -67,7 +66,6 @@ class Build extends AbstractTurnState {
      * @param turn       the Context
      * @return true if the pawn can build dome in targetCell
      */
-    @Override
     public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
         return turn.getAllowedWorkers().contains(pawn) &&
                 turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
@@ -80,7 +78,6 @@ class Build extends AbstractTurnState {
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      */
-    @Override
     public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
         turn.addPerformedAction(new BuildAction(targetCell,//the target cell
                 Component.DOME.getInstance(),//the buildable built
@@ -99,7 +96,6 @@ class Build extends AbstractTurnState {
      * @param turn       the Context
      * @return true if the pawn can build a block in targetCell
      */
-    @Override
     public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
         return turn.getAllowedWorkers().contains(pawn)
                 && turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
@@ -112,7 +108,6 @@ class Build extends AbstractTurnState {
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      */
-    @Override
     public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
         turn.addPerformedAction(
                 new BuildAction(
