@@ -244,14 +244,13 @@ public class Game extends LambdaObservable<Transmittable> {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(performer);
-        if (sourceCell.getWorker().isEmpty()
-                || (sourceCell.getWorker().isPresent() && !sourceCell.getWorker().get().equals(worker))) {
-            // Sanity check failed: illegal move!
-            return false;
+        if (sourceCell.getWorker().isPresent()) {
+            //The target cell is not available for movement
+            return sourceCell.getWorker().get().equals(worker)
+                    && currentTurn.getPlayer().equals(player)
+                    && currentTurn.canMoveTo(worker, targetCell);
         }
-        //The target cell is not available for movement
-        return currentTurn.getPlayer().equals(player)
-                && currentTurn.canMoveTo(worker, targetCell);
+        return false;
     }
 
     /**
