@@ -387,7 +387,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param chosenGods the list of gods chosen by the player
      */
     public void setAvailableGodsList(List<ReducedGod> chosenGods) {
-        availableGods.addAll(chosenGods.stream().map(reducedGod -> GodCard.valueOf(reducedGod.name))
+        availableGods.addAll(chosenGods.stream().map(reducedGod -> GodCard.valueOf(reducedGod.name.toUpperCase()))
                 .collect(Collectors.toList()));
         //rotate the player
         Player player = players.poll();
