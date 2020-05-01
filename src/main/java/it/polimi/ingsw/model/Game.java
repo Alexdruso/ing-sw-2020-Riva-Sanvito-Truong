@@ -565,7 +565,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         //no more workers to be positioned
                                         gameState = GameState.PLAY;
                                         notify(new ServerStartPlayMatchMessage());
-                                        addNewTurn(players.peek());
+                                        currentTurn = new Turn(this, players.peek());
                                     }
                             );
                 }
