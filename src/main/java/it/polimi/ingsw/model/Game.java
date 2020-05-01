@@ -314,10 +314,9 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Executes the PlayerSkipCommand
      *
-     * @param user the user that triggered the command
      * @throws UnsupportedOperationException the unsupported operation exception
      */
-    public void skip(User user) throws UnsupportedOperationException {
+    public void skip() throws UnsupportedOperationException {
         currentTurn.changeState();
     }
 
@@ -385,9 +384,8 @@ public class Game extends LambdaObservable<Transmittable> {
      * Sets the available gods list
      *
      * @param chosenGods the list of gods chosen by the player
-     * @param user       the user of the player
      */
-    public void setAvailableGodsList(List<ReducedGod> chosenGods, User user) {
+    public void setAvailableGodsList(List<ReducedGod> chosenGods) {
         availableGods.addAll(chosenGods.stream().map(reducedGod -> GodCard.valueOf(reducedGod.name))
                 .collect(Collectors.toList()));
         //rotate the player
@@ -412,9 +410,9 @@ public class Game extends LambdaObservable<Transmittable> {
         return gameState == GameState.SET_GODS //check right state
                 && player.equals(players.peek()) //check right player
                 && availableGods.stream().map(Enum::toString) //check god is in game
-                .collect(Collectors.toList()).contains(reducedGod.name.toUpperCase())
-                && !players.stream().filter(x -> x.getGod() != null).map(x -> x.getGod().getName()) //check no other player has the god
-                .collect(Collectors.toList()).contains(reducedGod.name.toUpperCase());
+                .anyMatch(x -> x.equals(reducedGod.name.toUpperCase()))
+                && players.stream().filter(x -> x.getGod() != null).map(x -> x.getGod().getName()) //check god not already taken
+                .noneMatch(x -> x.equals(reducedGod.name.toUpperCase()));
     }
 
     /**
@@ -461,8 +459,19 @@ public class Game extends LambdaObservable<Transmittable> {
         }
     }
 
-    public boolean isValidStartPlayerChoice() {
-        return false;
+    /**
+     * checks if the choice is fine
+     *
+     * @param startPlayer the player who should start
+     * @param user        the user of the player choosing
+     * @return true id the command is valid, false otherwise
+     */
+    public boolean isValidStartPlayerChoice(ReducedUser startPlayer, User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+        return gameState == GameState.SET_START_PLAYER //check right state
+                && player.equals(players.peek()) //check it's the player's turn
+                && players.stream().map(Player::getNickname) //check start player is possible
+                .anyMatch(x -> x.equals(startPlayer.nickname));
     }
 
     public void setStartPlayer() {

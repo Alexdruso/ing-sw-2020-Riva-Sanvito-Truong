@@ -92,7 +92,7 @@ public class Controller implements LambdaObserver {
         boolean isValidGodsChoice = model.isValidGodsChoice(action.getGods(), user);
 
         if (isValidGodsChoice) {
-            model.setAvailableGodsList(action.getGods(), user);
+            model.setAvailableGodsList(action.getGods());
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
@@ -162,7 +162,7 @@ public class Controller implements LambdaObserver {
      */
     public void dispatchSkipAction(View view, User user) {
         if (model.isValidSkip(user)) {
-            model.skip(user);
+            model.skip();
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
