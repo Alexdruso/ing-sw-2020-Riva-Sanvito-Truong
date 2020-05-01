@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.AbstractJoinLobbyClientState;
 import it.polimi.ingsw.client.clientstates.AbstractWaitPlayersClientState;
 
 /**

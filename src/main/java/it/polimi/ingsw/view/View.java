@@ -3,8 +3,8 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.observer.LambdaObserver;
-import it.polimi.ingsw.utils.messages.ClientMessage;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.ClientMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 

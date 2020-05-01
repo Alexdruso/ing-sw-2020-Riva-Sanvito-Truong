@@ -12,12 +12,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents the Server. Whenever one Server object is created and run, it waits for
  * connections arriving over the network and dispatches the setup to a ServerConnectionSetupHandler object
  */
 public class Server{
+    private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
+
     /**
      * The socket from which the Server listens for new requests
      */
@@ -110,7 +114,7 @@ public class Server{
         try {
             serverSocket.close();
         } catch (IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
     }
 
@@ -119,6 +123,7 @@ public class Server{
      * This method accepts inbound connections and dispatches them
      */
     public void start(){
+        LOGGER.log(Level.FINE, "Server ready to accept connections");
         while(!serverSocket.isClosed()){
             try{
                 Socket inboundSocket = serverSocket.accept();
@@ -128,9 +133,7 @@ public class Server{
                 currentConnection.addObserver(connectionHandler, (obs, message) ->
                         ((ServerConnectionSetupHandler)obs).update(message));
             } catch (IOException e){
-                //TODO: Send to logger instead of stdout
-                e.printStackTrace();
-                System.out.println("Socket closed");
+                LOGGER.log(Level.WARNING, "Socket closed", e);
             }
         }
     }

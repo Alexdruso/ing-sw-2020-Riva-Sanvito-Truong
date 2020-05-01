@@ -8,8 +8,6 @@ import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEvents;
 import it.polimi.ingsw.model.workers.Worker;
 
-import java.util.List;
-
 /**
  * The god card Minotaur.
  */

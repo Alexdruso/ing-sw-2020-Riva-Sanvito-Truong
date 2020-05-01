@@ -1,9 +1,7 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.utils.messages.ClientMessage;
-import it.polimi.ingsw.utils.networking.ControllerHandleable;
 
 /**
  * Allows the View to wrap a ClientMessage with a reference to itself and to the User that triggered the message itself.

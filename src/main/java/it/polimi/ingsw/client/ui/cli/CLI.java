@@ -9,7 +9,8 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Optional;
+import java.util.Scanner;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -351,25 +352,28 @@ public class CLI extends UI {
 
     private Ansi getCellWorkerChar(ReducedCell cell) {
         Ansi ret = ansi();
-        if (cell.getWorker().isEmpty()) {
+        Optional<ReducedWorker> maybeWorker = cell.getWorker();
+        if (maybeWorker.isPresent()) {
+            ReducedWorker worker = maybeWorker.get();
+//            if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
+//                ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+//            }
+//            else {
+//                ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+//            }
+//            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
+//            if (brightToRestore) {
+//                ret = ret.bgBright(colorToRestore);
+//            }
+//            else {
+//                ret = ret.bg(colorToRestore);
+//            }
+            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
+            return ret;
+        }
+        else {
             return ret.a(emptyCellString);
         }
-        ReducedWorker worker = cell.getWorker().get();
-//        if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
-//            ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//        }
-//        else {
-//            ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//        }
-//        ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
-//        if (brightToRestore) {
-//            ret = ret.bgBright(colorToRestore);
-//        }
-//        else {
-//            ret = ret.bg(colorToRestore);
-//        }
-        ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-        return ret;
     }
 
 }

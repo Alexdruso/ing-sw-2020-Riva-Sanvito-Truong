@@ -2,14 +2,11 @@ package it.polimi.ingsw.model.actions;
 
 import it.polimi.ingsw.model.board.Buildable;
 import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.gods.GodCard;
-import it.polimi.ingsw.model.gods.GodsTestHarness;
 import it.polimi.ingsw.model.workers.Worker;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 class BuildActionTest {
     private final Cell cell = mock(Cell.class);

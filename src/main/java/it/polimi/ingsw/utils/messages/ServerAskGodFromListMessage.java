@@ -1,7 +1,6 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 

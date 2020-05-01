@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.actions;
 
-import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.board.Buildable;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.workers.Worker;
 
 /**
  * This class implements Action interface and represents actions in which a worker builds something on a targetCell.

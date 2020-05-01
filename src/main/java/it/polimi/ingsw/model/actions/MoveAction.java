@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.actions;
 
-import it.polimi.ingsw.model.workers.Worker;
 import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.model.workers.Worker;
 
 public class MoveAction implements Action{
 

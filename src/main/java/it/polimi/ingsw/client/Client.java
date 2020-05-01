@@ -7,32 +7,39 @@ import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.observer.LambdaObserver;
-import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 import it.polimi.ingsw.utils.messages.ReducedUser;
-import it.polimi.ingsw.utils.messages.ServerMessage;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Client.
  */
 public class Client implements LambdaObserver {
+    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
     private Connection connection;
+    private final Object currentStateLock = new Object();
     private AbstractClientState currentState;
     private ClientState nextState;
     private String nickname;
-    private final AtomicBoolean renderRequested;
+    private final AtomicBoolean renderRequested = new AtomicBoolean(false);
     private final UI ui;
-    private boolean exitRequested;
-    private Set<ReducedCell> changedCells;
+    private boolean exitRequested = false;
+    private final Set<ReducedCell> changedCells = new HashSet<>();
+    private final Object gameLock = new Object();
     private ReducedGame game;
+    private final Object godsLock = new Object();
     private List<ReducedGod> gods;
 
     /**
@@ -43,9 +50,6 @@ public class Client implements LambdaObserver {
     public Client(UI ui) {
         this.ui = ui;
         nextState = ClientState.CONNECT_TO_SERVER;
-        renderRequested = new AtomicBoolean(false);
-        exitRequested = false;
-        changedCells = new HashSet<>();
     }
 
     /**
@@ -54,8 +58,7 @@ public class Client implements LambdaObserver {
      */
     public void run() {
         ui.init();
-        currentState = ui.getClientState(nextState, this);
-        currentState.setup();
+        changeState();
 
         while (!exitRequested) {
             synchronized (renderRequested) {
@@ -63,8 +66,9 @@ public class Client implements LambdaObserver {
                     try {
                         renderRequested.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        LOGGER.log(Level.WARNING, e.getMessage(), e);
                         close();
+                        Thread.currentThread().interrupt();
                         return;
                     }
                 }
@@ -153,7 +157,7 @@ public class Client implements LambdaObserver {
      * Moves the client to a previously set next state.
      */
     public void changeState() {
-        synchronized (currentState) {
+        synchronized (currentStateLock) {
             currentState = ui.getClientState(nextState, this);
         }
         currentState.setup();
@@ -259,22 +263,26 @@ public class Client implements LambdaObserver {
             ));
         }
 
-        game = new ReducedGame(players);
+        synchronized (gameLock) {
+            game = new ReducedGame(players);
+        }
     }
 
     public ReducedGame getGame() {
-        synchronized (game) {
+        synchronized (gameLock) {
             return game;
         }
     }
 
     public List<ReducedGod> getGods() {
-        synchronized (gods) {
+        synchronized (godsLock) {
             return gods;
         }
     }
 
     public void setGods(List<ReducedGod> gods) {
-        this.gods = new ArrayList<>(gods);
+        synchronized (godsLock) {
+            this.gods = new ArrayList<>(gods);
+        }
     }
 }
