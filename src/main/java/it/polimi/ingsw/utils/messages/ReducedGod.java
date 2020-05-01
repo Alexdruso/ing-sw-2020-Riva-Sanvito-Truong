@@ -3,15 +3,15 @@ package it.polimi.ingsw.utils.messages;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ReducedGod implements Serializable, Cloneable {
+public class ReducedGod implements Serializable {
     public final String name;
 
     public ReducedGod(String name) {
         this.name = name;
     }
 
-    public ReducedGod clone() {
-        return new ReducedGod(name);
+    public ReducedGod(ReducedGod that) {
+        name = that.name;
     }
 
     @Override

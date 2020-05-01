@@ -46,6 +46,6 @@ public class ReducedPlayer {
     }
 
     public void setGod(ReducedGod god) {
-        this.god = god.clone();
+        this.god = new ReducedGod(god);
     }
 }
