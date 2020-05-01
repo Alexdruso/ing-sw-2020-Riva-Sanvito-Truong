@@ -223,13 +223,13 @@ public class Game extends LambdaObservable<Transmittable> {
         Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(performer);
 
-        boolean rightWorker;
-        if (sourceCell.getWorker().isPresent()) rightWorker = sourceCell.getWorker().get().equals(worker);
-        else rightWorker = false;  //The target cell is not available for movement
-
-        return rightWorker
-                && currentTurn.getPlayer().equals(player)
-                && currentTurn.canMoveTo(worker, targetCell);
+        Optional<Worker> workerOnCell = sourceCell.getWorker();
+        if (workerOnCell.isPresent()) {
+            return workerOnCell.get().equals(worker)
+                    && currentTurn.getPlayer().equals(player)
+                    && currentTurn.canMoveTo(worker, targetCell);
+        }
+        return false;
     }
 
     /**
