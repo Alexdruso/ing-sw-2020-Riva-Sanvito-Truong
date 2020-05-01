@@ -17,6 +17,10 @@ public enum ClientState {
      */
     ASK_START_PLAYER,
     /**
+     * Ask worker position client state.
+     */
+    ASK_WORKER_POSITION,
+    /**
      * Connect to server client state.
      */
     CONNECT_TO_SERVER,
