@@ -35,7 +35,7 @@ public class ClientChooseGodsMessage implements ClientMessage, ControllerHandlea
      *
      * @return the gods
      */
-    public ArrayList<ReducedGod> getGods() {
-        return new ArrayList<ReducedGod>(gods);
+    public List<ReducedGod> getGods() {
+        return new ArrayList<>(gods);
     }
 }
