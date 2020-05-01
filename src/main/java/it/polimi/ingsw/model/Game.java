@@ -224,7 +224,8 @@ public class Game extends LambdaObservable<Transmittable> {
         Worker worker = player.getWorkerByID(performer);
 
         Optional<Worker> workerOnCell = sourceCell.getWorker();
-        return workerOnCell.filter(value -> value.equals(worker)
+        return gameState == GameState.PLAY
+                && workerOnCell.filter(value -> value.equals(worker)
                 && currentTurn.getPlayer().equals(player)
                 && currentTurn.canMoveTo(worker, targetCell)).isPresent();
     }
@@ -264,7 +265,8 @@ public class Game extends LambdaObservable<Transmittable> {
                                 User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(performer);
-        if (!worker.getPlayer().equals(currentTurn.getPlayer())) {
+        if (gameState != GameState.PLAY
+                || !worker.getPlayer().equals(currentTurn.getPlayer())) {
             //The worker does not belong to the active player
             return false;
         }
@@ -307,7 +309,8 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidSkip(User user) {
-        return currentTurn.getPlayer().equals(subscribedUsers.getValueFromKey(user))
+        return gameState == GameState.PLAY
+                && currentTurn.getPlayer().equals(subscribedUsers.getValueFromKey(user))
                 && currentTurn.isSkippable();
     }
 
@@ -534,6 +537,10 @@ public class Game extends LambdaObservable<Transmittable> {
          * Setting the workers initial position
          */
         SET_WORKER_POSITION,
+        /**
+         * entering the real game mode
+         */
+        PLAY,
         /**
          * The last state of the Game, possible just after a win or a draw
          */
