@@ -354,7 +354,7 @@ public class Game extends LambdaObservable<Transmittable> {
 
         //sens the request of the gods sub list
         User firstUser = subscribedUsers.getKeyFromValue(players.peek());
-        List<ReducedGod> godsList = Arrays.stream(GodCard.values()).map(Enum::toString)
+        List<ReducedGod> godsList = Arrays.stream(GodCard.values()).map(GodCard::getGod).map(God::getName)
                 .map(ReducedGod::new).collect(Collectors.toList());
 
         gameState = GameState.ASK_GODS_LIST;
