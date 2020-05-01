@@ -30,4 +30,8 @@ public class ReducedGame {
         }
         targetCell.setWorker(worker);
     }
+
+    public int getPlayersCount() {
+        return players.size();
+    }
 }

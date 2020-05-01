@@ -41,6 +41,7 @@ public class Client implements LambdaObserver {
     private ReducedGame game;
     private final Object godsLock = new Object();
     private List<ReducedGod> gods;
+    private ReducedUser currentActiveUser;
 
     /**
      * Instantiates a new Client.
@@ -284,5 +285,22 @@ public class Client implements LambdaObserver {
         synchronized (godsLock) {
             this.gods = new ArrayList<>(gods);
         }
+    }
+
+    public ReducedUser getCurrentActiveUser() {
+        return currentActiveUser;
+    }
+
+    public boolean isCurrentlyActive() {
+        if (currentActiveUser == null) {
+            return true;
+        }
+        else {
+            return currentActiveUser.nickname.equals(nickname);
+        }
+    }
+
+    public void setCurrentActiveUser(ReducedUser currentActiveUser) {
+        this.currentActiveUser = currentActiveUser;
     }
 }
