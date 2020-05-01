@@ -47,39 +47,17 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     private final LinkedList<Turn> lastRound;
     /**
-     * The Turn object representing the current game turn
-     */
-    private Turn currentTurn;
-    /**
      * The list of all the gods in game
      */
     private final List<GodCard> availableGods = new LinkedList<>();
     /**
+     * The Turn object representing the current game turn
+     */
+    private Turn currentTurn;
+    /**
      * The current state of the game
      */
     private GameState gameState;
-
-    /**
-     * All the possible states of the game
-     */
-    enum GameState {
-        /**
-         * The first state
-         */
-        START_SETUP,
-        /**
-         * Waiting for a gods list
-         */
-        ASK_GODS_LIST,
-        /**
-         * Setting each player's god
-         */
-        SET_GODS,
-        /**
-         * The last state of the Game, possible just after a win or a draw
-         */
-        END_GAME
-    }
 
     /**
      * The class constructor
@@ -244,13 +222,14 @@ public class Game extends LambdaObservable<Transmittable> {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Player player = subscribedUsers.getValueFromKey(user);
         Worker worker = player.getWorkerByID(performer);
-        if (sourceCell.getWorker().isPresent()) {
-            //The target cell is not available for movement
-            return sourceCell.getWorker().get().equals(worker)
-                    && currentTurn.getPlayer().equals(player)
-                    && currentTurn.canMoveTo(worker, targetCell);
-        }
-        return false;
+
+        boolean rightWorker;
+        if (sourceCell.getWorker().isPresent()) rightWorker = sourceCell.getWorker().get().equals(worker);
+        else rightWorker = false;  //The target cell is not available for movement
+
+        return rightWorker
+                && currentTurn.getPlayer().equals(player)
+                && currentTurn.canMoveTo(worker, targetCell);
     }
 
     /**
@@ -364,7 +343,6 @@ public class Game extends LambdaObservable<Transmittable> {
         gameState = GameState.END_GAME;
     }
 
-
     /**
      * First method to be called by the match, sends the request of a god sub list to the player who created the game
      */
@@ -446,10 +424,6 @@ public class Game extends LambdaObservable<Transmittable> {
     public void setWorkerPosition(ClientSetWorkerStartPositionMessage command, User user) {
     }
 
-    /*
-    Getters and setters section
-     */
-
     /**
      * Returns true if the game is active.
      *
@@ -457,5 +431,31 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public boolean isActive() {
         return gameState != GameState.END_GAME;
+    }
+
+    /*
+    Getters and setters section
+     */
+
+    /**
+     * All the possible states of the game
+     */
+    enum GameState {
+        /**
+         * The first state
+         */
+        START_SETUP,
+        /**
+         * Waiting for a gods list
+         */
+        ASK_GODS_LIST,
+        /**
+         * Setting each player's god
+         */
+        SET_GODS,
+        /**
+         * The last state of the Game, possible just after a win or a draw
+         */
+        END_GAME
     }
 }
