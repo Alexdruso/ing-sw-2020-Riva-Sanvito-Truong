@@ -24,7 +24,7 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
     @Override
     public void render() {
         if (client.isCurrentlyActive()) {
-            cli.println(String.format("Puoi scegliere una di queste divinita' con cui giocare questa partita:", client.getGame().getPlayersCount()));
+            cli.println("Puoi scegliere una di queste divinita' con cui giocare questa partita:");
             List<ReducedGod> gods = new ArrayList<>(client.getGods());
             for (int i = 0; i < gods.size(); i++) {
                 cli.println(String.format("[%d] %s", i + 1, gods.get(i).name));
