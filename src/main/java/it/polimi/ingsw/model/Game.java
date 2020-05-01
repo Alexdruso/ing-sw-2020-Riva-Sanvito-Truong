@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
@@ -498,7 +499,10 @@ public class Game extends LambdaObservable<Transmittable> {
         //change state
         gameState = GameState.SET_WORKER_POSITION;
         //send message of start positioning
-        notify(new ServerAskWorkerPositionMessage(WorkerID.WORKER1, startPlayer));
+        notify(new ServerAskWorkerPositionMessage(
+                        WorkerID.WORKER1, startPlayer, (new TargetCells()).setAllTargets(true).toReducedTargetCells()
+                )
+        );
     }
 
     /**
@@ -540,11 +544,22 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify set position
         notify(new ServerSetWorkerStartPositionMessage(user.toReducedUser(), targetCellX, targetCellY, performer));
         //now check if any worker from the same player is left without a cell
+        //generate the ReducedTargetCells
+        TargetCells targetCells = (new TargetCells()).setAllTargets(true);
+        players.stream().flatMap(p -> Arrays.stream(p.getOwnWorkers()))
+                .filter(w -> w.getCell() != null).map(Worker::getCell)
+                .forEach(x -> targetCells.setPosition(x, false));
+
         Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null).findFirst().ifPresentOrElse(
                 x -> {
                     //it's yet the user turn, he already has workers to position
                     gameState = GameState.SET_WORKER_POSITION;
-                    notify(new ServerAskWorkerPositionMessage(x.getWorkerID(), user.toReducedUser()));
+                    notify(new ServerAskWorkerPositionMessage(
+                                    x.getWorkerID(),
+                                    user.toReducedUser(),
+                                    targetCells.toReducedTargetCells()
+                            )
+                    );
                 },
                 () -> {
                     //change player turn
@@ -557,9 +572,13 @@ public class Game extends LambdaObservable<Transmittable> {
                                     y -> {
                                         //there is some worker to be positioned
                                         gameState = GameState.SET_WORKER_POSITION;
+
                                         notify(new ServerAskWorkerPositionMessage(
-                                                y.getWorkerID(),
-                                                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
+                                                        y.getWorkerID(),
+                                                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                                                        targetCells.toReducedTargetCells()
+                                                )
+                                        );
                                     },
                                     () -> {
                                         //no more workers to be positioned
