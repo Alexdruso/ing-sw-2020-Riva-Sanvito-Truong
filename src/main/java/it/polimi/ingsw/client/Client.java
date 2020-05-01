@@ -174,6 +174,12 @@ public class Client implements LambdaObserver {
         changeState();
     }
 
+    public AbstractClientState getCurrentState() {
+        synchronized (currentStateLock) {
+            return currentState;
+        }
+    }
+
     /**
      * Requests the user interface to render the current state.
      * The actual rendering is performed by the main thread (the one that invoked Client::run).
