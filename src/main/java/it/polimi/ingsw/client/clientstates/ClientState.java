@@ -13,6 +13,10 @@ public enum ClientState {
      */
     ASK_GODS_FROM_LIST,
     /**
+     * Ask start player client state.
+     */
+    ASK_START_PLAYER,
+    /**
      * Connect to server client state.
      */
     CONNECT_TO_SERVER,
