@@ -11,6 +11,7 @@ import it.polimi.ingsw.view.View;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -123,11 +124,11 @@ public class Match implements Runnable {
      *
      * @param participants the structure holding the participants to be added
      */
-    public void addParticipants(LinkedHashMap<String,Connection> participants) {
+    public void addParticipants(Map<String, Connection> participants) {
         this.participantsNicknameToConnection.putAll(participants);
 
-        for (String nickname : participants.keySet()) {
-            virtualViews.add(new View(participants.get(nickname), nickname));
+        for (Map.Entry<String, Connection> participant : participants.entrySet()) {
+            virtualViews.add(new View(participant.getValue(), participant.getKey()));
         }
     }
 
@@ -136,7 +137,7 @@ public class Match implements Runnable {
      *
      * @return the participants to the match
      */
-    public LinkedHashMap<String, Connection> getParticipantsNicknameToConnection() {
+    public Map<String, Connection> getParticipantsNicknameToConnection() {
         return new LinkedHashMap<>(this.participantsNicknameToConnection);
     }
 

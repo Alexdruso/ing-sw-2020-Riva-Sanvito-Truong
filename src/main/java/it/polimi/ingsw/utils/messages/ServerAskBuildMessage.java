@@ -1,7 +1,6 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
@@ -12,10 +11,12 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
     public final ReducedUser user;
     public final boolean isSkippable;
     public final List<WorkerID> allowedWorkers;
-    public final HashMap<WorkerID, TargetCells> workerBlockBuildableCells;
-    public final HashMap<WorkerID, TargetCells> workerDomeBuildableCells;
+    public final HashMap<WorkerID, ReducedTargetCells> workerBlockBuildableCells;
+    public final HashMap<WorkerID, ReducedTargetCells> workerDomeBuildableCells;
 
-    public ServerAskBuildMessage(ReducedUser user, boolean isSkippable, List<WorkerID> allowedWorkers, HashMap<WorkerID, TargetCells> workerBlockBuildableCells, HashMap<WorkerID, TargetCells> workerDomeBuildableCells){
+    public ServerAskBuildMessage(ReducedUser user, boolean isSkippable, List<WorkerID> allowedWorkers,
+                                 HashMap<WorkerID, ReducedTargetCells> workerBlockBuildableCells,
+                                 HashMap<WorkerID, ReducedTargetCells> workerDomeBuildableCells) {
         this.user = user;
         this.isSkippable = isSkippable;
         this.allowedWorkers = allowedWorkers;

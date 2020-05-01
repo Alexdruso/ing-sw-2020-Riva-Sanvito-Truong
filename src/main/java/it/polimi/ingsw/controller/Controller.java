@@ -115,7 +115,7 @@ public class Controller implements LambdaObserver {
     /**
      * This method handles the set start player action
      *
-     * @param action the ClientSetStartPlayerMessage action
+     * @param action the ClientSetStartPlayerMessage requested
      * @param view   the view that triggered this command
      * @param user   the user that triggered this command
      */
@@ -124,6 +124,24 @@ public class Controller implements LambdaObserver {
 
         if (isValidStartPlayerChoice) {
             model.setStartPlayer(action.startPlayer);
+        } else {
+            view.handleMessage(StatusMessages.CLIENT_ERROR);
+        }
+    }
+
+    /**
+     * This method handles the set worker start position requested
+     *
+     * @param action the ClientSetWorkerStartPositionMessage action
+     * @param view   the view that triggered this command
+     * @param user   the user that triggered this command
+     */
+    public void dispatchSetWorkerStartPositionAction(ClientSetWorkerStartPositionMessage action, View view, User user) {
+        boolean isValidPositioning = model.isValidPositioning(
+                action.targetCellX, action.targetCellY, action.performer, user);
+
+        if (isValidPositioning) {
+            model.setWorkerPosition(action.targetCellX, action.targetCellY, action.performer, user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }

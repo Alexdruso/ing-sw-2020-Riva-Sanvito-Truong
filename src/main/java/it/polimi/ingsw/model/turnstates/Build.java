@@ -7,14 +7,13 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.workers.Worker;
 
-class Build extends AbstractTurnState {
+class Build implements AbstractTurnState {
 
     /**
      * This method sets things up before we can use the other methods provided by the state
      *
      * @param turn the Context
      */
-    @Override
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.END.getTurnState());

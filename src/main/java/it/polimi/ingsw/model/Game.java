@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
@@ -502,7 +503,10 @@ public class Game extends LambdaObservable<Transmittable> {
         //change state
         gameState = GameState.SET_WORKER_POSITION;
         //send message of start positioning
-        notify(new ServerAskWorkerPositionMessage(WorkerID.WORKER1, startPlayer));
+        notify(new ServerAskWorkerPositionMessage(
+                        WorkerID.WORKER1, startPlayer, (new TargetCells()).setAllTargets(true).toReducedTargetCells()
+                )
+        );
     }
 
     /**
@@ -511,7 +515,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param targetCellX the x coordinate of the cell to which the worker shall be positioned
      * @param targetCellY the y coordinate of the cell to which the worker shall be positioned
      * @param performer   the worker
-     * @param user        tje user of the player choosing
+     * @param user        the user of the player choosing
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidPositioning(int targetCellX, int targetCellY, WorkerID performer, User user) {
@@ -544,11 +548,22 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify set position
         notify(new ServerSetWorkerStartPositionMessage(user.toReducedUser(), targetCellX, targetCellY, performer));
         //now check if any worker from the same player is left without a cell
+        //generate the ReducedTargetCells
+        TargetCells targetCells = (new TargetCells()).setAllTargets(true);
+        players.stream().flatMap(p -> Arrays.stream(p.getOwnWorkers()))
+                .filter(w -> w.getCell() != null).map(Worker::getCell)
+                .forEach(x -> targetCells.setPosition(x, false));
+
         Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null).findFirst().ifPresentOrElse(
                 x -> {
                     //it's yet the user turn, he already has workers to position
                     gameState = GameState.SET_WORKER_POSITION;
-                    notify(new ServerAskWorkerPositionMessage(x.getWorkerID(), user.toReducedUser()));
+                    notify(new ServerAskWorkerPositionMessage(
+                                    x.getWorkerID(),
+                                    user.toReducedUser(),
+                                    targetCells.toReducedTargetCells()
+                            )
+                    );
                 },
                 () -> {
                     //change player turn
@@ -561,9 +576,13 @@ public class Game extends LambdaObservable<Transmittable> {
                                     y -> {
                                         //there is some worker to be positioned
                                         gameState = GameState.SET_WORKER_POSITION;
+
                                         notify(new ServerAskWorkerPositionMessage(
-                                                y.getWorkerID(),
-                                                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
+                                                        y.getWorkerID(),
+                                                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                                                        targetCells.toReducedTargetCells()
+                                                )
+                                        );
                                     },
                                     () -> {
                                         //no more workers to be positioned
@@ -583,6 +602,22 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public boolean isActive() {
         return gameState != GameState.END_GAME;
+    }
+
+    //useful methods to handle interaction with the turn
+    public void notifyAskMove(Turn turn) {
+    }
+
+    public void notifyAskBuild(Turn turn) {
+    }
+
+    public void triggerEndTurn(Turn turn) {
+    }
+
+    public void triggerLosingTurn(Turn turn) {
+    }
+
+    public void triggerWinningTurn(Turn turn) {
     }
 
     /*

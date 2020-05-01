@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.messages.ReducedTargetCells;
 
 import java.util.Collection;
 
@@ -295,5 +296,14 @@ public class TargetCells {
             target.setPosition(cell, true);
         }
         return target;
+    }
+
+    /**
+     * Creates a reduced version of the target cell
+     *
+     * @return a reduced version of the target cell
+     */
+    public ReducedTargetCells toReducedTargetCells() {
+        return new ReducedTargetCells(this.targets);
     }
 }
