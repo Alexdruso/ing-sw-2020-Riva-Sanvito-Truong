@@ -18,11 +18,11 @@ import java.util.logging.Logger;
  */
 public class Connection extends LambdaObservable<Transmittable> {
     private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());
-    private Socket socket;
-    private ObjectInputStream socketIn;
-    private ObjectOutputStream socketOut;
-    private Thread receiveThread;
-    private Thread sendThread;
+    private final Socket socket;
+    private final ObjectInputStream socketIn;
+    private final ObjectOutputStream socketOut;
+    private final Thread receiveThread;
+    private final Thread sendThread;
     /**
      * The queue containing the messages to be sent out.
      */
@@ -165,7 +165,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                     }
                 }
             }
-        });
+        }, String.format("ConnectionReceive-%s", socket.getRemoteSocketAddress().toString()));
         t.start();
         return t;
     }
@@ -195,7 +195,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                     }
                 }
             }
-        });
+        }, String.format("ConnectionSend-%s", socket.getRemoteSocketAddress().toString()));
         t.start();
         return t;
     }

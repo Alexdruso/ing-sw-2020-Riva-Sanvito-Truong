@@ -55,7 +55,7 @@ public class Server{
         ongoingMatches = new ArrayList<>();
         handlers = new ConcurrentHashMap<>();
         lobbyBuilder = new ServerLobbyBuilder(this);
-        new Thread(lobbyBuilder::start).start();
+        new Thread(lobbyBuilder::start, "LobbyBuilder").start();
     }
 
     /**
