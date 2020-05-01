@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.utils.messages.ClientChooseGodMessage;
 import it.polimi.ingsw.utils.messages.ClientSetStartPlayerMessage;
-import it.polimi.ingsw.utils.messages.ReducedGod;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 
 public abstract class AbstractAskStartPlayerClientState extends AbstractClientState{
