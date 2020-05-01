@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
@@ -137,11 +138,13 @@ public class Controller implements LambdaObserver {
      * @param user   the user that triggered this command
      */
     public void dispatchSetWorkerStartPositionAction(ClientSetWorkerStartPositionMessage action, View view, User user) {
-        boolean isValidPositioning = model.isValidPositioning(
-                action.targetCellX, action.targetCellY, action.performer, user);
+        WorkerID workerID = WorkerID.fromReducedWorkerId(action.workerID);
+        boolean isValidPositioning =
+                workerID != null
+                && model.isValidPositioning(action.targetCellX, action.targetCellY, workerID, user);
 
         if (isValidPositioning) {
-            model.setWorkerPosition(action.targetCellX, action.targetCellY, action.performer, user);
+            model.setWorkerPosition(action.targetCellX, action.targetCellY, workerID, user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }

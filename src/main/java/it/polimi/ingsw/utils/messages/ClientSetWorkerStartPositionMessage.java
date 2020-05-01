@@ -1,6 +1,5 @@
 package it.polimi.ingsw.utils.messages;
 
-import it.polimi.ingsw.client.reducedmodel.ReducedWorkerID;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;

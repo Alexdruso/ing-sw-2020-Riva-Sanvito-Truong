@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.utils.messages.ReducedUser;
+import it.polimi.ingsw.utils.messages.ReducedWorkerID;
 
 import java.util.Arrays;
 
