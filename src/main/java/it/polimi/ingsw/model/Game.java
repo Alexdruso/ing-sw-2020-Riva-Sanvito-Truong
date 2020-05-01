@@ -462,11 +462,11 @@ public class Game extends LambdaObservable<Transmittable> {
     }
 
     /**
-     * checks if the choice is fine
+     * Checks if the choice is fine
      *
      * @param startPlayer the player who should start
      * @param user        the user of the player choosing
-     * @return true id the command is valid, false otherwise
+     * @return true if the command is valid, false otherwise
      */
     public boolean isValidStartPlayerChoice(ReducedUser startPlayer, User user) {
         Player player = subscribedUsers.getValueFromKey(user);
@@ -493,11 +493,75 @@ public class Game extends LambdaObservable<Transmittable> {
         notify(new ServerAskWorkerPositionMessage(WorkerID.WORKER1, startPlayer));
     }
 
-    public boolean isValidPositioning(ClientSetWorkerStartPositionMessage command, User user) {
-        return false;
+    /**
+     * Checks if the choice is gine
+     *
+     * @param targetCellX the x coordinate of the cell to which the worker shall be positioned
+     * @param targetCellY the y coordinate of the cell to which the worker shall be positioned
+     * @param performer   the worker
+     * @param user        tje user of the player choosing
+     * @return true if the command is valid, false otherwise
+     */
+    public boolean isValidPositioning(int targetCellX, int targetCellY, WorkerID performer, User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+        Cell targetCell = board.getCell(targetCellX, targetCellY);
+        Worker worker = player.getWorkerByID(performer);
+        return gameState == GameState.SET_WORKER_POSITION //check right state
+                && player.equals(players.peek()) //check it's player's turn
+                && Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
+                .findFirst().map(x -> x.getWorkerID() == performer).orElse(false)
+                && worker.getCell() == null //check worker has no cell yet
+                && targetCell.getWorker().isEmpty(); //check cell is not occupied
     }
 
-    public void setWorkerPosition(ClientSetWorkerStartPositionMessage command, User user) {
+    /**
+     * Sets the worker first position
+     *
+     * @param targetCellX the x coordinate of the cell to which the worker shall be positioned
+     * @param targetCellY the y coordinate of the cell to which the worker shall be positioned
+     * @param performer   the worker
+     * @param user        tje user of the player choosing
+     */
+    public void setWorkerPosition(int targetCellX, int targetCellY, WorkerID performer, User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+        Cell targetCell = board.getCell(targetCellX, targetCellY);
+        Worker worker = player.getWorkerByID(performer);
+        //set the position
+        worker.setCell(targetCell);
+        targetCell.setWorker(worker);
+        //notify set position
+        notify(new ServerSetWorkerStartPositionMessage(user.toReducedUser(), targetCellX, targetCellY, performer));
+        //now check if any worker from the same player is left without a cell
+        Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null).findFirst().ifPresentOrElse(
+                x -> {
+                    //it's yet the user turn, he already has workers to position
+                    gameState = GameState.SET_WORKER_POSITION;
+                    notify(new ServerAskWorkerPositionMessage(x.getWorkerID(), user.toReducedUser()));
+                },
+                () -> {
+                    //change player turn
+                    players.poll();
+                    players.add(player);
+                    //now check if the new first player has to position some workers
+                    assert players.peek() != null;
+                    Arrays.stream(players.peek().getOwnWorkers()).filter(y -> y.getCell() == null).findFirst()
+                            .ifPresentOrElse(
+                                    y -> {
+                                        //there is some worker to be positioned
+                                        gameState = GameState.SET_WORKER_POSITION;
+                                        notify(new ServerAskWorkerPositionMessage(
+                                                y.getWorkerID(),
+                                                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
+                                    },
+                                    () -> {
+                                        //no more workers to be positioned
+                                        gameState = GameState.PLAY;
+                                        notify(new ServerStartPlayMatchMessage());
+                                        addNewTurn(players.peek());
+                                    }
+                            );
+                }
+        );
     }
 
     /**
