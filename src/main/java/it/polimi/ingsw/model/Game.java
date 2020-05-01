@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.Cell;
 import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.gods.God;
 import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.model.workers.Worker;
@@ -49,7 +50,7 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * The list of all the gods in game
      */
-    private final List<GodCard> availableGods = new LinkedList<>();
+    private final List<God> availableGods = new LinkedList<>();
     /**
      * The Turn object representing the current game turn
      */
@@ -388,16 +389,23 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param chosenGods the list of gods chosen by the player
      */
     public void setAvailableGodsList(List<ReducedGod> chosenGods) {
-        availableGods.addAll(chosenGods.stream().map(reducedGod -> GodCard.valueOf(reducedGod.name.toUpperCase()))
-                .collect(Collectors.toList()));
+        availableGods.addAll(
+                chosenGods.stream().map(
+                        reducedGod -> GodCard.valueOf(reducedGod.name.toUpperCase()).getGod()
+                ).collect(Collectors.toList())
+        );
         //rotate the player
         Player player = players.poll();
         players.add(player);
         //change state
         gameState = GameState.SET_GODS;
         //send god request
-        notify(new ServerAskGodFromListMessage(
-                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(), chosenGods));
+        notify(
+                new ServerAskGodFromListMessage(
+                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                        chosenGods
+                )
+        );
     }
 
     /**
@@ -411,7 +419,7 @@ public class Game extends LambdaObservable<Transmittable> {
         Player player = subscribedUsers.getValueFromKey(user);
         return gameState == GameState.SET_GODS //check right state
                 && player.equals(players.peek()) //check right player
-                && availableGods.stream().map(Enum::toString) //check god is in game
+                && availableGods.stream().map(God::getName) //check god is in game
                 .anyMatch(x -> x.equalsIgnoreCase(reducedGod.name))
                 && players.stream().filter(x -> x.getGod() != null).map(x -> x.getGod().getName()) //check god not already taken
                 .noneMatch(x -> x.equalsIgnoreCase(reducedGod.name));
@@ -436,18 +444,18 @@ public class Game extends LambdaObservable<Transmittable> {
         players.add(player);
         //now check if just one player is missing god
         //checks which gods are already taken
-        List<String> takenGods = players.stream().filter(x -> x.getGod() != null)
-                .map(x -> x.getGod().getName()).collect(Collectors.toList());
+        List<God> takenGods = players.stream().filter(x -> x.getGod() != null)
+                .map(Player::getGod).collect(Collectors.toList());
         //checks gods left available
-        List<GodCard> remainingGods = availableGods.stream().filter(x -> !takenGods.contains(x.toString()))
-                .collect(Collectors.toList());
+        List<God> remainingGods = new ArrayList<>(availableGods);
+        remainingGods.removeAll(takenGods);
         if (remainingGods.size() == 1) {
             gameState = GameState.SET_START_PLAYER;
             //sets the last god to the player
-            remainingGods.stream().findFirst().ifPresent(godCard -> {
+            remainingGods.stream().findFirst().ifPresent(lastGod -> {
                 assert players.peek() != null;
-                players.peek().setGod(godCard.getGod());
-                notify(new ServerSetGodMessage(new ReducedGod(godCard.toString()),
+                players.peek().setGod(lastGod);
+                notify(new ServerSetGodMessage(new ReducedGod(lastGod.getName()),
                         subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
             });
             //sends a first player request
