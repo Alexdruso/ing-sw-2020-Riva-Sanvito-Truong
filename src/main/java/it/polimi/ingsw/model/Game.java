@@ -604,6 +604,22 @@ public class Game extends LambdaObservable<Transmittable> {
         return gameState != GameState.END_GAME;
     }
 
+    //useful methods to handle interaction with the turn
+    public void notifyAskMove(Turn turn) {
+    }
+
+    public void notifyAskBuild(Turn turn) {
+    }
+
+    public void triggerEndTurn(Turn turn) {
+    }
+
+    public void triggerLosingTurn(Turn turn) {
+    }
+
+    public void triggerWinningTurn(Turn turn) {
+    }
+
     /*
     Getters and setters section
      */
