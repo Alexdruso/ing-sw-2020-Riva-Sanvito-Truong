@@ -369,6 +369,12 @@ public class Game extends LambdaObservable<Transmittable> {
      * First method to be called by the match, sends the request of a god sub list to the player who created the game
      */
     public void setup() {
+        //signals the setup start
+        ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(
+                subscribedUsers.getBackwardMap().values().toArray((new User[subscribedUsers.size()])));
+        notify(serverStartSetupMatchMessage);
+
+        //sens the request of the gods sub list
         User firstUser = subscribedUsers.getKeyFromValue(players.peek());
         List<ReducedGod> godsList = new ArrayList<>();
         for (GodCard godCard : GodCard.values()) {

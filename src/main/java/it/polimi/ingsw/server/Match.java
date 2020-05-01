@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.messages.ServerDisconnectMessage;
-import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
@@ -80,13 +79,6 @@ public class Match implements Runnable {
                     ((Controller) obs).update(message));
             //increment usersIndex
             usersIndex++;
-        }
-        //Start the game setup, first creating serverStartSetupMatchMessage
-        //with the array of users, then sending the message over the connections
-        //TODO move in game setup
-        ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(users);
-        for (Connection connection : this.participantsNicknameToConnection.values()) {
-            connection.send(serverStartSetupMatchMessage);
         }
         //Start setup procedure
         model.setup();
