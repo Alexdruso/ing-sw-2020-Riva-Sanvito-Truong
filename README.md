@@ -11,14 +11,14 @@
 
 ## Quick start guide
 
-Per eseguire il server:
+Per eseguire il server (Windows):
 ```bash
-java -jar target/Santorini-Server.jar
+java -jar target\Santorini-Server.jar
 ```
 
-Per eseguire il client:
+Per eseguire il client (Windows):
 ```bash
-java -jar target/Santorini-Client.jar
+java -Dfile.encoding=UTF8 -jar target\Santorini-Client.jar
 ```
 
 ### Variabili di ambiente
