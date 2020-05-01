@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -400,11 +401,64 @@ public class Game extends LambdaObservable<Transmittable> {
                 subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(), chosenGods));
     }
 
-    public boolean isValidGodChoice(ClientChooseGodMessage command, User user) {
-        return false;
+    /**
+     * Checks if the god choice is fine
+     *
+     * @param reducedGod the chosen god
+     * @param user       the user of the player
+     * @return true if the command is valid, false otherwise
+     */
+    public boolean isValidGodChoice(ReducedGod reducedGod, User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+        return gameState == GameState.SET_GODS //check right state
+                && player.equals(players.peek()) //check right player
+                && availableGods.stream().map(Enum::toString) //check god is in game
+                .collect(Collectors.toList()).contains(reducedGod.name.toUpperCase())
+                && !players.stream().filter(x -> x.getGod() != null).map(x -> x.getGod().getName()) //check no other player has the god
+                .collect(Collectors.toList()).contains(reducedGod.name.toUpperCase());
     }
 
-    public void setGod(ClientChooseGodMessage command, User user) {
+    /**
+     * This method sets a specific chosen god to a user.
+     * If there is just one God left after the choice, this method changes the game state to SET_START_PLAYER
+     * and notifies the request message, while assigning the last god to the remaining player.
+     *
+     * @param reducedGod the chosen god
+     * @param user       teh user of the player
+     */
+    public void setGod(ReducedGod reducedGod, User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+        GodCard god = GodCard.valueOf(reducedGod.name.toUpperCase());
+
+        player.setGod(god.getGod());
+        notify(new ServerSetGodMessage(reducedGod, new ReducedUser(user.nickname)));
+        //change pseudo turn
+        players.poll();
+        players.add(player);
+        //now check if just one player is missing god
+        //checks which gods are already taken
+        List<String> takenGods = players.stream().filter(x -> x.getGod() != null)
+                .map(x -> x.getGod().getName()).collect(Collectors.toList());
+        //checks gods left available
+        Stream<GodCard> remainingGods = availableGods.stream().filter(x -> !takenGods.contains(x.toString()));
+        if (remainingGods.count() == 1) {
+            gameState = GameState.SET_START_PLAYER;
+            //sets the last god to the player
+            remainingGods.findFirst().ifPresent(godCard -> {
+                assert players.peek() != null;
+                players.peek().setGod(godCard.getGod());
+                notify(new ServerSetGodMessage(new ReducedGod(godCard.toString()),
+                        new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname)));
+            });
+            //sends a first player request
+            new ServerAskStartPlayerMessage(new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname));
+        } else {
+            gameState = GameState.SET_GODS;
+            //sends gods request
+            notify(new ServerAskGodFromListMessage(
+                    new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname),
+                    remainingGods.map(x -> new ReducedGod(x.toString())).collect(Collectors.toList())));
+        }
     }
 
     public boolean isValidStartPlayerChoice() {
@@ -450,6 +504,10 @@ public class Game extends LambdaObservable<Transmittable> {
          * Setting each player's god
          */
         SET_GODS,
+        /**
+         * Setting the start player
+         */
+        SET_START_PLAYER,
         /**
          * The last state of the Game, possible just after a win or a draw
          */

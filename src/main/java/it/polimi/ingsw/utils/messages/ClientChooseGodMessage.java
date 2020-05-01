@@ -23,7 +23,8 @@ public class ClientChooseGodMessage implements ClientMessage, ControllerHandleab
 
     @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
-        return false;
+        handler.dispatchChooseGodAction(this, view, user);
+        return true;
     }
 
     /**

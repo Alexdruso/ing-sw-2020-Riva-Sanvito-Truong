@@ -1,15 +1,14 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.model.gods.GodCard;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerSetGodMessage implements ServerMessage, ClientHandleable {
-    public final GodCard godCard;
+    public final ReducedGod god;
     public final ReducedUser user;
 
-    public ServerSetGodMessage(GodCard godCard, ReducedUser user){
-        this.godCard = godCard;
+    public ServerSetGodMessage(ReducedGod god, ReducedUser user) {
+        this.god = god;
         this.user = user;
     }
 

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientBuildMessage;
+import it.polimi.ingsw.utils.messages.ClientChooseGodMessage;
 import it.polimi.ingsw.utils.messages.ClientChooseGodsMessage;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
@@ -71,7 +72,6 @@ public class Controller implements LambdaObserver {
      * @param user the User that triggered this command
      */
     public void dispatchDrawAction(View view, User user) {
-        //TODO: discuss how to close view connection
         view.closeConnection();
         view.removeObserver(this);
         model.removeObserver(view);
@@ -93,6 +93,16 @@ public class Controller implements LambdaObserver {
 
         if (isValidGodsChoice) {
             model.setAvailableGodsList(action.getGods(), user);
+        } else {
+            view.handleMessage(StatusMessages.CLIENT_ERROR);
+        }
+    }
+
+    public void dispatchChooseGodAction(ClientChooseGodMessage action, View view, User user) {
+        boolean isValidGodChoice = model.isValidGodChoice(action.getGod(), user);
+
+        if (isValidGodChoice) {
+            model.setGod(action.getGod(), user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }
