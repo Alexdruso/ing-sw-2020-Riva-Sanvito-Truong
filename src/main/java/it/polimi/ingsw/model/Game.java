@@ -316,7 +316,7 @@ public class Game extends LambdaObservable<Transmittable> {
      *
      * @throws UnsupportedOperationException the unsupported operation exception
      */
-    public void skip() throws UnsupportedOperationException {
+    public void skip() {
         currentTurn.changeState();
     }
 
@@ -410,9 +410,9 @@ public class Game extends LambdaObservable<Transmittable> {
         return gameState == GameState.SET_GODS //check right state
                 && player.equals(players.peek()) //check right player
                 && availableGods.stream().map(Enum::toString) //check god is in game
-                .anyMatch(x -> x.equals(reducedGod.name.toUpperCase()))
+                .anyMatch(x -> x.equalsIgnoreCase(reducedGod.name))
                 && players.stream().filter(x -> x.getGod() != null).map(x -> x.getGod().getName()) //check god not already taken
-                .noneMatch(x -> x.equals(reducedGod.name.toUpperCase()));
+                .noneMatch(x -> x.equalsIgnoreCase(reducedGod.name));
     }
 
     /**
