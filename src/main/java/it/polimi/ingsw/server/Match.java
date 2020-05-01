@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ServerDisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
@@ -10,6 +11,8 @@ import it.polimi.ingsw.view.View;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is designed to be able to run on a separate thread and initialize all the classes
@@ -17,6 +20,8 @@ import java.util.List;
  * Before calling the "run" method, the server should add nicknames and connections in order.
  */
 public class Match implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(Match.class.getName());
+
     /**
      * The participants, represented by nickname and connection.
      */
@@ -84,7 +89,15 @@ public class Match implements Runnable {
         model.setup();
         //now just make the controller work on this thread
         while (this.isPlaying()) {
-            this.controller.dispatchViewClientMessages();
+            try {
+                this.controller.dispatchViewClientMessages();
+            }
+            catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                participantsNicknameToConnection.values().stream()
+                        .filter(Connection::isActive).forEach(connection -> connection.send(StatusMessages.SERVER_ERROR));
+                break;
+            }
             //check if the game is active
             this.setIsPlaying(this.model.isActive());
         }
