@@ -124,7 +124,7 @@ public class Match implements Runnable {
      *
      * @param participants the structure holding the participants to be added
      */
-    public void addParticipants(LinkedHashMap<String,Connection> participants) {
+    public void addParticipants(Map<String, Connection> participants) {
         this.participantsNicknameToConnection.putAll(participants);
 
         for (Map.Entry<String, Connection> participant : participants.entrySet()) {
@@ -137,7 +137,7 @@ public class Match implements Runnable {
      *
      * @return the participants to the match
      */
-    public LinkedHashMap<String, Connection> getParticipantsNicknameToConnection() {
+    public Map<String, Connection> getParticipantsNicknameToConnection() {
         return new LinkedHashMap<>(this.participantsNicknameToConnection);
     }
 
