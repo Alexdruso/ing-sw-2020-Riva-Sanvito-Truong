@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
-import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ReducedWorkerID;

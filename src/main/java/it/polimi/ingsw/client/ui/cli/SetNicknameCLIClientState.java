@@ -3,8 +3,6 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
 
-import java.util.Random;
-
 /**
  * The CLI-specific SET_NICKNAME ClientState.
  */
