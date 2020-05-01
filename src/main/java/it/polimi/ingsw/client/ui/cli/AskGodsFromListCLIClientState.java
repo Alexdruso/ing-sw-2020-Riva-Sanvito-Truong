@@ -22,6 +22,7 @@ public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClient
 
     @Override
     public void render() {
+        cli.clear();
         if (client.isCurrentlyActive()) {
             int playersCount = client.getGame().getPlayersCount();
             cli.println(String.format("Scegli le %d divinita' che saranno disponibili per questa partita:", playersCount));
@@ -30,6 +31,7 @@ public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClient
                 cli.println(String.format("[%02d] %s", i + 1, gods.get(i).name));
             }
 
+            cli.println("");
             while (chosenGods.size() < playersCount) {
                 int choice = cli.readInt(String.format("Scegli la %d^ divinita':", chosenGods.size() + 1)) - 1;
                 try {

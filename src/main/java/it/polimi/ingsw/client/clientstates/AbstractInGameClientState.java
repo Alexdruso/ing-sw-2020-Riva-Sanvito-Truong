@@ -8,7 +8,7 @@ import it.polimi.ingsw.utils.messages.ServerMessage;
  */
 public abstract class AbstractInGameClientState extends AbstractClientState {
     /**
-     * Instantiates a new  ClientState.
+     * Instantiates a new IN_GAME ClientState.
      *
      * @param client the client
      */
@@ -18,7 +18,12 @@ public abstract class AbstractInGameClientState extends AbstractClientState {
 
     @Override
     public void setup() {
-        triggerRender();
+        // triggerRender should be triggered by the ClientTurnStates, after they performed the actions they need.
+    }
+
+    @Override
+    public void notifyUiInteraction() {
+        client.getGame().getTurn().getTurnState().notifyUiInteraction();
     }
 
     @Override

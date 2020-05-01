@@ -21,6 +21,7 @@ public class JoinLobbyCLIClientState extends AbstractJoinLobbyClientState implem
 
     @Override
     public void render() {
+        cli.println("");
         cli.println("Ricerca di una partita...");
     }
 

@@ -2,7 +2,9 @@ package it.polimi.ingsw.client.ui;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
+import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.utils.StringCapturedStackTrace;
 
 /**
@@ -22,6 +24,8 @@ public abstract class UI {
      * @return an instance of a UI-specific ClientState
      */
     public abstract AbstractClientState getClientState(ClientState clientState, Client client);
+
+    public abstract AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client);
 
     /**
      * Displays an error on the user interface.
@@ -49,6 +53,6 @@ public abstract class UI {
      * @param ex      the exception
      */
     public void notifyError(String message, Exception ex) {
-        notifyError(String.format("%s\nDettagli:\n", message, new StringCapturedStackTrace(ex).toString()));
+        notifyError(String.format("%s\nDettagli:\n%s", message, new StringCapturedStackTrace(ex).toString()));
     }
 }

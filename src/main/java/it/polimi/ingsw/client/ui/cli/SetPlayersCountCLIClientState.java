@@ -21,6 +21,7 @@ public class SetPlayersCountCLIClientState extends AbstractSetPlayersCountClient
 
     @Override
     public void render() {
+        cli.clear();
         cli.println("Sei il primo giocatore sul server!");
         players_count = cli.readInt("Numero di giocatori [2-3]:");
         notifyUiInteraction();

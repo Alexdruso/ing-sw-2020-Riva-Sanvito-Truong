@@ -2,7 +2,9 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
+import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
 import org.fusesource.jansi.Ansi;
@@ -81,30 +83,35 @@ public class CLI extends UI {
 
     @Override
     public AbstractClientState getClientState(ClientState clientState, Client client) {
-        switch (clientState) {
-            case ASK_GOD_FROM_LIST:
-                return new AskGodFromListCLIClientState(client);
-            case ASK_GODS_FROM_LIST:
-                return new AskGodsFromListCLIClientState(client);
-            case ASK_START_PLAYER:
-                return new AskStartPlayerCLIClientState(client);
-            case CONNECT_TO_SERVER:
-                return new ConnectToServerCLIClientState(client);
-            case DISCONNECT:
-                return new DisconnectCLIClientState(client);
-            case JOIN_LOBBY:
-                return new JoinLobbyCLIClientState(client);
-            case SET_NICKNAME:
-                return new SetNicknameCLIClientState(client);
-            case SET_PLAYERS_COUNT:
-                return new SetPlayersCountCLIClientState(client);
-            case SHOW_GAME_PASSIVE:
-                return new ShowGamePassiveCLIClientState(client);
-            case WAIT_PLAYERS:
-                return new WaitPlayersCLIClientState(client);
-            default:
-                throw new IllegalStateException();
+        return switch (clientState) {
+            case ASK_GOD_FROM_LIST -> new AskGodFromListCLIClientState(client);
+            case ASK_GODS_FROM_LIST -> new AskGodsFromListCLIClientState(client);
+            case ASK_START_PLAYER -> new AskStartPlayerCLIClientState(client);
+            case CONNECT_TO_SERVER -> new ConnectToServerCLIClientState(client);
+            case DISCONNECT -> new DisconnectCLIClientState(client);
+            case JOIN_LOBBY -> new JoinLobbyCLIClientState(client);
+            case IN_GAME -> new InGameCLIClientState(client);
+            case SET_NICKNAME -> new SetNicknameCLIClientState(client);
+            case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
+            case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
+            case WAIT_PLAYERS -> new WaitPlayersCLIClientState(client);
+        };
+    }
 
+    @Override
+    public AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client) {
+        try {
+            final InGameCLIClientState currentState = (InGameCLIClientState) client.getCurrentState();
+            return switch (clientTurnState) {
+                case ASK_WORKER_POSITION -> new AskWorkerPositionCLIClientTurnState(client, currentState);
+                case BUILD -> new BuildCLIClientTurnState(client, currentState);
+                case MOVE -> new MoveCLIClientTurnState(client, currentState);
+                case PASSIVE -> new PassiveCLIClientTurnState(client, currentState);
+            };
+        }
+        catch (ClassCastException e) {
+            // We can't have a ClientTurnState if we aren't within InGame ClientState
+            throw new IllegalStateException();
         }
     }
 
@@ -275,7 +282,7 @@ public class CLI extends UI {
         print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expected_input_length));
     }
 
-    void printPlayers(ReducedGame game) {
+    void printPlayersOfGame(ReducedGame game) {
         StringBuilder res = new StringBuilder();
         res.append(ansi().a("GIOCATORI:\n"));
         for (ReducedPlayer player : game.getPlayersList()) {
@@ -378,6 +385,10 @@ public class CLI extends UI {
         else {
             return ret.a(emptyCellString);
         }
+    }
+
+    void moveCursorToStatusPosition() {
+        println("", 28, 0);
     }
 
 }

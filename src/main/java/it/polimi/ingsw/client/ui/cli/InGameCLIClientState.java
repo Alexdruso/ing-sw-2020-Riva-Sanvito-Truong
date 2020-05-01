@@ -1,14 +1,13 @@
 package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
+import it.polimi.ingsw.client.clientstates.AbstractInGameClientState;
 
 /**
  * The CLI-specific  ClientState.
  */
-public class InGameCLIClientState extends AbstractShowGamePassiveClientState implements CLIClientState {
+public class InGameCLIClientState extends AbstractInGameClientState implements CLIClientState {
     private final CLI cli;
-    private CLIClientTurnState clientTurnState;
 
     /**
      * Instantiates a new CLI-specific  ClientState.
@@ -22,28 +21,12 @@ public class InGameCLIClientState extends AbstractShowGamePassiveClientState imp
 
     @Override
     public void render() {
-//        cli.drawBoard(temp);
-//        cli.printPlayers(tempgame);
+        cli.clear();
+        cli.drawBoard(client.getGame().getBoard());
+        cli.printPlayersOfGame(client.getGame());
+        cli.moveCursorToStatusPosition();
 
-        clientTurnState.render(this, client);
+        client.getGame().getTurn().getTurnState().render();
     }
 
 }
-
-
-
-/*
-
-client
-    clientstates
-        turnstates
-    reducedmodel
-    ui
-        cli
-            turnstates
-        gui
-            turnstates
-
-
-
- */

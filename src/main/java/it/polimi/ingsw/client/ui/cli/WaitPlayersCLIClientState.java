@@ -21,6 +21,7 @@ public class WaitPlayersCLIClientState extends AbstractWaitPlayersClientState im
 
     @Override
     public void render() {
+        cli.println("");
         cli.println("In attesa degli altri giocatori...");
     }
 

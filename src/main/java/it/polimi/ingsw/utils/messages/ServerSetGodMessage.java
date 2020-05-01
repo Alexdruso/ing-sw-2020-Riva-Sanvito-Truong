@@ -14,7 +14,7 @@ public class ServerSetGodMessage implements ServerMessage, ClientHandleable {
 
     @Override
     public boolean handleTransmittable(Client client) {
-        client.getGame().getPlayerByNickname(user.nickname).ifPresent(
+        client.getGame().getPlayer(user).ifPresent(
                 player -> player.setGod(god)
         );
         return true;

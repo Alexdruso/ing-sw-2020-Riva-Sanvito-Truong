@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
+import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ReducedWorkerID;
@@ -32,7 +33,7 @@ public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClient
         ReducedPlayer p2 = new ReducedPlayer(new ReducedUser("LOL"), true, 1);
         ReducedPlayer p3 = new ReducedPlayer(new ReducedUser("zaza"), false, 2);
         ReducedGame tempgame = new ReducedGame(Arrays.asList(p1, p2, p3));
-        tempgame.setTurn(new ReducedTurn(p1));
+        tempgame.setTurn(new ReducedTurn(p1, null));
         ReducedBoard temp = new ReducedBoard();
         ReducedWorker p1w1 = new ReducedWorker(ReducedWorkerID.WORKER1, p1);
         ReducedWorker p1w2 = new ReducedWorker(ReducedWorkerID.WORKER2, p1);
@@ -48,7 +49,7 @@ public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClient
         temp.getCell(4,1).setWorker(p3w2);
 
         cli.drawBoard(temp);
-        cli.printPlayers(tempgame);
+        cli.printPlayersOfGame(tempgame);
         cli.println("", 28, 0);
         cli.readString("Quale worker vuoi usare per la tua mossa? (lettera o coordinate)", null, 3);
         render();

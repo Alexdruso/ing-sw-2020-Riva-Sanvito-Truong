@@ -1,7 +1,8 @@
 package it.polimi.ingsw.client.clientstates;
 
-import it.polimi.ingsw.client.Client;
-
-public interface ClientTurnState {
-    void render(AbstractClientState clientState, Client client);
+public enum ClientTurnState {
+    ASK_WORKER_POSITION,
+    BUILD,
+    MOVE,
+    PASSIVE;
 }
