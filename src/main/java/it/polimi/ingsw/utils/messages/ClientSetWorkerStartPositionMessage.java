@@ -37,6 +37,7 @@ public class ClientSetWorkerStartPositionMessage implements ClientMessage, Contr
 
     @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
-        return false;
+        handler.dispatchSetWorkerStartPositionAction(this, view, user);
+        return true;
     }
 }
