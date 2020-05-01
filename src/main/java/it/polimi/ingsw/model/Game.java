@@ -422,7 +422,8 @@ public class Game extends LambdaObservable<Transmittable> {
         //change state
         gameState = GameState.SET_GODS;
         //send god request
-        notify(new ServerAskGodFromListMessage(subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(), chosenGods));
+        notify(new ServerAskGodFromListMessage(
+                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(), chosenGods));
     }
 
     public boolean isValidGodChoice(ClientChooseGodMessage command, User user) {
