@@ -17,6 +17,7 @@ import it.polimi.ingsw.utils.structures.BidirectionalMap;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * This class is the game and its main purpose is to keep the general state of the match.
@@ -396,12 +397,14 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user       the user of the player
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidGodsChoice(List<GodCard> chosenGods, User user) {
+    public boolean isValidGodsChoice(List<ReducedGod> chosenGods, User user) {
         Player player = subscribedUsers.getValueFromKey(user);
         return gameState == GameState.ASK_GODS_LIST //check right state
                 && player.equals(players.peek()) //check the player is right
                 && chosenGods.size() == players.size() //check right number of gods
-                && (new HashSet<>(chosenGods)).size() == players.size(); //check no duplicates
+                && (new HashSet<>(chosenGods)).size() == players.size() //Check no duplicates
+                && Arrays.stream(GodCard.values()).map(Enum::toString).collect(Collectors.toList()) //Check right gods
+                .containsAll(chosenGods.stream().map(x -> x.name.toUpperCase()).collect(Collectors.toList()));
     }
 
     /**
@@ -410,8 +413,9 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param chosenGods the list of gods chosen by the player
      * @param user       the user of the player
      */
-    public void setAvailableGodsList(List<GodCard> chosenGods, User user) {
-        availableGods.addAll(chosenGods);
+    public void setAvailableGodsList(List<ReducedGod> chosenGods, User user) {
+        availableGods.addAll(chosenGods.stream().map(reducedGod -> GodCard.valueOf(reducedGod.name))
+                .collect(Collectors.toList()));
         //rotate the player
         Player player = players.poll();
         players.add(player);
