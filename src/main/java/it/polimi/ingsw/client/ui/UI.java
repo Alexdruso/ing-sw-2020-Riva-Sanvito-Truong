@@ -53,6 +53,6 @@ public abstract class UI {
      * @param ex      the exception
      */
     public void notifyError(String message, Exception ex) {
-        notifyError(String.format("%s\nDettagli:\n%s", message, new StringCapturedStackTrace(ex).toString()));
+        notifyError(String.format("%s%nDettagli:%n%s", message, new StringCapturedStackTrace(ex).toString()));
     }
 }

@@ -101,12 +101,11 @@ public class CLI extends UI {
     @Override
     public AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client) {
         try {
-            final InGameCLIClientState currentState = (InGameCLIClientState) client.getCurrentState();
             return switch (clientTurnState) {
-                case ASK_WORKER_POSITION -> new AskWorkerPositionCLIClientTurnState(client, currentState);
-                case BUILD -> new BuildCLIClientTurnState(client, currentState);
-                case MOVE -> new MoveCLIClientTurnState(client, currentState);
-                case PASSIVE -> new PassiveCLIClientTurnState(client, currentState);
+                case ASK_WORKER_POSITION -> new AskWorkerPositionCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
+                case BUILD -> new BuildCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
+                case MOVE -> new MoveCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
+                case PASSIVE -> new PassiveCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
             };
         }
         catch (ClassCastException e) {
