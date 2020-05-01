@@ -4,6 +4,9 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClientState {
     private final CLI cli;
 
@@ -19,13 +22,35 @@ public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClient
 
     @Override
     public void render() {
-        for (ReducedGod god : client.getGods()) {
-            cli.println(god.name);
+        if (client.isCurrentlyActive()) {
+            int playersCount = client.getGame().getPlayersCount();
+            cli.println(String.format("Scegli le %d divinita' che saranno disponibili per questa partita:", playersCount));
+            List<ReducedGod> gods = new ArrayList<>(client.getGods());
+            for (int i = 0; i < gods.size(); i++) {
+                cli.println(String.format("[%02d] %s", i + 1, gods.get(i).name));
+            }
+
+            while (chosenGods.size() < playersCount) {
+                int choice = cli.readInt(String.format("Scegli la %d^ divinita':", chosenGods.size() + 1)) - 1;
+                try {
+                    ReducedGod chosenGod = gods.get(choice);
+                    if (chosenGod != null) {
+                        chosenGods.add(chosenGod);
+                        gods.set(choice, null);
+                    }
+                    else {
+                        cli.error("La divinta' indicata e' gia' stata scelta");
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    cli.error("La divinta' indicata non e' valida");
+                }
+            }
+
+            notifyUiInteraction();
         }
-    }
-
-    @Override
-    public void notifyUiInteraction() {
-
+        else {
+            cli.println(String.format("Attendi che %s scelga le divinita' che saranno disponibili per questa partita...", client.getCurrentActiveUser().nickname));
+        }
     }
 }

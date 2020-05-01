@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerAskGodsFromListMessage implements ServerMessage, ClientHandleable {
-    private ReducedUser user;
-    private List<ReducedGod> godsList;
+    private final ReducedUser user;
+    private final List<ReducedGod> godsList;
 
     public ServerAskGodsFromListMessage(ReducedUser user, List<ReducedGod> godsList) {
         this.user = user;
@@ -22,6 +22,7 @@ public class ServerAskGodsFromListMessage implements ServerMessage, ClientHandle
 
     @Override
     public boolean handleTransmittable(Client client) {
+        client.setCurrentActiveUser(user);
         client.setGods(godsList);
         client.moveToState(ClientState.ASK_GODS_FROM_LIST);
         return true;

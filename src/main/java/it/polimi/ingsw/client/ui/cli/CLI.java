@@ -82,6 +82,8 @@ public class CLI extends UI {
     @Override
     public AbstractClientState getClientState(ClientState clientState, Client client) {
         switch (clientState) {
+            case ASK_GOD_FROM_LIST:
+                return new AskGodFromListCLIClientState(client);
             case ASK_GODS_FROM_LIST:
                 return new AskGodsFromListCLIClientState(client);
             case CONNECT_TO_SERVER:
@@ -221,7 +223,7 @@ public class CLI extends UI {
      * @return the int read from the CLI
      */
     int readInt(String prompt) {
-        return readInt(prompt, null, 6);
+        return readInt(prompt, null, 3);
     }
 
     /**
@@ -244,7 +246,7 @@ public class CLI extends UI {
      * @return the int read from the CLI
      */
     int readInt(String prompt, Integer def, int expected_input_length) {
-        printReadPrompt(prompt, def != null ? Integer.toString(def) : "", expected_input_length);
+        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expected_input_length);
         String line = in.nextLine();
         try {
             return Integer.parseInt(line);
