@@ -3,10 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientBuildMessage;
-import it.polimi.ingsw.utils.messages.ClientChooseGodMessage;
-import it.polimi.ingsw.utils.messages.ClientChooseGodsMessage;
-import it.polimi.ingsw.utils.messages.ClientMoveMessage;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.ViewClientMessage;
@@ -110,6 +107,23 @@ public class Controller implements LambdaObserver {
 
         if (isValidGodChoice) {
             model.setGod(action.getGod(), user);
+        } else {
+            view.handleMessage(StatusMessages.CLIENT_ERROR);
+        }
+    }
+
+    /**
+     * This method handles the set start player action
+     *
+     * @param action the ClientSetStartPlayerMessage action
+     * @param view   the view that triggered this command
+     * @param user   the user that triggered this command
+     */
+    public void dispatchSetStartPlayerAction(ClientSetStartPlayerMessage action, View view, User user) {
+        boolean isValidStartPlayerChoice = model.isValidStartPlayerChoice(action.startPlayer, user);
+
+        if (isValidStartPlayerChoice) {
+            model.setStartPlayer(action.startPlayer);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }

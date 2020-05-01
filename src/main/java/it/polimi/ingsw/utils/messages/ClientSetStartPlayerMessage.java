@@ -6,15 +6,16 @@ import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.view.View;
 
 public class ClientSetStartPlayerMessage implements ClientMessage, ControllerHandleable {
-    public final User startPlayer;
+    public final ReducedUser startPlayer;
 
-    public ClientSetStartPlayerMessage(User startPlayer) {
+    public ClientSetStartPlayerMessage(ReducedUser startPlayer) {
         super();
         this.startPlayer = startPlayer;
     }
 
     @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
-        return false;
+        handler.dispatchSetStartPlayerAction(this, view, user);
+        return true;
     }
 }

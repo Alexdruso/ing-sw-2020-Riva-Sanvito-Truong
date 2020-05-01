@@ -474,7 +474,21 @@ public class Game extends LambdaObservable<Transmittable> {
                 .anyMatch(x -> x.equals(startPlayer.nickname));
     }
 
-    public void setStartPlayer() {
+    /**
+     * Sets the first player to set the workers, move and build
+     *
+     * @param startPlayer the player who should start
+     */
+    public void setStartPlayer(ReducedUser startPlayer) {
+        //rotate queue till we get the right player
+        while (!players.peek().getNickname().equals(startPlayer.nickname)) {
+            Player player = players.poll();
+            players.add(player);
+        }
+        //change state
+        gameState = GameState.SET_WORKER_POSITION;
+        //send message of start positioning
+        notify(new ServerAskWorkerPositionMessage(WorkerID.WORKER1, startPlayer));
     }
 
     public boolean isValidPositioning(ClientSetWorkerStartPositionMessage command, User user) {
@@ -517,6 +531,10 @@ public class Game extends LambdaObservable<Transmittable> {
          * Setting the start player
          */
         SET_START_PLAYER,
+        /**
+         * Setting the workers initial position
+         */
+        SET_WORKER_POSITION,
         /**
          * The last state of the Game, possible just after a win or a draw
          */
