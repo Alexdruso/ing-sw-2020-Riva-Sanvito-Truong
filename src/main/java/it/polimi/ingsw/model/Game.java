@@ -355,6 +355,7 @@ public class Game extends LambdaObservable<Transmittable> {
             godsList.add(new ReducedGod(godCard.getGod().getName()));
         }
 
+        gameState = GameState.ASK_GODS_LIST;
         notify(
                 new ServerAskGodsFromListMessage(
                         firstUser.toReducedUser(),
