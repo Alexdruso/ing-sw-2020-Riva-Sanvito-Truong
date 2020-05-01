@@ -511,7 +511,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param targetCellX the x coordinate of the cell to which the worker shall be positioned
      * @param targetCellY the y coordinate of the cell to which the worker shall be positioned
      * @param performer   the worker
-     * @param user        tje user of the player choosing
+     * @param user        the user of the player choosing
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidPositioning(int targetCellX, int targetCellY, WorkerID performer, User user) {
