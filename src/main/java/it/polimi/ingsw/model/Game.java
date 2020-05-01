@@ -346,6 +346,26 @@ public class Game extends LambdaObservable<Transmittable> {
     }
 
     /**
+     * Checks if the player is in game
+     *
+     * @param user the user asking if he is in game
+     * @return true, unless the player lost at some point in the game
+     */
+    public boolean isInGame(User user) {
+        Player player = subscribedUsers.getValueFromKey(user);
+
+        return players.contains(player);
+    }
+
+    /**
+     * Signals the match to terminate
+     */
+    public void draw() {
+        gameState = GameState.END_GAME;
+    }
+
+
+    /**
      * First method to be called by the match, sends the request of a god sub list to the player who created the game
      */
     public void setup() {
@@ -361,13 +381,6 @@ public class Game extends LambdaObservable<Transmittable> {
                         godsList
                 )
         );
-    }
-
-    /**
-     * Signals the match to terminate
-     */
-    public void draw() {
-        gameState = GameState.END_GAME;
     }
 
     /**
