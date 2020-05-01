@@ -427,7 +427,7 @@ public class Game extends LambdaObservable<Transmittable> {
         GodCard god = GodCard.valueOf(reducedGod.name.toUpperCase());
 
         player.setGod(god.getGod());
-        notify(new ServerSetGodMessage(reducedGod, new ReducedUser(user.nickname)));
+        notify(new ServerSetGodMessage(reducedGod, user.toReducedUser()));
         //change pseudo turn
         players.poll();
         players.add(player);
@@ -445,15 +445,15 @@ public class Game extends LambdaObservable<Transmittable> {
                 assert players.peek() != null;
                 players.peek().setGod(godCard.getGod());
                 notify(new ServerSetGodMessage(new ReducedGod(godCard.toString()),
-                        new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname)));
+                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
             });
             //sends a first player request
-            new ServerAskStartPlayerMessage(new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname));
+            new ServerAskStartPlayerMessage(subscribedUsers.getKeyFromValue(players.peek()).toReducedUser());
         } else {
             gameState = GameState.SET_GODS;
             //sends gods request
             notify(new ServerAskGodFromListMessage(
-                    new ReducedUser(subscribedUsers.getKeyFromValue(players.peek()).nickname),
+                    subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
                     remainingGods.stream().map(x -> new ReducedGod(x.toString())).collect(Collectors.toList())));
         }
     }
