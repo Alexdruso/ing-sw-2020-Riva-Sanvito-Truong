@@ -224,12 +224,9 @@ public class Game extends LambdaObservable<Transmittable> {
         Worker worker = player.getWorkerByID(performer);
 
         Optional<Worker> workerOnCell = sourceCell.getWorker();
-        if (workerOnCell.isPresent()) {
-            return workerOnCell.get().equals(worker)
-                    && currentTurn.getPlayer().equals(player)
-                    && currentTurn.canMoveTo(worker, targetCell);
-        }
-        return false;
+        return workerOnCell.filter(value -> value.equals(worker)
+                && currentTurn.getPlayer().equals(player)
+                && currentTurn.canMoveTo(worker, targetCell)).isPresent();
     }
 
     /**
