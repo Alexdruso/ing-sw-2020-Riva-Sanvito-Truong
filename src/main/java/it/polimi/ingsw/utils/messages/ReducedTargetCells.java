@@ -1,12 +1,13 @@
 package it.polimi.ingsw.utils.messages;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
  * A reduced version of the TargetCells implementation made to be sent over the air
  */
-public class ReducedTargetCells {
+public class ReducedTargetCells implements Serializable {
     private final int BOARD_SIZE;
     private final boolean[][] targets;
 
