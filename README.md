@@ -9,9 +9,29 @@
 - Alessandro Sanvito (matricola: 891196)
 - Kien Tuong Truong (matricola: 887907)
 
+## Quick start guide
+
+Per eseguire il server:
+```bash
+java -jar target/Santorini-Server.jar
+```
+
+Per eseguire il client:
+```bash
+java -jar target/Santorini-Client.jar
+```
+
+### Variabili di ambiente
+
+| Nome variabile | Descrizione | Valori consentiti |
+| -------------- | ----------- | ----------------- |
+| `LOG_LEVEL` | Imposta la verbosità dei messaggi di log | Tutti i valori consentiti da [java.util.logging.Level](https://docs.oracle.com/en/java/javase/14/docs/api/java.logging/java/util/logging/Level.html). Default: `INFO`. |
+
 ## Sviluppo
 
-Lo strumento utilizzato per lo sviluppo del software è IntelliJ Idea 2019.3.
+Il software è stato sviluppato con [Java SE 14](https://docs.oracle.com/en/java/javase/14/).
+
+Lo strumento utilizzato per lo sviluppo è [IntelliJ Idea](https://www.jetbrains.com/idea/) 2020.1.
 
 ### Corretta visualizzazione dei colori della CLI
 
