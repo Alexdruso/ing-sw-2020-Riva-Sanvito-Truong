@@ -111,8 +111,22 @@ class TurnTest {
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
+        //A user to subscribe to the game
+        User myUser = spy(new User(myPlayer.getNickname()));
+        //Another player w/ his own User
+        Player myPlayer2 = spy(new Player("Il signor kekkeroni"));
+        User myUser2 = spy(new User(myPlayer2.getNickname()));
+        TurnEventsManager myTurnEventsManager2 = mock(TurnEventsManager.class);
+        when(myPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+        doNothing().when(myGame).triggerLosingTurn();
+        myGame.subscribeUser(myUser);
+        myGame.subscribeUser(myUser2);
+        when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
+        when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
+        when(myGame.getUserFromPlayer(myPlayer2)).thenReturn(myUser2);
+        when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
 
         //Setup the state to lose
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
@@ -161,6 +175,8 @@ class TurnTest {
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
         myGame.subscribeUser(myUser);
+        when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
+        when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
 
         //Setup the state to win
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
@@ -204,11 +220,23 @@ class TurnTest {
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
-        //A user
+        //A user to subscribe to the game
         User myUser = spy(new User(myPlayer.getNickname()));
+        //Another player w/ his own User
+        Player myPlayer2 = spy(new Player("Il signor kekkeroni"));
+        User myUser2 = spy(new User(myPlayer2.getNickname()));
+        TurnEventsManager myTurnEventsManager2 = mock(TurnEventsManager.class);
+        when(myPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+        doNothing().when(myGame).triggerEndTurn();
         myGame.subscribeUser(myUser);
+        myGame.subscribeUser(myUser2);
+        when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
+        when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
+        when(myGame.getUserFromPlayer(myPlayer2)).thenReturn(myUser2);
+        when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
+
 
         //Setup the state
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
@@ -258,11 +286,23 @@ class TurnTest {
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
-        //A user
+        //A user to subscribe to the game
         User myUser = spy(new User(myPlayer.getNickname()));
+        //Another player w/ his own User
+        Player myPlayer2 = spy(new Player("Il signor kekkeroni"));
+        User myUser2 = spy(new User(myPlayer2.getNickname()));
+        TurnEventsManager myTurnEventsManager2 = mock(TurnEventsManager.class);
+        when(myPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
+        doNothing().when(myGame).triggerEndTurn();
         myGame.subscribeUser(myUser);
+        myGame.subscribeUser(myUser2);
+        when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
+        when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
+        when(myGame.getUserFromPlayer(myPlayer2)).thenReturn(myUser2);
+        when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
+
         //Setup the state
         myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
         myBoard.getCell(1, 1).setWorker(myPlayer.getOwnWorkers()[0]);
