@@ -51,7 +51,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     /**
      * Handler of a disconnect message coming from the game
      *
-     * @param message a message coming from the game
+     * @param message a disconnect message coming from the game
      */
     public void updateFromGame(DisconnectMessage message) {
         connection.close(message);
