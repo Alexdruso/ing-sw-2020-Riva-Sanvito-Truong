@@ -213,7 +213,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void removeWorkerFromCell(Worker worker) {
         Cell cell = worker.getCell();
-        worker.getCell().setNoWorker();
+        cell.setNoWorker();
         worker.setCell(null);
 
         notify(
