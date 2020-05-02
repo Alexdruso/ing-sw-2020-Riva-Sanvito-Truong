@@ -33,6 +33,7 @@ class BuildTest {
     TargetCells mockTargetCells;
     Player mockPlayer;
     TurnEventsManager mockTurnEventsManager;
+    User mockUser;
 
     @BeforeEach
     void reset() {
@@ -43,7 +44,10 @@ class BuildTest {
         this.mockTargetCells = mock(TargetCells.class);
         this.mockPlayer = spy(new Player("Giosuè"));
         this.mockTurnEventsManager = mock(TurnEventsManager.class);
-        mockGame.subscribeUser(new User(mockPlayer.getNickname()));
+        this.mockUser = spy(new User(mockPlayer.getNickname()));
+        mockGame.subscribeUser(mockUser);
+        when(mockGame.getUserFromPlayer(mockPlayer)).thenReturn(mockUser);
+        when(mockGame.getPlayerFromUser(mockUser)).thenReturn(mockPlayer);
     }
 
     @Test
