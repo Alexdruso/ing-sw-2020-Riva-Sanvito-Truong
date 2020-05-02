@@ -4,19 +4,19 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
     public final ReducedUser user;
     public final boolean isSkippable;
     public final List<WorkerID> allowedWorkers;
-    public final HashMap<WorkerID, ReducedTargetCells> workerBlockBuildableCells;
-    public final HashMap<WorkerID, ReducedTargetCells> workerDomeBuildableCells;
+    public final Map<WorkerID, ReducedTargetCells> workerBlockBuildableCells;
+    public final Map<WorkerID, ReducedTargetCells> workerDomeBuildableCells;
 
     public ServerAskBuildMessage(ReducedUser user, boolean isSkippable, List<WorkerID> allowedWorkers,
-                                 HashMap<WorkerID, ReducedTargetCells> workerBlockBuildableCells,
-                                 HashMap<WorkerID, ReducedTargetCells> workerDomeBuildableCells) {
+                                 Map<WorkerID, ReducedTargetCells> workerBlockBuildableCells,
+                                 Map<WorkerID, ReducedTargetCells> workerDomeBuildableCells) {
         this.user = user;
         this.isSkippable = isSkippable;
         this.allowedWorkers = allowedWorkers;
