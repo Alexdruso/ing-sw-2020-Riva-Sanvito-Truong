@@ -44,7 +44,7 @@ class Move implements AbstractTurnState {
         if (!turn.isSkippable() && isNoMove) {
             turn.triggerLosingTurn(); //sets the turn to losing turn
         } else {
-            // notify();
+            turn.getGame().notifyAskMove(turn);
         }
     }
 

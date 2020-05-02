@@ -461,8 +461,8 @@ public class Game extends LambdaObservable<Transmittable> {
                 players.peek().setGod(lastGod);
                 notify(
                         new ServerSetGodMessage(
-                            new ReducedGod(lastGod.getName()),
-                            subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()
+                                new ReducedGod(lastGod.getName()),
+                                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()
                         )
                 );
             });
@@ -608,10 +608,57 @@ public class Game extends LambdaObservable<Transmittable> {
     }
 
     //useful methods to handle interaction with the turn
+
+    /**
+     * Notifies an askMoveMessage retrieving information from the turn
+     *
+     * @param turn the turn asking the notify the ask move
+     */
     public void notifyAskMove(Turn turn) {
+        notify(
+                new ServerAskMoveMessage(
+                        subscribedUsers.getKeyFromValue(turn.getPlayer()).toReducedUser(),
+                        turn.isSkippable(),
+                        turn.getAllowedWorkers().stream().map(Worker::getWorkerID).collect(Collectors.toList()),
+                        turn.getWalkableCells().entrySet().stream()
+                                .map(entry -> new AbstractMap.SimpleEntry<>(
+                                                entry.getKey().getWorkerID(),
+                                                entry.getValue().toReducedTargetCells()
+                                        )
+                                )
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)
+                                )
+                )
+        );
     }
 
+    /**
+     * notifies an askBuildMessage retrieving informations from the turn
+     *
+     * @param turn the turn asking to notify the ask build
+     */
     public void notifyAskBuild(Turn turn) {
+        notify(
+                new ServerAskBuildMessage(
+                        subscribedUsers.getKeyFromValue(turn.getPlayer()).toReducedUser(),
+                        turn.isSkippable(),
+                        turn.getAllowedWorkers().stream().map(Worker::getWorkerID).collect(Collectors.toList()),
+                        turn.getBlockBuildableCells().entrySet().stream()
+                                .map(entry -> new AbstractMap.SimpleEntry<>(
+                                                entry.getKey().getWorkerID(),
+                                                entry.getValue().toReducedTargetCells()
+                                        )
+                                )
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
+                        turn.getDomeBuildableCells().entrySet().stream()
+                                .map(entry -> new AbstractMap.SimpleEntry<>(
+                                                entry.getKey().getWorkerID(),
+                                                entry.getValue().toReducedTargetCells()
+                                        )
+                                )
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+                )
+        );
     }
 
     public void triggerEndTurn(Turn turn) {

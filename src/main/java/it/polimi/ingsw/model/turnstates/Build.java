@@ -54,7 +54,7 @@ class Build implements AbstractTurnState {
         if (!turn.isSkippable() && isNoBuild) {
             turn.triggerLosingTurn(); //sets the turn to losing turn
         } else {
-            // notify();
+            turn.getGame().notifyAskBuild(turn);
         }
     }
 

@@ -158,7 +158,7 @@ class BuildTest {
 
     @Test
     void setUpOneWorkerAllowedNoOccupiedCell() {
-//1 allowed worker scenario w/ faked win
+        //1 allowed worker scenario w/ faked win
         Board spiedBoard = spy(new Board());
         Worker mockWorker2 = mock(Worker.class);
         //worker 1 in cell 1 1
