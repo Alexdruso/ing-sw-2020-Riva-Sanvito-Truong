@@ -21,10 +21,6 @@ public class ReducedTargetCells implements Serializable {
         this.targets = targets.clone();
     }
 
-    private boolean isValidCoordinate(int x, int y) {
-        return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
-    }
-
     /**
      * This method checks if the ReducedTargetCells has any cell set to be targeted
      *
