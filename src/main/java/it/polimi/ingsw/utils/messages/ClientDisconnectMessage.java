@@ -5,7 +5,7 @@ import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.view.View;
 
-public class ClientDisconnectMessage implements ClientMessage, DisconnectMessage, ControllerHandleable {
+public class ClientDisconnectMessage implements DisconnectMessage, ClientMessage, ControllerHandleable {
     @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {
         handler.dispatchDrawAction(view, user);

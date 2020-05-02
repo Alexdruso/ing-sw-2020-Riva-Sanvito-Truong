@@ -209,7 +209,7 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Removes the worker from the cell
      *
-     * @param worker
+     * @param worker the worker needing to be removed
      */
     public void removeWorkerFromCell(Worker worker) {
         Cell cell = worker.getCell();
@@ -362,6 +362,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void draw() {
         gameState = GameState.END_GAME;
+        notify(new ServerDisconnectMessage());
     }
 
     /**
