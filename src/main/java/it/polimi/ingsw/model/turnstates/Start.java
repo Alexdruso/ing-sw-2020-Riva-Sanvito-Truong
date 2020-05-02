@@ -13,6 +13,5 @@ class Start implements AbstractTurnState {
         //Sets default next state
         turn.setNextState(TurnState.MOVE.getTurnState());
         turn.getPlayer().getTurnEventsManager().processTurnStartEvents(turn);
-        //TODO add default behaviour
     }
 }
