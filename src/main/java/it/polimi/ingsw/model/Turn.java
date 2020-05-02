@@ -177,6 +177,15 @@ public class Turn{
     }
 
     /**
+     * This method returns a map linking workers and their blockBuildableCells
+     *
+     * @return a map linking workers and their blockBuildableCells
+     */
+    public Map<Worker, TargetCells> getBlockBuildableCells() {
+        return new HashMap<>(blockBuildableCells);
+    }
+
+    /**
      * This method returns TargetCells related to Cells the Worker can build a dome in
      *
      * @param worker the worker involved
@@ -184,6 +193,16 @@ public class Turn{
      */
     public TargetCells getWorkerDomeBuildableCells(Worker worker) {
         return domeBuildableCells.get(worker);
+    }
+
+
+    /**
+     * This method returns a map linking workers and their domeBuildableCells
+     *
+     * @return a map linking workers and their domeBuildableCells
+     */
+    public Map<Worker, TargetCells> getDomeBuildableCells() {
+        return new HashMap<>(domeBuildableCells);
     }
 
     /**
@@ -196,13 +215,23 @@ public class Turn{
         return walkableCells.get(worker);
     }
 
+
+    /**
+     * This method returns a map linking workers and their walkableCells
+     *
+     * @return a map linking workers and their walkableCells
+     */
+    public Map<Worker, TargetCells> getWalkableCells() {
+        return new HashMap<>(walkableCells);
+    }
+
     /**
      * This method sets new block buildable cells for the worker
      *
-     * @param worker the worker involved
+     * @param worker      the worker involved
      * @param targetCells TargetCells related to Cells the Worker can build a block in
      */
-    public void setWorkerBlockBuildableCells(Worker worker, TargetCells targetCells){
+    public void setWorkerBlockBuildableCells(Worker worker, TargetCells targetCells) {
         this.blockBuildableCells.put(worker, targetCells);
     }
 
