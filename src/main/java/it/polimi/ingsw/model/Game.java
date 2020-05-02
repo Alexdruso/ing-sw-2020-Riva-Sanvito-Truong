@@ -177,7 +177,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify the move action
         notify(
                 new ServerMoveMessage(
-                        this.subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                        getUserFromPlayer(players.peek()).toReducedUser(),
                         startX,
                         startY,
                         cell.getX(),
@@ -198,7 +198,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify the build action
         notify(
                 new ServerBuildMessage(
-                        this.subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                        getUserFromPlayer(players.peek()).toReducedUser(),
                         cell.getX(),
                         cell.getY(),
                         component,
@@ -218,7 +218,7 @@ public class Game extends LambdaObservable<Transmittable> {
 
         notify(
                 new ServerRemoveWorkerMessage(
-                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                        getUserFromPlayer(players.peek()).toReducedUser(),
                         worker.getWorkerID(),
                         cell.getX(),
                         cell.getY()
@@ -242,7 +242,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                WorkerID performer, User user) {
         Cell sourceCell = board.getCell(sourceCellX, sourceCellY);
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         Worker worker = player.getWorkerByID(performer);
 
         Optional<Worker> workerOnCell = sourceCell.getWorker();
@@ -263,7 +263,7 @@ public class Game extends LambdaObservable<Transmittable> {
     public void move(int targetCellX, int targetCellY,
                      WorkerID performer, User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         Worker worker = player.getWorkerByID(performer);
         try {
             currentTurn.moveTo(worker, targetCell);
@@ -286,7 +286,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                 Component component, WorkerID performer,
                                 User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(performer);
+        Worker worker = getPlayerFromUser(user).getWorkerByID(performer);
         if (gameState != GameState.PLAY
                 || !worker.getPlayer().equals(currentTurn.getPlayer())) {
             //The worker does not belong to the active player
@@ -312,7 +312,7 @@ public class Game extends LambdaObservable<Transmittable> {
                       Component component, WorkerID performer,
                       User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Worker worker = subscribedUsers.getValueFromKey(user).getWorkerByID(performer);
+        Worker worker = getPlayerFromUser(user).getWorkerByID(performer);
         try {
             if (component == Component.BLOCK) {
                 currentTurn.buildBlockIn(worker, targetCell);
@@ -352,7 +352,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true, unless the player lost at some point in the game
      */
     public boolean isInGame(User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
 
         return players.contains(player);
     }
@@ -374,7 +374,7 @@ public class Game extends LambdaObservable<Transmittable> {
         notify(serverStartSetupMatchMessage);
 
         //sens the request of the gods sub list
-        User firstUser = subscribedUsers.getKeyFromValue(players.peek());
+        User firstUser = getUserFromPlayer(players.peek());
         List<ReducedGod> godsList = Arrays.stream(GodCard.values()).map(GodCard::getGod).map(God::getName)
                 .map(ReducedGod::new).collect(Collectors.toList());
 
@@ -395,7 +395,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidGodsChoice(List<ReducedGod> chosenGods, User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         return gameState == GameState.ASK_GODS_LIST //check right state
                 && player.equals(players.peek()) //check the player is right
                 && chosenGods.size() == players.size() //check right number of gods
@@ -423,7 +423,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //send god request
         notify(
                 new ServerAskGodFromListMessage(
-                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                        getUserFromPlayer(players.peek()).toReducedUser(),
                         chosenGods
                 )
         );
@@ -437,7 +437,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidGodChoice(ReducedGod reducedGod, User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         return gameState == GameState.SET_GODS //check right state
                 && player.equals(players.peek()) //check right player
                 && availableGods.stream().map(God::getName) //check god is in game
@@ -455,7 +455,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user       teh user of the player
      */
     public void setGod(ReducedGod reducedGod, User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         GodCard god = GodCard.valueOf(reducedGod.name.toUpperCase());
 
         player.setGod(god.getGod());
@@ -479,17 +479,17 @@ public class Game extends LambdaObservable<Transmittable> {
                 notify(
                         new ServerSetGodMessage(
                                 new ReducedGod(lastGod.getName()),
-                                subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()
+                                getUserFromPlayer(players.peek()).toReducedUser()
                         )
                 );
             });
             //sends a first player request
-            notify(new ServerAskStartPlayerMessage(subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()));
+            notify(new ServerAskStartPlayerMessage(getUserFromPlayer(players.peek()).toReducedUser()));
         } else {
             gameState = GameState.SET_GODS;
             //sends gods request
             notify(new ServerAskGodFromListMessage(
-                    subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                    getUserFromPlayer(players.peek()).toReducedUser(),
                     remainingGods.stream().map(x -> new ReducedGod(x.toString())).collect(Collectors.toList())));
         }
     }
@@ -502,7 +502,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidStartPlayerChoice(ReducedUser startPlayer, User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         return gameState == GameState.SET_START_PLAYER //check right state
                 && player.equals(players.peek()) //check it's the player's turn
                 && players.stream().map(Player::getNickname) //check start player is possible
@@ -539,7 +539,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidPositioning(int targetCellX, int targetCellY, WorkerID performer, User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Worker worker = player.getWorkerByID(performer);
         return gameState == GameState.SET_WORKER_POSITION //check right state
@@ -559,7 +559,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user        tje user of the player choosing
      */
     public void setWorkerPosition(int targetCellX, int targetCellY, WorkerID performer, User user) {
-        Player player = subscribedUsers.getValueFromKey(user);
+        Player player = getPlayerFromUser(user);
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Worker worker = player.getWorkerByID(performer);
         //set the position
@@ -599,7 +599,7 @@ public class Game extends LambdaObservable<Transmittable> {
 
                                         notify(new ServerAskWorkerPositionMessage(
                                                         y.getWorkerID(),
-                                                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                                                        getUserFromPlayer(players.peek()).toReducedUser(),
                                                         targetCells.toReducedTargetCells()
                                                 )
                                         );
@@ -635,7 +635,7 @@ public class Game extends LambdaObservable<Transmittable> {
         gameState = GameState.PLAY;
         notify(
                 new ServerAskMoveMessage(
-                        subscribedUsers.getKeyFromValue(turn.getPlayer()).toReducedUser(),
+                        getUserFromPlayer(turn.getPlayer()).toReducedUser(),
                         turn.isSkippable(),
                         turn.getAllowedWorkers().stream().map(Worker::getWorkerID).collect(Collectors.toList()),
                         turn.getWalkableCells().entrySet().stream()
@@ -659,7 +659,7 @@ public class Game extends LambdaObservable<Transmittable> {
         gameState = GameState.PLAY;
         notify(
                 new ServerAskBuildMessage(
-                        subscribedUsers.getKeyFromValue(turn.getPlayer()).toReducedUser(),
+                        getUserFromPlayer(turn.getPlayer()).toReducedUser(),
                         turn.isSkippable(),
                         turn.getAllowedWorkers().stream().map(Worker::getWorkerID).collect(Collectors.toList()),
                         turn.getBlockBuildableCells().entrySet().stream()
@@ -705,7 +705,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //tell the player he lost
         notify(
                 new ServerLoseGameMessage(
-                        subscribedUsers.getKeyFromValue(losingPlayer).toReducedUser()
+                        getUserFromPlayer(losingPlayer).toReducedUser()
                 )
         );
         //now check if the game is still going on
@@ -724,7 +724,7 @@ public class Game extends LambdaObservable<Transmittable> {
         gameState = GameState.END_GAME;
         notify(
                 new ServerWinGameMessage(
-                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()
+                        getUserFromPlayer(players.peek()).toReducedUser()
                 )
         );
     }
@@ -732,6 +732,26 @@ public class Game extends LambdaObservable<Transmittable> {
     /*
     Getters and setters section
      */
+
+    /**
+     * This method returns the user linked to the player
+     *
+     * @param player the player
+     * @return the user linked to the player
+     */
+    public User getUserFromPlayer(Player player) {
+        return subscribedUsers.getKeyFromValue(player);
+    }
+
+    /**
+     * This method returns the player linked to the user
+     *
+     * @param user the user
+     * @return the player linked to the user
+     */
+    public Player getPlayerFromUser(User user) {
+        return subscribedUsers.getValueFromKey(user);
+    }
 
     /**
      * All the possible states of the game
