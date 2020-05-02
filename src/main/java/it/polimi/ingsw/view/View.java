@@ -36,7 +36,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      */
     public void updateFromClient(DisconnectMessage message) {
         connection.close();
-        this.notify(new ViewClientMessage((ClientMessage) message, this, this.getUser()));
+        this.updateFromClient((Transmittable) message);
     }
 
     /**
