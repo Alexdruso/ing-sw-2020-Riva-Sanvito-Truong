@@ -206,6 +206,9 @@ public class Game extends LambdaObservable<Transmittable> {
                         worker.getWorkerID()));
     }
 
+    public void removeWorkerFromCell(Worker worker, Cell cell) {
+    }
+
     /**
      * Checks if the PlayerMoveCommand can be executed
      *
