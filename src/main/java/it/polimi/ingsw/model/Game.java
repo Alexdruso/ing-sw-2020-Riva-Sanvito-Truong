@@ -112,7 +112,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return the List of players of this game
      */
     public List<Player> getPlayersList() {
-        return new ArrayList<>(subscribedUsers.values());
+        return new ArrayList<>(players);
     }
 
     /**
@@ -206,7 +206,24 @@ public class Game extends LambdaObservable<Transmittable> {
                         worker.getWorkerID()));
     }
 
-    public void removeWorkerFromCell(Worker worker, Cell cell) {
+    /**
+     * Removes the worker from the cell
+     *
+     * @param worker
+     */
+    public void removeWorkerFromCell(Worker worker) {
+        Cell cell = worker.getCell();
+        worker.getCell().setNoWorker();
+        worker.setCell(null);
+
+        notify(
+                new ServerRemoveWorkerMessage(
+                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser(),
+                        worker.getWorkerID(),
+                        cell.getX(),
+                        cell.getY()
+                )
+        );
     }
 
     /**
@@ -591,7 +608,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         //no more workers to be positioned
                                         gameState = GameState.PLAY;
                                         notify(new ServerStartPlayMatchMessage());
-                                        currentTurn = new Turn(this, players.peek());
+                                        addNewTurn(players.peek());
                                     }
                             );
                 }
@@ -615,6 +632,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param turn the turn asking the notify the ask move
      */
     public void notifyAskMove(Turn turn) {
+        gameState = GameState.PLAY;
         notify(
                 new ServerAskMoveMessage(
                         subscribedUsers.getKeyFromValue(turn.getPlayer()).toReducedUser(),
@@ -638,6 +656,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param turn the turn asking to notify the ask build
      */
     public void notifyAskBuild(Turn turn) {
+        gameState = GameState.PLAY;
         notify(
                 new ServerAskBuildMessage(
                         subscribedUsers.getKeyFromValue(turn.getPlayer()).toReducedUser(),
@@ -661,13 +680,53 @@ public class Game extends LambdaObservable<Transmittable> {
         );
     }
 
-    public void triggerEndTurn(Turn turn) {
+    /**
+     * Triggers a default end of turn
+     */
+    public void triggerEndTurn() {
+        gameState = GameState.PLAY;
+        //rotate the players
+        Player player = players.poll();
+        players.add(player);
+        //create a new turn
+        addNewTurn(players.peek());
     }
 
-    public void triggerLosingTurn(Turn turn) {
+    /**
+     * Triggers a losing turn
+     */
+    public void triggerLosingTurn() {
+        Player losingPlayer = players.peek();
+        //removes all the workers of that player
+        assert losingPlayer != null;
+        Arrays.stream(losingPlayer.getOwnWorkers()).forEach(this::removeWorkerFromCell);
+        //rotate the players removing the current turn player
+        players.poll();
+        //tell the player he lost
+        notify(
+                new ServerLoseGameMessage(
+                        subscribedUsers.getKeyFromValue(losingPlayer).toReducedUser()
+                )
+        );
+        //now check if the game is still going on
+        if (players.size() == 1) {
+            triggerWinningTurn();
+        } else {
+            gameState = GameState.PLAY;
+            addNewTurn(players.peek());
+        }
     }
 
-    public void triggerWinningTurn(Turn turn) {
+    /**
+     * Triggers a winning turn
+     */
+    public void triggerWinningTurn() {
+        gameState = GameState.END_GAME;
+        notify(
+                new ServerWinGameMessage(
+                        subscribedUsers.getKeyFromValue(players.peek()).toReducedUser()
+                )
+        );
     }
 
     /*

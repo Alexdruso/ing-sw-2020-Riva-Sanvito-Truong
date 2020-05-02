@@ -4,13 +4,13 @@ import it.polimi.ingsw.model.Turn;
 
 class Win implements AbstractTurnState {
     /**
-     * This method sets things up before we can use the other methods provided by the state
+     * This method triggers a winning turn
      *
      * @param turn the Context
      */
     public void setup(Turn turn) {
         //Sets default next state
         turn.setNextState(TurnState.WIN.getTurnState());
-        //TODO
+        turn.getGame().triggerWinningTurn();
     }
 }
