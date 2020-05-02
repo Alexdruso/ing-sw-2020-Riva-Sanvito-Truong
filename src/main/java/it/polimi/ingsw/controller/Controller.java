@@ -70,7 +70,6 @@ public class Controller implements LambdaObserver {
      * @param user the User that triggered this command
      */
     public void dispatchDrawAction(View view, User user) {
-        view.closeConnection();
         view.removeObserver(this);
         model.removeObserver(view);
 

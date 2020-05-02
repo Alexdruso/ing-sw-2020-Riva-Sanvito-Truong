@@ -5,6 +5,7 @@ import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientMessage;
+import it.polimi.ingsw.utils.messages.DisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
@@ -29,12 +30,31 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     }
 
     /**
+     * Handler of a disconnect message coming from the client
+     *
+     * @param message a message coming from the client
+     */
+    public void updateFromClient(DisconnectMessage message) {
+        connection.close();
+        this.notify(new ViewClientMessage((ClientMessage) message, this, this.getUser()));
+    }
+
+    /**
      * Handler of a message coming from the game
      *
      * @param message a message coming from the game
      */
     public void updateFromGame(Transmittable message) {
         this.connection.send(message);
+    }
+
+    /**
+     * Handler of a disconnect message coming from the game
+     *
+     * @param message a message coming from the game
+     */
+    public void updateFromGame(DisconnectMessage message) {
+        connection.close(message);
     }
 
     /**
@@ -45,13 +65,6 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      */
     public void handleMessage(StatusMessages message) throws UnsupportedOperationException {
         this.connection.send(message);
-    }
-
-    /**
-     * Closes the connection held by the view
-     */
-    public void closeConnection() {
-        connection.close();
     }
 
     /**

@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ServerDisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
@@ -102,9 +101,6 @@ public class Match implements Runnable {
             //check if the game is active
             this.setIsPlaying(this.model.isActive());
         }
-        //close all the still active connections
-        participantsNicknameToConnection.values().stream()
-                .filter(Connection::isActive).forEach(connection -> connection.close(new ServerDisconnectMessage()));
     }
 
     /**
