@@ -29,9 +29,9 @@ public class WorkerTest {
     public void getWorkerID() {
         Player owner = new Player("Pippo");
         Worker testWorker = new Worker(owner, WorkerID.WORKER1);
-        assertEquals(testWorker.getWorkerID(), WorkerID.WORKER1);
+        assertEquals(WorkerID.WORKER1, testWorker.getWorkerID());
         testWorker = new Worker(owner, WorkerID.WORKER2);
-        assertEquals(testWorker.getWorkerID(), WorkerID.WORKER2);
+        assertEquals(WorkerID.WORKER2, testWorker.getWorkerID());
     }
 
     @Test
