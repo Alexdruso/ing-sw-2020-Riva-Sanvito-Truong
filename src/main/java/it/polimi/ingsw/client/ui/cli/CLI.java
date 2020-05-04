@@ -95,6 +95,7 @@ public class CLI extends UI {
             case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
             case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersCLIClientState(client);
+            case WELCOME_SCREEN -> new WelcomeScreenCLIClientState(client);
         };
     }
 

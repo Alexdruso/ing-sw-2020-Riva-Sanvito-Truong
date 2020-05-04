@@ -19,6 +19,6 @@ public abstract class AbstractWelcomeScreenState extends AbstractClientState{
 
     @Override
     public void notifyUiInteraction() {
-        //No action to notify
+        client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 }

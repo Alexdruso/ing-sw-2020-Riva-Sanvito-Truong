@@ -50,7 +50,7 @@ public class Client implements LambdaObserver {
      */
     public Client(UI ui) {
         this.ui = ui;
-        nextState = ClientState.CONNECT_TO_SERVER;
+        nextState = ClientState.WELCOME_SCREEN;
     }
 
     /**
