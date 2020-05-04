@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerAskGodsFromListMessage implements ServerMessage, ClientHandleable {
-    private final ReducedUser user;
+    public final ReducedUser user;
     private final List<ReducedGod> godsList;
 
     public ServerAskGodsFromListMessage(ReducedUser user, List<ReducedGod> godsList) {
