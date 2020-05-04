@@ -4,7 +4,7 @@ orbs:
   maven: circleci/maven@1.0.0
 
 jobs:
-  master_push:
+  master_push_job:
     working_directory: ~/ing-sw-2020-Riva-Sanvito-Truong
 
     docker:
@@ -73,7 +73,7 @@ workflows:
   version: 2
   master_push:
     jobs:
-      - master_push:
+      - master_push_job:
           filters:
             branches:
               only:
