@@ -3,9 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientBuildMessage;
-import it.polimi.ingsw.utils.messages.ClientMoveMessage;
-import it.polimi.ingsw.utils.messages.ClientSkipMessage;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.ViewClientMessage;
 import org.junit.jupiter.api.Test;
@@ -22,9 +20,63 @@ class ControllerTest {
         View myView = mock(View.class);
         User myUser = mock(User.class);
         //mock the actions
-        ClientBuildMessage myBuildCommand = spy(new ClientBuildMessage(0, 0, Component.BLOCK, 0, null));
-        ClientMoveMessage myMoveCommand = spy(new ClientMoveMessage(0, 0, 0, 0, null));
+        ClientChooseGodsMessage myChooseGodsCommand = spy(
+                new ClientChooseGodsMessage(
+                        null
+                )
+        );
+        ClientChooseGodMessage myChooseGodCommand = spy(
+                new ClientChooseGodMessage(
+                        null
+                )
+        );
+        ClientSetStartPlayerMessage mySetStartPlayerCommand = spy(
+                new ClientSetStartPlayerMessage(
+                        null
+                )
+        );
+        ClientSetWorkerStartPositionMessage mySetStartPositionMessage = spy(
+                new ClientSetWorkerStartPositionMessage(
+                        0,
+                        0,
+                        null
+                )
+        );
+        ClientDisconnectMessage myDisconnectMessage = spy(
+                new ClientDisconnectMessage()
+        );
+        ClientBuildMessage myBuildCommand = spy(
+                new ClientBuildMessage(
+                        0,
+                        0,
+                        Component.BLOCK,
+                        0,
+                        null
+                )
+        );
+        ClientMoveMessage myMoveCommand = spy(
+                new ClientMoveMessage(
+                        0,
+                        0,
+                        0,
+                        0,
+                        null)
+        );
         ClientSkipMessage mySkipCommand = spy(new ClientSkipMessage());
+
+        ViewClientMessage chooseGodsViewClientMessage = new ViewClientMessage(myChooseGodsCommand, myView, myUser);
+        ViewClientMessage chooseGodViewClientMessage = new ViewClientMessage(myChooseGodCommand, myView, myUser);
+        ViewClientMessage setStartPlayerViewClientMessage = new ViewClientMessage(
+                mySetStartPositionMessage,
+                myView,
+                myUser
+        );
+        ViewClientMessage setStartPositionViewClientMessage = new ViewClientMessage(
+                mySetStartPositionMessage,
+                myView,
+                myUser
+        );
+        ViewClientMessage disconnectViewClientMessage = new ViewClientMessage(myDisconnectMessage, myView, myUser);
         ViewClientMessage buildViewClientMessage = new ViewClientMessage(myBuildCommand, myView, myUser);
         ViewClientMessage moveViewClientMessage = new ViewClientMessage(myMoveCommand, myView, myUser);
         ViewClientMessage skipViewClientMessage = new ViewClientMessage(mySkipCommand, myView, myUser);
@@ -82,8 +134,61 @@ class ControllerTest {
         View myView = mock(View.class);
         User myUser = mock(User.class);
         //mock the actions
-        ClientBuildMessage myBuildCommand = spy(new ClientBuildMessage(0, 0, Component.BLOCK, 0, null));
-        ClientMoveMessage myMoveCommand = spy(new ClientMoveMessage(0, 0, 0, 0, null));
+        ClientChooseGodsMessage myChooseGodsCommand = spy(
+                new ClientChooseGodsMessage(
+                        null
+                )
+        );
+        ClientChooseGodMessage myChooseGodCommand = spy(
+                new ClientChooseGodMessage(
+                        null
+                )
+        );
+        ClientSetStartPlayerMessage mySetStartPlayerCommand = spy(
+                new ClientSetStartPlayerMessage(
+                        null
+                )
+        );
+        ClientSetWorkerStartPositionMessage mySetStartPositionMessage = spy(
+                new ClientSetWorkerStartPositionMessage(
+                        0,
+                        0,
+                        null
+                )
+        );
+        ClientDisconnectMessage myDisconnectMessage = spy(
+                new ClientDisconnectMessage()
+        );
+
+        ViewClientMessage chooseGodsViewClientMessage = new ViewClientMessage(myChooseGodsCommand, myView, myUser);
+        ViewClientMessage chooseGodViewClientMessage = new ViewClientMessage(myChooseGodCommand, myView, myUser);
+        ViewClientMessage setStartPlayerViewClientMessage = new ViewClientMessage(
+                mySetStartPositionMessage,
+                myView,
+                myUser
+        );
+        ViewClientMessage setStartPositionViewClientMessage = new ViewClientMessage(
+                mySetStartPositionMessage,
+                myView,
+                myUser
+        );
+        ViewClientMessage disconnectViewClientMessage = new ViewClientMessage(myDisconnectMessage, myView, myUser);
+        ClientBuildMessage myBuildCommand = spy(
+                new ClientBuildMessage(
+                        0,
+                        0,
+                        Component.BLOCK,
+                        0,
+                        null)
+        );
+        ClientMoveMessage myMoveCommand = spy(
+                new ClientMoveMessage(
+                        0,
+                        0,
+                        0,
+                        0,
+                        null)
+        );
         ClientSkipMessage mySkipCommand = spy(new ClientSkipMessage());
         ViewClientMessage buildViewClientMessage = new ViewClientMessage(myBuildCommand, myView, myUser);
         ViewClientMessage moveViewClientMessage = new ViewClientMessage(myMoveCommand, myView, myUser);
