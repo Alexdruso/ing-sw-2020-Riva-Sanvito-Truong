@@ -61,6 +61,12 @@ class TurnTest {
         myTurn.setWinningTurn();
         assertTrue(myTurn.isWinningTurn());
 
+
+        //now just try to revert things
+        myTurn.setNeutralTurn();
+        assertFalse(myTurn.isLosingTurn());
+        assertFalse(myTurn.isWinningTurn());
+
         myTurn.addPerformedAction(new MoveAction(new Cell(0, 0), new Cell(1, 1), 0, 0, myPlayer.getOwnWorkers()[0]));
         myTurn.addPerformedAction(new BuildAction(new Cell(0, 0), Component.BLOCK.getInstance(), 5, myPlayer.getOwnWorkers()[0]));
         assertEquals(2, myTurn.getPerformedAction().size());

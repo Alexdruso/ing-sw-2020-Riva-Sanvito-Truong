@@ -27,7 +27,7 @@ class MatchTest {
          */
 
         //setup test source, this is going to be a quite weird and important match
-        LinkedHashMap<String, Connection> myMap = new LinkedHashMap<String, Connection>();
+        LinkedHashMap<String, Connection> myMap = new LinkedHashMap<>();
         String[] nicknames = new String[]{"Alan Turing", "Steve Wozniak", "Edsger W. Dijkstra"};
         myMap.put(nicknames[0], mock(Connection.class));
         myMap.put(nicknames[1], mock(Connection.class));
@@ -109,8 +109,8 @@ class MatchTest {
          */
 
         //setup test source, this is going to be a quite weird and important match
-        LinkedHashMap<String, Connection> myMap = new LinkedHashMap<String, Connection>();
-        String[] nicknames = new String[]{"Alan Turing","Steve Wozniak","Edsger W. Dijkstra","Ada Lovelace","James Gosling"};
+        LinkedHashMap<String, Connection> myMap = new LinkedHashMap<>();
+        String[] nicknames = new String[]{"Alan Turing", "Steve Wozniak", "Edsger W. Dijkstra", "Ada Lovelace", "James Gosling"};
         myMap.put(nicknames[0], mock(Connection.class));
         myMap.put(nicknames[1], mock(Connection.class));
         myMap.put(nicknames[2], mock(Connection.class));
