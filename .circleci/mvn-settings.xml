@@ -1,0 +1,19 @@
+<settings>
+    <pluginGroups>
+        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+    </pluginGroups>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>
+                    https://sq-ingsw.arcloud.it
+                </sonar.host.url>
+                <sonar.projectKey>GC02</sonar.projectKey>
+            </properties>
+        </profile>
+    </profiles>
+</settings>
