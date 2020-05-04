@@ -134,18 +134,16 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public Turn addNewTurn(Player player) {
         Turn turn = new Turn(this, player);
-        if (lastRound.size() < MAX_NUMBER_OF_PLAYERS) {
-            lastRound.addLast(turn);
-        } else {
-            Collections.rotate(lastRound, -1);
+        if (lastRound.size() >= players.size()) {
             if (!getPlayersList().contains(lastRound.getLast().getPlayer())) {
                 //Make the lastRound list shorter to match the number of players
                 lastRound.removeLast();
             }
+            Collections.rotate(lastRound, -1);
             lastRound.removeLast();
-            lastRound.addLast(turn);
-            currentTurn = lastRound.getLast();
         }
+        lastRound.addLast(turn);
+        currentTurn = turn;
         return turn;
     }
 
@@ -240,16 +238,23 @@ public class Game extends LambdaObservable<Transmittable> {
     public boolean isValidMove(int sourceCellX, int sourceCellY,
                                int targetCellX, int targetCellY,
                                WorkerID performer, User user) {
-        Cell sourceCell = board.getCell(sourceCellX, sourceCellY);
-        Cell targetCell = board.getCell(targetCellX, targetCellY);
+
         Player player = getPlayerFromUser(user);
         Worker worker = player.getWorkerByID(performer);
 
-        Optional<Worker> workerOnCell = sourceCell.getWorker();
         return gameState == GameState.PLAY
-                && workerOnCell.filter(value -> value.equals(worker)
+                && sourceCellX >= 0
+                && sourceCellX <= board.getDimension()
+                && sourceCellY >= 0
+                && sourceCellY <= board.getDimension()
+                && targetCellX >= 0
+                && targetCellX <= board.getDimension()
+                && targetCellY >= 0
+                && targetCellY <= board.getDimension()
                 && currentTurn.getPlayer().equals(player)
-                && currentTurn.canMoveTo(worker, targetCell)).isPresent();
+                && board.getCell(sourceCellX, sourceCellY).getWorker()
+                .map(worker1 -> worker1.equals(player.getWorkerByID(performer))).orElse(false)
+                && currentTurn.canMoveTo(worker, board.getCell(targetCellX, targetCellY));
     }
 
     /**
@@ -285,18 +290,25 @@ public class Game extends LambdaObservable<Transmittable> {
     public boolean isValidBuild(int targetCellX, int targetCellY,
                                 Component component, WorkerID performer,
                                 User user) {
-        Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Worker worker = getPlayerFromUser(user).getWorkerByID(performer);
-        if (gameState != GameState.PLAY
-                || !worker.getPlayer().equals(currentTurn.getPlayer())) {
-            //The worker does not belong to the active player
-            return false;
+
+        Player player = getPlayerFromUser(user);
+        Worker worker = player.getWorkerByID(performer);
+        if (gameState == GameState.PLAY
+                && targetCellX >= 0
+                && targetCellX <= board.getDimension()
+                && targetCellY >= 0
+                && targetCellY <= board.getDimension()
+                && currentTurn.getPlayer().equals(player)
+        ) {
+            Cell targetCell = board.getCell(targetCellX, targetCellY);
+            if (component == Component.BLOCK) {
+                return currentTurn.canBuildBlockIn(worker, targetCell);
+            } else {
+                return currentTurn.canBuildDomeIn(worker, targetCell);
+            }
         }
-        if (component == Component.BLOCK) {
-            return currentTurn.canBuildBlockIn(worker, targetCell);
-        } else {
-            return currentTurn.canBuildDomeIn(worker, targetCell);
-        }
+
+        return false;
     }
 
     /**
@@ -541,14 +553,17 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public boolean isValidPositioning(int targetCellX, int targetCellY, WorkerID performer, User user) {
         Player player = getPlayerFromUser(user);
-        Cell targetCell = board.getCell(targetCellX, targetCellY);
         Worker worker = player.getWorkerByID(performer);
         return gameState == GameState.SET_WORKER_POSITION //check right state
+                && targetCellX >= 0
+                && targetCellX < board.getDimension()
+                && targetCellY >= 0
+                && targetCellY < board.getDimension()
                 && player.equals(players.peek()) //check it's player's turn
                 && Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
                 .findFirst().map(x -> x.getWorkerID() == performer).orElse(false)
                 && worker.getCell() == null //check worker has no cell yet
-                && targetCell.getWorker().isEmpty(); //check cell is not occupied
+                && board.getCell(targetCellX, targetCellY).getWorker().isEmpty(); //check cell is not occupied
     }
 
     /**

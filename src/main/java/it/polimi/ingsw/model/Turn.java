@@ -112,7 +112,6 @@ public class Turn{
         this.currentState.setup(this);
         //Go to the next state
         this.changeState();
-        this.currentState.setup(this);
     }
 
     /**
