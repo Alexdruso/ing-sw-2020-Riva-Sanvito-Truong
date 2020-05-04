@@ -30,4 +30,11 @@ public abstract class AbstractInGameClientState extends AbstractClientState {
     public boolean handleServerMessage(ServerMessage message) {
         return false;
     }
+
+    @Override
+    public void handleClientError() throws UnsupportedOperationException {
+        client.getGame().getTurn().getTurnState().handleClientError();
+        client.moveToState(ClientState.IN_GAME);
+        triggerRender();
+    }
 }

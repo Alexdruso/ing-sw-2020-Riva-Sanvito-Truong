@@ -7,12 +7,14 @@ import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ReducedWorkerID;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * The CLI-specific SHOW_GAME_PASSIVE ClientState.
  */
 public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClientState implements CLIClientState {
     private final CLI cli;
+    private final Random r = new Random();
 
     /**
      * Instantiates a new CLI-specific SHOW_GAME_PASSIVE ClientState.
@@ -26,7 +28,6 @@ public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClient
 
     @Override
     public void render() {
-        cli.clear();
 
         ReducedPlayer p1 = new ReducedPlayer(new ReducedUser("pippo"), false, 0);
         ReducedPlayer p2 = new ReducedPlayer(new ReducedUser("LOL"), true, 1);
@@ -47,11 +48,21 @@ public class ShowGamePassiveCLIClientState extends AbstractShowGamePassiveClient
         temp.getCell(3,2).setWorker(p3w1);
         temp.getCell(4,1).setWorker(p3w2);
 
-        cli.drawBoard(temp);
-        cli.printPlayersOfGame(tempgame);
-        cli.println("", 28, 0);
-        cli.readString("Quale worker vuoi usare per la tua mossa? (lettera o coordinate)", null, 3);
-        render();
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                temp.getCell(i, j).setTowerHeight(r.nextInt(4));
+                temp.getCell(i, j).setHasDome(r.nextInt(100) < 8);
+            }
+        }
+
+        while (Thread.currentThread().isAlive()) {
+            cli.clear();
+            cli.drawBoard(temp);
+            cli.printPlayersOfGame(tempgame);
+            cli.moveCursorToStatusPosition();
+            ReducedCell ctemp = cli.readCell(temp, "Quale worker vuoi usare per la tua mossa? (lettera o coordinate)");
+            ctemp.setHighlighted(true);
+        }
     }
 
 }

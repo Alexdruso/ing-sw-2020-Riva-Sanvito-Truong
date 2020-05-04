@@ -13,4 +13,8 @@ public enum WorkerID {
             return null;
         }
     }
+
+    public ReducedWorkerID toReducedWorkerId() {
+        return ReducedWorkerID.valueOf(this.name());
+    }
 }
