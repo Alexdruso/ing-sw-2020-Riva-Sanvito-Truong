@@ -567,7 +567,7 @@ public class Game extends LambdaObservable<Transmittable> {
         worker.setCell(targetCell);
         targetCell.setWorker(worker);
         //notify set position
-        notify(new ServerSetWorkerStartPositionMessage(user.toReducedUser(), targetCellX, targetCellY, performer));
+        notify(new ServerSetWorkerStartPositionMessage(user.toReducedUser(), targetCellX, targetCellY, performer.toReducedWorkerId()));
         //now check if any worker from the same player is left without a cell
         //generate the ReducedTargetCells
         TargetCells targetCells = (new TargetCells()).setAllTargets(true);

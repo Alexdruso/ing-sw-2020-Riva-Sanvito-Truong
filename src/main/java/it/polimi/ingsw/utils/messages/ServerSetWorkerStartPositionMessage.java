@@ -1,7 +1,6 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerSetWorkerStartPositionMessage implements ServerMessage, ClientHandleable {
@@ -19,7 +18,7 @@ public class ServerSetWorkerStartPositionMessage implements ServerMessage, Clien
     /**
      * The positioned worker
      */
-    public final WorkerID performer;
+    public final ReducedWorkerID workerID;
 
     /**
      * Constructor, stores all the variables by reference
@@ -27,17 +26,18 @@ public class ServerSetWorkerStartPositionMessage implements ServerMessage, Clien
      * @param user        the user performing the set position
      * @param targetCellX The x coordinate of the cell to which the worker is positioned
      * @param targetCellY The y coordinate of the cell to which the worker is positioned
-     * @param performer   The positioned worker
+     * @param workerID   The positioned worker
      */
-    public ServerSetWorkerStartPositionMessage(ReducedUser user, int targetCellX, int targetCellY, WorkerID performer) {
+    public ServerSetWorkerStartPositionMessage(ReducedUser user, int targetCellX, int targetCellY, ReducedWorkerID workerID) {
         this.user = user;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
-        this.performer = performer;
+        this.workerID = workerID;
     }
 
     @Override
     public boolean handleTransmittable(Client client) {
-        return false;
+        client.getGame().addWorker(user, workerID, targetCellX, targetCellY);
+        return true;
     }
 }

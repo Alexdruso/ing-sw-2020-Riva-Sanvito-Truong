@@ -1,29 +1,23 @@
 package it.polimi.ingsw.client.reducedmodel;
 
 import java.util.Optional;
-import java.util.Random;
 
 public class ReducedCell {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     private int towerHeight;
     private boolean hasDome;
-    private boolean isWalkable;
-    private boolean isDomeBuildable;
-    private boolean isBlockBuildable;
+    private boolean isHighlighted;
     private Optional<ReducedWorker> worker;
 
     public ReducedCell(int x, int y) {
         this.x = x;
         this.y = y;
-//        towerHeight = 0;
+        towerHeight = 0;
         hasDome = false;
+        isHighlighted = false;
         worker = Optional.empty();
-
-        Random r = new Random();
-        towerHeight = r.nextInt(4);
-        hasDome = r.nextInt(100) < 8;
     }
 
     public int getX() {
@@ -42,16 +36,8 @@ public class ReducedCell {
         return hasDome;
     }
 
-    public boolean isWalkable() {
-        return isWalkable;
-    }
-
-    public boolean isDomeBuildable() {
-        return isDomeBuildable;
-    }
-
-    public boolean isBlockBuildable() {
-        return isBlockBuildable;
+    public boolean isHighlighted() {
+        return isHighlighted;
     }
 
     public Optional<ReducedWorker> getWorker() {
@@ -66,16 +52,8 @@ public class ReducedCell {
         this.hasDome = hasDome;
     }
 
-    public void setWalkable(boolean walkable) {
-        isWalkable = walkable;
-    }
-
-    public void setDomeBuildable(boolean domeBuildable) {
-        isDomeBuildable = domeBuildable;
-    }
-
-    public void setBlockBuildable(boolean blockBuildable) {
-        isBlockBuildable = blockBuildable;
+    public void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
     }
 
     public void setWorker(ReducedWorker worker) {

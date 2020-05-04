@@ -1,8 +1,6 @@
 package it.polimi.ingsw.utils.structures;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * An object that represents a bijection between elements of type K belonging to one set (the Key set) and elements of

@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskWorkerPositionClientTurnState;
-import it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage;
+import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 
 public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositionClientTurnState implements CLIClientTurnState {
     private final InGameCLIClientState clientState;
@@ -17,9 +17,10 @@ public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositi
     @Override
     public void render() {
         if (client.isCurrentlyActive()) {
-            cli.readString("In quale cella vuoi posizionare il tuo worker? (coordinate)", null, 3);
+            ReducedCell targetCell = cli.readCell(client.getGame().getBoard(), "In quale cella vuoi posizionare il tuo worker?");
 
-            //targetCellX = ...
+            targetCellX = targetCell.getX();
+            targetCellY = targetCell.getY();
 
             clientState.notifyUiInteraction();
         }
@@ -29,7 +30,7 @@ public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositi
     }
 
     @Override
-    public void notifyUiInteraction() {
-        client.getConnection().send(new ClientSetWorkerStartPositionMessage(targetCellX, targetCellY, workerID));
+    public void handleClientError() throws UnsupportedOperationException {
+        cli.error("Impossibile posizionare il worker nella cella selezionata");
     }
 }

@@ -184,6 +184,7 @@ public class CLI extends UI {
      */
     void error(String s) {
         println(ansi().render("@|bold,red Errore:|@ %s", s));
+        readString("Premi 'Invio' per continuare...", null, 0);
     }
 
     /**
@@ -266,6 +267,35 @@ public class CLI extends UI {
             error(String.format("%s non e' un intero", line));
             return readInt(prompt, def, expected_input_length);
         }
+    }
+
+    /**
+     * Reads the coordinate of a cell from the CLI and returns the corresponding ReducedCell.
+     *
+     * @param board  the board to which the cells belong
+     * @param prompt the prompt to show when asking for input
+     * @return the selected ReducedCell
+     */
+    ReducedCell readCell(ReducedBoard board, String prompt) {
+        String ERROR_INVALID_COORDINATES = "Inserisci una coordinata valida (es. C2)";
+        ReducedCell res = null;
+        while (res == null) {
+            String choice = readString(prompt, null, 3);
+            if (choice.length() != 2) {
+                error(ERROR_INVALID_COORDINATES);
+                continue;
+            }
+            char choiceCol = choice.toUpperCase().charAt(0);
+            char choiceRow = choice.charAt(1);
+            int col = choiceCol - 'A';
+            int row = choiceRow - '1';
+            if (col < 0 || row < 0 || col >= board.getDimension() || row >= board.getDimension()) {
+                error(ERROR_INVALID_COORDINATES);
+                continue;
+            }
+            res = board.getCell(row, col);
+        }
+        return res;
     }
 
     /**
@@ -355,7 +385,14 @@ public class CLI extends UI {
 
         ret = new Ansi[retStr.length];
         for (int i = 0; i < retStr.length; i++) {
-            ret[i] = ansi().reset().fg(fg).bg(bg).a(retStr[i]).reset();
+            ret[i] = ansi().reset().fg(fg);
+            if (cell.isHighlighted()) {
+                ret[i] = ret[i].bgBright(bg);
+            }
+            else {
+                ret[i] = ret[i].bg(bg);
+            }
+            ret[i] = ret[i].a(retStr[i]).reset();
         }
         return ret;
     }
