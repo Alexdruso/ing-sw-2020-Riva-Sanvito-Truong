@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
+import it.polimi.ingsw.client.ui.gui.WelcomeScreenGUIClientState;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -95,6 +96,7 @@ public class CLI extends UI {
             case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
             case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersCLIClientState(client);
+            case WELCOME_SCREEN -> new WelcomeScreenGUIClientState(client);
         };
     }
 

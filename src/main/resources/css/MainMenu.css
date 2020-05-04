@@ -1,12 +1,3 @@
-.root {
-    -fx-background-image: url('../assets/MainSceneBackground.png');
-    -fx-background-size: cover, auto;
-}
-
-#GradientPane {
-    -fx-background-color: linear-gradient(to left, #000000BB, #00000022 40%, #00000000 60%);
-}
-
 .titlebutton {
     -fx-background-color: #FFFFFF44;
     -fx-font-family: "Montserrat Light";
