@@ -1,18 +1,19 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.utils.messages.ReducedUser;
-import it.polimi.ingsw.utils.messages.ServerMessage;
-import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
+import it.polimi.ingsw.model.gods.GodCard;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -35,14 +36,22 @@ class MatchTest {
         Match myMatch = new Match();
         //now try first to add as a LinkedHashMap
         myMatch.addParticipants(myMap);
-        //make myMatch not enter the loop
-        myMatch.setIsPlaying(false);
         //invoke myMatch.run
-        myMatch.run();
+        (new Thread(myMatch)).start();
+        await().until(() -> myMatch.getModel() != null);
+        List<ReducedGod> gods = Arrays
+                .asList(new ReducedGod("APOLLO"), new ReducedGod("ARTEMIS"), new ReducedGod("ATHENA"));
+        await().until(() -> myMatch.getModel()
+                .isValidGodsChoice(gods, myMatch.getVirtualViews().get(0).getUser())
+        );
+        myMatch.getVirtualViews().get(0).updateFromClient(new ClientDisconnectMessage());
         //verify all fields are set
         assertNotNull(myMatch.getModel());
         assertNotNull(myMatch.getController());
         assertNotNull(myMatch.getVirtualViews());
+        for (View view : myMatch.getVirtualViews()) {
+            assertNotNull(view);
+        }
         assertEquals(3, myMatch.getVirtualViews().size());
         //Verify calls
         for (Connection connection : myMap.values()) {
@@ -51,17 +60,43 @@ class MatchTest {
         //check that ServerStartSetupMatchMessage has been sent
         ArgumentCaptor<ServerMessage> myMessageCaptor = ArgumentCaptor.forClass(ServerMessage.class);
         for (Connection connection : myMap.values()) {
-            verify(connection, times(2)).send(myMessageCaptor.capture());
+            if (
+                    connection != myMatch.getParticipantsNicknameToConnection()
+                            .get(myMatch.getVirtualViews().get(0).getUser().nickname)
+            ) {
+                verify(connection, times(3)).send(myMessageCaptor.capture());
+            } else {
+                verify(connection, times(2)).send(myMessageCaptor.capture());
+                verify(connection).close();
+            }
         }
-        assertEquals(6, myMessageCaptor.getAllValues().size());
+        assertEquals(8, myMessageCaptor.getAllValues().size());
         List<ServerStartSetupMatchMessage> startSetupMatchMessageList = myMessageCaptor.getAllValues().stream()
                 .filter(x -> x instanceof ServerStartSetupMatchMessage).map(x -> (ServerStartSetupMatchMessage) x)
                 .collect(Collectors.toList());
         assertEquals(3, startSetupMatchMessageList.size());
         assertEquals(myMap.keySet().size(), startSetupMatchMessageList.get(0).userList.length);
+        assertEquals(
+                Arrays.stream(nicknames).collect(Collectors.toSet()),
+                Arrays.stream(startSetupMatchMessageList.get(0).userList).map(x -> x.nickname).collect(Collectors.toSet())
+        );
+        List<ServerAskGodsFromListMessage> askGodsFromListMessages = myMessageCaptor.getAllValues().stream()
+                .filter(x -> x instanceof ServerAskGodsFromListMessage).map(x -> (ServerAskGodsFromListMessage) x)
+                .collect(Collectors.toList());
+        assertEquals(3, askGodsFromListMessages.size());
+        assertEquals(nicknames[0], askGodsFromListMessages.get(0).user.nickname);
+        assertEquals(
+                Arrays.stream(GodCard.values()).map(Enum::toString).collect(Collectors.toSet()),
+                askGodsFromListMessages.get(0).getGodsList().stream().map(x -> x.name.toUpperCase()).collect(Collectors.toSet())
+        );
+        assertEquals(
+                2,
+                myMessageCaptor.getAllValues().stream().filter(x -> x instanceof ServerDisconnectMessage).count()
+        );
         for (ReducedUser user : startSetupMatchMessageList.get(0).userList) {
             assertTrue(myMap.containsKey(user.nickname));
         }
+
     }
 
     @Test
