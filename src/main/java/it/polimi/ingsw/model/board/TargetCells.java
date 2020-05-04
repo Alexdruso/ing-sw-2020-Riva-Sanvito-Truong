@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.messages.ReducedTargetCells;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -41,6 +42,10 @@ public class TargetCells {
         if(!(other instanceof TargetCells)){
             return false;
         }
+
+        //TODO: Andrea - Check if this can be written (it should) as:
+        // return Arrays.deepEquals(targets, ((TargetCells)other).targets);
+        // START CODE TO BE REPLACED
         TargetCells target = (TargetCells) other;
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
@@ -50,6 +55,16 @@ public class TargetCells {
             }
         }
         return true;
+        // END CODE TO BE REPLACED
+    }
+
+    /**
+     * Overridden hashCode method to provide the hash code of a TargetCells instance.
+     * @return the hashcode of the TargetCells instance
+     */
+    @Override
+    public int hashCode() {
+        return Arrays.deepHashCode(targets);
     }
 
     /**

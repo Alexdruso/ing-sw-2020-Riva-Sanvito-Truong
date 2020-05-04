@@ -7,11 +7,15 @@ import it.polimi.ingsw.utils.networking.Connection;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class represents a single game lobby, to which players may join
  */
 public class ServerLobbyBuilder {
+    private static final Logger LOGGER = Logger.getLogger(ServerLobbyBuilder.class.getName());
+
     /**
      * The reference to the server
      */
@@ -96,7 +100,7 @@ public class ServerLobbyBuilder {
                 return false;
             }
             currentLobbyPlayerCount = playerCount;
-            playerCountLock.notify();
+            playerCountLock.notifyAll();
         }
         return true;
     }
@@ -124,7 +128,7 @@ public class ServerLobbyBuilder {
         }
         synchronized(lobbyRequestingConnections){
             lobbyRequestingConnections.add(connection);
-            lobbyRequestingConnections.notify();
+            lobbyRequestingConnections.notifyAll();
         }
         return true;
     }
@@ -139,7 +143,10 @@ public class ServerLobbyBuilder {
                 while(lobbyRequestingConnections.size() == 0){
                     try{
                         lobbyRequestingConnections.wait();
-                    } catch (InterruptedException ignored){ }
+                    } catch (InterruptedException e){
+                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                        Thread.currentThread().interrupt();
+                    }
                 }
                 firstConnection = lobbyRequestingConnections.getFirst();
             }
@@ -149,7 +156,9 @@ public class ServerLobbyBuilder {
                 while (currentLobbyPlayerCount == 0) {
                     try {
                         playerCountLock.wait();
-                    } catch (InterruptedException ignored) {
+                    } catch (InterruptedException e) {
+                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                        Thread.currentThread().interrupt();
                     }
                 }
             }
@@ -157,7 +166,10 @@ public class ServerLobbyBuilder {
                 while(lobbyRequestingConnections.size() < currentLobbyPlayerCount){
                     try {
                         lobbyRequestingConnections.wait();
-                    } catch (InterruptedException ignored) { }
+                    } catch (InterruptedException e) {
+                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                        Thread.currentThread().interrupt();
+                    }
                 }
             }
 
