@@ -157,8 +157,26 @@ public class CLI extends UI {
         println(ansi().a(s));
     }
 
+    /**
+     * Prints a string at the given row and column.
+     *
+     * @param s      the String to print
+     * @param row    the row on which to start printing the string
+     * @param column the column on which to start printing the string
+     */
     void println(String s, int row, int column) {
         println(ansi().a(s), row, column);
+    }
+
+    /**
+     * Prints a string with custom formatting.
+     *
+     * @param s       the String to print
+     * @param options the options to use to format the string
+     * @see org.fusesource.jansi.AnsiRenderer.Code
+     */
+    void println(String s, String options) {
+        println(ansi().render(String.format("@|%s %%s|@", options), s));
     }
 
     /**
