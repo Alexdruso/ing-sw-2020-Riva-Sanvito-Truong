@@ -41,6 +41,10 @@ public enum ClientState {
      */
     WAIT_PLAYERS,
     /**
+     * Show a welcome screen to the player.
+     */
+    WELCOME_SCREEN,
+    /**
      * Show game passive client state.
      */
     SHOW_GAME_PASSIVE,
