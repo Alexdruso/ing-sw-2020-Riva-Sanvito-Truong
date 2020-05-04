@@ -43,6 +43,20 @@ jobs:
       - store_artifacts:
           path: docs/javadoc
       - run:
+          name: Run SonarQube if [sonar] is present in the commit title
+          command: |
+            set +e
+            set +o pipefail
+            last_commit="$(git log -1 --pretty=%B | cat | grep sonar)"
+
+            if [[ ${last_commit} == *[sonar]* ]]; then
+              cp .circleci/mvn-settings.xml ~/.m2/settings.xml
+              mvn clean install
+              mvn sonar:sonar "-Dsonar.login=${SONARQUBE_TOKEN}"
+            else
+              echo "[sonar] keyword missing from commit title; skipping SonarQube run."
+            fi
+      - run:
           name: Commit new artifacts path
           command: |
             cat \<<EOF > docs/javadoc/README.md
@@ -56,19 +70,7 @@ jobs:
             git add docs/javadoc/*
             git commit -m "docs(javadoc): update javadoc [skip ci]"
             git push --set-upstream origin ${CIRCLE_BRANCH}
-      - run:
-          name: Run SonarQube if [sonar] is present in the commit title
-          command: |
-            set +o pipefail
-            last_commit="$(git log -1 --pretty=%B | cat | grep sonar)"
 
-            if [[ ${last_commit} == *[sonar]* ]]; then
-              cp .circleci/mvn-settings.xml ~/.m2/settings.xml
-              mvn clean install
-              mvn sonar:sonar "-Dsonar.login=${SONARQUBE_TOKEN}"
-            else
-              echo "[sonar] keyword missing from commit title; skipping SonarQube run."
-            fi
 workflows:
   version: 2
   master_push:
