@@ -134,18 +134,16 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public Turn addNewTurn(Player player) {
         Turn turn = new Turn(this, player);
-        if (lastRound.size() < MAX_NUMBER_OF_PLAYERS) {
-            lastRound.addLast(turn);
-        } else {
-            Collections.rotate(lastRound, -1);
+        if (lastRound.size() >= players.size()) {
             if (!getPlayersList().contains(lastRound.getLast().getPlayer())) {
                 //Make the lastRound list shorter to match the number of players
                 lastRound.removeLast();
             }
+            Collections.rotate(lastRound, -1);
             lastRound.removeLast();
-            lastRound.addLast(turn);
         }
-        currentTurn = lastRound.getLast();
+        lastRound.addLast(turn);
+        currentTurn = turn;
         return turn;
     }
 
