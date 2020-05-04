@@ -78,5 +78,3 @@ workflows:
             branches:
               only:
                   - master
-#      - maven/test:
-#          command: '-X verify'
