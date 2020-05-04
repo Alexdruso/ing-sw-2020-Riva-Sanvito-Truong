@@ -61,6 +61,12 @@ class TurnTest {
         myTurn.setWinningTurn();
         assertTrue(myTurn.isWinningTurn());
 
+
+        //now just try to revert things
+        myTurn.setNeutralTurn();
+        assertFalse(myTurn.isLosingTurn());
+        assertFalse(myTurn.isWinningTurn());
+
         myTurn.addPerformedAction(new MoveAction(new Cell(0, 0), new Cell(1, 1), 0, 0, myPlayer.getOwnWorkers()[0]));
         myTurn.addPerformedAction(new BuildAction(new Cell(0, 0), Component.BLOCK.getInstance(), 5, myPlayer.getOwnWorkers()[0]));
         assertEquals(2, myTurn.getPerformedAction().size());
@@ -151,9 +157,7 @@ class TurnTest {
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
         //Check if moving throws exception -> we are in lose state
-        assertThrows(InvalidTurnStateException.class, () -> {
-            myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
-        });
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
         //Check if it is a losing turn :(
         assertTrue(myTurn.isLosingTurn());
     }
@@ -260,9 +264,7 @@ class TurnTest {
         //Check that worker 2 is not in allowedWorkers anymore
         assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getOwnWorkers()[1]));
         //Trigger exception
-        assertThrows(InvalidTurnStateException.class, () -> {
-            myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
-        });
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
         //Now we check and build a block where we were
         assertTrue(myTurn.canBuildBlockIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 1)));
         myTurn.buildBlockIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 1));
@@ -328,9 +330,7 @@ class TurnTest {
         //Check that worker 2 is not in allowedWorkers anymore
         assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getOwnWorkers()[1]));
         //Trigger exception
-        assertThrows(InvalidTurnStateException.class, () -> {
-            myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
-        });
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
         //Now we check and build a dome where we can
         assertTrue(myTurn.canBuildDomeIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 0)));
         myTurn.buildDomeIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 0));
