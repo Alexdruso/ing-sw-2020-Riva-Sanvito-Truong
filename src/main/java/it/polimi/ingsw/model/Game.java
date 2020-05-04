@@ -544,6 +544,10 @@ public class Game extends LambdaObservable<Transmittable> {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Worker worker = player.getWorkerByID(performer);
         return gameState == GameState.SET_WORKER_POSITION //check right state
+                && targetCellX >= 0
+                && targetCellX < board.getDimension()
+                && targetCellY >= 0
+                && targetCellY < board.getDimension()
                 && player.equals(players.peek()) //check it's player's turn
                 && Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
                 .findFirst().map(x -> x.getWorkerID() == performer).orElse(false)
