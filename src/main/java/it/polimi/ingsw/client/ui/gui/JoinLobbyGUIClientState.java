@@ -2,16 +2,9 @@ package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.AbstractJoinLobbyClientState;
-import it.polimi.ingsw.client.clientstates.ClientState;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implements GUIClientState{
     private final GUI gui;

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.AbstractSetPlayersCountClientState;
 
 public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClientState implements GUIClientState {

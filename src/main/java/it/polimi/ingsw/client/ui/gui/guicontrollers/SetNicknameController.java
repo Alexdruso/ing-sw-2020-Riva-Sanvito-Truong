@@ -1,8 +1,5 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
-import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.ConnectToServerGUIClientState;
-import it.polimi.ingsw.client.ui.gui.GUIClientState;
 import it.polimi.ingsw.client.ui.gui.SetNicknameGUIClientState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

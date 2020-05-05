@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.JavaFXApp;
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.utils.i18n;
 
-import org.mockito.internal.matchers.Null;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 

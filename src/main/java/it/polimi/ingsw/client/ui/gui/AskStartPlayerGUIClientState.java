@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskStartPlayerClientState;
-import it.polimi.ingsw.client.clientstates.AbstractClientState;
 
 public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientState implements GUIClientState{
     /**
