@@ -50,6 +50,7 @@ public class JavaFXApp extends Application {
                     sceneLock.wait();
                 } catch (InterruptedException e){
                     LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                    Thread.currentThread().interrupt();
                 }
             }
             return primaryScene;
@@ -63,6 +64,7 @@ public class JavaFXApp extends Application {
                     sceneLock.wait();
                 } catch (InterruptedException e){
                     LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                    Thread.currentThread().interrupt();
                 }
             }
             return primaryStage;
