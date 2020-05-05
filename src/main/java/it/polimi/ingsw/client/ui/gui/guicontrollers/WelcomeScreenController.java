@@ -33,7 +33,6 @@ public class WelcomeScreenController extends AbstractController {
 
     @FXML
     public void initialize(){
-        System.out.println("Initializing state");
         primaryStage = JavaFXApp.getPrimaryStage();
     }
 

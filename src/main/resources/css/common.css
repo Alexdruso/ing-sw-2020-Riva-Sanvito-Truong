@@ -12,6 +12,7 @@
 
 .root {
     -fx-background-image: url('../assets/MainSceneBackground.png');
+    -fx-background-color: black;
     -fx-background-size: cover, auto;
 }
 

@@ -7,12 +7,16 @@ import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.ConnectToServerController;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WelcomeScreenController;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -61,6 +65,8 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
                 controller = loader.getController();
                 controller.setClient(client);
                 gui.addScene(ClientState.CONNECT_TO_SERVER, (Pane)root, controller);
+                root.setCache(true);
+                root.setCacheHint(CacheHint.SPEED);
             } else {
                 root = savedRoot.get().root;
                 controller = (ConnectToServerController) savedRoot.get().controller;
@@ -68,13 +74,27 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
 
             controller.setState(this); //Always needs to be updated, since states are created on demand
 
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    mainScene.setRoot(root);
-                    //mainScene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
-                }
-            });
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(300), mainScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.play();
+
+            fadeOut.setOnFinished((event) ->
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        //mainScene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
+                        root.setOpacity(0);
+                        mainScene.setRoot(root);
+                        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+                        fadeIn.setInterpolator(Interpolator.EASE_OUT);
+                        fadeIn.setFromValue(0.0);
+                        fadeIn.setToValue(1.0);
+                        fadeIn.play();
+                    }
+                })
+            );
+
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

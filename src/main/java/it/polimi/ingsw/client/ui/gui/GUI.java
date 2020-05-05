@@ -21,7 +21,6 @@ public class GUI extends UI {
 
     @Override
     public void init() {
-        System.out.println("Do we get to the GUI?");
     }
 
     public void addScene(ClientState clientState, Pane pane, AbstractController controller){

@@ -5,14 +5,18 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WelcomeScreenController;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -56,6 +60,8 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
                 controller = loader.getController();
                 controller.setClient(client);
                 gui.addScene(ClientState.WELCOME_SCREEN, (Pane)root, controller);
+                root.setCache(true);
+                root.setCacheHint(CacheHint.SPEED);
             } else {
                 root = savedRoot.get().root;
                 controller = (WelcomeScreenController)savedRoot.get().controller;
@@ -67,7 +73,13 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
                 @Override
                 public void run() {
                     mainScene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
+                    root.setOpacity(0);
                     mainScene.setRoot(root);
+                    FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), mainScene.getRoot());
+                    fadeIn.setInterpolator(Interpolator.EASE_OUT);
+                    fadeIn.setFromValue(0.0);
+                    fadeIn.setToValue(1.0);
+                    fadeIn.play();
                 }
             });
 
