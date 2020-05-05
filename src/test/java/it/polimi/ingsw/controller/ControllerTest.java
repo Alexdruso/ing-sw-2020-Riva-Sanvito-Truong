@@ -146,10 +146,20 @@ class ControllerTest {
         //create a new controller
         Controller myController = new Controller(myGame);
         //add all the updates
+        myController.update(chooseGodsViewClientMessage);
+        myController.update(chooseGodViewClientMessage);
+        myController.update(setStartPlayerViewClientMessage);
+        myController.update(setStartPositionViewClientMessage);
+        myController.update(disconnectViewClientMessage);
         myController.update(buildViewClientMessage);
         myController.update(moveViewClientMessage);
         myController.update(skipViewClientMessage);
         //process the updates
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
@@ -309,10 +319,20 @@ class ControllerTest {
         //create a new controller
         Controller myController = new Controller(myGame);
         //add all the updates
+        myController.update(chooseGodsViewClientMessage);
+        myController.update(chooseGodViewClientMessage);
+        myController.update(setStartPlayerViewClientMessage);
+        myController.update(setStartPositionViewClientMessage);
+        myController.update(disconnectViewClientMessage);
         myController.update(buildViewClientMessage);
         myController.update(moveViewClientMessage);
         myController.update(skipViewClientMessage);
         //process the updates
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
+        myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
