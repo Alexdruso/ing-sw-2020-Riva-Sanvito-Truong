@@ -70,7 +70,7 @@ class ControllerTest {
         ViewClientMessage chooseGodsViewClientMessage = new ViewClientMessage(myChooseGodsCommand, myView, myUser);
         ViewClientMessage chooseGodViewClientMessage = new ViewClientMessage(myChooseGodCommand, myView, myUser);
         ViewClientMessage setStartPlayerViewClientMessage = new ViewClientMessage(
-                mySetStartPositionMessage,
+                mySetStartPlayerCommand,
                 myView,
                 myUser
         );
@@ -245,7 +245,7 @@ class ControllerTest {
         );
         ViewClientMessage chooseGodViewClientMessage = new ViewClientMessage(myChooseGodCommand, myView, myUser);
         ViewClientMessage setStartPlayerViewClientMessage = new ViewClientMessage(
-                mySetStartPositionMessage,
+                mySetStartPlayerCommand,
                 myView,
                 myUser
         );
