@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.ui.gui;
+package it.polimi.ingsw.client.ui.gui.utils;
 
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
 import javafx.scene.Parent;

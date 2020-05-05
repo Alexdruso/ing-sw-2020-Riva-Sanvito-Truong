@@ -36,4 +36,8 @@ public class WelcomeScreenController extends AbstractController {
         primaryStage = JavaFXApp.getPrimaryStage();
     }
 
+    @Override
+    public void handleError(String message) {
+        //No error to handle
+    }
 }

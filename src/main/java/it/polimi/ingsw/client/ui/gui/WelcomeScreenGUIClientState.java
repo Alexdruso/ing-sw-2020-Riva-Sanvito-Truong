@@ -5,16 +5,15 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WelcomeScreenController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -50,29 +49,36 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
      */
     @Override
     public void render() {
+        mainScene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
+        SceneLoader.loadFromFXML("/fxml/MainMenu.fxml", mainScene, client, this, ClientState.WELCOME_SCREEN, false);
+        /*
         try {
             Optional<SavedScene> savedRoot = gui.getScene(ClientState.WELCOME_SCREEN);
             Parent root;
             WelcomeScreenController controller;
+            SavedScene savedScene;
+
             if(savedRoot.isEmpty()){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
                 root = loader.load();
                 controller = loader.getController();
                 controller.setClient(client);
-                gui.addScene(ClientState.WELCOME_SCREEN, (Pane)root, controller);
+                savedScene = new SavedScene(controller, root);
+                gui.addScene(ClientState.WELCOME_SCREEN, savedScene);
                 root.setCache(true);
                 root.setCacheHint(CacheHint.SPEED);
             } else {
-                root = savedRoot.get().root;
+                savedScene = savedRoot.get();
+                root = savedScene.root;
                 controller = (WelcomeScreenController)savedRoot.get().controller;
             }
 
+            gui.setCurrentScene(savedScene);
             controller.setState(this); //Always needs to be updated, since states are created on demand
 
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    mainScene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
                     root.setOpacity(0);
                     mainScene.setRoot(root);
                     FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), mainScene.getRoot());
@@ -87,5 +93,7 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
             //Could not load, probably fxml file or css file don't exist
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
+
+         */
     }
 }

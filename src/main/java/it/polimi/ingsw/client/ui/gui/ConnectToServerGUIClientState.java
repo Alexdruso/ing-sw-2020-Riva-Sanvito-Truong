@@ -2,11 +2,11 @@ package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.ConnectToServerController;
-import it.polimi.ingsw.client.ui.gui.guicontrollers.WelcomeScreenController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
@@ -40,6 +40,10 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
         mainScene = primaryStage.getScene();
     }
 
+    public void returnToMenu(){
+        client.moveToState(ClientState.WELCOME_SCREEN);
+    }
+
     public void setHostPort(String host, String port){
         this.host = host;
         this.port = Integer.parseInt(port);
@@ -55,24 +59,30 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
      */
     @Override
     public void render() {
+        SceneLoader.loadFromFXML("/fxml/ConnectToServer.fxml", mainScene, client, this, ClientState.CONNECT_TO_SERVER, true);
+        /*
         try {
             Optional<SavedScene> savedRoot = gui.getScene(ClientState.CONNECT_TO_SERVER);
             Parent root;
             ConnectToServerController controller;
+            SavedScene savedScene;
             if(savedRoot.isEmpty()){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConnectToServer.fxml"));
                 root = loader.load();
                 controller = loader.getController();
                 controller.setClient(client);
-                gui.addScene(ClientState.CONNECT_TO_SERVER, (Pane)root, controller);
+                savedScene = new SavedScene(controller, (Pane)root);
+                gui.addScene(ClientState.CONNECT_TO_SERVER, savedScene);
                 root.setCache(true);
                 root.setCacheHint(CacheHint.SPEED);
             } else {
-                root = savedRoot.get().root;
-                controller = (ConnectToServerController) savedRoot.get().controller;
+                savedScene = savedRoot.get();
+                root = savedScene.root;
+                controller = (ConnectToServerController) savedScene.controller;
             }
 
             controller.setState(this); //Always needs to be updated, since states are created on demand
+            gui.setCurrentScene(savedScene);
 
             FadeTransition fadeOut = new FadeTransition(Duration.millis(300), mainScene.getRoot());
             fadeOut.setFromValue(1.0);
@@ -98,5 +108,6 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
+         */
     }
 }

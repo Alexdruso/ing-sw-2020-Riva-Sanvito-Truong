@@ -1,16 +1,13 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.ui.UI;
-import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -18,14 +15,15 @@ import java.util.Optional;
 public class GUI extends UI {
     private Scene mainScene;
     private final HashMap<ClientState, SavedScene> sceneMap = new HashMap<>();
+    private SavedScene currentRoot;
 
     @Override
     public void init() {
     }
 
-    public void addScene(ClientState clientState, Pane pane, AbstractController controller){
+    public void addScene(ClientState clientState, SavedScene savedScene) {
         //TODO: see if we can load all scenes at startup time
-        sceneMap.put(clientState, new SavedScene(controller, pane));
+        sceneMap.put(clientState, savedScene);
     }
 
     public Optional<SavedScene> getScene(ClientState clientState){
@@ -36,16 +34,12 @@ public class GUI extends UI {
         }
     }
 
-    public void setRootScene(Scene scene){
-        mainScene = scene;
-    }
-
-    void removeScene(ClientState clientState){
+    void removeFScene(ClientState clientState){
         sceneMap.remove(clientState);
     }
 
-    void loadScene(ClientState clientState){
-        //mainScene.setRoot(sceneMap.get(clientState));
+    public void setCurrentScene(SavedScene current){
+        currentRoot = current;
     }
 
     @Override
@@ -84,6 +78,7 @@ public class GUI extends UI {
 
     @Override
     public void notifyError(String message) {
-
+        //TODO: For cleanliness of code, I think we should set a localization file and pass enums
+        currentRoot.controller.handleError(message);
     }
 }

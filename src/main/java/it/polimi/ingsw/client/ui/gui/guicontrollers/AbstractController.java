@@ -14,4 +14,6 @@ public abstract class AbstractController {
     public void setState(AbstractClientState state){
         this.state = state;
     }
+
+    public abstract void handleError(String message);
 }

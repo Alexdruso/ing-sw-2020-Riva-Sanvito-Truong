@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.ConnectToServerController">
+<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.SetNicknameController">
    <children>
       <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
       <AnchorPane id="DarkenPane" prefHeight="400.0" prefWidth="600.0" />
@@ -29,18 +29,13 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Ready to Challenge other Players?" />
-                  <Label styleClass="h3" text="Type in the Server's IP Address and Port to find a match!">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Server found!" textAlignment="CENTER" />
+                  <Label styleClass="h3" text="Type your nickname to start playing!">
                      <VBox.margin>
                         <Insets bottom="60.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="addressField" alignment="CENTER" maxWidth="400.0" prefHeight="28.0" prefWidth="200.0" promptText="IP Address" styleClass="text-field">
-                     <VBox.margin>
-                        <Insets bottom="50.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="portField" alignment="CENTER" maxWidth="200.0" prefHeight="28.0" prefWidth="890.0" promptText="Port" styleClass="text-field">
+                  <TextField fx:id="nicknameField" alignment="CENTER" maxWidth="400.0" prefHeight="28.0" prefWidth="200.0" promptText="Nickname" styleClass="text-field">
                      <VBox.margin>
                         <Insets bottom="50.0" />
                      </VBox.margin>
@@ -50,12 +45,12 @@
                         <Insets bottom="50.0" />
                      </VBox.margin>
                   </Label>
-                  <Button fx:id="connectButton" minHeight="100.0" mnemonicParsing="false" onAction="#handleConnectButton" prefHeight="60.0" prefWidth="200.0" styleClass="bigbutton" text="Connect" />
+                  <Button fx:id="setNicknameButton" minHeight="100.0" mnemonicParsing="false" onAction="#handleNicknameButton" prefHeight="60.0" prefWidth="400.0" styleClass="bigbutton" text="Set Nickname" />
                </children>
             </VBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="connectButton1" minHeight="100.0" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="50.0" prefWidth="150.0" styleClass="bigbutton" text="Menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="menuButton" minHeight="100.0" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="50.0" prefWidth="150.0" styleClass="bigbutton" text="Menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                </children>
             </AnchorPane>
          </children>
