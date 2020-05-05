@@ -1,42 +1,87 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.client.ui.gui.GUI;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class JavaFXApp extends Application {
 
     private static Stage primaryStage;
+    private static Scene primaryScene;
+    private static GUI gui;
+
+    private static final Object sceneLock = new Object();
+    private static boolean initialized = false;
+    private static final Logger LOGGER = Logger.getLogger(JavaFXApp.class.getName());
 
     @Override
     public void start(Stage stage) throws Exception {
-        primaryStage = stage;
+        synchronized (sceneLock) {
+            primaryStage = stage;
 
-        stage.setTitle("Santorini - GC02");
+            stage.setTitle("Santorini - GC02");
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
-        Scene scene = new Scene(root, 1920, 1080);
+            Parent root = new StackPane();
+            primaryScene = new Scene(root, 1280, 720);
 
-        scene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/common.css").toExternalForm());
+            primaryScene.getStylesheets().add(getClass().getResource("/css/common.css").toExternalForm());
 
-        stage.setScene(scene);
-        stage.setFullScreen(true);
+            stage.setScene(primaryScene);
+            stage.setFullScreen(true);
+            initialized = true;
+            sceneLock.notifyAll();
+        }
+
         stage.show();
     }
 
+    public static Scene getPrimaryScene(){
+        synchronized(sceneLock){
+            while (!initialized) {
+                try {
+                    sceneLock.wait();
+                } catch (InterruptedException e){
+                    LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                }
+            }
+            return primaryScene;
+        }
+    }
+
     public static Stage getPrimaryStage(){
-        return primaryStage;
+        synchronized(sceneLock){
+            while (!initialized) {
+                try {
+                    sceneLock.wait();
+                } catch (InterruptedException e){
+                    LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                }
+            }
+            return primaryStage;
+        }
     }
 
-    public static void setPrimaryStage(Stage stage){
-        primaryStage = stage;
+    public static void setNextRoot(Parent root){
+        //primaryStage = stage;
+        return;
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    public static void launchGUI(GUI gui) {
+        JavaFXApp.gui = gui;
+        Application.launch();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        TestGUIApp.stop();
     }
 }

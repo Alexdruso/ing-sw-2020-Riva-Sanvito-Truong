@@ -12,11 +12,19 @@
 ## Quick start guide
 
 Per eseguire il server (Windows):
+
+1. Da terminale, eseguire:
 ```bash
 java -jar target\Santorini-Server.jar
 ```
 
 Per eseguire il client (Windows):
+
+E' necessario attivare il supporto ai caratteri UTF-8 per il terminale:
+
+1. Aprire il pannello di controllo `Area geografica` (Esegui > `intl.cpl`)
+2. Nella tab `Opzioni di amministrazione`, scegliere `Cambia impostazioni locali del sistema` e abilitare la spunta `Utilizzare UTF-8 per il supporto della lingua a livello mondiale`.
+3. Da terminale, eseguire:
 ```bash
 java -Dfile.encoding=UTF8 -jar target\Santorini-Client.jar
 ```

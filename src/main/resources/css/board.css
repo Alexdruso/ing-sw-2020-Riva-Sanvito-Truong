@@ -1,0 +1,14 @@
+.cellbutton {
+    -fx-background-color: 00000000;
+}
+
+.cellpane {
+    -fx-background-image: url('../assets/grass.png');
+    -fx-background-size: 100% auto;
+}
+
+.dome {
+    -fx-background-image: url('../assets/dome.png');
+    -fx-background-size: 100% auto;
+}
+

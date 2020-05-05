@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.MainMenu">
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.WelcomeScreenController">
    <children>
       <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
       <BorderPane id="MainMenuBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="maintitle" stylesheets="@../css/MainMenu.css" StackPane.alignment="CENTER_RIGHT">
@@ -21,7 +28,7 @@
                   <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" stylesheets="@../css/MainMenu.css" text="Join Lobby" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleJoinLobby" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" stylesheets="@../css/MainMenu.css" text="Join Lobby" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets right="60.0" />
                      </GridPane.margin></Button>

@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
+import it.polimi.ingsw.client.ui.gui.WelcomeScreenGUIClientState;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -95,6 +96,7 @@ public class CLI extends UI {
             case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
             case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersCLIClientState(client);
+            case WELCOME_SCREEN -> new WelcomeScreenCLIClientState(client);
         };
     }
 
@@ -156,8 +158,26 @@ public class CLI extends UI {
         println(ansi().a(s));
     }
 
+    /**
+     * Prints a string at the given row and column.
+     *
+     * @param s      the String to print
+     * @param row    the row on which to start printing the string
+     * @param column the column on which to start printing the string
+     */
     void println(String s, int row, int column) {
         println(ansi().a(s), row, column);
+    }
+
+    /**
+     * Prints a string with custom formatting.
+     *
+     * @param s       the String to print
+     * @param options the options to use to format the string
+     * @see org.fusesource.jansi.AnsiRenderer.Code
+     */
+    void println(String s, String options) {
+        println(ansi().render(String.format("@|%s %%s|@", options), s));
     }
 
     /**

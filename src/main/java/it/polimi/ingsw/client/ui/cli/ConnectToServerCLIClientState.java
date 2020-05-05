@@ -22,6 +22,7 @@ public class ConnectToServerCLIClientState extends AbstractConnectToServerClient
 
     @Override
     public void render() {
+        cli.clear();
         host = cli.readString("Indirizzo del server:", "127.0.0.1");
         port = cli.readInt("Porta:", ConfigParser.getInstance().getIntProperty("serverPort"));
         notifyUiInteraction();
