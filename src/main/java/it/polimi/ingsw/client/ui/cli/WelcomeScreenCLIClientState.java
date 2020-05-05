@@ -4,6 +4,9 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
+import org.codehaus.plexus.i18n.I18N;
 
 /**
  * The CLI-specific WELCOME_SCREEN ClientState.
@@ -35,7 +38,7 @@ public class WelcomeScreenCLIClientState extends AbstractWelcomeScreenState impl
                 "\n",
                 "bold");
         cli.readString(
-                "                  --- Premi 'Invio' per iniziare... ---", null, 0);
+                String.format("                  --- %s ---", I18n.string(I18nKey.PRESS_RETURN_TO_BEGIN)), null, 0);
         notifyUiInteraction();
     }
 }

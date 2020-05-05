@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
     public void render() {
         cli.clear();
         if (client.isCurrentlyActive()) {
-            cli.println("Puoi scegliere una di queste divinita' con cui giocare questa partita:");
+            cli.println(String.format("%s:", I18n.string(I18nKey.YOU_CAN_CHOOSE_ONE_OF_THESE_GODS)));
             List<ReducedGod> gods = new ArrayList<>(client.getGods());
             for (int i = 0; i < gods.size(); i++) {
                 cli.println(String.format("[%d] %s", i + 1, gods.get(i).name));
@@ -32,18 +34,18 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
 
             cli.println("");
             while (chosenGod == null) {
-                int choice = cli.readInt("Scegli la tua divinita':") - 1;
+                int choice = cli.readInt(String.format("%s:", I18n.string(I18nKey.CHOOSE_YOUR_GOD))) - 1;
                 try {
                     chosenGod = gods.get(choice);
                 } catch (IndexOutOfBoundsException e) {
-                    cli.error("La divinta' indicata non e' valida");
+                    cli.error(I18n.string(I18nKey.THE_CHOSEN_GOD_IS_INVALID));
                 }
             }
 
             notifyUiInteraction();
         }
         else {
-            cli.println(String.format("Attendi che %s scelga la divinita' con cui giocare questa partita...", client.getCurrentActiveUser().nickname));
+            cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THEIR_GOD), client.getCurrentActiveUser().nickname));
         }
     }
 }
