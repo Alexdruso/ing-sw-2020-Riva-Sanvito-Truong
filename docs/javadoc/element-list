@@ -6,6 +6,7 @@ it.polimi.ingsw.client.ui
 it.polimi.ingsw.client.ui.cli
 it.polimi.ingsw.client.ui.gui
 it.polimi.ingsw.client.ui.gui.guicontrollers
+it.polimi.ingsw.client.ui.gui.utils
 it.polimi.ingsw.config
 it.polimi.ingsw.controller
 it.polimi.ingsw.model
@@ -18,6 +19,7 @@ it.polimi.ingsw.model.workers
 it.polimi.ingsw.observer
 it.polimi.ingsw.server
 it.polimi.ingsw.utils
+it.polimi.ingsw.utils.i18n
 it.polimi.ingsw.utils.messages
 it.polimi.ingsw.utils.networking
 it.polimi.ingsw.utils.structures

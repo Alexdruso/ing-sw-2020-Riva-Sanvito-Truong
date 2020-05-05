@@ -3,6 +3,8 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskWorkerPositionClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 
 public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositionClientTurnState implements CLIClientTurnState {
     private final InGameCLIClientState clientState;
@@ -17,7 +19,7 @@ public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositi
     @Override
     public void render() {
         if (client.isCurrentlyActive()) {
-            ReducedCell targetCell = cli.readCell(client.getGame().getBoard(), "In quale cella vuoi posizionare il tuo worker?");
+            ReducedCell targetCell = cli.readCell(client.getGame().getBoard(), I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
 
             targetCellX = targetCell.getX();
             targetCellY = targetCell.getY();
@@ -25,12 +27,12 @@ public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositi
             clientState.notifyUiInteraction();
         }
         else {
-            cli.println(String.format("Attendi che %s scelga dove posizionare i suoi workers...", client.getCurrentActiveUser().nickname));
+            cli.println(String.format(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER), client.getCurrentActiveUser().nickname));
         }
     }
 
     @Override
     public void handleClientError() throws UnsupportedOperationException {
-        cli.error("Impossibile posizionare il worker nella cella selezionata");
+        cli.error(I18n.string(I18nKey.YOU_CANT_PLACE_THE_WORKER_IN_THE_SPECIFIED_CELL));
     }
 }

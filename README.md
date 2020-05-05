@@ -1,50 +1,56 @@
-# Progetto di Ingegneria del Software A.A. 2019-2020
+# Software Engineering Project A.A. 2019-2020
+**Progetto di Ingegneria del Software A.A. 2019-2020**
 
-**Docente:** Prof. Gianpaolo Cugola
+**Professor:** Prof. Gianpaolo Cugola
 
-**Gruppo:** GC02
+**Group:** GC02
 
-**Studenti**:
-- Andrea Riva (matricola: 887449)
-- Alessandro Sanvito (matricola: 891196)
-- Kien Tuong Truong (matricola: 887907)
+**Students**:
+- Andrea Riva (immatriculation number: 887449)
+- Alessandro Sanvito (immatriculation number: 891196)
+- Kien Tuong Truong (immatriculation number: 887907)
 
 ## Quick start guide
 
-Per eseguire il server (Windows):
+To run the server (Windows):
 
-1. Da terminale, eseguire:
+1. In a terminal window, run:
 ```bash
 java -jar target\Santorini-Server.jar
 ```
 
-Per eseguire il client (Windows):
+To run the client (Windows):
 
-E' necessario attivare il supporto ai caratteri UTF-8 per il terminale:
+You need to enable the support to UTF-8 characters in the terminal:
 
-1. Aprire il pannello di controllo `Area geografica` (Esegui > `intl.cpl`)
-2. Nella tab `Opzioni di amministrazione`, scegliere `Cambia impostazioni locali del sistema` e abilitare la spunta `Utilizzare UTF-8 per il supporto della lingua a livello mondiale`.
-3. Da terminale, eseguire:
+1. Open the `Area geografica` control panel (Run > `intl.cpl`)
+2. In the `Opzioni di amministrazione` tab, choose `Cambia impostazioni locali del sistema` and check `Utilizzare UTF-8 per il supporto della lingua a livello mondiale`.
+3. In a terminal window, run:
 ```bash
 java -Dfile.encoding=UTF8 -jar target\Santorini-Client.jar
 ```
 
-### Variabili di ambiente
+### Environment variables
 
-| Nome variabile | Descrizione | Valori consentiti |
+| Name | Description | Allowed values |
 | -------------- | ----------- | ----------------- |
-| `LOG_LEVEL` | Imposta la verbosità dei messaggi di log | Tutti i valori consentiti da [java.util.logging.Level](https://docs.oracle.com/en/java/javase/14/docs/api/java.logging/java/util/logging/Level.html). Default: `INFO`. |
+| `LANNGUAGE` | Sets the desired language for the user interface | `en`, `it`. Default: *the system default language* |
+| `LOG_LEVEL` | Sets the log messages verbosity | All the values specified in [java.util.logging.Level](https://docs.oracle.com/en/java/javase/14/docs/api/java.logging/java/util/logging/Level.html). Default: `INFO` |
 
-## Sviluppo
+## Development
 
-Il software è stato sviluppato con [Java SE 14](https://docs.oracle.com/en/java/javase/14/).
+The software has been written using [Java SE 14](https://docs.oracle.com/en/java/javase/14/).
 
-Lo strumento utilizzato per lo sviluppo è [IntelliJ Idea](https://www.jetbrains.com/idea/) 2020.1.
+The IDE used for the development is [IntelliJ Idea](https://www.jetbrains.com/idea/) 2020.1.
 
-### Corretta visualizzazione dei colori della CLI
+### How to correctly view CLI colors in IntelliJ
 
-Per vedere in modo corretto i colori usati dalla CLI all'interno della finestra di `Run` di IntelliJ, aggiungere come `VM option` RunConfiguration della ClientApp:
+To correctly see the colors in the CLI version of the client in the `Run` window of IntelliJ, add this `VM option` in the RunConfiguration of ClientApp:
 
 ```
 -Djansi.passthrough=true
 ```
+
+Please, be aware that some CLI features (such as the screen blanking or the positioning of some parts of the user interface) can't be rendered correctly in the `Run` window of IntelliJ. 
+The `Run` window of IntelliJ is meant just for debugging and testing purposes. 
+Run the compiled JAR in a terminal to benefit from the full experience.

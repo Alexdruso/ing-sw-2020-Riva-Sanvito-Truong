@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractDisconnectClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 
 /**
  * The CLI-specific DISCONNECT ClientState.
@@ -21,7 +23,7 @@ public class DisconnectCLIClientState extends AbstractDisconnectClientState impl
 
     @Override
     public void render() {
-        cli.println("Disconnesso dal server. A presto!");
+        cli.println(I18n.string(I18nKey.DISCONNECTED_FROM_THE_SERVER));
     }
 
     @Override

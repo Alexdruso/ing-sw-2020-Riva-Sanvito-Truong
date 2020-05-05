@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 
 /**
  * The CLI-specific SET_NICKNAME ClientState.
@@ -22,14 +24,14 @@ public class SetNicknameCLIClientState extends AbstractSetNicknameClientState im
     @Override
     public void render() {
         cli.println("");
-        nickname = cli.readString("Nickname:");
+        nickname = cli.readString(String.format("%s:", I18n.string(I18nKey.NICKNAME)));
         notifyUiInteraction();
     }
 
     @Override
     public void handleOk() {
         cli.clear();
-        cli.println(String.format("Benvenuto nel server, %s!", nickname));
+        cli.println(String.format(I18n.string(I18nKey.WELCOME_TO_THE_SERVER_S), nickname));
         super.handleOk();
     }
 }

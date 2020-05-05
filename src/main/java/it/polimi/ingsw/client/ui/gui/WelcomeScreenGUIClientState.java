@@ -4,22 +4,10 @@ import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.guicontrollers.WelcomeScreenController;
-import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.CacheHint;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState implements GUIClientState {

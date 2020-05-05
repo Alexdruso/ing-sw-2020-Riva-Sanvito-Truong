@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
-import it.polimi.ingsw.client.clientstates.AbstractClientState;
 
 public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClientState implements GUIClientState{
     /**

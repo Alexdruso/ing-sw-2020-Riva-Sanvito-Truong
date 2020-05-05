@@ -3,6 +3,8 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskStartPlayerClientState;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class AskStartPlayerCLIClientState extends AbstractAskStartPlayerClientSt
     public void render() {
         cli.clear();
         if (client.isCurrentlyActive()) {
-            cli.println("I giocatori di questa partita sono:");
+            cli.println(String.format("%s:", I18n.string(I18nKey.THE_PLAYERS_FOR_THIS_MATCH_ARE)));
             List<ReducedUser> users = client.getGame().getPlayersList().stream().map(ReducedPlayer::getUser).collect(Collectors.toList());
             for (int i = 0; i < users.size(); i++) {
                 cli.println(String.format("[%d] %s", i + 1, users.get(i).nickname));
@@ -33,18 +35,18 @@ public class AskStartPlayerCLIClientState extends AbstractAskStartPlayerClientSt
 
             cli.println("");
             while (chosenUser == null) {
-                int choice = cli.readInt("Scegli il giocatore che iniziera' per primo:") - 1;
+                int choice = cli.readInt(String.format("%s:", I18n.string(I18nKey.CHOOSE_THE_PLAYER_THAT_WILL_START_FIRST))) - 1;
                 try {
                     chosenUser = users.get(choice);
                 } catch (IndexOutOfBoundsException e) {
-                    cli.error("Il giocatore indicato non e' valido");
+                    cli.error(I18n.string(I18nKey.THE_CHOSEN_PLAYER_IS_INVALID));
                 }
             }
 
             notifyUiInteraction();
         }
         else {
-            cli.println(String.format("Attendi che %s scelga il giocatore che iniziera' la partita...", client.getCurrentActiveUser().nickname));
+            cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER), client.getCurrentActiveUser().nickname));
         }
     }
 }

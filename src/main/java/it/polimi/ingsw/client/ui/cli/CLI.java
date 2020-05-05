@@ -7,7 +7,8 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
-import it.polimi.ingsw.client.ui.gui.WelcomeScreenGUIClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -203,8 +204,8 @@ public class CLI extends UI {
      * @param s the error message
      */
     void error(String s) {
-        println(ansi().render("@|bold,red Errore:|@ %s", s));
-        readString("Premi 'Invio' per continuare...", null, 0);
+        println(ansi().render("@|bold,red %s:|@ %s", I18n.string(I18nKey.ERROR), s));
+        readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);
     }
 
     /**
@@ -284,7 +285,7 @@ public class CLI extends UI {
             if (def != null && line.equals("")) {
                 return def;
             }
-            error(String.format("%s non e' un intero", line));
+            error(String.format("%s %s", line, I18n.string(I18nKey.IS_NOT_AN_INTEGER)));
             return readInt(prompt, def, expected_input_length);
         }
     }
@@ -297,7 +298,7 @@ public class CLI extends UI {
      * @return the selected ReducedCell
      */
     ReducedCell readCell(ReducedBoard board, String prompt) {
-        String ERROR_INVALID_COORDINATES = "Inserisci una coordinata valida (es. C2)";
+        String ERROR_INVALID_COORDINATES = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
         ReducedCell res = null;
         while (res == null) {
             String choice = readString(prompt, null, 3);
@@ -327,13 +328,13 @@ public class CLI extends UI {
      */
     private void printReadPrompt(String prompt, String def, int expected_input_length) {
         String underscores = "_".repeat(expected_input_length);
-        String defText = def != null ? String.format(" (default: %s)", def) : "";
+        String defText = def != null ? String.format(" (%s: %s)", I18n.string(I18nKey.DEFAULT), def) : "";
         print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expected_input_length));
     }
 
     void printPlayersOfGame(ReducedGame game) {
         StringBuilder res = new StringBuilder();
-        res.append(ansi().a("GIOCATORI:\n"));
+        res.append(ansi().a(String.format("%s:%n", I18n.string(I18nKey.PLAYERS))));
         for (ReducedPlayer player : game.getPlayersList()) {
             Ansi resPlayer = ansi();
             if (player.isLocalPlayer()) {
