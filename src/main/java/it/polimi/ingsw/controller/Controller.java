@@ -138,9 +138,7 @@ public class Controller implements LambdaObserver {
      */
     public void dispatchSetWorkerStartPositionAction(ClientSetWorkerStartPositionMessage action, View view, User user) {
         WorkerID workerID = WorkerID.fromReducedWorkerId(action.workerID);
-        boolean isValidPositioning =
-                workerID != null
-                && model.isValidPositioning(action.targetCellX, action.targetCellY, workerID, user);
+        boolean isValidPositioning = model.isValidPositioning(action.targetCellX, action.targetCellY, workerID, user);
 
         if (isValidPositioning) {
             model.setWorkerPosition(action.targetCellX, action.targetCellY, workerID, user);
