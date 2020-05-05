@@ -2,12 +2,14 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.ViewClientMessage;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.*;
 
@@ -23,7 +25,7 @@ class ControllerTest {
         //mock the actions
         ClientChooseGodsMessage myChooseGodsCommand = spy(
                 new ClientChooseGodsMessage(
-                        null
+                        Arrays.stream((new ReducedGod[]{new ReducedGod("Pippo")})).collect(Collectors.toList())
                 )
         );
         ClientChooseGodMessage myChooseGodCommand = spy(
@@ -109,10 +111,10 @@ class ControllerTest {
         when(
                 myGame.
                         isValidPositioning(
-                                mySetStartPositionMessage.targetCellX,
-                                mySetStartPositionMessage.targetCellY,
-                                any(WorkerID.class),
-                                myUser
+                                anyInt(),
+                                anyInt(),
+                                any(),
+                                any()
                         )
         )
                 .thenReturn(true);
@@ -194,7 +196,7 @@ class ControllerTest {
         //mock the actions
         ClientChooseGodsMessage myChooseGodsCommand = spy(
                 new ClientChooseGodsMessage(
-                        null
+                        Arrays.stream((new ReducedGod[]{new ReducedGod("Pippo")})).collect(Collectors.toList())
                 )
         );
         ClientChooseGodMessage myChooseGodCommand = spy(
@@ -287,10 +289,10 @@ class ControllerTest {
         when(
                 myGame.
                         isValidPositioning(
-                                mySetStartPositionMessage.targetCellX,
-                                mySetStartPositionMessage.targetCellY,
-                                any(WorkerID.class),
-                                myUser
+                                anyInt(),
+                                anyInt(),
+                                any(),
+                                any()
                         )
         )
                 .thenReturn(false);
@@ -354,6 +356,6 @@ class ControllerTest {
                 myMoveCommand.performer, myUser);
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(0)).skip();
-        verify(myView, times(3)).handleMessage(StatusMessages.CLIENT_ERROR);
+        verify(myView, times(7)).handleMessage(StatusMessages.CLIENT_ERROR);
     }
 }
