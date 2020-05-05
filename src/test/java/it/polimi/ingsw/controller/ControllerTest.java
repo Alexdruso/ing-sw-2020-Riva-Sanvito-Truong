@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.view.View;
@@ -81,17 +82,64 @@ class ControllerTest {
         ViewClientMessage moveViewClientMessage = new ViewClientMessage(myMoveCommand, myView, myUser);
         ViewClientMessage skipViewClientMessage = new ViewClientMessage(mySkipCommand, myView, myUser);
         //establish mock behavior, in this case a positive behavior
-        when(myGame
-                .isValidBuild(
-                        myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                        myBuildCommand.component, myBuildCommand.performer,
-                        myUser))
+        when(
+                myGame
+                        .isValidGodsChoice(
+                                myChooseGodsCommand.getGods(),
+                                myUser
+                        )
+        )
                 .thenReturn(true);
-        when(myGame
-                .isValidMove(
-                        myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
-                        myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                        myMoveCommand.performer, myUser))
+        when(
+                myGame
+                        .isValidGodChoice(
+                                myChooseGodCommand.getGod(),
+                                myUser
+                        )
+        )
+                .thenReturn(true);
+        when(
+                myGame
+                        .isValidStartPlayerChoice(
+                                mySetStartPlayerCommand.startPlayer,
+                                myUser
+                        )
+        )
+                .thenReturn(true);
+        when(
+                myGame.
+                        isValidPositioning(
+                                mySetStartPositionMessage.targetCellX,
+                                mySetStartPositionMessage.targetCellY,
+                                any(WorkerID.class),
+                                myUser
+                        )
+        )
+                .thenReturn(true);
+        when(
+                myGame.
+                        isInGame(
+                                myUser
+                        )
+        )
+                .thenReturn(true);
+        when(
+                myGame
+                        .isValidBuild(
+                                myBuildCommand.targetCellX, myBuildCommand.targetCellY,
+                                myBuildCommand.component, myBuildCommand.performer,
+                                myUser
+                        )
+        )
+                .thenReturn(true);
+        when(
+                myGame
+                        .isValidMove(
+                                myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
+                                myMoveCommand.targetCellX, myMoveCommand.targetCellY,
+                                myMoveCommand.performer, myUser
+                        )
+        )
                 .thenReturn(true);
         when(myGame.isValidSkip(myUser)).thenReturn(true);
         //ready steady go
@@ -159,20 +207,6 @@ class ControllerTest {
         ClientDisconnectMessage myDisconnectMessage = spy(
                 new ClientDisconnectMessage()
         );
-
-        ViewClientMessage chooseGodsViewClientMessage = new ViewClientMessage(myChooseGodsCommand, myView, myUser);
-        ViewClientMessage chooseGodViewClientMessage = new ViewClientMessage(myChooseGodCommand, myView, myUser);
-        ViewClientMessage setStartPlayerViewClientMessage = new ViewClientMessage(
-                mySetStartPositionMessage,
-                myView,
-                myUser
-        );
-        ViewClientMessage setStartPositionViewClientMessage = new ViewClientMessage(
-                mySetStartPositionMessage,
-                myView,
-                myUser
-        );
-        ViewClientMessage disconnectViewClientMessage = new ViewClientMessage(myDisconnectMessage, myView, myUser);
         ClientBuildMessage myBuildCommand = spy(
                 new ClientBuildMessage(
                         0,
@@ -190,10 +224,73 @@ class ControllerTest {
                         null)
         );
         ClientSkipMessage mySkipCommand = spy(new ClientSkipMessage());
+
+
+        ViewClientMessage chooseGodsViewClientMessage = new ViewClientMessage(
+                myChooseGodsCommand,
+                myView,
+                myUser
+        );
+        ViewClientMessage chooseGodViewClientMessage = new ViewClientMessage(myChooseGodCommand, myView, myUser);
+        ViewClientMessage setStartPlayerViewClientMessage = new ViewClientMessage(
+                mySetStartPositionMessage,
+                myView,
+                myUser
+        );
+        ViewClientMessage setStartPositionViewClientMessage = new ViewClientMessage(
+                mySetStartPositionMessage,
+                myView,
+                myUser
+        );
+        ViewClientMessage disconnectViewClientMessage = new ViewClientMessage(
+                myDisconnectMessage,
+                myView,
+                myUser);
         ViewClientMessage buildViewClientMessage = new ViewClientMessage(myBuildCommand, myView, myUser);
         ViewClientMessage moveViewClientMessage = new ViewClientMessage(myMoveCommand, myView, myUser);
         ViewClientMessage skipViewClientMessage = new ViewClientMessage(mySkipCommand, myView, myUser);
         //establish mock behavior, in this case a negative behavior
+        when(
+                myGame
+                        .isValidGodsChoice(
+                                myChooseGodsCommand.getGods(),
+                                myUser
+                        )
+        )
+                .thenReturn(false);
+        when(
+                myGame
+                        .isValidGodChoice(
+                                myChooseGodCommand.getGod(),
+                                myUser
+                        )
+        )
+                .thenReturn(false);
+        when(
+                myGame
+                        .isValidStartPlayerChoice(
+                                mySetStartPlayerCommand.startPlayer,
+                                myUser
+                        )
+        )
+                .thenReturn(false);
+        when(
+                myGame.
+                        isValidPositioning(
+                                mySetStartPositionMessage.targetCellX,
+                                mySetStartPositionMessage.targetCellY,
+                                any(WorkerID.class),
+                                myUser
+                        )
+        )
+                .thenReturn(false);
+        when(
+                myGame.
+                        isInGame(
+                                myUser
+                        )
+        )
+                .thenReturn(false);
         when(myGame
                 .isValidBuild(
                         myBuildCommand.targetCellX, myBuildCommand.targetCellY,
