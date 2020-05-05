@@ -31,6 +31,7 @@ public class SceneLoader {
         Parent root;
         AbstractController controller;
         SavedScene savedScene;
+        Boolean stateChanged = false;
 
         try {
             Optional<SavedScene> savedRoot = gui.getScene(clientState);
@@ -40,12 +41,18 @@ public class SceneLoader {
                 root = loader.load();
                 controller = loader.getController();
                 controller.setClient(client);
-                savedScene = new SavedScene(controller, root);
+                savedScene = new SavedScene(controller, root, clientState);
                 gui.addScene(clientState, savedScene);
                 root.setCache(true);
                 root.setCacheHint(CacheHint.SPEED);
             } else {
                 savedScene = savedRoot.get();
+
+                SavedScene currentScene = gui.getCurrentScene();
+                if(!savedScene.equals(currentScene)){
+                    stateChanged = true;
+                }
+
                 root = savedScene.root;
                 controller = savedScene.controller;
             }
@@ -53,10 +60,14 @@ public class SceneLoader {
             controller.setState(state); //Always needs to be updated, since states are created on demand
             gui.setCurrentScene(savedScene);
 
-            if(applyFadeOut){
-                applyFadeOut(mainScene, root);
+            if(stateChanged){
+                if(applyFadeOut){
+                    applyFadeOut(mainScene, root);
+                } else {
+                    applyFadeIn(mainScene, root, 1500);
+                }
             } else {
-                applyFadeIn(mainScene, root, 1500);
+               mainScene.setRoot(root);
             }
             return savedScene;
 

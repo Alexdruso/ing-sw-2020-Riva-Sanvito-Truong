@@ -45,7 +45,7 @@
                         <Insets bottom="50.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="errorLabel" styleClass="error-message">
+                  <Label fx:id="errorLabel" opacity="0.0" styleClass="error-message">
                      <VBox.margin>
                         <Insets bottom="50.0" />
                      </VBox.margin>

@@ -15,7 +15,7 @@ import java.util.Optional;
 public class GUI extends UI {
     private Scene mainScene;
     private final HashMap<ClientState, SavedScene> sceneMap = new HashMap<>();
-    private SavedScene currentRoot;
+    private SavedScene currentScene;
 
     @Override
     public void init() {
@@ -34,12 +34,16 @@ public class GUI extends UI {
         }
     }
 
-    void removeFScene(ClientState clientState){
+    void removeScene(ClientState clientState){
         sceneMap.remove(clientState);
     }
 
     public void setCurrentScene(SavedScene current){
-        currentRoot = current;
+        currentScene = current;
+    }
+
+    public SavedScene getCurrentScene(){
+        return currentScene;
     }
 
     @Override
@@ -79,6 +83,6 @@ public class GUI extends UI {
     @Override
     public void notifyError(String message) {
         //TODO: For cleanliness of code, I think we should set a localization file and pass enums
-        currentRoot.controller.handleError(message);
+        currentScene.controller.handleError(message);
     }
 }

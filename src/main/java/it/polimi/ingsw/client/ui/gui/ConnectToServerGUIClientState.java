@@ -60,54 +60,5 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
     @Override
     public void render() {
         SceneLoader.loadFromFXML("/fxml/ConnectToServer.fxml", mainScene, client, this, ClientState.CONNECT_TO_SERVER, true);
-        /*
-        try {
-            Optional<SavedScene> savedRoot = gui.getScene(ClientState.CONNECT_TO_SERVER);
-            Parent root;
-            ConnectToServerController controller;
-            SavedScene savedScene;
-            if(savedRoot.isEmpty()){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConnectToServer.fxml"));
-                root = loader.load();
-                controller = loader.getController();
-                controller.setClient(client);
-                savedScene = new SavedScene(controller, (Pane)root);
-                gui.addScene(ClientState.CONNECT_TO_SERVER, savedScene);
-                root.setCache(true);
-                root.setCacheHint(CacheHint.SPEED);
-            } else {
-                savedScene = savedRoot.get();
-                root = savedScene.root;
-                controller = (ConnectToServerController) savedScene.controller;
-            }
-
-            controller.setState(this); //Always needs to be updated, since states are created on demand
-            gui.setCurrentScene(savedScene);
-
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(300), mainScene.getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-            fadeOut.play();
-
-            fadeOut.setOnFinished((event) ->
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        //mainScene.getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
-                        root.setOpacity(0);
-                        mainScene.setRoot(root);
-                        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
-                        fadeIn.setInterpolator(Interpolator.EASE_OUT);
-                        fadeIn.setFromValue(0.0);
-                        fadeIn.setToValue(1.0);
-                        fadeIn.play();
-                    }
-                })
-            );
-
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-        }
-         */
     }
 }
