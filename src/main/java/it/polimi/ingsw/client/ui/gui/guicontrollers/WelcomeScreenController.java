@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,16 +19,9 @@ public class WelcomeScreenController extends AbstractController {
     }
 
     @FXML
-    public void handleCredits(ActionEvent event) throws Exception{
-        //TODO: fix this
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Credits.fxml"));
-        Scene scene = new Scene(root, 1280, 720);
-
-        scene.getStylesheets().add(getClass().getResource("/css/credits.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/common.css").toExternalForm());
-
-        primaryStage.setFullScreen(false);
-        primaryStage.show();
+    public void handleCredits(ActionEvent event) {
+        primaryStage.getScene().getStylesheets().add(getClass().getResource("/css/credits.css").toExternalForm());
+        SceneLoader.loadNoCacheFromFXML("/fxml/Credits.fxml", client, primaryStage.getScene(), true);
     }
 
     @FXML

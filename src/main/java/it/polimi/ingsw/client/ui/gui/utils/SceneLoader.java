@@ -12,10 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,12 +38,17 @@ public class SceneLoader {
             Optional<SavedScene> savedRoot = gui.getScene(clientState);
 
             if(savedRoot.isEmpty()){
-                FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file));
+                ResourceBundle resources = geti18n();
+                FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resources);
+
                 root = loader.load();
+
                 controller = loader.getController();
                 controller.setClient(client);
+
                 savedScene = new SavedScene(controller, root, clientState);
                 gui.addScene(clientState, savedScene);
+
                 root.setCache(true);
                 root.setCacheHint(CacheHint.SPEED);
             } else {
@@ -73,6 +81,51 @@ public class SceneLoader {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return null;
         }
+    }
+
+    public static void loadNoCacheFromFXML(String file, Client client, Scene mainScene, boolean applyFadeOut){
+        Parent root;
+        try {
+            ResourceBundle resources = geti18n();
+            FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resources);
+            root = loader.load();
+            AbstractController controller = loader.getController();
+            controller.setClient(client);
+            root.setCache(true);
+            root.setCacheHint(CacheHint.SPEED);
+            if(applyFadeOut){
+                applyFadeOut(mainScene, root);
+            } else {
+                applyFadeIn(mainScene, root, 1500);
+            }
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
+    public static void loadSaved(ClientState clientState, Scene mainScene, Client client, boolean applyFadeOut){
+        GUI gui = (GUI)client.getUI();
+        SavedScene savedScene = gui.getScene(clientState).get();
+
+        Pane root = (Pane)savedScene.root;
+        AbstractController controller = savedScene.controller;
+
+        gui.setCurrentScene(savedScene);
+
+        applyFadeOut(mainScene, root);
+    }
+
+    public static ResourceBundle geti18n(){
+        String LANGUAGE_ENV_VAR_NAME = "LANGUAGE";
+        Locale locale;
+        String language = System.getenv(LANGUAGE_ENV_VAR_NAME);
+        try {
+            locale = new Locale(language);
+        }
+        catch (NullPointerException ignored) {
+            locale = Locale.getDefault();
+        }
+        return ResourceBundle.getBundle("i18n.strings", locale);
     }
 
     public static void applyFadeIn(Scene mainScene, Parent newRoot, double duration){

@@ -28,15 +28,15 @@
                   <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleJoinLobby" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" stylesheets="@../css/MainMenu.css" text="Join Lobby" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleJoinLobby" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" stylesheets="@../css/MainMenu.css" text="%join_lobby" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets right="60.0" />
                      </GridPane.margin></Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="Settings" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%settings" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets right="60.0" />
                      </GridPane.margin></Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCredits" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="Credits" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCredits" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%credits" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets right="60.0" />
                      </GridPane.margin></Button>

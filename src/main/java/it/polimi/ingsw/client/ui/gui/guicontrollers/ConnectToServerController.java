@@ -12,7 +12,7 @@ public class ConnectToServerController extends AbstractController{
     @FXML
     Button connectButton;
     @FXML
-    TextField addressField;
+    TextField hostField;
     @FXML
     TextField portField;
     @FXML
@@ -20,14 +20,20 @@ public class ConnectToServerController extends AbstractController{
 
     @FXML
     public void handleConnectButton(ActionEvent event){
-        if(NumberUtils.isNumber(portField.getText()) &&
-                addressField.getText().length() != 0 &&
-                portField.getText().length() != 0){
-            ((ConnectToServerGUIClientState)state).setHostPort(addressField.getText(), portField.getText());
-        } else {
-            errorLabel.setOpacity(1);
-            errorLabel.setText("Invalid host or port!");
+        String host = "127.0.0.1";
+        String port = "7268";
+        if(hostField.getText().length() != 0) host = hostField.getText();
+        if(portField.getText().length() != 0) {
+            if(NumberUtils.isNumber(portField.getText())){
+                port = portField.getText();
+            } else {
+                errorLabel.setOpacity(1);
+                //TODO: localisation
+                errorLabel.setText("Invalid host or port!");
+                return;
+            }
         }
+        ((ConnectToServerGUIClientState)state).setHostPort(host, port);
     }
 
     @FXML
@@ -42,6 +48,7 @@ public class ConnectToServerController extends AbstractController{
 
     public void handleError(String message){
         errorLabel.setOpacity(1);
+        //TODO: localisation
         errorLabel.setText("Could not connect to the server!");
     }
 }
