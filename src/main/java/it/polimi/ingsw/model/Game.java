@@ -293,22 +293,18 @@ public class Game extends LambdaObservable<Transmittable> {
 
         Player player = getPlayerFromUser(user);
         Worker worker = player.getWorkerByID(performer);
-        if (gameState == GameState.PLAY
+        return gameState == GameState.PLAY
                 && targetCellX >= 0
                 && targetCellX <= board.getDimension()
                 && targetCellY >= 0
                 && targetCellY <= board.getDimension()
                 && currentTurn.getPlayer().equals(player)
-        ) {
-            Cell targetCell = board.getCell(targetCellX, targetCellY);
-            if (component == Component.BLOCK) {
-                return currentTurn.canBuildBlockIn(worker, targetCell);
-            } else {
-                return currentTurn.canBuildDomeIn(worker, targetCell);
-            }
-        }
-
-        return false;
+                && (
+                component == Component.BLOCK
+                        && currentTurn.canBuildBlockIn(worker, board.getCell(targetCellX, targetCellY))
+                        || component == Component.DOME
+                        && currentTurn.canBuildDomeIn(worker, board.getCell(targetCellX, targetCellY))
+        );
     }
 
     /**
