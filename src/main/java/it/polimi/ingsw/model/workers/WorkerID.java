@@ -6,12 +6,7 @@ public enum WorkerID {
     WORKER1, WORKER2;
 
     public static WorkerID fromReducedWorkerId(ReducedWorkerID reducedWorkerID) {
-        try {
             return WorkerID.valueOf(reducedWorkerID.toString());
-        }
-        catch (IllegalArgumentException|NullPointerException e) {
-            return null;
-        }
     }
 
     public ReducedWorkerID toReducedWorkerId() {
