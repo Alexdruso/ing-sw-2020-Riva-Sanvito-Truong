@@ -241,10 +241,10 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public boolean isValidMove(int sourceCellX, int sourceCellY,
                                int targetCellX, int targetCellY,
-                               WorkerID performer, User user) {
+                               ReducedWorkerID performer, User user) {
 
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(performer);
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
 
         return gameState == GameState.PLAY
                 && sourceCellX >= 0
@@ -257,7 +257,8 @@ public class Game extends LambdaObservable<Transmittable> {
                 && targetCellY <= board.getDimension()
                 && currentTurn.getPlayer().equals(player)
                 && board.getCell(sourceCellX, sourceCellY).getWorker()
-                .map(worker1 -> worker1.equals(player.getWorkerByID(performer))).orElse(false)
+                .map(worker1 -> worker1.equals(player.getWorkerByID(WorkerID.fromReducedWorkerId(performer))))
+                .orElse(false)
                 && currentTurn.canMoveTo(worker, board.getCell(targetCellX, targetCellY));
     }
 
@@ -270,10 +271,10 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user        the user that triggered the command
      */
     public void move(int targetCellX, int targetCellY,
-                     WorkerID performer, User user) {
+                     ReducedWorkerID performer, User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(performer);
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         try {
             currentTurn.moveTo(worker, targetCell);
         } catch (InvalidTurnStateException e) {
@@ -292,11 +293,11 @@ public class Game extends LambdaObservable<Transmittable> {
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidBuild(int targetCellX, int targetCellY,
-                                Component component, WorkerID performer,
+                                Component component, ReducedWorkerID performer,
                                 User user) {
 
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(performer);
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         return gameState == GameState.PLAY
                 && targetCellX >= 0
                 && targetCellX <= board.getDimension()
@@ -319,10 +320,10 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user        the user that triggered the command
      */
     public void build(int targetCellX, int targetCellY,
-                      Component component, WorkerID performer,
+                      Component component, ReducedWorkerID performer,
                       User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Worker worker = getPlayerFromUser(user).getWorkerByID(performer);
+        Worker worker = getPlayerFromUser(user).getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         try {
             if (component == Component.BLOCK) {
                 currentTurn.buildBlockIn(worker, targetCell);
@@ -551,9 +552,9 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user        the user of the player choosing
      * @return true if the command is valid, false otherwise
      */
-    public boolean isValidPositioning(int targetCellX, int targetCellY, WorkerID performer, User user) {
+    public boolean isValidPositioning(int targetCellX, int targetCellY, ReducedWorkerID performer, User user) {
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(performer);
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         return gameState == GameState.SET_WORKER_POSITION //check right state
                 && targetCellX >= 0
                 && targetCellX < board.getDimension()
@@ -561,7 +562,8 @@ public class Game extends LambdaObservable<Transmittable> {
                 && targetCellY < board.getDimension()
                 && player.equals(players.peek()) //check it's player's turn
                 && Arrays.stream(player.getWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
-                .findFirst().map(x -> x.getWorkerID() == performer).orElse(false)
+                .findFirst().map(x -> x.getWorkerID() == WorkerID.fromReducedWorkerId(performer))
+                .orElse(false)
                 && worker.getCell() == null //check worker has no cell yet
                 && board.getCell(targetCellX, targetCellY).getWorker().isEmpty(); //check cell is not occupied
     }
@@ -574,10 +576,10 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param performer   the worker
      * @param user        tje user of the player choosing
      */
-    public void setWorkerPosition(int targetCellX, int targetCellY, WorkerID performer, User user) {
+    public void setWorkerPosition(int targetCellX, int targetCellY, ReducedWorkerID performer, User user) {
         Player player = getPlayerFromUser(user);
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Worker worker = player.getWorkerByID(performer);
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         //set the position
         worker.setCell(targetCell);
         targetCell.setWorker(worker);
@@ -587,7 +589,7 @@ public class Game extends LambdaObservable<Transmittable> {
                         user.toReducedUser(),
                         targetCellX,
                         targetCellY,
-                        performer.toReducedWorkerId()
+                        performer
                 )
         );
         //now check if any worker from the same player is left without a cell
