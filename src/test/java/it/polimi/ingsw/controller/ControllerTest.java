@@ -166,21 +166,63 @@ class ControllerTest {
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         //verify the right calls
+        verify(myGame, times(1)).isValidGodsChoice(
+                myChooseGodsCommand.getGods(),
+                myUser
+        );
+        verify(myGame, times(1)).setAvailableGodsList(
+                myChooseGodsCommand.getGods()
+        );
+        verify(myGame, times(1)).isValidGodChoice(
+                myChooseGodCommand.getGod(),
+                myUser
+        );
+        verify(myGame, times(1)).setGod(
+                myChooseGodCommand.getGod(),
+                myUser
+        );
+        verify(myGame, times(1)).isValidStartPlayerChoice(
+                mySetStartPlayerCommand.startPlayer,
+                myUser
+        );
+        verify(myGame, times(1)).setStartPlayer(
+                mySetStartPlayerCommand.startPlayer
+        );
+        verify(myGame, times(1)).isValidPositioning(
+                anyInt(),
+                anyInt(),
+                any(),
+                any()
+        );
+        verify(myGame, times(1)).setWorkerPosition(
+                anyInt(),
+                anyInt(),
+                any(),
+                any()
+        );
+        verify(myGame, times(1)).isInGame(
+                myUser
+        );
+        verify(myGame, times(1)).draw();
         verify(myGame, times(1)).isValidBuild(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
                 myBuildCommand.component, myBuildCommand.performer,
-                myUser);
+                myUser
+        );
         verify(myGame, times(1)).build(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
                 myBuildCommand.component, myBuildCommand.performer,
-                myUser);
+                myUser
+        );
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser);
+                myMoveCommand.performer, myUser
+        );
         verify(myGame, times(1)).move(
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser);
+                myMoveCommand.performer, myUser
+        );
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(1)).skip();
         verify(myView, times(0)).handleMessage(StatusMessages.CLIENT_ERROR);
@@ -339,23 +381,66 @@ class ControllerTest {
         myController.dispatchViewClientMessages();
         myController.dispatchViewClientMessages();
         //verify right calls
+        verify(myGame, times(1)).isValidGodsChoice(
+                myChooseGodsCommand.getGods(),
+                myUser
+        );
+        verify(myGame, times(0)).setAvailableGodsList(
+                myChooseGodsCommand.getGods()
+        );
+        verify(myGame, times(1)).isValidGodChoice(
+                myChooseGodCommand.getGod(),
+                myUser
+        );
+        verify(myGame, times(0)).setGod(
+                myChooseGodCommand.getGod(),
+                myUser
+        );
+        verify(myGame, times(1)).isValidStartPlayerChoice(
+                mySetStartPlayerCommand.startPlayer,
+                myUser
+        );
+        verify(myGame, times(0)).setStartPlayer(
+                mySetStartPlayerCommand.startPlayer
+        );
+        verify(myGame, times(1)).isValidPositioning(
+                anyInt(),
+                anyInt(),
+                any(),
+                any()
+        );
+        verify(myGame, times(0)).setWorkerPosition(
+                anyInt(),
+                anyInt(),
+                any(),
+                any()
+        );
+        verify(myGame, times(1)).isInGame(
+                myUser
+        );
+        verify(myGame, times(0)).draw();
         verify(myGame, times(1)).isValidBuild(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
                 myBuildCommand.component, myBuildCommand.performer,
-                myUser);
+                myUser
+        );
         verify(myGame, times(0)).build(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
                 myBuildCommand.component, myBuildCommand.performer,
-                myUser);
+                myUser
+        );
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser);
+                myMoveCommand.performer, myUser
+        );
         verify(myGame, times(0)).move(
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser);
+                myMoveCommand.performer, myUser
+        );
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(0)).skip();
+
         verify(myView, times(7)).handleMessage(StatusMessages.CLIENT_ERROR);
     }
 }
