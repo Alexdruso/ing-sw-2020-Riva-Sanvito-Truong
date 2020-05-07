@@ -299,12 +299,10 @@ public class Game extends LambdaObservable<Transmittable> {
                 && targetCellY >= 0
                 && targetCellY <= board.getDimension()
                 && currentTurn.getPlayer().equals(player)
-                && (
-                component == Component.BLOCK
-                        && currentTurn.canBuildBlockIn(worker, board.getCell(targetCellX, targetCellY))
-                        || component == Component.DOME
-                        && currentTurn.canBuildDomeIn(worker, board.getCell(targetCellX, targetCellY))
-        );
+                && (component == Component.BLOCK
+                && currentTurn.canBuildBlockIn(worker, board.getCell(targetCellX, targetCellY))
+                || component == Component.DOME
+                && currentTurn.canBuildDomeIn(worker, board.getCell(targetCellX, targetCellY)));
     }
 
     /**
