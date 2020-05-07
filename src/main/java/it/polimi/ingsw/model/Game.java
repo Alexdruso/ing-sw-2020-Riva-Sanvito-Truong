@@ -531,7 +531,9 @@ public class Game extends LambdaObservable<Transmittable> {
         gameState = GameState.SET_WORKER_POSITION;
         //send message of start positioning
         notify(new ServerAskWorkerPositionMessage(
-                        WorkerID.WORKER1, startPlayer, (new TargetCells()).setAllTargets(true).toReducedTargetCells()
+                        WorkerID.WORKER1.toReducedWorkerId(),
+                        startPlayer,
+                        (new TargetCells()).setAllTargets(true).toReducedTargetCells()
                 )
         );
     }
@@ -589,7 +591,7 @@ public class Game extends LambdaObservable<Transmittable> {
                     //it's yet the user turn, he already has workers to position
                     gameState = GameState.SET_WORKER_POSITION;
                     notify(new ServerAskWorkerPositionMessage(
-                                    x.getWorkerID(),
+                                    x.getWorkerID().toReducedWorkerId(),
                                     user.toReducedUser(),
                                     targetCells.toReducedTargetCells()
                             )
@@ -608,7 +610,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         gameState = GameState.SET_WORKER_POSITION;
 
                                         notify(new ServerAskWorkerPositionMessage(
-                                                        y.getWorkerID(),
+                                                        y.getWorkerID().toReducedWorkerId(),
                                                         getUserFromPlayer(players.peek()).toReducedUser(),
                                                         targetCells.toReducedTargetCells()
                                                 )
