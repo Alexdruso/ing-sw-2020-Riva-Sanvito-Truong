@@ -14,7 +14,7 @@ class Atlas extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeBuild(Turn turn) {
-            Worker[] workers = turn.getPlayer().getOwnWorkers();
+            Worker[] workers = turn.getPlayer().getWorkers();
             for (Worker worker : workers) {
                 turn.getWorkerDomeBuildableCells(worker).union(turn.getWorkerBlockBuildableCells(worker));
             }

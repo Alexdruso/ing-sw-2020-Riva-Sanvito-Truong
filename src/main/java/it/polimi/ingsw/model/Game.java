@@ -560,7 +560,7 @@ public class Game extends LambdaObservable<Transmittable> {
                 && targetCellY >= 0
                 && targetCellY < board.getDimension()
                 && player.equals(players.peek()) //check it's player's turn
-                && Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
+                && Arrays.stream(player.getWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
                 .findFirst().map(x -> x.getWorkerID() == performer).orElse(false)
                 && worker.getCell() == null //check worker has no cell yet
                 && board.getCell(targetCellX, targetCellY).getWorker().isEmpty(); //check cell is not occupied
@@ -586,11 +586,11 @@ public class Game extends LambdaObservable<Transmittable> {
         //now check if any worker from the same player is left without a cell
         //generate the ReducedTargetCells
         TargetCells targetCells = (new TargetCells()).setAllTargets(true);
-        players.stream().flatMap(p -> Arrays.stream(p.getOwnWorkers()))
+        players.stream().flatMap(p -> Arrays.stream(p.getWorkers()))
                 .filter(w -> w.getCell() != null).map(Worker::getCell)
                 .forEach(x -> targetCells.setPosition(x, false));
 
-        Arrays.stream(player.getOwnWorkers()).filter(x -> x.getCell() == null).findFirst().ifPresentOrElse(
+        Arrays.stream(player.getWorkers()).filter(x -> x.getCell() == null).findFirst().ifPresentOrElse(
                 x -> {
                     //it's yet the user turn, he already has workers to position
                     gameState = GameState.SET_WORKER_POSITION;
@@ -607,7 +607,7 @@ public class Game extends LambdaObservable<Transmittable> {
                     players.add(player);
                     //now check if the new first player has to position some workers
                     assert players.peek() != null;
-                    Arrays.stream(players.peek().getOwnWorkers()).filter(y -> y.getCell() == null).findFirst()
+                    Arrays.stream(players.peek().getWorkers()).filter(y -> y.getCell() == null).findFirst()
                             .ifPresentOrElse(
                                     y -> {
                                         //there is some worker to be positioned
@@ -715,7 +715,7 @@ public class Game extends LambdaObservable<Transmittable> {
         Player losingPlayer = players.peek();
         //removes all the workers of that player
         assert losingPlayer != null;
-        Arrays.stream(losingPlayer.getOwnWorkers()).forEach(this::removeWorkerFromCell);
+        Arrays.stream(losingPlayer.getWorkers()).forEach(this::removeWorkerFromCell);
         //rotate the players removing the current turn player
         players.poll();
         //tell the player he lost

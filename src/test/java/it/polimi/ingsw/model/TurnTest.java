@@ -33,8 +33,8 @@ class TurnTest {
         //Give Game a meaning
         when(mockGame.getBoard()).thenReturn(myBoard);
         //Setup player's workers now that we invoke move.setup before starting the turn
-        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
         //Create the turn
         Turn myTurn = spy(new Turn(mockGame, myPlayer));
 
@@ -67,41 +67,41 @@ class TurnTest {
         assertFalse(myTurn.isLosingTurn());
         assertFalse(myTurn.isWinningTurn());
 
-        myTurn.addPerformedAction(new MoveAction(new Cell(0, 0), new Cell(1, 1), 0, 0, myPlayer.getOwnWorkers()[0]));
-        myTurn.addPerformedAction(new BuildAction(new Cell(0, 0), Component.BLOCK.getInstance(), 5, myPlayer.getOwnWorkers()[0]));
+        myTurn.addPerformedAction(new MoveAction(new Cell(0, 0), new Cell(1, 1), 0, 0, myPlayer.getWorkers()[0]));
+        myTurn.addPerformedAction(new BuildAction(new Cell(0, 0), Component.BLOCK.getInstance(), 5, myPlayer.getWorkers()[0]));
         assertEquals(2, myTurn.getPerformedAction().size());
         assertEquals(1, myTurn.getMoves().size());
         assertNotNull(myTurn.getMoves().get(0));
         assertEquals(1, myTurn.getBuilds().size());
         assertNotNull(myTurn.getBuilds().get(0));
 
-        myTurn.addAllowedWorkers(myPlayer.getOwnWorkers());
+        myTurn.addAllowedWorkers(myPlayer.getWorkers());
         assertEquals(2, myTurn.getAllowedWorkers().size());
         myTurn.clearAllowedWorkers();
         assertTrue(myTurn.getAllowedWorkers().isEmpty());
-        myTurn.addAllowedWorker(myPlayer.getOwnWorkers()[0]);
+        myTurn.addAllowedWorker(myPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getAllowedWorkers().size());
         myTurn.clearAllowedWorkers();
         assertTrue(myTurn.getAllowedWorkers().isEmpty());
-        myTurn.addAllowedWorkers(Arrays.asList(myPlayer.getOwnWorkers()));
+        myTurn.addAllowedWorkers(Arrays.asList(myPlayer.getWorkers()));
         assertEquals(2, myTurn.getAllowedWorkers().size());
         myTurn.clearAllowedWorkers();
         assertTrue(myTurn.getAllowedWorkers().isEmpty());
 
         TargetCells myTargetCells1 = new TargetCells();
         TargetCells myTargetCells2 = new TargetCells();
-        myTurn.setWorkerWalkableCells(myPlayer.getOwnWorkers()[0], myTargetCells1);
-        myTurn.setWorkerDomeBuildableCells(myPlayer.getOwnWorkers()[0], myTargetCells1);
-        myTurn.setWorkerBlockBuildableCells(myPlayer.getOwnWorkers()[0], myTargetCells1);
-        myTurn.setWorkerWalkableCells(myPlayer.getOwnWorkers()[1], myTargetCells2);
-        myTurn.setWorkerDomeBuildableCells(myPlayer.getOwnWorkers()[1], myTargetCells2);
-        myTurn.setWorkerBlockBuildableCells(myPlayer.getOwnWorkers()[1], myTargetCells2);
-        assertEquals(myTargetCells1, myTurn.getWorkerWalkableCells(myPlayer.getOwnWorkers()[0]));
-        assertEquals(myTargetCells1, myTurn.getWorkerDomeBuildableCells(myPlayer.getOwnWorkers()[0]));
-        assertEquals(myTargetCells1, myTurn.getWorkerBlockBuildableCells(myPlayer.getOwnWorkers()[0]));
-        assertEquals(myTargetCells2, myTurn.getWorkerWalkableCells(myPlayer.getOwnWorkers()[1]));
-        assertEquals(myTargetCells2, myTurn.getWorkerDomeBuildableCells(myPlayer.getOwnWorkers()[1]));
-        assertEquals(myTargetCells2, myTurn.getWorkerBlockBuildableCells(myPlayer.getOwnWorkers()[1]));
+        myTurn.setWorkerWalkableCells(myPlayer.getWorkers()[0], myTargetCells1);
+        myTurn.setWorkerDomeBuildableCells(myPlayer.getWorkers()[0], myTargetCells1);
+        myTurn.setWorkerBlockBuildableCells(myPlayer.getWorkers()[0], myTargetCells1);
+        myTurn.setWorkerWalkableCells(myPlayer.getWorkers()[1], myTargetCells2);
+        myTurn.setWorkerDomeBuildableCells(myPlayer.getWorkers()[1], myTargetCells2);
+        myTurn.setWorkerBlockBuildableCells(myPlayer.getWorkers()[1], myTargetCells2);
+        assertEquals(myTargetCells1, myTurn.getWorkerWalkableCells(myPlayer.getWorkers()[0]));
+        assertEquals(myTargetCells1, myTurn.getWorkerDomeBuildableCells(myPlayer.getWorkers()[0]));
+        assertEquals(myTargetCells1, myTurn.getWorkerBlockBuildableCells(myPlayer.getWorkers()[0]));
+        assertEquals(myTargetCells2, myTurn.getWorkerWalkableCells(myPlayer.getWorkers()[1]));
+        assertEquals(myTargetCells2, myTurn.getWorkerDomeBuildableCells(myPlayer.getWorkers()[1]));
+        assertEquals(myTargetCells2, myTurn.getWorkerBlockBuildableCells(myPlayer.getWorkers()[1]));
 
     }
 
@@ -135,8 +135,8 @@ class TurnTest {
         when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
 
         //Setup the state to lose
-        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getOwnWorkers()[0]);
+        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.DOME);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.DOME);
         myBoard.getCell(2, 0).getTower().placeComponent(Component.DOME);
@@ -145,8 +145,8 @@ class TurnTest {
         myBoard.getCell(0, 2).getTower().placeComponent(Component.DOME);
         myBoard.getCell(1, 2).getTower().placeComponent(Component.DOME);
         myBoard.getCell(2, 2).getTower().placeComponent(Component.DOME);
-        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
+        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
         myBoard.getCell(3, 2).getTower().placeComponent(Component.DOME);
         myBoard.getCell(4, 2).getTower().placeComponent(Component.DOME);
         myBoard.getCell(2, 3).getTower().placeComponent(Component.DOME);
@@ -157,7 +157,7 @@ class TurnTest {
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
         //Check if moving throws exception -> we are in lose state
-        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Check if it is a losing turn :(
         assertTrue(myTurn.isLosingTurn());
     }
@@ -183,29 +183,29 @@ class TurnTest {
         when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
 
         //Setup the state to win
-        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getOwnWorkers()[0]);
+        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
         myBoard.getCell(1, 1).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(1, 1).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
-        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
+        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
         //Just another check that all is right
-        assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1], myBoard.getCell(0, 0)));
+        assertFalse(myTurn.canMoveTo(myPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
-        assertTrue(myTurn.canMoveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
+        assertTrue(myTurn.canMoveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now move to win!
-        myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
+        myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0));
         //Check if movement happened
-        assertEquals(myPlayer.getOwnWorkers()[0].getCell(), myBoard.getCell(0, 0));
-        assertEquals(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
+        assertEquals(myPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
+        assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getOwnWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getWorkers()[0]);
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
         //Check is winning turn
@@ -243,34 +243,34 @@ class TurnTest {
 
 
         //Setup the state
-        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getOwnWorkers()[0]);
-        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
+        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
+        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
         //Just another check that all is right
-        assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1], myBoard.getCell(0, 0)));
+        assertFalse(myTurn.canMoveTo(myPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
-        assertTrue(myTurn.canMoveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
+        assertTrue(myTurn.canMoveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now move
-        myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
+        myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0));
         //Check if movement happened
-        assertEquals(myPlayer.getOwnWorkers()[0].getCell(), myBoard.getCell(0, 0));
-        assertEquals(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
+        assertEquals(myPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
+        assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getOwnWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getWorkers()[0]);
         //Check that worker 2 is not in allowedWorkers anymore
-        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getOwnWorkers()[1]));
+        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getWorkers()[1]));
         //Trigger exception
-        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now we check and build a block where we were
-        assertTrue(myTurn.canBuildBlockIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 1)));
-        myTurn.buildBlockIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 1));
+        assertTrue(myTurn.canBuildBlockIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 1)));
+        myTurn.buildBlockIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 1));
         //Check the build happened
         assertEquals(1, myBoard.getCell(1, 1).getTower().getCurrentLevel());
-        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(), myPlayer.getOwnWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(), myPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
@@ -306,37 +306,37 @@ class TurnTest {
         when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
 
         //Setup the state
-        myPlayer.getOwnWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getOwnWorkers()[0]);
+        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.BLOCK);
-        myPlayer.getOwnWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getOwnWorkers()[1]);
+        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
         //Create the turn
         Turn myTurn = spy(new Turn(myGame, myPlayer));
         //Just another check that all is right
-        assertFalse(myTurn.canMoveTo(myPlayer.getOwnWorkers()[1], myBoard.getCell(0, 0)));
+        assertFalse(myTurn.canMoveTo(myPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
-        assertTrue(myTurn.canMoveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
+        assertTrue(myTurn.canMoveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now move
-        myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0));
+        myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0));
         //Check if movement happened
-        assertEquals(myPlayer.getOwnWorkers()[0].getCell(), myBoard.getCell(0, 0));
-        assertEquals(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
+        assertEquals(myPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
+        assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getOwnWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getWorkers()[0]);
         //Check that worker 2 is not in allowedWorkers anymore
-        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getOwnWorkers()[1]));
+        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getWorkers()[1]));
         //Trigger exception
-        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getOwnWorkers()[0], myBoard.getCell(0, 0)));
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now we check and build a dome where we can
-        assertTrue(myTurn.canBuildDomeIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 0)));
-        myTurn.buildDomeIn(myPlayer.getOwnWorkers()[0], myBoard.getCell(1, 0));
+        assertTrue(myTurn.canBuildDomeIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 0)));
+        myTurn.buildDomeIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 0));
         //Check the build happened
         assertTrue(myBoard.getCell(1, 0).getTower().isComplete());
-        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(), myPlayer.getOwnWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(), myPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());

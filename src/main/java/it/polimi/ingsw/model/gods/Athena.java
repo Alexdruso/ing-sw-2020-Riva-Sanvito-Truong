@@ -30,11 +30,11 @@ class Athena extends AbstractGod {
                         action -> action.getTargetLevel() > action.getSourceLevel()
                 ).collect(Collectors.toList());
                 if (athenaMoveUpActions.size() > 0) {
-                    for (Worker worker : turn.getPlayer().getOwnWorkers()) {
+                    for (Worker worker : turn.getPlayer().getWorkers()) {
                         TargetCells lowerOrEqualCells = TargetCells.fromCells(
-                            turn.getGame().getBoard().getCellsList().stream().filter(
-                                    cell -> cell.getTower().getCurrentLevel() <= worker.getCell().getTower().getCurrentLevel()
-                            ).collect(Collectors.toList())
+                                turn.getGame().getBoard().getCellsList().stream().filter(
+                                        cell -> cell.getTower().getCurrentLevel() <= worker.getCell().getTower().getCurrentLevel()
+                                ).collect(Collectors.toList())
                         );
                         turn.getWorkerWalkableCells(worker).intersect(lowerOrEqualCells);
                     }

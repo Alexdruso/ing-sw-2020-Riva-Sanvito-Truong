@@ -50,6 +50,9 @@ public class Turn{
      */
     private final Map<Worker, TargetCells> walkableCells;
 
+    /**
+     * Workers allowed to move or build during the turn state
+     */
     private final Set<Worker> allowedWorkers;
 
     /**
@@ -352,19 +355,19 @@ public class Turn{
      */
     public void changeState(){
         // if lose -> go to state LOSE
-        if(this.isLosingTurn()) this.setNextState(TurnState.LOSE.getTurnState());
+        if (this.isLosingTurn()) this.setNextState(TurnState.LOSE.getTurnState());
 
         // computeWinConditions();
         this.computeWinConditions();
 
         // if win -> go to state WIN
-        if(this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
+        if (this.isWinningTurn()) this.setNextState(TurnState.WIN.getTurnState());
 
         //initialization of target cells related to all workers
-        for(Worker worker : this.player.getOwnWorkers()){
-            this.setWorkerWalkableCells(worker,(new TargetCells()).setAllTargets(false));
-            this.setWorkerDomeBuildableCells(worker,(new TargetCells()).setAllTargets(false));
-            this.setWorkerWalkableCells(worker,(new TargetCells()).setAllTargets(false));
+        for (Worker worker : this.player.getWorkers()) {
+            this.setWorkerWalkableCells(worker, (new TargetCells()).setAllTargets(false));
+            this.setWorkerDomeBuildableCells(worker, (new TargetCells()).setAllTargets(false));
+            this.setWorkerWalkableCells(worker, (new TargetCells()).setAllTargets(false));
         }
 
         //Clear allowed workers

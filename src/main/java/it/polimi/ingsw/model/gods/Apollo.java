@@ -19,7 +19,7 @@ class Apollo extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents(){
         @Override
         protected void onBeforeMovement(Turn turn) {
-            Worker[] workers = turn.getPlayer().getOwnWorkers();
+            Worker[] workers = turn.getPlayer().getWorkers();
             for (Worker worker : workers) {
                 Cell currentCell = worker.getCell();
                 TargetCells walkableTargets = turn.getWorkerWalkableCells(worker);

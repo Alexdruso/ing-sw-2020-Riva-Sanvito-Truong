@@ -97,7 +97,7 @@ public interface AbstractTurnState {
         //If there are no performed actions, the player can use all the workers by default
         //Otherwise he is bound to the last worker who performed the action
         if (turn.getPerformedAction().isEmpty()) {
-            turn.addAllowedWorkers(turn.getPlayer().getOwnWorkers());
+            turn.addAllowedWorkers(turn.getPlayer().getWorkers());
         } else {
             List<Action> performedActions = turn.getPerformedAction();
             turn.addAllowedWorker(performedActions.get(performedActions.size() - 1).getPerformer());

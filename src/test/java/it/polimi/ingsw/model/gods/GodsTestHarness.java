@@ -101,7 +101,7 @@ public class GodsTestHarness {
         for (MockedPlayer mockedPlayer : MockedPlayer.values()) {
             when(mockedPlayer.player.getGod()).thenAnswer(mockedCall -> mockedPlayersGods.get(mockedPlayer) != null ? mockedPlayersGods.get(mockedPlayer) : new EmptyGod());
         }
-        when(MockedPlayer.OWNER.player.getOwnWorkers()).thenAnswer(mockedCall -> mockedWorkers.get(MockedPlayer.OWNER.player).toArray(Worker[]::new));
+        when(MockedPlayer.OWNER.player.getWorkers()).thenAnswer(mockedCall -> mockedWorkers.get(MockedPlayer.OWNER.player).toArray(Worker[]::new));
 
         mockedBoardCells = new Cell[mockedBoard.getDimension()][mockedBoard.getDimension()];
         for(int x = 0; x < mockedBoard.getDimension(); x++){

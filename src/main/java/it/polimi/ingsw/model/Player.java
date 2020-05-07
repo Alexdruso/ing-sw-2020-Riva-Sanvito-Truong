@@ -21,7 +21,7 @@ public class Player {
     /**
      * A structure to contain all the player's workers
      */
-    private Worker[] ownWorkers;
+    private Worker[] workers;
 
     /**
      * The player's god, can't be the same as other players
@@ -45,10 +45,10 @@ public class Player {
      */
     public Player(String nickname) {
         this.nickname = nickname;
-        this.ownWorkers = new Worker[WORKER_NUMBER];
+        this.workers = new Worker[WORKER_NUMBER];
 
         for (int i = 0; i < WORKER_NUMBER; i++) {
-            ownWorkers[i] = new Worker(this, WorkerID.values()[i]);
+            workers[i] = new Worker(this, WorkerID.values()[i]);
         }
     }
 
@@ -75,8 +75,8 @@ public class Player {
      *
      * @return a list of the player's workers
      */
-    public Worker[] getOwnWorkers() {
-        return ownWorkers.clone();
+    public Worker[] getWorkers() {
+        return workers.clone();
     }
 
     /**
@@ -86,7 +86,7 @@ public class Player {
      * @return the Worker which corresponds to the provided ID
      */
     public Worker getWorkerByID(WorkerID id) {
-        for (Worker w : ownWorkers) {
+        for (Worker w : workers) {
             if (w.getWorkerID().equals(id)) {
                 return w;
             }

@@ -37,12 +37,12 @@ class PlayerTest {
     void getOwnWorkers() {
         Player testPlayer = new Player("Kek");
 
-        for (int i = 0; i < testPlayer.getOwnWorkers().length; i++) {
-            assertEquals(testPlayer.getOwnWorkers()[i].getWorkerID(), WorkerID.values()[i]);
-            assertEquals(testPlayer.getOwnWorkers()[i].getPlayer(), testPlayer);
+        for (int i = 0; i < testPlayer.getWorkers().length; i++) {
+            assertEquals(testPlayer.getWorkers()[i].getWorkerID(), WorkerID.values()[i]);
+            assertEquals(testPlayer.getWorkers()[i].getPlayer(), testPlayer);
         }
 
-        assertNotSame(testPlayer.getOwnWorkers(), testPlayer.getOwnWorkers());
+        assertNotSame(testPlayer.getWorkers(), testPlayer.getWorkers());
     }
 
     @ParameterizedTest

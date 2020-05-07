@@ -82,7 +82,7 @@ class BuildTest {
         spiedBoard.getCell(4, 4).getTower().placeComponent(Component.DOME);
         spiedBoard.getCell(2, 2).setWorker(mock(Worker.class));
         //the player methods
-        when(this.mockPlayer.getOwnWorkers()).thenReturn(new Worker[]{this.mockWorker, mockWorker2});
+        when(this.mockPlayer.getWorkers()).thenReturn(new Worker[]{this.mockWorker, mockWorker2});
         when(this.mockPlayer.getTurnEventsManager()).thenReturn(this.mockTurnEventsManager);
         //the game methods
         when(this.mockGame.getBoard()).thenReturn(spiedBoard);
@@ -93,7 +93,7 @@ class BuildTest {
         verify(this.mockTurnEventsManager, times(1)).processBeforeBuildEvents(this.mockTurn);
 
         //verify calls on allowedWorkers
-        verify(this.mockTurn).addAllowedWorkers(this.mockPlayer.getOwnWorkers());
+        verify(this.mockTurn).addAllowedWorkers(this.mockPlayer.getWorkers());
         //verify calls on target cells
         ArgumentCaptor<TargetCells> acDomeTargetCell = ArgumentCaptor.forClass(TargetCells.class);
         ArgumentCaptor<Worker> acDomeWorker = ArgumentCaptor.forClass(Worker.class);
@@ -194,7 +194,7 @@ class BuildTest {
         spiedBoard.getCell(4, 4).getTower().placeComponent(Component.DOME);
         spiedBoard.getCell(2, 2).setWorker(mock(Worker.class));
         //the player methods
-        when(this.mockPlayer.getOwnWorkers()).thenReturn(new Worker[]{this.mockWorker, mockWorker2});
+        when(this.mockPlayer.getWorkers()).thenReturn(new Worker[]{this.mockWorker, mockWorker2});
         when(this.mockPlayer.getTurnEventsManager()).thenReturn(this.mockTurnEventsManager);
         //the game methods
         when(this.mockGame.getBoard()).thenReturn(spiedBoard);

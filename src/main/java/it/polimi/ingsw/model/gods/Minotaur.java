@@ -18,7 +18,7 @@ class Minotaur extends AbstractGod {
     private static final TurnEvents ownerTurnEvents = new TurnEvents() {
         @Override
         protected void onBeforeMovement(Turn turn) {
-            for (Worker worker : turn.getPlayer().getOwnWorkers()) {
+            for (Worker worker : turn.getPlayer().getWorkers()) {
                 Cell currentCell = worker.getCell();
                 TargetCells walkableTargets = turn.getWorkerWalkableCells(worker);
                 TargetCells surroundingTargets = TargetCells.fromCellAndRadius(currentCell, 1);
