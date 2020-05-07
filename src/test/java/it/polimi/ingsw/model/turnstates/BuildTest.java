@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.model.board.TargetCells;
 import it.polimi.ingsw.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.model.workers.WorkerID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -48,6 +49,7 @@ class BuildTest {
         mockGame.subscribeUser(mockUser);
         when(mockGame.getUserFromPlayer(mockPlayer)).thenReturn(mockUser);
         when(mockGame.getPlayerFromUser(mockUser)).thenReturn(mockPlayer);
+        when(mockWorker.getWorkerID()).thenReturn(WorkerID.WORKER1);
     }
 
     @Test

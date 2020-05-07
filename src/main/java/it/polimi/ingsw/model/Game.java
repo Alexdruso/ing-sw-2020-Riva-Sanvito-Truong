@@ -180,7 +180,9 @@ public class Game extends LambdaObservable<Transmittable> {
                         startY,
                         cell.getX(),
                         cell.getY(),
-                        worker.getWorkerID()));
+                        worker.getWorkerID().toReducedWorkerId()
+                )
+        );
     }
 
     /**
@@ -201,7 +203,9 @@ public class Game extends LambdaObservable<Transmittable> {
                         cell.getY(),
                         component,
                         builtLevel,
-                        worker.getWorkerID()));
+                        worker.getWorkerID().toReducedWorkerId()
+                )
+        );
     }
 
     /**
@@ -217,7 +221,7 @@ public class Game extends LambdaObservable<Transmittable> {
         notify(
                 new ServerRemoveWorkerMessage(
                         getUserFromPlayer(players.peek()).toReducedUser(),
-                        worker.getWorkerID(),
+                        worker.getWorkerID().toReducedWorkerId(),
                         cell.getX(),
                         cell.getY()
                 )
@@ -578,7 +582,14 @@ public class Game extends LambdaObservable<Transmittable> {
         worker.setCell(targetCell);
         targetCell.setWorker(worker);
         //notify set position
-        notify(new ServerSetWorkerStartPositionMessage(user.toReducedUser(), targetCellX, targetCellY, performer.toReducedWorkerId()));
+        notify(
+                new ServerSetWorkerStartPositionMessage(
+                        user.toReducedUser(),
+                        targetCellX,
+                        targetCellY,
+                        performer.toReducedWorkerId()
+                )
+        );
         //now check if any worker from the same player is left without a cell
         //generate the ReducedTargetCells
         TargetCells targetCells = (new TargetCells()).setAllTargets(true);
@@ -649,15 +660,16 @@ public class Game extends LambdaObservable<Transmittable> {
                 new ServerAskMoveMessage(
                         getUserFromPlayer(turn.getPlayer()).toReducedUser(),
                         turn.isSkippable(),
-                        turn.getAllowedWorkers().stream().map(Worker::getWorkerID).collect(Collectors.toList()),
+                        turn.getAllowedWorkers().stream()
+                                .map(worker -> worker.getWorkerID().toReducedWorkerId())
+                                .collect(Collectors.toList()),
                         turn.getWalkableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
                                                 entry.getKey().getWorkerID(),
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)
-                                )
+                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue))
                 )
         );
     }
@@ -673,21 +685,24 @@ public class Game extends LambdaObservable<Transmittable> {
                 new ServerAskBuildMessage(
                         getUserFromPlayer(turn.getPlayer()).toReducedUser(),
                         turn.isSkippable(),
-                        turn.getAllowedWorkers().stream().map(Worker::getWorkerID).collect(Collectors.toList()),
+                        turn.getAllowedWorkers().stream()
+                                .map(worker -> worker.getWorkerID().toReducedWorkerId()).collect(Collectors.toList()),
                         turn.getBlockBuildableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
                                                 entry.getKey().getWorkerID(),
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
+                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue)
+                                ),
                         turn.getDomeBuildableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
                                                 entry.getKey().getWorkerID(),
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue)
+                                )
                 )
         );
     }

@@ -1,10 +1,17 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerMoveMessage implements ServerMessage, ClientHandleable {
+    /**
+     * The x coordinate of the cell from which the worker moved
+     */
+    public final int sourceCellX;
+    /**
+     * The y coordinate of the cell from which the worker moved
+     */
+    public final int sourceCellY;
     /**
      * The x coordinate of the cell to which the worker moved
      */
@@ -18,7 +25,7 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
     /**
      * The worker who performed the move
      */
-    public final WorkerID performer;
+    public final ReducedWorkerID performer;
 
     /**
      * The user who performed the action
@@ -36,8 +43,10 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
      * @param performer   The worker who performed the move
      */
     public ServerMoveMessage(ReducedUser user, int sourceCellX, int sourceCellY,
-                             int targetCellX, int targetCellY, WorkerID performer) {
+                             int targetCellX, int targetCellY, ReducedWorkerID performer) {
         this.user = user;
+        this.sourceCellX = sourceCellX;
+        this.sourceCellY = sourceCellY;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.performer = performer;

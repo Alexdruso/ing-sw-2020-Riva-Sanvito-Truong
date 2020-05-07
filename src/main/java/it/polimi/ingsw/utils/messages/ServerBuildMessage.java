@@ -2,7 +2,6 @@ package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.workers.WorkerID;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 public class ServerBuildMessage implements ServerMessage, ClientHandleable {
@@ -29,7 +28,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The worker who performed the build
      */
-    public final WorkerID performer;
+    public final ReducedWorkerID performer;
 
     /**
      * The user who performed the action
@@ -47,7 +46,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
      * @param performer   The worker who performed the build
      */
     public ServerBuildMessage(ReducedUser user, int targetCellX, int targetCellY,
-                              Component component, int builtLevel, WorkerID performer) {
+                              Component component, int builtLevel, ReducedWorkerID performer) {
         this.user = user;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
