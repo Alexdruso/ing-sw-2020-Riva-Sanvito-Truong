@@ -64,16 +64,10 @@ public class Match implements Runnable {
         this.model = new Game(this.participantsNicknameToConnection.size());
         //create the controller
         this.controller = new Controller(model);
-        //create array to hold users
-        User[] users = new User[this.participantsNicknameToConnection.size()];
-        //initialize array index
-        int usersIndex = 0;
         //Create the views and add the player to the Game
         for (View virtualView : this.virtualViews) {
             //get the user from the view
             User user = virtualView.getUser();
-            //add user to user array
-            users[usersIndex] = user;
             //add the user as a player in the model
             model.subscribeUser(user);
             //the view observes the model
@@ -82,8 +76,6 @@ public class Match implements Runnable {
             //the controller observes the view
             virtualView.addObserver(controller, (obs, message) ->
                     ((Controller) obs).update(message));
-            //increment usersIndex
-            usersIndex++;
         }
         //Start setup procedure
         model.setup();
