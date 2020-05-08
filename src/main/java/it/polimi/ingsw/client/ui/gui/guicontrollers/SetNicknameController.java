@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.SetNicknameGUIClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,7 +33,7 @@ public class SetNicknameController extends AbstractController{
         if(nicknameField.getLength() != 0){
             ((SetNicknameGUIClientState)state).setNickname(nicknameField.getText());
         } else {
-            errorLabel.setText("Invalid nickname!");
+            errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_NICKNAME));
             errorLabel.setOpacity(1);
         }
     }
@@ -43,8 +45,7 @@ public class SetNicknameController extends AbstractController{
 
     @Override
     public void handleError(String message) {
-        //Nickname was already taken
-        errorLabel.setText("Nickname is already taken.");
+        errorLabel.setText(I18n.string(I18nKey.ERROR_NICKNAME_TAKEN));
         errorLabel.setOpacity(1);
     }
 }
