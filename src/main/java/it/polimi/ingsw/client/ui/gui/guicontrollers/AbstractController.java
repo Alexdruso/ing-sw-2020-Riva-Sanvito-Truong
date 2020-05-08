@@ -16,4 +16,10 @@ public abstract class AbstractController {
     }
 
     public abstract void handleError(String message);
+
+    /**
+     * Method to be overridden if there is the need to do some operations after the FXML is loaded but before
+     * the scene is shown to the user
+     */
+    public void setupController(){ }
 }

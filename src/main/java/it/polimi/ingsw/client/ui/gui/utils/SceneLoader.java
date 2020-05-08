@@ -46,6 +46,8 @@ public class SceneLoader {
                 controller = loader.getController();
                 controller.setClient(client);
 
+                controller.setupController();
+
                 savedScene = new SavedScene(controller, root, clientState);
                 gui.addScene(clientState, savedScene);
 
@@ -90,7 +92,10 @@ public class SceneLoader {
             FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resources);
             root = loader.load();
             AbstractController controller = loader.getController();
+
             controller.setClient(client);
+            controller.setupController();
+
             root.setCache(true);
             root.setCacheHint(CacheHint.SPEED);
             if(applyFadeOut){
