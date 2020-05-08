@@ -159,6 +159,7 @@ public class Client implements LambdaObserver {
      */
     public void changeState() {
         synchronized (currentStateLock) {
+            currentState.tearDown();
             currentState = ui.getClientState(nextState, this);
         }
         currentState.setup();
