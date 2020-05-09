@@ -1,5 +1,5 @@
 #blur-pane {
-    -fx-background-image: url('../assets/MainSceneBackground.png');
+    -fx-background-image: url('../assets/main_scene_backgound.png');
     -fx-background-size: cover, auto;
 }
 
