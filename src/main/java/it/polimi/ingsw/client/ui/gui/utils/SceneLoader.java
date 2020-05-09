@@ -32,7 +32,7 @@ public class SceneLoader {
         Parent root;
         AbstractController controller;
         SavedScene savedScene;
-        Boolean stateChanged = false;
+        Boolean stateChanged = true;
 
         try {
             Optional<SavedScene> savedRoot = gui.getScene(clientState);
@@ -57,8 +57,8 @@ public class SceneLoader {
                 savedScene = savedRoot.get();
 
                 SavedScene currentScene = gui.getCurrentScene();
-                if(!savedScene.equals(currentScene)){
-                    stateChanged = true;
+                if(savedScene.equals(currentScene)){
+                    stateChanged = false;
                 }
 
                 root = savedScene.root;
