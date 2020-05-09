@@ -30,8 +30,7 @@ public class SetNicknameGUIClientState extends AbstractSetNicknameClientState im
 
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
-        //client.disconnect();
-        //TODO: disconnect from server
+        client.closeConnection();
     }
 
     public void setNickname(String nickname){

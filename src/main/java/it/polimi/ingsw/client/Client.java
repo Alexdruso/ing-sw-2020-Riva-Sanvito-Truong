@@ -68,7 +68,7 @@ public class Client implements LambdaObserver {
                         renderRequested.wait();
                     } catch (InterruptedException e) {
                         LOGGER.log(Level.WARNING, e.getMessage(), e);
-                        close();
+                        closeConnection();
                         Thread.currentThread().interrupt();
                         return;
                     }
@@ -76,15 +76,17 @@ public class Client implements LambdaObserver {
             }
             currentState.render();
         }
-        close();
+        closeConnection();
     }
 
     /**
      * Closes the connection to the server, if established.
      */
-    private void close() {
+    public void closeConnection() {
         if (connection != null) {
             connection.close(new ClientDisconnectMessage());
+            nickname = null;
+            connection = null;
         }
     }
 
@@ -159,7 +161,9 @@ public class Client implements LambdaObserver {
      */
     public void changeState() {
         synchronized (currentStateLock) {
-            currentState.tearDown();
+            if(currentState != null){
+                currentState.tearDown();
+            }
             currentState = ui.getClientState(nextState, this);
         }
         currentState.setup();
