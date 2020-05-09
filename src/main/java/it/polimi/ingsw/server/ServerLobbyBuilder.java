@@ -82,7 +82,9 @@ public class ServerLobbyBuilder {
      */
     public void removeNickname(String nickname) {
         synchronized (registeredNicknames) {
-            registeredNicknames.remove(nickname);
+            registeredNicknames.entrySet().stream()
+                    .filter(entry -> entry.getValue().equals(nickname))
+                    .forEach(entry -> registeredNicknames.remove(entry.getKey(), entry.getValue()));
         }
     }
 
