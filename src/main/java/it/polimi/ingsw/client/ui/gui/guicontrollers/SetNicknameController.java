@@ -38,8 +38,9 @@ public class SetNicknameController extends AbstractController{
         }
     }
 
-    @FXML
-    public void initialize(){
+    @Override
+    public void onSceneShow(){
+        nicknameField.clear();
         errorLabel.setOpacity(0);
     }
 
