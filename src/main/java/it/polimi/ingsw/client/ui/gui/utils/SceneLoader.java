@@ -65,6 +65,8 @@ public class SceneLoader {
                 controller = savedScene.controller;
             }
 
+            controller.onSceneShow();
+
             controller.setState(state); //Always needs to be updated, since states are created on demand
             gui.setCurrentScene(savedScene);
 
@@ -75,7 +77,7 @@ public class SceneLoader {
                     applyFadeIn(mainScene, root, 1500);
                 }
             } else {
-               mainScene.setRoot(root);
+                Platform.runLater(() -> mainScene.setRoot(root));
             }
             return savedScene;
 

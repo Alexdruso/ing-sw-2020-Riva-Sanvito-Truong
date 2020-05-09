@@ -16,10 +16,10 @@ public class TestGUIApp {
 
     public static void stop(){
         //Try to disconnect
-        client.disconnect();
-        client.requestRender();
+        //client.disconnect();
+        //client.requestRender();
         //Disconnect forcibly
-        //clientThread.interrupt();
+        clientThread.interrupt();
     }
 }
 
