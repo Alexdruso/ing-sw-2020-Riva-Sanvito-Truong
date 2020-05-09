@@ -85,7 +85,9 @@ public class Server{
      * @return the list with the reference to the created matches
      */
     List<Match> getOngoingMatches(){
-        return new ArrayList<>(ongoingMatches);
+        synchronized (ongoingMatches) {
+            return new ArrayList<>(ongoingMatches);
+        }
     }
 
     /**
@@ -100,21 +102,37 @@ public class Server{
      * This method accepts a Match instance and executes it in a different thread
      * @param match the Match to be executed
      */
-    void submitMatch(Match match){
+    void submitMatch(Match match) {
         executor.submit(match);
-        ongoingMatches.add(match);
+        synchronized (ongoingMatches) {
+            ongoingMatches.add(match);
+        }
         for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
             connection.removeObserver(handlers.get(connection));
         }
     }
 
     /**
+     * This method removes a Match instance from the ongoing matches
+     *
+     * @param match the match we need to remove
+     */
+    void removeMatch(Match match) {
+        synchronized (ongoingMatches) {
+            ongoingMatches.removeIf(match::equals);
+        }
+        match.getParticipantsNicknameToConnection()
+                .keySet()
+                .forEach(lobbyBuilder::removeNickname);
+    }
+
+    /**
      * This method shuts down the server by closing the ServerSocket
      */
-    public void shutdown(){
+    public void shutdown() {
         try {
             serverSocket.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
     }

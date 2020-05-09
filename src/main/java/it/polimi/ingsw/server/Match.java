@@ -22,7 +22,10 @@ import java.util.logging.Logger;
  */
 public class Match implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(Match.class.getName());
-
+    /**
+     * The server.
+     */
+    private final Server server;
     /**
      * The participants, represented by nickname and connection.
      */
@@ -43,6 +46,10 @@ public class Match implements Runnable {
      * Boolean flag to shutdown the Match.
      */
     private boolean isPlaying = true;
+
+    public Match(Server server) {
+        this.server = server;
+    }
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -89,8 +96,7 @@ public class Match implements Runnable {
         while (this.isPlaying()) {
             try {
                 this.controller.dispatchViewClientMessages();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 participantsNicknameToConnection.values().stream()
                         .filter(Connection::isActive).forEach(connection -> connection.send(StatusMessages.SERVER_ERROR));
@@ -99,6 +105,8 @@ public class Match implements Runnable {
             //check if the game is active
             this.setIsPlaying(this.model.isActive());
         }
+        //Removes itself from the server
+        server.removeMatch(this);
     }
 
     /**
