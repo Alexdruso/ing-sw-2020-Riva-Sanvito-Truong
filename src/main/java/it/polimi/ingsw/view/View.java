@@ -76,7 +76,8 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     public View(Connection connection, String nickname) {
         this.connection = connection;
         connection.addObserver(this, (lambdaObserver, transmittable) ->
-                ((View) lambdaObserver).updateFromClient(transmittable));
+                ((View) lambdaObserver).updateFromClient(transmittable)
+        );
         this.user = new User(nickname);
     }
 

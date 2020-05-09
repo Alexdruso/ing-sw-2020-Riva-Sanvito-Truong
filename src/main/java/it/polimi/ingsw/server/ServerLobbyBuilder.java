@@ -19,7 +19,7 @@ public class ServerLobbyBuilder {
     /**
      * The reference to the server
      */
-    private Server server;
+    private final Server server;
     /**
      * The connection that arrived first and who has control of the player count for the lobby
      */

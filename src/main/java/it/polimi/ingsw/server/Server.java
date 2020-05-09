@@ -60,9 +60,10 @@ public class Server{
 
     /**
      * This method retrieves a new ServerSocket on a given port
+     *
      * @param port the port on which the socket is to be opened
      * @return the ServerSocket instance
-     * @throws IOException
+     * @throws IOException input output exception
      */
     ServerSocket getServerSocket(int port) throws IOException{
         return new ServerSocket(port);
@@ -71,9 +72,9 @@ public class Server{
     /**
      * This method retrieves a new Connection object, when given an inbound socket created by the
      * ServerSocket when it receives a connection over the newtork.
-     * @param inboundSocket
-     * @return
-     * @throws IOException
+     * @param inboundSocket the inbound socket
+     * @return a new connection from the inbound socket
+     * @throws IOException an input output exception
      */
     Connection getConnection(Socket inboundSocket) throws IOException{
         return new Connection(inboundSocket);
