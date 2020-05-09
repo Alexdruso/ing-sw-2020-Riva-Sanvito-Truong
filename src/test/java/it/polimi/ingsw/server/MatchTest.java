@@ -64,13 +64,14 @@ class MatchTest {
                     connection != myMatch.getParticipantsNicknameToConnection()
                             .get(myMatch.getVirtualViews().get(0).getUser().nickname)
             ) {
-                verify(connection, times(3)).send(myMessageCaptor.capture());
+                verify(connection, times(2)).send(myMessageCaptor.capture());
+                verify(connection).close(any(ServerDisconnectMessage.class));
             } else {
                 verify(connection, times(2)).send(myMessageCaptor.capture());
                 verify(connection).close();
             }
         }
-        assertEquals(8, myMessageCaptor.getAllValues().size());
+        assertEquals(6, myMessageCaptor.getAllValues().size());
         List<ServerStartSetupMatchMessage> startSetupMatchMessageList = myMessageCaptor.getAllValues().stream()
                 .filter(x -> x instanceof ServerStartSetupMatchMessage).map(x -> (ServerStartSetupMatchMessage) x)
                 .collect(Collectors.toList());
@@ -88,10 +89,6 @@ class MatchTest {
         assertEquals(
                 Arrays.stream(GodCard.values()).map(Enum::toString).collect(Collectors.toSet()),
                 askGodsFromListMessages.get(0).getGodsList().stream().map(x -> x.name.toUpperCase()).collect(Collectors.toSet())
-        );
-        assertEquals(
-                2,
-                myMessageCaptor.getAllValues().stream().filter(x -> x instanceof ServerDisconnectMessage).count()
         );
         for (ReducedUser user : startSetupMatchMessageList.get(0).userList) {
             assertTrue(myMap.containsKey(user.nickname));

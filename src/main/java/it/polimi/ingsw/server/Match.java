@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.DisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
@@ -57,9 +58,6 @@ public class Match implements Runnable {
      */
     @Override
     public void run() {
-        //TODO: Put this in constructor, maybe? ~Kien
-        //This would help when the match is created and we have to deregister observers on the SetupHandler side
-
         //create a new game
         this.model = new Game(this.participantsNicknameToConnection.size());
         //create the controller
@@ -71,8 +69,16 @@ public class Match implements Runnable {
             //add the user as a player in the model
             model.subscribeUser(user);
             //the view observes the model
-            model.addObserver(virtualView, (obs, message) ->
-                    ((View)obs).updateFromGame(message));
+            model.addObserver(
+                    virtualView, (obs, message) ->
+                    {
+                        if (message instanceof DisconnectMessage) {
+                            ((View) obs).updateFromGame((DisconnectMessage) message);
+                        } else {
+                            ((View) obs).updateFromGame(message);
+                        }
+                    }
+            );
             //the controller observes the view
             virtualView.addObserver(controller, (obs, message) ->
                     ((Controller) obs).update(message));
