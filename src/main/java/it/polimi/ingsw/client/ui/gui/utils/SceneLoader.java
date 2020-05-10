@@ -136,25 +136,25 @@ public class SceneLoader {
     }
 
     public static void applyFadeIn(Scene mainScene, Parent newRoot, double duration){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                newRoot.setOpacity(0);
-                mainScene.setRoot(newRoot);
-                FadeTransition fadeIn = new FadeTransition(Duration.millis(duration), newRoot);
-                fadeIn.setInterpolator(Interpolator.EASE_OUT);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            }
+        Platform.runLater(() -> {
+            newRoot.setOpacity(0);
+            mainScene.setRoot(newRoot);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(duration), newRoot);
+            fadeIn.setInterpolator(Interpolator.EASE_OUT);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
         });
     }
 
     public static void applyFadeOut(Scene mainScene, Parent newRoot){
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(300), mainScene.getRoot());
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.0);
-        fadeOut.play();
-        fadeOut.setOnFinished((event) -> applyFadeIn(mainScene, newRoot, 500));
+        Platform.runLater(() -> {
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(300), mainScene.getRoot());
+            fadeOut.setInterpolator(Interpolator.EASE_OUT);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.play();
+            fadeOut.setOnFinished((event) -> applyFadeIn(mainScene, newRoot, 500));
+        });
     }
 }
