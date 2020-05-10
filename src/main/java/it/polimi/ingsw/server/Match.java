@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.DisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
@@ -21,7 +22,10 @@ import java.util.logging.Logger;
  */
 public class Match implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(Match.class.getName());
-
+    /**
+     * The server.
+     */
+    private final Server server;
     /**
      * The participants, represented by nickname and connection.
      */
@@ -43,6 +47,10 @@ public class Match implements Runnable {
      */
     private boolean isPlaying = true;
 
+    public Match(Server server) {
+        this.server = server;
+    }
+
     /**
      * When an object implementing interface <code>Runnable</code> is used
      * to create a thread, starting the thread causes the object's
@@ -57,9 +65,6 @@ public class Match implements Runnable {
      */
     @Override
     public void run() {
-        //TODO: Put this in constructor, maybe? ~Kien
-        //This would help when the match is created and we have to deregister observers on the SetupHandler side
-
         //create a new game
         this.model = new Game(this.participantsNicknameToConnection.size());
         //create the controller
@@ -71,8 +76,16 @@ public class Match implements Runnable {
             //add the user as a player in the model
             model.subscribeUser(user);
             //the view observes the model
-            model.addObserver(virtualView, (obs, message) ->
-                    ((View)obs).updateFromGame(message));
+            model.addObserver(
+                    virtualView, (obs, message) ->
+                    {
+                        if (message instanceof DisconnectMessage) {
+                            ((View) obs).updateFromGame((DisconnectMessage) message);
+                        } else {
+                            ((View) obs).updateFromGame(message);
+                        }
+                    }
+            );
             //the controller observes the view
             virtualView.addObserver(controller, (obs, message) ->
                     ((Controller) obs).update(message));
@@ -83,8 +96,7 @@ public class Match implements Runnable {
         while (this.isPlaying()) {
             try {
                 this.controller.dispatchViewClientMessages();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
                 participantsNicknameToConnection.values().stream()
                         .filter(Connection::isActive).forEach(connection -> connection.send(StatusMessages.SERVER_ERROR));
@@ -93,6 +105,8 @@ public class Match implements Runnable {
             //check if the game is active
             this.setIsPlaying(this.model.isActive());
         }
+        //Removes itself from the server
+        server.removeMatch(this);
     }
 
     /**

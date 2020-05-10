@@ -75,8 +75,17 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      */
     public View(Connection connection, String nickname) {
         this.connection = connection;
-        connection.addObserver(this, (lambdaObserver, transmittable) ->
-                ((View) lambdaObserver).updateFromClient(transmittable));
+        connection.addObserver(
+                this,
+                (lambdaObserver, transmittable) ->
+                {
+                    if (transmittable instanceof DisconnectMessage) {
+                        ((View) lambdaObserver).updateFromClient((DisconnectMessage) transmittable);
+                    } else {
+                        ((View) lambdaObserver).updateFromClient(transmittable);
+                    }
+                }
+        );
         this.user = new User(nickname);
     }
 

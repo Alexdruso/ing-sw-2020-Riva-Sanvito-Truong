@@ -26,6 +26,8 @@ class MatchTest {
         Keep in mind that this method will be running on a separate thread which sets up all the classes needed.
          */
 
+        //create a fake server
+        Server myServer = mock(Server.class);
         //setup test source, this is going to be a quite weird and important match
         LinkedHashMap<String, Connection> myMap = new LinkedHashMap<>();
         String[] nicknames = new String[]{"Alan Turing", "Steve Wozniak", "Edsger W. Dijkstra"};
@@ -33,7 +35,7 @@ class MatchTest {
         myMap.put(nicknames[1], mock(Connection.class));
         myMap.put(nicknames[2], mock(Connection.class));
         //initialize a match
-        Match myMatch = new Match();
+        Match myMatch = new Match(myServer);
         //now try first to add as a LinkedHashMap
         myMatch.addParticipants(myMap);
         //invoke myMatch.run
@@ -45,6 +47,8 @@ class MatchTest {
                 .isValidGodsChoice(gods, myMatch.getVirtualViews().get(0).getUser())
         );
         myMatch.getVirtualViews().get(0).updateFromClient(new ClientDisconnectMessage());
+        await().until(() -> !myMatch.isPlaying());
+        verify(myServer).removeMatch(myMatch);
         //verify all fields are set
         assertNotNull(myMatch.getModel());
         assertNotNull(myMatch.getController());
@@ -64,13 +68,14 @@ class MatchTest {
                     connection != myMatch.getParticipantsNicknameToConnection()
                             .get(myMatch.getVirtualViews().get(0).getUser().nickname)
             ) {
-                verify(connection, times(3)).send(myMessageCaptor.capture());
+                verify(connection, times(2)).send(myMessageCaptor.capture());
+                verify(connection).close(any(ServerDisconnectMessage.class));
             } else {
                 verify(connection, times(2)).send(myMessageCaptor.capture());
                 verify(connection).close();
             }
         }
-        assertEquals(8, myMessageCaptor.getAllValues().size());
+        assertEquals(6, myMessageCaptor.getAllValues().size());
         List<ServerStartSetupMatchMessage> startSetupMatchMessageList = myMessageCaptor.getAllValues().stream()
                 .filter(x -> x instanceof ServerStartSetupMatchMessage).map(x -> (ServerStartSetupMatchMessage) x)
                 .collect(Collectors.toList());
@@ -89,10 +94,6 @@ class MatchTest {
                 Arrays.stream(GodCard.values()).map(Enum::toString).collect(Collectors.toSet()),
                 askGodsFromListMessages.get(0).getGodsList().stream().map(x -> x.name.toUpperCase()).collect(Collectors.toSet())
         );
-        assertEquals(
-                2,
-                myMessageCaptor.getAllValues().stream().filter(x -> x instanceof ServerDisconnectMessage).count()
-        );
         for (ReducedUser user : startSetupMatchMessageList.get(0).userList) {
             assertTrue(myMap.containsKey(user.nickname));
         }
@@ -108,6 +109,8 @@ class MatchTest {
         Also this part is supposed to be run on the Server thread.
          */
 
+        //create a fake server
+        Server myServer = mock(Server.class);
         //setup test source, this is going to be a quite weird and important match
         LinkedHashMap<String, Connection> myMap = new LinkedHashMap<>();
         String[] nicknames = new String[]{"Alan Turing", "Steve Wozniak", "Edsger W. Dijkstra", "Ada Lovelace", "James Gosling"};
@@ -117,21 +120,21 @@ class MatchTest {
         myMap.put(nicknames[3], mock(Connection.class));
         myMap.put(nicknames[4], mock(Connection.class));
         //initialize a match
-        Match myMatch = new Match();
+        Match myMatch = new Match(myServer);
         //now try first to add as a LinkedHashMap
         myMatch.addParticipants(myMap);
         //see if it was added
         assertEquals(myMap, myMatch.getParticipantsNicknameToConnection());
         assertNotSame(myMap, myMatch.getParticipantsNicknameToConnection());
         //initialize a new match
-        myMatch = new Match();
+        myMatch = new Match(myServer);
         //try sequential adds
         for (String nickname : nicknames) myMatch.addParticipant(nickname, myMap.get(nickname));
         //check if values inside are the same and in the correct order
         assertEquals(myMap, myMatch.getParticipantsNicknameToConnection());
         assertNotSame(myMap, myMatch.getParticipantsNicknameToConnection());
         //initialize a new match
-        myMatch = new Match();
+        myMatch = new Match(myServer);
         //check empty participants
         assertTrue(myMatch.getParticipantsNicknameToConnection().isEmpty());
     }

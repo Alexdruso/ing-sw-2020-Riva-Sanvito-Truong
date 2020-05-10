@@ -19,7 +19,7 @@ public class ServerLobbyBuilder {
     /**
      * The reference to the server
      */
-    private Server server;
+    private final Server server;
     /**
      * The connection that arrived first and who has control of the player count for the lobby
      */
@@ -64,9 +64,9 @@ public class ServerLobbyBuilder {
      * @param connection the Connection from which the user is communicating
      * @return true if the registering has been successful, false otherwise
      */
-    public boolean registerNickname(String nickname, Connection connection){
-        synchronized(registeredNicknames){
-            if(registeredNicknames.containsValue(nickname) || registeredNicknames.containsKey(connection)){
+    public boolean registerNickname(String nickname, Connection connection) {
+        synchronized (registeredNicknames) {
+            if (registeredNicknames.containsValue(nickname) || registeredNicknames.containsKey(connection)) {
                 return false;
             } else {
                 registeredNicknames.put(connection, nickname);
@@ -76,14 +76,28 @@ public class ServerLobbyBuilder {
     }
 
     /**
+     * This method removes the nickname from the registeredNicknames structure
+     *
+     * @param nickname the nickname that has to be removed
+     */
+    public void removeNickname(String nickname) {
+        synchronized (registeredNicknames) {
+            registeredNicknames.entrySet().stream()
+                    .filter(entry -> entry.getValue().equals(nickname))
+                    .forEach(entry -> registeredNicknames.remove(entry.getKey(), entry.getValue()));
+        }
+    }
+
+    /**
      * This method accepts a playerCount and a connection and, if both are valid, sets the maximum player count
      * This method also notifies all threads that are synchronized with playerCountLock
+     *
      * @param playerCount an int representing the maximum number of players to allow in the lobby
-     * @param connection the Connection from which the user is communicating
+     * @param connection  the Connection from which the user is communicating
      * @return true if the count has been set correctly, false otherwise
      */
-    public boolean setLobbyMaxPlayerCount(int playerCount, Connection connection){
-        if(firstConnection == null || connection != firstConnection){
+    public boolean setLobbyMaxPlayerCount(int playerCount, Connection connection) {
+        if (firstConnection == null || connection != firstConnection) {
             return false;
         }
 
@@ -173,7 +187,7 @@ public class ServerLobbyBuilder {
                 }
             }
 
-            Match match = new Match();
+            Match match = new Match(server);
 
             for(int i = 0; i < currentLobbyPlayerCount; i++){
                 Connection connection = lobbyRequestingConnections.removeFirst();
