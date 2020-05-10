@@ -13,7 +13,7 @@ public class CreditsController extends AbstractController{
 
     @FXML
     public void handleMenuButton(ActionEvent event){
-        primaryStage.getScene().getStylesheets().add(getClass().getResource("/css/MainMenu.css").toExternalForm());
+        primaryStage.getScene().getStylesheets().add(getClass().getResource("/css/main-menu.css").toExternalForm());
         SceneLoader.loadSaved(ClientState.WELCOME_SCREEN, primaryStage.getScene(), client, true);
     }
 

@@ -5,6 +5,10 @@
     -fx-text-fill: white;
 }
 
+.gradient-pane {
+
+}
+
 .titlebutton:hover {
     -fx-background-color: #4D7A97;
 }
