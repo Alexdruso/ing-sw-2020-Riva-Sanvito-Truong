@@ -14,6 +14,7 @@
     -fx-background-image: url('../assets/main_scene_backgound.png');
     -fx-background-color: black;
     -fx-background-size: cover, auto;
+    -fx-font-size: 12px; /*This is the default size*/
 }
 
 #GradientPane {
@@ -32,6 +33,12 @@
 
 .h3 {
     -fx-font-family: "Montserrat";
+    -fx-font-size: 2em;
+    -fx-text-fill: white;
+}
+
+.normal-text {
+    -fx-font-family: "Montserrat ExtraLight";
     -fx-font-size: 2em;
     -fx-text-fill: white;
 }

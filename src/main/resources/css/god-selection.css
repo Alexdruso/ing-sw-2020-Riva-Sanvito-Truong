@@ -2,3 +2,11 @@
     -fx-background-color: linear-gradient(to right, #000000FF, #00000055 80%, #00000000 100%);
     /*-fx-background-color: #000000BB;*/
 }
+
+.god-label {
+    -fx-text-fill: white;
+    -fx-font-family: "Montserrat ExtraLight";
+    -fx-font-size: 1.5em;
+    -fx-padding: 20px 0 0 0;
+}
+
