@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListController">
+<StackPane fx:id="rootPane" alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListController">
    <children>
       <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
       <AnchorPane id="DarkenPane" prefHeight="400.0" prefWidth="600.0" />
@@ -43,13 +43,12 @@
                   <Button fx:id="menuButton" maxHeight="50.0" maxWidth="150.0" minHeight="100.0" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="50.0" prefWidth="150.0" styleClass="bigbutton" text="Menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                </children>
             </AnchorPane>
-            <Button fx:id="testButton" mnemonicParsing="false" onAction="#test" text="TEST BUTTON" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <AnchorPane id="gradient-pane" fx:id="gradientPane" onMouseClicked="#reverse" prefHeight="200.0" prefWidth="200.0" translateX="-1280.0" />
-      <AnchorPane fx:id="cardPane" maxWidth="350.0" pickOnBounds="false" prefHeight="721.0" prefWidth="688.0" translateX="-370.0">
+      <AnchorPane fx:id="cardPane" maxWidth="350.0" pickOnBounds="false" prefWidth="350.0">
          <children>
-            <VBox alignment="CENTER" layoutY="1.0" pickOnBounds="false" prefHeight="720.0" prefWidth="370.0">
+            <VBox id="vboxview" fx:id="currentCardAndButton" alignment="CENTER" layoutY="1.0" pickOnBounds="false" prefHeight="720.0" prefWidth="370.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <ImageView fx:id="selectedCard" fitHeight="347.0" fitWidth="321.0" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
