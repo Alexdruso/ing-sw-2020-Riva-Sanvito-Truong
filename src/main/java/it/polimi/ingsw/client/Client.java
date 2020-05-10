@@ -68,6 +68,9 @@ public class Client implements LambdaObserver {
                         renderRequested.wait();
                     } catch (InterruptedException e) {
                         LOGGER.log(Level.WARNING, e.getMessage(), e);
+                        synchronized (currentStateLock){
+                            currentState.tearDown();
+                        }
                         closeConnection();
                         Thread.currentThread().interrupt();
                         return;
