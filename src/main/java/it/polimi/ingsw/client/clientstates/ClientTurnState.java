@@ -4,5 +4,4 @@ public enum ClientTurnState {
     ASK_WORKER_POSITION,
     BUILD,
     MOVE,
-    PASSIVE;
 }
