@@ -37,6 +37,6 @@ class MoveActionTest {
 
     @Test
     void getPerformer() {
-        assertEquals(moveAction.getPerformer(), worker);
+        assertEquals(moveAction.getWorker(), worker);
     }
 }

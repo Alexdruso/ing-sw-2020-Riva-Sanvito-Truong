@@ -205,7 +205,7 @@ class TurnTest {
         assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), myPlayer.getWorkers()[0]);
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
         //Check is winning turn
@@ -260,7 +260,7 @@ class TurnTest {
         assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), myPlayer.getWorkers()[0]);
         //Check that worker 2 is not in allowedWorkers anymore
         assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getWorkers()[1]));
         //Trigger exception
@@ -270,7 +270,7 @@ class TurnTest {
         myTurn.buildBlockIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 1));
         //Check the build happened
         assertEquals(1, myBoard.getCell(1, 1).getTower().getCurrentLevel());
-        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(1).getWorker(), myPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
@@ -326,7 +326,7 @@ class TurnTest {
         assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getPerformer(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), myPlayer.getWorkers()[0]);
         //Check that worker 2 is not in allowedWorkers anymore
         assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getWorkers()[1]));
         //Trigger exception
@@ -336,7 +336,7 @@ class TurnTest {
         myTurn.buildDomeIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 0));
         //Check the build happened
         assertTrue(myBoard.getCell(1, 0).getTower().isComplete());
-        assertEquals(myTurn.getPerformedAction().get(1).getPerformer(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(1).getWorker(), myPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());

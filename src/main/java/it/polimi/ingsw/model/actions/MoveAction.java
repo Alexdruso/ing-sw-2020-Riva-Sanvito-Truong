@@ -8,42 +8,43 @@ public class MoveAction implements Action{
     /**
      * The cell from which the worker moved
      */
-    private Cell sourceCell;
+    private final Cell sourceCell;
 
     /**
      * The cell to which the worker moved
      */
-    private Cell targetCell;
+    private final Cell targetCell;
 
     /**
      * The level of the cell from which the worker moved
      */
-    private int sourceLevel;
+    private final int sourceLevel;
 
     /**
      * The level of the cell to which the worker moved
      */
-    private int targetLevel;
+    private final int targetLevel;
 
     /**
      * The worker who performed the move
      */
-    private Worker performer;
+    private Worker worker;
 
     /**
      * Constructor, stores all the variables by reference
-     * @param sourceCell The cell from which the worker moved
-     * @param targetCell The cell to which the worker moved
+     *
+     * @param sourceCell  The cell from which the worker moved
+     * @param targetCell  The cell to which the worker moved
      * @param sourceLevel The level of the cell from which the worker moved
      * @param targetLevel The level of the cell to which the worker moved
-     * @param performer The worker who performed the move
+     * @param worker      The worker who performed the move
      */
-    public MoveAction(Cell sourceCell, Cell targetCell, int sourceLevel, int targetLevel, Worker performer) {
+    public MoveAction(Cell sourceCell, Cell targetCell, int sourceLevel, int targetLevel, Worker worker) {
         this.sourceCell = sourceCell;
         this.targetCell = targetCell;
         this.sourceLevel = sourceLevel;
         this.targetLevel = targetLevel;
-        this.performer = performer;
+        this.worker = worker;
     }
 
     /**
@@ -77,7 +78,7 @@ public class MoveAction implements Action{
     /**
      * @return The worker who performed the move
      */
-    public Worker getPerformer() {
-        return performer;
+    public Worker getWorker() {
+        return worker;
     }
 }

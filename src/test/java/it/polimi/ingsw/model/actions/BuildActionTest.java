@@ -32,6 +32,6 @@ class BuildActionTest {
 
     @Test
     void getPerformer() {
-        assertEquals(buildAction.getPerformer(), worker);
+        assertEquals(buildAction.getWorker(), worker);
     }
 }
