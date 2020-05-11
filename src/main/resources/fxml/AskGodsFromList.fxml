@@ -75,7 +75,7 @@
                         <Insets left="70.0" />
                      </padding>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="302.0" styleClass="bigbutton" text="Select God Card">
+                  <Button mnemonicParsing="false" onAction="#selectGod" prefHeight="56.0" prefWidth="302.0" styleClass="bigbutton" text="Select God Card">
                      <VBox.margin>
                         <Insets left="35.0" />
                      </VBox.margin>

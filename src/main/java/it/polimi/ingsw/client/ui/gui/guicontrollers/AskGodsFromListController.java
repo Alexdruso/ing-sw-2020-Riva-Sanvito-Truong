@@ -4,10 +4,9 @@ import it.polimi.ingsw.client.ui.gui.AskGodsFromListGUIClientState;
 import it.polimi.ingsw.client.ui.gui.utils.GodAsset;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
+import it.polimi.ingsw.utils.messages.ReducedGod;
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -17,14 +16,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AskGodsFromListController extends AbstractController{
     final int ICONS_PER_ROW = 5;
@@ -59,36 +57,22 @@ public class AskGodsFromListController extends AbstractController{
 
     private boolean sideBarVisible = false;
 
-    private ObservableList<Pane> godIcons = FXCollections.observableArrayList();
-
+    private Map<ReducedGod, Pane> godIcons = new HashMap<>();
     private Map<GodAsset, Image> cachedCards = new HashMap<>();
+    private List<ReducedGod> gods;
 
-    private Pane getIconPane(GodAsset ga){
-        ImageView img = new ImageView(ga.iconLocation);
-        img.setPreserveRatio(true);
-        img.fitWidthProperty().bind(iconsPane.widthProperty()
-                .subtract(ICONS_PER_ROW*ICON_SPACING_H + 2*SCROLLPANE_INNER_PADDING)
-                .divide(ICONS_PER_ROW));
-        img.setCache(true);
+    private int playersCount;
 
-        Label label = new Label();
+    private ReducedGod currentGod;
 
-        label.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_NAME")));
-        //TODO: change text size dynamically
-        label.getStyleClass().add("god-label");
 
-        img.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            selectedCard.setImage(cachedCards.get(ga));
-            godName.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_NAME")));
-            godSubtitle.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_SUBTITLE")));
-            godDescription.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_DESCRIPTION")));
-            sideBarTransitionIn.play();
-            sideBarVisible = true;
-        });
-
-        VBox iconPane = new VBox(img, label);
-        iconPane.setAlignment(Pos.CENTER);
-        return iconPane;
+    @FXML
+    public void selectGod(ActionEvent event){
+        gods.remove(currentGod);
+        Pane selectedGodPane = godIcons.get(currentGod);
+        iconsPane.getChildren().remove(selectedGodPane);
+        ((AskGodsFromListGUIClientState)state).addChosenGod(currentGod);
+        reverse();
     }
 
     @FXML
@@ -113,9 +97,19 @@ public class AskGodsFromListController extends AbstractController{
 
     @Override
     public void setupController(){
-        //int playersCount = client.getGame().getPlayersCount();
-        //chooseGodsPrompt.setText(String.format(String.format("%s:", I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));
-        chooseGodsPrompt.setText("PLACEHOLDER TEXT");
+        playersCount = client.getGame().getPlayersCount();
+        chooseGodsPrompt.setText(String.format(String.format("%s:", I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));
+        gods = new ArrayList<>(client.getGods());
+        for(ReducedGod god: gods){
+            GodAsset ga = GodAsset.fromReducedGod(god);
+            cachedCards.put(ga, new Image(getClass().getResourceAsStream(ga.cardLocation)));
+            godIcons.put(god, getIconPane(ga, god));
+        }
+        iconsPane.getChildren().addAll(godIcons.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(o -> o.getKey().name))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList()));
     }
 
     @FXML
@@ -124,13 +118,6 @@ public class AskGodsFromListController extends AbstractController{
         gradientPane.setTranslateX(-1920);
         cardPane.setCacheHint(CacheHint.SPEED);
         cardPane.setTranslateX(-1280);
-
-        for(GodAsset ga: GodAsset.values()){
-            cachedCards.put(ga, new Image(getClass().getResourceAsStream(ga.cardLocation)));
-            godIcons.add(getIconPane(ga));
-        }
-
-        iconsPane.getChildren().addAll(godIcons);
 
         iconsPane.setHgap(ICON_SPACING_H);
         iconsPane.setVgap(ICON_SPACING_V);
@@ -159,5 +146,34 @@ public class AskGodsFromListController extends AbstractController{
                 gradientPane.setTranslateX(-1*(double)newWidth);
             }
         });
+    }
+
+    private Pane getIconPane(GodAsset ga, ReducedGod god){
+        ImageView img = new ImageView(ga.iconLocation);
+        img.setPreserveRatio(true);
+        img.fitWidthProperty().bind(iconsPane.widthProperty()
+                .subtract(ICONS_PER_ROW*ICON_SPACING_H + 2*SCROLLPANE_INNER_PADDING)
+                .divide(ICONS_PER_ROW));
+        img.setCache(true);
+
+        Label label = new Label();
+
+        label.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_NAME")));
+        //TODO: change text size dynamically
+        label.getStyleClass().add("god-label");
+
+        img.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            currentGod = god;
+            selectedCard.setImage(cachedCards.get(ga));
+            godName.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_NAME")));
+            godSubtitle.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_SUBTITLE")));
+            godDescription.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_DESCRIPTION")));
+            sideBarTransitionIn.play();
+            sideBarVisible = true;
+        });
+
+        VBox iconPane = new VBox(img, label);
+        iconPane.setAlignment(Pos.CENTER);
+        return iconPane;
     }
 }

@@ -5,6 +5,7 @@ package it.polimi.ingsw.model.gods;
  * All gods of the game are instantiated as values of the enum GodCard; for this reason, it is guaranteed the existence of exactly 1 instance for each god at runtime.
  */
 public enum GodCard {
+    //TODO: Change all gods names to match i18n strings
     /**
      * The Apollo god.
      *

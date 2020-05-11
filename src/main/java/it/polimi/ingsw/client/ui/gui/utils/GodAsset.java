@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.ui.gui.utils;
 
+import it.polimi.ingsw.utils.messages.ReducedGod;
+
 public enum GodAsset {
     APOLLO("/assets/god_cards/apollo_card.png", "/assets/god_icons/apollo_icon.png", "apollo"),
     ARTEMIS("/assets/god_cards/artemis_card.png", "/assets/god_icons/artemis_icon.png", "artemis"),
@@ -21,5 +23,9 @@ public enum GodAsset {
         this.cardLocation = cardLocation;
         this.iconLocation = iconLocation;
         this.name = name;
+    }
+
+    public static GodAsset fromReducedGod(ReducedGod god){
+        return GodAsset.valueOf(god.name.toUpperCase());
     }
 }
