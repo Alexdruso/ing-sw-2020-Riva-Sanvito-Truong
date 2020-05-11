@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.messages.ClientSetNicknameMessage;
-import javafx.application.Platform;
 
 /**
  * A generic SET_NICKNAME ClientState, to be extended by a UI-specific class.

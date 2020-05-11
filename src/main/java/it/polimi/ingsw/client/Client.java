@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,7 @@ public class Client implements LambdaObserver {
     private AbstractClientState currentState;
     private ClientState nextState;
     private String nickname;
-    private final AtomicBoolean renderRequested = new AtomicBoolean(false);
+    private final BlockingQueue<Runnable> renderRequestsQueue = new LinkedBlockingQueue<>();
     private final UI ui;
     private boolean exitRequested = false;
     private final Set<ReducedCell> changedCells = new HashSet<>();
@@ -61,24 +62,16 @@ public class Client implements LambdaObserver {
         ui.init();
         changeState();
 
-        while (!exitRequested) {
-            synchronized (renderRequested) {
-                while (!renderRequested.getAndSet(false)) {
-                    try {
-                        renderRequested.wait();
-                    } catch (InterruptedException e) {
-                        LOGGER.log(Level.WARNING, e.getMessage(), e);
-                        synchronized (currentStateLock){
-                            currentState.tearDown();
-                        }
-                        closeConnection();
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-                }
+        while (!exitRequested || renderRequestsQueue.size() > 0) {
+            try {
+                Runnable renderRequestAction = renderRequestsQueue.take();
+                renderRequestAction.run();
+            } catch (InterruptedException e) {
+                LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                Thread.currentThread().interrupt();
             }
-            currentState.render();
         }
+
         closeConnection();
     }
 
@@ -191,17 +184,25 @@ public class Client implements LambdaObserver {
     /**
      * Requests the user interface to render the current state.
      * The actual rendering is performed by the main thread (the one that invoked Client::run).
-     * Please, be aware that calls to the render of the current state are not guaranteed, since calls to render
-     * can be concurrent with calls to changeState, thus resulting in the call of render in the context of the new
-     * state.
-     * This means that either:
-     * - you guarantee that there will be no chances that changeState is called before render has finished rendering
-     * - or each call to render is self-sufficient (i.e., it does not depend on previous calls to render)
+     *
+     * @see AbstractClientState#render()
      */
     public void requestRender() {
-        synchronized (renderRequested) {
-            renderRequested.set(true);
-            renderRequested.notifyAll();
+        requestRender(getCurrentState()::render);
+    }
+
+    /**
+     * Requests the user interface to render a custom action onto the current state.
+     * The actual rendering is performed by the main thread (the one that invoked Client::run).
+     *
+     * @param renderRequestAction the action to be executed to perform the render
+     */
+    public void requestRender(Runnable renderRequestAction) {
+        try {
+            renderRequestsQueue.put(renderRequestAction);
+        } catch (InterruptedException e) {
+            LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+            Thread.currentThread().interrupt();
         }
     }
 
