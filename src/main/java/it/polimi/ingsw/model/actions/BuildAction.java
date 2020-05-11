@@ -29,20 +29,21 @@ public class BuildAction implements  Action{
     /**
      * The worker who performed the build
      */
-    private final Worker performer;
+    private final Worker worker;
 
     /**
      * Constructor, stores all the variables by reference
+     *
      * @param targetCell The cell on which the worker built
-     * @param component The component built on the cell
+     * @param component  The component built on the cell
      * @param builtLevel The level built by the worker
-     * @param performer The worker who performed the build
+     * @param worker     The worker who performed the build
      */
-    public BuildAction(Cell targetCell, Buildable component, int builtLevel, Worker performer) {
+    public BuildAction(Cell targetCell, Buildable component, int builtLevel, Worker worker) {
         this.targetCell = targetCell;
         this.component = component;
         this.builtLevel = builtLevel;
-        this.performer = performer;
+        this.worker = worker;
     }
 
     /**
@@ -69,7 +70,7 @@ public class BuildAction implements  Action{
     /**
      * @return The worker who performed the build
      */
-    public Worker getPerformer() {
-        return performer;
+    public Worker getWorker() {
+        return worker;
     }
 }

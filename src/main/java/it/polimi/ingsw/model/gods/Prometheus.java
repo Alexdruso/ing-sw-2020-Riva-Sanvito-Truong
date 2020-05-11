@@ -28,7 +28,7 @@ class Prometheus extends AbstractGod {
             List<BuildAction> lastBuildActions = turn.getBuilds();
             if (lastBuildActions.size() > 0) {
                 BuildAction lastBuild = lastBuildActions.get(0);
-                Worker lastBuildWorker = lastBuild.getPerformer();
+                Worker lastBuildWorker = lastBuild.getWorker();
                 turn.clearAllowedWorkers();
                 turn.addAllowedWorker(lastBuildWorker);
                 TargetCells notHigherCells = new TargetCells();

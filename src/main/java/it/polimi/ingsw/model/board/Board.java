@@ -71,7 +71,7 @@ public class Board {
      * @return a List of Cell objects that were targeted
      */
     public List<Cell> getTargets(TargetCells target){
-        List<Cell> targetedCells = new ArrayList<Cell>();
+        List<Cell> targetedCells = new ArrayList<>();
         for(int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (target.getPosition(i, j)) {

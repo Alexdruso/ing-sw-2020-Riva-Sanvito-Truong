@@ -11,11 +11,16 @@ public enum Component {
 
     private final Buildable buildable;
 
-    Component(Buildable buildable){
+    Component(Buildable buildable) {
         this.buildable = buildable;
     }
 
-    public Buildable getInstance(){
+    /**
+     * Get instance buildable.
+     *
+     * @return the buildable
+     */
+    public Buildable getInstance() {
         return buildable;
     }
 

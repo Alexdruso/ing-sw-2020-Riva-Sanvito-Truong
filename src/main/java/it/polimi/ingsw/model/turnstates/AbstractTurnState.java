@@ -100,7 +100,7 @@ public interface AbstractTurnState {
             turn.addAllowedWorkers(turn.getPlayer().getWorkers());
         } else {
             List<Action> performedActions = turn.getPerformedAction();
-            turn.addAllowedWorker(performedActions.get(performedActions.size() - 1).getPerformer());
+            turn.addAllowedWorker(performedActions.get(performedActions.size() - 1).getWorker());
         }
     }
 }
