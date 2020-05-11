@@ -3,8 +3,14 @@ package it.polimi.ingsw.utils.messages;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+/**
+ * The type Server start play match message.
+ */
 public class ServerStartPlayMatchMessage implements ServerMessage, ClientHandleable {
-    public ServerStartPlayMatchMessage(){
+    /**
+     * Instantiates a new Server start play match message.
+     */
+    public ServerStartPlayMatchMessage() {
         super();
     }
 
