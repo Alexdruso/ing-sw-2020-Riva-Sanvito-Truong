@@ -25,7 +25,7 @@ public class SetPlayersCountCLIClientState extends AbstractSetPlayersCountClient
     public void render() {
         cli.clear();
         cli.println(I18n.string(I18nKey.YOU_ARE_THE_FIRST_PLAYER_IN_THE_SERVER));
-        players_count = cli.readInt(String.format("%s [2-3]:", I18n.string(I18nKey.NUMBER_OF_PLAYERS)));
+        playersCount = cli.readInt(String.format("%s [2-3]:", I18n.string(I18nKey.NUMBER_OF_PLAYERS)));
         notifyUiInteraction();
     }
 }

@@ -10,7 +10,7 @@ public abstract class AbstractSetPlayersCountClientState extends AbstractClientS
     /**
      * The players count.
      */
-    protected int players_count;
+    protected int playersCount;
 
     /**
      * Instantiates a new SET_PLAYERS_COUNT ClientState.
@@ -28,7 +28,7 @@ public abstract class AbstractSetPlayersCountClientState extends AbstractClientS
 
     @Override
     public void notifyUiInteraction() {
-        client.getConnection().send(new ClientSetPlayersCountMessage(players_count));
+        client.getConnection().send(new ClientSetPlayersCountMessage(playersCount));
     }
 
     @Override
