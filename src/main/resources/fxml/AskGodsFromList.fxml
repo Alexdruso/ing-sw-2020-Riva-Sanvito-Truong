@@ -31,7 +31,7 @@
           <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="776.0" styleClass="h1" text="Choose Gods Prompt" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" />
+            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="776.0" styleClass="h1" text="Choose Gods Prompt" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <ScrollPane id="god-icon-flowpane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="442.0" prefWidth="880.0" VBox.vgrow="SOMETIMES">

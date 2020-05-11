@@ -52,7 +52,11 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
      */
     @Override
     public void render() {
-        mainScene.getStylesheets().add(getClass().getResource("/css/god-selection.css").toExternalForm());
-        SceneLoader.loadFromFXML("/fxml/AskGodsFromList.fxml", mainScene, client, this, ClientState.ASK_GODS_FROM_LIST, true);
+        if(client.isCurrentlyActive()){
+            mainScene.getStylesheets().add(getClass().getResource("/css/god-selection.css").toExternalForm());
+            SceneLoader.loadFromFXML("/fxml/AskGodsFromList.fxml", mainScene, client, this, ClientState.ASK_GODS_FROM_LIST, true);
+        } else {
+            SceneLoader.loadFromFXML("/fxml/AskGodsFromListPassive.fxml", mainScene, client, this, ClientState.ASK_GODS_FROM_LIST, true);
+        }
     }
 }

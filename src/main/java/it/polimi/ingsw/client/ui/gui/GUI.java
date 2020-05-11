@@ -23,6 +23,7 @@ public class GUI extends UI {
 
     public void addScene(ClientState clientState, SavedScene savedScene) {
         //TODO: see if we can load all scenes at startup time
+        //TODO: index this map by FXML name since there are states with multiple scenes (e.g. AskGodsFromList VS AskGodsFromListPassive)
         sceneMap.put(clientState, savedScene);
     }
 
