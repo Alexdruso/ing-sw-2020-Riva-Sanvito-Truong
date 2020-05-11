@@ -1,6 +1,10 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.clientstates.ClientTurnState;
+import it.polimi.ingsw.client.reducedmodel.ReducedGame;
+import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 import java.util.List;
@@ -45,14 +49,12 @@ public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
 
     @Override
     public boolean handleTransmittable(Client client) {
-//        if (handler.getGame().getLocalUser().equals(user)) {
-//          handler.getGame().setTurnState(MOVE);
-//        }
-//        else {
-//          handler.getGame().setTurnState(PASSIVE);
-//        }
-
+        client.setCurrentActiveUser(user);
+        client.moveToState(ClientState.IN_GAME);
+        client.getGame().getPlayer(user).ifPresent(
+                targetUser -> client.getGame().setTurn(new ReducedTurn(targetUser, client.getUI().getClientTurnState(ClientTurnState.MOVE, client)))
+        );
         client.requestRender();
-        return false;
+        return true;
     }
 }
