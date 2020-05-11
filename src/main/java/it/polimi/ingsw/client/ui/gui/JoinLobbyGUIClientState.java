@@ -36,7 +36,14 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
      * Triggers the operations to perform when exiting the current state
      */
     @Override
-    public void tearDown() {
+    public synchronized void tearDown() {
+        while(savedScene == null) {
+            try{
+                wait();
+            } catch (InterruptedException e){
+               //TODO
+            }
+        }
         ((JoinLobbyController)savedScene.controller).stopAnimation();
     }
 
@@ -48,7 +55,9 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
      * - or the implementation of this function must be self-sufficient (i.e., it does not depend on calls of render of previous states)
      */
     @Override
-    public void render() {
+    public synchronized void render() {
+        //FIXME: this synchronization will be replaced with a render queue in the Client
         savedScene = SceneLoader.loadFromFXML("/fxml/JoinLobby.fxml", mainScene, client, this, ClientState.JOIN_LOBBY, true);
+        notifyAll();
     }
 }

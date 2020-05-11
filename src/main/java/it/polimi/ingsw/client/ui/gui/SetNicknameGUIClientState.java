@@ -49,4 +49,9 @@ public class SetNicknameGUIClientState extends AbstractSetNicknameClientState im
     public void render() {
         SceneLoader.loadFromFXML("/fxml/SetNickname.fxml", mainScene, client, this, ClientState.SET_NICKNAME, true);
     }
+
+    @Override
+    public void handleOk(){
+        super.handleOk();
+    }
 }
