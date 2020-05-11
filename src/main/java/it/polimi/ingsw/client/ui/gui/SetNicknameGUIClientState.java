@@ -5,6 +5,9 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -48,5 +51,11 @@ public class SetNicknameGUIClientState extends AbstractSetNicknameClientState im
     @Override
     public void render() {
         SceneLoader.loadFromFXML("/fxml/SetNickname.fxml", mainScene, client, this, ClientState.SET_NICKNAME, true);
+    }
+
+    @Override
+    public void handleClientError() {
+        Platform.runLater(() -> client.getUI().notifyError(I18n.string(I18nKey.ERROR_NICKNAME_TAKEN)));
+        super.handleClientError();
     }
 }

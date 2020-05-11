@@ -34,7 +34,6 @@ public abstract class AbstractSetNicknameClientState extends AbstractClientState
 
     @Override
     public void handleClientError() {
-        Platform.runLater(() -> client.getUI().notifyError("Il nickname scelto e' gia' in uso."));
         client.moveToState(ClientState.SET_NICKNAME);
     }
 

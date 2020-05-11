@@ -29,6 +29,12 @@ public class SetNicknameCLIClientState extends AbstractSetNicknameClientState im
     }
 
     @Override
+    public void handleClientError() {
+        cli.error(I18n.string(I18nKey.ERROR_NICKNAME_TAKEN));
+        super.handleClientError();
+    }
+
+    @Override
     public void handleOk() {
         cli.clear();
         cli.println(String.format(I18n.string(I18nKey.WELCOME_TO_THE_SERVER_S), nickname));
