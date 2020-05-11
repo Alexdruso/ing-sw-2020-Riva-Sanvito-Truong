@@ -1,9 +1,21 @@
 package it.polimi.ingsw.client.ui.gui;
 
+import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWaitPlayersClientState;
+import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState implements GUIClientState {
+    private final GUI gui;
+    private final Stage primaryStage;
+    private final Scene mainScene;
+    private SavedScene savedScene;
+
     /**
      * Instantiates a new WAIT_PLAYERS ClientState.
      *
@@ -11,6 +23,29 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
      */
     public WaitPlayersGUIClientState(Client client) {
         super(client);
+        gui = (GUI)client.getUI();
+        primaryStage = JavaFXApp.getPrimaryStage();
+        mainScene = primaryStage.getScene();
+    }
+
+    public void returnToMenu(){
+        client.moveToState(ClientState.WELCOME_SCREEN);
+        client.closeConnection();
+    }
+
+    /**
+     * Triggers the operations to perform when exiting the current state
+     */
+    @Override
+    public synchronized void tearDown() {
+        while(savedScene == null) {
+            try{
+                wait();
+            } catch (InterruptedException e){
+                //TODO
+            }
+        }
+        ((WaitPlayersController)savedScene.controller).stopAnimation();
     }
 
     /**
@@ -21,7 +56,9 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
      * - or the implementation of this function must be self-sufficient (i.e., it does not depend on calls of render of previous states)
      */
     @Override
-    public void render() {
-
+    public synchronized void render() {
+        //FIXME: this synchronization will be replaced with a render queue in the Client
+        savedScene = SceneLoader.loadFromFXML("/fxml/WaitPlayers.fxml", mainScene, client, this, ClientState.WAIT_PLAYERS, true);
+        notifyAll();
     }
 }

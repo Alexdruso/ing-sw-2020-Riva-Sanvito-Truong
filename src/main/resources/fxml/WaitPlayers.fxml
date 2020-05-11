@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController">
+   <children>
+      <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
+      <AnchorPane id="DarkenPane" prefHeight="400.0" prefWidth="600.0" />
+      <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="955.0" minWidth="10.0" prefWidth="955.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="130.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="419.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="130.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="waitPromptLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Placeholder Text" />
+                  <Label styleClass="h3" text="%wait_players_prompt">
+                     <VBox.margin>
+                        <Insets bottom="60.0" />
+                     </VBox.margin>
+                  </Label>
+                  <AnchorPane prefHeight="316.0" prefWidth="930.0" VBox.vgrow="NEVER">
+                     <children>
+                        <ImageView fx:id="loadingTower" fitHeight="500.0" fitWidth="140.0" layoutX="395.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="2.0">
+                           <image>
+                              <Image url="@../assets/loading_tower0_400px.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D minX="140.0" width="140.0" />
+                           </viewport></ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="menuButton" minHeight="100.0" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="50.0" prefWidth="150.0" styleClass="bigbutton" text="Menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+   </children>
+</StackPane>
