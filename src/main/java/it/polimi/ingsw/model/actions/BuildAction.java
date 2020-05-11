@@ -13,23 +13,23 @@ public class BuildAction implements  Action{
     /**
      * The cell on which the worker built
      */
-    private Cell targetCell;
+    private final Cell targetCell;
 
     /**
      * The component built on the cell
      */
-    private Buildable component;
+    private final Buildable component;
 
     /**
      * The level built by the worker.
      * Beware, this is the level AFTER the worker performed the build
      */
-    private int builtLevel;
+    private final int builtLevel;
 
     /**
      * The worker who performed the build
      */
-    private Worker performer;
+    private final Worker performer;
 
     /**
      * Constructor, stores all the variables by reference
