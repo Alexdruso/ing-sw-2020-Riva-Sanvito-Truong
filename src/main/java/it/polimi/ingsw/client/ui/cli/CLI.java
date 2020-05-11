@@ -108,7 +108,6 @@ public class CLI extends UI {
                 case ASK_WORKER_POSITION -> new AskWorkerPositionCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
                 case BUILD -> new BuildCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
                 case MOVE -> new MoveCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
-                case PASSIVE -> new PassiveCLIClientTurnState(client, (InGameCLIClientState) client.getCurrentState());
             };
         }
         catch (ClassCastException e) {

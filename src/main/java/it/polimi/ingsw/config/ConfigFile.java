@@ -11,9 +11,10 @@ public enum ConfigFile {
 
     /**
      * Enum constructor
+     *
      * @param path The relative path from the project root to the configuration file
      */
-    private ConfigFile(String path) {
+    ConfigFile(String path) {
         this.path = path;
     }
 

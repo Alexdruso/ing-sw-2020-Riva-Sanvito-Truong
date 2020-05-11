@@ -3,9 +3,20 @@ package it.polimi.ingsw.utils.messages;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * The type Reduced user.
+ */
 public class ReducedUser implements Serializable {
+    /**
+     * The Nickname.
+     */
     public final String nickname;
 
+    /**
+     * Instantiates a new Reduced user.
+     *
+     * @param nickname the nickname
+     */
     public ReducedUser(String nickname) {
         this.nickname = nickname;
     }

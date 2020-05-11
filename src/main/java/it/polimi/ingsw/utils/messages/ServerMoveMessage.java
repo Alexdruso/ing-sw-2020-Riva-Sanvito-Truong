@@ -3,6 +3,9 @@ package it.polimi.ingsw.utils.messages;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+/**
+ * The type Server move message.
+ */
 public class ServerMoveMessage implements ServerMessage, ClientHandleable {
     /**
      * The x coordinate of the cell from which the worker moved

@@ -4,6 +4,9 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+/**
+ * The type Server build message.
+ */
 public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The X coordinate of the cell on which the worker built

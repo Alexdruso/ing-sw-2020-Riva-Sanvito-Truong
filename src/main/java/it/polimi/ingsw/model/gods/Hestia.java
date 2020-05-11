@@ -23,7 +23,7 @@ class Hestia extends AbstractGod {
             if (lastBuildActions.size() == 1) {
                 turn.setSkippable(true);
                 BuildAction lastBuild = lastBuildActions.get(0);
-                Worker lastBuildWorker = lastBuild.getPerformer();
+                Worker lastBuildWorker = lastBuild.getWorker();
 
                 turn.clearAllowedWorkers();
                 turn.addAllowedWorker(lastBuildWorker);

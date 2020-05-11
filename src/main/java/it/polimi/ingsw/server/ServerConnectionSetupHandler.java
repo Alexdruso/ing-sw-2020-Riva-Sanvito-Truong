@@ -26,18 +26,29 @@ public class ServerConnectionSetupHandler implements LambdaObserver {
 
     /**
      * The class constructor
-     * @param server the Server instance
+     *
+     * @param server     the Server instance
      * @param connection the Connection instance
      */
-    public ServerConnectionSetupHandler(Server server, Connection connection){
+    public ServerConnectionSetupHandler(Server server, Connection connection) {
         this.server = server;
         this.connection = connection;
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Gets lobby builder.
+     *
+     * @return the lobby builder
+     */
     public ServerLobbyBuilder getLobbyBuilder() {
         return server.getLobbyBuilder();
     }
@@ -49,13 +60,23 @@ public class ServerConnectionSetupHandler implements LambdaObserver {
      * @param message the message to be received
      */
     public void update(Transmittable message) {
-        ((ServerHandleable)message).handleTransmittable(this);
+        ((ServerHandleable) message).handleTransmittable(this);
     }
 
+    /**
+     * Sets nickname.
+     *
+     * @param nickname the nickname
+     */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
     public String getNickname() {
         return this.nickname;
     }

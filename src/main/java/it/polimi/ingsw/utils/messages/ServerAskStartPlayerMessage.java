@@ -4,9 +4,20 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+/**
+ * The type Server ask start player message.
+ */
 public class ServerAskStartPlayerMessage implements ServerMessage, ClientHandleable {
+    /**
+     * The User who has to decide who starts.
+     */
     ReducedUser user;
 
+    /**
+     * Instantiates a new Server ask start player message.
+     *
+     * @param user the user
+     */
     public ServerAskStartPlayerMessage(ReducedUser user) {
         this.user = user;
     }

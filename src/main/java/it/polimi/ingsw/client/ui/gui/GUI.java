@@ -71,7 +71,6 @@ public class GUI extends UI {
                 case ASK_WORKER_POSITION -> new AskWorkerPositionGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());
                 case BUILD -> new BuildGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());
                 case MOVE -> new MoveGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());
-                case PASSIVE -> new PassiveGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());
             };
         }
         catch (ClassCastException e) {

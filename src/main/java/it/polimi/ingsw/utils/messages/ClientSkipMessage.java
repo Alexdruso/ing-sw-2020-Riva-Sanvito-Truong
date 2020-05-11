@@ -12,9 +12,9 @@ public class ClientSkipMessage implements ClientMessage, ControllerHandleable{
     /**
      * Class constructor
      */
-   public ClientSkipMessage(){
-       super();
-   }
+    public ClientSkipMessage() {
+        super();
+    }
 
    @Override
     public boolean handleTransmittable(Controller handler, View view, User user) {

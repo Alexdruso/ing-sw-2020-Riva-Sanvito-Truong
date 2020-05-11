@@ -3,7 +3,13 @@ package it.polimi.ingsw.utils.messages;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+/**
+ * The type Server set worker start position message.
+ */
 public class ServerSetWorkerStartPositionMessage implements ServerMessage, ClientHandleable {
+    /**
+     * The User who has to choose the worker start position.
+     */
     public final ReducedUser user;
     /**
      * The x coordinate of the cell to which the worker is positioned
@@ -26,7 +32,7 @@ public class ServerSetWorkerStartPositionMessage implements ServerMessage, Clien
      * @param user        the user performing the set position
      * @param targetCellX The x coordinate of the cell to which the worker is positioned
      * @param targetCellY The y coordinate of the cell to which the worker is positioned
-     * @param workerID   The positioned worker
+     * @param workerID    The positioned worker
      */
     public ServerSetWorkerStartPositionMessage(ReducedUser user, int targetCellX, int targetCellY, ReducedWorkerID workerID) {
         this.user = user;

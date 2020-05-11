@@ -6,11 +6,30 @@ import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
+/**
+ * The type Server ask worker position message.
+ */
 public class ServerAskWorkerPositionMessage implements ServerMessage, ClientHandleable {
+    /**
+     * The Worker whose position has to be set.
+     */
     public final ReducedWorkerID worker;
+    /**
+     * The User who has to choose the worker's position.
+     */
     public final ReducedUser user;
+    /**
+     * The available cells.
+     */
     public final ReducedTargetCells targetCells;
 
+    /**
+     * Instantiates a new Server ask worker position message.
+     *
+     * @param worker      the worker
+     * @param user        the user
+     * @param targetCells the target cells
+     */
     public ServerAskWorkerPositionMessage(ReducedWorkerID worker, ReducedUser user, ReducedTargetCells targetCells) {
         this.worker = worker;
         this.user = user;

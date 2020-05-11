@@ -10,5 +10,5 @@ public interface Action {
     /**
      * @return The worker who performed the action
      */
-    public Worker getPerformer();
+    Worker getWorker();
 }
