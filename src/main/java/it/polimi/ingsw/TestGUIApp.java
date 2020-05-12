@@ -10,7 +10,6 @@ public class TestGUIApp {
     public static void main(String[] args) {
         GUI gui = new GUI();
         client = new Client(gui);
-        //client.setNextState(ClientState.ASK_GODS_FROM_LIST);
         clientThread = new Thread(client::run);
         clientThread.start();
         JavaFXApp.launchGUI(gui);

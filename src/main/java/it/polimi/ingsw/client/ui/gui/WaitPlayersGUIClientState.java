@@ -10,11 +10,15 @@ import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState implements GUIClientState {
     private final GUI gui;
     private final Stage primaryStage;
     private final Scene mainScene;
     private SavedScene savedScene;
+    private static final Logger LOGGER = Logger.getLogger(WaitPlayersGUIClientState.class.getName());
 
     /**
      * Instantiates a new WAIT_PLAYERS ClientState.
@@ -42,7 +46,8 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
             try{
                 wait();
             } catch (InterruptedException e){
-                //TODO
+                LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                Thread.currentThread().interrupt();
             }
         }
         ((WaitPlayersController)savedScene.controller).stopAnimation();

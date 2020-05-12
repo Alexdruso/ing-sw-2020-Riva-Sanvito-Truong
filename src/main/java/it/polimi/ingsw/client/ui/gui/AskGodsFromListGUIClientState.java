@@ -9,8 +9,6 @@ import it.polimi.ingsw.utils.messages.ReducedGod;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.logging.Logger;
-
 public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClientState implements GUIClientState{
     private final GUI gui;
     private final Scene mainScene;

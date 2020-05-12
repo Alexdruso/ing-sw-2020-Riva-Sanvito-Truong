@@ -61,8 +61,6 @@ public class AskGodsFromListController extends AbstractController{
     private Map<GodAsset, Image> cachedCards = new EnumMap<>(GodAsset.class);
     private List<ReducedGod> gods;
 
-    private int playersCount;
-
     private ReducedGod currentGod;
 
 
@@ -97,7 +95,7 @@ public class AskGodsFromListController extends AbstractController{
 
     @Override
     public void setupController(){
-        playersCount = client.getGame().getPlayersCount();
+        int playersCount = client.getGame().getPlayersCount();
         chooseGodsPrompt.setText(String.format(String.format("%s:", I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));
         gods = new ArrayList<>(client.getGods());
         for(ReducedGod god: gods){

@@ -54,7 +54,7 @@ public class ConnectToServerController extends AbstractController{
     public void initialize(){
         errorLabel.setOpacity(0);
         hostField.focusedProperty().addListener((obs, oldValue, newValue) -> {
-            if(newValue && firstShow.get()){
+            if(Boolean.TRUE.equals(newValue) && firstShow.get()){
                 connectButton.requestFocus();
                 firstShow.setValue(false);
             }

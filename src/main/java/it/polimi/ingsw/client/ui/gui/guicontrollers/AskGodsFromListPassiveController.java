@@ -67,6 +67,6 @@ public class AskGodsFromListPassiveController extends AbstractController{
 
     @Override
     public void handleError(String message) {
-
+        //No error to handle
     }
 }

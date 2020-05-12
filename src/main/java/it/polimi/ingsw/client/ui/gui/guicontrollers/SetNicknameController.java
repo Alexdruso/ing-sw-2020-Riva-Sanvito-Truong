@@ -58,7 +58,7 @@ public class SetNicknameController extends AbstractController{
     @FXML
     public void initialize(){
         nicknameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
-            if(newValue && firstShow.get()){
+            if(Boolean.TRUE.equals(newValue) && firstShow.get()){
                 setNicknameButton.requestFocus();
                 firstShow.setValue(false);
             }

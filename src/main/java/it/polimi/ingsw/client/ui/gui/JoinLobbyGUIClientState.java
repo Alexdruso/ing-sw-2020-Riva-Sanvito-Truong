@@ -10,11 +10,15 @@ import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implements GUIClientState{
     private final GUI gui;
     private final Stage primaryStage;
     private final Scene mainScene;
     private SavedScene savedScene;
+    private static final Logger LOGGER = Logger.getLogger(WaitPlayersGUIClientState.class.getName());
     /**
      * Instantiates a new JOIN_LOBBY ClientState.
      *
@@ -41,7 +45,8 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
             try{
                 wait();
             } catch (InterruptedException e){
-               //TODO
+                LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                Thread.currentThread().interrupt();
             }
         }
         ((JoinLobbyController)savedScene.controller).stopAnimation();
