@@ -17,12 +17,12 @@ public enum GodAsset {
 
     public final String cardLocation;
     public final String iconLocation;
-    public final String name; //English name all lowercase. If there are any spaces, substitute with an underscore.
+    public final String godName; //English name all lowercase. If there are any spaces, substitute with an underscore.
 
-    GodAsset(String cardLocation, String iconLocation, String name){
+    GodAsset(String cardLocation, String iconLocation, String godName){
         this.cardLocation = cardLocation;
         this.iconLocation = iconLocation;
-        this.name = name;
+        this.godName = godName;
     }
 
     public static GodAsset fromReducedGod(ReducedGod god){

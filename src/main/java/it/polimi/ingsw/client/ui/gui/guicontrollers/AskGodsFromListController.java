@@ -25,10 +25,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AskGodsFromListController extends AbstractController{
-    final int ICONS_PER_ROW = 5;
-    final double ICON_SPACING_H = 30;
-    final double ICON_SPACING_V = 60;
-    final double SCROLLPANE_INNER_PADDING = 30;
+    private static final int ICONS_PER_ROW = 5;
+    private static final double ICON_SPACING_H = 30;
+    private static final double ICON_SPACING_V = 60;
+    private static final double SCROLLPANE_INNER_PADDING = 30;
 
     @FXML
     Pane rootPane;
@@ -58,7 +58,7 @@ public class AskGodsFromListController extends AbstractController{
     private boolean sideBarVisible = false;
 
     private Map<ReducedGod, Pane> godIcons = new HashMap<>();
-    private Map<GodAsset, Image> cachedCards = new HashMap<>();
+    private Map<GodAsset, Image> cachedCards = new EnumMap<>(GodAsset.class);
     private List<ReducedGod> gods;
 
     private int playersCount;
@@ -92,7 +92,7 @@ public class AskGodsFromListController extends AbstractController{
 
     @Override
     public void handleError(String message) {
-
+       //Nothing to handle
     }
 
     @Override
@@ -158,16 +158,16 @@ public class AskGodsFromListController extends AbstractController{
 
         Label label = new Label();
 
-        label.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_NAME")));
+        label.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+"_NAME")));
         //TODO: change text size dynamically
         label.getStyleClass().add("god-label");
 
         img.setOnMouseClicked((MouseEvent mouseEvent) -> {
             currentGod = god;
             selectedCard.setImage(cachedCards.get(ga));
-            godName.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_NAME")));
-            godSubtitle.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_SUBTITLE")));
-            godDescription.setText(I18n.string(I18nKey.valueOf(ga.name.toUpperCase()+"_DESCRIPTION")));
+            godName.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+"_NAME")));
+            godSubtitle.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+"_SUBTITLE")));
+            godDescription.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+"_DESCRIPTION")));
             sideBarTransitionIn.play();
             sideBarVisible = true;
         });

@@ -15,7 +15,6 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
     private final GUI gui;
     private final Scene mainScene;
     private final Stage primaryStage;
-    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
     private int selectedCount = 0;
     private int playersCount;
     /**

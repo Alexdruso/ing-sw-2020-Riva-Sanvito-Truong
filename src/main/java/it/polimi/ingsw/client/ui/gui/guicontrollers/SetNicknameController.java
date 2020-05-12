@@ -3,6 +3,8 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 import it.polimi.ingsw.client.ui.gui.SetNicknameGUIClientState;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +24,8 @@ public class SetNicknameController extends AbstractController{
 
     @FXML
     Label errorLabel;
+
+    final BooleanProperty firstShow = new SimpleBooleanProperty(true);
 
     @FXML
     public void handleMenuButton(ActionEvent event){
@@ -46,8 +50,19 @@ public class SetNicknameController extends AbstractController{
 
     @Override
     public void onSceneShow(){
+        firstShow.setValue(true);
         nicknameField.clear();
         errorLabel.setOpacity(0);
+    }
+
+    @FXML
+    public void initialize(){
+        nicknameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if(newValue && firstShow.get()){
+                setNicknameButton.requestFocus();
+                firstShow.setValue(false);
+            }
+        });
     }
 
     @Override

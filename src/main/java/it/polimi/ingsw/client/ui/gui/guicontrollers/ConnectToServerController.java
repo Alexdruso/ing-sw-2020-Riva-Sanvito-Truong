@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.ConnectToServerGUIClientState;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,6 +19,8 @@ public class ConnectToServerController extends AbstractController{
     TextField portField;
     @FXML
     Label errorLabel;
+
+    private final BooleanProperty firstShow = new SimpleBooleanProperty(true);
 
     @FXML
     public void handleConnectButton(ActionEvent event){
@@ -41,9 +45,20 @@ public class ConnectToServerController extends AbstractController{
         ((ConnectToServerGUIClientState)state).returnToMenu();
     }
 
+    @Override
+    public void onSceneShow(){
+        firstShow.setValue(true);
+    }
+
     @FXML
     public void initialize(){
         errorLabel.setOpacity(0);
+        hostField.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if(newValue && firstShow.get()){
+                connectButton.requestFocus();
+                firstShow.setValue(false);
+            }
+        });
     }
 
     public void handleError(String message){
