@@ -502,7 +502,7 @@ public class Game extends LambdaObservable<Transmittable> {
             //sends gods request
             notify(new ServerAskGodFromListMessage(
                     getUserFromPlayer(players.peek()).toReducedUser(),
-                    remainingGods.stream().map(x -> new ReducedGod(x.toString())).collect(Collectors.toList())));
+                    remainingGods.stream().map(x -> new ReducedGod(x.getName())).collect(Collectors.toList())));
         }
     }
 
