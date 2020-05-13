@@ -55,6 +55,12 @@ public enum GodCard {
      */
     HESTIA(new Hestia()),
     /**
+     * The Hypnus god.
+     *
+     * @see Hypnus
+     */
+    HYPNUS(new Hypnus()),
+    /**
      * The Minotaur god.
      *
      * @see Minotaur
@@ -72,6 +78,18 @@ public enum GodCard {
      * @see Prometheus
      */
     PROMETHEUS(new Prometheus()),
+    /**
+     * The Triton god.
+     *
+     * @see Triton
+     */
+    TRITON(new Triton()),
+    /**
+     * The Zeus god.
+     *
+     * @see Zeus
+     */
+    ZEUS(new Zeus()),
     ;
 
     private final God god;
