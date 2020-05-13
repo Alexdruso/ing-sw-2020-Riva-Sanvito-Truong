@@ -23,7 +23,7 @@ public class Hypnus extends AbstractGod {
                 //check if there is one worker above all the others
                 Arrays.stream(turn.getPlayer().getWorkers())
                         .max(Comparator.comparingInt(x -> x.getCell().getTower().getCurrentLevel()))
-                        .ifPresentOrElse(
+                        .ifPresent(
                                 maxWorker -> Arrays.stream(turn.getPlayer().getWorkers())
                                         .filter(worker -> !worker.equals(maxWorker))
                                         .map(worker -> worker.getCell().getTower().getCurrentLevel())
@@ -39,11 +39,8 @@ public class Hypnus extends AbstractGod {
                                                     turn.clearAllowedWorkers();
                                                     turn.addAllowedWorkers(allowedWorkers);
                                                 }
-                                        ),
-                                () -> {
-                                }
+                                        )
                         );
-
             }
         }
     };
