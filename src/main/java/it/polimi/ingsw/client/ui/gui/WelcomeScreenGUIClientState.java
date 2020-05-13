@@ -38,6 +38,6 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
     @Override
     public void render() {
         mainScene.getStylesheets().add(getClass().getResource("/css/main-menu.css").toExternalForm());
-        SceneLoader.loadFromFXML("/fxml/MainMenu.fxml", mainScene, client, this, ClientState.WELCOME_SCREEN, false);
+        SceneLoader.loadFromFXML("/fxml/MainMenu.fxml", mainScene, client, this, ClientState.WELCOME_SCREEN, false, false);
     }
 }

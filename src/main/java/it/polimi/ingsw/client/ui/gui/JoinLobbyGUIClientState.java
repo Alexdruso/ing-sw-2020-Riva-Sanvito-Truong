@@ -62,7 +62,7 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
     @Override
     public synchronized void render() {
         //FIXME: this synchronization will be replaced with a render queue in the Client
-        savedScene = SceneLoader.loadFromFXML("/fxml/JoinLobby.fxml", mainScene, client, this, ClientState.JOIN_LOBBY, true);
+        savedScene = SceneLoader.loadFromFXML("/fxml/JoinLobby.fxml", mainScene, client, this, ClientState.JOIN_LOBBY, true, false);
         notifyAll();
     }
 }

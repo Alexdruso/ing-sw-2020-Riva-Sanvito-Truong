@@ -38,6 +38,6 @@ public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClient
      */
     @Override
     public void render() {
-        SceneLoader.loadFromFXML("/fxml/SetPlayersCount.fxml", mainScene, client, this, ClientState.SET_PLAYERS_COUNT, true);
+        SceneLoader.loadFromFXML("/fxml/SetPlayersCount.fxml", mainScene, client, this, ClientState.SET_PLAYERS_COUNT, true, false);
     }
 }

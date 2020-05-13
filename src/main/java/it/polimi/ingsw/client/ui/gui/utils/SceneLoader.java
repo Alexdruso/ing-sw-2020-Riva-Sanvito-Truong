@@ -26,7 +26,7 @@ public class SceneLoader {
     private static final Logger LOGGER = Logger.getLogger(SceneLoader.class.getName());
 
     public static SavedScene loadFromFXML(String file, Scene mainScene, Client client,
-                                          AbstractClientState state, ClientState clientState, boolean applyFadeOut){
+                                          AbstractClientState state, ClientState clientState, boolean applyFadeOut, boolean forceChange){
         GUI gui = (GUI)client.getUI();
 
         Parent root;
@@ -37,7 +37,7 @@ public class SceneLoader {
         try {
             Optional<SavedScene> savedRoot = gui.getScene(clientState);
 
-            if(savedRoot.isEmpty()){
+            if(savedRoot.isEmpty() || forceChange){
                 ResourceBundle resources = geti18n();
                 FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resources);
 
@@ -70,7 +70,7 @@ public class SceneLoader {
             controller.setState(state); //Always needs to be updated, since states are created on demand
             gui.setCurrentScene(savedScene);
 
-            if(stateChanged){
+            if(stateChanged || forceChange){
                 if(applyFadeOut){
                     applyFadeOut(mainScene, root);
                 } else {

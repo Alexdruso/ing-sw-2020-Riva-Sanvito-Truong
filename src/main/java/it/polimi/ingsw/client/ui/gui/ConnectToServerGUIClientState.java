@@ -46,6 +46,6 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
      */
     @Override
     public void render() {
-        SceneLoader.loadFromFXML("/fxml/ConnectToServer.fxml", mainScene, client, this, ClientState.CONNECT_TO_SERVER, true);
+        SceneLoader.loadFromFXML("/fxml/ConnectToServer.fxml", mainScene, client, this, ClientState.CONNECT_TO_SERVER, true, false);
     }
 }

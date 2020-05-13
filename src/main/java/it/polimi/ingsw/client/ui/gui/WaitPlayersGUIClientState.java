@@ -63,7 +63,7 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
     @Override
     public synchronized void render() {
         //FIXME: this synchronization will be replaced with a render queue in the Client
-        savedScene = SceneLoader.loadFromFXML("/fxml/WaitPlayers.fxml", mainScene, client, this, ClientState.WAIT_PLAYERS, true);
+        savedScene = SceneLoader.loadFromFXML("/fxml/WaitPlayers.fxml", mainScene, client, this, ClientState.WAIT_PLAYERS, true, false);
         notifyAll();
     }
 }
