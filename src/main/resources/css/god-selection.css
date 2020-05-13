@@ -10,3 +10,6 @@
     -fx-padding: 20px 0 0 0;
 }
 
+#chosen-gods-list {
+    -fx-background-color: transparent;
+}

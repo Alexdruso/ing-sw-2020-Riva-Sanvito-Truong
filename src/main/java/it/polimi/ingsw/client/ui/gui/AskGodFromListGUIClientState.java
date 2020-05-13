@@ -1,10 +1,16 @@
 package it.polimi.ingsw.client.ui.gui;
 
+import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
+import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
+import it.polimi.ingsw.utils.messages.ReducedGod;
+import javafx.scene.Scene;
 
 public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientState implements GUIClientState{
-
+    private final GUI gui;
+    private final Scene mainScene;
     /**
      * Instantiates a new ClientState.
      *
@@ -12,6 +18,17 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
      */
     public AskGodFromListGUIClientState(Client client) {
         super(client);
+        gui = (GUI)client.getUI();
+        mainScene = JavaFXApp.getPrimaryScene();
+    }
+
+    public void returnToMenu(){
+        client.moveToState(ClientState.WELCOME_SCREEN);
+    }
+
+    public void setChosenGod(ReducedGod god){
+        this.chosenGod = god;
+        notifyUiInteraction();
     }
 
     /**
@@ -23,6 +40,14 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
      */
     @Override
     public void render() {
+        if(client.isCurrentlyActive()){
+            System.out.println("Active!");
+            mainScene.getStylesheets().add(getClass().getResource("/css/god-selection.css").toExternalForm());
+            SceneLoader.loadFromFXML("/fxml/AskGodFromList.fxml", mainScene, client, this, ClientState.ASK_GOD_FROM_LIST, true, true);
+        } else {
+            System.out.println("Passive!");
+            SceneLoader.loadFromFXML("/fxml/AskGodFromListPassive.fxml", mainScene, client, this, ClientState.ASK_GOD_FROM_LIST, true, true);
+        }
 
     }
 }
