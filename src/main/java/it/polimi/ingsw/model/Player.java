@@ -21,7 +21,7 @@ public class Player {
     /**
      * A structure to contain all the player's workers
      */
-    private Worker[] workers;
+    private final Worker[] workers;
 
     /**
      * The player's god, can't be the same as other players

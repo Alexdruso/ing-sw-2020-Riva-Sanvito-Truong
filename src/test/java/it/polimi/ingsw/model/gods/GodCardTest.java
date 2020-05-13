@@ -17,9 +17,12 @@ public class GodCardTest {
                 "Hephaestus",
                 "Hera",
                 "Hestia",
+                "Hypnus",
                 "Minotaur",
                 "Pan",
                 "Prometheus",
+                "Triton",
+                "Zeus"
         };
         for (String godName : godNames) {
             God god = GodCard.valueOf(godName.toUpperCase()).getGod();
