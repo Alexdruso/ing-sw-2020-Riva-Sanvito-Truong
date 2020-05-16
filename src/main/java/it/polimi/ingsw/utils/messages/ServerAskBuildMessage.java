@@ -21,15 +21,15 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The workers allowed to move.
      */
-    public final List<ReducedWorkerID> allowedWorkers;
+    private final List<ReducedWorkerID> allowedWorkers;
     /**
      * The cells that can be built a block on by each worker.
      */
-    public final Map<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells;
+    private final Map<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells;
     /**
      * The cells that can be built a block on by each worker.
      */
-    public final Map<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells;
+    private final Map<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells;
 
     /**
      * Instantiates a new Server ask build message.

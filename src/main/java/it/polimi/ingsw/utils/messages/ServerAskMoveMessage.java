@@ -3,7 +3,6 @@ package it.polimi.ingsw.utils.messages;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
-import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
@@ -25,11 +24,11 @@ public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
     /**
      * The workers allowed to move.
      */
-    public final List<ReducedWorkerID> allowedWorkers;
+    private final List<ReducedWorkerID> allowedWorkers;
     /**
      * The Worker walkable cells.
      */
-    public final Map<ReducedWorkerID, ReducedTargetCells> workerWalkableCells;
+    private final Map<ReducedWorkerID, ReducedTargetCells> workerWalkableCells;
 
     /**
      * Instantiates a new Server ask move message.
