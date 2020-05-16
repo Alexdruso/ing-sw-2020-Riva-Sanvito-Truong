@@ -21,7 +21,6 @@ class Move implements AbstractTurnState {
         //for every allowed worker, initializes a target cell with the radius minus blocked cells
         for (Worker worker : turn.getPlayer().getWorkers()) {
             TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
-            //TargetCells nonWalkableCells = (new TargetCells()).setAllTargets(true);
 
             turn.getGame().getBoard().getTargets(walkableCellsRadius).
                     stream()
