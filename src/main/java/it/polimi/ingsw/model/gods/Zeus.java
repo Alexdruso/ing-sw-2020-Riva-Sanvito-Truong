@@ -17,8 +17,12 @@ public class Zeus extends AbstractGod {
         protected void onBeforeBuild(Turn turn) {
             Arrays.stream(turn.getPlayer().getWorkers())
                     .forEach(
-                            worker -> turn.getWorkerBlockBuildableCells(worker)
-                                    .setPosition(worker.getCell(), true)
+                            worker -> {
+                                if (worker.getCell().getTower().getCurrentLevel() < 3) {
+                                    turn.getWorkerBlockBuildableCells(worker)
+                                            .setPosition(worker.getCell(), true);
+                                }
+                            }
                     );
         }
     };
