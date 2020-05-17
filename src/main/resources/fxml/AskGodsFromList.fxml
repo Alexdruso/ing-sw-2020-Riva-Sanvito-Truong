@@ -65,7 +65,7 @@
                         </ImageView>
                         <VBox alignment="CENTER_LEFT">
                            <children>
-                              <Label fx:id="godName" prefHeight="57.0" prefWidth="287.0" styleClass="h1" text="God Name" />
+                              <Label fx:id="godName" prefHeight="182.0" prefWidth="565.0" styleClass="god-name" text="God Name" />
                               <Label fx:id="godSubtitle" styleClass="h3" text="God Subtitle" />
                               <Label fx:id="godDescription" prefHeight="136.0" prefWidth="494.0" styleClass="normal-text" text="Nihil est hic id unde totam sint cupiditate. Cum consequatur eum hic. Sed numquam officiis velit necessitatibus sunt voluptatibus aliquid eos. Qui ratione corporis iste temporibus earum." wrapText="true" />
                            </children>

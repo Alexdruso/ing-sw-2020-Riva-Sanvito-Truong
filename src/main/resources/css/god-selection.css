@@ -10,6 +10,12 @@
     -fx-padding: 20px 0 0 0;
 }
 
+.god-name {
+    -fx-font-family: "Hustle Hardcore";
+    -fx-text-fill: white;
+    -fx-font-size: 7em;
+}
+
 #chosen-gods-list {
     -fx-background-color: transparent;
 }
