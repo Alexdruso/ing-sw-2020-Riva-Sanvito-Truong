@@ -11,9 +11,12 @@ public enum GodAsset {
     HEPHAESTUS("/assets/god_cards/hephaestus_card.png", "/assets/god_icons/hephaestus_icon.png", "hephaestus"),
     HERA("/assets/god_cards/hera_card.png", "/assets/god_icons/hera_icon.png", "hera"),
     HESTIA("/assets/god_cards/hestia_card.png", "/assets/god_icons/hestia_icon.png", "hestia"),
+    HYPNUS("/assets/god_cards/hypnus_card.png", "/assets/god_icons/hypnus_icon.png", "hypnus"),
     MINOTAUR("/assets/god_cards/minotaur_card.png", "/assets/god_icons/minotaur_icon.png", "minotaur"),
     PAN("/assets/god_cards/pan_card.png", "/assets/god_icons/pan_icon.png", "pan"),
-    PROMETHEUS("/assets/god_cards/prometheus_card.png", "/assets/god_icons/prometheus_icon.png", "prometheus");
+    PROMETHEUS("/assets/god_cards/prometheus_card.png", "/assets/god_icons/prometheus_icon.png", "prometheus"),
+    TRITON("/assets/god_cards/triton_card.png", "/assets/god_icons/triton_icon.png", "triton"),
+    ZEUS("/assets/god_cards/zeus_card.png", "/assets/god_icons/zeus_icon.png", "zeus");
 
     public final String cardLocation;
     public final String iconLocation;
