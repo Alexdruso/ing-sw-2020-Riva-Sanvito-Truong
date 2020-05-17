@@ -1,21 +1,11 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.util.logging.Logger;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
 public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState implements GUIClientState {
-    private final GUI gui;
-    private final Scene mainScene;
-    private final Stage primaryStage;
-    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-
     /**
      * Instantiates a new ClientState.
      *
@@ -23,9 +13,6 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
      */
     public WelcomeScreenGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = JavaFXApp.getPrimaryScene();
     }
 
     /**
@@ -37,7 +24,12 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
      */
     @Override
     public void render() {
-        mainScene.getStylesheets().add(getClass().getResource("/css/main-menu.css").toExternalForm());
-        SceneLoader.loadFromFXML("/fxml/MainMenu.fxml", mainScene, client, this, ClientState.WELCOME_SCREEN, false, false);
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
+        sceneLoaderFactory.addCSSFile("/css/main-menu.css")
+                .setState(ClientState.WELCOME_SCREEN, this)
+                .setFirstFadeOut(false)
+                .setFadeInDuration(2000)
+                .build()
+                .executeSceneChange();
     }
 }

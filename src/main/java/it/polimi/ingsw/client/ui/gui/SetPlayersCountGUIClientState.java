@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetPlayersCountClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -38,6 +39,7 @@ public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClient
      */
     @Override
     public void render() {
-        SceneLoader.loadFromFXML("/fxml/SetPlayersCount.fxml", mainScene, client, this, ClientState.SET_PLAYERS_COUNT, true, false);
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/SetPlayersCount.fxml", client);
+        sceneLoaderFactory.setState(ClientState.SET_PLAYERS_COUNT, this).build().executeSceneChange();
     }
 }

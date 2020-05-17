@@ -25,104 +25,93 @@ import java.util.logging.Logger;
 public class SceneLoader {
     private static final Logger LOGGER = Logger.getLogger(SceneLoader.class.getName());
 
-    public static SavedScene loadFromFXML(String file, Scene mainScene, Client client,
-                                          AbstractClientState state, ClientState clientState, boolean applyFadeOut, boolean forceChange){
+    private String fxmlFile;
+    private Client client;
+    private ClientState clientState;
+    private Scene mainScene;
+    private boolean doApplyFadeOut;
+    private boolean doApplyFirstFadeOut;
+    private boolean doApplyFadeIn;
+    private boolean attemptLoadFromSaved;
+    private double fadeInDuration;
+    private double fadeOutDuration;
+    private String cssFile;
+    private AbstractClientState state;
+
+    protected SceneLoader(SceneLoaderFactory loader){
+        this.fxmlFile = loader.fxmlFile;
+        this.client = loader.client;
+        this.clientState = loader.clientState;
+        this.mainScene = loader.mainScene;
+        this.doApplyFadeOut = loader.doApplyFadeOut;
+        this.doApplyFirstFadeOut = loader.doApplyFirstFadeOut;
+        this.doApplyFadeIn = loader.doApplyFadeIn;
+        this.attemptLoadFromSaved = loader.attemptLoadFromSaved;
+        this.fadeInDuration = loader.fadeInDuration;
+        this.fadeOutDuration = loader.fadeOutDuration;
+        this.cssFile = loader.cssFile;
+        this.state = loader.state;
+    }
+
+    public void executeSceneChange(){
+        SavedScene savedScene = null;
         GUI gui = (GUI)client.getUI();
-
-        Parent root;
-        AbstractController controller;
-        SavedScene savedScene;
-        Boolean stateChanged = true;
-
-        try {
-            Optional<SavedScene> savedRoot = gui.getScene(clientState);
-
-            if(savedRoot.isEmpty() || forceChange){
-                ResourceBundle resources = geti18n();
-                FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resources);
-
-                root = loader.load();
-
-                controller = loader.getController();
-                controller.setClient(client);
-
-                controller.setupController();
-
-                savedScene = new SavedScene(controller, root, clientState);
-                gui.addScene(clientState, savedScene);
-
-                root.setCache(true);
-                root.setCacheHint(CacheHint.SPEED);
-            } else {
-                savedScene = savedRoot.get();
-
-                SavedScene currentScene = gui.getCurrentScene();
-                if(savedScene.equals(currentScene)){
-                    stateChanged = false;
-                }
-
-                root = savedScene.root;
-                controller = savedScene.controller;
+        if(gui.getCurrentScene() == null || !fxmlFile.equals(gui.getCurrentScene().fxmlFile)){
+            if(attemptLoadFromSaved){
+                savedScene = loadFromSaved(fxmlFile, (GUI)client.getUI());
             }
-
-            controller.onSceneShow();
-
-            controller.setState(state); //Always needs to be updated, since states are created on demand
-            gui.setCurrentScene(savedScene);
-
-            if(stateChanged || forceChange){
-                if(applyFadeOut){
-                    applyFadeOut(mainScene, root);
+            if(savedScene == null){
+                savedScene = loadNewFXML(fxmlFile, clientState, geti18n());
+                gui.addScene(fxmlFile, savedScene);
+                doApplyFadeOut = doApplyFirstFadeOut;
+            }
+            savedScene.controller.setClient(client);
+            savedScene.controller.setupController();
+            savedScene.controller.onSceneShow();
+            savedScene.controller.setState(state);
+            if(cssFile != null){
+                mainScene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
+            }
+            if(doApplyFadeOut){
+                applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
+            } else {
+                if(doApplyFadeIn){
+                    applyFadeIn(mainScene, savedScene.root, fadeInDuration);
                 } else {
-                    applyFadeIn(mainScene, root, 1500);
+                    SavedScene finalSavedScene = savedScene;
+                    Platform.runLater(() -> mainScene.setRoot(finalSavedScene.root));
                 }
-            } else {
-                Platform.runLater(() -> mainScene.setRoot(root));
             }
-            return savedScene;
+            gui.setCurrentScene(savedScene);
+        }
+    }
 
-        } catch (IOException e) {
+
+    public static SavedScene loadNewFXML(String file, ClientState clientState, ResourceBundle resourceBundle){
+        FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resourceBundle);
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e){
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return null;
+        }
+        root.setCache(true);
+        root.setCacheHint(CacheHint.SPEED);
+        AbstractController controller = loader.getController();
+        return new SavedScene(file, controller, root, clientState);
+    }
+
+    public static SavedScene loadFromSaved(String file, GUI gui){
+        SavedScene savedScene = gui.getScene(file);
+        if(savedScene != null){
+            return savedScene;
+        } else {
             return null;
         }
     }
 
-    public static void loadNoCacheFromFXML(String file, Client client, Scene mainScene, boolean applyFadeOut){
-        Parent root;
-        try {
-            ResourceBundle resources = geti18n();
-            FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resources);
-            root = loader.load();
-            AbstractController controller = loader.getController();
-
-            controller.setClient(client);
-            controller.setupController();
-
-            root.setCache(true);
-            root.setCacheHint(CacheHint.SPEED);
-            if(applyFadeOut){
-                applyFadeOut(mainScene, root);
-            } else {
-                applyFadeIn(mainScene, root, 1500);
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-        }
-    }
-
-    public static void loadSaved(ClientState clientState, Scene mainScene, Client client, boolean applyFadeOut){
-        GUI gui = (GUI)client.getUI();
-        SavedScene savedScene = gui.getScene(clientState).get();
-
-        Pane root = (Pane)savedScene.root;
-        AbstractController controller = savedScene.controller;
-
-        gui.setCurrentScene(savedScene);
-
-        applyFadeOut(mainScene, root);
-    }
-
-    public static ResourceBundle geti18n(){
+    private static ResourceBundle geti18n(){
         String LANGUAGE_ENV_VAR_NAME = "LANGUAGE";
         Locale locale;
         String language = System.getenv(LANGUAGE_ENV_VAR_NAME);
@@ -140,21 +129,21 @@ public class SceneLoader {
             newRoot.setOpacity(0);
             mainScene.setRoot(newRoot);
             FadeTransition fadeIn = new FadeTransition(Duration.millis(duration), newRoot);
-            fadeIn.setInterpolator(Interpolator.EASE_OUT);
+            fadeIn.setInterpolator(Interpolator.EASE_BOTH);
             fadeIn.setFromValue(0.0);
             fadeIn.setToValue(1.0);
             fadeIn.play();
         });
     }
 
-    public static void applyFadeOut(Scene mainScene, Parent newRoot){
+    public static void applyFadeOut(Scene mainScene, Parent newRoot, double fadeOutDuration, double fadeInDuration){
         Platform.runLater(() -> {
-            FadeTransition fadeOut = new FadeTransition(Duration.millis(300), mainScene.getRoot());
-            fadeOut.setInterpolator(Interpolator.EASE_OUT);
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(fadeOutDuration), mainScene.getRoot());
+            fadeOut.setInterpolator(Interpolator.EASE_BOTH);
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
             fadeOut.play();
-            fadeOut.setOnFinished((event) -> applyFadeIn(mainScene, newRoot, 500));
+            fadeOut.setOnFinished((event) -> applyFadeIn(mainScene, newRoot, fadeInDuration));
         });
     }
 }

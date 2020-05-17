@@ -1,20 +1,11 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.util.logging.Logger;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
 public class ConnectToServerGUIClientState extends AbstractConnectToServerClientState implements GUIClientState{
-    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-    private final GUI gui;
-    private final Stage primaryStage;
-    private final Scene mainScene;
     /**
      * Instantiates a new JOIN_LOBBY ClientState.
      *
@@ -22,9 +13,6 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
      */
     public ConnectToServerGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = primaryStage.getScene();
     }
 
     public void returnToMenu(){
@@ -46,6 +34,7 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
      */
     @Override
     public void render() {
-        SceneLoader.loadFromFXML("/fxml/ConnectToServer.fxml", mainScene, client, this, ClientState.CONNECT_TO_SERVER, true, false);
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/ConnectToServer.fxml", client);
+        sceneLoaderFactory.setState(ClientState.CONNECT_TO_SERVER, this).build().executeSceneChange();
     }
 }

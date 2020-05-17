@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -63,7 +64,9 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
     @Override
     public synchronized void render() {
         //FIXME: this synchronization will be replaced with a render queue in the Client
-        savedScene = SceneLoader.loadFromFXML("/fxml/WaitPlayers.fxml", mainScene, client, this, ClientState.WAIT_PLAYERS, true, false);
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/WaitPlayers.fxml", client);
+        sceneLoaderFactory.setState(ClientState.WAIT_PLAYERS, this).build().executeSceneChange();
+        savedScene = gui.getCurrentScene();
         notifyAll();
     }
 }

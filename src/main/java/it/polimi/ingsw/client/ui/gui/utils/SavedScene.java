@@ -10,8 +10,14 @@ public class SavedScene {
     public final AbstractController controller;
     public final Parent root;
     public final ClientState clientState;
+    public final String fxmlFile;
 
-    public SavedScene(AbstractController controller, Parent root, ClientState clientState){
+    public SavedScene(String fxmlFile, AbstractController controller, Parent root){
+        this(fxmlFile, controller, root, null);
+    }
+
+    public SavedScene(String fxmlFile, AbstractController controller, Parent root, ClientState clientState){
+        this.fxmlFile = fxmlFile;
         this.controller = controller;
         this.root = root;
         this.clientState = clientState;
