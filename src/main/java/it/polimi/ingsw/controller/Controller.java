@@ -156,13 +156,13 @@ public class Controller implements LambdaObserver {
     public void dispatchBuildAction(ClientBuildMessage action, View view, User user) {
         boolean isValidBuild = model.isValidBuild(
                 action.targetCellX, action.targetCellY,
-                action.component, action.performer,
+                action.component, action.workerID,
                 user);
 
         if (isValidBuild) {
             model.build(
                     action.targetCellX, action.targetCellY,
-                    action.component, action.performer,
+                    action.component, action.workerID,
                     user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
@@ -180,12 +180,12 @@ public class Controller implements LambdaObserver {
         boolean isValidMove = model.isValidMove(
                 action.sourceCellX, action.sourceCellY,
                 action.targetCellX, action.targetCellY,
-                action.performer, user);
+                action.workerID, user);
 
         if (isValidMove) {
             model.move(
                     action.targetCellX, action.targetCellY,
-                    action.performer, user);
+                    action.workerID, user);
         } else {
             view.handleMessage(StatusMessages.CLIENT_ERROR);
         }

@@ -2,7 +2,10 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractMoveClientTurnState;
+import it.polimi.ingsw.client.reducedmodel.ReducedBoard;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
+import it.polimi.ingsw.client.reducedmodel.ReducedGame;
+import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 
@@ -19,8 +22,26 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
     @Override
     public void render() {
         if (client.isCurrentlyActive()) {
+            ReducedGame game = client.getGame();
+            ReducedTurn turn = game.getTurn();
+            ReducedBoard board = game.getBoard();
+            boolean workerWasForced = false;
+            if (turn.getAllowedWorkers().size() == 1) {
+                workerID = turn.getAllowedWorkers().get(0);
+                workerWasForced = true;
+            }
             while (workerID == null) {
-                ReducedCell sourceCell = cli.readCell(client.getGame().getBoard(), I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));
+                ReducedCell sourceCell;
+                if (turn.isSkippable()) {
+                    sourceCell = cli.readCell(board, String.format("%s (%s)", I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE), I18n.string(I18nKey.X_TO_SKIP)), true);
+                    if (sourceCell == null) {
+                        notifyUiInteraction();
+                        return;
+                    }
+                }
+                else {
+                    sourceCell = cli.readCell(board, I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));
+                }
                 sourceCellX = sourceCell.getX();
                 sourceCellY = sourceCell.getY();
                 sourceCell.getWorker().ifPresent(worker -> {
@@ -31,9 +52,39 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
                 if (workerID == null) {
                     cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS));
                 }
+                else {
+                    if (!turn.getAllowedWorkers().contains(workerID)) {
+                        cli.error(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER));
+                        workerID = null;
+                    }
+                }
             }
 
-            ReducedCell targetCell = cli.readCell(client.getGame().getBoard(), I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
+            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
+                    targetedCell -> targetedCell.setHighlighted(true)
+            );
+            clientState.redrawInGameElements();
+
+            ReducedCell targetCell;
+            if (!turn.isSkippable() && workerWasForced) {
+                targetCell = cli.readCell(board, I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
+            }
+            else {
+                targetCell = cli.readCell(board, String.format("%s (%s)", I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER), I18n.string(workerWasForced ? I18nKey.X_TO_SKIP : I18nKey.X_TO_CANCEL)), true);
+            }
+            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
+                    targetedCell -> targetedCell.setHighlighted(false)
+            );
+            if (targetCell == null) {
+                workerID = null;
+                if (workerWasForced) {
+                    notifyUiInteraction();
+                }
+                else {
+                    client.requestRender();
+                }
+                return;
+            }
             targetCellX = targetCell.getX();
             targetCellY = targetCell.getY();
 

@@ -52,7 +52,7 @@ class ControllerTest {
                 new ClientBuildMessage(
                         0,
                         0,
-                        Component.BLOCK,
+                        ReducedComponent.BLOCK,
                         0,
                         null
                 )
@@ -129,7 +129,7 @@ class ControllerTest {
                 myGame
                         .isValidBuild(
                                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                                myBuildCommand.component, myBuildCommand.performer,
+                                myBuildCommand.component, myBuildCommand.workerID,
                                 myUser
                         )
         )
@@ -139,7 +139,7 @@ class ControllerTest {
                         .isValidMove(
                                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                                myMoveCommand.performer, myUser
+                                myMoveCommand.workerID, myUser
                         )
         )
                 .thenReturn(true);
@@ -206,22 +206,22 @@ class ControllerTest {
         verify(myGame, times(1)).draw();
         verify(myGame, times(1)).isValidBuild(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                myBuildCommand.component, myBuildCommand.performer,
+                myBuildCommand.component, myBuildCommand.workerID,
                 myUser
         );
         verify(myGame, times(1)).build(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                myBuildCommand.component, myBuildCommand.performer,
+                myBuildCommand.component, myBuildCommand.workerID,
                 myUser
         );
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser
+                myMoveCommand.workerID, myUser
         );
         verify(myGame, times(1)).move(
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser
+                myMoveCommand.workerID, myUser
         );
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(1)).skip();
@@ -265,7 +265,7 @@ class ControllerTest {
                 new ClientBuildMessage(
                         0,
                         0,
-                        Component.BLOCK,
+                        ReducedComponent.BLOCK,
                         0,
                         null)
         );
@@ -348,14 +348,14 @@ class ControllerTest {
         when(myGame
                 .isValidBuild(
                         myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                        myBuildCommand.component, myBuildCommand.performer,
+                        myBuildCommand.component, myBuildCommand.workerID,
                         myUser))
                 .thenReturn(false);
         when(myGame
                 .isValidMove(
                         myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                         myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                        myMoveCommand.performer, myUser))
+                        myMoveCommand.workerID, myUser))
                 .thenReturn(false);
         when(myGame.isValidSkip(myUser)).thenReturn(false);
         //ready, steady, go
@@ -421,22 +421,22 @@ class ControllerTest {
         verify(myGame, times(0)).draw();
         verify(myGame, times(1)).isValidBuild(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                myBuildCommand.component, myBuildCommand.performer,
+                myBuildCommand.component, myBuildCommand.workerID,
                 myUser
         );
         verify(myGame, times(0)).build(
                 myBuildCommand.targetCellX, myBuildCommand.targetCellY,
-                myBuildCommand.component, myBuildCommand.performer,
+                myBuildCommand.component, myBuildCommand.workerID,
                 myUser
         );
         verify(myGame, times(1)).isValidMove(
                 myMoveCommand.sourceCellX, myMoveCommand.sourceCellY,
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser
+                myMoveCommand.workerID, myUser
         );
         verify(myGame, times(0)).move(
                 myMoveCommand.targetCellX, myMoveCommand.targetCellY,
-                myMoveCommand.performer, myUser
+                myMoveCommand.workerID, myUser
         );
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(0)).skip();

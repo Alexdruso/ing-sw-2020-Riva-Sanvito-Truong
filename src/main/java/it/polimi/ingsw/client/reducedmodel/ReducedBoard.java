@@ -1,6 +1,10 @@
 package it.polimi.ingsw.client.reducedmodel;
 
 import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.messages.ReducedTargetCells;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReducedBoard {
     private final ReducedCell[][] cells;
@@ -33,5 +37,25 @@ public class ReducedBoard {
     public ReducedCell getCell(int x, int y){
         return cells[x][y];
     }
+
+
+    /**
+     * This method returns the ReducedCell instances targeted by target
+     *
+     * @param target the ReducedTargetCells instance with the cells that are targeted
+     * @return a List of ReducedCell objects that were targeted
+     */
+    public List<ReducedCell> getTargets(ReducedTargetCells target){
+        List<ReducedCell> targetedCells = new ArrayList<>();
+        for(int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (target.getPosition(i, j)) {
+                    targetedCells.add(cells[i][j]);
+                }
+            }
+        }
+        return targetedCells;
+    }
+
 
 }

@@ -23,7 +23,6 @@ public class SetNicknameCLIClientState extends AbstractSetNicknameClientState im
 
     @Override
     public void render() {
-        cli.println("");
         nickname = cli.readString(String.format("%s:", I18n.string(I18nKey.NICKNAME)));
         notifyUiInteraction();
     }

@@ -21,7 +21,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The component that is built on the cell
      */
-    public final Component component;
+    public final ReducedComponent component;
 
     /**
      * The level that is built by the worker.
@@ -49,7 +49,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
      * @param performer   The worker who performed the build
      */
     public ServerBuildMessage(ReducedUser user, int targetCellX, int targetCellY,
-                              Component component, int builtLevel, ReducedWorkerID performer) {
+                              ReducedComponent component, int builtLevel, ReducedWorkerID performer) {
         this.user = user;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
@@ -60,6 +60,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
 
     @Override
     public boolean handleTransmittable(Client client) {
+        client.getGame().buildComponentInCell(targetCellX, targetCellY, component, builtLevel);
 //         ReducedCell targetCell = handler.getGame().getCell(targetCellX, targetCellY);
 //         handler.getGame().move(woker, sourceCell, targetCell);
 

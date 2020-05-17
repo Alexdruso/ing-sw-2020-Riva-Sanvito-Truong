@@ -57,12 +57,11 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
 
     @Override
     public boolean handleTransmittable(Client client) {
-//         ReducedCell targetCell = handler.getGame().getCell(targetCellX, targetCellY);
-//         handler.getGame().move(woker, sourceCell, targetCell);
+         client.getGame().setWorkerCell(user, performer, sourceCellX, sourceCellY, targetCellX, targetCellY);
 
 //        handler.addChangedCell(sourceCell);
 //        handler.addChangedCell(targetCell);
 
-        return false;
+        return true;
     }
 }
