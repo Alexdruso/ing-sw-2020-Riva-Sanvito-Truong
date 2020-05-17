@@ -201,7 +201,7 @@ public class Game extends LambdaObservable<Transmittable> {
                         getUserFromPlayer(players.peek()).toReducedUser(),
                         cell.getX(),
                         cell.getY(),
-                        component,
+                        component.toReducedComponent(),
                         builtLevel,
                         worker.getWorkerID().toReducedWorkerId()
                 )
@@ -285,18 +285,19 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Checks if the PlayerBuildCommand can be executed
      *
-     * @param targetCellX The x coordinate of the cell on which the worker built
-     * @param targetCellY The y coordinate of the cell on which the worker built
-     * @param component   The component built on the cell
-     * @param performer   The worker who performed the build
-     * @param user        the user that triggered the command
+     * @param targetCellX        The x coordinate of the cell on which the worker built
+     * @param targetCellY        The y coordinate of the cell on which the worker built
+     * @param reducedComponent   The component built on the cell
+     * @param performer          The worker who performed the build
+     * @param user               the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidBuild(int targetCellX, int targetCellY,
-                                Component component, ReducedWorkerID performer,
+                                ReducedComponent reducedComponent, ReducedWorkerID performer,
                                 User user) {
 
         Player player = getPlayerFromUser(user);
+        Component component = Component.fromReducedComponent(reducedComponent);
         Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         return gameState == GameState.PLAY
                 && targetCellX >= 0
@@ -313,16 +314,17 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Executes the PlayerBuildCommand
      *
-     * @param targetCellX The x coordinate of the cell on which the worker built
-     * @param targetCellY The y coordinate of the cell on which the worker built
-     * @param component   The component built on the cell
-     * @param performer   The worker who performed the build
-     * @param user        the user that triggered the command
+     * @param targetCellX        The x coordinate of the cell on which the worker built
+     * @param targetCellY        The y coordinate of the cell on which the worker built
+     * @param reducedComponent   The component built on the cell
+     * @param performer          The worker who performed the build
+     * @param user               the user that triggered the command
      */
     public void build(int targetCellX, int targetCellY,
-                      Component component, ReducedWorkerID performer,
+                      ReducedComponent reducedComponent, ReducedWorkerID performer,
                       User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
+        Component component = Component.fromReducedComponent(reducedComponent);
         Worker worker = getPlayerFromUser(user).getWorkerByID(WorkerID.fromReducedWorkerId(performer));
         try {
             if (component == Component.BLOCK) {

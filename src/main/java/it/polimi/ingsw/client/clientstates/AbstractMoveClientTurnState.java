@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.messages.ClientMoveMessage;
+import it.polimi.ingsw.utils.messages.ClientSkipMessage;
 import it.polimi.ingsw.utils.messages.ReducedWorkerID;
 
 public abstract class AbstractMoveClientTurnState extends AbstractClientTurnState {
@@ -19,7 +20,12 @@ public abstract class AbstractMoveClientTurnState extends AbstractClientTurnStat
 
     @Override
     public void notifyUiInteraction() {
-        client.getConnection().send(new ClientMoveMessage(sourceCellX, sourceCellY, targetCellX, targetCellY, workerID));
+        if (workerID != null) {
+            client.getConnection().send(new ClientMoveMessage(sourceCellX, sourceCellY, targetCellX, targetCellY, workerID));
+        }
+        else {
+            client.getConnection().send(new ClientSkipMessage());
+        }
     }
 
     @Override

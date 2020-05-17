@@ -21,12 +21,15 @@ public class InGameCLIClientState extends AbstractInGameClientState implements C
 
     @Override
     public void render() {
+        redrawInGameElements();
+        client.getGame().getTurn().getTurnState().render();
+    }
+
+    void redrawInGameElements() {
         cli.clear();
         cli.drawBoard(client.getGame().getBoard());
         cli.printPlayersOfGame(client.getGame());
         cli.moveCursorToStatusPosition();
-
-        client.getGame().getTurn().getTurnState().render();
     }
 
 }

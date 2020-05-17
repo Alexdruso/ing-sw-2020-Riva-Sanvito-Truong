@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.reducedmodel;
 
+import it.polimi.ingsw.utils.messages.ReducedComponent;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.messages.ReducedWorkerID;
 
@@ -94,6 +95,12 @@ public class ReducedGame {
             sourceCell.setNoWorker();
         }
         targetCell.setWorker(worker);
+    }
+
+    public void buildComponentInCell(int targetCellX, int targetCellY, ReducedComponent component, int builtLevel) {
+        ReducedCell targetCell = getBoard().getCell(targetCellX, targetCellY);
+        targetCell.setTowerHeight(builtLevel);
+        targetCell.setHasDome(component.equals(ReducedComponent.DOME));
     }
 
     public int getPlayersCount() {

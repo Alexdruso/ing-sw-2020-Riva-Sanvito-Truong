@@ -23,7 +23,7 @@ public class ClientBuildMessage implements ClientMessage, ControllerHandleable{
     /**
      * The component that is to be built on the cell
      */
-    public final Component component;
+    public final ReducedComponent component;
 
     /**
      * The level that is to be built by the worker.
@@ -33,7 +33,7 @@ public class ClientBuildMessage implements ClientMessage, ControllerHandleable{
     /**
      * The worker who is to perform the build
      */
-    public final ReducedWorkerID performer;
+    public final ReducedWorkerID workerID;
 
     /**
      * Constructor, stores all the variables by reference
@@ -42,16 +42,16 @@ public class ClientBuildMessage implements ClientMessage, ControllerHandleable{
      * @param targetCellY The y coordinate of the cell on which the worker built
      * @param component   The component built on the cell
      * @param builtLevel  The level built by the worker
-     * @param performer   The worker who performed the build
+     * @param workerID    The worker who performed the build
      */
     public ClientBuildMessage(int targetCellX, int targetCellY,
-                              Component component, int builtLevel, ReducedWorkerID performer) {
+                              ReducedComponent component, int builtLevel, ReducedWorkerID workerID) {
         super();
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.component = component;
         this.builtLevel = builtLevel;
-        this.performer = performer;
+        this.workerID = workerID;
     }
 
     @Override

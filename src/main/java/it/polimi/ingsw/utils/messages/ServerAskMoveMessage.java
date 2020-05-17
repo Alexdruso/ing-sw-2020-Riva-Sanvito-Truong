@@ -51,7 +51,7 @@ public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
         client.setCurrentActiveUser(user);
         client.moveToState(ClientState.IN_GAME);
         client.getGame().getPlayer(user).ifPresent(
-                targetUser -> client.getGame().setTurn(new ReducedTurn(targetUser, client.getUI().getClientTurnState(ClientTurnState.MOVE, client)))
+                targetUser -> client.getGame().setTurn(new ReducedTurn(targetUser, client.getUI().getClientTurnState(ClientTurnState.MOVE, client), allowedWorkers, workerWalkableCells, isSkippable))
         );
         client.requestRender();
         return true;

@@ -32,7 +32,7 @@ public class ClientMoveMessage implements ClientMessage, ControllerHandleable{
     /**
      * The worker who performed the move
      */
-    public final ReducedWorkerID performer;
+    public final ReducedWorkerID workerID;
 
     /**
      * Constructor, stores all the variables by reference
@@ -41,16 +41,16 @@ public class ClientMoveMessage implements ClientMessage, ControllerHandleable{
      * @param sourceCellY The y coordinate of the cell from which the worker moved
      * @param targetCellX The x coordinate of the cell to which the worker moved
      * @param targetCellY The y coordinate of the cell to which the worker moved
-     * @param performer   The worker who performed the move
+     * @param workerID    The worker who performed the move
      */
     public ClientMoveMessage(int sourceCellX, int sourceCellY,
-                             int targetCellX, int targetCellY, ReducedWorkerID performer) {
+                             int targetCellX, int targetCellY, ReducedWorkerID workerID) {
         super();
         this.sourceCellX = sourceCellX;
         this.sourceCellY = sourceCellY;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
-        this.performer = performer;
+        this.workerID = workerID;
     }
 
     @Override

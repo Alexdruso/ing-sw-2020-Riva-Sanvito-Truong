@@ -13,8 +13,10 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -205,6 +207,11 @@ public class CLI extends UI {
     void error(String s) {
         println(ansi().render("@|bold,red %s:|@ %s", I18n.string(I18nKey.ERROR), s));
         readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);
+        println(ansi().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine());
+    }
+
+    void moveUpAndClearLine() {
+        println(ansi().cursorUpLine().eraseLine().cursorUpLine());
     }
 
     /**
@@ -297,10 +304,17 @@ public class CLI extends UI {
      * @return the selected ReducedCell
      */
     ReducedCell readCell(ReducedBoard board, String prompt) {
+        return readCell(board, prompt, false);
+    }
+
+    ReducedCell readCell(ReducedBoard board, String prompt, boolean allowSkip) {
         String ERROR_INVALID_COORDINATES = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
         ReducedCell res = null;
         while (res == null) {
             String choice = readString(prompt, null, 3);
+            if (choice.equalsIgnoreCase("x")) {
+                return null;
+            }
             if (choice.length() != 2) {
                 error(ERROR_INVALID_COORDINATES);
                 continue;
@@ -346,10 +360,10 @@ public class CLI extends UI {
             else {
                 resPlayer = resPlayer.a("  ");
             }
-            resPlayer = resPlayer.a(player.getNickname() + '\n').reset();
+            resPlayer = resPlayer.a(String.format("%s%n    God: %s%n    Workers: %s%n", player.getNickname(), player.getGod().getName(), Arrays.stream(workersStrings[player.getPlayerIndex()]).map(s -> s.strip()).collect(Collectors.joining(", ")))).reset();
             res.append(resPlayer);
         }
-        println(ansi().a(res.toString()).reset(), 15, 80);
+        println(ansi().a(res.toString()).reset(), 10, 55);
     }
 
     /**
