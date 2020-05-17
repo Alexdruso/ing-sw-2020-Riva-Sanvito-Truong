@@ -1,25 +1,16 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.util.logging.Logger;
 
 public class SetNicknameGUIClientState extends AbstractSetNicknameClientState implements GUIClientState {
-    private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-    private final GUI gui;
-    private final Stage primaryStage;
-    private final Scene mainScene;
-
     /**
      * Instantiates a new SET_NICKNAME ClientState.
      *
@@ -27,9 +18,6 @@ public class SetNicknameGUIClientState extends AbstractSetNicknameClientState im
      */
     public SetNicknameGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = primaryStage.getScene();
     }
 
     public void returnToMenu(){
@@ -57,7 +45,6 @@ public class SetNicknameGUIClientState extends AbstractSetNicknameClientState im
      */
     @Override
     public void render() {
-        //SceneLoader.loadFromFXML("/fxml/SetNickname.fxml", mainScene, client, this, ClientState.SET_NICKNAME, true, false);
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/SetNickname.fxml", client);
         sceneLoaderFactory.setState(ClientState.SET_NICKNAME, this).build().executeSceneChange();
     }

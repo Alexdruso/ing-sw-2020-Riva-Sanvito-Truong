@@ -1,25 +1,19 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractJoinLobbyClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.JoinLobbyController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implements GUIClientState{
-    private final GUI gui;
-    private final Stage primaryStage;
-    private final Scene mainScene;
     private SavedScene savedScene;
     private static final Logger LOGGER = Logger.getLogger(WaitPlayersGUIClientState.class.getName());
+
     /**
      * Instantiates a new JOIN_LOBBY ClientState.
      *
@@ -27,9 +21,6 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
      */
     public JoinLobbyGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = primaryStage.getScene();
     }
 
     public void returnToMenu(){
@@ -65,7 +56,7 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
         //FIXME: this synchronization will be replaced with a render queue in the Client
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/JoinLobby.fxml", client);
         sceneLoaderFactory.setState(ClientState.JOIN_LOBBY, this).build().executeSceneChange();
-        savedScene = gui.getCurrentScene();
+        savedScene = ((GUI)client.getUI()).getCurrentScene();
         notifyAll();
     }
 }

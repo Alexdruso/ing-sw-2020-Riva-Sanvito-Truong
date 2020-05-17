@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class GUI extends UI {
-    private Scene mainScene;
-    private final HashMap<ClientState, SavedScene> sceneMapOld = new HashMap<>();
     private final HashMap<String, SavedScene> sceneMap = new HashMap<>();
     private SavedScene currentScene;
 
@@ -22,23 +20,9 @@ public class GUI extends UI {
     public void init() {
     }
 
-    public void addScene(ClientState clientState, SavedScene savedScene) {
-        //TODO: see if we can load all scenes at startup time
-        //TODO: index this map by FXML name since there are states with multiple scenes (e.g. AskGodsFromList VS AskGodsFromListPassive)
-        sceneMapOld.put(clientState, savedScene);
-    }
-
     public void addScene(String fxmlFile, SavedScene savedScene) {
+        //TODO: see if we can load all scenes at startup time
         sceneMap.put(fxmlFile, savedScene);
-    }
-
-    //TODO remove this
-    public Optional<SavedScene> getScene(ClientState clientState){
-        if(sceneMap.containsKey(clientState)){
-            return Optional.of(sceneMap.get(clientState));
-        } else {
-            return Optional.empty();
-        }
     }
 
     public SavedScene getScene(String fxmlFile){

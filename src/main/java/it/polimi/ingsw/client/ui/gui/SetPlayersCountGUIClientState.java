@@ -1,18 +1,11 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetPlayersCountClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClientState implements GUIClientState {
-    private final GUI gui;
-    private final Stage primaryStage;
-    private final Scene mainScene;
     /**
      * Instantiates a new SET_PLAYERS_COUNT ClientState.
      *
@@ -20,9 +13,6 @@ public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClient
      */
     public SetPlayersCountGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = primaryStage.getScene();
     }
 
     public void setPlayersCount(int playersCount){

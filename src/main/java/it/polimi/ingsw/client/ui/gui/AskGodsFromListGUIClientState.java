@@ -4,16 +4,12 @@ import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClientState implements GUIClientState{
-    private final GUI gui;
-    private final Scene mainScene;
-    private final Stage primaryStage;
     private int selectedCount = 0;
     private int playersCount;
     /**
@@ -23,9 +19,6 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
      */
     public AskGodsFromListGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = JavaFXApp.getPrimaryScene();
         playersCount = client.getGame().getPlayersCount();
     }
 

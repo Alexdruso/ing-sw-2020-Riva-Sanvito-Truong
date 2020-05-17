@@ -12,12 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;

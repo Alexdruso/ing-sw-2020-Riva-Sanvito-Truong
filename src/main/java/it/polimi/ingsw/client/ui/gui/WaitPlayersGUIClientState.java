@@ -1,23 +1,16 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWaitPlayersClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState implements GUIClientState {
-    private final GUI gui;
-    private final Stage primaryStage;
-    private final Scene mainScene;
     private SavedScene savedScene;
     private static final Logger LOGGER = Logger.getLogger(WaitPlayersGUIClientState.class.getName());
 
@@ -28,9 +21,6 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
      */
     public WaitPlayersGUIClientState(Client client) {
         super(client);
-        gui = (GUI)client.getUI();
-        primaryStage = JavaFXApp.getPrimaryStage();
-        mainScene = primaryStage.getScene();
     }
 
     public void returnToMenu(){
@@ -66,7 +56,7 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
         //FIXME: this synchronization will be replaced with a render queue in the Client
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/WaitPlayers.fxml", client);
         sceneLoaderFactory.setState(ClientState.WAIT_PLAYERS, this).build().executeSceneChange();
-        savedScene = gui.getCurrentScene();
+        savedScene = ((GUI)client.getUI()).getCurrentScene();
         notifyAll();
     }
 }
