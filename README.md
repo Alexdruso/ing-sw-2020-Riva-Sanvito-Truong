@@ -34,6 +34,7 @@ java -Dfile.encoding=UTF8 -jar target\Santorini-Client.jar
 
 | Name | Description | Allowed values |
 | -------------- | ----------- | ----------------- |
+| `CLI_INPUT_FILE` | Uses the specified file as source for the input to the CLI | A relative or absolute file path. Default: *empty (stdin is used for input)* |
 | `LANNGUAGE` | Sets the desired language for the user interface | `en`, `it`. Default: *the system default language* |
 | `LOG_LEVEL` | Sets the log messages verbosity | All the values specified in [java.util.logging.Level](https://docs.oracle.com/en/java/javase/14/docs/api/java.logging/java/util/logging/Level.html). Default: `INFO` |
 

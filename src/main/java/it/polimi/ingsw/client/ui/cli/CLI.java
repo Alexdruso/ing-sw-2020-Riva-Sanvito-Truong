@@ -12,10 +12,15 @@ import it.polimi.ingsw.utils.i18n.I18nKey;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.fusesource.jansi.Ansi.ansi;
@@ -24,8 +29,12 @@ import static org.fusesource.jansi.Ansi.ansi;
  * Represents the CLI.
  */
 public class CLI extends UI {
+    private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
+    public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
+
     private Scanner in;
     private PrintWriter out;
+    private boolean usingInputFile = false;
     private static final Ansi.Color[] levelsBgColors = new Ansi.Color[]{
             Ansi.Color.GREEN,   // level 0
             Ansi.Color.YELLOW,  // level 1
@@ -79,7 +88,17 @@ public class CLI extends UI {
     public void init() {
         AnsiConsole.systemInstall();
 
-        in = new Scanner(System.in);
+        try {
+            String in_filename = System.getenv(CLI_INPUT_FILE_ENV_VAR_NAME);
+            in = new Scanner(new FileInputStream(in_filename));
+            LOGGER.log(Level.FINE, String.format("Using %s for feeding stdin", in_filename));
+            usingInputFile = true;
+        }
+        catch (NullPointerException | FileNotFoundException e) {
+            in = new Scanner(System.in);
+            LOGGER.log(Level.FINE, "Using real stdin", e);
+        }
+
         out = new PrintWriter(System.out, true);
 
         clear();
@@ -245,7 +264,7 @@ public class CLI extends UI {
      */
     String readString(String prompt, String def, int expected_input_length) {
         printReadPrompt(prompt, def, expected_input_length);
-        String line = in.nextLine();
+        String line = getLine();
         if (def != null && line.equals("")) {
             return def;
         }
@@ -283,7 +302,7 @@ public class CLI extends UI {
      */
     int readInt(String prompt, Integer def, int expected_input_length) {
         printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expected_input_length);
-        String line = in.nextLine();
+        String line = getLine();
         try {
             return Integer.parseInt(line);
         }
@@ -330,6 +349,36 @@ public class CLI extends UI {
             res = board.getCell(row, col);
         }
         return res;
+    }
+
+    /**
+     * Reads a line from the input. If an input file was specified for input, the file is used
+     * as input source until its end is reached, then the input is moved to stdin.
+     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
+     *
+     * @return the read line
+     */
+    private String getLine() {
+        try {
+            String s = in.nextLine();
+            if (usingInputFile) {
+                println("");
+                if (s.equalsIgnoreCase("%TIMESTAMP%")) {
+                    s = String.valueOf(System.currentTimeMillis());
+                }
+            }
+            return s;
+        }
+        catch (NoSuchElementException e) {
+            if (usingInputFile) {
+                in = new Scanner(System.in);
+                usingInputFile = false;
+                return getLine();
+            }
+            else {
+                throw e;
+            }
+        }
     }
 
     /**
