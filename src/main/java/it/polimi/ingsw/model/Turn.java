@@ -370,7 +370,7 @@ public class Turn{
             this.setWorkerWalkableCells(worker, (new TargetCells()).setAllTargets(false));
         }
 
-        //Clear allowed workers
+        //Clear the state
         this.clearAllowedWorkers();
         this.setSkippable(false);
         this.currentState = this.nextState;

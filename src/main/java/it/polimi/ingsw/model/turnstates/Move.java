@@ -18,15 +18,16 @@ class Move implements AbstractTurnState {
         turn.setNextState(TurnState.BUILD.getTurnState());
         setupDefaultAllowedWorkers(turn);
 
-        //for every allowed worker, initializes a target cell with the radius minus blocked cells
+        //for every worker, initializes a target cell with the radius minus blocked cells
         for (Worker worker : turn.getPlayer().getWorkers()) {
             TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);
 
-            turn.getGame().getBoard().getTargets(walkableCellsRadius).
-                    stream()
-                    .filter(cell -> cell.getTower().isComplete()
-                            || cell.getWorker().isPresent()
-                            || worker.getCell().getHeightDifference(cell) > 1)
+            turn.getGame().getBoard().getTargets(walkableCellsRadius)
+                    .stream()
+                    .filter(cell ->
+                            cell.getTower().isComplete()
+                                    || cell.getWorker().isPresent()
+                                    || worker.getCell().getHeightDifference(cell) > 1)
                     .forEach(cell -> walkableCellsRadius.setPosition(cell, false));
 
             turn.setWorkerWalkableCells(worker, walkableCellsRadius);
@@ -34,10 +35,13 @@ class Move implements AbstractTurnState {
         //use powers
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
         //compute lose conditions
-        boolean isNoMove = turn.getAllowedWorkers().stream().map(
-                allowedWorker -> turn.getGame().getBoard()
-                        .getTargets(turn.getWorkerWalkableCells(allowedWorker))
-                        .isEmpty())
+        boolean isNoMove = turn.getAllowedWorkers().stream()
+                .map(
+                        allowedWorker ->
+                                turn.getGame().getBoard()
+                                        .getTargets(turn.getWorkerWalkableCells(allowedWorker))
+                                        .isEmpty()
+                )
                 .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction);
 
         if (!turn.isSkippable() && isNoMove) {

@@ -83,11 +83,11 @@ class Build implements AbstractTurnState {
     public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
         turn.addPerformedAction(new BuildAction(targetCell,//the target cell
                 Component.DOME.getInstance(),//the buildable built
-                targetCell.getTower().getCurrentLevel() + 1,//the new level built
+                targetCell.getTower().getCurrentLevel(),//the level on which we built the dome
                 pawn));//the performer
         turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
 
-        turn.getGame().buildInCell(pawn, targetCell, Component.DOME, targetCell.getTower().getCurrentLevel() + 1);
+        turn.getGame().buildInCell(pawn, targetCell, Component.DOME, targetCell.getTower().getCurrentLevel());
     }
 
     /**
