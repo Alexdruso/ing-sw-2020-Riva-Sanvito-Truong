@@ -1,15 +1,32 @@
-.cellbutton {
-    -fx-background-color: 00000000;
+.player-lateral-label-active {
+    -fx-background-color: #FFFFFF22;
 }
 
-/*
-.cellpane {
-    -fx-background-image: url('../assets/grass.png');
-    -fx-background-size: 100% auto;
+.player-lateral-label-passive {
+    -fx-background-color: #FFFFFF11;
 }
 
-.dome {
-    -fx-background-image: url('../assets/dome.png');
-    -fx-background-size: 100% auto;
+.player-lateral-name-passive {
+    -fx-text-fill: gray;
 }
-*/
+
+.player-lateral-label-passive {
+    -fx-text-fill: gray;
+}
+
+.board {
+    -fx-border-color: #133C55;
+    -fx-border-width: 4px;
+    -fx-background-image: url("../assets/board.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.2, 2, 5);
+}
+
+.cell-container {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+}
+
+.cell-container:hover {
+    -fx-border-color: #4D7A97;
+    -fx-border-width: 5px;
+}

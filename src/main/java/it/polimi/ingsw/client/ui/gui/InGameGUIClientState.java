@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractInGameClientState;
+import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
 public class InGameGUIClientState extends AbstractInGameClientState implements GUIClientState{
     /**
@@ -13,6 +15,11 @@ public class InGameGUIClientState extends AbstractInGameClientState implements G
         super(client);
     }
 
+    public void returnToMenu(){
+        client.moveToState(ClientState.WELCOME_SCREEN);
+        client.closeConnection();
+    }
+
     /**
      * Function called by the main thread that renders the current state to the UI.
      * This function is the only one of this class allowed to be synchronous with the user input.
@@ -22,6 +29,10 @@ public class InGameGUIClientState extends AbstractInGameClientState implements G
      */
     @Override
     public void render() {
-
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/InGame.fxml", client);
+        sceneLoaderFactory.setState(ClientState.IN_GAME, this)
+                .addCSSFile("/css/board.css")
+                .build()
+                .executeSceneChange();
     }
 }

@@ -37,6 +37,12 @@
     -fx-text-fill: white;
 }
 
+.h4 {
+    -fx-font-family: "Montserrat ExtraLight";
+    -fx-font-size: 1.5em;
+    -fx-text-fill: white;
+}
+
 .normal-text {
     -fx-font-family: "Montserrat ExtraLight";
     -fx-font-size: 2em;
@@ -95,3 +101,10 @@
     -fx-background-color: white;
 }
 
+.test1 {
+    -fx-background-color: magenta;
+}
+
+.test2 {
+    -fx-background-color: blue;
+}
