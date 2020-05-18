@@ -51,6 +51,7 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
         }
         sceneLoaderFactory.addCSSFile("/css/god-selection.css")
                 .setState(ClientState.ASK_GODS_FROM_LIST, this)
+                .setFadeInDuration(2000)
                 .build()
                 .executeSceneChange();
     }
