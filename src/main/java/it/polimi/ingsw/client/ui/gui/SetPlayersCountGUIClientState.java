@@ -15,6 +15,11 @@ public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClient
         super(client);
     }
 
+    public void returnToMenu(){
+        client.moveToState(ClientState.WELCOME_SCREEN);
+        client.closeConnection();
+    }
+
     public void setPlayersCount(int playersCount){
         this.playersCount = playersCount;
         notifyUiInteraction();

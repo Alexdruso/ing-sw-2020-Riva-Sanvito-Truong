@@ -23,7 +23,7 @@ public class SetPlayersCountController extends AbstractController{
 
     @FXML
     public void handleMenuButton(ActionEvent event){
-        System.out.println("test");
+        ((SetPlayersCountGUIClientState)state).returnToMenu();
     }
 
     @FXML
