@@ -20,17 +20,19 @@ public class Triton extends AbstractGod {
         @Override
         protected void onBeforeMovement(Turn turn) {
             List<MoveAction> moveActions = turn.getMoves();
-            MoveAction lastMove = moveActions.get(moveActions.size() - 1);
-            Cell targetCell = lastMove.getTargetCell();
-            Board board = turn.getGame().getBoard();
-            //if last move was on border, then we can skip this move
-            if (
-                    targetCell.getX() == 0
-                            || targetCell.getX() == board.getDimension() - 1
-                            || targetCell.getY() == 0
-                            || targetCell.getY() == board.getDimension() - 1
-            ) {
-                turn.setSkippable(true);
+            if (!moveActions.isEmpty()) {
+                MoveAction lastMove = moveActions.get(moveActions.size() - 1);
+                Cell targetCell = lastMove.getTargetCell();
+                Board board = turn.getGame().getBoard();
+                //if last move was on border, then we can skip this move
+                if (
+                        targetCell.getX() == 0
+                                || targetCell.getX() == board.getDimension() - 1
+                                || targetCell.getY() == 0
+                                || targetCell.getY() == board.getDimension() - 1
+                ) {
+                    turn.setSkippable(true);
+                }
             }
         }
 
