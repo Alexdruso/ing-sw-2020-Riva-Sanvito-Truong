@@ -390,7 +390,7 @@ public class Game extends LambdaObservable<Transmittable> {
         );
         notify(serverStartSetupMatchMessage);
 
-        //sens the request of the gods sub list
+        //sends the request of the gods sub list
         User firstUser = getUserFromPlayer(players.peek());
         List<ReducedGod> godsList = Arrays.stream(GodCard.values()).map(GodCard::getGod).map(God::getName)
                 .map(ReducedGod::new).collect(Collectors.toList());
