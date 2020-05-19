@@ -1,6 +1,7 @@
 package it.polimi.ingsw.utils.structures;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An object that represents a bijection between elements of type K belonging to one set (the Key set) and elements of
@@ -34,4 +35,23 @@ public class BidirectionalHashMap<K, V> extends BidirectionalAbstractMap<K,V> {
         backwardMap = new HashMap<>();
     }
 
+    /**
+     * Returns a copy of this map that contains all and only the relations from the key set to the value set.
+     *
+     * @return a copy of this map that contains all and only the relations from the key set to the value set.
+     */
+    @Override
+    public Map<K, V> getForwardMap() {
+        return new HashMap<>(forwardMap);
+    }
+
+    /**
+     * Returns a copy of this map that contains all and only the relations from the value set to the key set.
+     *
+     * @return a copy of this map that contains all and only the relations from the value set to the key set.
+     */
+    @Override
+    public Map<V, K> getBackwardMap() {
+        return new HashMap<>(backwardMap);
+    }
 }

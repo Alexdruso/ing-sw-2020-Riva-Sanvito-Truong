@@ -384,7 +384,10 @@ public class Game extends LambdaObservable<Transmittable> {
     public void setup() {
         //signals the setup start
         ServerStartSetupMatchMessage serverStartSetupMatchMessage = new ServerStartSetupMatchMessage(
-                subscribedUsers.getBackwardMap().values().toArray((new User[subscribedUsers.size()])));
+                subscribedUsers.getBackwardMap().values().stream()
+                        .map(User::toReducedUser)
+                        .toArray(ReducedUser[]::new)
+        );
         notify(serverStartSetupMatchMessage);
 
         //sens the request of the gods sub list

@@ -175,17 +175,12 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      * @return a copy of this map that contains all and only the relations from the key set to the value set.
      */
     @Override
-    public Map<K, V> getForwardMap() {
-        return new HashMap<>(forwardMap);
-    }
+    public abstract Map<K, V> getForwardMap();
 
     /**
      * Returns a copy of this map that contains all and only the relations from the value set to the key set.
      *
      * @return a copy of this map that contains all and only the relations from the value set to the key set.
      */
-    @Override
-    public Map<V, K> getBackwardMap() {
-        return new HashMap<>(backwardMap);
-    }
+    public abstract Map<V, K> getBackwardMap();
 }

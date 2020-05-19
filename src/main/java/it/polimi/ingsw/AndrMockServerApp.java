@@ -12,6 +12,7 @@ import it.polimi.ingsw.utils.networking.Transmittable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,7 +66,11 @@ class AndrServerTestReceiver implements LambdaObserver {
             Thread.currentThread().interrupt();
         }
         User[] users = new User[]{new User("nick1"), new User("nick2"), new User("nick3")};
-        connection.send(new ServerStartSetupMatchMessage(users));
+        connection.send(
+                new ServerStartSetupMatchMessage(
+                        Arrays.stream(users).map(User::toReducedUser).toArray(ReducedUser[]::new)
+                )
+        );
     }
 
     public void update(Transmittable message) {
