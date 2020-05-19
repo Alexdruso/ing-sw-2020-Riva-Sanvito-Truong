@@ -54,31 +54,131 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="cell-container" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="0">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                                 <styleClass>
+                                    <String fx:value="cell-container-active" />
+                                    <String fx:value="cell-container" />
+                                 </styleClass></StackPane>
                            </children>
                         </GridPane>
                      </children>
@@ -87,8 +187,8 @@
             </AnchorPane>
             <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
-                  <Label alignment="CENTER" styleClass="h1" text="currentPrompt" />
-                  <Label styleClass="h3" text="Label" />
+                  <Label fx:id="mainLabel" alignment="CENTER" styleClass="h1" text="currentPrompt" />
+                  <Label fx:id="prompt" styleClass="h3" text="Label" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="60.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">

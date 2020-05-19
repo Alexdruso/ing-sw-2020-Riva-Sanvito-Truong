@@ -26,12 +26,17 @@
     -fx-border-width: 2px;
 }
 
-.cell-container:hover {
+.cell-container-active:hover {
     -fx-border-color: #4D7A97;
     -fx-border-width: 5px;
 }
 
-.cell-container:pressed {
+.cell-container-active:pressed {
     -fx-border-color: #F2A541;
     -fx-border-width: 5px;
+}
+
+.cell-container-passive {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
 }
