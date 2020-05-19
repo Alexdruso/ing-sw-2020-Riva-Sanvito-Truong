@@ -36,7 +36,7 @@ public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implem
                 if (turn.isSkippable()) {
                     sourceCell = cli.readCell(board, String.format("%s (%s)", I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_USE_TO_BUILD), I18n.string(I18nKey.X_TO_SKIP)), true);
                     if (sourceCell == null) {
-                        notifyUiInteraction();
+                        clientState.notifyUiInteraction();
                         return;
                     }
                 }
@@ -83,7 +83,7 @@ public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implem
             if (targetCell == null) {
                 workerID = null;
                 if (workerWasForced) {
-                    notifyUiInteraction();
+                    clientState.notifyUiInteraction();
                 }
                 else {
                     client.requestRender();
