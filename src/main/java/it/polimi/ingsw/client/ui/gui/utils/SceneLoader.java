@@ -2,7 +2,9 @@ package it.polimi.ingsw.client.ui.gui.utils;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
+import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUI;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
 import javafx.animation.FadeTransition;
@@ -14,7 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -35,6 +39,8 @@ public class SceneLoader {
     private double fadeOutDuration;
     private String cssFile;
     private AbstractClientState state;
+    private ClientTurnState clientTurnState;
+    private AbstractClientTurnState turnState;
 
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
@@ -49,6 +55,8 @@ public class SceneLoader {
         this.fadeOutDuration = loader.fadeOutDuration;
         this.cssFile = loader.cssFile;
         this.state = loader.state;
+        this.clientTurnState = loader.clientTurnState;
+        this.turnState = loader.turnState;
     }
 
     public void executeSceneChange(){
@@ -59,7 +67,12 @@ public class SceneLoader {
                 savedScene = loadFromSaved(fxmlFile, (GUI)client.getUI());
             }
             if(savedScene == null){
-                savedScene = loadNewFXML(fxmlFile, clientState, geti18n());
+                try{
+                    savedScene = loadNewFXML(fxmlFile, clientState, geti18n());
+                } catch (IOException e) {
+                    LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                    return;
+                }
                 gui.addScene(fxmlFile, savedScene);
                 doApplyFadeOut = doApplyFirstFadeOut;
             }
@@ -85,15 +98,14 @@ public class SceneLoader {
     }
 
 
-    public static SavedScene loadNewFXML(String file, ClientState clientState, ResourceBundle resourceBundle){
+    public static SavedScene loadNewFXML(String file, ClientState clientState, ResourceBundle resourceBundle) throws IOException {
+        URL fileURL = SceneLoader.class.getResource(file);
+        if(fileURL == null){
+            throw new FileNotFoundException("No such FXML file: " + file);
+        }
         FXMLLoader loader = new FXMLLoader(SceneLoader.class.getResource(file), resourceBundle);
         Parent root;
-        try {
-            root = loader.load();
-        } catch (IOException e){
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            return null;
-        }
+        root = loader.load();
         root.setCache(true);
         root.setCacheHint(CacheHint.SPEED);
         AbstractController controller = loader.getController();
