@@ -1,7 +1,6 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 /**
@@ -18,12 +17,9 @@ public class ServerStartSetupMatchMessage implements ServerMessage, ClientHandle
      *
      * @param userList the user list
      */
-    public ServerStartSetupMatchMessage(User[] userList) {
+    public ServerStartSetupMatchMessage(ReducedUser[] userList) {
         super();
-        this.userList = new ReducedUser[userList.length];
-        for (int i = 0; i < userList.length; i++) {
-            this.userList[i] = userList[i].toReducedUser();
-        }
+        this.userList = userList;
     }
 
     @Override
