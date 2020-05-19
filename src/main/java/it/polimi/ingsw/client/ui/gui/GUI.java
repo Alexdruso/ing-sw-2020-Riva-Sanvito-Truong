@@ -57,7 +57,6 @@ public class GUI extends UI {
             case SHOW_GAME_PASSIVE -> new ShowGamePassiveGUIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersGUIClientState(client);
             case WELCOME_SCREEN -> new WelcomeScreenGUIClientState(client);
-            case WIN_GAME -> new WinGameGUIClientState(client);
         };
     }
 
