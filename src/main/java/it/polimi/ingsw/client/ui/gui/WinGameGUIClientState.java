@@ -1,19 +1,28 @@
 package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
 import it.polimi.ingsw.client.clientstates.AbstractWinGameClientState;
+import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
+import javafx.application.Platform;
 
-public class WinGameGUIClientState extends AbstractWinGameClientState implements GUIClientState{
+public class WinGameGUIClientState extends AbstractWinGameClientState implements GUIClientState {
+    /**
+     * Instantiates a new WIN_GAME ClientState.
+     *
+     * @param client the client
+     */
     public WinGameGUIClientState(Client client) {
         super(client);
     }
 
-    /**
-     * Function called by the main thread that renders the current state to the UI.
-     * This function is the only one of this class allowed to be synchronous with the user input.
-     */
     @Override
     public void render() {
-
+        //TODO
     }
+
+
 }

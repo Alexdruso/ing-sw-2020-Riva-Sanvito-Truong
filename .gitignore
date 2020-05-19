@@ -85,4 +85,7 @@ fabric.properties
 # Default build dir
 target/
 
+# Logs of the client CLI inputs
+in_logs/*/**
+
 # ====

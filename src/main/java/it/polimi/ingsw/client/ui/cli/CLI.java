@@ -14,11 +14,9 @@ import org.fusesource.jansi.AnsiConsole;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -31,9 +29,11 @@ import static org.fusesource.jansi.Ansi.ansi;
 public class CLI extends UI {
     private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
+    public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
 
     private Scanner in;
     private PrintWriter out;
+    private final List<PrintWriter> inLoggers = new ArrayList<>();
     private boolean usingInputFile = false;
     private static final Ansi.Color[] levelsBgColors = new Ansi.Color[]{
             Ansi.Color.GREEN,   // level 0
@@ -89,14 +89,29 @@ public class CLI extends UI {
         AnsiConsole.systemInstall();
 
         try {
-            String in_filename = System.getenv(CLI_INPUT_FILE_ENV_VAR_NAME);
-            in = new Scanner(new FileInputStream(in_filename));
-            LOGGER.log(Level.FINE, String.format("Using %s for feeding stdin", in_filename));
+            String inFilename = System.getenv(CLI_INPUT_FILE_ENV_VAR_NAME);
+            in = new Scanner(new FileInputStream(inFilename));
+            LOGGER.log(Level.FINE, String.format("Using %s for feeding stdin", inFilename));
             usingInputFile = true;
         }
         catch (NullPointerException | FileNotFoundException e) {
             in = new Scanner(System.in);
-            LOGGER.log(Level.FINE, "Using real stdin", e);
+            LOGGER.log(Level.FINER, "Using real stdin", e);
+        }
+
+        try {
+            String inLoggerFolder = System.getenv(CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME);
+            if (inLoggerFolder != null) {
+                inLoggers.add(new PrintWriter(new FileOutputStream(String.format("%s%d.txt", inLoggerFolder, System.currentTimeMillis()))));
+                inLoggers.add(new PrintWriter(new FileOutputStream(String.format("%slatest.txt", inLoggerFolder))));
+                LOGGER.log(Level.FINE, String.format("Logging inputs in folder %s", inLoggerFolder));
+            }
+            else {
+                LOGGER.log(Level.FINER, "Skipping log inputs to file");
+            }
+        }
+        catch (FileNotFoundException e) {
+            LOGGER.log(Level.FINER, "Unable to log inputs to file", e);
         }
 
         out = new PrintWriter(System.out, true);
@@ -354,7 +369,7 @@ public class CLI extends UI {
                 error(ERROR_INVALID_COORDINATES);
                 continue;
             }
-            res = board.getCell(row, col);
+            res = board.getCell(col, row);
         }
         return res;
     }
@@ -374,6 +389,10 @@ public class CLI extends UI {
                 if (s.equalsIgnoreCase("%TIMESTAMP%")) {
                     s = String.valueOf(System.currentTimeMillis());
                 }
+            }
+            for (PrintWriter inLogger : inLoggers) {
+                inLogger.println(s);
+                inLogger.flush();
             }
             return s;
         }
@@ -437,15 +456,15 @@ public class CLI extends UI {
             boardStr.append(String.format(boardColumnsFormatString, (char) (i + 65)));
         }
         boardStr.append("\n");
-        for (int x = 0; x < dimension; x++) {
+        for (int y = 0; y < dimension; y++) {
             Ansi[][] rowAnsi = new Ansi[dimension+1][];
-            String[] rowHeaders = String.format(boardRowsFormatString, x + 1).split("\n");
+            String[] rowHeaders = String.format(boardRowsFormatString, y + 1).split("\n");
             rowAnsi[0] = new Ansi[rowHeaders.length];
             for (int i = 0; i < rowHeaders.length; i++) {
                 rowAnsi[0][i] = ansi().a(rowHeaders[i]);
             }
-            for (int y = 0; y < dimension; y++) {
-                rowAnsi[y+1] = getCellAnsi(board.getCell(x, y));
+            for (int x = 0; x < dimension; x++) {
+                rowAnsi[x+1] = getCellAnsi(board.getCell(x, y));
             }
             for (int i = 0; i < rowAnsi[0].length; i++) {
                 for (int j = 0; j < dimension + 1; j++) {
