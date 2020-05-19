@@ -354,7 +354,7 @@ public class CLI extends UI {
                 error(ERROR_INVALID_COORDINATES);
                 continue;
             }
-            res = board.getCell(row, col);
+            res = board.getCell(col, row);
         }
         return res;
     }
@@ -437,15 +437,15 @@ public class CLI extends UI {
             boardStr.append(String.format(boardColumnsFormatString, (char) (i + 65)));
         }
         boardStr.append("\n");
-        for (int x = 0; x < dimension; x++) {
+        for (int y = 0; y < dimension; y++) {
             Ansi[][] rowAnsi = new Ansi[dimension+1][];
-            String[] rowHeaders = String.format(boardRowsFormatString, x + 1).split("\n");
+            String[] rowHeaders = String.format(boardRowsFormatString, y + 1).split("\n");
             rowAnsi[0] = new Ansi[rowHeaders.length];
             for (int i = 0; i < rowHeaders.length; i++) {
                 rowAnsi[0][i] = ansi().a(rowHeaders[i]);
             }
-            for (int y = 0; y < dimension; y++) {
-                rowAnsi[y+1] = getCellAnsi(board.getCell(x, y));
+            for (int x = 0; x < dimension; x++) {
+                rowAnsi[x+1] = getCellAnsi(board.getCell(x, y));
             }
             for (int i = 0; i < rowAnsi[0].length; i++) {
                 for (int j = 0; j < dimension + 1; j++) {
