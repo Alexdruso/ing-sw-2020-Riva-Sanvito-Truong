@@ -46,20 +46,22 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
                 }
                 sourceCellX = sourceCell.getX();
                 sourceCellY = sourceCell.getY();
-                sourceCell.getWorker().ifPresent(worker -> {
-                    if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
-                        workerID = worker.getWorkerID();
-                    }
-                });
-                if (workerID == null) {
-                    cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS));
-                }
-                else {
-                    if (!turn.getAllowedWorkers().contains(workerID)) {
-                        cli.error(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER));
-                        workerID = null;
-                    }
-                }
+                sourceCell.getWorker().ifPresentOrElse(
+                        worker -> {
+                            if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
+                                if (turn.getAllowedWorkers().contains(workerID)) {
+                                    workerID = worker.getWorkerID();
+                                }
+                                else {
+                                    cli.error(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER));
+                                }
+                            }
+                            else {
+                                cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS));
+                            }
+                        },
+                        () -> cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS))
+                );
             }
 
             board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(

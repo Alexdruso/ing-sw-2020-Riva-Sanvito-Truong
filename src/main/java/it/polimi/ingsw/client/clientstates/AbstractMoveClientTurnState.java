@@ -12,7 +12,7 @@ public abstract class AbstractMoveClientTurnState extends AbstractClientTurnStat
     protected int sourceCellY;
     protected int targetCellX;
     protected int targetCellY;
-    protected ReducedWorkerID workerID;
+    protected ReducedWorkerID workerID = null;
 
     public AbstractMoveClientTurnState(Client client) {
         super(client);

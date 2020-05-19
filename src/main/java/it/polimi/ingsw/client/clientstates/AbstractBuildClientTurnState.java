@@ -13,7 +13,7 @@ public abstract class AbstractBuildClientTurnState extends AbstractClientTurnSta
     protected int targetCellY;
     protected ReducedComponent component;
     protected int builtLevel;
-    protected ReducedWorkerID workerID;
+    protected ReducedWorkerID workerID = null;
 
     public AbstractBuildClientTurnState(Client client) {
         super(client);
