@@ -118,6 +118,7 @@ public class CLI extends UI {
             case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
             case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersCLIClientState(client);
+            case WIN_GAME -> new WinGameCLIClientState(client);
             case WELCOME_SCREEN -> new WelcomeScreenCLIClientState(client);
         };
     }
@@ -225,8 +226,15 @@ public class CLI extends UI {
      */
     void error(String s) {
         println(ansi().render("@|bold,red %s:|@ %s", I18n.string(I18nKey.ERROR), s));
-        readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);
+        pause();
         println(ansi().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine());
+    }
+
+    /**
+     * Waits until the user presses 'Return'.
+     */
+    void pause() {
+        readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);
     }
 
     void moveUpAndClearLine() {

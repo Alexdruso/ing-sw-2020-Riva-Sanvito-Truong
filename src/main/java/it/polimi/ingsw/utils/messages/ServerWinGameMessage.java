@@ -1,6 +1,7 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 /**
@@ -24,6 +25,8 @@ public class ServerWinGameMessage implements ServerMessage, ClientHandleable {
 
     @Override
     public boolean handleTransmittable(Client client) {
-        return false;
+        client.setCurrentActiveUser(user);
+        client.moveToState(ClientState.WIN_GAME);
+        return true;
     }
 }

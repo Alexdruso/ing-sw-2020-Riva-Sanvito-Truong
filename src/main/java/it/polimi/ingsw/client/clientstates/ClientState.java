@@ -21,6 +21,10 @@ public enum ClientState {
      */
     CONNECT_TO_SERVER,
     /**
+     * Disconnect client state.
+     */
+    DISCONNECT,
+    /**
      * In game client state.
      */
     IN_GAME,
@@ -45,12 +49,13 @@ public enum ClientState {
      */
     WELCOME_SCREEN,
     /**
+     * Show the win screen to the player.
+     */
+    WIN_GAME,
+    /**
      * Show game passive client state.
+     * TODO: TO BE REMOVED
      */
     SHOW_GAME_PASSIVE,
-    /**
-     * Disconnect client state.
-     */
-    DISCONNECT,
     ;
 }
