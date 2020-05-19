@@ -46,7 +46,7 @@ public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implem
                 sourceCell.getWorker().ifPresentOrElse(
                         worker -> {
                             if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
-                                if (turn.getAllowedWorkers().contains(workerID)) {
+                                if (turn.getAllowedWorkers().contains(worker.getWorkerID())) {
                                     workerID = worker.getWorkerID();
                                 }
                                 else {
