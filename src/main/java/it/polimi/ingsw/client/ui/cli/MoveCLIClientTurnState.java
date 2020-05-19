@@ -2,10 +2,7 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractMoveClientTurnState;
-import it.polimi.ingsw.client.reducedmodel.ReducedBoard;
-import it.polimi.ingsw.client.reducedmodel.ReducedCell;
-import it.polimi.ingsw.client.reducedmodel.ReducedGame;
-import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
+import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 
@@ -25,17 +22,22 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
             ReducedGame game = client.getGame();
             ReducedTurn turn = game.getTurn();
             ReducedBoard board = game.getBoard();
+            ReducedPlayer player = turn.getPlayer();
             boolean workerWasForced = false;
             if (turn.getAllowedWorkers().size() == 1) {
                 workerID = turn.getAllowedWorkers().get(0);
                 workerWasForced = true;
+                ReducedWorker worker = player.getWorker(workerID);
+                ReducedCell workerCell = worker.getCell();
+                sourceCellX = workerCell.getX();
+                sourceCellY = workerCell.getY();
             }
             while (workerID == null) {
                 ReducedCell sourceCell;
                 if (turn.isSkippable()) {
                     sourceCell = cli.readCell(board, String.format("%s (%s)", I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE), I18n.string(I18nKey.X_TO_SKIP)), true);
                     if (sourceCell == null) {
-                        notifyUiInteraction();
+                        clientState.notifyUiInteraction();
                         return;
                     }
                 }
@@ -78,7 +80,7 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
             if (targetCell == null) {
                 workerID = null;
                 if (workerWasForced) {
-                    notifyUiInteraction();
+                    clientState.notifyUiInteraction();
                 }
                 else {
                     client.requestRender();

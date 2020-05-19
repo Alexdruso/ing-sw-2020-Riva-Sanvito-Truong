@@ -95,6 +95,7 @@ public class ReducedGame {
             sourceCell.setNoWorker();
         }
         targetCell.setWorker(worker);
+        worker.setCell(targetCell);
     }
 
     public void buildComponentInCell(int targetCellX, int targetCellY, ReducedComponent component, int builtLevel) {
