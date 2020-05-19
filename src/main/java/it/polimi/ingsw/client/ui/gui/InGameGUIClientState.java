@@ -29,10 +29,13 @@ public class InGameGUIClientState extends AbstractInGameClientState implements G
      */
     @Override
     public void render() {
+        //Initial render, specific renderings are handled by ClientTurnStates
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/InGame.fxml", client);
         sceneLoaderFactory.setState(ClientState.IN_GAME, this)
                 .addCSSFile("/css/board.css")
                 .build()
                 .executeSceneChange();
+        client.getGame().getTurn().getTurnState().render();
     }
+
 }

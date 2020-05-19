@@ -55,8 +55,6 @@ public class SceneLoader {
         this.fadeOutDuration = loader.fadeOutDuration;
         this.cssFile = loader.cssFile;
         this.state = loader.state;
-        this.clientTurnState = loader.clientTurnState;
-        this.turnState = loader.turnState;
     }
 
     public void executeSceneChange(){

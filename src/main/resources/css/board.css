@@ -30,3 +30,8 @@
     -fx-border-color: #4D7A97;
     -fx-border-width: 5px;
 }
+
+.cell-container:pressed {
+    -fx-border-color: #F2A541;
+    -fx-border-width: 5px;
+}
