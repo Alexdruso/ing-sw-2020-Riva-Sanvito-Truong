@@ -107,16 +107,16 @@ public class Server{
         synchronized (ongoingMatches) {
             ongoingMatches.add(match);
         }
-        synchronized (handlers) {
             for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
                 connection.removeObserver(handlers.get(connection));
-                handlers.remove(connection);
+                synchronized (handlers) {
+                    handlers.remove(connection);
+                }
             }
         }
-    }
 
     /**
-     * This method removes a Match instance from the ongoing matches
+     * This method removes a Match instance from the ongoing matches.
      *
      * @param match the match we need to remove
      */
@@ -127,6 +127,17 @@ public class Server{
         match.getParticipantsNicknameToConnection()
                 .keySet()
                 .forEach(lobbyBuilder::removeNickname);
+    }
+
+    /**
+     * This method removes a handler drom the handlers.
+     *
+     * @param connection the connection related to the handler
+     */
+    void removeHandler(Connection connection) {
+        synchronized (handlers) {
+            handlers.remove(connection);
+        }
     }
 
     /**
