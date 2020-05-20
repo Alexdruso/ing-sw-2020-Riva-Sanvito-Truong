@@ -136,13 +136,26 @@ public class ServerLobbyBuilder {
      */
     public boolean handleLobbyRequest(String nickname, Connection connection){
         synchronized(registeredNicknames){
-            if(!registeredNicknames.containsValue(nickname) || !registeredNicknames.containsKey(connection)){
+            if (!registeredNicknames.containsValue(nickname) || !registeredNicknames.containsKey(connection)) {
                 return false;
             }
         }
-        synchronized(lobbyRequestingConnections){
+        synchronized (lobbyRequestingConnections) {
             lobbyRequestingConnections.add(connection);
             lobbyRequestingConnections.notifyAll();
+        }
+        return true;
+    }
+
+    /**
+     * This method handles a disconnection in the setup phase.
+     *
+     * @param connection the disconnecting connection
+     * @return true if there were no errors
+     */
+    public boolean handleDisconnection(Connection connection) {
+        synchronized (lobbyRequestingConnections) {
+            lobbyRequestingConnections.removeIf(requestingConnection -> requestingConnection.equals(connection));
         }
         return true;
     }
@@ -151,11 +164,11 @@ public class ServerLobbyBuilder {
      * This method begins the main ServerLobbyBuilder thread, waiting for lobby requests and handling them
      * in order to generate a Match.
      */
-    public void start(){
-        while(active){
-            synchronized(lobbyRequestingConnections){
-                while(lobbyRequestingConnections.size() == 0){
-                    try{
+    public void start() {
+        while (active) {
+            synchronized (lobbyRequestingConnections) {
+                while (lobbyRequestingConnections.size() == 0) {
+                    try {
                         lobbyRequestingConnections.wait();
                     } catch (InterruptedException e){
                         LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
