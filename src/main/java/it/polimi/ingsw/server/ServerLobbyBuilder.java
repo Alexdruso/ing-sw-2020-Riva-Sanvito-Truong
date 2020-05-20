@@ -154,6 +154,7 @@ public class ServerLobbyBuilder {
      * @return true if there were no errors
      */
     public boolean handleDisconnection(Connection connection) {
+        connection.close();
         synchronized (lobbyRequestingConnections) {
             lobbyRequestingConnections.removeIf(requestingConnection -> requestingConnection.equals(connection));
         }
@@ -190,7 +191,7 @@ public class ServerLobbyBuilder {
                 }
             }
             synchronized(lobbyRequestingConnections){
-                while(lobbyRequestingConnections.size() < currentLobbyPlayerCount){
+                while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
                     try {
                         lobbyRequestingConnections.wait();
                     } catch (InterruptedException e) {
@@ -200,9 +201,13 @@ public class ServerLobbyBuilder {
                 }
             }
 
+            //TODO sync this part
+            //this would be synchronized in the same block as above, a check if the first player
+            //was removed should be implemented.
+            //If true, then continue the cycle.
             Match match = new Match(server);
 
-            for(int i = 0; i < currentLobbyPlayerCount; i++){
+            for (int i = 0; i < currentLobbyPlayerCount; i++) {
                 Connection connection = lobbyRequestingConnections.removeFirst();
                 String nickname = registeredNicknames.get(connection);
                 match.addParticipant(nickname, connection);
