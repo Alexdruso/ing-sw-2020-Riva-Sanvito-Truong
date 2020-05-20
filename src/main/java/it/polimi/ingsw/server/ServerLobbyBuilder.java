@@ -157,13 +157,19 @@ public class ServerLobbyBuilder {
      */
     public boolean handleDisconnection(Connection connection) {
         connection.close();
-        synchronized (lobbyRequestingConnections) {
-            lobbyRequestingConnections.removeIf(requestingConnection -> requestingConnection.equals(connection));
-            if (connection.equals(firstConnection)) {
-            }
-        }
         server.removeHandler(connection);
         registeredNicknames.remove(connection);
+        synchronized (lobbyRequestingConnections) {
+            lobbyRequestingConnections.removeIf(requestingConnection -> requestingConnection.equals(connection));
+            synchronized (playerCountLock) {
+                if (firstConnection.equals(connection) && currentLobbyPlayerCount == 0) {
+                    //shall at least give a fake current lobby player count to go ahead in edge case
+                    //at line 193
+                    currentLobbyPlayerCount = 2;
+                    playerCountLock.notifyAll();
+                }
+            }
+        }
         return true;
     }
 
@@ -197,27 +203,24 @@ public class ServerLobbyBuilder {
                 }
             }
             synchronized (lobbyRequestingConnections) {
-                //if the first player disconnected, just skip this part and restart the cycle
-                if (lobbyRequestingConnections.contains(firstConnection)) {
-                    while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
-                        try {
-                            lobbyRequestingConnections.wait();
-                        } catch (InterruptedException e) {
-                            LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
-                            Thread.currentThread().interrupt();
-                        }
+                while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
+                    try {
+                        lobbyRequestingConnections.wait();
+                    } catch (InterruptedException e) {
+                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                        Thread.currentThread().interrupt();
                     }
-
-                    Match match = new Match(server);
-
-                    for (int i = 0; i < currentLobbyPlayerCount; i++) {
-                        Connection connection = lobbyRequestingConnections.removeFirst();
-                        String nickname = registeredNicknames.get(connection);
-                        match.addParticipant(nickname, connection);
-                    }
-                    server.submitMatch(match);
                 }
             }
+
+            Match match = new Match(server);
+            for (int i = 0; i < currentLobbyPlayerCount; i++) {
+                Connection connection = lobbyRequestingConnections.removeFirst();
+                String nickname = registeredNicknames.get(connection);
+                match.addParticipant(nickname, connection);
+            }
+            server.submitMatch(match);
+
             synchronized (playerCountLock) {
                 currentLobbyPlayerCount = 0;
             }
