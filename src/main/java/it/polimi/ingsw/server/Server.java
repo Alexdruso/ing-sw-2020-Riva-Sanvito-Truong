@@ -130,7 +130,7 @@ public class Server{
     }
 
     /**
-     * This method removes a handler drom the handlers.
+     * This method removes a handler from the handlers.
      *
      * @param connection the connection related to the handler
      */
