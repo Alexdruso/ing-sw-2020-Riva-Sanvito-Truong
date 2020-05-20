@@ -21,10 +21,6 @@ public class ServerLobbyBuilder {
      */
     private final Server server;
     /**
-     * The connection that arrived first and who has control of the player count for the lobby
-     */
-    private Connection firstConnection;
-    /**
      * A Map containing all connections and the relative nicknames
      */
     private final Map<Connection, String> registeredNicknames;
@@ -33,13 +29,17 @@ public class ServerLobbyBuilder {
      */
     private final LinkedList<Connection> lobbyRequestingConnections;
     /**
-     * The maximum number of players for the current lobby
-     */
-    private int currentLobbyPlayerCount;
-    /**
      * The lock used to synchronize over currentLobbyPlayerCount
      */
     private final Object playerCountLock;
+    /**
+     * The connection that arrived first and who has control of the player count for the lobby
+     */
+    private Connection firstConnection;
+    /**
+     * The maximum number of players for the current lobby
+     */
+    private int currentLobbyPlayerCount;
     /**
      * The current status of the LobbyBuilder Thread
      */
@@ -47,10 +47,11 @@ public class ServerLobbyBuilder {
 
     /**
      * The class constructor
+     *
      * @param server the Server reference
      */
-    public ServerLobbyBuilder(Server server){
-        this.server= server;
+    public ServerLobbyBuilder(Server server) {
+        this.server = server;
         this.registeredNicknames = new ConcurrentHashMap<>();
         this.lobbyRequestingConnections = new LinkedList<>();
         this.active = true;
@@ -60,7 +61,8 @@ public class ServerLobbyBuilder {
     /**
      * This method accepts a nickname and a connection and, if both are valid, registers the nickname, along with the
      * connection
-     * @param nickname a String representing the nickname of the user
+     *
+     * @param nickname   a String representing the nickname of the user
      * @param connection the Connection from which the user is communicating
      * @return true if the registering has been successful, false otherwise
      */
@@ -81,11 +83,9 @@ public class ServerLobbyBuilder {
      * @param nickname the nickname that has to be removed
      */
     public void removeNickname(String nickname) {
-        synchronized (registeredNicknames) {
-            registeredNicknames.entrySet().stream()
-                    .filter(entry -> entry.getValue().equals(nickname))
-                    .forEach(entry -> registeredNicknames.remove(entry.getKey(), entry.getValue()));
-        }
+        registeredNicknames.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(nickname))
+                .forEach(entry -> registeredNicknames.remove(entry.getKey(), entry.getValue()));
     }
 
     /**
@@ -105,12 +105,12 @@ public class ServerLobbyBuilder {
         int MIN_PLAYERS_PER_GAME = configParser.getIntProperty("minPlayersPerGame");
         int MAX_PLAYERS_PER_GAME = configParser.getIntProperty("maxPlayersPerGame");
 
-        if(playerCount > MAX_PLAYERS_PER_GAME || playerCount < MIN_PLAYERS_PER_GAME){
+        if (playerCount > MAX_PLAYERS_PER_GAME || playerCount < MIN_PLAYERS_PER_GAME) {
             return false;
         }
 
-        synchronized(playerCountLock){
-            if(currentLobbyPlayerCount != 0){
+        synchronized (playerCountLock) {
+            if (currentLobbyPlayerCount != 0) {
                 return false;
             }
             currentLobbyPlayerCount = playerCount;
@@ -122,20 +122,22 @@ public class ServerLobbyBuilder {
     /**
      * This method retrieves the maximum number of players allowed in the lobby.
      * If the player count has not been set, it returns 0
+     *
      * @return the maximum number of players allowed in the lobby
      */
-    public int getCurrentLobbyPlayerCount(){
+    public int getCurrentLobbyPlayerCount() {
         return currentLobbyPlayerCount;
     }
 
     /**
      * This method handles a request to join the lobby by a player. If nickname and connection are both valid,
      * the method adds the user to the queue, notifies all waiting threads and sends an OK on the connection
-     * @param nickname a String representing the nickname of the user is communicating
+     *
+     * @param nickname   a String representing the nickname of the user is communicating
      * @param connection the Connection from which the user is
      */
-    public boolean handleLobbyRequest(String nickname, Connection connection){
-        synchronized(registeredNicknames){
+    public boolean handleLobbyRequest(String nickname, Connection connection) {
+        synchronized (registeredNicknames) {
             if (!registeredNicknames.containsValue(nickname) || !registeredNicknames.containsKey(connection)) {
                 return false;
             }
@@ -157,7 +159,11 @@ public class ServerLobbyBuilder {
         connection.close();
         synchronized (lobbyRequestingConnections) {
             lobbyRequestingConnections.removeIf(requestingConnection -> requestingConnection.equals(connection));
+            if (connection.equals(firstConnection)) {
+            }
         }
+        server.removeHandler(connection);
+        registeredNicknames.remove(connection);
         return true;
     }
 
@@ -171,14 +177,14 @@ public class ServerLobbyBuilder {
                 while (lobbyRequestingConnections.size() == 0) {
                     try {
                         lobbyRequestingConnections.wait();
-                    } catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
                         Thread.currentThread().interrupt();
                     }
                 }
                 firstConnection = lobbyRequestingConnections.getFirst();
             }
-            synchronized(playerCountLock) {
+            synchronized (playerCountLock) {
                 currentLobbyPlayerCount = 0;
                 firstConnection.send(StatusMessages.CONTINUE);
                 while (currentLobbyPlayerCount == 0) {
@@ -190,36 +196,38 @@ public class ServerLobbyBuilder {
                     }
                 }
             }
-            synchronized(lobbyRequestingConnections){
-                while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
-                    try {
-                        lobbyRequestingConnections.wait();
-                    } catch (InterruptedException e) {
-                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
-                        Thread.currentThread().interrupt();
+            synchronized (lobbyRequestingConnections) {
+                //if the first player disconnected, just skip this part and restart the cycle
+                if (lobbyRequestingConnections.contains(firstConnection)) {
+                    while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
+                        try {
+                            lobbyRequestingConnections.wait();
+                        } catch (InterruptedException e) {
+                            LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                            Thread.currentThread().interrupt();
+                        }
                     }
+
+                    Match match = new Match(server);
+
+                    for (int i = 0; i < currentLobbyPlayerCount; i++) {
+                        Connection connection = lobbyRequestingConnections.removeFirst();
+                        String nickname = registeredNicknames.get(connection);
+                        match.addParticipant(nickname, connection);
+                    }
+                    server.submitMatch(match);
                 }
             }
-
-            //TODO sync this part
-            //this would be synchronized in the same block as above, a check if the first player
-            //was removed should be implemented.
-            //If true, then continue the cycle.
-            Match match = new Match(server);
-
-            for (int i = 0; i < currentLobbyPlayerCount; i++) {
-                Connection connection = lobbyRequestingConnections.removeFirst();
-                String nickname = registeredNicknames.get(connection);
-                match.addParticipant(nickname, connection);
+            synchronized (playerCountLock) {
+                currentLobbyPlayerCount = 0;
             }
-            server.submitMatch(match);
         }
     }
 
     /**
      * This method stops the main ServerLobbyBuilder thread
      */
-    public void stop(){
+    public void stop() {
         active = false;
     }
 }
