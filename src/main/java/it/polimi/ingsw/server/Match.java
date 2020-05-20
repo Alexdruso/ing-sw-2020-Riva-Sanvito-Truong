@@ -47,6 +47,11 @@ public class Match implements Runnable {
      */
     private boolean isPlaying = true;
 
+    /**
+     * The match constructor.
+     *
+     * @param server the server hosting the match
+     */
     public Match(Server server) {
         this.server = server;
     }
