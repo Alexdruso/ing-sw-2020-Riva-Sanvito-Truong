@@ -27,8 +27,8 @@ public class InGameCLIClientState extends AbstractInGameClientState implements C
 
     void redrawInGameElements() {
         cli.clear();
-        cli.drawBoard(client.getGame().getBoard());
         cli.printPlayersOfGame(client.getGame());
+        cli.drawBoard(client.getGame().getBoard());
         cli.moveCursorToStatusPosition();
     }
 
