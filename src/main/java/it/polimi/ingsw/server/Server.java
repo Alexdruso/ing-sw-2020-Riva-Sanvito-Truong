@@ -107,8 +107,11 @@ public class Server{
         synchronized (ongoingMatches) {
             ongoingMatches.add(match);
         }
-        for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
-            connection.removeObserver(handlers.get(connection));
+        synchronized (handlers) {
+            for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
+                connection.removeObserver(handlers.get(connection));
+                handlers.remove(connection);
+            }
         }
     }
 
@@ -144,13 +147,15 @@ public class Server{
     public void start(){
         LOGGER.log(Level.FINE, "Server ready to accept connections");
         while(!serverSocket.isClosed()){
-            try{
+            try {
                 Socket inboundSocket = serverSocket.accept();
                 Connection currentConnection = getConnection(inboundSocket);
                 ServerConnectionSetupHandler connectionHandler = new ServerConnectionSetupHandler(this, currentConnection);
-                handlers.put(currentConnection, connectionHandler);
+                synchronized (handlers) {
+                    handlers.put(currentConnection, connectionHandler);
+                }
                 currentConnection.addObserver(connectionHandler, (obs, message) ->
-                        ((ServerConnectionSetupHandler)obs).update(message));
+                        ((ServerConnectionSetupHandler) obs).update(message));
             } catch (IOException e){
                 LOGGER.log(Level.WARNING, "Socket closed", e);
             }
