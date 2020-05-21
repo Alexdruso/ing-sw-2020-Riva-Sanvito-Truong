@@ -241,6 +241,7 @@ public class ServerLobbyBuilder {
                 }
             }
 
+            //if the first player didn't disconnect, then go ahead and create a match
             if (participants.get(0).getKey().equals(firstConnection)) {
                 Match match = new Match(server);
 
