@@ -108,8 +108,8 @@ public class Server{
             ongoingMatches.add(match);
         }
             for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
-                connection.removeObserver(handlers.get(connection));
                 synchronized (handlers) {
+                    connection.removeObserver(handlers.get(connection));
                     handlers.remove(connection);
                 }
             }
