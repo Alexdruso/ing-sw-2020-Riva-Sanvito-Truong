@@ -19,8 +19,7 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class ServerTest {
     Server server = null;
@@ -47,6 +46,7 @@ public class ServerTest {
     void mockConnections(){
         for(int j = 0; j < 3; j++){
             Connection mock = mock(Connection.class);
+            when(mock.isActive()).thenReturn(true);
             LinkedList<Transmittable> q = new LinkedList<>();
             ServerConnectionSetupHandler ch = new ServerConnectionSetupHandler(server, mock);
             doAnswer(i -> q.add((Transmittable) i.getArguments()[0]))
