@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
 import it.polimi.ingsw.utils.messages.DisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
@@ -120,9 +121,12 @@ public class Match implements Runnable {
      * @param nickname   the nickname chosen by the participants
      * @param connection the connection of the participant
      */
-    public void addParticipant(String nickname, Connection connection){
+    public void addParticipant(String nickname, Connection connection) {
         this.participantsNicknameToConnection.put(nickname, connection);
         virtualViews.add(new View(connection, nickname));
+        if (!connection.isActive()) {
+            virtualViews.get(virtualViews.size() - 1).updateFromClient(new ClientDisconnectMessage());
+        }
     }
 
     /**
@@ -136,6 +140,9 @@ public class Match implements Runnable {
 
         for (Map.Entry<String, Connection> participant : participants.entrySet()) {
             virtualViews.add(new View(participant.getValue(), participant.getKey()));
+            if (!participant.getValue().isActive()) {
+                virtualViews.get(virtualViews.size() - 1).updateFromClient(new ClientDisconnectMessage());
+            }
         }
     }
 
