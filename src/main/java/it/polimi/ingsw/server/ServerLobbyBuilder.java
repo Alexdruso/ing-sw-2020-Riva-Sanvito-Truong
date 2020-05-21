@@ -241,11 +241,13 @@ public class ServerLobbyBuilder {
                 }
             }
 
-            Match match = new Match(server);
+            if (participants.get(0).getKey().equals(firstConnection)) {
+                Match match = new Match(server);
 
-            participants.forEach(participant -> match.addParticipant(participant.getValue(), participant.getKey()));
+                participants.forEach(participant -> match.addParticipant(participant.getValue(), participant.getKey()));
 
-            server.submitMatch(match);
+                server.submitMatch(match);
+            }
         }
     }
 
