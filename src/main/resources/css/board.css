@@ -40,3 +40,7 @@
     -fx-border-color: white;
     -fx-border-width: 2px;
 }
+
+.cell-highlighted {
+    -fx-background-color: #C5D86Dff;
+}

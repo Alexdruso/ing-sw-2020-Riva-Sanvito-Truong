@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskWorkerPositionClientTurnState;
-import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.InGameController;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
@@ -36,9 +35,10 @@ public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositi
         }
     }
 
-    public void selectCell(ReducedCell cell) {
-        targetCellX = cell.getX();
-        targetCellY = cell.getY();
+    @Override
+    public void selectCell(int x, int y) {
+        this.targetCellX = x;
+        this.targetCellY = y;
         clientState.notifyUiInteraction();
     }
 }
