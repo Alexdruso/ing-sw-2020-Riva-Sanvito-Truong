@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a single game lobby, to which players may join
@@ -156,19 +157,31 @@ public class ServerLobbyBuilder {
      * @return true if there were no errors
      */
     public boolean handleDisconnection(Connection connection) {
-        connection.close();
-        server.removeHandler(connection);
-        registeredNicknames.remove(connection);
         synchronized (lobbyRequestingConnections) {
+            //erase itself from records in the server, apart from first connection
             lobbyRequestingConnections.removeIf(requestingConnection -> requestingConnection.equals(connection));
+            registeredNicknames.remove(connection);
+            server.removeHandler(connection);
             synchronized (playerCountLock) {
+                //check if first connection and if a current lobby player count has not been selected yet
+                //this part is necessary to avoid problems from line 204 on
+                //in this case we can, however, set a new first player
                 if (firstConnection.equals(connection) && currentLobbyPlayerCount == 0) {
-                    //shall at least give a fake current lobby player count to go ahead in edge case
-                    //at line 193
-                    currentLobbyPlayerCount = 2;
-                    playerCountLock.notifyAll();
+                    while (lobbyRequestingConnections.size() == 0) {
+                        try {
+                            lobbyRequestingConnections.wait();
+                        } catch (InterruptedException e) {
+                            LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
+                            Thread.currentThread().interrupt();
+                        }
+                    }
                 }
+                //set a new first connection
+                firstConnection = lobbyRequestingConnections.getFirst();
+                //send continue message
+                firstConnection.send(StatusMessages.CONTINUE);
             }
+            connection.close();
         }
         return true;
     }
@@ -202,6 +215,9 @@ public class ServerLobbyBuilder {
                     }
                 }
             }
+
+            Map<Connection, String> participants;
+
             synchronized (lobbyRequestingConnections) {
                 while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
                     try {
@@ -211,14 +227,16 @@ public class ServerLobbyBuilder {
                         Thread.currentThread().interrupt();
                     }
                 }
+                //At this point we copy the necessary connections and nicknames to guarantee coherence after on
+
+                participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
+                        .collect(Collectors.toMap(connection -> connection, registeredNicknames::get));
             }
 
             Match match = new Match(server);
-            for (int i = 0; i < currentLobbyPlayerCount; i++) {
-                Connection connection = lobbyRequestingConnections.removeFirst();
-                String nickname = registeredNicknames.get(connection);
-                match.addParticipant(nickname, connection);
-            }
+
+            participants.forEach((connection, nickname) -> match.addParticipant(nickname, connection));
+
             server.submitMatch(match);
 
             synchronized (playerCountLock) {

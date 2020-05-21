@@ -27,8 +27,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      */
     public void updateFromClient(Transmittable message) {
         this.notify(
-                new ViewClientMessage((ClientMessage) message, this, this.getUser()),
-                true
+                new ViewClientMessage((ClientMessage) message, this, this.getUser())
         );
     }
 

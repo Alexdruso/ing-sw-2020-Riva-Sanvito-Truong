@@ -95,6 +95,10 @@ public class Match implements Runnable {
             //the controller observes the view
             virtualView.addObserver(controller, (obs, message) ->
                     ((Controller) obs).update(message));
+            //check if connection is still up, if not send a disconnection message to dismantle the game
+            if (!participantsNicknameToConnection.get(user.nickname).isActive()) {
+                virtualView.updateFromClient(new ClientDisconnectMessage());
+            }
         }
         //Start setup procedure
         model.setup();
@@ -124,9 +128,6 @@ public class Match implements Runnable {
     public void addParticipant(String nickname, Connection connection) {
         this.participantsNicknameToConnection.put(nickname, connection);
         virtualViews.add(new View(connection, nickname));
-        if (!connection.isActive()) {
-            virtualViews.get(virtualViews.size() - 1).updateFromClient(new ClientDisconnectMessage());
-        }
     }
 
     /**
