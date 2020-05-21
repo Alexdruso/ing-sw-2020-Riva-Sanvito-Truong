@@ -167,45 +167,47 @@ class TurnTest {
         //Our own default TurnEventsManager
         TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
-        Player myPlayer = spy(new Player("Giorno Giovanna"));
+        Player myPlayer = new Player("Giorno Giovanna");
+        Player mySpiedPlayer = spy(myPlayer);
         //The trick to make it work without a god
-        when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
+        when(mySpiedPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //A user
-        User myUser = spy(new User(myPlayer.getNickname()));
+        User myUser = spy(new User(mySpiedPlayer.getNickname()));
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
         myGame.subscribeUser(myUser);
         when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
+        when(myGame.getUserFromPlayer(mySpiedPlayer)).thenReturn(myUser);
         when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
 
         //Setup the state to win
-        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
+        mySpiedPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(mySpiedPlayer.getWorkers()[0]);
         myBoard.getCell(1, 1).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(1, 1).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(0, 0).getTower().placeComponent(Component.BLOCK);
-        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
+        mySpiedPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(mySpiedPlayer.getWorkers()[1]);
         //Create the turn
-        Turn myTurn = spy(new Turn(myGame, myPlayer));
+        Turn myTurn = spy(new Turn(myGame, mySpiedPlayer));
         //Just another check that all is right
-        assertFalse(myTurn.canMoveTo(myPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
+        assertFalse(myTurn.canMoveTo(mySpiedPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
-        assertTrue(myTurn.canMoveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
+        assertTrue(myTurn.canMoveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now move to win!
-        myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0));
+        myTurn.moveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0));
         //Check if movement happened
-        assertEquals(myPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
-        assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
+        assertEquals(mySpiedPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
+        assertEquals(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), mySpiedPlayer.getWorkers()[0]);
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
         //Check is winning turn
@@ -217,60 +219,64 @@ class TurnTest {
         //Our own default TurnEventsManager
         TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
-        Player myPlayer = spy(new Player("Giorno Giovanna"));
+        Player myPlayer = new Player("Giorno Giovanna");
+        Player mySpiedPlayer = spy(myPlayer);
         //The trick to make it work without a god
-        when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
+        when(mySpiedPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //A user to subscribe to the game
-        User myUser = spy(new User(myPlayer.getNickname()));
+        User myUser = spy(new User(mySpiedPlayer.getNickname()));
         //Another player w/ his own User
-        Player myPlayer2 = spy(new Player("Il signor kekkeroni"));
-        User myUser2 = spy(new User(myPlayer2.getNickname()));
+        Player myPlayer2 = new Player("Il signor kekkeroni");
+        Player mySpiedPlayer2 = spy(myPlayer2);
+        User myUser2 = spy(new User(mySpiedPlayer2.getNickname()));
         TurnEventsManager myTurnEventsManager2 = mock(TurnEventsManager.class);
-        when(myPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
+        when(mySpiedPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
         doNothing().when(myGame).triggerEndTurn();
         myGame.subscribeUser(myUser);
         myGame.subscribeUser(myUser2);
         when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
-        when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
+        when(myGame.getUserFromPlayer(mySpiedPlayer)).thenReturn(myUser);
+        when(myGame.getPlayerFromUser(myUser)).thenReturn(mySpiedPlayer);
         when(myGame.getUserFromPlayer(myPlayer2)).thenReturn(myUser2);
-        when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
+        when(myGame.getUserFromPlayer(mySpiedPlayer2)).thenReturn(myUser2);
+        when(myGame.getPlayerFromUser(myUser2)).thenReturn(mySpiedPlayer2);
 
 
         //Setup the state
-        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
-        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
+        mySpiedPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(mySpiedPlayer.getWorkers()[0]);
+        mySpiedPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(mySpiedPlayer.getWorkers()[1]);
         //Create the turn
-        Turn myTurn = spy(new Turn(myGame, myPlayer));
+        Turn myTurn = spy(new Turn(myGame, mySpiedPlayer));
         //Just another check that all is right
-        assertFalse(myTurn.canMoveTo(myPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
+        assertFalse(myTurn.canMoveTo(mySpiedPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
-        assertTrue(myTurn.canMoveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
+        assertTrue(myTurn.canMoveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now move
-        myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0));
+        myTurn.moveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0));
         //Check if movement happened
-        assertEquals(myPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
-        assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
+        assertEquals(mySpiedPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
+        assertEquals(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), mySpiedPlayer.getWorkers()[0]);
         //Check that worker 2 is not in allowedWorkers anymore
-        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getWorkers()[1]));
+        assertFalse(myTurn.getAllowedWorkers().contains(mySpiedPlayer.getWorkers()[1]));
         //Trigger exception
-        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now we check and build a block where we were
-        assertTrue(myTurn.canBuildBlockIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 1)));
-        myTurn.buildBlockIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 1));
+        assertTrue(myTurn.canBuildBlockIn(mySpiedPlayer.getWorkers()[0], myBoard.getCell(1, 1)));
+        myTurn.buildBlockIn(mySpiedPlayer.getWorkers()[0], myBoard.getCell(1, 1));
         //Check the build happened
         assertEquals(1, myBoard.getCell(1, 1).getTower().getCurrentLevel());
-        assertEquals(myTurn.getPerformedAction().get(1).getWorker(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(1).getWorker(), mySpiedPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());
@@ -281,62 +287,66 @@ class TurnTest {
         //Our own default TurnEventsManager
         TurnEventsManager myTurnEventsManager = mock(TurnEventsManager.class);
         //Funny easter egg for JoJo fans
-        Player myPlayer = spy(new Player("Giorno Giovanna"));
+        Player myPlayer = new Player("Giorno Giovanna");
+        Player mySpiedPlayer = spy(myPlayer);
         //The trick to make it work without a god
-        when(myPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
+        when(mySpiedPlayer.getTurnEventsManager()).thenReturn(myTurnEventsManager);
         //Mock game 'cause it's too complex
         Game myGame = spy(new Game(2));
         //A real board because why not
         Board myBoard = spy(new Board());
         //A user to subscribe to the game
-        User myUser = spy(new User(myPlayer.getNickname()));
+        User myUser = spy(new User(mySpiedPlayer.getNickname()));
         //Another player w/ his own User
-        Player myPlayer2 = spy(new Player("Il signor kekkeroni"));
-        User myUser2 = spy(new User(myPlayer2.getNickname()));
+        Player myPlayer2 = new Player("Il signor kekkeroni");
+        Player mySpiedPlayer2 = spy(myPlayer2);
+        User myUser2 = spy(new User(mySpiedPlayer2.getNickname()));
         TurnEventsManager myTurnEventsManager2 = mock(TurnEventsManager.class);
-        when(myPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
+        when(mySpiedPlayer2.getTurnEventsManager()).thenReturn(myTurnEventsManager2);
         //Give Game a meaning
         when(myGame.getBoard()).thenReturn(myBoard);
         doNothing().when(myGame).triggerEndTurn();
         myGame.subscribeUser(myUser);
         myGame.subscribeUser(myUser2);
         when(myGame.getUserFromPlayer(myPlayer)).thenReturn(myUser);
-        when(myGame.getPlayerFromUser(myUser)).thenReturn(myPlayer);
+        when(myGame.getUserFromPlayer(mySpiedPlayer)).thenReturn(myUser);
+        when(myGame.getPlayerFromUser(myUser)).thenReturn(mySpiedPlayer);
         when(myGame.getUserFromPlayer(myPlayer2)).thenReturn(myUser2);
-        when(myGame.getPlayerFromUser(myUser2)).thenReturn(myPlayer2);
+        when(myGame.getUserFromPlayer(mySpiedPlayer2)).thenReturn(myUser2);
+        when(myGame.getPlayerFromUser(myUser2)).thenReturn(mySpiedPlayer2);
 
         //Setup the state
-        myPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
-        myBoard.getCell(1, 1).setWorker(myPlayer.getWorkers()[0]);
+        mySpiedPlayer.getWorkers()[0].setCell(myBoard.getCell(1, 1));
+        myBoard.getCell(1, 1).setWorker(mySpiedPlayer.getWorkers()[0]);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.BLOCK);
         myBoard.getCell(1, 0).getTower().placeComponent(Component.BLOCK);
-        myPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
-        myBoard.getCell(3, 3).setWorker(myPlayer.getWorkers()[1]);
+        mySpiedPlayer.getWorkers()[1].setCell(myBoard.getCell(3, 3));
+        myBoard.getCell(3, 3).setWorker(mySpiedPlayer.getWorkers()[1]);
         //Create the turn
-        Turn myTurn = spy(new Turn(myGame, myPlayer));
+        Turn myTurn = spy(new Turn(myGame, mySpiedPlayer));
         //Just another check that all is right
-        assertFalse(myTurn.canMoveTo(myPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
+        assertFalse(myTurn.canMoveTo(mySpiedPlayer.getWorkers()[1], myBoard.getCell(0, 0)));
         //Now we check if we can move :)
-        assertTrue(myTurn.canMoveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
+        assertTrue(myTurn.canMoveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now move
-        myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0));
+        myTurn.moveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0));
         //Check if movement happened
-        assertEquals(myPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
-        assertEquals(myPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
+        assertEquals(mySpiedPlayer.getWorkers()[0].getCell(), myBoard.getCell(0, 0));
+        assertEquals(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0).getWorker().get());
         assertEquals(1, myTurn.getMoves().size());
         //Check if movement was registered
-        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(0).getWorker(), mySpiedPlayer.getWorkers()[0]);
         //Check that worker 2 is not in allowedWorkers anymore
-        assertFalse(myTurn.getAllowedWorkers().contains(myPlayer.getWorkers()[1]));
+        assertFalse(myTurn.getAllowedWorkers().contains(mySpiedPlayer.getWorkers()[1]));
         //Trigger exception
-        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(myPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
+        assertThrows(InvalidTurnStateException.class, () -> myTurn.moveTo(mySpiedPlayer.getWorkers()[0], myBoard.getCell(0, 0)));
         //Now we check and build a dome where we can
-        assertTrue(myTurn.canBuildDomeIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 0)));
-        myTurn.buildDomeIn(myPlayer.getWorkers()[0], myBoard.getCell(1, 0));
+        assertTrue(myTurn.canBuildDomeIn(mySpiedPlayer.getWorkers()[0], myBoard.getCell(1, 0)));
+        myTurn.buildDomeIn(mySpiedPlayer.getWorkers()[0], myBoard.getCell(1, 0));
         //Check the build happened
         assertTrue(myBoard.getCell(1, 0).getTower().isComplete());
-        assertEquals(myTurn.getPerformedAction().get(1).getWorker(), myPlayer.getWorkers()[0]);
+        assertEquals(myTurn.getPerformedAction().get(1).getWorker(), mySpiedPlayer.getWorkers()[0]);
         assertEquals(1, myTurn.getBuilds().size());
         //Check no more allowed workers
         assertEquals(0, myTurn.getAllowedWorkers().size());

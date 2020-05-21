@@ -175,7 +175,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify the move action
         notify(
                 new ServerMoveMessage(
-                        getUserFromPlayer(players.peek()).toReducedUser(),
+                        getUserFromPlayer(worker.getPlayer()).toReducedUser(),
                         startX,
                         startY,
                         cell.getX(),
@@ -198,7 +198,7 @@ public class Game extends LambdaObservable<Transmittable> {
         //notify the build action
         notify(
                 new ServerBuildMessage(
-                        getUserFromPlayer(players.peek()).toReducedUser(),
+                        getUserFromPlayer(worker.getPlayer()).toReducedUser(),
                         cell.getX(),
                         cell.getY(),
                         component.toReducedComponent(),

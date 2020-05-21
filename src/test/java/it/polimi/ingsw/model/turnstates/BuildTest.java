@@ -261,6 +261,7 @@ class BuildTest {
     void buildDomeIn() {
         when(this.mockTurn.getGame()).thenReturn(this.mockGame);
         when(this.mockWorker.getCell()).thenReturn(this.spiedCell);
+        when(this.mockWorker.getPlayer()).thenReturn(this.mockPlayer);
         when(this.mockTurn.getPlayer()).thenReturn(this.mockPlayer);
         when(this.mockPlayer.getTurnEventsManager()).thenReturn(this.mockTurnEventsManager);
         this.testBuild.buildDomeIn(this.mockWorker, this.spiedCell, this.mockTurn);
@@ -285,6 +286,7 @@ class BuildTest {
     void buildBlockIn() {
         when(this.mockTurn.getGame()).thenReturn(this.mockGame);
         when(this.mockWorker.getCell()).thenReturn(this.spiedCell);
+        when(this.mockWorker.getPlayer()).thenReturn(this.mockPlayer);
         when(this.mockTurn.getPlayer()).thenReturn(this.mockPlayer);
         when(this.mockPlayer.getTurnEventsManager()).thenReturn(this.mockTurnEventsManager);
         this.testBuild.buildBlockIn(this.mockWorker, this.spiedCell, this.mockTurn);
