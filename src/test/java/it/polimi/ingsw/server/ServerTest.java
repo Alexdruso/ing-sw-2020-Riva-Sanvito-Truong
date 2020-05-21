@@ -65,9 +65,9 @@ public class ServerTest {
         server.shutdown();
     }
 
-    Transmittable waitForMessage(Queue queue){
+    Transmittable waitForMessage(Queue<Transmittable> queue) {
         await().until(() -> queue.size() > 0);
-        return (Transmittable)queue.remove();
+        return queue.remove();
     }
 
     void setCheckNickname(int index, String nickname){
@@ -92,7 +92,7 @@ public class ServerTest {
     }
 
     @Test
-    void twoPlayersJoining1() throws InterruptedException {
+    void twoPlayersJoining1() {
         Transmittable message = null;
         mockConnections();
 
@@ -127,16 +127,14 @@ public class ServerTest {
         //Player1 and Player2 get inserted into the match
         //Player3 should be inserted into the next lobby and is requested a playerCount
 
-        Transmittable message = null;
+        Transmittable message;
         mockConnections();
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
         setCheckNickname(0, "Boris");
 
-        Thread t = new Thread(()-> {
-            connHandlers[0].update(new ClientJoinLobbyMessage());
-        });
+        Thread t = new Thread(() -> connHandlers[0].update(new ClientJoinLobbyMessage()));
         t.start();
 
         //Player1 is requested a playerCount
@@ -152,18 +150,11 @@ public class ServerTest {
         message = waitForMessage(queues[1]);
         assertEquals(StatusMessages.CLIENT_ERROR, message); //Nickname should get rejected
 
-        connHandlers[1].update(new ClientSetNicknameMessage("Rene Ferretti"));
+        setCheckNickname(1, "Rene Ferretti");
 
-        message = waitForMessage(queues[1]);
-        assertEquals(StatusMessages.OK, message); //Nickname should get accepted
+        Thread t1 = new Thread(() -> connHandlers[1].update(new ClientJoinLobbyMessage()));
 
-        Thread t1 = new Thread( () -> {
-            connHandlers[1].update(new ClientJoinLobbyMessage());
-        });
-
-        Thread t2 = new Thread( () -> {
-            connHandlers[2].update(new ClientJoinLobbyMessage());
-        });
+        Thread t2 = new Thread(() -> connHandlers[2].update(new ClientJoinLobbyMessage()));
 
         t1.start();
         t2.start();
@@ -200,8 +191,7 @@ public class ServerTest {
     }
 
     @Test
-    void threePlayersJoining1() throws InterruptedException {
-        Transmittable message = null;
+    void threePlayersJoining1() {
         mockConnections();
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches

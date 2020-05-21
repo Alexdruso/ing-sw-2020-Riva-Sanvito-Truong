@@ -4,7 +4,9 @@ import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 
+import java.util.AbstractMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -216,7 +218,7 @@ public class ServerLobbyBuilder {
                 }
             }
 
-            Map<Connection, String> participants;
+            List<AbstractMap.SimpleEntry<Connection, String>> participants;
 
             synchronized (lobbyRequestingConnections) {
                 while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
@@ -230,18 +232,20 @@ public class ServerLobbyBuilder {
                 //At this point we copy the necessary connections and nicknames to guarantee coherence after on
 
                 participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
-                        .collect(Collectors.toMap(connection -> connection, registeredNicknames::get));
+                        .map(connection ->
+                                new AbstractMap.SimpleEntry<>(connection, registeredNicknames.get(connection))
+                        )
+                        .collect(Collectors.toList());
+                for (int i = 0; i < currentLobbyPlayerCount; i++) {
+                    lobbyRequestingConnections.removeFirst();
+                }
             }
 
             Match match = new Match(server);
 
-            participants.forEach((connection, nickname) -> match.addParticipant(nickname, connection));
+            participants.forEach(participant -> match.addParticipant(participant.getValue(), participant.getKey()));
 
             server.submitMatch(match);
-
-            synchronized (playerCountLock) {
-                currentLobbyPlayerCount = 0;
-            }
         }
     }
 
