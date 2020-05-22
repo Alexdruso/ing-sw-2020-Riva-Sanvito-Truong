@@ -177,11 +177,11 @@ public class ServerLobbyBuilder {
                             Thread.currentThread().interrupt();
                         }
                     }
+                    //set a new first connection
+                    firstConnection = lobbyRequestingConnections.getFirst();
+                    //send continue message
+                    firstConnection.send(StatusMessages.CONTINUE);
                 }
-                //set a new first connection
-                firstConnection = lobbyRequestingConnections.getFirst();
-                //send continue message
-                firstConnection.send(StatusMessages.CONTINUE);
             }
             connection.close();
         }
