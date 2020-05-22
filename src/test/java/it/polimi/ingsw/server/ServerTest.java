@@ -240,7 +240,7 @@ public class ServerTest {
 
         assertEquals(2, lobbyBuilder.getCurrentLobbyPlayerCount());
 
-        setCheckNickname(2, "Stanis");
+        setCheckNickname(2, "Boris");
         setCheckJoinLobby(2, false, 0);
 
         assertEquals(1, server.getOngoingMatches().size()); //There should be one match
