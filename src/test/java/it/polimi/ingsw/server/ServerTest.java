@@ -268,8 +268,6 @@ public class ServerTest {
 
         t.start();
 
-        await().until(() -> !t.isAlive()); //Thread should terminate here
-
         setCheckNickname(1, "Rene Ferretti");
         setCheckJoinLobby(1, false, 0);
 
@@ -289,6 +287,7 @@ public class ServerTest {
 
         s.start();
 
+        await().until(() -> !t.isAlive()); //Thread should terminate here
         await().until(() -> !s.isAlive()); //Thread should terminate here
 
         await().until(() -> server.getOngoingMatches().size() > 0);
@@ -296,5 +295,7 @@ public class ServerTest {
         assertEquals(1, server.getOngoingMatches().size()); //There should be one match
         //Check match
         Match match = server.getOngoingMatches().get(0);
+        assertEquals(3, match.getParticipantsNicknameToConnection().size());
+        assertEquals("Rene Ferretti", match.getVirtualViews().get(0).getUser().nickname);
     }
 }
