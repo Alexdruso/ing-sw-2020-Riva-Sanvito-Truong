@@ -1,10 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientJoinLobbyMessage;
-import it.polimi.ingsw.utils.messages.ClientSetNicknameMessage;
-import it.polimi.ingsw.utils.messages.ClientSetPlayersCountMessage;
-import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 import org.junit.jupiter.api.AfterEach;
@@ -29,8 +26,8 @@ public class ServerTest {
     ServerConnectionSetupHandler[] connHandlers = new ServerConnectionSetupHandler[3];
 
     @BeforeEach
-    void initServer(){
-        try{
+    void initServer() {
+        try {
             server = new Server();
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,12 +36,12 @@ public class ServerTest {
     }
 
     @AfterEach
-    void cleanServer(){
+    void cleanServer() {
         server.shutdown();
     }
 
-    void mockConnections(){
-        for(int j = 0; j < 3; j++){
+    void mockConnections() {
+        for (int j = 0; j < 3; j++) {
             Connection mock = mock(Connection.class);
             when(mock.isActive()).thenReturn(true);
             LinkedList<Transmittable> q = new LinkedList<>();
@@ -59,7 +56,7 @@ public class ServerTest {
     }
 
     @Test
-    void serverStartAndStop(){
+    void serverStartAndStop() {
         Thread t = new Thread(server::start);
         t.start();
         server.shutdown();
@@ -70,19 +67,19 @@ public class ServerTest {
         return queue.remove();
     }
 
-    void setCheckNickname(int index, String nickname){
+    void setCheckNickname(int index, String nickname) {
         connHandlers[index].update(new ClientSetNicknameMessage(nickname));
         Transmittable message = waitForMessage(queues[index]);
         assertEquals(StatusMessages.OK, message); //Should receive OK for nickname
     }
 
-    void setCheckJoinLobby(int index, boolean isWaitingForCount, int count){
-        Thread t = new Thread( () ->
+    void setCheckJoinLobby(int index, boolean isWaitingForCount, int count) {
+        Thread t = new Thread(() ->
                 connHandlers[index].update(new ClientJoinLobbyMessage())
         );
         t.start();
 
-        if(isWaitingForCount){
+        if (isWaitingForCount) {
             Transmittable message = waitForMessage(queues[index]);
             assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
             connHandlers[index].update(new ClientSetPlayersCountMessage(count));
@@ -174,7 +171,7 @@ public class ServerTest {
 
         int index;
         String nick;
-        if(message1.equals(StatusMessages.CONTINUE)){
+        if (message1.equals(StatusMessages.CONTINUE)) {
             assertTrue(message2 instanceof ServerStartSetupMatchMessage);
             index = 1;
             nick = "Rene Ferretti";
@@ -214,5 +211,43 @@ public class ServerTest {
 
         //Check match
         Match match = server.getOngoingMatches().get(0);
+    }
+
+    @Test
+    void disconnectBeforeSettingPlayerNumber() {
+        mockConnections();
+
+        assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
+
+        setCheckNickname(0, "Boris");
+
+        Thread t = new Thread(() -> {
+            connHandlers[0].update(new ClientJoinLobbyMessage());
+            Transmittable message = waitForMessage(queues[0]);
+            assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
+            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+        }
+        );
+
+        t.start();
+
+        setCheckNickname(1, "Rene Ferretti");
+        setCheckJoinLobby(1, true, 2);
+
+
+        await().until(() -> !t.isAlive()); //Thread should terminate here
+
+
+        assertEquals(2, lobbyBuilder.getCurrentLobbyPlayerCount());
+
+        setCheckNickname(2, "Stanis");
+        setCheckJoinLobby(2, false, 0);
+
+        assertEquals(1, server.getOngoingMatches().size()); //There should be one match
+
+        //Check match
+        Match match = server.getOngoingMatches().get(0);
+        assertEquals(2, match.getParticipantsNicknameToConnection().size());
+        assertEquals("Rene Ferretti", match.getVirtualViews().get(0).getUser().nickname);
     }
 }
