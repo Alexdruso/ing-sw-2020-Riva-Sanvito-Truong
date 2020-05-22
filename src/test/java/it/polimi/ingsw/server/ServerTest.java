@@ -188,7 +188,7 @@ public class ServerTest {
     }
 
     @Test
-    void threePlayersJoining1() {
+    void threePlayersJoining() {
         mockConnections();
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
