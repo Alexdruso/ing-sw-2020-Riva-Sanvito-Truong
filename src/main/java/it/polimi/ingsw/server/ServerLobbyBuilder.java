@@ -227,7 +227,6 @@ public class ServerLobbyBuilder {
                     }
                 }
                 //At this point we copy the necessary connections and nicknames to guarantee coherence after on
-
                 participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
                         .map(connection ->
                                 new AbstractMap.SimpleEntry<>(connection, registeredNicknames.get(connection))
