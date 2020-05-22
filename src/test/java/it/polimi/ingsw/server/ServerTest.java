@@ -106,8 +106,6 @@ public class ServerTest {
         assertEquals(1, server.getOngoingMatches().size()); //There should be one match
 
         Match match = server.getOngoingMatches().get(0);
-
-        //TODO: check the match
     }
 
     @Test
@@ -188,7 +186,7 @@ public class ServerTest {
     }
 
     @Test
-    void threePlayersJoining() {
+    void threePlayersJoining1() {
         mockConnections();
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
@@ -249,5 +247,54 @@ public class ServerTest {
         Match match = server.getOngoingMatches().get(0);
         assertEquals(2, match.getParticipantsNicknameToConnection().size());
         assertEquals("Rene Ferretti", match.getVirtualViews().get(0).getUser().nickname);
+    }
+
+    @Test
+    void disconnectAfterSettingPlayerCount() {
+        mockConnections();
+
+        assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
+
+        setCheckNickname(0, "Boris");
+        setCheckJoinLobby(0, true, 2);
+
+        assertEquals(2, lobbyBuilder.getCurrentLobbyPlayerCount());
+
+
+        Thread t = new Thread(() -> {
+            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+        }
+        );
+
+        t.start();
+
+        await().until(() -> !t.isAlive()); //Thread should terminate here
+
+        setCheckNickname(1, "Rene Ferretti");
+        setCheckJoinLobby(1, false, 0);
+
+        setCheckNickname(2, "Stanis");
+        setCheckJoinLobby(2, false, 0);
+
+        setCheckNickname(0, "Boris");
+        setCheckJoinLobby(0, false, 0);
+
+
+        Thread s = new Thread(() -> {
+            Transmittable message = waitForMessage(queues[1]);
+            assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
+            connHandlers[1].update(new ClientSetPlayersCountMessage(3));
+        }
+        );
+
+        s.start();
+
+        await().until(() -> !s.isAlive()); //Thread should terminate here
+
+        await().until(() -> server.getOngoingMatches().size() > 0);
+
+        assertEquals(1, server.getOngoingMatches().size()); //There should be one match
+        //Check match
+        Match match = server.getOngoingMatches().get(0);
     }
 }
