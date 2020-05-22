@@ -4,10 +4,7 @@ import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 
-import java.util.AbstractMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -248,6 +245,12 @@ public class ServerLobbyBuilder {
                 participants.forEach(participant -> match.addParticipant(participant.getValue(), participant.getKey()));
 
                 server.submitMatch(match);
+            } else {
+                //otherwise put all the removed connections back in place
+                synchronized (lobbyRequestingConnections) {
+                    Collections.reverse(participants);
+                    participants.forEach(participant -> lobbyRequestingConnections.addFirst(participant.getKey()));
+                }
             }
         }
     }
