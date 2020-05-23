@@ -4,7 +4,10 @@ import it.polimi.ingsw.config.ConfigParser;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -215,7 +218,8 @@ public class ServerLobbyBuilder {
                 }
             }
 
-            List<AbstractMap.SimpleEntry<Connection, String>> participants;
+            List<AbstractMap.SimpleEntry<Connection, String>> participants = new LinkedList<>();
+            boolean firstPlayerDisconnected;
 
             synchronized (lobbyRequestingConnections) {
                 while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
@@ -226,30 +230,30 @@ public class ServerLobbyBuilder {
                         Thread.currentThread().interrupt();
                     }
                 }
-                //At this point we copy the necessary connections and nicknames to guarantee coherence after on
-                participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
-                        .map(connection ->
-                                new AbstractMap.SimpleEntry<>(connection, registeredNicknames.get(connection))
-                        )
-                        .collect(Collectors.toList());
-                for (int i = 0; i < currentLobbyPlayerCount; i++) {
-                    lobbyRequestingConnections.removeFirst();
+
+                //check if the first player disconnected in the meantime
+                firstPlayerDisconnected = !firstConnection.equals(lobbyRequestingConnections.get(0));
+
+                if (!firstPlayerDisconnected) {
+                    //At this point we copy the necessary connections and nicknames to guarantee coherence after on
+                    participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
+                            .map(connection ->
+                                    new AbstractMap.SimpleEntry<>(connection, registeredNicknames.get(connection))
+                            )
+                            .collect(Collectors.toList());
+                    for (int i = 0; i < currentLobbyPlayerCount; i++) {
+                        lobbyRequestingConnections.removeFirst();
+                    }
                 }
             }
 
             //if the first player didn't disconnect, then go ahead and create a match
-            if (participants.get(0).getKey().equals(firstConnection)) {
+            if (!firstPlayerDisconnected) {
                 Match match = new Match(server);
 
                 participants.forEach(participant -> match.addParticipant(participant.getValue(), participant.getKey()));
 
                 server.submitMatch(match);
-            } else {
-                //otherwise put all the removed connections back in place
-                synchronized (lobbyRequestingConnections) {
-                    Collections.reverse(participants);
-                    participants.forEach(participant -> lobbyRequestingConnections.addFirst(participant.getKey()));
-                }
             }
         }
     }
