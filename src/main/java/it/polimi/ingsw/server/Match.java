@@ -141,9 +141,6 @@ public class Match implements Runnable {
 
         for (Map.Entry<String, Connection> participant : participants.entrySet()) {
             virtualViews.add(new View(participant.getValue(), participant.getKey()));
-            if (!participant.getValue().isActive()) {
-                virtualViews.get(virtualViews.size() - 1).updateFromClient(new ClientDisconnectMessage());
-            }
         }
     }
 
