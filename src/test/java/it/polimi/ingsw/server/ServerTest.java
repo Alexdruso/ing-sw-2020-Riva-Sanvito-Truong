@@ -40,10 +40,10 @@ public class ServerTest {
         server.shutdown();
     }
 
-    void mockConnections() {
+    void mockConnections(boolean isActive) {
         for (int j = 0; j < 3; j++) {
             Connection mock = mock(Connection.class);
-            when(mock.isActive()).thenReturn(true);
+            when(mock.isActive()).thenReturn(isActive);
             LinkedList<Transmittable> q = new LinkedList<>();
             ServerConnectionSetupHandler ch = new ServerConnectionSetupHandler(server, mock);
             doAnswer(i -> q.add((Transmittable) i.getArguments()[0]))
@@ -91,7 +91,7 @@ public class ServerTest {
     @Test
     void twoPlayersJoining1() {
         Transmittable message = null;
-        mockConnections();
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -109,7 +109,7 @@ public class ServerTest {
     }
 
     @Test
-    void threePlayersJoiningWithInterleaving() throws InterruptedException {
+    void threePlayersJoiningWithInterleaving() {
         //The sequence is as follows:
         //Player1 registers his nickname
         //Player1 joins, doesn't send the playerCount
@@ -123,7 +123,7 @@ public class ServerTest {
         //Player3 should be inserted into the next lobby and is requested a playerCount
 
         Transmittable message;
-        mockConnections();
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -187,7 +187,7 @@ public class ServerTest {
 
     @Test
     void threePlayersJoining1() {
-        mockConnections();
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -213,7 +213,7 @@ public class ServerTest {
 
     @Test
     void disconnectBeforeSettingPlayerNumber() {
-        mockConnections();
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -251,7 +251,7 @@ public class ServerTest {
 
     @Test
     void disconnectAfterSettingPlayerCount() {
-        mockConnections();
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -297,5 +297,44 @@ public class ServerTest {
         Match match = server.getOngoingMatches().get(0);
         assertEquals(3, match.getParticipantsNicknameToConnection().size());
         assertEquals("Rene Ferretti", match.getVirtualViews().get(0).getUser().nickname);
+    }
+
+    @Test
+    void disconnectDuringMatchCreation() {
+        mockConnections(false);
+
+        assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
+
+        setCheckNickname(0, "Boris");
+        setCheckJoinLobby(0, true, 3);
+
+        assertEquals(3, lobbyBuilder.getCurrentLobbyPlayerCount());
+
+        setCheckNickname(1, "Rene Ferretti");
+        setCheckJoinLobby(1, false, 0);
+
+        setCheckNickname(2, "Stanis");
+        setCheckJoinLobby(2, false, 0);
+
+
+        Thread t = new Thread(() -> {
+            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+        }
+        );
+
+        t.start();
+
+        await().until(() -> !t.isAlive());
+
+        Transmittable message = waitForMessage(queues[1]);
+
+        verify(connections[0], times(2)).close();
+
+        if (message instanceof ServerStartSetupMatchMessage) {
+            verify(connections[1]).close(any(ServerDisconnectMessage.class));
+            verify(connections[2]).close(any(ServerDisconnectMessage.class));
+        }
+
+        await().until(() -> server.getOngoingMatches().size() == 0);
     }
 }
