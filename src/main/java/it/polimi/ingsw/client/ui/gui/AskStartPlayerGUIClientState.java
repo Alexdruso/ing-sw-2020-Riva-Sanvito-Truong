@@ -35,7 +35,12 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
      */
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayer.fxml", client);
+        SceneLoaderFactory sceneLoaderFactory;
+        if(client.isCurrentlyActive()){
+            sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayer.fxml", client);
+        } else {
+            sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayerPassive.fxml", client);
+        }
         sceneLoaderFactory.setState(ClientState.ASK_START_PLAYER, this).build().executeSceneChange();
     }
 }
