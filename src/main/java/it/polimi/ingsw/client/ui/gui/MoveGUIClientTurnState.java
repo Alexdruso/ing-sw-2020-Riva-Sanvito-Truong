@@ -16,25 +16,23 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
     private ReducedPlayer player;
     private InGameController controller;
     private boolean sourceSelected = false;
-    private boolean workerWasForced = false;
 
     public MoveGUIClientTurnState(Client client, InGameGUIClientState clientState) {
         super(client);
         this.clientState = clientState;
-        this.game = client.getGame();
-        this.turn = game.getTurn();
-        this.board = game.getBoard();
-        this.player = turn.getPlayer();
         this.controller = (InGameController)((GUI)client.getUI()).getCurrentScene().controller;
     }
 
     @Override
     public void render() {
+        this.game = client.getGame();
+        this.turn = game.getTurn();
+        this.board = game.getBoard();
+        this.player = turn.getPlayer();
+
         if (client.isCurrentlyActive()) {
-            workerWasForced = false;
             if (turn.getAllowedWorkers().size() == 1) {
                 workerID = turn.getAllowedWorkers().get(0);
-                workerWasForced = true;
                 ReducedWorker worker = player.getWorker(workerID);
                 ReducedCell workerCell = worker.getCell();
                 sourceCellX = workerCell.getX();
@@ -60,7 +58,6 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
             }
         }
         else {
-            //cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE), client.getCurrentActiveUser().nickname));
             Platform.runLater(() -> {
                 controller.setLabel(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE), client.getCurrentActiveUser().nickname));
                 controller.setBoardClickableStatus(false);
@@ -99,11 +96,6 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
                 );
                 Platform.runLater(() -> controller.redrawBoard());
                 Platform.runLater(() -> controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER)));
-                if(turn.isSkippable()){
-                    //Display skip button
-                } else {
-                    //Display cancel button (?)
-                }
                 sourceSelected = true;
             }
         } else {
