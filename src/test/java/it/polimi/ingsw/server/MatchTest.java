@@ -34,6 +34,8 @@ class MatchTest {
         myMap.put(nicknames[0], mock(Connection.class));
         myMap.put(nicknames[1], mock(Connection.class));
         myMap.put(nicknames[2], mock(Connection.class));
+        //establish behaviour
+        myMap.forEach((nickname, connection) -> when(connection.isActive()).thenReturn(true));
         //initialize a match
         Match myMatch = new Match(myServer);
         //now try first to add as a LinkedHashMap

@@ -107,13 +107,16 @@ public class Server{
         synchronized (ongoingMatches) {
             ongoingMatches.add(match);
         }
-        for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
-            connection.removeObserver(handlers.get(connection));
+            for (Connection connection : match.getParticipantsNicknameToConnection().values()) {
+                synchronized (handlers) {
+                    connection.removeObserver(handlers.get(connection));
+                    handlers.remove(connection);
+                }
+            }
         }
-    }
 
     /**
-     * This method removes a Match instance from the ongoing matches
+     * This method removes a Match instance from the ongoing matches.
      *
      * @param match the match we need to remove
      */
@@ -124,6 +127,17 @@ public class Server{
         match.getParticipantsNicknameToConnection()
                 .keySet()
                 .forEach(lobbyBuilder::removeNickname);
+    }
+
+    /**
+     * This method removes a handler from the handlers.
+     *
+     * @param connection the connection related to the handler
+     */
+    void removeHandler(Connection connection) {
+        synchronized (handlers) {
+            handlers.remove(connection);
+        }
     }
 
     /**
@@ -144,13 +158,15 @@ public class Server{
     public void start(){
         LOGGER.log(Level.FINE, "Server ready to accept connections");
         while(!serverSocket.isClosed()){
-            try{
+            try {
                 Socket inboundSocket = serverSocket.accept();
                 Connection currentConnection = getConnection(inboundSocket);
                 ServerConnectionSetupHandler connectionHandler = new ServerConnectionSetupHandler(this, currentConnection);
-                handlers.put(currentConnection, connectionHandler);
+                synchronized (handlers) {
+                    handlers.put(currentConnection, connectionHandler);
+                }
                 currentConnection.addObserver(connectionHandler, (obs, message) ->
-                        ((ServerConnectionSetupHandler)obs).update(message));
+                        ((ServerConnectionSetupHandler) obs).update(message));
             } catch (IOException e){
                 LOGGER.log(Level.WARNING, "Socket closed", e);
             }

@@ -1,10 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientJoinLobbyMessage;
-import it.polimi.ingsw.utils.messages.ClientSetNicknameMessage;
-import it.polimi.ingsw.utils.messages.ClientSetPlayersCountMessage;
-import it.polimi.ingsw.utils.messages.ServerStartSetupMatchMessage;
+import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 import org.junit.jupiter.api.AfterEach;
@@ -19,8 +16,7 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class ServerTest {
     Server server = null;
@@ -30,8 +26,8 @@ public class ServerTest {
     ServerConnectionSetupHandler[] connHandlers = new ServerConnectionSetupHandler[3];
 
     @BeforeEach
-    void initServer(){
-        try{
+    void initServer() {
+        try {
             server = new Server();
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,13 +36,14 @@ public class ServerTest {
     }
 
     @AfterEach
-    void cleanServer(){
+    void cleanServer() {
         server.shutdown();
     }
 
-    void mockConnections(){
-        for(int j = 0; j < 3; j++){
+    void mockConnections(boolean isActive) {
+        for (int j = 0; j < 3; j++) {
             Connection mock = mock(Connection.class);
+            when(mock.isActive()).thenReturn(isActive);
             LinkedList<Transmittable> q = new LinkedList<>();
             ServerConnectionSetupHandler ch = new ServerConnectionSetupHandler(server, mock);
             doAnswer(i -> q.add((Transmittable) i.getArguments()[0]))
@@ -59,30 +56,30 @@ public class ServerTest {
     }
 
     @Test
-    void serverStartAndStop(){
+    void serverStartAndStop() {
         Thread t = new Thread(server::start);
         t.start();
         server.shutdown();
     }
 
-    Transmittable waitForMessage(Queue queue){
+    Transmittable waitForMessage(Queue<Transmittable> queue) {
         await().until(() -> queue.size() > 0);
-        return (Transmittable)queue.remove();
+        return queue.remove();
     }
 
-    void setCheckNickname(int index, String nickname){
+    void setCheckNickname(int index, String nickname) {
         connHandlers[index].update(new ClientSetNicknameMessage(nickname));
         Transmittable message = waitForMessage(queues[index]);
         assertEquals(StatusMessages.OK, message); //Should receive OK for nickname
     }
 
-    void setCheckJoinLobby(int index, boolean isWaitingForCount, int count){
-        Thread t = new Thread( () ->
+    void setCheckJoinLobby(int index, boolean isWaitingForCount, int count) {
+        Thread t = new Thread(() ->
                 connHandlers[index].update(new ClientJoinLobbyMessage())
         );
         t.start();
 
-        if(isWaitingForCount){
+        if (isWaitingForCount) {
             Transmittable message = waitForMessage(queues[index]);
             assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
             connHandlers[index].update(new ClientSetPlayersCountMessage(count));
@@ -92,9 +89,9 @@ public class ServerTest {
     }
 
     @Test
-    void twoPlayersJoining1() throws InterruptedException {
+    void twoPlayersJoining1() {
         Transmittable message = null;
-        mockConnections();
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -109,12 +106,10 @@ public class ServerTest {
         assertEquals(1, server.getOngoingMatches().size()); //There should be one match
 
         Match match = server.getOngoingMatches().get(0);
-
-        //TODO: check the match
     }
 
     @Test
-    void threePlayersJoiningWithInterleaving() throws InterruptedException {
+    void threePlayersJoiningWithInterleaving() {
         //The sequence is as follows:
         //Player1 registers his nickname
         //Player1 joins, doesn't send the playerCount
@@ -127,16 +122,14 @@ public class ServerTest {
         //Player1 and Player2 get inserted into the match
         //Player3 should be inserted into the next lobby and is requested a playerCount
 
-        Transmittable message = null;
-        mockConnections();
+        Transmittable message;
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
         setCheckNickname(0, "Boris");
 
-        Thread t = new Thread(()-> {
-            connHandlers[0].update(new ClientJoinLobbyMessage());
-        });
+        Thread t = new Thread(() -> connHandlers[0].update(new ClientJoinLobbyMessage()));
         t.start();
 
         //Player1 is requested a playerCount
@@ -152,18 +145,11 @@ public class ServerTest {
         message = waitForMessage(queues[1]);
         assertEquals(StatusMessages.CLIENT_ERROR, message); //Nickname should get rejected
 
-        connHandlers[1].update(new ClientSetNicknameMessage("Rene Ferretti"));
+        setCheckNickname(1, "Rene Ferretti");
 
-        message = waitForMessage(queues[1]);
-        assertEquals(StatusMessages.OK, message); //Nickname should get accepted
+        Thread t1 = new Thread(() -> connHandlers[1].update(new ClientJoinLobbyMessage()));
 
-        Thread t1 = new Thread( () -> {
-            connHandlers[1].update(new ClientJoinLobbyMessage());
-        });
-
-        Thread t2 = new Thread( () -> {
-            connHandlers[2].update(new ClientJoinLobbyMessage());
-        });
+        Thread t2 = new Thread(() -> connHandlers[2].update(new ClientJoinLobbyMessage()));
 
         t1.start();
         t2.start();
@@ -183,7 +169,7 @@ public class ServerTest {
 
         int index;
         String nick;
-        if(message1.equals(StatusMessages.CONTINUE)){
+        if (message1.equals(StatusMessages.CONTINUE)) {
             assertTrue(message2 instanceof ServerStartSetupMatchMessage);
             index = 1;
             nick = "Rene Ferretti";
@@ -200,9 +186,8 @@ public class ServerTest {
     }
 
     @Test
-    void threePlayersJoining1() throws InterruptedException {
-        Transmittable message = null;
-        mockConnections();
+    void threePlayersJoining1() {
+        mockConnections(true);
 
         assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
 
@@ -224,5 +209,132 @@ public class ServerTest {
 
         //Check match
         Match match = server.getOngoingMatches().get(0);
+    }
+
+    @Test
+    void disconnectBeforeSettingPlayerNumber() {
+        mockConnections(true);
+
+        assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
+
+        setCheckNickname(0, "Boris");
+
+        Thread t = new Thread(() -> {
+            connHandlers[0].update(new ClientJoinLobbyMessage());
+            Transmittable message = waitForMessage(queues[0]);
+            assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
+            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+        }
+        );
+
+        t.start();
+
+        setCheckNickname(1, "Rene Ferretti");
+        setCheckJoinLobby(1, true, 2);
+
+
+        await().until(() -> !t.isAlive()); //Thread should terminate here
+
+
+        assertEquals(2, lobbyBuilder.getCurrentLobbyPlayerCount());
+
+        setCheckNickname(2, "Boris");
+        setCheckJoinLobby(2, false, 0);
+
+        assertEquals(1, server.getOngoingMatches().size()); //There should be one match
+
+        //Check match
+        Match match = server.getOngoingMatches().get(0);
+        assertEquals(2, match.getParticipantsNicknameToConnection().size());
+        assertEquals("Rene Ferretti", match.getVirtualViews().get(0).getUser().nickname);
+    }
+
+    @Test
+    void disconnectAfterSettingPlayerCount() {
+        mockConnections(true);
+
+        assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
+
+        setCheckNickname(0, "Boris");
+        setCheckJoinLobby(0, true, 2);
+
+        assertEquals(2, lobbyBuilder.getCurrentLobbyPlayerCount());
+
+
+        Thread t = new Thread(() -> {
+            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+        }
+        );
+
+        t.start();
+
+        setCheckNickname(1, "Rene Ferretti");
+        setCheckJoinLobby(1, false, 0);
+
+        setCheckNickname(2, "Stanis");
+        setCheckJoinLobby(2, false, 0);
+
+        setCheckNickname(0, "Boris");
+        setCheckJoinLobby(0, false, 0);
+
+
+        Thread s = new Thread(() -> {
+            Transmittable message = waitForMessage(queues[1]);
+            assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
+            connHandlers[1].update(new ClientSetPlayersCountMessage(3));
+        }
+        );
+
+        s.start();
+
+        await().until(() -> !t.isAlive()); //Thread should terminate here
+        await().until(() -> !s.isAlive()); //Thread should terminate here
+
+        await().until(() -> server.getOngoingMatches().size() > 0);
+
+        assertEquals(1, server.getOngoingMatches().size()); //There should be one match
+        //Check match
+        Match match = server.getOngoingMatches().get(0);
+        assertEquals(3, match.getParticipantsNicknameToConnection().size());
+        assertEquals("Rene Ferretti", match.getVirtualViews().get(0).getUser().nickname);
+    }
+
+    @Test
+    void disconnectDuringMatchCreation() {
+        mockConnections(false);
+
+        assertEquals(0, server.getOngoingMatches().size()); //There should be no matches
+
+        setCheckNickname(0, "Boris");
+        setCheckJoinLobby(0, true, 3);
+
+        assertEquals(3, lobbyBuilder.getCurrentLobbyPlayerCount());
+
+        setCheckNickname(1, "Rene Ferretti");
+        setCheckJoinLobby(1, false, 0);
+
+        setCheckNickname(2, "Stanis");
+        setCheckJoinLobby(2, false, 0);
+
+
+        Thread t = new Thread(() -> {
+            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+        }
+        );
+
+        t.start();
+
+        await().until(() -> !t.isAlive());
+
+        Transmittable message = waitForMessage(queues[1]);
+
+        verify(connections[0], times(2)).close();
+
+        if (message instanceof ServerStartSetupMatchMessage) {
+            verify(connections[1]).close(any(ServerDisconnectMessage.class));
+            verify(connections[2]).close(any(ServerDisconnectMessage.class));
+        }
+
+        await().until(() -> server.getOngoingMatches().size() == 0);
     }
 }
