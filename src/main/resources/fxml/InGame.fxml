@@ -235,8 +235,12 @@
                   <Insets bottom="100.0" />
                </padding>
             </VBox>
+            <VBox fx:id="sideButtons" prefHeight="200.0" prefWidth="100.0" spacing="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="30.0" right="30.0" />
+               </GridPane.margin>
+            </VBox>
          </children>
       </GridPane>
-      <AnchorPane maxWidth="300.0" prefHeight="200.0" prefWidth="200.0" StackPane.alignment="CENTER_LEFT" />
    </children>
 </StackPane>

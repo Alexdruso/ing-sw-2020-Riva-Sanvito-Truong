@@ -30,6 +30,8 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         this.board = game.getBoard();
         this.player = turn.getPlayer();
 
+        Platform.runLater(() -> controller.clearSideButtons());
+
         if (client.isCurrentlyActive()) {
             if (turn.getAllowedWorkers().size() == 1) {
                 workerID = turn.getAllowedWorkers().get(0);
@@ -38,23 +40,25 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
                 sourceCellX = workerCell.getX();
                 sourceCellY = workerCell.getY();
                 sourceSelected = true;
+                board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
+                        targetedCell -> targetedCell.setHighlighted(true)
+                );
+                Platform.runLater(() -> controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER)));
+            } else {
+                Platform.runLater(() -> controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE)));
             }
             Platform.runLater(() -> {
-                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));
                 controller.setBoardClickableStatus(true);
                 controller.redrawBoard();
             });
             if (turn.isSkippable()) {
                 Platform.runLater(() -> {
-                    //This has to be adapted to GUI
-                    controller.setPrompt(I18n.string(I18nKey.X_TO_SKIP));
-                    //Here visualize the button to skip
+                    controller.clearSideButtons();
+                    controller.displaySkipButton();
                 });
             }
             else {
-                Platform.runLater(() -> {
-                    controller.setPrompt("");
-                });
+                Platform.runLater(() -> controller.setPrompt(""));
             }
         }
         else {
@@ -68,7 +72,6 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
 
     @Override
     public void selectCell(int x, int y) {
-
         this.game = client.getGame();
         this.turn = game.getTurn();
         this.board = game.getBoard();
@@ -94,8 +97,12 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
                 board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
                         targetedCell -> targetedCell.setHighlighted(true)
                 );
-                Platform.runLater(() -> controller.redrawBoard());
-                Platform.runLater(() -> controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER)));
+                Platform.runLater(() -> {
+                    controller.redrawBoard();
+                    controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
+                    controller.clearSideButtons();
+                    controller.displayCancelButton();
+                });
                 sourceSelected = true;
             }
         } else {
@@ -107,5 +114,21 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
             clientState.notifyUiInteraction();
             sourceSelected = false;
         }
+    }
+
+    @Override
+    public void skip() {
+        workerID = null;
+        clientState.notifyUiInteraction();
+    }
+
+    @Override
+    public void cancel() {
+        board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
+                targetedCell -> targetedCell.setHighlighted(false)
+        );
+        sourceSelected = false;
+        workerID = null;
+        Platform.runLater(() -> controller.redrawBoard());
     }
 }

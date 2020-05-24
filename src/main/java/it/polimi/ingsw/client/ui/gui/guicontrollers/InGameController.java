@@ -3,19 +3,21 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 import it.polimi.ingsw.client.reducedmodel.ReducedBoard;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
-import it.polimi.ingsw.client.ui.gui.AskWorkerPositionGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +38,13 @@ public class InGameController extends AbstractController{
     @FXML
     Label prompt;
 
+    @FXML
+    VBox sideButtons;
+
     private List<StackPane> cellPanes;
     private boolean active = false;
 
-    private enum BoardElements {
+    private enum BoardElement {
         BLOCK_0,
         BLOCK_1,
         BLOCK_2,
@@ -49,7 +54,7 @@ public class InGameController extends AbstractController{
         WORKER_C,
     }
 
-    private final HashMap<BoardElements, Image> assets = new HashMap<>();
+    private final HashMap<BoardElement, Image> assets = new HashMap<>();
     private List<ReducedPlayer> players;
 
     private ImageView getImageView(Image image){
@@ -66,27 +71,27 @@ public class InGameController extends AbstractController{
         //Temporary rendering, until we find a better way to render stuff
         List<ImageView> imageStack = new ArrayList<>();
         for(int i = 0; i < cell.getTowerHeight(); i++){
-            imageStack.add(getImageView(assets.get(BoardElements.values()[i])));
+            imageStack.add(getImageView(assets.get(BoardElement.values()[i])));
         }
         if(cell.hasDome()){
-            imageStack.add(getImageView(assets.get(BoardElements.DOME)));
+            imageStack.add(getImageView(assets.get(BoardElement.DOME)));
         }
         if(cell.getWorker().isPresent()){
            int playerID = players.indexOf(cell.getWorker().get().getPlayer());
-           imageStack.add(getImageView(assets.get(BoardElements.values()[playerID + 4])));
+           imageStack.add(getImageView(assets.get(BoardElement.values()[playerID + 4])));
         }
         return imageStack;
     }
 
     @FXML
     public void initialize(){
-        assets.put(BoardElements.BLOCK_0, new Image("/assets/board/block_0.png"));
-        assets.put(BoardElements.BLOCK_1, new Image("/assets/board/block_1.png"));
-        assets.put(BoardElements.BLOCK_2, new Image("/assets/board/block_2.png"));
-        assets.put(BoardElements.DOME, new Image("/assets/board/dome.png"));
-        assets.put(BoardElements.WORKER_A, new Image("/assets/board/worker_a.png"));
-        assets.put(BoardElements.WORKER_B, new Image("/assets/board/worker_b.png"));
-        assets.put(BoardElements.WORKER_C, new Image("/assets/board/worker_c.png"));
+        assets.put(BoardElement.BLOCK_0, new Image("/assets/board/block_0.png"));
+        assets.put(BoardElement.BLOCK_1, new Image("/assets/board/block_1.png"));
+        assets.put(BoardElement.BLOCK_2, new Image("/assets/board/block_2.png"));
+        assets.put(BoardElement.DOME, new Image("/assets/board/dome.png"));
+        assets.put(BoardElement.WORKER_A, new Image("/assets/board/worker_a.png"));
+        assets.put(BoardElement.WORKER_B, new Image("/assets/board/worker_b.png"));
+        assets.put(BoardElement.WORKER_C, new Image("/assets/board/worker_c.png"));
 
         boardContainer.widthProperty().addListener((o, oldWidth, newWidth) -> setBoardSize());
         boardContainer.heightProperty().addListener((o, oldHeight, newHeight) -> setBoardSize());
@@ -161,6 +166,34 @@ public class InGameController extends AbstractController{
         Integer x = GridPane.getColumnIndex(pane);
         Integer y = GridPane.getRowIndex(pane);
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).selectCell(x, y);
+    }
+
+    public void displayCancelButton(){
+        Button button = new Button();
+        button.setText(I18n.string(I18nKey.CANCEL));
+        button.setOnAction(e -> cancel());
+        button.getStyleClass().add("bigbutton");
+        sideButtons.getChildren().add(button);
+    }
+
+    public void displaySkipButton(){
+        Button button= new Button();
+        button.setText(I18n.string(I18nKey.SKIP));
+        button.setOnAction(e -> skip());
+        button.getStyleClass().add("bigbutton");
+        sideButtons.getChildren().add(button);
+    }
+
+    public void clearSideButtons(){
+        sideButtons.getChildren().clear();
+    }
+
+    private void skip(){
+        ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).skip();
+    }
+
+    private void cancel(){
+        ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).cancel();
     }
 
     private void setBoardSize(){
