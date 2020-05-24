@@ -167,20 +167,10 @@ public class ServerLobbyBuilder {
             synchronized (playerCountLock) {
                 //check if first connection and if a current lobby player count has not been selected yet
                 //this part is necessary to avoid problems from line 204 on
-                //in this case we can, however, set a new first player
+                //in this case we signal this problem by changing player count lock to -1
                 if (firstConnection.equals(connection) && currentLobbyPlayerCount == 0) {
-                    while (lobbyRequestingConnections.size() == 0) {
-                        try {
-                            lobbyRequestingConnections.wait();
-                        } catch (InterruptedException e) {
-                            LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                    //set a new first connection
-                    firstConnection = lobbyRequestingConnections.getFirst();
-                    //send continue message
-                    firstConnection.send(StatusMessages.CONTINUE);
+                    currentLobbyPlayerCount = -1;
+                    playerCountLock.notifyAll();
                 }
             }
             connection.close();
@@ -232,7 +222,8 @@ public class ServerLobbyBuilder {
                 }
 
                 //check if the first player disconnected in the meantime
-                firstPlayerDisconnected = !firstConnection.equals(lobbyRequestingConnections.get(0));
+                firstPlayerDisconnected =
+                        currentLobbyPlayerCount == -1 || !firstConnection.equals(lobbyRequestingConnections.get(0));
 
                 if (!firstPlayerDisconnected) {
                     //At this point we copy the necessary connections and nicknames to guarantee coherence after on
