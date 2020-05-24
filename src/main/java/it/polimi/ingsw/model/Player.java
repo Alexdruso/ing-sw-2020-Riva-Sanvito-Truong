@@ -45,6 +45,7 @@ public class Player {
      */
     public Player(String nickname) {
         this.nickname = nickname;
+        this.turnEventsManager = new TurnEventsManager(this);
         this.workers = new Worker[WORKER_NUMBER];
 
         for (int i = 0; i < WORKER_NUMBER; i++) {
@@ -105,14 +106,11 @@ public class Player {
 
     /**
      * This method sets up the player's god.
-     * It saves the god card and initializes the TurnEventManager
      *
      * @param god the god chosen by the player
      */
     public void setGod(God god) {
         this.god = god;
-        //not only does the method save the god, but it also initializes the turnEventsManager
-        this.turnEventsManager = new TurnEventsManager(this);
     }
 
     /**

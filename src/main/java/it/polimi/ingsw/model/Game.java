@@ -473,9 +473,9 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void setGod(ReducedGod reducedGod, User user) {
         Player player = getPlayerFromUser(user);
-        GodCard god = GodCard.valueOf(reducedGod.name.toUpperCase());
+        GodCard godCard = GodCard.valueOf(reducedGod.name.toUpperCase());
 
-        player.setGod(god.getGod());
+        setGod(player, godCard.getGod());
         notify(new ServerSetGodMessage(reducedGod, user.toReducedUser()));
         //change pseudo turn
         players.poll();
@@ -492,7 +492,7 @@ public class Game extends LambdaObservable<Transmittable> {
             //sets the last god to the player
             remainingGods.stream().findFirst().ifPresent(lastGod -> {
                 assert players.peek() != null;
-                players.peek().setGod(lastGod);
+                setGod(players.peek(), lastGod);
                 notify(
                         new ServerSetGodMessage(
                                 new ReducedGod(lastGod.getName()),
@@ -509,6 +509,20 @@ public class Game extends LambdaObservable<Transmittable> {
                     getUserFromPlayer(players.peek()).toReducedUser(),
                     remainingGods.stream().map(x -> new ReducedGod(x.getName())).collect(Collectors.toList())));
         }
+    }
+
+    /**
+     * Helper method of setGod(ReducedGod, User) that assigns the god to the user
+     * and registers the god's opponents turn events to the opponents of the player.
+     *
+     * @param player the player to assign the god to
+     * @param god    the god to assign to the player
+     */
+    private void setGod(Player player, God god) {
+        player.setGod(god);
+        players.stream()
+                .filter(player1 -> !player1.equals(player))
+                .forEach(opponent -> opponent.getTurnEventsManager().addTurnEventsFromOpponents(player, god.getOpponentsTurnEvents()));
     }
 
     /**
