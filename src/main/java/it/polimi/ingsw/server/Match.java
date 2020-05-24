@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.StatusMessages;
+import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
 import it.polimi.ingsw.utils.messages.DisconnectMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
@@ -47,6 +48,11 @@ public class Match implements Runnable {
      */
     private boolean isPlaying = true;
 
+    /**
+     * The match constructor.
+     *
+     * @param server the server hosting the match
+     */
     public Match(Server server) {
         this.server = server;
     }
@@ -89,6 +95,10 @@ public class Match implements Runnable {
             //the controller observes the view
             virtualView.addObserver(controller, (obs, message) ->
                     ((Controller) obs).update(message));
+            //check if connection is still up, if not send a disconnection message to dismantle the game
+            if (!participantsNicknameToConnection.get(user.nickname).isActive()) {
+                virtualView.updateFromClient(new ClientDisconnectMessage());
+            }
         }
         //Start setup procedure
         model.setup();
@@ -115,7 +125,7 @@ public class Match implements Runnable {
      * @param nickname   the nickname chosen by the participants
      * @param connection the connection of the participant
      */
-    public void addParticipant(String nickname, Connection connection){
+    public void addParticipant(String nickname, Connection connection) {
         this.participantsNicknameToConnection.put(nickname, connection);
         virtualViews.add(new View(connection, nickname));
     }
