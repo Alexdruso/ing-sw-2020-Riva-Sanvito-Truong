@@ -6,13 +6,17 @@ import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.ui.UI;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.InGameController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import javafx.scene.Scene;
 
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GUI extends UI {
+    private static final Logger LOGGER = Logger.getLogger(GUI.class.getName());
     private final HashMap<String, SavedScene> sceneMap = new HashMap<>();
     private SavedScene currentScene;
 
@@ -78,6 +82,7 @@ public class GUI extends UI {
     @Override
     public void notifyError(String message) {
         //TODO: For cleanliness of code, I think we should set a localization file and pass enums
+        LOGGER.log(Level.WARNING, message);
         currentScene.controller.handleError(message);
     }
 }

@@ -41,5 +41,4 @@ public class InGameGUIClientState extends AbstractInGameClientState implements G
         sceneLoader.executeSceneChange();
         client.getGame().getTurn().getTurnState().render();
     }
-
 }

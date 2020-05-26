@@ -8,4 +8,6 @@ public interface GUIClientTurnState {
     void skip();
 
     void cancel();
+
+    void handleError();
 }

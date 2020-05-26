@@ -131,4 +131,10 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         workerID = null;
         Platform.runLater(() -> controller.redrawBoard());
     }
+
+    @Override
+    public void handleError() {
+        workerID = null;
+        sourceSelected = false;
+    }
 }

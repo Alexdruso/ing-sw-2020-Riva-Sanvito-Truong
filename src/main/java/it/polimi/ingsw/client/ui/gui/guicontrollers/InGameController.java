@@ -21,6 +21,8 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
@@ -219,6 +221,6 @@ public class InGameController extends AbstractController{
 
     @Override
     public void handleError(String message) {
-        System.out.println("Error: " + message);
+        ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).handleError();
     }
 }

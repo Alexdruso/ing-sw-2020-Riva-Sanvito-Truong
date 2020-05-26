@@ -85,10 +85,9 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         turn = game.getTurn();
         board = game.getBoard();
 
-        ReducedCell sourceCell = board.getCell(x, y);
-
         if(workerID == null) {
             //Infer that the selected cell is to choose a worker
+            ReducedCell sourceCell = board.getCell(x, y);
             sourceCell.getWorker().ifPresent(
                     worker -> {
                         if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
@@ -150,5 +149,12 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
     @Override
     public void cancel() {
         //Cannot cancel a build
+    }
+
+    @Override
+    public void handleError() {
+        workerID = null;
+        targetSelected = false;
+        selectedComponent = null;
     }
 }
