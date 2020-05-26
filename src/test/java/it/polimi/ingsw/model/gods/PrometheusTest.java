@@ -61,6 +61,7 @@ class PrometheusTest {
 
         testHarness.commitState();
 
+        testHarness.getTurnEventsManager().processBeforeBuildEvents(testHarness.getTurn());
         testHarness.getTurnEventsManager().processAfterBuildEvents(testHarness.getTurn());
 
         verify(

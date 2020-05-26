@@ -49,13 +49,6 @@ class Prometheus extends AbstractGod {
             List<MoveAction> moveActions = turn.getMoves();
             if (moveActions.size() == 0) {
                 turn.setSkippable(true);
-            }
-        }
-
-        @Override
-        protected void onAfterBuild(Turn turn) {
-            List<MoveAction> lastMoveActions = turn.getMoves();
-            if (lastMoveActions.size() == 0) {
                 turn.setNextState(TurnState.MOVE.getTurnState());
             }
         }
