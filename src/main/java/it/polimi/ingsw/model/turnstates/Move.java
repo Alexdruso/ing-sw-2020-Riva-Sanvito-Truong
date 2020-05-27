@@ -35,20 +35,18 @@ class Move implements AbstractTurnState {
         //use powers
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
         //compute lose conditions
-        boolean isNoMove = turn.getAllowedWorkers().stream()
+        boolean isPossibleMove = turn.getAllowedWorkers().stream()
                 .map(
                         allowedWorker ->
-                                turn.getGame().getBoard()
+                                !turn.getGame().getBoard()
                                         .getTargets(turn.getWorkerWalkableCells(allowedWorker))
                                         .isEmpty()
                 )
-                .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction);
+                .reduce(false, (isPossibleActionAll, isPossibleAction) -> isPossibleActionAll || isPossibleAction);
 
-        if (!turn.isSkippable() && isNoMove) {
-            turn.triggerLosingTurn(); //sets the turn to losing turn
-        } else {
-            turn.getGame().notifyAskMove(turn);
-        }
+        if (isPossibleMove) turn.getGame().notifyAskMove(turn); //if a move is possible, ask it
+        else if (turn.isSkippable()) turn.getGame().skip(); //else if we can skip automatically, do it
+        else turn.triggerLosingTurn(); //else it is a losing turn
     }
 
     /**

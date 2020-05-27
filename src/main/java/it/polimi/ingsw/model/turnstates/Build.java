@@ -52,13 +52,10 @@ class Build implements AbstractTurnState {
         )
                 .reduce(false, (isSomeActionAll, isSomeAction) -> isSomeActionAll || isSomeAction);
 
-        if (isPossibleBuild) turn.getGame().notifyAskBuild(turn);
-        else {
-            //skip automatically to the next state if you can't perform any action
-            if (turn.isSkippable()) turn.getGame().skip();
-                //else you lost
-            else turn.triggerLosingTurn();
-        }
+        if (isPossibleBuild) turn.getGame().notifyAskBuild(turn); //if there is available build, notify the message
+        else if (turn.isSkippable())
+            turn.getGame().skip(); //skip automatically to the next state if you can't perform any action
+        else turn.triggerLosingTurn(); //else you lost
     }
 
     /**
