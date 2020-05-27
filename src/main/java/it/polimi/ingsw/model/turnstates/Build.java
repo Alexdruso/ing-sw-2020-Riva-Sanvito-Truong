@@ -43,18 +43,22 @@ class Build implements AbstractTurnState {
         //use powers
         turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
         //compute lose conditions
-        boolean isNoBuild = turn.getAllowedWorkers().stream().map(
-                allowedWorker -> turn.getGame().getBoard()
+        boolean isPossibleBuild = turn.getAllowedWorkers().stream().map(
+                allowedWorker -> !turn.getGame().getBoard()
                         .getTargets(turn.getWorkerDomeBuildableCells(allowedWorker))
                         .isEmpty() //check if worker can build dome in some cells
-                        && turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker))
-                        .isEmpty())
-                .reduce(true, (isNoActionAll, isNoAction) -> isNoActionAll && isNoAction);
+                        || !turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker))
+                        .isEmpty() //check if worker can build a block somewhere
+        )
+                .reduce(false, (isSomeActionAll, isSomeAction) -> isSomeActionAll || isSomeAction);
 
-        if (!turn.isSkippable() && isNoBuild) {
-            turn.triggerLosingTurn(); //sets the turn to losing turn
-        } else {
+        if (isPossibleBuild) {
             turn.getGame().notifyAskBuild(turn);
+        } else {
+            //skip automatically to the next state if you can't perform any action
+            if (turn.isSkippable()) turn.getGame().skip();
+                //else you lost
+            else turn.triggerLosingTurn();
         }
     }
 
