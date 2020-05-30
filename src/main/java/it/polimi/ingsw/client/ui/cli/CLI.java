@@ -423,7 +423,7 @@ public class CLI extends UI {
 
     void printPlayersOfGame(ReducedGame game) {
         StringBuilder res = new StringBuilder();
-        res.append(ansi().a(String.format("%s:%n", I18n.string(I18nKey.PLAYERS))));
+        res.append(ansi().a(String.format("%s:%n%n", I18n.string(I18nKey.PLAYERS))));
         for (ReducedPlayer player : game.getPlayersList()) {
             Ansi resPlayer = ansi();
             if (player.isLocalPlayer()) {
@@ -439,7 +439,7 @@ public class CLI extends UI {
             resPlayer = resPlayer.a(String.format("%s%n    God: %s%n    Workers: %s%n", player.getNickname(), player.getGod().getName(), Arrays.stream(workersStrings[player.getPlayerIndex()]).map(s -> s.strip()).collect(Collectors.joining(", ")))).reset();
             res.append(resPlayer);
         }
-        println(ansi().a(res.toString()).reset(), 10, 55);
+        println(ansi().a(res.toString()).reset(), 5, 55);
     }
 
     /**
@@ -478,25 +478,55 @@ public class CLI extends UI {
         print(ansi().cursor(0, 0).a(boardStr.toString()));
     }
 
+    void drawLegend() {
+        StringBuilder res = new StringBuilder();
+        res.append(ansi().a(String.format("%s:%n%n", I18n.string(I18nKey.LEGEND))));
+        Ansi[][] cellLevels = new Ansi[5][];
+        for (int i = 0; i <= 3; i++) {
+            cellLevels[i] = getCellAnsi(false, i, ansi().a("   "), false);
+        }
+        cellLevels[4] = getCellAnsi(true, 0, ansi().a("   "), false);
+        for (int i = 0; i < cellLevels[0].length; i++) {
+            for (int j = 0; j <= 4; j++) {
+                res.append(cellLevels[j][i]);
+                if (j < 4) {
+                    res.append(" ");
+                }
+            }
+            res.append('\n');
+        }
+        res.append(String.format("%-9s %-9s %-9s %-9s %s%n", I18n.string(I18nKey.GROUND), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.DOME)));
+        res.append("          ");
+        for (int i = 1; i <= 3; i++) {
+            res.append(String.format("%-10s", String.format("(%s: %d)", I18n.string(I18nKey.HEIGHT_ABBR), i)));
+        }
+
+        println(ansi().a(res.toString()).reset(), 18, 55);
+    }
+
     private Ansi[] getCellAnsi(ReducedCell cell) {
+        return getCellAnsi(cell.hasDome(), cell.getTowerHeight(), getCellWorkerChar(cell), cell.isHighlighted());
+    }
+
+    private Ansi[] getCellAnsi(boolean hasDome, int towerHeight, Ansi cellWorkerChar, boolean isHighlighted) {
         Ansi[] ret;
         Ansi.Color bg;
         Ansi.Color fg = Ansi.Color.DEFAULT;
         String[] retStr;
 
-        if (cell.hasDome()) {
+        if (hasDome) {
             bg = levelsBgColors[4];
-            retStr = String.format(levelFormatString[cell.getTowerHeight()], domeCellString).split("\n");
+            retStr = String.format(levelFormatString[towerHeight], domeCellString).split("\n");
         }
         else {
-            bg = levelsBgColors[cell.getTowerHeight()];
-            retStr = String.format(levelFormatString[cell.getTowerHeight()], getCellWorkerChar(cell)).split("\n");
+            bg = levelsBgColors[towerHeight];
+            retStr = String.format(levelFormatString[towerHeight], cellWorkerChar).split("\n");
         }
 
         ret = new Ansi[retStr.length];
         for (int i = 0; i < retStr.length; i++) {
             ret[i] = ansi().reset().fg(fg);
-            if (cell.isHighlighted()) {
+            if (isHighlighted) {
                 ret[i] = ret[i].bgBright(bg);
             }
             else {
