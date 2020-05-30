@@ -29,7 +29,7 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
             cli.println(String.format("%s:", I18n.string(I18nKey.YOU_CAN_CHOOSE_ONE_OF_THESE_GODS)));
             List<ReducedGod> gods = new ArrayList<>(client.getGods());
             for (int i = 0; i < gods.size(); i++) {
-                cli.println(String.format("[%d] %s", i + 1, gods.get(i).name));
+                cli.println(String.format("[%d] %s: %s", i + 1, I18n.string(I18nKey.valueOf(String.format("%s_NAME", gods.get(i).name.toUpperCase()))), I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", gods.get(i).name.toUpperCase())))));
             }
 
             cli.println("");

@@ -436,7 +436,7 @@ public class CLI extends UI {
             else {
                 resPlayer = resPlayer.a("  ");
             }
-            resPlayer = resPlayer.a(String.format("%s%n    God: %s%n    Workers: %s%n", player.getNickname(), player.getGod().getName(), Arrays.stream(workersStrings[player.getPlayerIndex()]).map(s -> s.strip()).collect(Collectors.joining(", ")))).reset();
+            resPlayer = resPlayer.a(String.format("%s%n    %s: %s%n    %s: %s%n", player.getNickname(), I18n.string(I18nKey.GOD), I18n.string(I18nKey.valueOf(String.format("%s_NAME", player.getGod().getName().toUpperCase()))), I18n.string(I18nKey.WORKERS), Arrays.stream(workersStrings[player.getPlayerIndex()]).map(s -> s.strip()).collect(Collectors.joining(", ")))).reset();
             res.append(resPlayer);
         }
         println(ansi().a(res.toString()).reset(), 5, 55);
