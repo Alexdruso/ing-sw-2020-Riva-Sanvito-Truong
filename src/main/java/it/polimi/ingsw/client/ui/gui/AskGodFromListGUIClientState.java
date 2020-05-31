@@ -18,6 +18,7 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
 
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
+        client.closeConnection();
     }
 
     public void setChosenGod(ReducedGod god){

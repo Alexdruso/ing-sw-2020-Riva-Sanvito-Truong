@@ -17,6 +17,7 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
 
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
+        client.closeConnection();
     }
 
     public void setHostPort(String host, String port){

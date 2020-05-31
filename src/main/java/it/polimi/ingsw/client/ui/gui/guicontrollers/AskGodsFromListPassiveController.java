@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
+import it.polimi.ingsw.client.ui.gui.AskGodsFromListGUIClientState;
 import it.polimi.ingsw.client.ui.gui.WaitPlayersGUIClientState;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
@@ -26,7 +27,7 @@ public class AskGodsFromListPassiveController extends AbstractController{
 
     @FXML
     public void handleMenuButton(ActionEvent event){
-        ((WaitPlayersGUIClientState)state).returnToMenu();
+        ((AskGodsFromListGUIClientState)state).returnToMenu();
     }
 
     @Override
