@@ -48,6 +48,7 @@ public class ConnectToServerController extends AbstractController{
     @Override
     public void onSceneShow(){
         firstShow.setValue(true);
+        errorLabel.setOpacity(0);
     }
 
     @FXML
