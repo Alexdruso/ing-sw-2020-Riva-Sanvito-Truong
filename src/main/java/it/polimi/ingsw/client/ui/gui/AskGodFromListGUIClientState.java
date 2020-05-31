@@ -3,10 +3,14 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodFromListPassiveController;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.JoinLobbyController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 
 public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientState implements GUIClientState{
+    private SavedScene savedScene;
     /**
      * Instantiates a new ClientState.
      *
@@ -24,6 +28,16 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
     public void setChosenGod(ReducedGod god){
         this.chosenGod = god;
         notifyUiInteraction();
+    }
+
+    /**
+     * Triggers the operations to perform when exiting the current state
+     */
+    @Override
+    public void tearDown() {
+        if(!client.isCurrentlyActive()){
+            ((AskGodFromListPassiveController)savedScene.controller).stopAnimation();
+        }
     }
 
     /**
@@ -45,5 +59,6 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
                 .setState(ClientState.ASK_GOD_FROM_LIST, this)
                 .build()
                 .executeSceneChange();
+        savedScene = ((GUI)client.getUI()).getCurrentScene();
     }
 }

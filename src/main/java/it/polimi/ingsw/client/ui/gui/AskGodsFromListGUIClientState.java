@@ -4,12 +4,16 @@ import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodFromListPassiveController;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListPassiveController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClientState implements GUIClientState{
+    private SavedScene savedScene;
     private int selectedCount = 0;
     private int playersCount;
     /**
@@ -36,6 +40,16 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
     }
 
     /**
+     * Triggers the operations to perform when exiting the current state
+     */
+    @Override
+    public void tearDown() {
+        if(!client.isCurrentlyActive()){
+            ((AskGodsFromListPassiveController)savedScene.controller).stopAnimation();
+        }
+    }
+
+    /**
      * Function called by the main thread that renders the current state to the UI.
      * This function is the only one of this class allowed to be synchronous with the user input.
      * Please, be aware that calls to this function must be either:
@@ -55,5 +69,6 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
                 .setFadeInDuration(2000)
                 .build()
                 .executeSceneChange();
+        savedScene = ((GUI)client.getUI()).getCurrentScene();
     }
 }

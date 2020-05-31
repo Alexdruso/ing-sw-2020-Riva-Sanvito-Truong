@@ -158,7 +158,7 @@ public class Client implements LambdaObserver {
     public void changeState() {
         synchronized (currentStateLock) {
             if(currentState != null){
-                currentState.tearDown();
+                requestRender(getCurrentState()::tearDown);
             }
             currentState = ui.getClientState(nextState, this);
         }

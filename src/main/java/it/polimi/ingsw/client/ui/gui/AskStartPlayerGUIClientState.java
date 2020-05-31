@@ -3,10 +3,14 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskStartPlayerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListPassiveController;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.AskStartPlayerPassiveController;
+import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 
 public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientState implements GUIClientState{
+    private SavedScene savedScene;
     /**
      * Instantiates a new ASK_START_PLAYER ClientState.
      *
@@ -27,6 +31,15 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
     }
 
     /**
+     * Triggers the operations to perform when exiting the current state
+     */
+    @Override
+    public void tearDown() {
+        if(!client.isCurrentlyActive()){
+            ((AskStartPlayerPassiveController)savedScene.controller).stopAnimation();
+        }
+    }
+    /**
      * Function called by the main thread that renders the current state to the UI.
      * This function is the only one of this class allowed to be synchronous with the user input.
      * Please, be aware that calls to this function must be either:
@@ -42,5 +55,6 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayerPassive.fxml", client);
         }
         sceneLoaderFactory.setState(ClientState.ASK_START_PLAYER, this).build().executeSceneChange();
+        savedScene = ((GUI)client.getUI()).getCurrentScene();
     }
 }
