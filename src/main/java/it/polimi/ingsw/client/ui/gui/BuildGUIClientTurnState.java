@@ -40,13 +40,7 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
             if(turn.getAllowedWorkers().size() == 1){
                 //Case in which the choice of the worker is forced: automatically set workerID
                 workerID = turn.getAllowedWorkers().get(0);
-                board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(
-                        targetedCell -> targetedCell.setHighlighted(true)
-                );
-
-                board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(
-                        targetedCell -> targetedCell.setHighlighted(true)
-                );
+                setCellHighlighting(true);
                 Platform.runLater(() -> {
                     controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));
                     controller.setBoardClickableStatus(true);
@@ -59,14 +53,14 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
                     controller.setBoardClickableStatus(true);
                     controller.redrawBoard();
                 });
-                if (turn.isSkippable()) {
-                    Platform.runLater(() -> {
-                        controller.clearSideButtons();
-                        controller.displaySkipButton();
-                    });
-                } else {
-                    Platform.runLater(() -> controller.setPrompt(""));
-                }
+            }
+            if (turn.isSkippable()) {
+                Platform.runLater(() -> {
+                    controller.clearSideButtons();
+                    controller.displaySkipButton();
+                });
+            } else {
+                Platform.runLater(() -> controller.setPrompt(""));
             }
         } else {
             //Passive screen
@@ -92,13 +86,8 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
                     worker -> {
                         if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
                             workerID = worker.getWorkerID();
-                            board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(
-                                    targetedCell -> targetedCell.setHighlighted(true)
-                            );
 
-                            board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(
-                                    targetedCell -> targetedCell.setHighlighted(true)
-                            );
+                            setCellHighlighting(true);
 
                             Platform.runLater(() -> {
                                 controller.redrawBoard();
@@ -115,13 +104,7 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
             targetCellY = y;
             targetSelected = true;
 
-            board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(
-                    targetedCell -> targetedCell.setHighlighted(false)
-            );
-
-            board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(
-                    targetedCell -> targetedCell.setHighlighted(false)
-            );
+            setCellHighlighting(false);
 
             boolean canBuildBlock = turn.getWorkerBlockBuildableCells(workerID).getPosition(targetCellX, targetCellY);
             boolean canBuildDome = turn.getWorkerDomeBuildableCells(workerID).getPosition(targetCellX, targetCellY);
@@ -142,6 +125,7 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
 
     @Override
     public void skip() {
+        setCellHighlighting(false);
         workerID = null;
         clientState.notifyUiInteraction();
     }
@@ -149,6 +133,19 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
     @Override
     public void cancel() {
         //Cannot cancel a build
+    }
+
+    private void setCellHighlighting(boolean status){
+        game = client.getGame();
+        turn = game.getTurn();
+        board = game.getBoard();
+        board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(
+                targetedCell -> targetedCell.setHighlighted(status)
+        );
+
+        board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(
+                targetedCell -> targetedCell.setHighlighted(status)
+        );
     }
 
     @Override
