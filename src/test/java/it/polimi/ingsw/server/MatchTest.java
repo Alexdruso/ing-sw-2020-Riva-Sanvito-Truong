@@ -48,7 +48,7 @@ class MatchTest {
         await().until(() -> myMatch.getModel()
                 .isValidGodsChoice(gods, myMatch.getVirtualViews().get(0).getUser())
         );
-        myMatch.getVirtualViews().get(0).updateFromClient(new ClientDisconnectMessage());
+        myMatch.getVirtualViews().get(0).updateFromClient(new DisconnectionMessage());
         await().until(() -> !myMatch.isPlaying());
         verify(myServer).removeMatch(myMatch);
         //verify all fields are set
@@ -71,7 +71,7 @@ class MatchTest {
                             .get(myMatch.getVirtualViews().get(0).getUser().nickname)
             ) {
                 verify(connection, times(2)).send(myMessageCaptor.capture());
-                verify(connection).close(any(ServerDisconnectMessage.class));
+                verify(connection).close(any(DisconnectionMessage.class));
             } else {
                 verify(connection, times(2)).send(myMessageCaptor.capture());
                 verify(connection).close();

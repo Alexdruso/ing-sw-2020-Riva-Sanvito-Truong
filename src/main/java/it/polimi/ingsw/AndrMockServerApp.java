@@ -75,7 +75,7 @@ class AndrServerTestReceiver implements LambdaObserver {
 
     public void update(Transmittable message) {
         LOGGER.log(Level.INFO, "received message");
-        if (message instanceof ClientDisconnectMessage) {
+        if (message instanceof DisconnectionMessage) {
             LOGGER.log(Level.INFO, "client disconnected");
             connection.close();
             return;
@@ -104,7 +104,7 @@ class AndrServerTestReceiver implements LambdaObserver {
             waitAndSendMatchStart();
             return;
         }
-        if (message instanceof StatusMessages && ((StatusMessages)message).equals(StatusMessages.TEAPOT)) {
+        if (message instanceof StatusMessages && message.equals(StatusMessages.TEAPOT)) {
             AndrMockServerApp.stop();
         }
         connection.send(StatusMessages.OK);

@@ -1,13 +1,19 @@
 package it.polimi.ingsw.utils.messages;
 
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.server.ServerConnectionSetupHandler;
+import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.view.View;
 
-public class ClientDisconnectMessage implements DisconnectMessage, ClientMessage, ControllerHandleable, ServerHandleable {
+/**
+ * This message handles both client and server disconnections
+ */
+public class DisconnectionMessage implements ClientMessage, ClientHandleable,
+        ServerMessage, ControllerHandleable, ServerHandleable {
     /**
      * Handles the interaction with the controller.
      *
@@ -31,5 +37,17 @@ public class ClientDisconnectMessage implements DisconnectMessage, ClientMessage
     @Override
     public boolean handleTransmittable(ServerConnectionSetupHandler handler) {
         return handler.getLobbyBuilder().handleDisconnection(handler.getConnection());
+    }
+
+    /**
+     * Handles the interaction with the client.
+     *
+     * @param client the client
+     * @return true if there were no errors
+     */
+    @Override
+    public boolean handleTransmittable(Client client) {
+        client.disconnect();
+        return true;
     }
 }

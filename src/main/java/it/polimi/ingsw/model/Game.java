@@ -375,7 +375,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void draw() {
         gameState = GameState.END_GAME;
-        notify(new ServerDisconnectMessage());
+        notify(new DisconnectionMessage());
     }
 
     /**

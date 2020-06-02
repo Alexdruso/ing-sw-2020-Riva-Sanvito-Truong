@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.view.View;
@@ -45,8 +44,8 @@ class ControllerTest {
                         null
                 )
         );
-        ClientDisconnectMessage myDisconnectMessage = spy(
-                new ClientDisconnectMessage()
+        DisconnectionMessage myDisconnectMessage = spy(
+                new DisconnectionMessage()
         );
         ClientBuildMessage myBuildCommand = spy(
                 new ClientBuildMessage(
@@ -258,8 +257,8 @@ class ControllerTest {
                         null
                 )
         );
-        ClientDisconnectMessage myDisconnectMessage = spy(
-                new ClientDisconnectMessage()
+        DisconnectionMessage myDisconnectMessage = spy(
+                new DisconnectionMessage()
         );
         ClientBuildMessage myBuildCommand = spy(
                 new ClientBuildMessage(

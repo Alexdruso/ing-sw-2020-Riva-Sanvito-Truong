@@ -29,7 +29,7 @@ class ViewTest {
         ServerMessage myServerMessage = new ServerStartPlayMatchMessage();
         myView.updateFromGame(myServerMessage);
         verify(myConnection).send(myServerMessage);
-        DisconnectMessage myServerDisconnectMessage = new ServerDisconnectMessage();
+        DisconnectionMessage myServerDisconnectMessage = new DisconnectionMessage();
         myView.updateFromGame(myServerDisconnectMessage);
         verify(myConnection).close(myServerDisconnectMessage);
         StatusMessages myStatusMessage = StatusMessages.CLIENT_ERROR;
@@ -38,7 +38,7 @@ class ViewTest {
         ClientMessage myClientMessage = new ClientSetStartPlayerMessage(myView.getUser().toReducedUser());
         myView.updateFromClient(myClientMessage);
         verify(myController).update(any(ViewClientMessage.class));
-        DisconnectMessage myClientDisconnectMessage = new ClientDisconnectMessage();
+        DisconnectionMessage myClientDisconnectMessage = new DisconnectionMessage();
         myView.updateFromClient(myClientDisconnectMessage);
         verify(myConnection).close();
     }

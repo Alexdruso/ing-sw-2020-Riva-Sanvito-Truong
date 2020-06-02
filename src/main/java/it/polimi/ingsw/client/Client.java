@@ -8,7 +8,7 @@ import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
+import it.polimi.ingsw.utils.messages.DisconnectionMessage;
 import it.polimi.ingsw.utils.messages.ReducedGod;
 import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
@@ -80,7 +80,7 @@ public class Client implements LambdaObserver {
      */
     public void closeConnection() {
         if (connection != null) {
-            connection.close(new ClientDisconnectMessage());
+            connection.close(new DisconnectionMessage());
             nickname = null;
             connection = null;
         }
@@ -224,23 +224,12 @@ public class Client implements LambdaObserver {
     public void update(Transmittable message) {
         if (message instanceof StatusMessages) {
             switch ((StatusMessages) message) {
-                case CLIENT_ERROR:
-                    currentState.handleClientError();
-                    break;
-                case CONTINUE:
-                    currentState.handleContinue();
-                    break;
-                case OK:
-                    currentState.handleOk();
-                    break;
-                case TEAPOT:
-                    currentState.handleTeapot();
-                    break;
-                case SERVER_ERROR:
-                    currentState.handleServerError();
-                    break;
-                default:
-                    throw new IllegalStateException();
+                case CLIENT_ERROR -> currentState.handleClientError();
+                case CONTINUE -> currentState.handleContinue();
+                case OK -> currentState.handleOk();
+                case TEAPOT -> currentState.handleTeapot();
+                case SERVER_ERROR -> currentState.handleServerError();
+                default -> throw new IllegalStateException();
             }
         }
         else if (message instanceof ClientHandleable) {
