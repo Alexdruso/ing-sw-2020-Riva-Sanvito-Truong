@@ -88,7 +88,6 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
                             workerID = worker.getWorkerID();
 
                             setCellHighlighting(true);
-
                             Platform.runLater(() -> {
                                 controller.redrawBoard();
                                 controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));
@@ -111,15 +110,21 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
 
             if (canBuildBlock && canBuildDome) {
                 selectedComponent = null;
-                //Show pop-up for selecting
+                setCellHighlighting(false);
+                board.getCell(x, y).setHighlighted(true);
+                Platform.runLater(() -> {
+                    controller.displayComponentSelection();
+                    controller.redrawBoard();
+                    controller.setPrompt(I18n.string(I18nKey.CHOOSE_BETWEEN_BLOCK_OR_DOME));
+                });
             } else {
                 selectedComponent = canBuildBlock ? ReducedComponent.BLOCK : ReducedComponent.DOME;
             }
-        }
-        if(selectedComponent != null){
-            component = selectedComponent;
-            selectedComponent = null;
-            clientState.notifyUiInteraction();
+            if(selectedComponent != null){
+                component = selectedComponent;
+                selectedComponent = null;
+                clientState.notifyUiInteraction();
+            }
         }
     }
 
@@ -153,5 +158,13 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         workerID = null;
         targetSelected = false;
         selectedComponent = null;
+    }
+
+    public void selectComponent(ReducedComponent component) {
+        this.component = component;
+        selectedComponent = null;
+        clientState.notifyUiInteraction();
+        board.getCell(targetCellX, targetCellY).setHighlighted(false);
+        Platform.runLater(() -> controller.setPrompt(""));
     }
 }

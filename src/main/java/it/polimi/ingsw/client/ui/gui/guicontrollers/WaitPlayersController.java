@@ -34,7 +34,7 @@ public class WaitPlayersController extends AbstractController{
     public void setupController(){
         waitPromptLabel.setText(I18n.string(I18nKey.WAITING_FOR_THE_OTHER_PLAYERS));
         final int[] imgCount = {0};
-        animationTimer = new Timer();
+        animationTimer = new Timer(true);
         //FIXME: I believe that this timer keeps the Client from shutting down when closing the window
         //Maybe submit all Timer Tasks to a global instance of Timer so it can stop all of them?
         animationTimer.schedule(new TimerTask() {

@@ -28,7 +28,7 @@ public class AskStartPlayerPassiveController extends AbstractController {
     public void setupController(){
         welcomeLabel.setText(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER), client.getCurrentActiveUser().nickname));
         final int[] imgCount = {0};
-        animationTimer = new Timer();
+        animationTimer = new Timer(true);
         //FIXME: I believe that this timer keeps the Client from shutting down when closing the window
         //Maybe submit all Timer Tasks to a global instance of Timer so it can stop all of them?
         animationTimer.schedule(new TimerTask() {
