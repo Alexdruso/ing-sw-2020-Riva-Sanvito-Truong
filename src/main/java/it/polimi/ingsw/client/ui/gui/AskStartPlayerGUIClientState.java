@@ -11,6 +11,7 @@ import it.polimi.ingsw.utils.messages.ReducedUser;
 
 public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientState implements GUIClientState{
     private SavedScene savedScene;
+    private boolean wasPassive = false;
     /**
      * Instantiates a new ASK_START_PLAYER ClientState.
      *
@@ -35,7 +36,7 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
      */
     @Override
     public void tearDown() {
-        if(!client.isCurrentlyActive()){
+        if(wasPassive){
             ((AskStartPlayerPassiveController)savedScene.controller).stopAnimation();
         }
     }
@@ -51,8 +52,10 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
         SceneLoaderFactory sceneLoaderFactory;
         if(client.isCurrentlyActive()){
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayer.fxml", client);
+            wasPassive = false;
         } else {
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayerPassive.fxml", client);
+            wasPassive = true;
         }
         sceneLoaderFactory.setState(ClientState.ASK_START_PLAYER, this).build().executeSceneChange();
         savedScene = ((GUI)client.getUI()).getCurrentScene();

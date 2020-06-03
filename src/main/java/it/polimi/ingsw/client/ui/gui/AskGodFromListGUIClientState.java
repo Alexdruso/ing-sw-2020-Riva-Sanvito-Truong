@@ -11,6 +11,7 @@ import it.polimi.ingsw.utils.messages.ReducedGod;
 
 public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientState implements GUIClientState{
     private SavedScene savedScene;
+    private boolean wasPassive = false;
     /**
      * Instantiates a new ClientState.
      *
@@ -35,7 +36,7 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
      */
     @Override
     public void tearDown() {
-        if(!client.isCurrentlyActive()){
+        if(wasPassive){
             ((AskGodFromListPassiveController)savedScene.controller).stopAnimation();
         }
     }
@@ -52,8 +53,10 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
         SceneLoaderFactory sceneLoaderFactory;
         if(client.isCurrentlyActive()){
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodFromList.fxml", client);
+            wasPassive = false;
         } else {
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodFromListPassive.fxml", client);
+            wasPassive = true;
         }
         sceneLoaderFactory.addCSSFile("/css/god-selection.css")
                 .setState(ClientState.ASK_GOD_FROM_LIST, this)

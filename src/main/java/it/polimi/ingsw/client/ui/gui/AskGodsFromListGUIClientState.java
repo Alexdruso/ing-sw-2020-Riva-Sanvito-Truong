@@ -16,6 +16,7 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
     private SavedScene savedScene;
     private int selectedCount = 0;
     private int playersCount;
+    private boolean wasPassive = false;
     /**
      * Instantiates a new ClientState.
      *
@@ -44,7 +45,7 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
      */
     @Override
     public void tearDown() {
-        if(!client.isCurrentlyActive()){
+        if(wasPassive){
             ((AskGodsFromListPassiveController)savedScene.controller).stopAnimation();
         }
     }
@@ -61,8 +62,10 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
         SceneLoaderFactory sceneLoaderFactory;
         if(client.isCurrentlyActive()){
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodsFromList.fxml", client);
+            wasPassive = false;
         } else {
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodsFromListPassive.fxml", client);
+            wasPassive = true;
         }
         sceneLoaderFactory.addCSSFile("/css/god-selection.css")
                 .setState(ClientState.ASK_GODS_FROM_LIST, this)
