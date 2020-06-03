@@ -7,7 +7,6 @@ import it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState implements GUIClientState {

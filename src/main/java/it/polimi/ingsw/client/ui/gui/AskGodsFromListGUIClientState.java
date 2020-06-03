@@ -1,16 +1,12 @@
 package it.polimi.ingsw.client.ui.gui;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodFromListPassiveController;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListPassiveController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.messages.ReducedGod;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClientState implements GUIClientState{
     private SavedScene savedScene;

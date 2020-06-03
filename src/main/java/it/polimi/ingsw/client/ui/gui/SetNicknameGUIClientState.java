@@ -8,8 +8,6 @@ import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.application.Platform;
 
-import java.util.logging.Logger;
-
 public class SetNicknameGUIClientState extends AbstractSetNicknameClientState implements GUIClientState {
     /**
      * Instantiates a new SET_NICKNAME ClientState.

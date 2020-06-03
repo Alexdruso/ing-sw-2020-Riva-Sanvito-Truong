@@ -6,12 +6,9 @@ import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.ui.UI;
-import it.polimi.ingsw.client.ui.gui.guicontrollers.InGameController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import javafx.scene.Scene;
 
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
