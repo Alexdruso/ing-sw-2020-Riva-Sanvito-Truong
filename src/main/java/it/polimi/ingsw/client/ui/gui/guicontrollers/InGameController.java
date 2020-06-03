@@ -3,10 +3,12 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 import it.polimi.ingsw.client.reducedmodel.ReducedBoard;
 import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
+import it.polimi.ingsw.client.ui.gui.BuildGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
+import it.polimi.ingsw.utils.messages.ReducedComponent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,8 +23,6 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
@@ -56,7 +56,9 @@ public class InGameController extends AbstractController{
         WORKER_C,
     }
 
-    private final HashMap<BoardElement, Image> assets = new HashMap<>();
+    private final HashMap<BoardElement, Image> boardAssets = new HashMap<>();
+    private ImageView blockIcon;
+    private ImageView domeIcon;
     private List<ReducedPlayer> players;
 
     private ImageView getImageView(Image image){
@@ -73,27 +75,37 @@ public class InGameController extends AbstractController{
         //Temporary rendering, until we find a better way to render stuff
         List<ImageView> imageStack = new ArrayList<>();
         for(int i = 0; i < cell.getTowerHeight(); i++){
-            imageStack.add(getImageView(assets.get(BoardElement.values()[i])));
+            imageStack.add(getImageView(boardAssets.get(BoardElement.values()[i])));
         }
         if(cell.hasDome()){
-            imageStack.add(getImageView(assets.get(BoardElement.DOME)));
+            imageStack.add(getImageView(boardAssets.get(BoardElement.DOME)));
         }
         if(cell.getWorker().isPresent()){
            int playerID = players.indexOf(cell.getWorker().get().getPlayer());
-           imageStack.add(getImageView(assets.get(BoardElement.values()[playerID + 4])));
+           imageStack.add(getImageView(boardAssets.get(BoardElement.values()[playerID + 4])));
         }
         return imageStack;
     }
 
     @FXML
     public void initialize(){
-        assets.put(BoardElement.BLOCK_0, new Image("/assets/board/block_0.png"));
-        assets.put(BoardElement.BLOCK_1, new Image("/assets/board/block_1.png"));
-        assets.put(BoardElement.BLOCK_2, new Image("/assets/board/block_2.png"));
-        assets.put(BoardElement.DOME, new Image("/assets/board/dome.png"));
-        assets.put(BoardElement.WORKER_A, new Image("/assets/board/worker_a.png"));
-        assets.put(BoardElement.WORKER_B, new Image("/assets/board/worker_b.png"));
-        assets.put(BoardElement.WORKER_C, new Image("/assets/board/worker_c.png"));
+        boardAssets.put(BoardElement.BLOCK_0, new Image("/assets/board/block_0.png"));
+        boardAssets.put(BoardElement.BLOCK_1, new Image("/assets/board/block_1.png"));
+        boardAssets.put(BoardElement.BLOCK_2, new Image("/assets/board/block_2.png"));
+        boardAssets.put(BoardElement.DOME, new Image("/assets/board/dome.png"));
+        boardAssets.put(BoardElement.WORKER_A, new Image("/assets/board/worker_a.png"));
+        boardAssets.put(BoardElement.WORKER_B, new Image("/assets/board/worker_b.png"));
+        boardAssets.put(BoardElement.WORKER_C, new Image("/assets/board/worker_c.png"));
+
+        domeIcon = new ImageView("/assets/dome_icon.png");
+        domeIcon.setPreserveRatio(true);
+        domeIcon.fitWidthProperty().bind(sideButtons.widthProperty());
+        domeIcon.setOnMouseClicked(e -> selectComponent(ReducedComponent.DOME));
+
+        blockIcon = new ImageView("/assets/block_icon.png");
+        blockIcon.setPreserveRatio(true);
+        blockIcon.fitWidthProperty().bind(sideButtons.widthProperty());
+        blockIcon.setOnMouseClicked(e -> selectComponent(ReducedComponent.BLOCK));
 
         boardContainer.widthProperty().addListener((o, oldWidth, newWidth) -> setBoardSize());
         boardContainer.heightProperty().addListener((o, oldHeight, newHeight) -> setBoardSize());
@@ -170,6 +182,11 @@ public class InGameController extends AbstractController{
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).selectCell(x, y);
     }
 
+    private void selectComponent(ReducedComponent component){
+        clearSideButtons();
+        ((BuildGUIClientTurnState)client.getGame().getTurn().getTurnState()).selectComponent(component);
+    }
+
     public void displayCancelButton(){
         Button button = new Button();
         button.setText(I18n.string(I18nKey.CANCEL));
@@ -184,6 +201,11 @@ public class InGameController extends AbstractController{
         button.setOnAction(e -> skip());
         button.getStyleClass().add("bigbutton");
         sideButtons.getChildren().add(button);
+    }
+
+    public void displayComponentSelection(){
+        sideButtons.getChildren().add(domeIcon);
+        sideButtons.getChildren().add(blockIcon);
     }
 
     public void clearSideButtons(){
