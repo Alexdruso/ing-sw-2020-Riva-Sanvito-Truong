@@ -63,7 +63,7 @@
 }
 
 .h1 {
-    -fx-font-family: "Montserrat Black";
+    -fx-font-family: "Josefin Sans SemiBold";
     -fx-font-size: 3.5em;
     -fx-text-fill: white;
 }
@@ -93,13 +93,11 @@
 }
 
 .text-field {
-    /*-fx-background-color: #FFFFFF33;
-    -fx-background-insets: 0 0 0 0;*/
     -fx-border-color: white;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-font-family: "Montserrat Black";
+    -fx-font-family: "Josefin Sans SemiBold";
     -fx-font-size: 2em;
 }
 
