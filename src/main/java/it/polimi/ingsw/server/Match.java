@@ -4,8 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientDisconnectMessage;
-import it.polimi.ingsw.utils.messages.DisconnectMessage;
+import it.polimi.ingsw.utils.messages.DisconnectionMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.view.View;
 
@@ -85,8 +84,8 @@ public class Match implements Runnable {
             model.addObserver(
                     virtualView, (obs, message) ->
                     {
-                        if (message instanceof DisconnectMessage) {
-                            ((View) obs).updateFromGame((DisconnectMessage) message);
+                        if (message instanceof DisconnectionMessage) {
+                            ((View) obs).updateFromGame((DisconnectionMessage) message);
                         } else {
                             ((View) obs).updateFromGame(message);
                         }
@@ -97,7 +96,7 @@ public class Match implements Runnable {
                     ((Controller) obs).update(message));
             //check if connection is still up, if not send a disconnection message to dismantle the game
             if (!participantsNicknameToConnection.get(user.nickname).isActive()) {
-                virtualView.updateFromClient(new ClientDisconnectMessage());
+                virtualView.updateFromClient(new DisconnectionMessage());
             }
         }
         //Start setup procedure

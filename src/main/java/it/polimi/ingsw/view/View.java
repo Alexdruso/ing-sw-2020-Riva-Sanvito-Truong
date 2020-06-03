@@ -5,7 +5,7 @@ import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.ClientMessage;
-import it.polimi.ingsw.utils.messages.DisconnectMessage;
+import it.polimi.ingsw.utils.messages.DisconnectionMessage;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.Transmittable;
 
@@ -36,7 +36,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      *
      * @param message a message coming from the client
      */
-    public void updateFromClient(DisconnectMessage message) {
+    public void updateFromClient(DisconnectionMessage message) {
         connection.close();
         this.updateFromClient((Transmittable) message);
     }
@@ -55,7 +55,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      *
      * @param message a disconnect message coming from the game
      */
-    public void updateFromGame(DisconnectMessage message) {
+    public void updateFromGame(DisconnectionMessage message) {
         connection.close(message);
     }
 
@@ -81,8 +81,8 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
                 this,
                 (lambdaObserver, transmittable) ->
                 {
-                    if (transmittable instanceof DisconnectMessage) {
-                        ((View) lambdaObserver).updateFromClient((DisconnectMessage) transmittable);
+                    if (transmittable instanceof DisconnectionMessage) {
+                        ((View) lambdaObserver).updateFromClient((DisconnectionMessage) transmittable);
                     } else {
                         ((View) lambdaObserver).updateFromClient(transmittable);
                     }

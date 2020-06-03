@@ -223,7 +223,7 @@ public class ServerTest {
             connHandlers[0].update(new ClientJoinLobbyMessage());
             Transmittable message = waitForMessage(queues[0]);
             assertEquals(StatusMessages.CONTINUE, message); //Should receive request for playerCount
-            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+            connHandlers[0].update(new DisconnectionMessage()); //Now disconnect before setting any count
         }
         );
 
@@ -262,7 +262,7 @@ public class ServerTest {
 
 
         Thread t = new Thread(() -> {
-            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+            connHandlers[0].update(new DisconnectionMessage()); //Now disconnect before setting any count
         }
         );
 
@@ -318,7 +318,7 @@ public class ServerTest {
 
 
         Thread t = new Thread(() -> {
-            connHandlers[0].update(new ClientDisconnectMessage()); //Now disconnect before setting any count
+            connHandlers[0].update(new DisconnectionMessage()); //Now disconnect before setting any count
         }
         );
 
@@ -331,8 +331,8 @@ public class ServerTest {
         verify(connections[0], times(2)).close();
 
         if (message instanceof ServerStartSetupMatchMessage) {
-            verify(connections[1]).close(any(ServerDisconnectMessage.class));
-            verify(connections[2]).close(any(ServerDisconnectMessage.class));
+            verify(connections[1]).close(any(DisconnectionMessage.class));
+            verify(connections[2]).close(any(DisconnectionMessage.class));
         }
 
         await().until(() -> server.getOngoingMatches().size() == 0);

@@ -2,14 +2,12 @@ package it.polimi.ingsw.utils.networking;
 
 import it.polimi.ingsw.observer.LambdaObservable;
 import it.polimi.ingsw.utils.StringCapturedStackTrace;
-import it.polimi.ingsw.utils.messages.DisconnectMessage;
+import it.polimi.ingsw.utils.messages.DisconnectionMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -106,10 +104,10 @@ public class Connection extends LambdaObservable<Transmittable> {
         close();
     }
 
-    public void close(DisconnectMessage disconnectMessage) {
+    public void close(DisconnectionMessage disconnectionMessage) {
         synchronized (socketOut) {
             try {
-                socketOut.writeObject(disconnectMessage);
+                socketOut.writeObject(disconnectionMessage);
             } catch (Exception e) {
                 logSevere("Unable to notify the remote that the connection is closing: " + new StringCapturedStackTrace(e).toString());
             }
@@ -130,7 +128,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                 socketOut.writeObject(message);
             }
         } catch (IOException e) {
-            close(e);
+            notify(new DisconnectionMessage());
         }
     }
 
@@ -139,22 +137,19 @@ public class Connection extends LambdaObservable<Transmittable> {
      *
      * @return the thread that handles the messages incoming from the remote host
      */
-    private Thread startSocketReceiveThread(){
+    private Thread startSocketReceiveThread() {
         Connection connectionInstance = this;
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                connectionInstance.logInfo("Receive thread ready");
-                while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
-                    try {
-                        Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
-                        logFine(String.format("Received message %s", inputObject.getClass().getName()));
-                        connectionInstance.notify(inputObject, true);
-                    } catch (IOException e) {
-                        connectionInstance.close(e);
-                    } catch (ClassNotFoundException | ClassCastException e) {
-                        LOGGER.log(Level.SEVERE, "Exception in receive thread", e);
-                    }
+        Thread t = new Thread(() -> {
+            connectionInstance.logInfo("Receive thread ready");
+            while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
+                try {
+                    Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
+                    logFine(String.format("Received message %s", inputObject.getClass().getName()));
+                    connectionInstance.notify(inputObject, true);
+                } catch (IOException e) {
+                    connectionInstance.notify(new DisconnectionMessage());
+                } catch (ClassNotFoundException | ClassCastException e) {
+                    LOGGER.log(Level.SEVERE, "Exception in receive thread", e);
                 }
             }
         }, String.format("ConnectionReceive-%s", socket.getRemoteSocketAddress().toString()));
