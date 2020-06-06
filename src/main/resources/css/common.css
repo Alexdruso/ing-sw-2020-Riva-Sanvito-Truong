@@ -62,6 +62,10 @@
     -fx-background-color: linear-gradient(to left, #000000BB, #00000055 40%, #00000000 60%);
 }
 
+#VerticalGradientPane {
+    -fx-background-color: linear-gradient(to top, #000000FF, #00000088 60%, #00000000 100%);
+}
+
 #DarkenPane {
     -fx-background-color: rgba(0, 0, 0, 0.5);
 }
