@@ -7,7 +7,7 @@ it.polimi.ingsw.client.ui.cli
 it.polimi.ingsw.client.ui.gui
 it.polimi.ingsw.client.ui.gui.guicontrollers
 it.polimi.ingsw.client.ui.gui.utils
-it.polimi.ingsw.utils.config
+it.polimi.ingsw.server
 it.polimi.ingsw.server.controller
 it.polimi.ingsw.server.model
 it.polimi.ingsw.server.model.actions
@@ -16,11 +16,11 @@ it.polimi.ingsw.server.model.gods
 it.polimi.ingsw.server.model.turnevents
 it.polimi.ingsw.server.model.turnstates
 it.polimi.ingsw.server.model.workers
-it.polimi.ingsw.utils.observer
-it.polimi.ingsw.server
+it.polimi.ingsw.server.view
 it.polimi.ingsw.utils
+it.polimi.ingsw.utils.config
 it.polimi.ingsw.utils.i18n
 it.polimi.ingsw.utils.messages
 it.polimi.ingsw.utils.networking
+it.polimi.ingsw.utils.observer
 it.polimi.ingsw.utils.structures
-it.polimi.ingsw.server.view
