@@ -168,7 +168,7 @@ public class ServerLobbyBuilder {
                 //check if first connection and if a current lobby player count has not been selected yet
                 //this part is necessary to avoid problems from line 204 on
                 //in this case we signal this problem by changing player count lock to -1
-                if (firstConnection.equals(connection) && currentLobbyPlayerCount == 0) {
+                if (firstConnection != null && firstConnection.equals(connection) && currentLobbyPlayerCount == 0) {
                     currentLobbyPlayerCount = -1;
                     playerCountLock.notifyAll();
                 }
