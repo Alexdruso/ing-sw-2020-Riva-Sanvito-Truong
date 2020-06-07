@@ -1,14 +1,14 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.model.actions.BuildAction;
-import it.polimi.ingsw.model.actions.MoveAction;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.turnevents.TurnEventsManager;
-import it.polimi.ingsw.model.turnstates.InvalidTurnStateException;
+import it.polimi.ingsw.server.controller.User;
+import it.polimi.ingsw.server.model.actions.BuildAction;
+import it.polimi.ingsw.server.model.actions.MoveAction;
+import it.polimi.ingsw.server.model.board.Board;
+import it.polimi.ingsw.server.model.board.Cell;
+import it.polimi.ingsw.server.model.board.Component;
+import it.polimi.ingsw.server.model.board.TargetCells;
+import it.polimi.ingsw.server.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.server.model.turnstates.InvalidTurnStateException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.gods;
+package it.polimi.ingsw.server.model.gods;
 
-import it.polimi.ingsw.model.turnstates.TurnState;
+import it.polimi.ingsw.server.model.turnstates.TurnState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.observer.LambdaObserver;
+import it.polimi.ingsw.utils.observer.LambdaObserver;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.utils.networking.Transmittable;

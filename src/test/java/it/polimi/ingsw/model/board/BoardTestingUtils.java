@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.board;
+package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.ArrayList;

@@ -1,15 +1,15 @@
-package it.polimi.ingsw.model.turnstates;
+package it.polimi.ingsw.server.model.turnstates;
 
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.actions.MoveAction;
-import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.board.TargetCells;
-import it.polimi.ingsw.model.turnevents.TurnEventsManager;
-import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.server.model.Game;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.Turn;
+import it.polimi.ingsw.server.model.actions.MoveAction;
+import it.polimi.ingsw.server.model.board.Board;
+import it.polimi.ingsw.server.model.board.Cell;
+import it.polimi.ingsw.server.model.board.Component;
+import it.polimi.ingsw.server.model.board.TargetCells;
+import it.polimi.ingsw.server.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.server.model.workers.Worker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

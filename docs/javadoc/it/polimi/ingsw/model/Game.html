@@ -6,7 +6,7 @@
 <title>Game</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-06-07">
-<meta name="description" content="declaration: package: it.polimi.ingsw.model, class: Game">
+<meta name="description" content="declaration: package: it.polimi.ingsw.server.model, class: Game">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.css" title="Style">
@@ -83,19 +83,19 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">it.polimi.ingsw.model</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">it.polimi.ingsw.server.model</a></div>
 <h1 title="Class Game" class="title">Class Game</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance"><a href="../observer/LambdaObservable.html" title="class in it.polimi.ingsw.observer">it.polimi.ingsw.observer.LambdaObservable</a>&lt;<a href="../utils/networking/Transmittable.html" title="interface in it.polimi.ingsw.utils.networking">Transmittable</a>&gt;
-<div class="inheritance">it.polimi.ingsw.model.Game</div>
+<div class="inheritance"><a href="../observer/LambdaObservable.html" title="class in it.polimi.ingsw.utils.observer">it.polimi.ingsw.utils.observer.LambdaObservable</a>&lt;<a href="../utils/networking/Transmittable.html" title="interface in it.polimi.ingsw.utils.networking">Transmittable</a>&gt;
+<div class="inheritance">it.polimi.ingsw.server.model.Game</div>
 </div>
 </div>
 <section class="description">
 <hr>
 <pre>public class <span class="typeNameLabel">Game</span>
-extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.ingsw.observer">LambdaObservable</a>&lt;<a href="../utils/networking/Transmittable.html" title="interface in it.polimi.ingsw.utils.networking">Transmittable</a>&gt;</pre>
+extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.ingsw.utils.observer">LambdaObservable</a>&lt;<a href="../utils/networking/Transmittable.html" title="interface in it.polimi.ingsw.utils.networking">Transmittable</a>&gt;</pre>
 <div class="block">This class is the game and its main purpose is to keep the general state of the match.
  It provides methods to gain insights on the current state.</div>
 </section>
@@ -120,7 +120,7 @@ extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.in
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>(package private) static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Game.GameState.html" title="enum in it.polimi.ingsw.model">Game.GameState</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Game.GameState.html" title="enum in it.polimi.ingsw.server.model">Game.GameState</a></span></code></th>
 <td class="colLast">
 <div class="block">All the possible states of the game</div>
 </td>
@@ -148,35 +148,35 @@ extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.in
 </thead>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><code>private java.util.List&lt;<a href="gods/God.html" title="interface in it.polimi.ingsw.model.gods">God</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.List&lt;<a href="gods/God.html" title="interface in it.polimi.ingsw.server.model.gods">God</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#availableGods">availableGods</a></span></code></th>
 <td class="colLast">
 <div class="block">The list of all the gods in game</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private <a href="board/Board.html" title="class in it.polimi.ingsw.model.board">Board</a></code></td>
+<td class="colFirst"><code>private <a href="board/Board.html" title="class in it.polimi.ingsw.server.model.board">Board</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#board">board</a></span></code></th>
 <td class="colLast">
 <div class="block">The Board object of the game</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a></code></td>
+<td class="colFirst"><code>private <a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#currentTurn">currentTurn</a></span></code></th>
 <td class="colLast">
 <div class="block">The Turn object representing the current game turn</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private <a href="Game.GameState.html" title="enum in it.polimi.ingsw.model">Game.GameState</a></code></td>
+<td class="colFirst"><code>private <a href="Game.GameState.html" title="enum in it.polimi.ingsw.server.model">Game.GameState</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#gameState">gameState</a></span></code></th>
 <td class="colLast">
 <div class="block">The current state of the game</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private java.util.LinkedList&lt;<a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.LinkedList&lt;<a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lastRound">lastRound</a></span></code></th>
 <td class="colLast">
 <div class="block">The last round of turns, ordered by oldest to newest.</div>
@@ -195,14 +195,14 @@ extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.in
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.LinkedList&lt;<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.LinkedList&lt;<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#players">players</a></span></code></th>
 <td class="colLast">
 <div class="block">The participating players, in order</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="../utils/structures/BidirectionalMap.html" title="interface in it.polimi.ingsw.utils.structures">BidirectionalMap</a>&lt;<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>,&#8203;<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&gt;</code></td>
+<td class="colFirst"><code>private <a href="../utils/structures/BidirectionalMap.html" title="interface in it.polimi.ingsw.utils.structures">BidirectionalMap</a>&lt;<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>,&#8203;<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#subscribedUsers">subscribedUsers</a></span></code></th>
 <td class="colLast">
 <div class="block">The mapping from the User to its relative Player instance</div>
@@ -259,8 +259,8 @@ extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.in
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
-<td class="colFirst"><code><a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addNewTurn(it.polimi.ingsw.model.Player)">addNewTurn</a></span>&#8203;(<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player)</code></th>
+<td class="colFirst"><code><a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addNewTurn(it.polimi.ingsw.server.model.Player)">addNewTurn</a></span>&#8203;(<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Adds new turn to the round, replacing the precedent turn belonging to the player
  This method automatically resizes the lastRound Map in order to match the number
@@ -269,20 +269,20 @@ extends <a href="../observer/LambdaObservable.html" title="class in it.polimi.in
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#build(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">build</a></span>&#8203;(int&nbsp;targetCellX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#build(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">build</a></span>&#8203;(int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedComponent.html" title="enum in it.polimi.ingsw.utils.messages">ReducedComponent</a>&nbsp;reducedComponent,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Executes the PlayerBuildCommand</div>
 </td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildInCell(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell,it.polimi.ingsw.model.board.Component,int)">buildInCell</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;cell,
-<a href="board/Component.html" title="enum in it.polimi.ingsw.model.board">Component</a>&nbsp;component,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildInCell(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell,it.polimi.ingsw.server.model.board.Component,int)">buildInCell</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;cell,
+<a href="board/Component.html" title="enum in it.polimi.ingsw.server.model.board">Component</a>&nbsp;component,
 int&nbsp;builtLevel)</code></th>
 <td class="colLast">
 <div class="block">Builds a component on a cell on behalf of the worker.</div>
@@ -296,36 +296,36 @@ int&nbsp;builtLevel)</code></th>
 </td>
 </tr>
 <tr class="altColor" id="i4">
-<td class="colFirst"><code><a href="board/Board.html" title="class in it.polimi.ingsw.model.board">Board</a></code></td>
+<td class="colFirst"><code><a href="board/Board.html" title="class in it.polimi.ingsw.server.model.board">Board</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBoard()">getBoard</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the board.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i5">
-<td class="colFirst"><code>java.util.List&lt;<a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastRoundTurnsList()">getLastRoundTurnsList</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets a list of the Turns of the last round.</div>
 </td>
 </tr>
 <tr class="altColor" id="i6">
-<td class="colFirst"><code><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerFromUser(it.polimi.ingsw.controller.User)">getPlayerFromUser</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<td class="colFirst"><code><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayerFromUser(it.polimi.ingsw.server.controller.User)">getPlayerFromUser</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method returns the player linked to the user</div>
 </td>
 </tr>
 <tr class="rowColor" id="i7">
-<td class="colFirst"><code>java.util.List&lt;<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayersList()">getPlayersList</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets a List of the players that are currently still playing the game.</div>
 </td>
 </tr>
 <tr class="altColor" id="i8">
-<td class="colFirst"><code><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserFromPlayer(it.polimi.ingsw.model.Player)">getUserFromPlayer</a></span>&#8203;(<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player)</code></th>
+<td class="colFirst"><code><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserFromPlayer(it.polimi.ingsw.server.model.Player)">getUserFromPlayer</a></span>&#8203;(<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">This method returns the user linked to the player</div>
 </td>
@@ -339,102 +339,102 @@ int&nbsp;builtLevel)</code></th>
 </tr>
 <tr class="altColor" id="i10">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isInGame(it.polimi.ingsw.controller.User)">isInGame</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isInGame(it.polimi.ingsw.server.controller.User)">isInGame</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the player is in game</div>
 </td>
 </tr>
 <tr class="rowColor" id="i11">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidBuild(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">isValidBuild</a></span>&#8203;(int&nbsp;targetCellX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidBuild(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">isValidBuild</a></span>&#8203;(int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedComponent.html" title="enum in it.polimi.ingsw.utils.messages">ReducedComponent</a>&nbsp;reducedComponent,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the PlayerBuildCommand can be executed</div>
 </td>
 </tr>
 <tr class="altColor" id="i12">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidGodChoice(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.controller.User)">isValidGodChoice</a></span>&#8203;(<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&nbsp;reducedGod,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidGodChoice(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.server.controller.User)">isValidGodChoice</a></span>&#8203;(<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&nbsp;reducedGod,
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the god choice is fine</div>
 </td>
 </tr>
 <tr class="rowColor" id="i13">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidGodsChoice(java.util.List,it.polimi.ingsw.controller.User)">isValidGodsChoice</a></span>&#8203;(java.util.List&lt;<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&gt;&nbsp;chosenGods,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidGodsChoice(java.util.List,it.polimi.ingsw.server.controller.User)">isValidGodsChoice</a></span>&#8203;(java.util.List&lt;<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&gt;&nbsp;chosenGods,
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the Gods choice is fine</div>
 </td>
 </tr>
 <tr class="altColor" id="i14">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidMove(int,int,int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">isValidMove</a></span>&#8203;(int&nbsp;sourceCellX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidMove(int,int,int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">isValidMove</a></span>&#8203;(int&nbsp;sourceCellX,
 int&nbsp;sourceCellY,
 int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the PlayerMoveCommand can be executed</div>
 </td>
 </tr>
 <tr class="rowColor" id="i15">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidPositioning(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">isValidPositioning</a></span>&#8203;(int&nbsp;targetCellX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidPositioning(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">isValidPositioning</a></span>&#8203;(int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the choice is gine</div>
 </td>
 </tr>
 <tr class="altColor" id="i16">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidSkip(it.polimi.ingsw.controller.User)">isValidSkip</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidSkip(it.polimi.ingsw.server.controller.User)">isValidSkip</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the PlayerSkipCommand can be executed</div>
 </td>
 </tr>
 <tr class="rowColor" id="i17">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidStartPlayerChoice(it.polimi.ingsw.utils.messages.ReducedUser,it.polimi.ingsw.controller.User)">isValidStartPlayerChoice</a></span>&#8203;(<a href="../utils/messages/ReducedUser.html" title="class in it.polimi.ingsw.utils.messages">ReducedUser</a>&nbsp;startPlayer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValidStartPlayerChoice(it.polimi.ingsw.utils.messages.ReducedUser,it.polimi.ingsw.server.controller.User)">isValidStartPlayerChoice</a></span>&#8203;(<a href="../utils/messages/ReducedUser.html" title="class in it.polimi.ingsw.utils.messages">ReducedUser</a>&nbsp;startPlayer,
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Checks if the choice is fine</div>
 </td>
 </tr>
 <tr class="altColor" id="i18">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#move(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">move</a></span>&#8203;(int&nbsp;targetCellX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#move(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">move</a></span>&#8203;(int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Executes the PlayerMoveCommand</div>
 </td>
 </tr>
 <tr class="rowColor" id="i19">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notifyAskBuild(it.polimi.ingsw.model.Turn)">notifyAskBuild</a></span>&#8203;(<a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&nbsp;turn)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notifyAskBuild(it.polimi.ingsw.server.model.Turn)">notifyAskBuild</a></span>&#8203;(<a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&nbsp;turn)</code></th>
 <td class="colLast">
 <div class="block">notifies an askBuildMessage retrieving informations from the turn</div>
 </td>
 </tr>
 <tr class="altColor" id="i20">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notifyAskMove(it.polimi.ingsw.model.Turn)">notifyAskMove</a></span>&#8203;(<a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&nbsp;turn)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notifyAskMove(it.polimi.ingsw.server.model.Turn)">notifyAskMove</a></span>&#8203;(<a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&nbsp;turn)</code></th>
 <td class="colLast">
 <div class="block">Notifies an askMoveMessage retrieving information from the turn</div>
 </td>
 </tr>
 <tr class="rowColor" id="i21">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeWorkerFromCell(it.polimi.ingsw.model.workers.Worker)">removeWorkerFromCell</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeWorkerFromCell(it.polimi.ingsw.server.model.workers.Worker)">removeWorkerFromCell</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</code></th>
 <td class="colLast">
 <div class="block">Removes the worker from the cell</div>
 </td>
@@ -448,8 +448,8 @@ int&nbsp;targetCellY,
 </tr>
 <tr class="rowColor" id="i23">
 <td class="colFirst"><code>private void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGod(it.polimi.ingsw.model.Player,it.polimi.ingsw.model.gods.God)">setGod</a></span>&#8203;(<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player,
-<a href="gods/God.html" title="interface in it.polimi.ingsw.model.gods">God</a>&nbsp;god)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGod(it.polimi.ingsw.server.model.Player,it.polimi.ingsw.server.model.gods.God)">setGod</a></span>&#8203;(<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player,
+<a href="gods/God.html" title="interface in it.polimi.ingsw.server.model.gods">God</a>&nbsp;god)</code></th>
 <td class="colLast">
 <div class="block">Helper method of setGod(ReducedGod, User) that assigns the god to the user
  and registers the god's opponents turn events to the opponents of the player.</div>
@@ -457,8 +457,8 @@ int&nbsp;targetCellY,
 </tr>
 <tr class="altColor" id="i24">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGod(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.controller.User)">setGod</a></span>&#8203;(<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&nbsp;reducedGod,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGod(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.server.controller.User)">setGod</a></span>&#8203;(<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&nbsp;reducedGod,
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method sets a specific chosen god to a user.</div>
 </td>
@@ -479,18 +479,18 @@ int&nbsp;targetCellY,
 </tr>
 <tr class="rowColor" id="i27">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerCell(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">setWorkerCell</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;cell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerCell(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">setWorkerCell</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;cell)</code></th>
 <td class="colLast">
 <div class="block">Move a worker to a specific cell.</div>
 </td>
 </tr>
 <tr class="altColor" id="i28">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerPosition(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">setWorkerPosition</a></span>&#8203;(int&nbsp;targetCellX,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerPosition(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">setWorkerPosition</a></span>&#8203;(int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">Sets the worker first position</div>
 </td>
@@ -504,7 +504,7 @@ int&nbsp;targetCellY,
 </tr>
 <tr class="altColor" id="i30">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#subscribeUser(it.polimi.ingsw.controller.User)">subscribeUser</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#subscribeUser(it.polimi.ingsw.server.controller.User)">subscribeUser</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method takes the user and creates the Player.</div>
 </td>
@@ -532,7 +532,7 @@ int&nbsp;targetCellY,
 </tr>
 <tr class="altColor" id="i34">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unsubscribeUser(it.polimi.ingsw.controller.User)">unsubscribeUser</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unsubscribeUser(it.polimi.ingsw.server.controller.User)">unsubscribeUser</a></span>&#8203;(<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method removes the Player from the game by its User.</div>
 </td>
@@ -542,10 +542,10 @@ int&nbsp;targetCellY,
 </div>
 </div>
 <div class="inheritedList">
-<h3>Methods inherited from class&nbsp;it.polimi.ingsw.observer.<a href="../observer/LambdaObservable.html" title="class in it.polimi.ingsw.observer">LambdaObservable</a></h3>
-<a id="methods.inherited.from.class.it.polimi.ingsw.observer.LambdaObservable">
+<h3>Methods inherited from class&nbsp;it.polimi.ingsw.utils.observer.<a href="../observer/LambdaObservable.html" title="class in it.polimi.ingsw.utils.observer">LambdaObservable</a></h3>
+<a id="methods.inherited.from.class.it.polimi.ingsw.utils.observer.LambdaObservable">
 <!--   -->
-</a><code><a href="../observer/LambdaObservable.html#addObserver(it.polimi.ingsw.observer.LambdaObserver,java.util.function.BiConsumer)">addObserver</a>, <a href="../observer/LambdaObservable.html#notify(T)">notify</a>, <a href="../observer/LambdaObservable.html#notify(T,boolean)">notify</a>, <a href="../observer/LambdaObservable.html#removeObserver(it.polimi.ingsw.observer.LambdaObserver)">removeObserver</a></code></div>
+</a><code><a href="../observer/LambdaObservable.html#addObserver(it.polimi.ingsw.utils.observer.LambdaObserver,java.util.function.BiConsumer)">addObserver</a>, <a href="../observer/LambdaObservable.html#notify(T)">notify</a>, <a href="../observer/LambdaObservable.html#notify(T,boolean)">notify</a>, <a href="../observer/LambdaObservable.html#removeObserver(it.polimi.ingsw.utils.observer.LambdaObserver)">removeObserver</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -580,49 +580,49 @@ int&nbsp;targetCellY,
 <li class="blockList">
 <section class="detail">
 <h3><a id="board">board</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="board/Board.html" title="class in it.polimi.ingsw.model.board">Board</a></span>&nbsp;<span class="memberName">board</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="board/Board.html" title="class in it.polimi.ingsw.server.model.board">Board</a></span>&nbsp;<span class="memberName">board</span></div>
 <div class="block">The Board object of the game</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="subscribedUsers">subscribedUsers</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="../utils/structures/BidirectionalMap.html" title="interface in it.polimi.ingsw.utils.structures">BidirectionalMap</a>&lt;<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>,&#8203;<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&gt;</span>&nbsp;<span class="memberName">subscribedUsers</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="../utils/structures/BidirectionalMap.html" title="interface in it.polimi.ingsw.utils.structures">BidirectionalMap</a>&lt;<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>,&#8203;<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&gt;</span>&nbsp;<span class="memberName">subscribedUsers</span></div>
 <div class="block">The mapping from the User to its relative Player instance</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="players">players</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.LinkedList&lt;<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&gt;</span>&nbsp;<span class="memberName">players</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.LinkedList&lt;<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&gt;</span>&nbsp;<span class="memberName">players</span></div>
 <div class="block">The participating players, in order</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="lastRound">lastRound</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.LinkedList&lt;<a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&gt;</span>&nbsp;<span class="memberName">lastRound</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.LinkedList&lt;<a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&gt;</span>&nbsp;<span class="memberName">lastRound</span></div>
 <div class="block">The last round of turns, ordered by oldest to newest.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="availableGods">availableGods</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="gods/God.html" title="interface in it.polimi.ingsw.model.gods">God</a>&gt;</span>&nbsp;<span class="memberName">availableGods</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="gods/God.html" title="interface in it.polimi.ingsw.server.model.gods">God</a>&gt;</span>&nbsp;<span class="memberName">availableGods</span></div>
 <div class="block">The list of all the gods in game</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="currentTurn">currentTurn</a></h3>
-<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a></span>&nbsp;<span class="memberName">currentTurn</span></div>
+<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a></span>&nbsp;<span class="memberName">currentTurn</span></div>
 <div class="block">The Turn object representing the current game turn</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="gameState">gameState</a></h3>
-<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="Game.GameState.html" title="enum in it.polimi.ingsw.model">Game.GameState</a></span>&nbsp;<span class="memberName">gameState</span></div>
+<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="Game.GameState.html" title="enum in it.polimi.ingsw.server.model">Game.GameState</a></span>&nbsp;<span class="memberName">gameState</span></div>
 <div class="block">The current state of the game</div>
 </section>
 </li>
@@ -659,8 +659,8 @@ int&nbsp;targetCellY,
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="subscribeUser(it.polimi.ingsw.controller.User)">subscribeUser</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">subscribeUser</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="subscribeUser(it.polimi.ingsw.server.controller.User)">subscribeUser</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">subscribeUser</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method takes the user and creates the Player.
  The two instances are added to the subscribedUsers list attribute.</div>
 <dl>
@@ -671,8 +671,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="unsubscribeUser(it.polimi.ingsw.controller.User)">unsubscribeUser</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unsubscribeUser</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="unsubscribeUser(it.polimi.ingsw.server.controller.User)">unsubscribeUser</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unsubscribeUser</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method removes the Player from the game by its User.
  This deletes the entry from the subscribedUsers map and decreases the number of players in game</div>
 <dl>
@@ -684,7 +684,7 @@ int&nbsp;targetCellY,
 <li class="blockList">
 <section class="detail">
 <h3><a id="getPlayersList()">getPlayersList</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&gt;</span>&nbsp;<span class="memberName">getPlayersList</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&gt;</span>&nbsp;<span class="memberName">getPlayersList</span>()</div>
 <div class="block">Gets a List of the players that are currently still playing the game. (i.e. they've not lost yet)
  The order provided is the same as the playing order, from first to last</div>
 <dl>
@@ -696,7 +696,7 @@ int&nbsp;targetCellY,
 <li class="blockList">
 <section class="detail">
 <h3><a id="getLastRoundTurnsList()">getLastRoundTurnsList</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&gt;</span>&nbsp;<span class="memberName">getLastRoundTurnsList</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&gt;</span>&nbsp;<span class="memberName">getLastRoundTurnsList</span>()</div>
 <div class="block">Gets a list of the Turns of the last round.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -706,8 +706,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="addNewTurn(it.polimi.ingsw.model.Player)">addNewTurn</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a></span>&nbsp;<span class="memberName">addNewTurn</span>&#8203;(<span class="arguments"><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player)</span></div>
+<h3><a id="addNewTurn(it.polimi.ingsw.server.model.Player)">addNewTurn</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a></span>&nbsp;<span class="memberName">addNewTurn</span>&#8203;(<span class="arguments"><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player)</span></div>
 <div class="block">Adds new turn to the round, replacing the precedent turn belonging to the player
  This method automatically resizes the lastRound Map in order to match the number
  of players still in the game.</div>
@@ -722,7 +722,7 @@ int&nbsp;targetCellY,
 <li class="blockList">
 <section class="detail">
 <h3><a id="getBoard()">getBoard</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/Board.html" title="class in it.polimi.ingsw.model.board">Board</a></span>&nbsp;<span class="memberName">getBoard</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/Board.html" title="class in it.polimi.ingsw.server.model.board">Board</a></span>&nbsp;<span class="memberName">getBoard</span>()</div>
 <div class="block">Gets the board.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -732,9 +732,9 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setWorkerCell(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">setWorkerCell</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerCell</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;cell)</span></div>
+<h3><a id="setWorkerCell(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">setWorkerCell</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerCell</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;cell)</span></div>
 <div class="block">Move a worker to a specific cell.
  IMPORTANT! If the target cell is occupied, this function expects to be called again to perform the swap between
  the workers, otherwise it will lead to an inconsistent state!</div>
@@ -747,10 +747,10 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="buildInCell(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell,it.polimi.ingsw.model.board.Component,int)">buildInCell</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buildInCell</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;cell,
-<a href="board/Component.html" title="enum in it.polimi.ingsw.model.board">Component</a>&nbsp;component,
+<h3><a id="buildInCell(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell,it.polimi.ingsw.server.model.board.Component,int)">buildInCell</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buildInCell</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;cell,
+<a href="board/Component.html" title="enum in it.polimi.ingsw.server.model.board">Component</a>&nbsp;component,
 int&nbsp;builtLevel)</span></div>
 <div class="block">Builds a component on a cell on behalf of the worker.</div>
 <dl>
@@ -764,8 +764,8 @@ int&nbsp;builtLevel)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="removeWorkerFromCell(it.polimi.ingsw.model.workers.Worker)">removeWorkerFromCell</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">removeWorkerFromCell</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</span></div>
+<h3><a id="removeWorkerFromCell(it.polimi.ingsw.server.model.workers.Worker)">removeWorkerFromCell</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">removeWorkerFromCell</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</span></div>
 <div class="block">Removes the worker from the cell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -775,13 +775,13 @@ int&nbsp;builtLevel)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidMove(int,int,int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">isValidMove</a></h3>
+<h3><a id="isValidMove(int,int,int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">isValidMove</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidMove</span>&#8203;(<span class="arguments">int&nbsp;sourceCellX,
 int&nbsp;sourceCellY,
 int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the PlayerMoveCommand can be executed</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -798,11 +798,11 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="move(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">move</a></h3>
+<h3><a id="move(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">move</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">move</span>&#8203;(<span class="arguments">int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Executes the PlayerMoveCommand</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -815,12 +815,12 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidBuild(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">isValidBuild</a></h3>
+<h3><a id="isValidBuild(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">isValidBuild</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidBuild</span>&#8203;(<span class="arguments">int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedComponent.html" title="enum in it.polimi.ingsw.utils.messages">ReducedComponent</a>&nbsp;reducedComponent,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the PlayerBuildCommand can be executed</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -836,12 +836,12 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="build(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">build</a></h3>
+<h3><a id="build(int,int,it.polimi.ingsw.utils.messages.ReducedComponent,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">build</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">build</span>&#8203;(<span class="arguments">int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedComponent.html" title="enum in it.polimi.ingsw.utils.messages">ReducedComponent</a>&nbsp;reducedComponent,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Executes the PlayerBuildCommand</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -855,8 +855,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidSkip(it.polimi.ingsw.controller.User)">isValidSkip</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidSkip</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="isValidSkip(it.polimi.ingsw.server.controller.User)">isValidSkip</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidSkip</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the PlayerSkipCommand can be executed</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -879,8 +879,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isInGame(it.polimi.ingsw.controller.User)">isInGame</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isInGame</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="isInGame(it.polimi.ingsw.server.controller.User)">isInGame</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isInGame</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the player is in game</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -906,9 +906,9 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidGodsChoice(java.util.List,it.polimi.ingsw.controller.User)">isValidGodsChoice</a></h3>
+<h3><a id="isValidGodsChoice(java.util.List,it.polimi.ingsw.server.controller.User)">isValidGodsChoice</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidGodsChoice</span>&#8203;(<span class="arguments">java.util.List&lt;<a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&gt;&nbsp;chosenGods,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the Gods choice is fine</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -932,9 +932,9 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidGodChoice(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.controller.User)">isValidGodChoice</a></h3>
+<h3><a id="isValidGodChoice(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.server.controller.User)">isValidGodChoice</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidGodChoice</span>&#8203;(<span class="arguments"><a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&nbsp;reducedGod,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the god choice is fine</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -947,9 +947,9 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setGod(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.controller.User)">setGod</a></h3>
+<h3><a id="setGod(it.polimi.ingsw.utils.messages.ReducedGod,it.polimi.ingsw.server.controller.User)">setGod</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGod</span>&#8203;(<span class="arguments"><a href="../utils/messages/ReducedGod.html" title="class in it.polimi.ingsw.utils.messages">ReducedGod</a>&nbsp;reducedGod,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method sets a specific chosen god to a user.
  If there is just one God left after the choice, this method changes the game state to SET_START_PLAYER
  and notifies the request message, while assigning the last god to the remaining player.</div>
@@ -962,9 +962,9 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setGod(it.polimi.ingsw.model.Player,it.polimi.ingsw.model.gods.God)">setGod</a></h3>
-<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGod</span>&#8203;(<span class="arguments"><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player,
-<a href="gods/God.html" title="interface in it.polimi.ingsw.model.gods">God</a>&nbsp;god)</span></div>
+<h3><a id="setGod(it.polimi.ingsw.server.model.Player,it.polimi.ingsw.server.model.gods.God)">setGod</a></h3>
+<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGod</span>&#8203;(<span class="arguments"><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player,
+<a href="gods/God.html" title="interface in it.polimi.ingsw.server.model.gods">God</a>&nbsp;god)</span></div>
 <div class="block">Helper method of setGod(ReducedGod, User) that assigns the god to the user
  and registers the god's opponents turn events to the opponents of the player.</div>
 <dl>
@@ -976,9 +976,9 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidStartPlayerChoice(it.polimi.ingsw.utils.messages.ReducedUser,it.polimi.ingsw.controller.User)">isValidStartPlayerChoice</a></h3>
+<h3><a id="isValidStartPlayerChoice(it.polimi.ingsw.utils.messages.ReducedUser,it.polimi.ingsw.server.controller.User)">isValidStartPlayerChoice</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidStartPlayerChoice</span>&#8203;(<span class="arguments"><a href="../utils/messages/ReducedUser.html" title="class in it.polimi.ingsw.utils.messages">ReducedUser</a>&nbsp;startPlayer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the choice is fine</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1002,11 +1002,11 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="isValidPositioning(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">isValidPositioning</a></h3>
+<h3><a id="isValidPositioning(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">isValidPositioning</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isValidPositioning</span>&#8203;(<span class="arguments">int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Checks if the choice is gine</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1021,11 +1021,11 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setWorkerPosition(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.controller.User)">setWorkerPosition</a></h3>
+<h3><a id="setWorkerPosition(int,int,it.polimi.ingsw.utils.messages.ReducedWorkerID,it.polimi.ingsw.server.controller.User)">setWorkerPosition</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerPosition</span>&#8203;(<span class="arguments">int&nbsp;targetCellX,
 int&nbsp;targetCellY,
 <a href="../utils/messages/ReducedWorkerID.html" title="enum in it.polimi.ingsw.utils.messages">ReducedWorkerID</a>&nbsp;performer,
-<a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">Sets the worker first position</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1049,8 +1049,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="notifyAskMove(it.polimi.ingsw.model.Turn)">notifyAskMove</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">notifyAskMove</span>&#8203;(<span class="arguments"><a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&nbsp;turn)</span></div>
+<h3><a id="notifyAskMove(it.polimi.ingsw.server.model.Turn)">notifyAskMove</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">notifyAskMove</span>&#8203;(<span class="arguments"><a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&nbsp;turn)</span></div>
 <div class="block">Notifies an askMoveMessage retrieving information from the turn</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1060,8 +1060,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="notifyAskBuild(it.polimi.ingsw.model.Turn)">notifyAskBuild</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">notifyAskBuild</span>&#8203;(<span class="arguments"><a href="Turn.html" title="class in it.polimi.ingsw.model">Turn</a>&nbsp;turn)</span></div>
+<h3><a id="notifyAskBuild(it.polimi.ingsw.server.model.Turn)">notifyAskBuild</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">notifyAskBuild</span>&#8203;(<span class="arguments"><a href="Turn.html" title="class in it.polimi.ingsw.server.model">Turn</a>&nbsp;turn)</span></div>
 <div class="block">notifies an askBuildMessage retrieving informations from the turn</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1092,8 +1092,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getUserFromPlayer(it.polimi.ingsw.model.Player)">getUserFromPlayer</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a></span>&nbsp;<span class="memberName">getUserFromPlayer</span>&#8203;(<span class="arguments"><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player)</span></div>
+<h3><a id="getUserFromPlayer(it.polimi.ingsw.server.model.Player)">getUserFromPlayer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a></span>&nbsp;<span class="memberName">getUserFromPlayer</span>&#8203;(<span class="arguments"><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player)</span></div>
 <div class="block">This method returns the user linked to the player</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1105,8 +1105,8 @@ int&nbsp;targetCellY,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getPlayerFromUser(it.polimi.ingsw.controller.User)">getPlayerFromUser</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a></span>&nbsp;<span class="memberName">getPlayerFromUser</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="getPlayerFromUser(it.polimi.ingsw.server.controller.User)">getPlayerFromUser</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a></span>&nbsp;<span class="memberName">getPlayerFromUser</span>&#8203;(<span class="arguments"><a href="../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method returns the player linked to the user</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

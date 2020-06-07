@@ -2,8 +2,8 @@
 
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.observer.LambdaObserver;
+import it.polimi.ingsw.server.controller.User;
+import it.polimi.ingsw.utils.observer.LambdaObserver;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;

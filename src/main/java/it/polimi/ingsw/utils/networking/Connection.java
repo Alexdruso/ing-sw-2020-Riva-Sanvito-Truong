@@ -1,6 +1,6 @@
 package it.polimi.ingsw.utils.networking;
 
-import it.polimi.ingsw.observer.LambdaObservable;
+import it.polimi.ingsw.utils.observer.LambdaObservable;
 import it.polimi.ingsw.utils.StringCapturedStackTrace;
 import it.polimi.ingsw.utils.messages.DisconnectionMessage;
 

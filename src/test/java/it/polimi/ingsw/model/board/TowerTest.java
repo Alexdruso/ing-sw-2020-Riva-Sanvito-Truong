@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.board;
+package it.polimi.ingsw.server.model.board;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

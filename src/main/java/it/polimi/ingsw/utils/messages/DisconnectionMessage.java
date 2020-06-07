@@ -2,13 +2,13 @@ package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.ServerConnectionSetupHandler;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.view.View;
 
 /**
  * This message handles both client and server disconnections

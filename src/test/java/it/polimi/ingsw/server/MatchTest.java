@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.model.gods.GodCard;
+import it.polimi.ingsw.server.model.gods.GodCard;
 import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.view.View;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 

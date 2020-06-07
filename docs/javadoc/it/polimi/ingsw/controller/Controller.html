@@ -6,7 +6,7 @@
 <title>Controller</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-06-07">
-<meta name="description" content="declaration: package: it.polimi.ingsw.controller, class: Controller">
+<meta name="description" content="declaration: package: it.polimi.ingsw.server.controller, class: Controller">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.css" title="Style">
@@ -83,22 +83,22 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">it.polimi.ingsw.controller</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">it.polimi.ingsw.server.controller</a></div>
 <h1 title="Class Controller" class="title">Class Controller</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance">it.polimi.ingsw.controller.Controller</div>
+<div class="inheritance">it.polimi.ingsw.server.controller.Controller</div>
 </div>
 <section class="description">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../observer/LambdaObserver.html" title="interface in it.polimi.ingsw.observer">LambdaObserver</a></code></dd>
+<dd><code><a href="../observer/LambdaObserver.html" title="interface in it.polimi.ingsw.utils.observer">LambdaObserver</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Controller</span>
 extends java.lang.Object
-implements <a href="../observer/LambdaObserver.html" title="interface in it.polimi.ingsw.observer">LambdaObserver</a></pre>
+implements <a href="../observer/LambdaObserver.html" title="interface in it.polimi.ingsw.utils.observer">LambdaObserver</a></pre>
 <div class="block">This class represents the Controller of the MVC Architectural pattern. It observes the View and gets
  notified whenever the user submits an input in order to handle it.</div>
 </section>
@@ -122,14 +122,14 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </thead>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="../model/Game.html" title="class in it.polimi.ingsw.model">Game</a></code></td>
+<td class="colFirst"><code>private <a href="../model/Game.html" title="class in it.polimi.ingsw.server.model">Game</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#model">model</a></span></code></th>
 <td class="colLast">
 <div class="block">The reference to the Model</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.concurrent.BlockingQueue&lt;<a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.view">ViewClientMessage</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.concurrent.BlockingQueue&lt;<a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.server.view">ViewClientMessage</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#processingQueue">processingQueue</a></span></code></th>
 <td class="colLast">
 <div class="block">The queue containing the messages to be processed.</div>
@@ -157,7 +157,7 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(it.polimi.ingsw.model.Game)">Controller</a></span>&#8203;(<a href="../model/Game.html" title="class in it.polimi.ingsw.model">Game</a>&nbsp;model)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(it.polimi.ingsw.server.model.Game)">Controller</a></span>&#8203;(<a href="../model/Game.html" title="class in it.polimi.ingsw.server.model">Game</a>&nbsp;model)</code></th>
 <td class="colLast">
 <div class="block">The class constructor</div>
 </td>
@@ -187,70 +187,70 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchBuildAction(it.polimi.ingsw.utils.messages.ClientBuildMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchBuildAction</a></span>&#8203;(<a href="../utils/messages/ClientBuildMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientBuildMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchBuildAction(it.polimi.ingsw.utils.messages.ClientBuildMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchBuildAction</a></span>&#8203;(<a href="../utils/messages/ClientBuildMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientBuildMessage</a>&nbsp;action,
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles building actions.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchChooseGodAction(it.polimi.ingsw.utils.messages.ClientChooseGodMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchChooseGodAction</a></span>&#8203;(<a href="../utils/messages/ClientChooseGodMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientChooseGodMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchChooseGodAction(it.polimi.ingsw.utils.messages.ClientChooseGodMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchChooseGodAction</a></span>&#8203;(<a href="../utils/messages/ClientChooseGodMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientChooseGodMessage</a>&nbsp;action,
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles the choose god action</div>
 </td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchChooseGodsAction(it.polimi.ingsw.utils.messages.ClientChooseGodsMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchChooseGodsAction</a></span>&#8203;(<a href="../utils/messages/ClientChooseGodsMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientChooseGodsMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchChooseGodsAction(it.polimi.ingsw.utils.messages.ClientChooseGodsMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchChooseGodsAction</a></span>&#8203;(<a href="../utils/messages/ClientChooseGodsMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientChooseGodsMessage</a>&nbsp;action,
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles the choose gods action.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchDrawAction(it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchDrawAction</a></span>&#8203;(<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchDrawAction(it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchDrawAction</a></span>&#8203;(<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles the draw action</div>
 </td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchMoveAction(it.polimi.ingsw.utils.messages.ClientMoveMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchMoveAction</a></span>&#8203;(<a href="../utils/messages/ClientMoveMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientMoveMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchMoveAction(it.polimi.ingsw.utils.messages.ClientMoveMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchMoveAction</a></span>&#8203;(<a href="../utils/messages/ClientMoveMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientMoveMessage</a>&nbsp;action,
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles movement actions</div>
 </td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchSetStartPlayerAction(it.polimi.ingsw.utils.messages.ClientSetStartPlayerMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchSetStartPlayerAction</a></span>&#8203;(<a href="../utils/messages/ClientSetStartPlayerMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientSetStartPlayerMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchSetStartPlayerAction(it.polimi.ingsw.utils.messages.ClientSetStartPlayerMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchSetStartPlayerAction</a></span>&#8203;(<a href="../utils/messages/ClientSetStartPlayerMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientSetStartPlayerMessage</a>&nbsp;action,
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles the set start player action</div>
 </td>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchSetWorkerStartPositionAction(it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchSetWorkerStartPositionAction</a></span>&#8203;(<a href="../utils/messages/ClientSetWorkerStartPositionMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientSetWorkerStartPositionMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchSetWorkerStartPositionAction(it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchSetWorkerStartPositionAction</a></span>&#8203;(<a href="../utils/messages/ClientSetWorkerStartPositionMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientSetWorkerStartPositionMessage</a>&nbsp;action,
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles the set worker start position requested</div>
 </td>
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchSkipAction(it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchSkipAction</a></span>&#8203;(<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispatchSkipAction(it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchSkipAction</a></span>&#8203;(<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</code></th>
 <td class="colLast">
 <div class="block">This method handles skip actions</div>
 </td>
@@ -264,7 +264,7 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(it.polimi.ingsw.view.ViewClientMessage)">update</a></span>&#8203;(<a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.view">ViewClientMessage</a>&nbsp;action)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update(it.polimi.ingsw.server.view.ViewClientMessage)">update</a></span>&#8203;(<a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.server.view">ViewClientMessage</a>&nbsp;action)</code></th>
 <td class="colLast">
 <div class="block">This method takes a ViewClientMessage from the view and adds it to the processing queue.</div>
 </td>
@@ -294,14 +294,14 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 <li class="blockList">
 <section class="detail">
 <h3><a id="model">model</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="../model/Game.html" title="class in it.polimi.ingsw.model">Game</a></span>&nbsp;<span class="memberName">model</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="../model/Game.html" title="class in it.polimi.ingsw.server.model">Game</a></span>&nbsp;<span class="memberName">model</span></div>
 <div class="block">The reference to the Model</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="processingQueue">processingQueue</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.concurrent.BlockingQueue&lt;<a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.view">ViewClientMessage</a>&gt;</span>&nbsp;<span class="memberName">processingQueue</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.concurrent.BlockingQueue&lt;<a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.server.view">ViewClientMessage</a>&gt;</span>&nbsp;<span class="memberName">processingQueue</span></div>
 <div class="block">The queue containing the messages to be processed.</div>
 </section>
 </li>
@@ -317,8 +317,8 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(it.polimi.ingsw.model.Game)">Controller</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Controller</span>&#8203;(<span class="arguments"><a href="../model/Game.html" title="class in it.polimi.ingsw.model">Game</a>&nbsp;model)</span></div>
+<h3><a id="&lt;init&gt;(it.polimi.ingsw.server.model.Game)">Controller</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Controller</span>&#8203;(<span class="arguments"><a href="../model/Game.html" title="class in it.polimi.ingsw.server.model">Game</a>&nbsp;model)</span></div>
 <div class="block">The class constructor</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -338,8 +338,8 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="update(it.polimi.ingsw.view.ViewClientMessage)">update</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">update</span>&#8203;(<span class="arguments"><a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.view">ViewClientMessage</a>&nbsp;action)</span></div>
+<h3><a id="update(it.polimi.ingsw.server.view.ViewClientMessage)">update</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">update</span>&#8203;(<span class="arguments"><a href="../view/ViewClientMessage.html" title="class in it.polimi.ingsw.server.view">ViewClientMessage</a>&nbsp;action)</span></div>
 <div class="block">This method takes a ViewClientMessage from the view and adds it to the processing queue.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -357,9 +357,9 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchDrawAction(it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchDrawAction</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchDrawAction</span>&#8203;(<span class="arguments"><a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="dispatchDrawAction(it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchDrawAction</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchDrawAction</span>&#8203;(<span class="arguments"><a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles the draw action</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -370,10 +370,10 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchChooseGodsAction(it.polimi.ingsw.utils.messages.ClientChooseGodsMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchChooseGodsAction</a></h3>
+<h3><a id="dispatchChooseGodsAction(it.polimi.ingsw.utils.messages.ClientChooseGodsMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchChooseGodsAction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchChooseGodsAction</span>&#8203;(<span class="arguments"><a href="../utils/messages/ClientChooseGodsMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientChooseGodsMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles the choose gods action.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -385,10 +385,10 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchChooseGodAction(it.polimi.ingsw.utils.messages.ClientChooseGodMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchChooseGodAction</a></h3>
+<h3><a id="dispatchChooseGodAction(it.polimi.ingsw.utils.messages.ClientChooseGodMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchChooseGodAction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchChooseGodAction</span>&#8203;(<span class="arguments"><a href="../utils/messages/ClientChooseGodMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientChooseGodMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles the choose god action</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -400,10 +400,10 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchSetStartPlayerAction(it.polimi.ingsw.utils.messages.ClientSetStartPlayerMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchSetStartPlayerAction</a></h3>
+<h3><a id="dispatchSetStartPlayerAction(it.polimi.ingsw.utils.messages.ClientSetStartPlayerMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchSetStartPlayerAction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchSetStartPlayerAction</span>&#8203;(<span class="arguments"><a href="../utils/messages/ClientSetStartPlayerMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientSetStartPlayerMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles the set start player action</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -415,10 +415,10 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchSetWorkerStartPositionAction(it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchSetWorkerStartPositionAction</a></h3>
+<h3><a id="dispatchSetWorkerStartPositionAction(it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchSetWorkerStartPositionAction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchSetWorkerStartPositionAction</span>&#8203;(<span class="arguments"><a href="../utils/messages/ClientSetWorkerStartPositionMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientSetWorkerStartPositionMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles the set worker start position requested</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -430,10 +430,10 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchBuildAction(it.polimi.ingsw.utils.messages.ClientBuildMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchBuildAction</a></h3>
+<h3><a id="dispatchBuildAction(it.polimi.ingsw.utils.messages.ClientBuildMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchBuildAction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchBuildAction</span>&#8203;(<span class="arguments"><a href="../utils/messages/ClientBuildMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientBuildMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles building actions.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -445,10 +445,10 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchMoveAction(it.polimi.ingsw.utils.messages.ClientMoveMessage,it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchMoveAction</a></h3>
+<h3><a id="dispatchMoveAction(it.polimi.ingsw.utils.messages.ClientMoveMessage,it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchMoveAction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchMoveAction</span>&#8203;(<span class="arguments"><a href="../utils/messages/ClientMoveMessage.html" title="class in it.polimi.ingsw.utils.messages">ClientMoveMessage</a>&nbsp;action,
-<a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles movement actions</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -460,9 +460,9 @@ implements <a href="../observer/LambdaObserver.html" title="interface in it.poli
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispatchSkipAction(it.polimi.ingsw.view.View,it.polimi.ingsw.controller.User)">dispatchSkipAction</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchSkipAction</span>&#8203;(<span class="arguments"><a href="../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
-<a href="User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user)</span></div>
+<h3><a id="dispatchSkipAction(it.polimi.ingsw.server.view.View,it.polimi.ingsw.server.controller.User)">dispatchSkipAction</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispatchSkipAction</span>&#8203;(<span class="arguments"><a href="../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
+<a href="User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user)</span></div>
 <div class="block">This method handles skip actions</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

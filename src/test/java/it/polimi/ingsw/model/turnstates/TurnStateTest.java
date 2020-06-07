@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.turnstates;
+package it.polimi.ingsw.server.model.turnstates;
 
 import org.junit.jupiter.api.Test;
 

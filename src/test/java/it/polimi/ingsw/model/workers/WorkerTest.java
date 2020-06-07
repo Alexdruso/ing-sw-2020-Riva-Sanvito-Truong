@@ -1,7 +1,7 @@
-package it.polimi.ingsw.model.workers;
+package it.polimi.ingsw.server.model.workers;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.board.Cell;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.board.Cell;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

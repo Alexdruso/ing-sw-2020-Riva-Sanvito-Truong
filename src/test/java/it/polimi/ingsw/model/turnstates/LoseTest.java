@@ -1,7 +1,7 @@
-package it.polimi.ingsw.model.turnstates;
+package it.polimi.ingsw.server.model.turnstates;
 
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Turn;
+import it.polimi.ingsw.server.model.Game;
+import it.polimi.ingsw.server.model.Turn;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;

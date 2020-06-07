@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.gods;
+package it.polimi.ingsw.server.model.gods;
 
-import it.polimi.ingsw.model.turnevents.TurnEvents;
+import it.polimi.ingsw.server.model.turnevents.TurnEvents;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

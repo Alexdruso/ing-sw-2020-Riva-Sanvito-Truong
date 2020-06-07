@@ -1,10 +1,10 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.model.board.Component;
-import it.polimi.ingsw.model.workers.WorkerID;
+import it.polimi.ingsw.server.controller.User;
+import it.polimi.ingsw.server.model.board.Component;
+import it.polimi.ingsw.server.model.workers.WorkerID;
 import it.polimi.ingsw.utils.messages.*;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.view.View;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

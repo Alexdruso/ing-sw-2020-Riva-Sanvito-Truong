@@ -1,13 +1,13 @@
-package it.polimi.ingsw.model.gods;
+package it.polimi.ingsw.server.model.gods;
 
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.actions.BuildAction;
-import it.polimi.ingsw.model.actions.MoveAction;
-import it.polimi.ingsw.model.board.*;
-import it.polimi.ingsw.model.turnevents.TurnEventsManager;
-import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.server.model.Game;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.Turn;
+import it.polimi.ingsw.server.model.actions.BuildAction;
+import it.polimi.ingsw.server.model.actions.MoveAction;
+import it.polimi.ingsw.server.model.board.*;
+import it.polimi.ingsw.server.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.server.model.workers.Worker;
 
 import java.util.*;
 import java.util.stream.Collectors;

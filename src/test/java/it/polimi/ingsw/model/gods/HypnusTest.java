@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model.gods;
+package it.polimi.ingsw.server.model.gods;
 
-import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.server.model.workers.Worker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

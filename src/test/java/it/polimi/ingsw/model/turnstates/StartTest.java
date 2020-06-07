@@ -1,8 +1,8 @@
-package it.polimi.ingsw.model.turnstates;
+package it.polimi.ingsw.server.model.turnstates;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.Turn;
+import it.polimi.ingsw.server.model.turnevents.TurnEventsManager;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;

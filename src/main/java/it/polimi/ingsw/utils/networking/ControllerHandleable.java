@@ -1,9 +1,9 @@
 package it.polimi.ingsw.utils.networking;
 
 
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.User;
+import it.polimi.ingsw.server.view.View;
 
 /**
  * This interface represents messages able to interact with the controller.

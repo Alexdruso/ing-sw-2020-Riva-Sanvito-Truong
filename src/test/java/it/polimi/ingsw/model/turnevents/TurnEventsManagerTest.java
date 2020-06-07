@@ -1,8 +1,8 @@
-package it.polimi.ingsw.model.turnevents;
+package it.polimi.ingsw.server.model.turnevents;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.gods.God;
+import it.polimi.ingsw.server.model.Player;
+import it.polimi.ingsw.server.model.Turn;
+import it.polimi.ingsw.server.model.gods.God;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

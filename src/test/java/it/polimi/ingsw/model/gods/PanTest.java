@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gods;
+package it.polimi.ingsw.server.model.gods;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

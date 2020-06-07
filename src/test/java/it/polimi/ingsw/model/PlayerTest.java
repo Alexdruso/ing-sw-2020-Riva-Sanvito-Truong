@@ -1,9 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.server.model;
 
-import it.polimi.ingsw.model.gods.God;
-import it.polimi.ingsw.model.turnevents.TurnEventsManager;
-import it.polimi.ingsw.model.workers.Worker;
-import it.polimi.ingsw.model.workers.WorkerID;
+import it.polimi.ingsw.server.model.gods.God;
+import it.polimi.ingsw.server.model.turnevents.TurnEventsManager;
+import it.polimi.ingsw.server.model.workers.Worker;
+import it.polimi.ingsw.server.model.workers.WorkerID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

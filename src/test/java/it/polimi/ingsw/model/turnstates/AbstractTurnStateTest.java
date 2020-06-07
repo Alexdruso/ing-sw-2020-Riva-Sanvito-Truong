@@ -1,8 +1,8 @@
-package it.polimi.ingsw.model.turnstates;
+package it.polimi.ingsw.server.model.turnstates;
 
-import it.polimi.ingsw.model.Turn;
-import it.polimi.ingsw.model.board.Cell;
-import it.polimi.ingsw.model.workers.Worker;
+import it.polimi.ingsw.server.model.Turn;
+import it.polimi.ingsw.server.model.board.Cell;
+import it.polimi.ingsw.server.model.workers.Worker;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

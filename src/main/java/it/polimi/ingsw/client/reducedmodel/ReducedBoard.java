@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.reducedmodel;
 
-import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.messages.ReducedTargetCells;
 
 import java.util.ArrayList;
