@@ -526,7 +526,7 @@ public class GameTest {
         );
         //trigger another winning turn
         myGame.triggerLosingTurn();
-        verify(myView, times(2)).updateFromGame(any(ServerLoseGameMessage.class));
+        verify(myView).updateFromGame(any(ServerLoseGameMessage.class));
         verify(myView, times(4)).updateFromGame(any(ServerRemoveWorkerMessage.class));
         verify(myView).updateFromGame(any(ServerWinGameMessage.class));
         assertFalse(
