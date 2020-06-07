@@ -87,5 +87,6 @@ target/
 
 # Logs of the client CLI inputs
 in_logs/*/**
+!in_logs/shared/*
 
 # ====
