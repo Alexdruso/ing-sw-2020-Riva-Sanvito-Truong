@@ -32,7 +32,7 @@ public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositi
     }
 
     @Override
-    public void handleClientError() throws UnsupportedOperationException {
+    public void handleClientError() {
         cli.error(I18n.string(I18nKey.YOU_CANT_PLACE_THE_WORKER_IN_THE_SPECIFIED_CELL));
     }
 }

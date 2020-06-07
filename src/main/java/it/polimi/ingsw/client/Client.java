@@ -82,7 +82,6 @@ public class Client implements LambdaObserver {
         if (connection != null) {
             connection.close();
             nickname = null;
-            connection = null;
         }
     }
 
@@ -102,7 +101,7 @@ public class Client implements LambdaObserver {
      * @throws IllegalStateException if trying to set a connection after the client already has one
      */
     public void setConnection(Connection connection) throws IllegalStateException {
-        if (this.connection == null) {
+        if (this.connection == null || !this.connection.isActive()) {
             this.connection = connection;
         }
         else {

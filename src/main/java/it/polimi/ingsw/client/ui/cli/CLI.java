@@ -338,6 +338,23 @@ public class CLI extends UI {
         }
     }
 
+    boolean readYesNo(String prompt) {
+        String yes = I18n.string(I18nKey.YES);
+        String no = I18n.string(I18nKey.NO);
+        while (true) {
+            String choice = readString(String.format("%s [%s/%s]", prompt, yes, no), null, 3);
+
+            if (choice.equalsIgnoreCase(yes) || choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1))) {
+                return true;
+            }
+            if (choice.equalsIgnoreCase(no) || choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1))) {
+                return false;
+            }
+
+            error(I18n.string(I18nKey.CHOOSE_BETWEEN_YES_OR_NO));
+        }
+    }
+
     /**
      * Reads the coordinate of a cell from the CLI and returns the corresponding ReducedCell.
      *

@@ -34,6 +34,7 @@ public class Connection extends LambdaObservable<Transmittable> {
         logInfo("Connection established");
         isActive = new AtomicBoolean(true);
         socketOut = new ObjectOutputStream(socket.getOutputStream());
+        socketOut.flush();
         socketIn = new ObjectInputStream(socket.getInputStream());
         receiveThread = startSocketReceiveThread();
     }

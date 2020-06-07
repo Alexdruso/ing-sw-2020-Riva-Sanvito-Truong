@@ -212,7 +212,7 @@ public class ServerLobbyBuilder {
             boolean firstPlayerDisconnected;
 
             synchronized (lobbyRequestingConnections) {
-                while (lobbyRequestingConnections.size() < currentLobbyPlayerCount) {
+                while (lobbyRequestingConnections.size() < currentLobbyPlayerCount && lobbyRequestingConnections.get(0).equals(firstConnection)) {
                     try {
                         lobbyRequestingConnections.wait();
                     } catch (InterruptedException e) {

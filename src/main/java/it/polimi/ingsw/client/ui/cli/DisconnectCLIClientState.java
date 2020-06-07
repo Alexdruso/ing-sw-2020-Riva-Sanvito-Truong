@@ -25,8 +25,7 @@ public class DisconnectCLIClientState extends AbstractDisconnectClientState impl
     public void render() {
         cli.println(I18n.string(I18nKey.DISCONNECTED_FROM_THE_SERVER));
 
-        String choice = cli.readString("TODO");
-        if (choice.equals("y")) {
+        if (cli.readYesNo(I18n.string(I18nKey.DO_YOU_WANT_TO_START_A_NEW_MATCH))) {
             notifyUiInteraction();
         }
         else {
