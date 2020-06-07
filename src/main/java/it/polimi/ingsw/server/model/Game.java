@@ -134,6 +134,10 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public Turn addNewTurn(Player player) {
         Turn turn = new Turn(this, player);
+        if (!players.contains(player)){
+            // If during the setup we realize the current player has lost, let's stop creating their turn.
+            return currentTurn;
+        }
         if (lastRound.size() >= players.size()) {
             if (!getPlayersList().contains(lastRound.getLast().getPlayer())) {
                 //Make the lastRound list shorter to match the number of players
@@ -750,16 +754,16 @@ public class Game extends LambdaObservable<Transmittable> {
         Arrays.stream(losingPlayer.getWorkers()).forEach(this::removeWorkerFromCell);
         //rotate the players removing the current turn player
         players.poll();
-        //tell the player he lost
-        notify(
-                new ServerLoseGameMessage(
-                        getUserFromPlayer(losingPlayer).toReducedUser()
-                )
-        );
         //now check if the game is still going on
         if (players.size() == 1) {
             triggerWinningTurn();
         } else {
+            //tell the player he lost
+            notify(
+                    new ServerLoseGameMessage(
+                            getUserFromPlayer(losingPlayer).toReducedUser()
+                    )
+            );
             gameState = GameState.PLAY;
             addNewTurn(players.peek());
         }
