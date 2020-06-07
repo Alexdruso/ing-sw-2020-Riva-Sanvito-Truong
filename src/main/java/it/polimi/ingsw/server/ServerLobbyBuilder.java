@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
 

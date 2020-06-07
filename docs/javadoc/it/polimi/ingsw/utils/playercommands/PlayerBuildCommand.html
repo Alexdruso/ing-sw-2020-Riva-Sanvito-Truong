@@ -134,14 +134,14 @@ extends <a href="PlayerCommand.html" title="class in it.polimi.ingsw.utils.playe
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.model.board">Component</a></code></td>
+<td class="colFirst"><code><a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.server.model.board">Component</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#component">component</a></span></code></th>
 <td class="colLast">
 <div class="block">The component that is to be built on the cell</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.model.workers">WorkerID</a></code></td>
+<td class="colFirst"><code><a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.server.model.workers">WorkerID</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#performer">performer</a></span></code></th>
 <td class="colLast">
 <div class="block">The worker who is to perform the build</div>
@@ -188,13 +188,13 @@ extends <a href="PlayerCommand.html" title="class in it.polimi.ingsw.utils.playe
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(it.polimi.ingsw.controller.User,it.polimi.ingsw.view.View,int,int,it.polimi.ingsw.model.board.Component,int,it.polimi.ingsw.model.workers.WorkerID)">PlayerBuildCommand</a></span>&#8203;(<a href="../../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user,
-<a href="../../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(it.polimi.ingsw.server.controller.User,it.polimi.ingsw.server.view.View,int,int,it.polimi.ingsw.server.model.board.Component,int,it.polimi.ingsw.server.model.workers.WorkerID)">PlayerBuildCommand</a></span>&#8203;(<a href="../../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user,
+<a href="../../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
 int&nbsp;targetCellX,
 int&nbsp;targetCellY,
-<a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.model.board">Component</a>&nbsp;component,
+<a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.server.model.board">Component</a>&nbsp;component,
 int&nbsp;builtLevel,
-<a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.model.workers">WorkerID</a>&nbsp;performer)</code></th>
+<a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.server.model.workers">WorkerID</a>&nbsp;performer)</code></th>
 <td class="colLast">
 <div class="block">Constructor, stores all the variables by reference</div>
 </td>
@@ -268,7 +268,7 @@ int&nbsp;builtLevel,
 <li class="blockList">
 <section class="detail">
 <h3><a id="component">component</a></h3>
-<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.model.board">Component</a></span>&nbsp;<span class="memberName">component</span></div>
+<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.server.model.board">Component</a></span>&nbsp;<span class="memberName">component</span></div>
 <div class="block">The component that is to be built on the cell</div>
 </section>
 </li>
@@ -282,7 +282,7 @@ int&nbsp;builtLevel,
 <li class="blockList">
 <section class="detail">
 <h3><a id="performer">performer</a></h3>
-<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.model.workers">WorkerID</a></span>&nbsp;<span class="memberName">performer</span></div>
+<div class="memberSignature"><span class="modifiers">public final</span>&nbsp;<span class="returnType"><a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.server.model.workers">WorkerID</a></span>&nbsp;<span class="memberName">performer</span></div>
 <div class="block">The worker who is to perform the build</div>
 </section>
 </li>
@@ -298,14 +298,14 @@ int&nbsp;builtLevel,
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(it.polimi.ingsw.controller.User,it.polimi.ingsw.view.View,int,int,it.polimi.ingsw.model.board.Component,int,it.polimi.ingsw.model.workers.WorkerID)">PlayerBuildCommand</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">PlayerBuildCommand</span>&#8203;(<span class="arguments"><a href="../../controller/User.html" title="class in it.polimi.ingsw.controller">User</a>&nbsp;user,
-<a href="../../view/View.html" title="class in it.polimi.ingsw.view">View</a>&nbsp;view,
+<h3><a id="&lt;init&gt;(it.polimi.ingsw.server.controller.User,it.polimi.ingsw.server.view.View,int,int,it.polimi.ingsw.server.model.board.Component,int,it.polimi.ingsw.server.model.workers.WorkerID)">PlayerBuildCommand</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">PlayerBuildCommand</span>&#8203;(<span class="arguments"><a href="../../controller/User.html" title="class in it.polimi.ingsw.server.controller">User</a>&nbsp;user,
+<a href="../../view/View.html" title="class in it.polimi.ingsw.server.view">View</a>&nbsp;view,
 int&nbsp;targetCellX,
 int&nbsp;targetCellY,
-<a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.model.board">Component</a>&nbsp;component,
+<a href="../../model/board/Component.html" title="enum in it.polimi.ingsw.server.model.board">Component</a>&nbsp;component,
 int&nbsp;builtLevel,
-<a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.model.workers">WorkerID</a>&nbsp;performer)</span></div>
+<a href="../../model/workers/WorkerID.html" title="enum in it.polimi.ingsw.server.model.workers">WorkerID</a>&nbsp;performer)</span></div>
 <div class="block">Constructor, stores all the variables by reference</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

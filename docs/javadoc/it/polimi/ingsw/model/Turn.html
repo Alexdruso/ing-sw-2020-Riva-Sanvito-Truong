@@ -6,7 +6,7 @@
 <title>Turn</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-06-07">
-<meta name="description" content="declaration: package: it.polimi.ingsw.model, class: Turn">
+<meta name="description" content="declaration: package: it.polimi.ingsw.server.model, class: Turn">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.css" title="Style">
@@ -83,12 +83,12 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">it.polimi.ingsw.model</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">it.polimi.ingsw.server.model</a></div>
 <h1 title="Class Turn" class="title">Class Turn</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance">it.polimi.ingsw.model.Turn</div>
+<div class="inheritance">it.polimi.ingsw.server.model.Turn</div>
 </div>
 <section class="description">
 <hr>
@@ -119,7 +119,7 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="altColor">
 <td class="colFirst"><code>(package private) static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Turn.VictoryConditions.html" title="enum in it.polimi.ingsw.model">Turn.VictoryConditions</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Turn.VictoryConditions.html" title="enum in it.polimi.ingsw.server.model">Turn.VictoryConditions</a></span></code></th>
 <td class="colLast">
 <div class="block">Anonymous class to represent the win, lose or neutral conditions of the turn</div>
 </td>
@@ -147,56 +147,56 @@ extends java.lang.Object</pre>
 </thead>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><code>private java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#allowedWorkers">allowedWorkers</a></span></code></th>
 <td class="colLast">
 <div class="block">Workers allowed to move or build during the turn state</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockBuildableCells">blockBuildableCells</a></span></code></th>
 <td class="colLast">
 <div class="block">Cells on which the worker can build a block</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.model.turnstates">AbstractTurnState</a></code></td>
+<td class="colFirst"><code>private <a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.server.model.turnstates">AbstractTurnState</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#currentState">currentState</a></span></code></th>
 <td class="colLast">
 <div class="block">Current state of the turn, part of state pattern</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#domeBuildableCells">domeBuildableCells</a></span></code></th>
 <td class="colLast">
 <div class="block">Cells on which the worker can build a dome</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="Game.html" title="class in it.polimi.ingsw.model">Game</a></code></td>
+<td class="colFirst"><code>private <a href="Game.html" title="class in it.polimi.ingsw.server.model">Game</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#game">game</a></span></code></th>
 <td class="colLast">
 <div class="block">Reference to the game, which represents the data related to the model</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private <a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.model.turnstates">AbstractTurnState</a></code></td>
+<td class="colFirst"><code>private <a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.server.model.turnstates">AbstractTurnState</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#nextState">nextState</a></span></code></th>
 <td class="colLast">
 <div class="block">Next state of the turn, part of state pattern</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.model.actions">Action</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.server.model.actions">Action</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#performedActions">performedActions</a></span></code></th>
 <td class="colLast">
 <div class="block">List of all the actions performed in the turn</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private <a href="Player.html" title="class in it.polimi.ingsw.model">Player</a></code></td>
+<td class="colFirst"><code>private <a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#player">player</a></span></code></th>
 <td class="colLast">
 <div class="block">Reference to the player involved in the turn</div>
@@ -210,14 +210,14 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#walkableCells">walkableCells</a></span></code></th>
 <td class="colLast">
 <div class="block">Cells the worker can be moved to</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="Turn.VictoryConditions.html" title="enum in it.polimi.ingsw.model">Turn.VictoryConditions</a></code></td>
+<td class="colFirst"><code>private <a href="Turn.VictoryConditions.html" title="enum in it.polimi.ingsw.server.model">Turn.VictoryConditions</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#winLoseCondition">winLoseCondition</a></span></code></th>
 <td class="colLast">
 <div class="block">This attribute holds if the turn is a winning or losing turn</div>
@@ -245,8 +245,8 @@ extends java.lang.Object</pre>
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(it.polimi.ingsw.model.Game,it.polimi.ingsw.model.Player)">Turn</a></span>&#8203;(<a href="Game.html" title="class in it.polimi.ingsw.model">Game</a>&nbsp;game,
-<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(it.polimi.ingsw.server.model.Game,it.polimi.ingsw.server.model.Player)">Turn</a></span>&#8203;(<a href="Game.html" title="class in it.polimi.ingsw.server.model">Game</a>&nbsp;game,
+<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player)</code></th>
 <td class="colLast">
 <div class="block">Builder of the turn.</div>
 </td>
@@ -276,68 +276,68 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAllowedWorker(it.polimi.ingsw.model.workers.Worker)">addAllowedWorker</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;allowedWorker)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAllowedWorker(it.polimi.ingsw.server.model.workers.Worker)">addAllowedWorker</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;allowedWorker)</code></th>
 <td class="colLast">
 <div class="block">Allows a worker to perform operations on this turn.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAllowedWorkers(it.polimi.ingsw.model.workers.Worker%5B%5D)">addAllowedWorkers</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>[]&nbsp;allowedWorkers)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAllowedWorkers(it.polimi.ingsw.server.model.workers.Worker%5B%5D)">addAllowedWorkers</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>[]&nbsp;allowedWorkers)</code></th>
 <td class="colLast">
 <div class="block">Allows an array of workers to perform operations on this turn.</div>
 </td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAllowedWorkers(java.util.Collection)">addAllowedWorkers</a></span>&#8203;(java.util.Collection&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&gt;&nbsp;allowedWorkers)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAllowedWorkers(java.util.Collection)">addAllowedWorkers</a></span>&#8203;(java.util.Collection&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&gt;&nbsp;allowedWorkers)</code></th>
 <td class="colLast">
 <div class="block">Allows a collection of workers to perform operations on this turn.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addPerformedAction(it.polimi.ingsw.model.actions.Action)">addPerformedAction</a></span>&#8203;(<a href="actions/Action.html" title="interface in it.polimi.ingsw.model.actions">Action</a>&nbsp;performedAction)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addPerformedAction(it.polimi.ingsw.server.model.actions.Action)">addPerformedAction</a></span>&#8203;(<a href="actions/Action.html" title="interface in it.polimi.ingsw.server.model.actions">Action</a>&nbsp;performedAction)</code></th>
 <td class="colLast">
 <div class="block">This method adds a performed action</div>
 </td>
 </tr>
 <tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildBlockIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">buildBlockIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildBlockIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">buildBlockIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</code></th>
 <td class="colLast">
 <div class="block">This methods builds a block in targetCell</div>
 </td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildDomeIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">buildDomeIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buildDomeIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">buildDomeIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</code></th>
 <td class="colLast">
 <div class="block">This methods builds a dome in targetCell</div>
 </td>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canBuildBlockIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">canBuildBlockIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canBuildBlockIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">canBuildBlockIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</code></th>
 <td class="colLast">
 <div class="block">This boolean methods checks if the pawn can build a block in targetCell</div>
 </td>
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canBuildDomeIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">canBuildDomeIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canBuildDomeIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">canBuildDomeIn</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</code></th>
 <td class="colLast">
 <div class="block">This boolean methods checks if the pawn can build a Dome in targetCell</div>
 </td>
 </tr>
 <tr class="altColor" id="i8">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canMoveTo(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">canMoveTo</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canMoveTo(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">canMoveTo</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</code></th>
 <td class="colLast">
 <div class="block">This boolean methods checks if the pawn can move to targetCell</div>
 </td>
@@ -367,85 +367,85 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr class="altColor" id="i12">
-<td class="colFirst"><code>java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAllowedWorkers()">getAllowedWorkers</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns a set of the allowed workers</div>
 </td>
 </tr>
 <tr class="rowColor" id="i13">
-<td class="colFirst"><code>java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBlockBuildableCells()">getBlockBuildableCells</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method returns a map linking workers and their blockBuildableCells</div>
 </td>
 </tr>
 <tr class="altColor" id="i14">
-<td class="colFirst"><code>java.util.List&lt;<a href="actions/BuildAction.html" title="class in it.polimi.ingsw.model.actions">BuildAction</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="actions/BuildAction.html" title="class in it.polimi.ingsw.server.model.actions">BuildAction</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBuilds()">getBuilds</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method provides a List of all the performed builds</div>
 </td>
 </tr>
 <tr class="rowColor" id="i15">
-<td class="colFirst"><code>java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDomeBuildableCells()">getDomeBuildableCells</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method returns a map linking workers and their domeBuildableCells</div>
 </td>
 </tr>
 <tr class="altColor" id="i16">
-<td class="colFirst"><code><a href="Game.html" title="class in it.polimi.ingsw.model">Game</a></code></td>
+<td class="colFirst"><code><a href="Game.html" title="class in it.polimi.ingsw.server.model">Game</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGame()">getGame</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the game.</div>
 </td>
 </tr>
 <tr class="rowColor" id="i17">
-<td class="colFirst"><code>java.util.List&lt;<a href="actions/MoveAction.html" title="class in it.polimi.ingsw.model.actions">MoveAction</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="actions/MoveAction.html" title="class in it.polimi.ingsw.server.model.actions">MoveAction</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMoves()">getMoves</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method provides a List of all the performed moves</div>
 </td>
 </tr>
 <tr class="altColor" id="i18">
-<td class="colFirst"><code>java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.model.actions">Action</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.server.model.actions">Action</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPerformedAction()">getPerformedAction</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method provides a List of all the performed actions</div>
 </td>
 </tr>
 <tr class="rowColor" id="i19">
-<td class="colFirst"><code><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a></code></td>
+<td class="colFirst"><code><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayer()">getPlayer</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get player player.</div>
 </td>
 </tr>
 <tr class="altColor" id="i20">
-<td class="colFirst"><code>java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWalkableCells()">getWalkableCells</a></span>()</code></th>
 <td class="colLast">
 <div class="block">This method returns a map linking workers and their walkableCells</div>
 </td>
 </tr>
 <tr class="rowColor" id="i21">
-<td class="colFirst"><code><a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorkerBlockBuildableCells(it.polimi.ingsw.model.workers.Worker)">getWorkerBlockBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</code></th>
+<td class="colFirst"><code><a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorkerBlockBuildableCells(it.polimi.ingsw.server.model.workers.Worker)">getWorkerBlockBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</code></th>
 <td class="colLast">
 <div class="block">This method returns TargetCells related to Cells the Worker can build a block in</div>
 </td>
 </tr>
 <tr class="altColor" id="i22">
-<td class="colFirst"><code><a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorkerDomeBuildableCells(it.polimi.ingsw.model.workers.Worker)">getWorkerDomeBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</code></th>
+<td class="colFirst"><code><a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorkerDomeBuildableCells(it.polimi.ingsw.server.model.workers.Worker)">getWorkerDomeBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</code></th>
 <td class="colLast">
 <div class="block">This method returns TargetCells related to Cells the Worker can build a dome in</div>
 </td>
 </tr>
 <tr class="rowColor" id="i23">
-<td class="colFirst"><code><a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorkerWalkableCells(it.polimi.ingsw.model.workers.Worker)">getWorkerWalkableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</code></th>
+<td class="colFirst"><code><a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWorkerWalkableCells(it.polimi.ingsw.server.model.workers.Worker)">getWorkerWalkableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</code></th>
 <td class="colLast">
 <div class="block">This method returns TargetCells related to Cells the Worker can walk in</div>
 </td>
@@ -473,8 +473,8 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor" id="i27">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveTo(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">moveTo</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveTo(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">moveTo</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</code></th>
 <td class="colLast">
 <div class="block">This method moves the pawn to targetCell</div>
 </td>
@@ -488,7 +488,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor" id="i29">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNextState(it.polimi.ingsw.model.turnstates.AbstractTurnState)">setNextState</a></span>&#8203;(<a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.model.turnstates">AbstractTurnState</a>&nbsp;nextState)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNextState(it.polimi.ingsw.server.model.turnstates.AbstractTurnState)">setNextState</a></span>&#8203;(<a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.server.model.turnstates">AbstractTurnState</a>&nbsp;nextState)</code></th>
 <td class="colLast">
 <div class="block">Setter of next state</div>
 </td>
@@ -509,24 +509,24 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor" id="i32">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerBlockBuildableCells(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.TargetCells)">setWorkerBlockBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&nbsp;targetCells)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerBlockBuildableCells(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.TargetCells)">setWorkerBlockBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&nbsp;targetCells)</code></th>
 <td class="colLast">
 <div class="block">This method sets new block buildable cells for the worker</div>
 </td>
 </tr>
 <tr class="rowColor" id="i33">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerDomeBuildableCells(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.TargetCells)">setWorkerDomeBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&nbsp;targetCells)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerDomeBuildableCells(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.TargetCells)">setWorkerDomeBuildableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&nbsp;targetCells)</code></th>
 <td class="colLast">
 <div class="block">This method sets new dome buildable cells for the worker</div>
 </td>
 </tr>
 <tr class="altColor" id="i34">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerWalkableCells(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.TargetCells)">setWorkerWalkableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&nbsp;targetCells)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setWorkerWalkableCells(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.TargetCells)">setWorkerWalkableCells</a></span>&#8203;(<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&nbsp;targetCells)</code></th>
 <td class="colLast">
 <div class="block">This method sets new walkable cells for the worker</div>
 </td>
@@ -563,70 +563,70 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="game">game</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="Game.html" title="class in it.polimi.ingsw.model">Game</a></span>&nbsp;<span class="memberName">game</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="Game.html" title="class in it.polimi.ingsw.server.model">Game</a></span>&nbsp;<span class="memberName">game</span></div>
 <div class="block">Reference to the game, which represents the data related to the model</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="player">player</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a></span>&nbsp;<span class="memberName">player</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType"><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a></span>&nbsp;<span class="memberName">player</span></div>
 <div class="block">Reference to the player involved in the turn</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="performedActions">performedActions</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.model.actions">Action</a>&gt;</span>&nbsp;<span class="memberName">performedActions</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.server.model.actions">Action</a>&gt;</span>&nbsp;<span class="memberName">performedActions</span></div>
 <div class="block">List of all the actions performed in the turn</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="blockBuildableCells">blockBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">blockBuildableCells</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">blockBuildableCells</span></div>
 <div class="block">Cells on which the worker can build a block</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="domeBuildableCells">domeBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">domeBuildableCells</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">domeBuildableCells</span></div>
 <div class="block">Cells on which the worker can build a dome</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="walkableCells">walkableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">walkableCells</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">walkableCells</span></div>
 <div class="block">Cells the worker can be moved to</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="allowedWorkers">allowedWorkers</a></h3>
-<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&gt;</span>&nbsp;<span class="memberName">allowedWorkers</span></div>
+<div class="memberSignature"><span class="modifiers">private final</span>&nbsp;<span class="returnType">java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&gt;</span>&nbsp;<span class="memberName">allowedWorkers</span></div>
 <div class="block">Workers allowed to move or build during the turn state</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="currentState">currentState</a></h3>
-<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.model.turnstates">AbstractTurnState</a></span>&nbsp;<span class="memberName">currentState</span></div>
+<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.server.model.turnstates">AbstractTurnState</a></span>&nbsp;<span class="memberName">currentState</span></div>
 <div class="block">Current state of the turn, part of state pattern</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="nextState">nextState</a></h3>
-<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.model.turnstates">AbstractTurnState</a></span>&nbsp;<span class="memberName">nextState</span></div>
+<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.server.model.turnstates">AbstractTurnState</a></span>&nbsp;<span class="memberName">nextState</span></div>
 <div class="block">Next state of the turn, part of state pattern</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="winLoseCondition">winLoseCondition</a></h3>
-<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="Turn.VictoryConditions.html" title="enum in it.polimi.ingsw.model">Turn.VictoryConditions</a></span>&nbsp;<span class="memberName">winLoseCondition</span></div>
+<div class="memberSignature"><span class="modifiers">private</span>&nbsp;<span class="returnType"><a href="Turn.VictoryConditions.html" title="enum in it.polimi.ingsw.server.model">Turn.VictoryConditions</a></span>&nbsp;<span class="memberName">winLoseCondition</span></div>
 <div class="block">This attribute holds if the turn is a winning or losing turn</div>
 </section>
 </li>
@@ -649,9 +649,9 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(it.polimi.ingsw.model.Game,it.polimi.ingsw.model.Player)">Turn</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Turn</span>&#8203;(<span class="arguments"><a href="Game.html" title="class in it.polimi.ingsw.model">Game</a>&nbsp;game,
-<a href="Player.html" title="class in it.polimi.ingsw.model">Player</a>&nbsp;player)</span></div>
+<h3><a id="&lt;init&gt;(it.polimi.ingsw.server.model.Game,it.polimi.ingsw.server.model.Player)">Turn</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Turn</span>&#8203;(<span class="arguments"><a href="Game.html" title="class in it.polimi.ingsw.server.model">Game</a>&nbsp;game,
+<a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a>&nbsp;player)</span></div>
 <div class="block">Builder of the turn.
  It binds to a specific game and player.
  It initializes all the relevant structures and sets the first state, then calling .setup() on it
@@ -676,7 +676,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getGame()">getGame</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Game.html" title="class in it.polimi.ingsw.model">Game</a></span>&nbsp;<span class="memberName">getGame</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Game.html" title="class in it.polimi.ingsw.server.model">Game</a></span>&nbsp;<span class="memberName">getGame</span>()</div>
 <div class="block">Gets the game.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -687,7 +687,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getPerformedAction()">getPerformedAction</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.model.actions">Action</a>&gt;</span>&nbsp;<span class="memberName">getPerformedAction</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/Action.html" title="interface in it.polimi.ingsw.server.model.actions">Action</a>&gt;</span>&nbsp;<span class="memberName">getPerformedAction</span>()</div>
 <div class="block">This method provides a List of all the performed actions</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -698,7 +698,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getBuilds()">getBuilds</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/BuildAction.html" title="class in it.polimi.ingsw.model.actions">BuildAction</a>&gt;</span>&nbsp;<span class="memberName">getBuilds</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/BuildAction.html" title="class in it.polimi.ingsw.server.model.actions">BuildAction</a>&gt;</span>&nbsp;<span class="memberName">getBuilds</span>()</div>
 <div class="block">This method provides a List of all the performed builds</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -709,7 +709,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getMoves()">getMoves</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/MoveAction.html" title="class in it.polimi.ingsw.model.actions">MoveAction</a>&gt;</span>&nbsp;<span class="memberName">getMoves</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="actions/MoveAction.html" title="class in it.polimi.ingsw.server.model.actions">MoveAction</a>&gt;</span>&nbsp;<span class="memberName">getMoves</span>()</div>
 <div class="block">This method provides a List of all the performed moves</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -720,7 +720,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getPlayer()">getPlayer</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Player.html" title="class in it.polimi.ingsw.model">Player</a></span>&nbsp;<span class="memberName">getPlayer</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="Player.html" title="class in it.polimi.ingsw.server.model">Player</a></span>&nbsp;<span class="memberName">getPlayer</span>()</div>
 <div class="block">Get player player.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -730,8 +730,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getWorkerBlockBuildableCells(it.polimi.ingsw.model.workers.Worker)">getWorkerBlockBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a></span>&nbsp;<span class="memberName">getWorkerBlockBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</span></div>
+<h3><a id="getWorkerBlockBuildableCells(it.polimi.ingsw.server.model.workers.Worker)">getWorkerBlockBuildableCells</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a></span>&nbsp;<span class="memberName">getWorkerBlockBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</span></div>
 <div class="block">This method returns TargetCells related to Cells the Worker can build a block in</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -744,7 +744,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getBlockBuildableCells()">getBlockBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">getBlockBuildableCells</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">getBlockBuildableCells</span>()</div>
 <div class="block">This method returns a map linking workers and their blockBuildableCells</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -754,8 +754,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getWorkerDomeBuildableCells(it.polimi.ingsw.model.workers.Worker)">getWorkerDomeBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a></span>&nbsp;<span class="memberName">getWorkerDomeBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</span></div>
+<h3><a id="getWorkerDomeBuildableCells(it.polimi.ingsw.server.model.workers.Worker)">getWorkerDomeBuildableCells</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a></span>&nbsp;<span class="memberName">getWorkerDomeBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</span></div>
 <div class="block">This method returns TargetCells related to Cells the Worker can build a dome in</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -768,7 +768,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getDomeBuildableCells()">getDomeBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">getDomeBuildableCells</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">getDomeBuildableCells</span>()</div>
 <div class="block">This method returns a map linking workers and their domeBuildableCells</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -778,8 +778,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getWorkerWalkableCells(it.polimi.ingsw.model.workers.Worker)">getWorkerWalkableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a></span>&nbsp;<span class="memberName">getWorkerWalkableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker)</span></div>
+<h3><a id="getWorkerWalkableCells(it.polimi.ingsw.server.model.workers.Worker)">getWorkerWalkableCells</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a></span>&nbsp;<span class="memberName">getWorkerWalkableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker)</span></div>
 <div class="block">This method returns TargetCells related to Cells the Worker can walk in</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -792,7 +792,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getWalkableCells()">getWalkableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">getWalkableCells</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Map&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>,&#8203;<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&gt;</span>&nbsp;<span class="memberName">getWalkableCells</span>()</div>
 <div class="block">This method returns a map linking workers and their walkableCells</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -802,9 +802,9 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setWorkerBlockBuildableCells(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.TargetCells)">setWorkerBlockBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerBlockBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&nbsp;targetCells)</span></div>
+<h3><a id="setWorkerBlockBuildableCells(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.TargetCells)">setWorkerBlockBuildableCells</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerBlockBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&nbsp;targetCells)</span></div>
 <div class="block">This method sets new block buildable cells for the worker</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -815,9 +815,9 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setWorkerDomeBuildableCells(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.TargetCells)">setWorkerDomeBuildableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerDomeBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&nbsp;targetCells)</span></div>
+<h3><a id="setWorkerDomeBuildableCells(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.TargetCells)">setWorkerDomeBuildableCells</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerDomeBuildableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&nbsp;targetCells)</span></div>
 <div class="block">This method sets new dome buildable cells for the worker</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -828,9 +828,9 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setWorkerWalkableCells(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.TargetCells)">setWorkerWalkableCells</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerWalkableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;worker,
-<a href="board/TargetCells.html" title="class in it.polimi.ingsw.model.board">TargetCells</a>&nbsp;targetCells)</span></div>
+<h3><a id="setWorkerWalkableCells(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.TargetCells)">setWorkerWalkableCells</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setWorkerWalkableCells</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;worker,
+<a href="board/TargetCells.html" title="class in it.polimi.ingsw.server.model.board">TargetCells</a>&nbsp;targetCells)</span></div>
 <div class="block">This method sets new walkable cells for the worker</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -842,7 +842,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getAllowedWorkers()">getAllowedWorkers</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&gt;</span>&nbsp;<span class="memberName">getAllowedWorkers</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.Set&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&gt;</span>&nbsp;<span class="memberName">getAllowedWorkers</span>()</div>
 <div class="block">Returns a set of the allowed workers</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -859,8 +859,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="addAllowedWorker(it.polimi.ingsw.model.workers.Worker)">addAllowedWorker</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addAllowedWorker</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;allowedWorker)</span></div>
+<h3><a id="addAllowedWorker(it.polimi.ingsw.server.model.workers.Worker)">addAllowedWorker</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addAllowedWorker</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;allowedWorker)</span></div>
 <div class="block">Allows a worker to perform operations on this turn.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -871,7 +871,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="addAllowedWorkers(java.util.Collection)">addAllowedWorkers</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addAllowedWorkers</span>&#8203;(<span class="arguments">java.util.Collection&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&gt;&nbsp;allowedWorkers)</span></div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addAllowedWorkers</span>&#8203;(<span class="arguments">java.util.Collection&lt;<a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&gt;&nbsp;allowedWorkers)</span></div>
 <div class="block">Allows a collection of workers to perform operations on this turn.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -881,8 +881,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="addAllowedWorkers(it.polimi.ingsw.model.workers.Worker[])">addAllowedWorkers</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addAllowedWorkers</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>[]&nbsp;allowedWorkers)</span></div>
+<h3><a id="addAllowedWorkers(it.polimi.ingsw.server.model.workers.Worker[])">addAllowedWorkers</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addAllowedWorkers</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>[]&nbsp;allowedWorkers)</span></div>
 <div class="block">Allows an array of workers to perform operations on this turn.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -914,8 +914,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setNextState(it.polimi.ingsw.model.turnstates.AbstractTurnState)">setNextState</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setNextState</span>&#8203;(<span class="arguments"><a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.model.turnstates">AbstractTurnState</a>&nbsp;nextState)</span></div>
+<h3><a id="setNextState(it.polimi.ingsw.server.model.turnstates.AbstractTurnState)">setNextState</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setNextState</span>&#8203;(<span class="arguments"><a href="turnstates/AbstractTurnState.html" title="interface in it.polimi.ingsw.server.model.turnstates">AbstractTurnState</a>&nbsp;nextState)</span></div>
 <div class="block">Setter of next state</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -985,8 +985,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="addPerformedAction(it.polimi.ingsw.model.actions.Action)">addPerformedAction</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addPerformedAction</span>&#8203;(<span class="arguments"><a href="actions/Action.html" title="interface in it.polimi.ingsw.model.actions">Action</a>&nbsp;performedAction)</span></div>
+<h3><a id="addPerformedAction(it.polimi.ingsw.server.model.actions.Action)">addPerformedAction</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addPerformedAction</span>&#8203;(<span class="arguments"><a href="actions/Action.html" title="interface in it.polimi.ingsw.server.model.actions">Action</a>&nbsp;performedAction)</span></div>
 <div class="block">This method adds a performed action</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -996,9 +996,9 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="canMoveTo(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">canMoveTo</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">canMoveTo</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</span></div>
+<h3><a id="canMoveTo(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">canMoveTo</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">canMoveTo</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</span></div>
 <div class="block">This boolean methods checks if the pawn can move to targetCell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1011,25 +1011,25 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="moveTo(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">moveTo</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveTo</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</span>
-            throws <span class="exceptions"><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.model.turnstates">InvalidTurnStateException</a></span></div>
+<h3><a id="moveTo(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">moveTo</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveTo</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</span>
+            throws <span class="exceptions"><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.server.model.turnstates">InvalidTurnStateException</a></span></div>
 <div class="block">This method moves the pawn to targetCell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>pawn</code> - the worker we want to move</dd>
 <dd><code>targetCell</code> - the cell we want to move the worker to</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.model.turnstates">InvalidTurnStateException</a></code> - if in the wrong state</dd>
+<dd><code><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.server.model.turnstates">InvalidTurnStateException</a></code> - if in the wrong state</dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="canBuildDomeIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">canBuildDomeIn</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">canBuildDomeIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</span></div>
+<h3><a id="canBuildDomeIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">canBuildDomeIn</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">canBuildDomeIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</span></div>
 <div class="block">This boolean methods checks if the pawn can build a Dome in targetCell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1042,25 +1042,25 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="buildDomeIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">buildDomeIn</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buildDomeIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</span>
-                 throws <span class="exceptions"><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.model.turnstates">InvalidTurnStateException</a></span></div>
+<h3><a id="buildDomeIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">buildDomeIn</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buildDomeIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</span>
+                 throws <span class="exceptions"><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.server.model.turnstates">InvalidTurnStateException</a></span></div>
 <div class="block">This methods builds a dome in targetCell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>pawn</code> - the worker who performs the build</dd>
 <dd><code>targetCell</code> - the cell involved in the build</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.model.turnstates">InvalidTurnStateException</a></code> - if in the wrong state</dd>
+<dd><code><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.server.model.turnstates">InvalidTurnStateException</a></code> - if in the wrong state</dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="canBuildBlockIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">canBuildBlockIn</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">canBuildBlockIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</span></div>
+<h3><a id="canBuildBlockIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">canBuildBlockIn</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">canBuildBlockIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</span></div>
 <div class="block">This boolean methods checks if the pawn can build a block in targetCell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -1073,17 +1073,17 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="buildBlockIn(it.polimi.ingsw.model.workers.Worker,it.polimi.ingsw.model.board.Cell)">buildBlockIn</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buildBlockIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.model.workers">Worker</a>&nbsp;pawn,
-<a href="board/Cell.html" title="class in it.polimi.ingsw.model.board">Cell</a>&nbsp;targetCell)</span>
-                  throws <span class="exceptions"><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.model.turnstates">InvalidTurnStateException</a></span></div>
+<h3><a id="buildBlockIn(it.polimi.ingsw.server.model.workers.Worker,it.polimi.ingsw.server.model.board.Cell)">buildBlockIn</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buildBlockIn</span>&#8203;(<span class="arguments"><a href="workers/Worker.html" title="class in it.polimi.ingsw.server.model.workers">Worker</a>&nbsp;pawn,
+<a href="board/Cell.html" title="class in it.polimi.ingsw.server.model.board">Cell</a>&nbsp;targetCell)</span>
+                  throws <span class="exceptions"><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.server.model.turnstates">InvalidTurnStateException</a></span></div>
 <div class="block">This methods builds a block in targetCell</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>pawn</code> - the worker who performs the build</dd>
 <dd><code>targetCell</code> - the cell involved in the build</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.model.turnstates">InvalidTurnStateException</a></code> - if in the wrong state</dd>
+<dd><code><a href="turnstates/InvalidTurnStateException.html" title="class in it.polimi.ingsw.server.model.turnstates">InvalidTurnStateException</a></code> - if in the wrong state</dd>
 </dl>
 </section>
 </li>

@@ -1,10 +1,9 @@
 package it.polimi.ingsw.utils.messages;
 
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.controller.User;
-import it.polimi.ingsw.model.board.Component;
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.view.View;
 
 /**
  * This immutable class represents a command given by the player to make a worker build on a given cell.

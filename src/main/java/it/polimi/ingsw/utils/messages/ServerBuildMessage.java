@@ -1,7 +1,6 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.model.board.Component;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 
 /**

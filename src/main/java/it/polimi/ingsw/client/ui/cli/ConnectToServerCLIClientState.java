@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
-import it.polimi.ingsw.config.ConfigParser;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 

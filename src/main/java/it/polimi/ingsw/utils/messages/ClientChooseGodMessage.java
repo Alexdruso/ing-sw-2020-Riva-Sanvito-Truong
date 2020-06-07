@@ -1,9 +1,9 @@
 package it.polimi.ingsw.utils.messages;
 
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.controller.User;
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.utils.networking.ControllerHandleable;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.server.view.View;
 
 /**
  * This immutable class represents a command to choose a specific god for a player.
