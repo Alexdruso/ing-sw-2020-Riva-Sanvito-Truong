@@ -1,7 +1,6 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.GUI;
 
 public class TestGUIApp {
@@ -17,7 +16,7 @@ public class TestGUIApp {
 
     public static void stop(){
         //Try to disconnect
-        client.disconnect();
+        client.requestExit();
         client.requestRender();
         //Disconnect forcibly
         clientThread.interrupt();

@@ -17,7 +17,12 @@ public abstract class AbstractDisconnectClientState extends AbstractClientState 
 
     @Override
     public void setup() {
-        client.disconnect();
+        client.closeConnection();
         triggerRender();
+    }
+
+    @Override
+    public void notifyUiInteraction() {
+        client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.utils.messages;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.User;
 import it.polimi.ingsw.server.ServerConnectionSetupHandler;
@@ -47,7 +48,7 @@ public class DisconnectionMessage implements ClientMessage, ClientHandleable,
      */
     @Override
     public boolean handleTransmittable(Client client) {
-        client.disconnect();
+        client.moveToState(ClientState.DISCONNECT);
         return true;
     }
 }

@@ -13,8 +13,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import static org.awaitility.Awaitility.await;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -60,6 +59,8 @@ public class ServerTest {
         Thread t = new Thread(server::start);
         t.start();
         server.shutdown();
+        await().until(() -> !t.isAlive());
+        assertFalse(t.isAlive());
     }
 
     Transmittable waitForMessage(Queue<Transmittable> queue) {
@@ -331,8 +332,8 @@ public class ServerTest {
         verify(connections[0], times(2)).close();
 
         if (message instanceof ServerStartSetupMatchMessage) {
-            verify(connections[1]).close(any(DisconnectionMessage.class));
-            verify(connections[2]).close(any(DisconnectionMessage.class));
+            verify(connections[1], times(2)).close();
+            verify(connections[2], times(2)).close();
         }
 
         await().until(() -> server.getOngoingMatches().size() == 0);

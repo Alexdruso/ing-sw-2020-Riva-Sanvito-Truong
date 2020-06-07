@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +21,7 @@ public class Connection extends LambdaObservable<Transmittable> {
     private final ObjectInputStream socketIn;
     private final ObjectOutputStream socketOut;
     private final Thread receiveThread;
-    private boolean isActive;
+    private AtomicBoolean isActive;
 
     /**
      * Instantiates a new Connection from a given Socket.
@@ -31,7 +32,7 @@ public class Connection extends LambdaObservable<Transmittable> {
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
         logInfo("Connection established");
-        isActive = true;
+        isActive = new AtomicBoolean(true);
         socketOut = new ObjectOutputStream(socket.getOutputStream());
         socketIn = new ObjectInputStream(socket.getInputStream());
         receiveThread = startSocketReceiveThread();
@@ -70,14 +71,17 @@ public class Connection extends LambdaObservable<Transmittable> {
      * @return whether or not the connection is active
      */
     public boolean isActive() {
-        return isActive;
+        return isActive.get();
     }
 
     /**
      * Closes the connection.
      */
     public void close() {
-        isActive = false;
+        if (!isActive.getAndSet(false)) {
+            return;
+        }
+        logFine("Closing the connection");
         try {
             socketOut.close();
         } catch (IOException ignored) {}
@@ -98,20 +102,8 @@ public class Connection extends LambdaObservable<Transmittable> {
     }
 
     private void close(String message) {
-        if (isActive) {
+        if (isActive()) {
             logSevere("Abruptly closing the connection: " + message);
-        }
-        close();
-    }
-
-    public void close(DisconnectionMessage disconnectionMessage) {
-        synchronized (socketOut) {
-            try {
-                logFine(String.format("Sending closing message %s...", disconnectionMessage.getClass().getName()));
-                socketOut.writeObject(disconnectionMessage);
-            } catch (Exception e) {
-                logSevere("Unable to notify the remote that the connection is closing: " + new StringCapturedStackTrace(e).toString());
-            }
         }
         close();
     }
@@ -125,6 +117,9 @@ public class Connection extends LambdaObservable<Transmittable> {
     public void send(Transmittable message) {
         try {
             synchronized (socketOut) {
+                if (!isActive()) {
+                    return;
+                }
                 logFine(String.format("Sending message %s...", message.getClass().getName()));
                 socketOut.writeObject(message);
             }

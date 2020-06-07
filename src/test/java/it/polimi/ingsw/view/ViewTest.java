@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class ViewTest {
 
@@ -29,9 +28,8 @@ class ViewTest {
         ServerMessage myServerMessage = new ServerStartPlayMatchMessage();
         myView.updateFromGame(myServerMessage);
         verify(myConnection).send(myServerMessage);
-        DisconnectionMessage myServerDisconnectMessage = new DisconnectionMessage();
-        myView.updateFromGame(myServerDisconnectMessage);
-        verify(myConnection).close(myServerDisconnectMessage);
+        myView.handleDisconnection();
+        verify(myConnection).close();
         StatusMessages myStatusMessage = StatusMessages.CLIENT_ERROR;
         myView.handleMessage(myStatusMessage);
         verify(myConnection).send(myStatusMessage);
@@ -40,7 +38,7 @@ class ViewTest {
         verify(myController).update(any(ViewClientMessage.class));
         DisconnectionMessage myClientDisconnectMessage = new DisconnectionMessage();
         myView.updateFromClient(myClientDisconnectMessage);
-        verify(myConnection).close();
+        verify(myConnection, times(2)).close();
     }
 
 

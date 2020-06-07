@@ -24,11 +24,14 @@ public class DisconnectCLIClientState extends AbstractDisconnectClientState impl
     @Override
     public void render() {
         cli.println(I18n.string(I18nKey.DISCONNECTED_FROM_THE_SERVER));
-    }
 
-    @Override
-    public void notifyUiInteraction() {
-        // No user interaction expected while disconnecting
+        String choice = cli.readString("TODO");
+        if (choice.equals("y")) {
+            notifyUiInteraction();
+        }
+        else {
+            client.requestExit();
+        }
     }
 
 }

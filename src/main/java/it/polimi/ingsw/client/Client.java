@@ -80,7 +80,7 @@ public class Client implements LambdaObserver {
      */
     public void closeConnection() {
         if (connection != null) {
-            connection.close(new DisconnectionMessage());
+            connection.close();
             nickname = null;
             connection = null;
         }
@@ -137,9 +137,9 @@ public class Client implements LambdaObserver {
     }
 
     /**
-     * Disconnect cleanly from the server.
+     * Requests the client to close.
      */
-    public void disconnect() {
+    public void requestExit() {
         exitRequested = true;
     }
 

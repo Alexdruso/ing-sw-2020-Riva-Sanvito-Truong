@@ -71,7 +71,7 @@ class MatchTest {
                             .get(myMatch.getVirtualViews().get(0).getUser().nickname)
             ) {
                 verify(connection, times(2)).send(myMessageCaptor.capture());
-                verify(connection).close(any(DisconnectionMessage.class));
+                verify(connection).close();
             } else {
                 verify(connection, times(2)).send(myMessageCaptor.capture());
                 verify(connection).close();
