@@ -21,7 +21,8 @@ public class Connection extends LambdaObservable<Transmittable> {
     private final ObjectInputStream socketIn;
     private final ObjectOutputStream socketOut;
     private final Thread receiveThread;
-    private AtomicBoolean isActive;
+    private final AtomicBoolean isActive;
+    private final AtomicBoolean isClosing;
 
     /**
      * Instantiates a new Connection from a given Socket.
@@ -33,6 +34,7 @@ public class Connection extends LambdaObservable<Transmittable> {
         this.socket = socket;
         logInfo("Connection established");
         isActive = new AtomicBoolean(true);
+        isClosing = new AtomicBoolean(false);
         socketOut = new ObjectOutputStream(socket.getOutputStream());
         socketOut.flush();
         socketIn = new ObjectInputStream(socket.getInputStream());
@@ -109,6 +111,12 @@ public class Connection extends LambdaObservable<Transmittable> {
         close();
     }
 
+    private void notifyDisconnection() {
+        if (!isClosing.getAndSet(true)) {
+            notify(new DisconnectionMessage());
+        }
+    }
+
     /**
      * Sends a message to the remote host.
      * The message is sent synchronously.
@@ -125,7 +133,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                 socketOut.writeObject(message);
             }
         } catch (IOException e) {
-            notify(new DisconnectionMessage());
+            notifyDisconnection();
         }
     }
 
@@ -144,7 +152,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                     logFine(String.format("Received message %s", inputObject.getClass().getName()));
                     connectionInstance.notify(inputObject, true);
                 } catch (IOException e) {
-                    connectionInstance.notify(new DisconnectionMessage());
+                    connectionInstance.notifyDisconnection();
                 } catch (ClassNotFoundException | ClassCastException e) {
                     LOGGER.log(Level.SEVERE, "Exception in receive thread", e);
                 }

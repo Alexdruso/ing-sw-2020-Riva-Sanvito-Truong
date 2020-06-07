@@ -29,6 +29,10 @@ public enum ClientState {
      */
     IN_GAME,
     /**
+     * Lose game client state.
+     */
+    LOSE_GAME,
+    /**
      * Set nickname client state.
      */
     SET_NICKNAME,

@@ -52,6 +52,7 @@ public class GUI extends UI {
             case DISCONNECT -> new DisconnectGUIClientState(client);
             case JOIN_LOBBY -> new JoinLobbyGUIClientState(client);
             case IN_GAME -> new InGameGUIClientState(client);
+            case LOSE_GAME -> new LoseGameGUIClientState(client);
             case SET_NICKNAME -> new SetNicknameGUIClientState(client);
             case SET_PLAYERS_COUNT -> new SetPlayersCountGUIClientState(client);
             case WIN_GAME -> new WinGameGUIClientState(client);

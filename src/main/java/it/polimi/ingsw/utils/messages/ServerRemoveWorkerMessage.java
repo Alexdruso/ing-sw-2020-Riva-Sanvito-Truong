@@ -14,7 +14,7 @@ public class ServerRemoveWorkerMessage implements ServerMessage, ClientHandleabl
     /**
      * The Worker.
      */
-    public final ReducedWorkerID worker;
+    public final ReducedWorkerID workerID;
     /**
      * The Cell x.
      */
@@ -27,20 +27,21 @@ public class ServerRemoveWorkerMessage implements ServerMessage, ClientHandleabl
     /**
      * Instantiates a new Server remove worker message.
      *
-     * @param user   the user
-     * @param worker the worker
-     * @param cellX  the cell x
-     * @param cellY  the cell y
+     * @param user     the user
+     * @param workerID the worker
+     * @param cellX    the cell x
+     * @param cellY    the cell y
      */
-    public ServerRemoveWorkerMessage(ReducedUser user, ReducedWorkerID worker, int cellX, int cellY) {
+    public ServerRemoveWorkerMessage(ReducedUser user, ReducedWorkerID workerID, int cellX, int cellY) {
         this.user = user;
-        this.worker = worker;
+        this.workerID = workerID;
         this.cellX = cellX;
         this.cellY = cellY;
     }
 
     @Override
     public boolean handleTransmittable(Client client) {
-        return false;
+        client.getGame().removeWorker(user, workerID, cellX, cellY);
+        return true;
     }
 }

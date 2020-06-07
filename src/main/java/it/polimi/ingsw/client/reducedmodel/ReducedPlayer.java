@@ -63,6 +63,10 @@ public class ReducedPlayer {
         workers.put(worker.getWorkerID(), worker);
     }
 
+    void removeWorker(ReducedWorkerID workerID) {
+        workers.remove(workerID);
+    }
+
     public ReducedWorker getWorker(ReducedWorkerID workerID) {
         return workers.get(workerID);
     }

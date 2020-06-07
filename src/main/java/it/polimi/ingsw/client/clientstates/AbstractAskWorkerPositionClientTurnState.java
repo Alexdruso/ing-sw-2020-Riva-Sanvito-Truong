@@ -16,8 +16,10 @@ public abstract class AbstractAskWorkerPositionClientTurnState extends AbstractC
     @Override
     public void notifyUiInteraction() {
         client.getGame().getPlayer(client.getNickname()).ifPresent(
-                player -> workerID = ReducedWorkerID.values()[player.getWorkers().size()]
+                player -> {
+                    workerID = ReducedWorkerID.values()[player.getWorkers().size()];
+                    client.getConnection().send(new ClientSetWorkerStartPositionMessage(targetCellX, targetCellY, workerID));
+                }
         );
-        client.getConnection().send(new ClientSetWorkerStartPositionMessage(targetCellX, targetCellY, workerID));
     }
 }

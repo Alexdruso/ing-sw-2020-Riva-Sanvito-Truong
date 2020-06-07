@@ -129,6 +129,7 @@ public class CLI extends UI {
             case DISCONNECT -> new DisconnectCLIClientState(client);
             case JOIN_LOBBY -> new JoinLobbyCLIClientState(client);
             case IN_GAME -> new InGameCLIClientState(client);
+            case LOSE_GAME -> new LoseGameCLIClientState(client);
             case SET_NICKNAME -> new SetNicknameCLIClientState(client);
             case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
             case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
@@ -344,10 +345,10 @@ public class CLI extends UI {
         while (true) {
             String choice = readString(String.format("%s [%s/%s]", prompt, yes, no), null, 3);
 
-            if (choice.equalsIgnoreCase(yes) || choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1))) {
+            if (choice.equalsIgnoreCase(yes) || (choice.length() > 0 && choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1)))) {
                 return true;
             }
-            if (choice.equalsIgnoreCase(no) || choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1))) {
+            if (choice.equalsIgnoreCase(no) || (choice.length() > 0 && choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1)))) {
                 return false;
             }
 

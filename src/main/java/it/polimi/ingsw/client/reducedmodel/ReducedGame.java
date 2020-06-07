@@ -49,6 +49,15 @@ public class ReducedGame {
         );
     }
 
+    public void removeWorker(ReducedUser user, ReducedWorkerID workerID, int cellX, int cellY) {
+        getBoard().getCell(cellX, cellY).setNoWorker();
+        getPlayer(user).ifPresent(
+                player -> {
+                    player.removeWorker(workerID);
+                }
+        );
+    }
+
     /**
      * Sets the worker position to the specified cell.
      *
