@@ -107,6 +107,7 @@ public class Connection extends LambdaObservable<Transmittable> {
     public void close(DisconnectionMessage disconnectionMessage) {
         synchronized (socketOut) {
             try {
+                logFine(String.format("Sending closing message %s...", disconnectionMessage.getClass().getName()));
                 socketOut.writeObject(disconnectionMessage);
             } catch (Exception e) {
                 logSevere("Unable to notify the remote that the connection is closing: " + new StringCapturedStackTrace(e).toString());
