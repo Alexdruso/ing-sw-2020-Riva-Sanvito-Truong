@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.networking;
 
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.observer.LambdaObservable;
 import it.polimi.ingsw.utils.StringCapturedStackTrace;
 import it.polimi.ingsw.utils.messages.DisconnectionMessage;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +20,8 @@ import java.util.logging.Logger;
  */
 public class Connection extends LambdaObservable<Transmittable> {
     private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());
+    private static final Timer KEEP_ALIVE_TIMER = new Timer("connectionKeepAliveTimer", true);
+    private static final int KEEP_ALIVE_TIMER_INTERVAL_MS = ConfigParser.getInstance().getIntProperty("keepAliveIntervalMs");
     private final Socket socket;
     private final ObjectInputStream socketIn;
     private final ObjectOutputStream socketOut;
@@ -32,13 +37,14 @@ public class Connection extends LambdaObservable<Transmittable> {
      */
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
-        logInfo("Connection established");
+        log(Level.INFO, "Connection established");
         isActive = new AtomicBoolean(true);
         isClosing = new AtomicBoolean(false);
         socketOut = new ObjectOutputStream(socket.getOutputStream());
-        socketOut.flush();
+        socketOut.flush(); // This is required otherwise the following instantiation of ObjectInputStream will block forever
         socketIn = new ObjectInputStream(socket.getInputStream());
         receiveThread = startSocketReceiveThread();
+        scheduleKeepAlive();
     }
 
     /**
@@ -52,20 +58,26 @@ public class Connection extends LambdaObservable<Transmittable> {
         this(new Socket(host, port));
     }
 
+    /**
+     * Schedules the periodic sending of "keep alive" packets to the other end of the socket,
+     * in order not to let the connection time out if no other packet is sent for a long period.
+     */
+    private void scheduleKeepAlive() {
+        Connection.KEEP_ALIVE_TIMER.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (isActive()) {
+                    send(new KeepAlive());
+                }
+                else {
+                    cancel();
+                }
+            }
+        }, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS);
+    }
+
     private void log(Level level, String message) {
         LOGGER.log(level, () -> String.format("[socket %s] %s", socket.getRemoteSocketAddress().toString().substring(1), message));
-    }
-
-    private void logFine(String message) {
-        log(Level.FINE, message);
-    }
-
-    private void logInfo(String message) {
-        log(Level.INFO, message);
-    }
-
-    private void logSevere(String message) {
-        log(Level.SEVERE, message);
     }
 
     /**
@@ -84,7 +96,7 @@ public class Connection extends LambdaObservable<Transmittable> {
         if (!isActive.getAndSet(false)) {
             return;
         }
-        logFine("Closing the connection");
+        log(Level.FINE, "Closing the connection");
         try {
             socketOut.close();
         } catch (IOException ignored) {}
@@ -106,7 +118,7 @@ public class Connection extends LambdaObservable<Transmittable> {
 
     private void close(String message) {
         if (isActive()) {
-            logSevere("Abruptly closing the connection: " + message);
+            log(Level.SEVERE, "Abruptly closing the connection: " + message);
         }
         close();
     }
@@ -129,7 +141,7 @@ public class Connection extends LambdaObservable<Transmittable> {
                 if (!isActive()) {
                     return;
                 }
-                logFine(String.format("Sending message %s...", message.getClass().getName()));
+                log(Level.FINE, String.format("Sending message %s...", message.getClass().getName()));
                 socketOut.writeObject(message);
             }
         } catch (IOException e) {
@@ -143,16 +155,20 @@ public class Connection extends LambdaObservable<Transmittable> {
      * @return the thread that handles the messages incoming from the remote host
      */
     private Thread startSocketReceiveThread() {
-        Connection connectionInstance = this;
         Thread t = new Thread(() -> {
-            connectionInstance.logInfo("Receive thread ready");
-            while (connectionInstance.isActive() && !Thread.currentThread().isInterrupted()) {
+            log(Level.INFO, "Receive thread ready");
+            while (isActive() && !Thread.currentThread().isInterrupted()) {
                 try {
-                    Transmittable inputObject = (Transmittable) connectionInstance.socketIn.readObject();
-                    logFine(String.format("Received message %s", inputObject.getClass().getName()));
-                    connectionInstance.notify(inputObject, true);
+                    Transmittable inputObject = (Transmittable) socketIn.readObject();
+                    if (inputObject instanceof KeepAlive) {
+                        log(Level.FINER, "Received keep alive");
+                    }
+                    else {
+                        log(Level.FINE, String.format("Received message %s", inputObject.getClass().getName()));
+                        notify(inputObject, true);
+                    }
                 } catch (IOException e) {
-                    connectionInstance.notifyDisconnection();
+                    notifyDisconnection();
                 } catch (ClassNotFoundException | ClassCastException e) {
                     LOGGER.log(Level.SEVERE, "Exception in receive thread", e);
                 }
