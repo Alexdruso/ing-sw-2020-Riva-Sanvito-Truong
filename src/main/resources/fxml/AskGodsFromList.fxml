@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
 <StackPane fx:id="rootPane" alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListController">
    <children>
       <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
@@ -21,7 +31,7 @@
           <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="776.0" styleClass="h1" text="Choose Gods Prompt" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" />
+            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="65.0" prefWidth="776.0" styleClass="h1" text="Dolor et rerum minus nulla eum ut. Quos sint minima et. Ipsa eos eum laudantium nihil." textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <ScrollPane id="god-icon-flowpane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="442.0" prefWidth="880.0" VBox.vgrow="SOMETIMES">
@@ -55,9 +65,12 @@
                         </ImageView>
                         <VBox alignment="CENTER_LEFT">
                            <children>
-                              <Label fx:id="godName" prefHeight="182.0" prefWidth="565.0" styleClass="god-name" text="God Name" />
+                              <Label fx:id="godName" prefHeight="100.0" prefWidth="565.0" styleClass="god-name" text="God Name" />
                               <Label fx:id="godSubtitle" styleClass="h3" text="God Subtitle" />
-                              <Label fx:id="godDescription" prefHeight="136.0" prefWidth="494.0" styleClass="normal-text" text="Nihil est hic id unde totam sint cupiditate. Cum consequatur eum hic. Sed numquam officiis velit necessitatibus sunt voluptatibus aliquid eos. Qui ratione corporis iste temporibus earum." wrapText="true" />
+                              <Label fx:id="godDescription" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="136.0" prefWidth="494.0" styleClass="normal-text" text="Nihil est hic id unde totam sint cupiditate. Cum consequatur eum hic. Sed numquam officiis velit necessitatibus sunt voluptatibus aliquid eos. Qui ratione corporis iste temporibus earum." wrapText="true" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin></Label>
                            </children>
                         </VBox>
                      </children>

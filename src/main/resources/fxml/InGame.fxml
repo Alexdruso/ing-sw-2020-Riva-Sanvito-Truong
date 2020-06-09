@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import java.lang.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
 <StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.InGameController">
    <children>
       <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
@@ -11,23 +18,24 @@
       <GridPane alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="880.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="880.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="150.0" minHeight="100.0" prefHeight="150.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="150.0" minHeight="100.0" prefHeight="150.0" vgrow="ALWAYS" />
           <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="500.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="70.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
                   <Button fx:id="connectButton1" maxHeight="50.0" maxWidth="150.0" minHeight="100.0" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="50.0" prefWidth="150.0" styleClass="bigbutton" text="Menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                </children>
             </AnchorPane>
-            <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <AnchorPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <children>
                   <AnchorPane fx:id="boardContainer" layoutY="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="580.0" prefWidth="580.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -178,13 +186,16 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
-                  <Label fx:id="mainLabel" alignment="CENTER" styleClass="h1" text="currentPrompt" />
-                  <Label fx:id="prompt" styleClass="h3" text="Label" />
+                  <Label fx:id="mainLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="688.0" styleClass="h1" text="Dolor et rerum minus nulla eum ut. Quos sint minima et. Ipsa eos eum laudantium nihil." textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="prompt" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" styleClass="h3" text="Label" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="60.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="60.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <AnchorPane prefHeight="80.0" prefWidth="200.0" styleClass="player-lateral-label-passive">
                      <VBox.margin>
@@ -228,7 +239,7 @@
                   <Insets bottom="100.0" />
                </padding>
             </VBox>
-            <VBox fx:id="sideButtons" prefHeight="200.0" prefWidth="100.0" spacing="50.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox fx:id="sideButtons" prefHeight="200.0" prefWidth="100.0" spacing="50.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="30.0" right="30.0" />
                </GridPane.margin>

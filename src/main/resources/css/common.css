@@ -72,7 +72,7 @@
 
 .h1 {
     -fx-font-family: "Josefin Sans SemiBold";
-    -fx-font-size: 3.5em;
+    -fx-font-size: 2.7em;
     -fx-text-fill: white;
 }
 
@@ -90,7 +90,7 @@
 
 .normal-text {
     -fx-font-family: "Montserrat ExtraLight";
-    -fx-font-size: 2em;
+    -fx-font-size: 1.7em;
     -fx-text-fill: white;
 }
 
@@ -113,6 +113,21 @@
     -fx-text-alignment: center;
 }
 
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content {
+    -fx-background-color: transparent;
+}
 .bigbutton {
     -fx-background-color: #FFFFFF44;
     -fx-font-family: "Montserrat Light";

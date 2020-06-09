@@ -1,5 +1,5 @@
 #gradient-pane {
-    -fx-background-color: linear-gradient(to right, #000000FF, #00000055 80%, #00000000 100%);
+    -fx-background-color: linear-gradient(to right, #000000FF, #00000088 80%, #00000000 100%);
     /*-fx-background-color: #000000BB;*/
 }
 
@@ -13,7 +13,7 @@
 .god-name {
     -fx-font-family: "Hustle Hardcore";
     -fx-text-fill: white;
-    -fx-font-size: 7em;
+    -fx-font-size: 5em;
 }
 
 #chosen-gods-list {

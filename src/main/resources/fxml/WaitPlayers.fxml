@@ -6,7 +6,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
 <StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController">
    <children>
       <AnchorPane id="GradientPane" prefHeight="200.0" prefWidth="200.0" />
@@ -25,8 +31,8 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="waitPromptLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Placeholder Text" />
-                  <Label styleClass="h3" text="%wait_players_prompt">
+                  <Label fx:id="waitPromptLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Placeholder Text" VBox.vgrow="ALWAYS" />
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="h3" text="%wait_players_prompt">
                      <VBox.margin>
                         <Insets bottom="60.0" />
                      </VBox.margin>
