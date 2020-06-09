@@ -407,7 +407,7 @@ public class CLI extends UI {
             }
             catch (IndexOutOfBoundsException  ex) {
                 // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
-                s = "";
+                return getLine();
             }
             if (usingInputFile) {
                 println("");
