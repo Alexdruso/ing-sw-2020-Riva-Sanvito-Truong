@@ -401,7 +401,14 @@ public class CLI extends UI {
      */
     private String getLine() {
         try {
-            String s = in.nextLine();
+            String s;
+            try {
+                s = in.nextLine();
+            }
+            catch (IndexOutOfBoundsException  ex) {
+                // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
+                s = "";
+            }
             if (usingInputFile) {
                 println("");
                 if (s.equalsIgnoreCase("%TIMESTAMP%")) {
@@ -415,14 +422,9 @@ public class CLI extends UI {
             return s;
         }
         catch (NoSuchElementException e) {
-            if (usingInputFile) {
-                in = new Scanner(System.in);
-                usingInputFile = false;
-                return getLine();
-            }
-            else {
-                throw e;
-            }
+            in = new Scanner(System.in);
+            usingInputFile = false;
+            return getLine();
         }
     }
 
