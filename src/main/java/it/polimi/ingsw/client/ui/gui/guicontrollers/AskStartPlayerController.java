@@ -24,6 +24,7 @@ public class AskStartPlayerController extends AbstractController{
 
     @Override
     public void setupController(){
+        playerButtonsPane.getChildren().clear();
         errorLabel.setOpacity(0);
         users = client.getGame()
                 .getPlayersList()
