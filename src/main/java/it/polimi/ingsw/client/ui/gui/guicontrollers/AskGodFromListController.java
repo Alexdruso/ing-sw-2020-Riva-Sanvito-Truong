@@ -21,29 +21,24 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class AskGodFromListController extends AbstractController{
     private static final double HBOX_INNER_PADDING = 30;
 
-    @FXML
-    Pane rootPane;
-    @FXML
-    Pane gradientPane;
-    @FXML
-    Pane cardPane;
-    @FXML
-    HBox godListPane;
-    @FXML
-    ImageView selectedCard;
-    @FXML
-    Label godName;
-    @FXML
-    Label godSubtitle;
-    @FXML
-    Label godDescription;
-    @FXML
-    Label chooseGodsPrompt;
+    private static final Logger LOGGER = Logger.getLogger(AskGodFromListController.class.getName());
+
+    @FXML Pane rootPane;
+    @FXML Pane gradientPane;
+    @FXML Pane cardPane;
+    @FXML HBox godListPane;
+    @FXML ImageView selectedCard;
+    @FXML Label godName;
+    @FXML Label godSubtitle;
+    @FXML Label godDescription;
+    @FXML Label chooseGodsPrompt;
 
     TranslateTransition gradientPaneTransitionOut;
     TranslateTransition cardPaneTransitionOut;
@@ -58,7 +53,6 @@ public class AskGodFromListController extends AbstractController{
     private List<ReducedGod> gods;
 
     private ReducedGod currentGod;
-
 
     @FXML
     public void selectGod(ActionEvent event){
@@ -86,7 +80,7 @@ public class AskGodFromListController extends AbstractController{
 
     @Override
     public void handleError(String message) {
-       //Nothing to handle
+        LOGGER.log(Level.SEVERE, message);
     }
 
     @Override

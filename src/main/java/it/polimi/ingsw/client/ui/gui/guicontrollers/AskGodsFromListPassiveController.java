@@ -10,8 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AskGodsFromListPassiveController extends AbstractController{
     private final Image[] imageArray = new Image[4];
+    private static final Logger LOGGER = Logger.getLogger(AskGodsFromListPassiveController.class.getName());
 
     @FXML
     Label waitPromptLabel;
@@ -50,6 +54,7 @@ public class AskGodsFromListPassiveController extends AbstractController{
 
     @Override
     public void handleError(String message) {
+        LOGGER.log(Level.SEVERE, message);
         //No error to handle
     }
 }

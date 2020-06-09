@@ -4,7 +4,11 @@ import it.polimi.ingsw.client.ui.gui.LoseGameGUIClientState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class LoseGameController extends AbstractController {
+    private static final Logger LOGGER = Logger.getLogger(LoseGameController.class.getName());
 
     @FXML
     private void handleSpectate(ActionEvent event){
@@ -23,6 +27,7 @@ public class LoseGameController extends AbstractController {
 
     @Override
     public void handleError(String message) {
+        LOGGER.log(Level.SEVERE, message);
 
     }
 }

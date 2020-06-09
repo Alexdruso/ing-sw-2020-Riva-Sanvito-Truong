@@ -22,6 +22,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class AskGodsFromListController extends AbstractController{
@@ -29,6 +31,7 @@ public class AskGodsFromListController extends AbstractController{
     private static final double ICON_SPACING_H = 30;
     private static final double ICON_SPACING_V = 60;
     private static final double SCROLLPANE_INNER_PADDING = 30;
+    private static final Logger LOGGER = Logger.getLogger(AskGodsFromListController.class.getName());
 
     @FXML
     Pane rootPane;
@@ -90,6 +93,7 @@ public class AskGodsFromListController extends AbstractController{
 
     @Override
     public void handleError(String message) {
+        LOGGER.log(Level.SEVERE, message);
        //Nothing to handle
     }
 

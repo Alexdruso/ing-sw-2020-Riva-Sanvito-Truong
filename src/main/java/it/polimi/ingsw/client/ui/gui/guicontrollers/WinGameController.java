@@ -7,20 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class WinGameController extends AbstractController {
+    private static final Logger LOGGER = Logger.getLogger(WinGameController.class.getName());
 
-    @FXML
-    Label mainPrompt;
+    @FXML Label mainPrompt;
+    @FXML Label winnerName;
 
-    @FXML
-    Label winnerName;
-
-    @FXML
-    public void handleReconnect(ActionEvent event){
+    @FXML public void handleReconnect(ActionEvent event){
         ((WinGameGUIClientState)state).reconnect();
     }
-    @FXML
-    public void handleMenu(ActionEvent event){
+    @FXML public void handleMenu(ActionEvent event){
         ((WinGameGUIClientState)state).returnToMenu();
     }
 
@@ -36,6 +35,6 @@ public class WinGameController extends AbstractController {
 
     @Override
     public void handleError(String message) {
-
+        LOGGER.log(Level.SEVERE, message);
     }
 }

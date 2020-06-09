@@ -8,8 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class WelcomeScreenController extends AbstractController {
     Stage primaryStage;
+    private static final Logger LOGGER = Logger.getLogger(WelcomeScreenController.class.getName());
 
     @FXML
     public void handleJoinLobby(ActionEvent event) {
@@ -29,6 +33,6 @@ public class WelcomeScreenController extends AbstractController {
 
     @Override
     public void handleError(String message) {
-        //No error to handle
+        LOGGER.log(Level.SEVERE, message);
     }
 }

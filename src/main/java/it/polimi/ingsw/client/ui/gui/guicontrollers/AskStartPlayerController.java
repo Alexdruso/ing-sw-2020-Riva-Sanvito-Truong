@@ -10,10 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class AskStartPlayerController extends AbstractController{
 
+    private static final Logger LOGGER = Logger.getLogger(AskStartPlayerController.class.getName());
     @FXML
     VBox playerButtonsPane;
 
@@ -51,6 +54,7 @@ public class AskStartPlayerController extends AbstractController{
 
     @Override
     public void handleError(String message) {
+        LOGGER.log(Level.SEVERE, message);
 
     }
 }

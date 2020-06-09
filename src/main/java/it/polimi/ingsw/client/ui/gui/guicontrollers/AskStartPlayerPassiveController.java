@@ -10,9 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AskStartPlayerPassiveController extends AbstractController {
 
     private final Image[] imageArray = new Image[4];
+    private static final Logger LOGGER = Logger.getLogger(AskStartPlayerPassiveController.class.getName());
 
     @FXML
     Label welcomeLabel;
@@ -50,6 +54,7 @@ public class AskStartPlayerPassiveController extends AbstractController {
 
     @Override
     public void handleError(String message) {
+        LOGGER.log(Level.SEVERE, message);
 
     }
 
