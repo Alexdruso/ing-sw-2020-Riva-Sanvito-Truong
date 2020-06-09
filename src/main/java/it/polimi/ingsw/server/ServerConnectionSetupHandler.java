@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.utils.observer.LambdaObserver;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.ServerHandleable;
-import it.polimi.ingsw.utils.networking.Transmittable;
+import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
+import it.polimi.ingsw.utils.observer.LambdaObserver;
 
 /**
  * This class has the responsibility of handling the first steps of game setup.

@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractAskStartPlayerClientState;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
 import java.util.List;
 import java.util.stream.Collectors;

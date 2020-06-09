@@ -6,13 +6,13 @@ import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
-import it.polimi.ingsw.utils.observer.LambdaObserver;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ReducedGod;
-import it.polimi.ingsw.utils.messages.ReducedUser;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.Connection;
-import it.polimi.ingsw.utils.networking.Transmittable;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
+import it.polimi.ingsw.utils.observer.LambdaObserver;
 
 import java.util.ArrayList;
 import java.util.HashSet;

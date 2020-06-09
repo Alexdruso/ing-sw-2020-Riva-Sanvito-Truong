@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.utils.messages.ClientSetStartPlayerMessage;
-import it.polimi.ingsw.utils.messages.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetStartPlayerMessage;
 
 public abstract class AbstractAskStartPlayerClientState extends AbstractClientState{
     protected ReducedUser chosenUser;

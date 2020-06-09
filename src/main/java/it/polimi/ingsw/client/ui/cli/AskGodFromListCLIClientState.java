@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 
 import java.util.ArrayList;
 import java.util.List;

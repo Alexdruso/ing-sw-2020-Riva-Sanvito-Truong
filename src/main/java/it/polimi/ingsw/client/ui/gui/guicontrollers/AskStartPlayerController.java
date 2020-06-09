@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.gui.AskStartPlayerGUIClientState;
-import it.polimi.ingsw.utils.messages.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

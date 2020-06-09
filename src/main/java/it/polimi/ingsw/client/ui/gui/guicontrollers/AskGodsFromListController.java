@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.ui.gui.AskGodsFromListGUIClientState;
 import it.polimi.ingsw.client.ui.gui.utils.GodAsset;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

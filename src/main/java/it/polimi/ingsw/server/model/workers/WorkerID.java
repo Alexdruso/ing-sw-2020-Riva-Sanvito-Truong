@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.workers;
 
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 public enum WorkerID {
     WORKER1, WORKER2;

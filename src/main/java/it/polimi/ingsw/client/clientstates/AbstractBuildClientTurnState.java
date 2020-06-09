@@ -3,10 +3,10 @@ package it.polimi.ingsw.client.clientstates;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ClientBuildMessage;
-import it.polimi.ingsw.utils.messages.ClientSkipMessage;
-import it.polimi.ingsw.utils.messages.ReducedComponent;
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientBuildMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSkipMessage;
 
 public abstract class AbstractBuildClientTurnState extends AbstractClientTurnState {
     protected int targetCellX;

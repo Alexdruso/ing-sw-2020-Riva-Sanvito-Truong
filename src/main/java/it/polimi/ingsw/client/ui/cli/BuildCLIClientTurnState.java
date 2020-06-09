@@ -8,7 +8,7 @@ import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
 
 public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implements CLIClientTurnState {
     private final InGameCLIClientState clientState;

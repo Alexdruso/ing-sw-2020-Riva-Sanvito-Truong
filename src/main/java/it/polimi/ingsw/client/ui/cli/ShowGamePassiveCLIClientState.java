@@ -3,9 +3,9 @@ package it.polimi.ingsw.client.ui.cli;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractShowGamePassiveClientState;
 import it.polimi.ingsw.client.reducedmodel.*;
-import it.polimi.ingsw.utils.messages.ReducedGod;
-import it.polimi.ingsw.utils.messages.ReducedUser;
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.Arrays;
 import java.util.Random;

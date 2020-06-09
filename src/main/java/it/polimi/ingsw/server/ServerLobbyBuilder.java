@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.utils.config.ConfigParser;
-import it.polimi.ingsw.utils.StatusMessages;
 import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
 
 import java.util.AbstractMap;
 import java.util.LinkedList;

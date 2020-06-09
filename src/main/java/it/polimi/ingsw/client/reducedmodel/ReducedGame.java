@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client.reducedmodel;
 
-import it.polimi.ingsw.utils.messages.ReducedComponent;
-import it.polimi.ingsw.utils.messages.ReducedUser;
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.ArrayList;
 import java.util.Collection;

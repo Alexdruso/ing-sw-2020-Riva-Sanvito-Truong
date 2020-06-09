@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskStartPlayerPassiveController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
-import it.polimi.ingsw.utils.messages.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
 public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientState implements GUIClientState{
     private SavedScene savedScene;

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.board;
 
 import it.polimi.ingsw.utils.config.ConfigParser;
-import it.polimi.ingsw.utils.messages.ReducedTargetCells;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -3,12 +3,8 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWinGameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.guicontrollers.InGameController;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WinGameController;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
-import it.polimi.ingsw.utils.i18n.I18n;
-import it.polimi.ingsw.utils.i18n.I18nKey;
-import javafx.scene.Scene;
 
 public class WinGameGUIClientState extends AbstractWinGameClientState implements GUIClientState {
     /**

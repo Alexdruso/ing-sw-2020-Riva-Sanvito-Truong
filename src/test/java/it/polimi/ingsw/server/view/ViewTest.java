@@ -1,9 +1,13 @@
 package it.polimi.ingsw.server.view;
 
 import it.polimi.ingsw.server.controller.Controller;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetStartPlayerMessage;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerMessage;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerStartPlayMatchMessage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.LoseGameGUIClientState;
-import it.polimi.ingsw.client.ui.gui.WinGameGUIClientState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.utils.structures;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.utils.messages.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
 
 /**
  * This enum represents all the possible objects that can be built by a worker.

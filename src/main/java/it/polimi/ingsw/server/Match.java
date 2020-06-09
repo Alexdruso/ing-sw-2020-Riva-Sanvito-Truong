@@ -3,10 +3,10 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.DisconnectionMessage;
-import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.server.view.View;
+import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;

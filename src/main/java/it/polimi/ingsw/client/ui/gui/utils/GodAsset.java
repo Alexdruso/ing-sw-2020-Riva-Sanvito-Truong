@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.ui.gui.utils;
 
-import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 
 public enum GodAsset {
     APOLLO("/assets/god_cards/apollo_card.png", "/assets/god_icons/apollo_icon.png", "apollo"),

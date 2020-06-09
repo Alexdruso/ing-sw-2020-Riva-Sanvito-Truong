@@ -8,7 +8,7 @@ import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

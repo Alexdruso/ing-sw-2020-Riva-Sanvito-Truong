@@ -3,8 +3,8 @@ package it.polimi.ingsw.client.clientstates;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage;
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetWorkerStartPositionMessage;
 
 public abstract class AbstractAskWorkerPositionClientTurnState extends AbstractClientTurnState {
     protected int targetCellX;

@@ -9,7 +9,7 @@ import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.InGameController;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import it.polimi.ingsw.utils.messages.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
 import javafx.application.Platform;
 
 public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implements GUIClientTurnState {

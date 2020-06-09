@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.server.model.workers.Worker;
 import it.polimi.ingsw.server.model.workers.WorkerID;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EnumSource;

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client.reducedmodel;
 
 import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
-import it.polimi.ingsw.utils.messages.ReducedTargetCells;
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.ArrayList;
 import java.util.HashMap;

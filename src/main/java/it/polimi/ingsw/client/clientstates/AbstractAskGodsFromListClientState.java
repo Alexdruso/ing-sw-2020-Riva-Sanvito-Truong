@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.utils.messages.ClientChooseGodsMessage;
-import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientChooseGodsMessage;
 
 import java.util.ArrayList;
 import java.util.List;

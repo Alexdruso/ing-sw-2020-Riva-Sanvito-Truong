@@ -1,10 +1,13 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.server.view.View;
 import it.polimi.ingsw.server.view.ViewClientMessage;
+import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

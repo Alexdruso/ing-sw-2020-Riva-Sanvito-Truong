@@ -1,9 +1,14 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.server.model.gods.GodCard;
-import it.polimi.ingsw.utils.messages.*;
-import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.server.view.View;
+import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerAskGodsFromListMessage;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerMessage;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerStartSetupMatchMessage;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 

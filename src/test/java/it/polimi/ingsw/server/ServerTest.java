@@ -1,9 +1,13 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.utils.networking.Connection;
-import it.polimi.ingsw.utils.networking.Transmittable;
+import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientJoinLobbyMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetNicknameMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetPlayersCountMessage;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerStartSetupMatchMessage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

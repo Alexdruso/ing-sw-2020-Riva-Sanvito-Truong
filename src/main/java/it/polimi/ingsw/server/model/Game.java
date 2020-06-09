@@ -10,9 +10,9 @@ import it.polimi.ingsw.server.model.gods.GodCard;
 import it.polimi.ingsw.server.model.turnstates.InvalidTurnStateException;
 import it.polimi.ingsw.server.model.workers.Worker;
 import it.polimi.ingsw.server.model.workers.WorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.*;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.*;
 import it.polimi.ingsw.utils.observer.LambdaObservable;
-import it.polimi.ingsw.utils.messages.*;
-import it.polimi.ingsw.utils.networking.Transmittable;
 import it.polimi.ingsw.utils.structures.BidirectionalLinkedHashMap;
 import it.polimi.ingsw.utils.structures.BidirectionalMap;
 

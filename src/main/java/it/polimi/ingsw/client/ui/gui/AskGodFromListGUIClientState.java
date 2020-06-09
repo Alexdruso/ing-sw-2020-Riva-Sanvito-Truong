@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodFromListPassiveController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
-import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 
 public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientState implements GUIClientState{
     private SavedScene savedScene;

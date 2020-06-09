@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.gods;
 
 import it.polimi.ingsw.server.model.turnevents.TurnEvents;
-import it.polimi.ingsw.utils.messages.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 
 /**
  * The base representation of a god card.

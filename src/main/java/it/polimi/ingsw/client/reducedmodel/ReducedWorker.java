@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.reducedmodel;
 
-import it.polimi.ingsw.utils.messages.ReducedWorkerID;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 public class ReducedWorker {
     private final ReducedPlayer player;

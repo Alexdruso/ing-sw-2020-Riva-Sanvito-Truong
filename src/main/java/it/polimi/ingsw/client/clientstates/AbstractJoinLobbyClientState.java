@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.utils.messages.ClientJoinLobbyMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientJoinLobbyMessage;
 
 /**
  * A generic JOIN_LOBBY ClientState, to be extended by a UI-specific class.

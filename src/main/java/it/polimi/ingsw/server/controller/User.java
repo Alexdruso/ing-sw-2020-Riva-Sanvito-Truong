@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.utils.messages.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
 public class User {
     public final String nickname;

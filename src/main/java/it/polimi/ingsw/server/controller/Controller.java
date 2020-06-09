@@ -1,12 +1,12 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.Game;
-import it.polimi.ingsw.utils.observer.LambdaObserver;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.*;
-import it.polimi.ingsw.utils.networking.ControllerHandleable;
 import it.polimi.ingsw.server.view.View;
 import it.polimi.ingsw.server.view.ViewClientMessage;
+import it.polimi.ingsw.utils.networking.ControllerHandleable;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.*;
+import it.polimi.ingsw.utils.observer.LambdaObserver;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

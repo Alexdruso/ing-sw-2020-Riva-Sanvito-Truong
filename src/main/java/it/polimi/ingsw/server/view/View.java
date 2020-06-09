@@ -1,13 +1,13 @@
 package it.polimi.ingsw.server.view;
 
 import it.polimi.ingsw.server.controller.User;
+import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientMessage;
 import it.polimi.ingsw.utils.observer.LambdaObservable;
 import it.polimi.ingsw.utils.observer.LambdaObserver;
-import it.polimi.ingsw.utils.StatusMessages;
-import it.polimi.ingsw.utils.messages.ClientMessage;
-import it.polimi.ingsw.utils.messages.DisconnectionMessage;
-import it.polimi.ingsw.utils.networking.Connection;
-import it.polimi.ingsw.utils.networking.Transmittable;
 
 public class View extends LambdaObservable<ViewClientMessage> implements LambdaObserver {
     /**

@@ -3,8 +3,10 @@ package it.polimi.ingsw.server.model;
 import it.polimi.ingsw.server.controller.User;
 import it.polimi.ingsw.server.model.board.Component;
 import it.polimi.ingsw.server.model.workers.WorkerID;
-import it.polimi.ingsw.utils.messages.*;
 import it.polimi.ingsw.server.view.View;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+import it.polimi.ingsw.utils.networking.transmittables.servermessages.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
