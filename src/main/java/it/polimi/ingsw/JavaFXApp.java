@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.ui.gui.GUI;
+import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,8 +10,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 public class JavaFXApp extends Application {
@@ -33,7 +36,9 @@ public class JavaFXApp extends Application {
             Pane root = new StackPane();
             primaryScene = new Scene(root, 1280, 720);
 
-            primaryScene.getStylesheets().add(getClass().getResource("/css/common.css").toExternalForm());
+            primaryScene.getStylesheets().addAll(
+                    Arrays.stream(CSSFile.values()).map(x -> x.CSSForm).collect(Collectors.toList())
+            );
             primaryScene.setFill(Color.BLACK); //Ready to fade-in
 
             stage.setScene(primaryScene);

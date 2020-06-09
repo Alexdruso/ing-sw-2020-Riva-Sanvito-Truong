@@ -17,7 +17,7 @@ public class SceneLoaderFactory {
     boolean attemptLoadFromSaved = true;
     double fadeInDuration = 500;
     double fadeOutDuration = 500;
-    String cssFile;
+    CSSFile cssFile;
     AbstractClientState state;
 
     public SceneLoaderFactory(String fxmlFile, Client client){
@@ -62,7 +62,7 @@ public class SceneLoaderFactory {
         return this;
     }
 
-    public SceneLoaderFactory addCSSFile(String cssFile){
+    public SceneLoaderFactory addCSSFile(CSSFile cssFile){
         this.cssFile = cssFile;
         return this;
     }

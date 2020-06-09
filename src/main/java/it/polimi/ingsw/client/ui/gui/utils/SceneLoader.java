@@ -37,7 +37,7 @@ public class SceneLoader {
     private boolean attemptLoadFromSaved;
     private double fadeInDuration;
     private double fadeOutDuration;
-    private String cssFile;
+    private CSSFile cssFile;
     private AbstractClientState state;
     private ClientTurnState clientTurnState;
     private AbstractClientTurnState turnState;
@@ -78,9 +78,7 @@ public class SceneLoader {
             savedScene.controller.setupController();
             savedScene.controller.onSceneShow();
             savedScene.controller.setState(state);
-            if(cssFile != null){
-                mainScene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
-            }
+
             if(doApplyFadeOut){
                 applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
             } else {

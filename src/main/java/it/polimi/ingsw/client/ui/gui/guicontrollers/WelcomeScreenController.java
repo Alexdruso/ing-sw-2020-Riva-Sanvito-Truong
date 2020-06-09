@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ public class WelcomeScreenController extends AbstractController {
     @FXML
     public void handleCredits(ActionEvent event) {
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/Credits.fxml", client);
-        sceneLoaderFactory.addCSSFile("/css/credits.css").build().executeSceneChange();
+        sceneLoaderFactory.build().executeSceneChange();
     }
 
     @FXML

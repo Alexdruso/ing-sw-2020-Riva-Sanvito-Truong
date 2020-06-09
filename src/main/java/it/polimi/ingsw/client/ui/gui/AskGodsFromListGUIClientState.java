@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodsFromListPassiveController;
+import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
@@ -63,7 +64,7 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
             sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodsFromListPassive.fxml", client);
             wasPassive = true;
         }
-        sceneLoaderFactory.addCSSFile("/css/god-selection.css")
+        sceneLoaderFactory
                 .setState(ClientState.ASK_GODS_FROM_LIST, this)
                 .setFadeInDuration(2000)
                 .build()
