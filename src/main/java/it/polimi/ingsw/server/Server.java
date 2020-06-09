@@ -47,10 +47,12 @@ public class Server{
      * Class constructor. This method also creates a lobby builder and starts its thread
      */
     public Server() throws IOException {
-        ConfigParser configParser = ConfigParser.getInstance();
-        int SERVER_PORT = configParser.getIntProperty("serverPort");
-        int n_THREADS = configParser.getIntProperty("numberOfThreads");
-        serverSocket = getServerSocket(SERVER_PORT);
+        this(ConfigParser.getInstance().getIntProperty("serverPort"));
+    }
+
+    public Server(int serverPort) throws IOException {
+        int n_THREADS = ConfigParser.getInstance().getIntProperty("numberOfThreads");
+        serverSocket = getServerSocket(serverPort);
         executor = Executors.newFixedThreadPool(n_THREADS);
         ongoingMatches = new ArrayList<>();
         handlers = new ConcurrentHashMap<>();

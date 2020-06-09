@@ -27,7 +27,7 @@ public class ServerTest {
     @BeforeEach
     void initServer() {
         try {
-            server = new Server();
+            server = new Server(9000);
         } catch (IOException e) {
             e.printStackTrace();
         }
