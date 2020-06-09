@@ -393,6 +393,14 @@ public class CLI extends UI {
     }
 
     /**
+     * Reopens stdin and initializes in to a scanner bound to it.
+     */
+    private void reopenStdin() {
+        in = new Scanner(System.in);
+        usingInputFile = false;
+    }
+
+    /**
      * Reads a line from the input. If an input file was specified for input, the file is used
      * as input source until its end is reached, then the input is moved to stdin.
      * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
@@ -407,6 +415,7 @@ public class CLI extends UI {
             }
             catch (IndexOutOfBoundsException  ex) {
                 // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
+                reopenStdin();
                 return getLine();
             }
             if (usingInputFile) {
@@ -422,8 +431,7 @@ public class CLI extends UI {
             return s;
         }
         catch (NoSuchElementException e) {
-            in = new Scanner(System.in);
-            usingInputFile = false;
+            reopenStdin();
             return getLine();
         }
     }
