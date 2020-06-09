@@ -20,7 +20,9 @@ it.polimi.ingsw.server.view
 it.polimi.ingsw.utils
 it.polimi.ingsw.utils.config
 it.polimi.ingsw.utils.i18n
-it.polimi.ingsw.utils.messages
 it.polimi.ingsw.utils.networking
+it.polimi.ingsw.utils.networking.transmittables
+it.polimi.ingsw.utils.networking.transmittables.clientmessages
+it.polimi.ingsw.utils.networking.transmittables.servermessages
 it.polimi.ingsw.utils.observer
 it.polimi.ingsw.utils.structures
