@@ -20,13 +20,14 @@ public class WinGameGUIClientState extends AbstractWinGameClientState implements
         super(client);
     }
 
-    public void joinLobby(){
-        client.moveToState(ClientState.JOIN_LOBBY);
+    public void reconnect(){
+        client.closeConnection();
+        client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 
     public void returnToMenu(){
-        client.moveToState(ClientState.WELCOME_SCREEN);
         client.closeConnection();
+        client.moveToState(ClientState.WELCOME_SCREEN);
     }
 
     @Override

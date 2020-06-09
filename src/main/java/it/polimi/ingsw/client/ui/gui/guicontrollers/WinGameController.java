@@ -16,8 +16,8 @@ public class WinGameController extends AbstractController {
     Label winnerName;
 
     @FXML
-    public void handleJoinLobby(ActionEvent event){
-        ((WinGameGUIClientState)state).joinLobby();
+    public void handleReconnect(ActionEvent event){
+        ((WinGameGUIClientState)state).reconnect();
     }
     @FXML
     public void handleMenu(ActionEvent event){

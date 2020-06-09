@@ -56,7 +56,7 @@ public class AskGodFromListController extends AbstractController{
 
     private boolean sideBarVisible = false;
 
-    private Map<ReducedGod, Pane> godIcons = new HashMap<>();
+    private Map<ReducedGod, Pane> godIcons;
     private Map<GodAsset, Image> cachedCards = new EnumMap<>(GodAsset.class);
     private List<ReducedGod> gods;
 
@@ -94,6 +94,7 @@ public class AskGodFromListController extends AbstractController{
 
     @Override
     public void setupController(){
+        godIcons = new HashMap<>();
         chooseGodsPrompt.setText(I18n.string(I18nKey.YOU_CAN_CHOOSE_ONE_OF_THESE_GODS));
         gods = new ArrayList<>(client.getGods());
         for(ReducedGod god: gods){
@@ -101,6 +102,7 @@ public class AskGodFromListController extends AbstractController{
             cachedCards.put(ga, new Image(getClass().getResourceAsStream(ga.cardLocation)));
             godIcons.put(god, getIconPane(ga, god));
         }
+        godListPane.getChildren().clear();
         godListPane.getChildren().addAll(godIcons.entrySet()
                 .stream()
                 .sorted(Comparator.comparing(o -> o.getKey().name))

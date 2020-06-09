@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.WinGameController">
+<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.LoseGameController">
    <children>
       <AnchorPane id="VerticalGradientPane" prefHeight="200.0" prefWidth="200.0" />
       <GridPane alignment="CENTER_RIGHT">
@@ -25,17 +25,17 @@
             <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleMenu" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%menu" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleMenu" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%menu" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleReconnect" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" stylesheets="@../css/main-menu.css" text="%join_lobby" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleReconnect" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%join_another_lobby" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Label fx:id="mainPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="164.0" prefWidth="868.0" styleClass="h1" text="win/lose" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES">
+            <Label fx:id="mainPrompt" alignment="CENTER" contentDisplay="CENTER" prefHeight="164.0" prefWidth="868.0" styleClass="h1" text="%you_lost" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES">
                <font>
                   <Font size="57.0" />
                </font>
@@ -43,11 +43,12 @@
                   <Insets top="30.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="winnerName" alignment="CENTER" contentDisplay="CENTER" styleClass="h3" text="winnernameprompt" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label fx:id="winnerName" alignment="CENTER" contentDisplay="CENTER" styleClass="h3" text="%do_you_want_to_keep_watching_the_game" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Label>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="423.0" mnemonicParsing="false" onAction="#handleSpectate" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%rejoin_as_spectator" textAlignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
