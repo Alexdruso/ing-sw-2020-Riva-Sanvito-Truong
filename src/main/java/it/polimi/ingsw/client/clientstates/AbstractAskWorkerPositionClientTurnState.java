@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.messages.ClientSetWorkerStartPositionMessage;
 import it.polimi.ingsw.utils.messages.ReducedWorkerID;
 
@@ -21,5 +23,10 @@ public abstract class AbstractAskWorkerPositionClientTurnState extends AbstractC
                     client.getConnection().send(new ClientSetWorkerStartPositionMessage(targetCellX, targetCellY, workerID));
                 }
         );
+    }
+
+    @Override
+    public void handleClientError() {
+        client.getUI().notifyError(I18n.string(I18nKey.YOU_CANT_PLACE_THE_WORKER_IN_THE_SPECIFIED_CELL));
     }
 }

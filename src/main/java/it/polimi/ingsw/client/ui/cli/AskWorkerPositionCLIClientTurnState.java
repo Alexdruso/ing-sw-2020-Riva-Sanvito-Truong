@@ -30,9 +30,4 @@ public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositi
             cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PLACE_THEIR_WORKERS), client.getCurrentActiveUser().nickname));
         }
     }
-
-    @Override
-    public void handleClientError() {
-        cli.error(I18n.string(I18nKey.YOU_CANT_PLACE_THE_WORKER_IN_THE_SPECIFIED_CELL));
-    }
 }
