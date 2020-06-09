@@ -1,17 +1,14 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.AskGodFromListGUIClientState;
+import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AskGodFromListPassiveController extends AbstractController{
     private final Image[] imageArray = new Image[4];
@@ -22,7 +19,7 @@ public class AskGodFromListPassiveController extends AbstractController{
     @FXML
     ImageView loadingTower;
 
-    Timer animationTimer;
+    AnimationHelper animationHelper;
 
     @FXML
     public void handleMenuButton(ActionEvent event){
@@ -35,22 +32,7 @@ public class AskGodFromListPassiveController extends AbstractController{
                 I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THEIR_GOD),
                 client.getCurrentActiveUser().nickname));
 
-        final int[] imgCount = {0};
-        animationTimer = new Timer(true);
-        //FIXME: I believe that this timer keeps the Client from shutting down when closing the window
-        //Maybe submit all Timer Tasks to a global instance of Timer so it can stop all of them?
-        animationTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> loadingTower.setImage(imageArray[imgCount[0]]));
-                if(imgCount[0] == 3){
-                    imgCount[0] = 0;
-                } else {
-                    imgCount[0]++;
-                }
-            }
-        }, 0, 1000);
-
+        animationHelper.animateLoadingScreen(imageArray, loadingTower);
     }
 
     @FXML
@@ -59,10 +41,11 @@ public class AskGodFromListPassiveController extends AbstractController{
         imageArray[1] = new Image("assets/loading_tower1_400px.png");
         imageArray[2] = new Image("assets/loading_tower2_400px.png");
         imageArray[3] = new Image("assets/loading_tower3_400px.png");
+        animationHelper = new AnimationHelper();
     }
 
     public void stopAnimation(){
-        animationTimer.cancel();
+        animationHelper.stopAnimations();
     }
 
     @Override
