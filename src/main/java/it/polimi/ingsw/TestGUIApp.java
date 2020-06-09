@@ -19,7 +19,7 @@ public class TestGUIApp {
         client.requestExit();
         client.requestRender();
         //Disconnect forcibly
-        clientThread.interrupt();
+        //clientThread.interrupt();
     }
 }
 
