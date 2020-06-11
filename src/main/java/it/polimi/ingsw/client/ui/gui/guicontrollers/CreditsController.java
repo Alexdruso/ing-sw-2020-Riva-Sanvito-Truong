@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
-import it.polimi.ingsw.JavaFXApp;
+import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ public class CreditsController extends AbstractController{
 
     @FXML
     public void initialize(){
-        primaryStage = JavaFXApp.getPrimaryStage();
+        primaryStage = JavaFXGUI.getPrimaryStage();
     }
 
 

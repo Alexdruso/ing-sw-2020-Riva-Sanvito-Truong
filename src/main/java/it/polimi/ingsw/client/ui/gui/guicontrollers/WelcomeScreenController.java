@@ -1,8 +1,7 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
+import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +27,7 @@ public class WelcomeScreenController extends AbstractController {
 
     @FXML
     public void initialize(){
-        primaryStage = JavaFXApp.getPrimaryStage();
+        primaryStage = JavaFXGUI.getPrimaryStage();
     }
 
     @Override

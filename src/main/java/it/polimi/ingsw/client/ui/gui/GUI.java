@@ -18,8 +18,10 @@ public class GUI extends UI {
     private SavedScene currentScene;
 
     @Override
-    public void init() {
-    }
+    public void init(Runnable onExit) {
+        JavaFXGUI.onExit = onExit;
+        new Thread(JavaFXGUI::launchJavaFX).start();
+    };
 
     public void addScene(String fxmlFile, SavedScene savedScene) {
         //TODO: see if we can load all scenes at startup time

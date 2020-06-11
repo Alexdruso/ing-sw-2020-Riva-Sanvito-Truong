@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodFromListPassiveController;
-import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;

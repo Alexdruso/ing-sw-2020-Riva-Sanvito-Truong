@@ -12,22 +12,54 @@
 
 ## Quick start guide
 
-To run the server (Windows):
+### Windows
+
+To run the server:
 
 1. In a terminal window, run:
 ```bash
-java -jar target\Santorini-Server.jar
+Santorini-Server.bat
 ```
 
-To run the client (Windows):
+To run the client:
 
 You need to enable the support to UTF-8 characters in the terminal:
 
 1. Open the `Area geografica` control panel (Run > `intl.cpl`)
 2. In the `Opzioni di amministrazione` tab, choose `Cambia impostazioni locali del sistema` and check `Utilizzare UTF-8 per il supporto della lingua a livello mondiale`.
 3. In a terminal window, run:
+
+**For the GUI:**
 ```bash
-java -Dfile.encoding=UTF8 -jar target\Santorini-Client.jar
+Santorini-Client.bat
+```
+
+**For the CLI:**
+```bash
+Santorini-Client.bat cli
+```
+
+### Linux / MacOS
+
+To run the server:
+
+1. In a terminal window, run:
+```bash
+./Santorini-Server.sh
+```
+
+To run the client:
+
+1. In a terminal window, run:
+
+**For the GUI:**
+```bash
+./Santorini-Client.sh
+```
+
+**For the CLI:**
+```bash
+./Santorini-Client.sh cli
 ```
 
 ### Environment variables

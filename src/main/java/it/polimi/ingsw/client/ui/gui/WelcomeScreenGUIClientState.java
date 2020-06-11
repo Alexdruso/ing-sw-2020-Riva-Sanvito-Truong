@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
 public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState implements GUIClientState {

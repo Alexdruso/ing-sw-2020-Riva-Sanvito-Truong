@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ import java.util.logging.Logger;
  */
 public class Client implements LambdaObserver {
     private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+    public static final int EXIT_TIMEOUT_MILLIS = 500;
     private Connection connection;
     private final Object currentStateLock = new Object();
     private AbstractClientState currentState;
@@ -36,6 +38,7 @@ public class Client implements LambdaObserver {
     private final BlockingQueue<Runnable> renderRequestsQueue = new LinkedBlockingQueue<>();
     private final UI ui;
     private boolean exitRequested = false;
+    private final AtomicBoolean readyToExit = new AtomicBoolean(false);
     private final Set<ReducedCell> changedCells = new HashSet<>();
     private final Object gameLock = new Object();
     private ReducedGame game;
@@ -58,7 +61,7 @@ public class Client implements LambdaObserver {
      * The user interface renders itself in this function, in the thread that originally called Client::run.
      */
     public void run() {
-        ui.init();
+        ui.init(this::onExit);
         changeState();
 
         while (!exitRequested || renderRequestsQueue.size() > 0) {
@@ -71,6 +74,26 @@ public class Client implements LambdaObserver {
             }
         }
 
+        synchronized (readyToExit) {
+            readyToExit.set(true);
+            readyToExit.notifyAll();
+        }
+        onExit();
+    }
+
+    /**
+     * Tries to perform a clean exit of the client, waiting up to EXIT_TIMEOUT_MILLIS
+     * before abruptly closing any connection.
+     */
+    private void onExit() {
+        requestExit();
+        synchronized (readyToExit) {
+            try {
+                readyToExit.wait(EXIT_TIMEOUT_MILLIS);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
+        }
         closeConnection();
     }
 
@@ -139,6 +162,7 @@ public class Client implements LambdaObserver {
      */
     public void requestExit() {
         exitRequested = true;
+        requestRender(() -> {});
     }
 
     /**

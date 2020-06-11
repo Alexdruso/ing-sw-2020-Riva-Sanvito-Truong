@@ -1,9 +1,9 @@
 package it.polimi.ingsw.client.ui.gui.utils;
 
-import it.polimi.ingsw.JavaFXApp;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
 import javafx.scene.Scene;
 
 public class SceneLoaderFactory {
@@ -23,7 +23,7 @@ public class SceneLoaderFactory {
     public SceneLoaderFactory(String fxmlFile, Client client){
         this.fxmlFile = fxmlFile;
         this.client = client;
-        this.mainScene = JavaFXApp.getPrimaryScene();
+        this.mainScene = JavaFXGUI.getPrimaryScene();
     }
 
     public SceneLoaderFactory setFadeOut(boolean doApplyFadeout){

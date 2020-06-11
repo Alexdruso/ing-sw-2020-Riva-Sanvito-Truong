@@ -30,6 +30,7 @@ public class CLI extends UI {
     private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
+    private Runnable onExit;
 
     private Scanner in;
     private PrintWriter out;
@@ -85,7 +86,8 @@ public class CLI extends UI {
 //    };
 
     @Override
-    public void init() {
+    public void init(Runnable onExit) {
+        Runtime.getRuntime().addShutdownHook(new Thread(onExit));
         AnsiConsole.systemInstall();
 
         try {

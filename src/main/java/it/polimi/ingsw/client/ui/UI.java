@@ -14,7 +14,7 @@ public abstract class UI {
     /**
      * Initialize the user interface.
      */
-    public abstract void init();
+    public abstract void init(Runnable onExit);
 
     /**
      * Gets an instance of a UI-specific ClientState.
