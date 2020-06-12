@@ -5,6 +5,7 @@ public enum CSSFile {
     COMMON(CSSFile.class.getResource("/css/common.css").toExternalForm()),
     CREDITS(CSSFile.class.getResource("/css/credits.css").toExternalForm()),
     GOD_SELECTION(CSSFile.class.getResource("/css/god-selection.css").toExternalForm()),
+    TEXT(CSSFile.class.getResource("/css/text.css").toExternalForm()),
     MAIN_MENU(CSSFile.class.getResource("/css/main-menu.css").toExternalForm());
 
     public final String CSSForm;
