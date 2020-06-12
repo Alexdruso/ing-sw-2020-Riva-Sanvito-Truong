@@ -35,7 +35,13 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         this.game = client.getGame();
         this.turn = game.getTurn();
         this.board = game.getBoard();
-        Platform.runLater(() -> controller.clearSideButtons());
+
+        Platform.runLater(() -> {
+            controller.setLabel("");
+            controller.setPrompt("");
+            controller.clearSideButtons();
+        });
+
         if(client.isCurrentlyActive()){
             if(turn.getAllowedWorkers().size() == 1){
                 //Case in which the choice of the worker is forced: automatically set workerID

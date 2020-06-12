@@ -30,7 +30,11 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         this.board = game.getBoard();
         this.player = turn.getPlayer();
 
-        Platform.runLater(() -> controller.clearSideButtons());
+        Platform.runLater(() -> {
+            controller.setLabel("");
+            controller.setPrompt("");
+            controller.clearSideButtons();
+        });
 
         if (client.isCurrentlyActive()) {
             if (turn.getAllowedWorkers().size() == 1) {
@@ -43,9 +47,15 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
                 board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
                         targetedCell -> targetedCell.setHighlighted(true)
                 );
-                Platform.runLater(() -> controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER)));
+                Platform.runLater(() -> {
+                    controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
+                    controller.setPrompt("");
+                });
             } else {
-                Platform.runLater(() -> controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE)));
+                Platform.runLater(() -> {
+                    controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));
+                    controller.setPrompt("");
+                });
             }
             Platform.runLater(() -> {
                 controller.setBoardClickableStatus(true);
