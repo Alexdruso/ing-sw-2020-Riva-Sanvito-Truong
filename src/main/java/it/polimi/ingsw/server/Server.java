@@ -158,7 +158,7 @@ public class Server{
      * This method accepts inbound connections and dispatches them
      */
     public void start(){
-        LOGGER.log(Level.FINE, "Server ready to accept connections");
+        LOGGER.log(Level.INFO, "Server ready to accept connections");
         while(!serverSocket.isClosed()){
             try {
                 Socket inboundSocket = serverSocket.accept();
