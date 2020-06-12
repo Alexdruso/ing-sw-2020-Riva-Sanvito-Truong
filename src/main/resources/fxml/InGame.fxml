@@ -28,6 +28,7 @@
           <RowConstraints maxHeight="150.0" minHeight="100.0" prefHeight="150.0" vgrow="ALWAYS" />
           <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="500.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="70.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="70.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
@@ -195,46 +196,7 @@
                      </VBox.margin></Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="60.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <children>
-                  <AnchorPane prefHeight="80.0" prefWidth="200.0" styleClass="player-lateral-label-passive">
-                     <VBox.margin>
-                        <Insets left="60.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label layoutX="57.0" layoutY="14.0" styleClass="h4" text="Previous Player" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <Label layoutX="21.0" layoutY="34.0" text="Example Player" AnchorPane.rightAnchor="5.0">
-                           <styleClass>
-                              <String fx:value="h3" />
-                              <String fx:value="player-lateral-name-passive" />
-                           </styleClass>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="60.0" layoutY="10.0" prefHeight="80.0" prefWidth="200.0" styleClass="player-lateral-label-active">
-                     <children>
-                        <Label layoutX="57.0" layoutY="14.0" styleClass="h4" text="Active Player" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <Label layoutX="21.0" layoutY="34.0" styleClass="h3" text="Example Player" AnchorPane.rightAnchor="5.0" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="20.0" />
-                     </VBox.margin>
-                  </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="90.0" prefHeight="80.0" prefWidth="200.0" styleClass="player-lateral-label-passive">
-                     <children>
-                        <Label layoutX="57.0" layoutY="14.0" styleClass="h4" text="Next Player" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <Label layoutX="21.0" layoutY="34.0" text="Example Player" AnchorPane.rightAnchor="5.0">
-                           <styleClass>
-                              <String fx:value="h3" />
-                              <String fx:value="player-lateral-name-passive" />
-                           </styleClass>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="60.0" />
-                     </VBox.margin>
-                  </AnchorPane>
-               </children>
+            <VBox fx:id="lateralLabelsContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="60.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <padding>
                   <Insets bottom="100.0" />
                </padding>

@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.gui.BuildGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.PlayerLateralLabel;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
@@ -23,25 +24,18 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
     private final double CELL_CONTENT_MARGIN = 5.0;
 
-    @FXML
-    GridPane boardPane;
-
-    @FXML
-    AnchorPane boardContainer;
-
-    @FXML
-    Label mainLabel;
-
-    @FXML
-    Label prompt;
-
-    @FXML
-    VBox sideButtons;
+    @FXML GridPane boardPane;
+    @FXML AnchorPane boardContainer;
+    @FXML Label mainLabel;
+    @FXML Label prompt;
+    @FXML VBox sideButtons;
+    @FXML VBox lateralLabelsContainer;
 
     private List<StackPane> cellPanes;
     private boolean active = false;
@@ -57,6 +51,7 @@ public class InGameController extends AbstractController{
     }
 
     private final HashMap<BoardElement, Image> boardAssets = new HashMap<>();
+    private final HashMap<ReducedPlayer, PlayerLateralLabel> lateralLabels = new HashMap<>();
     private ImageView blockIcon;
     private ImageView domeIcon;
     private List<ReducedPlayer> players;
@@ -85,6 +80,18 @@ public class InGameController extends AbstractController{
            imageStack.add(getImageView(boardAssets.get(BoardElement.values()[playerID + 4])));
         }
         return imageStack;
+    }
+
+    @FXML
+    public void onSceneShow(){
+        lateralLabels.clear();
+        lateralLabelsContainer.getChildren().clear();
+        for(ReducedPlayer player: client.getGame().getPlayersList()){
+            PlayerLateralLabel label = new PlayerLateralLabel(player.getNickname(), player.getGod().getName());
+            label.setOnMouseClicked(e -> System.out.println("clicked " + player.getNickname()));
+            lateralLabelsContainer.getChildren().add(label);
+            lateralLabels.put(player, label);
+        }
     }
 
     @FXML
@@ -206,6 +213,16 @@ public class InGameController extends AbstractController{
     public void displayComponentSelection(){
         sideButtons.getChildren().add(domeIcon);
         sideButtons.getChildren().add(blockIcon);
+    }
+
+    public void updatePlayerLabels(){
+        for(Map.Entry<ReducedPlayer, PlayerLateralLabel> entry: lateralLabels.entrySet()){
+            if(entry.getKey().equals(client.getGame().getTurn().getPlayer())){
+                entry.getValue().setActiveStatus(true);
+            } else {
+                entry.getValue().setActiveStatus(false);
+            }
+        }
     }
 
     public void clearSideButtons(){
