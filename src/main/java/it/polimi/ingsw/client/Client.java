@@ -25,7 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The Client.
+ * The Santorini client.
  */
 public class Client implements LambdaObserver {
     private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
@@ -236,7 +236,6 @@ public class Client implements LambdaObserver {
     public UI getUI() {
         return ui;
     }
-
 
     /**
      * Handles the messages received from the server.

@@ -5,7 +5,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class I18nTest {
     @ParameterizedTest
