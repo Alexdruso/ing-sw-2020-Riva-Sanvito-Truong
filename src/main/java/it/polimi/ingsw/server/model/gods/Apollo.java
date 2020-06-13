@@ -42,7 +42,7 @@ class Apollo extends AbstractGod {
         @Override
         protected void onAfterMovement(Turn turn) {
             List<MoveAction> moveActions = turn.getMoves();
-            if (moveActions.size() < 1) return;
+            if (moveActions.isEmpty()) return;
 
             MoveAction lastMove = moveActions.get(moveActions.size() - 1);
             lastMove.getTargetCell().getWorker().ifPresent(

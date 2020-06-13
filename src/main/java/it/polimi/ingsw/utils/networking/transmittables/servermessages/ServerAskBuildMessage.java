@@ -11,6 +11,7 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Server ask build message.
@@ -47,13 +48,13 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
      * @param workerDomeBuildableCells  the worker dome buildable cells
      */
     public ServerAskBuildMessage(ReducedUser user, boolean isSkippable, List<ReducedWorkerID> allowedWorkers,
-                                 EnumMap<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells,
-                                 EnumMap<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells) {
+                                 Map<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells,
+                                 Map<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells) {
         this.user = user;
         this.isSkippable = isSkippable;
         this.allowedWorkers = allowedWorkers;
-        this.workerBlockBuildableCells = workerBlockBuildableCells;
-        this.workerDomeBuildableCells = workerDomeBuildableCells;
+        this.workerBlockBuildableCells = new EnumMap<>(workerBlockBuildableCells);
+        this.workerDomeBuildableCells = new EnumMap<>(workerDomeBuildableCells);
     }
 
     @Override

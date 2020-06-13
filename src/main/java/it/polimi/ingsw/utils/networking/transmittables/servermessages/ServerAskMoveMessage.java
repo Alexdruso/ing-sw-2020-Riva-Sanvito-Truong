@@ -11,6 +11,7 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Server ask move message.
@@ -42,11 +43,11 @@ public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
      * @param workerWalkableCells the worker walkable cells
      */
     public ServerAskMoveMessage(ReducedUser user, boolean isSkippable, List<ReducedWorkerID> allowedWorkers,
-                                EnumMap<ReducedWorkerID, ReducedTargetCells> workerWalkableCells) {
+                                Map<ReducedWorkerID, ReducedTargetCells> workerWalkableCells) {
         this.user = user;
         this.isSkippable = isSkippable;
         this.allowedWorkers = allowedWorkers;
-        this.workerWalkableCells = workerWalkableCells;
+        this.workerWalkableCells = new EnumMap<>(workerWalkableCells);
     }
 
     @Override

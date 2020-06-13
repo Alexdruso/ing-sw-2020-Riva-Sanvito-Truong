@@ -131,13 +131,6 @@ public class Connection extends LambdaObservable<Transmittable> {
         }
     }
 
-    private void close(String message) {
-        if (isActive()) {
-            log(Level.SEVERE, "Abruptly closing the connection: " + message);
-        }
-        close();
-    }
-
     /**
      * Notifies the observers of this Connection that the socket was closed, if not already done.
      */

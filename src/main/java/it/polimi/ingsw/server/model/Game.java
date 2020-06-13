@@ -698,7 +698,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         e -> e.getKey().toReducedWorkerId(),
                                         Map.Entry::getValue,
                                         (k1, k2) -> {
-                                            throw new IllegalArgumentException(String.format("Keys %s and %s are duplicate", k1, k2));
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s (while computing walkable cells) are duplicate", k1, k2));
                                         },
                                         () -> new EnumMap<>(ReducedWorkerID.class)))
                 )
@@ -728,7 +728,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         e -> e.getKey().toReducedWorkerId(),
                                         Map.Entry::getValue,
                                         (k1, k2) -> {
-                                            throw new IllegalArgumentException(String.format("Keys %s and %s are duplicate", k1, k2));
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s (while computing block buildable cells) are duplicate", k1, k2));
                                         },
                                         () -> new EnumMap<>(ReducedWorkerID.class))
                                 ),
@@ -742,7 +742,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         e -> e.getKey().toReducedWorkerId(),
                                         Map.Entry::getValue,
                                         (k1, k2) -> {
-                                            throw new IllegalArgumentException(String.format("Keys %s and %s are duplicate", k1, k2));
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s (while computing dome buildable cells) are duplicate", k1, k2));
                                         },
                                         () -> new EnumMap<>(ReducedWorkerID.class)
                                         )

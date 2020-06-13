@@ -7,6 +7,7 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReducedTurn {
     private final ReducedPlayer player;
@@ -27,22 +28,22 @@ public class ReducedTurn {
         this.isSkippable = false;
     }
 
-    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState, List<ReducedWorkerID> allowedWorkers, EnumMap<ReducedWorkerID, ReducedTargetCells> workerWalkableCells, boolean isSkippable) {
+    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState, List<ReducedWorkerID> allowedWorkers, Map<ReducedWorkerID, ReducedTargetCells> workerWalkableCells, boolean isSkippable) {
         this.player = player;
         this.turnState = turnState;
         this.allowedWorkers = allowedWorkers;
         this.workerBlockBuildableCells = new EnumMap<>(ReducedWorkerID.class);
         this.workerDomeBuildableCells = new EnumMap<>(ReducedWorkerID.class);
-        this.workerWalkableCells = workerWalkableCells;
+        this.workerWalkableCells = new EnumMap<>(workerWalkableCells);
         this.isSkippable = isSkippable;
     }
 
-    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState, List<ReducedWorkerID> allowedWorkers, EnumMap<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells, EnumMap<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells, boolean isSkippable) {
+    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState, List<ReducedWorkerID> allowedWorkers, Map<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells, Map<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells, boolean isSkippable) {
         this.player = player;
         this.turnState = turnState;
         this.allowedWorkers = allowedWorkers;
-        this.workerBlockBuildableCells = workerBlockBuildableCells;
-        this.workerDomeBuildableCells = workerDomeBuildableCells;
+        this.workerBlockBuildableCells = new EnumMap<>(workerBlockBuildableCells);
+        this.workerDomeBuildableCells = new EnumMap<>(workerDomeBuildableCells);
         this.isSkippable = isSkippable;
         this.workerWalkableCells = new EnumMap<>(ReducedWorkerID.class);
     }

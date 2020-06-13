@@ -416,7 +416,7 @@ public class CLI implements UI {
      * @return the read line
      * @throws NoSuchElementException if the currently open stream has ended
      */
-    private String getLineFromOpenStream() throws NoSuchElementException {
+    private String getLineFromOpenStream() {
         String s;
         try {
             s = in.nextLine();
