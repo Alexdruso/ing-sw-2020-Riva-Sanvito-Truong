@@ -58,39 +58,51 @@ public class SceneLoader {
     }
 
     public void executeSceneChange(){
-        SavedScene savedScene = null;
-        GUI gui = (GUI)client.getUI();
+        SavedScene scene = null;
+        GUI gui = (GUI) client.getUI();
         if(gui.getCurrentScene() == null || !fxmlFile.equals(gui.getCurrentScene().fxmlFile)){
-            if(attemptLoadFromSaved){
-                savedScene = loadFromSaved(fxmlFile, (GUI)client.getUI());
+            if (attemptLoadFromSaved){
+                scene = loadFromSaved(fxmlFile, gui);
             }
-            if(savedScene == null){
-                try{
-                    savedScene = loadNewFXML(fxmlFile, clientState, geti18n());
-                } catch (IOException e) {
-                    LOGGER.log(Level.SEVERE, e.getMessage(), e);
-                    return;
-                }
-                gui.addScene(fxmlFile, savedScene);
-                doApplyFadeOut = doApplyFirstFadeOut;
+            if (scene == null){
+                scene = loadAndSave(gui);
+                if (scene == null) return;
             }
-            savedScene.controller.setClient(client);
-            savedScene.controller.setupController();
-            savedScene.controller.onSceneShow();
-            savedScene.controller.setState(state);
+            scene.controller.setClient(client);
+            scene.controller.setupController();
+            scene.controller.onSceneShow();
+            scene.controller.setState(state);
 
-            if(doApplyFadeOut){
-                applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
-            } else {
-                if(doApplyFadeIn){
-                    applyFadeIn(mainScene, savedScene.root, fadeInDuration);
-                } else {
-                    SavedScene finalSavedScene = savedScene;
-                    Platform.runLater(() -> mainScene.setRoot(finalSavedScene.root));
-                }
-            }
-            gui.setCurrentScene(savedScene);
+            applySceneFade(scene);
+            gui.setCurrentScene(scene);
         }
+    }
+
+    private void applySceneFade(SavedScene savedScene) {
+        if (doApplyFadeOut){
+            applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
+        }
+        else {
+            if(doApplyFadeIn){
+                applyFadeIn(mainScene, savedScene.root, fadeInDuration);
+            } else {
+                SavedScene finalSavedScene = savedScene;
+                Platform.runLater(() -> mainScene.setRoot(finalSavedScene.root));
+            }
+        }
+    }
+
+    private SavedScene loadAndSave(GUI gui) {
+        SavedScene savedScene;
+        try{
+            savedScene = loadNewFXML(fxmlFile, clientState, geti18n());
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            return null;
+        }
+        gui.addScene(fxmlFile, savedScene);
+        doApplyFadeOut = doApplyFirstFadeOut;
+        return savedScene;
     }
 
 
