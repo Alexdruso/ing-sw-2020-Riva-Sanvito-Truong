@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<fx:root fx:id="rootPane" alignment="CENTER_LEFT" prefHeight="720.0" prefWidth="1280.0" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane id="gradient-pane" fx:id="gradientPane" onMouseClicked="#reverse" prefHeight="200.0" prefWidth="200.0" />
+      <VBox id="vboxview" fx:id="cardPane" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="937.0" pickOnBounds="false" prefHeight="720.0" prefWidth="937.0">
+         <children>
+            <HBox fx:id="godText" spacing="40.0">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fx:id="selectedCard" fitHeight="347.0" fitWidth="321.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/god_cards/apollo_card.png" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="godName" prefHeight="100.0" prefWidth="565.0" styleClass="god-name" text="God Name" />
+                        <Label fx:id="godSubtitle" styleClass="h3" text="God Subtitle" />
+                        <Label fx:id="godDescription" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="136.0" prefWidth="494.0" styleClass="normal-text" text="Nihil est hic id unde totam sint cupiditate. Cum consequatur eum hic. Sed numquam officiis velit necessitatibus sunt voluptatibus aliquid eos. Qui ratione corporis iste temporibus earum." wrapText="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#selectGod" prefHeight="56.0" prefWidth="302.0" styleClass="bigbutton" text="Select God Card">
+               <VBox.margin>
+                  <Insets left="35.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</fx:root>
