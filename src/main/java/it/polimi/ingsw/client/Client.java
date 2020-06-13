@@ -2,7 +2,6 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
@@ -16,9 +15,7 @@ import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
 import it.polimi.ingsw.utils.observer.LambdaObserver;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;

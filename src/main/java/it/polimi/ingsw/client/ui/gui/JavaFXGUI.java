@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
-import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -11,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;

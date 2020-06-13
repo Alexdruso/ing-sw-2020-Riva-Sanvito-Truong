@@ -1,6 +1,5 @@
 package it.polimi.ingsw.utils.networking;
 
-import it.polimi.ingsw.utils.StringCapturedStackTrace;
 import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
 import it.polimi.ingsw.utils.networking.transmittables.KeepAlive;

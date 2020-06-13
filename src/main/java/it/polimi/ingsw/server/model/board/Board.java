@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

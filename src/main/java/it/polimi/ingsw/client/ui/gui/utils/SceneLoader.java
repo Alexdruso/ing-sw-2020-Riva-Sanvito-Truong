@@ -2,9 +2,7 @@ package it.polimi.ingsw.client.ui.gui.utils;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
-import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUI;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
 import javafx.animation.FadeTransition;
