@@ -160,12 +160,13 @@ public class InGameController extends AbstractController{
             for(int y = 0; y < 5; y++){
                 ReducedCell cell = board.getCell(x, y);
                 StackPane cellPane = cellPanes.get(5*y+x);
+                final String CELL_HIGHLIGHTED = "cell-highlighted";
                 if(cell.isHighlighted()){
-                    if(!cellPane.getStyleClass().contains("cell-highlighted")){
-                        cellPane.getStyleClass().add("cell-highlighted");
+                    if(!cellPane.getStyleClass().contains(CELL_HIGHLIGHTED)){
+                        cellPane.getStyleClass().add(CELL_HIGHLIGHTED);
                     }
                 } else {
-                    int toRemove = cellPane.getStyleClass().indexOf("cell-highlighted");
+                    int toRemove = cellPane.getStyleClass().indexOf(CELL_HIGHLIGHTED);
                     if(toRemove != -1){
                         cellPane.getStyleClass().remove(toRemove);
                     }

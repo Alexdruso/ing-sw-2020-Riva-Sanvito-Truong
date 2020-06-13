@@ -43,30 +43,30 @@ public class CLI extends UI {
             Ansi.Color.YELLOW,  // level 3
             Ansi.Color.RED      // dome
     };
-    private static final String boardColumnsFormatString = "    %c    ";
-    private static final String boardRowsFormatString = "     \n     \n  %d  \n     \n     ";
-    private static final String emptyCellString = "   ";
-    private static final String domeCellString = "\u2591\u2591\u2591";
+    private static final String BOARD_COLUMNS_FORMAT_STRING = "    %c    ";
+    private static final String BOARD_ROWS_FORMAT_STRING = "     %n     %n  %d  %n     %n     ";
+    private static final String EMPTY_CELL_STRING = "   ";
+    private static final String DOME_CELL_STRING = "\u2591\u2591\u2591";
     private static final String[] levelFormatString = new String[]{
-            "         \n" +
-                    "         \n" +
-                    "   %s   \n" +
-                    "         \n" +
+            "         %n" +
+                    "         %n" +
+                    "   %s   %n" +
+                    "         %n" +
                     "         ",
-            "         \n" +
-                    "         \n" +
-                    "   %s   \n" +
-                    "         \n" +
+            "         %n" +
+                    "         %n" +
+                    "   %s   %n" +
+                    "         %n" +
                     "         ",
-            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n" +
-                    "\u2502       \u2502\n" +
-                    "\u2502  %s  \u2502\n" +
-                    "\u2502       \u2502\n" +
+            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510%n" +
+                    "\u2502       \u2502%n" +
+                    "\u2502  %s  \u2502%n" +
+                    "\u2502       \u2502%n" +
                     "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
-            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n" +
-                    "\u2502 \u250c\u2500\u2500\u2500\u2510 \u2502\n" +
-                    "\u2502 \u2502%s\u2502 \u2502\n" +
-                    "\u2502 \u2514\u2500\u2500\u2500\u2518 \u2502\n" +
+            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510%n" +
+                    "\u2502 \u250c\u2500\u2500\u2500\u2510 \u2502%n" +
+                    "\u2502 \u2502%s\u2502 \u2502%n" +
+                    "\u2502 \u2514\u2500\u2500\u2500\u2518 \u2502%n" +
                     "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
     };
     private static final String[][] workersStrings = new String[][]{
@@ -74,16 +74,6 @@ public class CLI extends UI {
             {" B ", " b "},
             {" C ", " c "},
     };
-//    private static final Ansi.Color[][] workersColors = new Ansi.Color[][]{
-//            {Ansi.Color.BLUE, Ansi.Color.BLUE},
-//            {Ansi.Color.MAGENTA, Ansi.Color.MAGENTA},
-//            {Ansi.Color.BLACK, Ansi.Color.BLACK},
-//    };
-//    private static final boolean[][] workersBright = new boolean[][]{
-//            {true, false},
-//            {true, false},
-//            {true, false},
-//    };
 
     @Override
     public void init(Runnable onExit) {
@@ -483,12 +473,12 @@ public class CLI extends UI {
         boardStr.append("\n");
         boardStr.append("     ");
         for (int i = 0; i < dimension; i++) {
-            boardStr.append(String.format(boardColumnsFormatString, (char) (i + 65)));
+            boardStr.append(String.format(BOARD_COLUMNS_FORMAT_STRING, (char) (i + 65)));
         }
         boardStr.append("\n");
         for (int y = 0; y < dimension; y++) {
             Ansi[][] rowAnsi = new Ansi[dimension+1][];
-            String[] rowHeaders = String.format(boardRowsFormatString, y + 1).split("\n");
+            String[] rowHeaders = String.format(BOARD_ROWS_FORMAT_STRING, y + 1).split("\n");
             rowAnsi[0] = new Ansi[rowHeaders.length];
             for (int i = 0; i < rowHeaders.length; i++) {
                 rowAnsi[0][i] = ansi().a(rowHeaders[i]);
@@ -546,7 +536,7 @@ public class CLI extends UI {
 
         if (hasDome) {
             bg = levelsBgColors[4];
-            retStr = String.format(levelFormatString[towerHeight], domeCellString).split("\n");
+            retStr = String.format(levelFormatString[towerHeight], DOME_CELL_STRING).split("\n");
         }
         else {
             bg = levelsBgColors[towerHeight];
@@ -589,7 +579,7 @@ public class CLI extends UI {
             return ret;
         }
         else {
-            return ret.a(emptyCellString);
+            return ret.a(EMPTY_CELL_STRING);
         }
     }
 
