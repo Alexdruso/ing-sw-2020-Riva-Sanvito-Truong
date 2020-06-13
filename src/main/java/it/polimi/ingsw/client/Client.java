@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.reducedmodel.ReducedGame;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.UI;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
@@ -29,6 +30,10 @@ import java.util.logging.Logger;
  */
 public class Client implements LambdaObserver {
     private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+    /**
+     * After receiving an exit request from the user, the client will try for up to EXIT_TIMEOUT_MILLIS
+     * to cleanly disconnect from the server, then it will exit abruptly closing the connection.
+     */
     public static final int EXIT_TIMEOUT_MILLIS = 500;
     private Connection connection;
     private final Object currentStateLock = new Object();
@@ -52,8 +57,10 @@ public class Client implements LambdaObserver {
      * @param ui the user interface this Client will use
      */
     public Client(UI ui) {
+        ConfigParser configParser = ConfigParser.getInstance();
         this.ui = ui;
         nextState = ClientState.WELCOME_SCREEN;
+        LOGGER.log(Level.INFO, String.format("Starting %s client v. %s...", configParser.getProperty("projectName"), configParser.getProperty("version")));
     }
 
     /**

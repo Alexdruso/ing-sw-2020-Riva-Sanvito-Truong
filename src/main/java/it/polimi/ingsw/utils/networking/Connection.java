@@ -42,7 +42,7 @@ public class Connection extends LambdaObservable<Transmittable> {
      */
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
-        log(Level.INFO, "Connection established");
+        log(Level.FINE, "Connection established");
         isActive = new AtomicBoolean(true);
         isClosing = new AtomicBoolean(false);
         socketOut = new ObjectOutputStream(socket.getOutputStream());

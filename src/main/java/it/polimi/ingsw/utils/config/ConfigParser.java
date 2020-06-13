@@ -3,17 +3,20 @@ package it.polimi.ingsw.utils.config;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This singleton, when instantiated, reads and stores all configuration variables.
  * Values should be retrieved by getConfiguration().
  */
 public class ConfigParser {
+    private static final Logger LOGGER = Logger.getLogger(ConfigParser.class.getName());
     //NOTE: For now, configs should only be loaded at startup. No hot-reload, as this leads
     //to possible desync issues
 
     private static ConfigParser instance;
-    private Properties configs;
+    private final Properties configs;
 
     /**
      * Constructor for the class.
@@ -28,13 +31,15 @@ public class ConfigParser {
 
     /**
      * This method reads a properties configuration file, storing all read variables into configs
+     *
      * @param cfg the ConfigFile instance that represents that file that is to be read
      */
     private void loadConfig(ConfigFile cfg){
         try {
             configs.load(new FileInputStream(cfg.path));
         } catch (IOException e){
-            System.out.println("Could not read from " + cfg.path);
+            LOGGER.log(Level.SEVERE, String.format("Unable to read configuration file from %s%nPlease, make sure it is available or set the %s env var appropriately.", cfg.path, ConfigFile.CONFIG_BASE_PATH_ENV_VAR));
+            System.exit(1);
         }
     }
 
