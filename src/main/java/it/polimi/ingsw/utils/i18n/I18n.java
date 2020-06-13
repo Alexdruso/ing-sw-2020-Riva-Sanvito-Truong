@@ -19,8 +19,18 @@ public class I18n {
             }
         }
         if (resourceBundle == null) {
-            resourceBundle = ResourceBundle.getBundle("i18n.strings", locale);
+            loadResourceBundle();
         }
+    }
+
+    public static void setLocale(Locale locale) {
+        I18n.locale = locale;
+        loadResourceBundle();
+    }
+
+    private static void loadResourceBundle() {
+        resourceBundle = ResourceBundle.getBundle("i18n.strings", locale);
+
     }
 
     public static String string(I18nKey key) {
