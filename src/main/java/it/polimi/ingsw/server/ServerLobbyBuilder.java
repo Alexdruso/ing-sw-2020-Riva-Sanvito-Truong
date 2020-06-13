@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.Connection;
 import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
 
@@ -183,68 +182,83 @@ public class ServerLobbyBuilder {
      */
     public void start() {
         while (active) {
-            synchronized (lobbyRequestingConnections) {
-                while (lobbyRequestingConnections.size() == 0) {
-                    try {
-                        lobbyRequestingConnections.wait();
-                    } catch (InterruptedException e) {
-                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
-                        Thread.currentThread().interrupt();
-                    }
-                }
-                firstConnection = lobbyRequestingConnections.getFirst();
-            }
-            synchronized (playerCountLock) {
-                currentLobbyPlayerCount = 0;
-                firstConnection.send(StatusMessages.CONTINUE);
-                while (currentLobbyPlayerCount == 0) {
-                    try {
-                        playerCountLock.wait();
-                    } catch (InterruptedException e) {
-                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            }
+            waitForFirstConnection();
 
-            List<AbstractMap.SimpleEntry<Connection, String>> participants = new LinkedList<>();
-            boolean firstPlayerDisconnected;
+            waitForCurrentLobbyPlayerCount();
 
-            synchronized (lobbyRequestingConnections) {
-                while (lobbyRequestingConnections.size() < currentLobbyPlayerCount && lobbyRequestingConnections.get(0).equals(firstConnection)) {
-                    try {
-                        lobbyRequestingConnections.wait();
-                    } catch (InterruptedException e) {
-                        LOGGER.log(Level.FINE, "Interrupting thread following InterruptedException", e);
-                        Thread.currentThread().interrupt();
-                    }
-                }
-
-                //check if the first player disconnected in the meantime
-                firstPlayerDisconnected =
-                        currentLobbyPlayerCount == -1 || !firstConnection.equals(lobbyRequestingConnections.get(0));
-
-                if (!firstPlayerDisconnected) {
-                    //At this point we copy the necessary connections and nicknames to guarantee coherence after on
-                    participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
-                            .map(connection ->
-                                    new AbstractMap.SimpleEntry<>(connection, registeredNicknames.get(connection))
-                            )
-                            .collect(Collectors.toList());
-                    for (int i = 0; i < currentLobbyPlayerCount; i++) {
-                        lobbyRequestingConnections.removeFirst();
-                    }
-                }
-            }
+            List<AbstractMap.SimpleEntry<Connection, String>> participants = getParticipantsList();
 
             //if the first player didn't disconnect, then go ahead and create a match
-            if (!firstPlayerDisconnected) {
+            if (!participants.isEmpty()) {
                 Match match = new Match(server);
-
                 participants.forEach(participant -> match.addParticipant(participant.getValue(), participant.getKey()));
-
                 server.submitMatch(match);
             }
+        }
+    }
+
+    private List<AbstractMap.SimpleEntry<Connection, String>> getParticipantsList() {
+        List<AbstractMap.SimpleEntry<Connection, String>> participants = new LinkedList<>();
+
+        synchronized (lobbyRequestingConnections) {
+            waitForParticipants();
+
+            //check if the first player disconnected in the meantime
+            boolean firstPlayerDisconnected =
+                    currentLobbyPlayerCount == -1 || !firstConnection.equals(lobbyRequestingConnections.get(0));
+
+            if (!firstPlayerDisconnected) {
+                //At this point we copy the necessary connections and nicknames to guarantee coherence after on
+                participants = lobbyRequestingConnections.subList(0, currentLobbyPlayerCount).stream()
+                        .map(connection ->
+                                new AbstractMap.SimpleEntry<>(connection, registeredNicknames.get(connection))
+                        )
+                        .collect(Collectors.toList());
+                for (int i = 0; i < currentLobbyPlayerCount; i++) {
+                    lobbyRequestingConnections.removeFirst();
+                }
+            }
+        }
+        return participants;
+    }
+
+    private void waitForParticipants() {
+        while (lobbyRequestingConnections.size() < currentLobbyPlayerCount && lobbyRequestingConnections.get(0).equals(firstConnection)) {
+            try {
+                lobbyRequestingConnections.wait();
+            } catch (InterruptedException e) {
+                LOGGER.log(Level.FINE, "Interrupting thread while waiting for participants following InterruptedException", e);
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    private void waitForCurrentLobbyPlayerCount() {
+        synchronized (playerCountLock) {
+            currentLobbyPlayerCount = 0;
+            firstConnection.send(StatusMessages.CONTINUE);
+            while (currentLobbyPlayerCount == 0) {
+                try {
+                    playerCountLock.wait();
+                } catch (InterruptedException e) {
+                    LOGGER.log(Level.FINE, "Interrupting thread while waiting for players count following InterruptedException", e);
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+    }
+
+    private void waitForFirstConnection() {
+        synchronized (lobbyRequestingConnections) {
+            while (lobbyRequestingConnections.size() == 0) {
+                try {
+                    lobbyRequestingConnections.wait();
+                } catch (InterruptedException e) {
+                    LOGGER.log(Level.FINE, "Interrupting thread while waiting for first connection following InterruptedException", e);
+                    Thread.currentThread().interrupt();
+                }
+            }
+            firstConnection = lobbyRequestingConnections.getFirst();
         }
     }
 

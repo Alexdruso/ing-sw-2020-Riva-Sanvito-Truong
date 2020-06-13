@@ -13,47 +13,61 @@ public class TurnEvents {
      * By default (if not overridden by a subclass), no custom action is performed.
      * @param turn
      */
-    protected void onTurnStart(Turn turn) {}
+    protected void onTurnStart(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 
     /**
      * Allows a god to perform custom actions before the game allows the player to perform the move action.
      * By default (if not overridden by a subclass), no custom action is performed.
      * @param turn
      */
-    protected void onBeforeMovement(Turn turn) {}
+    protected void onBeforeMovement(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 
     /**
      * Allows a god to perform custom actions after the player has performed the move action.
      * By default (if not overridden by a subclass), no custom action is performed.
      * @param turn
      */
-    protected void onAfterMovement(Turn turn) {}
+    protected void onAfterMovement(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 
     /**
      * Allows a god to perform custom actions before the game allows the player to perform the build action.
      * By default (if not overridden by a subclass), no custom action is performed.
      * @param turn
      */
-    protected void onBeforeBuild(Turn turn) {}
+    protected void onBeforeBuild(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 
     /**
      * Allows a god to perform custom actions after the player has performed the move action.
      * By default (if not overridden by a subclass), no custom action is performed.
      * @param turn
      */
-    protected void onAfterBuild(Turn turn) {}
+    protected void onAfterBuild(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 
     /**
      * Allows a god to perform custom actions when a turn ends for a player.
      * By default (if not overridden by a subclass), no custom action is performed.
      * @param turn
      */
-    protected void onTurnEnd(Turn turn) {}
+    protected void onTurnEnd(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 
     /**
      * Allows a god to perform custom actions when computing the win conditions for a player.
      * By default (if not overridden by a subclass), no custom win condition is applied.
      * @param turn
      */
-    protected void computeWinCondition(Turn turn) {}
+    protected void computeWinCondition(Turn turn) {
+        // By default (if not overridden by a subclass), no custom action is performed.
+    }
 }
