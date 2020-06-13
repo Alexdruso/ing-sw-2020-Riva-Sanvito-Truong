@@ -44,7 +44,6 @@ public class Client implements LambdaObserver {
     private final UI ui;
     private boolean exitRequested = false;
     private final AtomicBoolean readyToExit = new AtomicBoolean(false);
-    private final Set<ReducedCell> changedCells = new HashSet<>();
     private final Object gameLock = new Object();
     private ReducedGame game;
     private final Object godsLock = new Object();
@@ -265,24 +264,6 @@ public class Client implements LambdaObserver {
         }
         else {
             throw new IllegalStateException();
-        }
-    }
-
-    public void addChangedCell(ReducedCell cell) {
-        synchronized (changedCells) {
-            changedCells.add(cell);
-        }
-    }
-
-    public Set<ReducedCell> getChangedCells() {
-        synchronized (changedCells) {
-            return new HashSet<>(changedCells);
-        }
-    }
-
-    public void clearChangedCells() {
-        synchronized (changedCells) {
-            changedCells.clear();
         }
     }
 
