@@ -18,7 +18,7 @@ class I18nTest {
         for (I18nKey key: I18nKey.values()) {
             String s = I18n.string(key);
             assertNotNull(s);
-            assertNotEquals(s, "");
+            assertNotEquals("", s);
         }
     }
 }

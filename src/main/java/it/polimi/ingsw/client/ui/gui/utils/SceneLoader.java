@@ -37,10 +37,7 @@ public class SceneLoader {
     private boolean attemptLoadFromSaved;
     private double fadeInDuration;
     private double fadeOutDuration;
-    private CSSFile cssFile;
     private AbstractClientState state;
-    private ClientTurnState clientTurnState;
-    private AbstractClientTurnState turnState;
 
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
@@ -53,7 +50,6 @@ public class SceneLoader {
         this.attemptLoadFromSaved = loader.attemptLoadFromSaved;
         this.fadeInDuration = loader.fadeInDuration;
         this.fadeOutDuration = loader.fadeOutDuration;
-        this.cssFile = loader.cssFile;
         this.state = loader.state;
     }
 

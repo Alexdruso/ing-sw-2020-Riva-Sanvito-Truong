@@ -26,8 +26,6 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class AskGodFromListController extends AbstractController{
-    private static final double HBOX_INNER_PADDING = 30;
-
     private static final Logger LOGGER = Logger.getLogger(AskGodFromListController.class.getName());
 
     @FXML Pane rootPane;

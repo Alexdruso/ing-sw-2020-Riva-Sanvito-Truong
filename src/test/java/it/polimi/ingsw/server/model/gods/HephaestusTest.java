@@ -141,16 +141,16 @@ class HephaestusTest {
                 testHarness.getBlockBuildableTargetCells(0).getPosition(1, 1)
         );
         assertEquals(
+                1,
                 testHarness.getGame().getBoard().getTargets(
                         testHarness.getBlockBuildableTargetCells(0)
-                ).size(),
-                1
+                ).size()
         );
         assertEquals(
+                0,
                 testHarness.getGame().getBoard().getTargets(
                         testHarness.getDomeBuildableTargetCells(0)
-                ).size(),
-                0
+                ).size()
         );
     }
 
@@ -176,16 +176,16 @@ class HephaestusTest {
         testHarness.getTurnEventsManager().processBeforeBuildEvents(testHarness.getTurn());
 
         assertEquals(
+                0,
                 testHarness.getGame().getBoard().getTargets(
                         testHarness.getBlockBuildableTargetCells(0)
-                ).size(),
-                0
+                ).size()
         );
         assertEquals(
+                0,
                 testHarness.getGame().getBoard().getTargets(
                         testHarness.getDomeBuildableTargetCells(0)
-                ).size(),
-                0
+                ).size()
         );
     }
 

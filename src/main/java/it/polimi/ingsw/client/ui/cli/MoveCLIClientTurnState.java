@@ -82,24 +82,34 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
             }
             sourceCellX = sourceCell.getX();
             sourceCellY = sourceCell.getY();
-            sourceCell.getWorker().ifPresentOrElse(
-                    worker -> {
-                        if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
-                            if (turn.getAllowedWorkers().contains(worker.getWorkerID())) {
-                                workerID = worker.getWorkerID();
-                            }
-                            else {
-                                cli.error(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER));
-                            }
-                        }
-                        else {
-                            cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS));
-                        }
-                    },
-                    () -> cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS))
-            );
+            computeWorkerFromSourceCell(turn, sourceCell);
         }
         return false;
+    }
+
+    /**
+     * Computes the workerID from the source cell provided by the user.
+     *
+     * @param turn       the current turn
+     * @param sourceCell the source cell
+     */
+    private void computeWorkerFromSourceCell(ReducedTurn turn, ReducedCell sourceCell) {
+        sourceCell.getWorker().ifPresentOrElse(
+                worker -> {
+                    if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
+                        if (turn.getAllowedWorkers().contains(worker.getWorkerID())) {
+                            workerID = worker.getWorkerID();
+                        }
+                        else {
+                            cli.error(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER));
+                        }
+                    }
+                    else {
+                        cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS));
+                    }
+                },
+                () -> cli.error(I18n.string(I18nKey.CHOOSE_ONE_OF_YOUR_WORKERS))
+        );
     }
 
     /**

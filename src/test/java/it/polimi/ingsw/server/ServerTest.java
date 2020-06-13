@@ -103,7 +103,7 @@ public class ServerTest {
         setCheckNickname(0, "Boris");
         setCheckJoinLobby(0, true, 2);
 
-        assertEquals(lobbyBuilder.getCurrentLobbyPlayerCount(), 2);
+        assertEquals(2, lobbyBuilder.getCurrentLobbyPlayerCount());
 
         setCheckNickname(1, "Rene Ferretti");
         setCheckJoinLobby(1, false, 0);

@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public class TargetCells {
     private static final int BOARD_SIZE = 5;
-    private boolean[][] targets;
+    private final boolean[][] targets;
 
     /**
      * Class constructor which creates a TargetCells instance which has no targeted cells
@@ -34,8 +34,6 @@ public class TargetCells {
      */
     @Override
     public boolean equals(Object other){
-        //TODO: we should think about TargetCells sizes, I don't think they can ever be different but checking wouldn't
-        //be too bad
         if(this == other){
             return true;
         }
@@ -43,19 +41,7 @@ public class TargetCells {
             return false;
         }
 
-        //TODO: Andrea - Check if this can be written (it should) as:
-        // return Arrays.deepEquals(targets, ((TargetCells)other).targets);
-        // START CODE TO BE REPLACED
-        TargetCells target = (TargetCells) other;
-        for(int i = 0; i < BOARD_SIZE; i++){
-            for(int j = 0; j < BOARD_SIZE; j++){
-                if(this.getPosition(i, j) != target.getPosition(i, j)){
-                    return false;
-                }
-            }
-        }
-        return true;
-        // END CODE TO BE REPLACED
+        return Arrays.deepEquals(targets, ((TargetCells)other).targets);
     }
 
     /**

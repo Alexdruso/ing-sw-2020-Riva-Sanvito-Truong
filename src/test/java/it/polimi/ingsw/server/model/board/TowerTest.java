@@ -11,7 +11,7 @@ public class TowerTest {
     @Test
     public void towerInit(){
         Tower tower = new Tower();
-        assertEquals(tower.getCurrentLevel(), 0);
+        assertEquals(0, tower.getCurrentLevel());
     }
 
     @ParameterizedTest

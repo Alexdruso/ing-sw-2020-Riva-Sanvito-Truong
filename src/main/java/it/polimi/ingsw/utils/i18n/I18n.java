@@ -12,6 +12,10 @@ public class I18n {
     private static Locale locale;
     private static final String LANGUAGE_ENV_VAR_NAME = "LANGUAGE";
 
+    private I18n() {
+        throw new IllegalStateException("This class is meant to be used only with static methods");
+    }
+
     /**
      * Initializes the class by making sure an appropriate localized strings resource bundle is loaded.
      */

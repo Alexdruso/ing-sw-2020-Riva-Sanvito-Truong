@@ -63,11 +63,6 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     @Override
     public boolean handleTransmittable(Client client) {
         client.getGame().buildComponentInCell(targetCellX, targetCellY, component, builtLevel);
-//         ReducedCell targetCell = handler.getGame().getCell(targetCellX, targetCellY);
-//         handler.getGame().move(woker, sourceCell, targetCell);
-
-//        handler.addChangedCell(sourceCell);
-//        handler.addChangedCell(targetCell);
-        return false;
+        return true;
     }
 }

@@ -223,12 +223,14 @@ public class ServerLobbyBuilder {
     }
 
     private void waitForParticipants() {
-        while (lobbyRequestingConnections.size() < currentLobbyPlayerCount && lobbyRequestingConnections.get(0).equals(firstConnection)) {
-            try {
-                lobbyRequestingConnections.wait();
-            } catch (InterruptedException e) {
-                LOGGER.log(Level.FINE, "Interrupting thread while waiting for participants following InterruptedException", e);
-                Thread.currentThread().interrupt();
+        synchronized (lobbyRequestingConnections) {
+            while (lobbyRequestingConnections.size() < currentLobbyPlayerCount && lobbyRequestingConnections.get(0).equals(firstConnection)) {
+                try {
+                    lobbyRequestingConnections.wait();
+                } catch (InterruptedException e) {
+                    LOGGER.log(Level.FINE, "Interrupting thread while waiting for participants following InterruptedException", e);
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }

@@ -111,21 +111,25 @@ public class Connection extends LambdaObservable<Transmittable> {
         log(Level.FINE, "Closing the connection");
         try {
             socketOut.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+            log(Level.FINER, "Unable to close out socket");
+        }
         try {
             socketIn.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+            log(Level.FINER, "Unable to close in socket");
+        }
         try {
             socket.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+            log(Level.FINER, "Unable to close socket");
+        }
         try {
             receiveThread.interrupt();
             receiveThread.join();
-        } catch (Exception ignored) {}
-    }
-
-    private void close(Exception e) {
-        close(new StringCapturedStackTrace(e).toString());
+        } catch (Exception ignored) {
+            log(Level.FINER, "Unable to close receiving thread");
+        }
     }
 
     private void close(String message) {

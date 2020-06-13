@@ -400,31 +400,42 @@ public class CLI extends UI {
      */
     private String getLine() {
         try {
-            String s;
-            try {
-                s = in.nextLine();
-            }
-            catch (IndexOutOfBoundsException  ex) {
-                // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
-                reopenStdin();
-                return getLine();
-            }
-            if (usingInputFile) {
-                println("");
-                if (s.equalsIgnoreCase("%TIMESTAMP%")) {
-                    s = String.valueOf(System.currentTimeMillis());
-                }
-            }
-            for (PrintWriter inLogger : inLoggers) {
-                inLogger.println(s);
-                inLogger.flush();
-            }
-            return s;
+            return getLineFromOpenStream();
         }
         catch (NoSuchElementException e) {
             reopenStdin();
             return getLine();
         }
+    }
+
+    /**
+     * Reads a line from the currently open stream.
+     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
+     *
+     * @return the read line
+     * @throws NoSuchElementException if the currently open stream has ended
+     */
+    private String getLineFromOpenStream() throws NoSuchElementException {
+        String s;
+        try {
+            s = in.nextLine();
+        }
+        catch (IndexOutOfBoundsException ex) {
+            // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
+            reopenStdin();
+            return getLine();
+        }
+        if (usingInputFile) {
+            println("");
+            if (s.equalsIgnoreCase("%TIMESTAMP%")) {
+                s = String.valueOf(System.currentTimeMillis());
+            }
+        }
+        for (PrintWriter inLogger : inLoggers) {
+            inLogger.println(s);
+            inLogger.flush();
+        }
+        return s;
     }
 
     /**
@@ -561,19 +572,6 @@ public class CLI extends UI {
         Optional<ReducedWorker> maybeWorker = cell.getWorker();
         if (maybeWorker.isPresent()) {
             ReducedWorker worker = maybeWorker.get();
-//            if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
-//                ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//            }
-//            else {
-//                ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//            }
-//            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
-//            if (brightToRestore) {
-//                ret = ret.bgBright(colorToRestore);
-//            }
-//            else {
-//                ret = ret.bg(colorToRestore);
-//            }
             ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
             return ret;
         }

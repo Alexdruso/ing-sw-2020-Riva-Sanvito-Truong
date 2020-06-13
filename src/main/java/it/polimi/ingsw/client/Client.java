@@ -65,7 +65,7 @@ public class Client implements LambdaObserver {
         ConfigParser configParser = ConfigParser.getInstance();
         this.ui = ui;
         nextState = ClientState.WELCOME_SCREEN;
-        LOGGER.log(Level.INFO, String.format("Starting %s client v. %s...", configParser.getProperty("projectName"), configParser.getProperty("version")));
+        LOGGER.log(Level.INFO, () -> String.format("Starting %s client v. %s...", configParser.getProperty("projectName"), configParser.getProperty("version")));
     }
 
     /**
@@ -108,10 +108,12 @@ public class Client implements LambdaObserver {
     private void onExit() {
         requestExit();
         synchronized (readyToExit) {
-            try {
-                readyToExit.wait(EXIT_TIMEOUT_MILLIS);
-            } catch (InterruptedException ignored) {
-                Thread.currentThread().interrupt();
+            if (!readyToExit.get()) {
+                try {
+                    readyToExit.wait(EXIT_TIMEOUT_MILLIS);
+                } catch (InterruptedException ignored) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         closeConnection();

@@ -23,7 +23,6 @@ public class JavaFXGUI extends Application {
 
     private static final Object sceneLock = new Object();
     private static boolean initialized = false;
-    private final HashMap<String, SavedScene> sceneMap = new HashMap<>();
     static Runnable onExit;
 
     @Override
@@ -78,11 +77,6 @@ public class JavaFXGUI extends Application {
         }
     }
 
-    public static void setNextRoot(Parent root){
-        //primaryStage = stage;
-        return;
-    }
-
     @Override
     public void stop() throws Exception {
         super.stop();
@@ -90,7 +84,7 @@ public class JavaFXGUI extends Application {
     }
 
     public static void launchJavaFX() {
-        JavaFXGUI.launch();
+        Application.launch();
     }
 
 

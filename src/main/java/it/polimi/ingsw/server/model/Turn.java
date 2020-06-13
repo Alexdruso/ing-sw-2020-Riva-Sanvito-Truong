@@ -357,7 +357,6 @@ public class Turn{
         // if lose -> go to state LOSE
         if (this.isLosingTurn()) this.setNextState(TurnState.LOSE.getTurnState());
 
-        // computeWinConditions();
         this.computeWinConditions();
 
         // if win -> go to state WIN
