@@ -49,7 +49,6 @@ public class I18n {
      */
     private static void loadResourceBundle() {
         resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE_BASE_NAME, locale);
-
     }
 
     /**
@@ -62,5 +61,17 @@ public class I18n {
     public static String string(I18nKey key) {
         init();
         return resourceBundle.getString(key.toString().toLowerCase());
+    }
+
+    /**
+     * Gets the currently active localization resource bundle.
+     *
+     * @return the currently active localization resource bundle
+     */
+    public static ResourceBundle getResourceBundle() {
+        if (resourceBundle == null) {
+            init();
+        }
+        return resourceBundle;
     }
 }

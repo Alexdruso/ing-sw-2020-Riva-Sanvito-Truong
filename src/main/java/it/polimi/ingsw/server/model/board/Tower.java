@@ -10,22 +10,22 @@ public class Tower {
     //Might implement this as an array later
     private final ArrayList<Buildable> components;
 
-    private static class InvalidBuildException extends RuntimeException {};
+    private static class InvalidBuildException extends RuntimeException {}
 
     /**
      * Class constructor
      */
     public Tower(){
-        components = new ArrayList<Buildable>();
+        components = new ArrayList<>();
     }
 
     /**
      * This method checks whether or not a dome is present on the tower at any level
      * @return true if a dome is present, otherwise false
      */
-    public Boolean isComplete(){
-        for(Buildable c: components){
-            if(!c.isTargetable()) return true;
+    public boolean isComplete(){
+        for (Buildable c: components){
+            if (!c.isTargetable()) return true;
         }
         return false;
     }
@@ -37,8 +37,8 @@ public class Tower {
 
     public int getCurrentLevel(){
         int count = 0;
-        for(Buildable c: components){
-            if(c.isTargetable()) count++;
+        for (Buildable c: components){
+            if (c.isTargetable()) count++;
         }
         return count;
     }
@@ -49,9 +49,10 @@ public class Tower {
      * @throws InvalidBuildException if attempting a build action on a complete tower
      */
     public void placeComponent(Component component){
-        if(this.isComplete()){
+        if (this.isComplete()){
             throw new InvalidBuildException();
-        } else {
+        }
+        else {
             components.add(component.getInstance());
         }
     }

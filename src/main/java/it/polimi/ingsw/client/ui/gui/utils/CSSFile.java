@@ -7,9 +7,9 @@ public enum CSSFile {
     GOD_SELECTION(CSSFile.class.getResource("/css/god-selection.css").toExternalForm()),
     MAIN_MENU(CSSFile.class.getResource("/css/main-menu.css").toExternalForm());
 
-    public final String CSSForm;
+    public final String cssForm;
 
-    CSSFile(String CSSForm){
-        this.CSSForm = CSSForm;
+    CSSFile(String cssForm){
+        this.cssForm = cssForm;
     }
 }

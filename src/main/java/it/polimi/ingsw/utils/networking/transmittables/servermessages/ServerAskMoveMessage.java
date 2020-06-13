@@ -11,7 +11,6 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The type Server ask move message.

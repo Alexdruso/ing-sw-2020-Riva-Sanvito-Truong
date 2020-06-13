@@ -8,14 +8,14 @@ class Dome implements Buildable {
      * Class constructor.
      * This method is private as the instance should only be created from the Component enum.
      */
-    Dome(){};
+    Dome(){}
 
     /**
      * This method represents whether a worker can walk or build on this block.
      * For a Block object this always returns true.
      */
     @Override
-    public Boolean isTargetable() {
+    public boolean isTargetable() {
        return false;
     }
 }

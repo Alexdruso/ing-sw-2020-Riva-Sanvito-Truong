@@ -5,13 +5,12 @@ import it.polimi.ingsw.server.model.Turn;
 
 import java.util.HashMap;
 
-//TODO: make the process*Events method match the signature of the TurnEvents methods
 /**
  * The TurnEvents manager, which allows the gods to register their powers and executes them when requested to do so by the game.
  */
 public class TurnEventsManager {
-    private Player player;
-    private HashMap<Player, TurnEvents> turnEventsFromOpponents;
+    private final Player player;
+    private final HashMap<Player, TurnEvents> turnEventsFromOpponents;
 
     /**
      * The TurnEventsManager constructor.
@@ -20,7 +19,7 @@ public class TurnEventsManager {
      */
     public TurnEventsManager(Player player) {
         this.player = player;
-        turnEventsFromOpponents = new HashMap<Player, TurnEvents>();
+        turnEventsFromOpponents = new HashMap<>();
     }
 
     /**

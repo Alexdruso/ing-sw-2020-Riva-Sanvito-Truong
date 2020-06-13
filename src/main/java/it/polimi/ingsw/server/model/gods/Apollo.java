@@ -45,9 +45,9 @@ class Apollo extends AbstractGod {
             if (moveActions.size() < 1) return;
 
             MoveAction lastMove = moveActions.get(moveActions.size() - 1);
-            lastMove.getTargetCell().getWorker().ifPresent(targetWorker -> {
-                turn.getGame().setWorkerCell(targetWorker, lastMove.getSourceCell());
-            });
+            lastMove.getTargetCell().getWorker().ifPresent(
+                    targetWorker -> turn.getGame().setWorkerCell(targetWorker, lastMove.getSourceCell())
+            );
         }
     };
 

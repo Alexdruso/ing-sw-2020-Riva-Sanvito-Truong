@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.GUI;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
+import it.polimi.ingsw.utils.i18n.I18n;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
@@ -17,7 +18,6 @@ import javafx.util.Duration;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,17 +25,17 @@ import java.util.logging.Logger;
 public class SceneLoader {
     private static final Logger LOGGER = Logger.getLogger(SceneLoader.class.getName());
 
-    private String fxmlFile;
-    private Client client;
-    private ClientState clientState;
-    private Scene mainScene;
+    private final String fxmlFile;
+    private final Client client;
+    private final ClientState clientState;
+    private final Scene mainScene;
     private boolean doApplyFadeOut;
-    private boolean doApplyFirstFadeOut;
-    private boolean doApplyFadeIn;
-    private boolean attemptLoadFromSaved;
-    private double fadeInDuration;
-    private double fadeOutDuration;
-    private AbstractClientState state;
+    private final boolean doApplyFirstFadeOut;
+    private final boolean doApplyFadeIn;
+    private final boolean attemptLoadFromSaved;
+    private final double fadeInDuration;
+    private final double fadeOutDuration;
+    private final AbstractClientState state;
 
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
@@ -80,8 +80,7 @@ public class SceneLoader {
             if(doApplyFadeIn){
                 applyFadeIn(mainScene, savedScene.root, fadeInDuration);
             } else {
-                SavedScene finalSavedScene = savedScene;
-                Platform.runLater(() -> mainScene.setRoot(finalSavedScene.root));
+                Platform.runLater(() -> mainScene.setRoot(savedScene.root));
             }
         }
     }
@@ -115,25 +114,11 @@ public class SceneLoader {
     }
 
     public static SavedScene loadFromSaved(String file, GUI gui){
-        SavedScene savedScene = gui.getScene(file);
-        if(savedScene != null){
-            return savedScene;
-        } else {
-            return null;
-        }
+        return gui.getScene(file);
     }
 
     private static ResourceBundle geti18n(){
-        String LANGUAGE_ENV_VAR_NAME = "LANGUAGE";
-        Locale locale;
-        String language = System.getenv(LANGUAGE_ENV_VAR_NAME);
-        try {
-            locale = new Locale(language);
-        }
-        catch (NullPointerException ignored) {
-            locale = Locale.getDefault();
-        }
-        return ResourceBundle.getBundle("i18n.strings", locale);
+        return I18n.getResourceBundle();
     }
 
     public static void applyFadeIn(Scene mainScene, Parent newRoot, double duration){
@@ -155,7 +140,7 @@ public class SceneLoader {
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
             fadeOut.play();
-            fadeOut.setOnFinished((event) -> applyFadeIn(mainScene, newRoot, fadeInDuration));
+            fadeOut.setOnFinished(event -> applyFadeIn(mainScene, newRoot, fadeInDuration));
         });
     }
 }

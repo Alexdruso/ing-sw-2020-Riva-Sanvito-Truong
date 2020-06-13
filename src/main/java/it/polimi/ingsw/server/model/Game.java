@@ -31,7 +31,7 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * The number of maximum players of the game
      */
-    private final int MAX_NUMBER_OF_PLAYERS;
+    private final int maxNumberOfPlayers;
     /**
      * The Board object of the game
      */
@@ -67,7 +67,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param numberOfPlayers the number of players
      */
     public Game(int numberOfPlayers) {
-        MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
+        maxNumberOfPlayers = numberOfPlayers;
         subscribedUsers = new BidirectionalLinkedHashMap<>();
         players = new LinkedList<>();
         lastRound = new LinkedList<>();
@@ -82,7 +82,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user the representation of the user
      */
     public void subscribeUser(User user) {
-        if (subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS) {
+        if (subscribedUsers.size() == maxNumberOfPlayers) {
             //This means that adding one will get us over the limit
             throw new IllegalStateException("Too many players");
         }

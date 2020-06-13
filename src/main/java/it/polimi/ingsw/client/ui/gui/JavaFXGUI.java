@@ -33,7 +33,7 @@ public class JavaFXGUI extends Application {
             primaryScene = new Scene(root, 1280, 720);
 
             primaryScene.getStylesheets().addAll(
-                    Arrays.stream(CSSFile.values()).map(x -> x.CSSForm).collect(Collectors.toList())
+                    Arrays.stream(CSSFile.values()).map(x -> x.cssForm).collect(Collectors.toList())
             );
             primaryScene.setFill(Color.BLACK); //Ready to fade-in
 

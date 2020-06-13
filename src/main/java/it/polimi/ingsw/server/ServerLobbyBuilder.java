@@ -103,10 +103,10 @@ public class ServerLobbyBuilder {
             return false;
         }
 
-        int MIN_PLAYERS_PER_GAME = 2;
-        int MAX_PLAYERS_PER_GAME = 3;
+        final int minPlayersPerGame = 2;
+        final int maxPlayersPerGame = 3;
 
-        if (playerCount > MAX_PLAYERS_PER_GAME || playerCount < MIN_PLAYERS_PER_GAME) {
+        if (playerCount > maxPlayersPerGame || playerCount < minPlayersPerGame) {
             return false;
         }
 
@@ -252,7 +252,7 @@ public class ServerLobbyBuilder {
 
     private void waitForFirstConnection() {
         synchronized (lobbyRequestingConnections) {
-            while (lobbyRequestingConnections.size() == 0) {
+            while (lobbyRequestingConnections.isEmpty()) {
                 try {
                     lobbyRequestingConnections.wait();
                 } catch (InterruptedException e) {

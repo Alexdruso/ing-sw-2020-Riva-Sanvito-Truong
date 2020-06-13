@@ -4,7 +4,9 @@ import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
 
 public class ReducedTurn {
     private final ReducedPlayer player;
