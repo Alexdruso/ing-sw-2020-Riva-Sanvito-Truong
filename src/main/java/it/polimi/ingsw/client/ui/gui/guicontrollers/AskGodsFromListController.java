@@ -6,21 +6,16 @@ import it.polimi.ingsw.client.ui.gui.utils.GodAsset;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
-import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.CacheHint;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -71,11 +66,11 @@ public class AskGodsFromListController extends AbstractController {
         chooseGodsPrompt.setText(String.format(String.format("%s:", I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));
         gods = new ArrayList<>(client.getGods());
         lateralGodCard.setGods(gods);
-        iconsPane.getChildren().clear();
         for(ReducedGod god: gods){
             GodAsset ga = GodAsset.fromReducedGod(god);
             godIcons.put(god, getIconPane(ga, god));
         }
+        iconsPane.getChildren().clear();
         iconsPane.getChildren().addAll(godIcons.entrySet()
                 .stream()
                 .sorted(Comparator.comparing(o -> o.getKey().name))
