@@ -32,7 +32,7 @@ public abstract class AbstractInGameClientState extends AbstractClientState {
     }
 
     @Override
-    public void handleClientError() throws UnsupportedOperationException {
+    public void handleClientError() {
         client.getGame().getTurn().getTurnState().handleClientError();
         client.moveToState(ClientState.IN_GAME);
         triggerRender();

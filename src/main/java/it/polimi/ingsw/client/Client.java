@@ -73,7 +73,7 @@ public class Client implements LambdaObserver {
         ui.init(this::onExit);
         changeState();
 
-        while (!exitRequested.get() || renderRequestsQueue.size() > 0) {
+        while (!exitRequested.get() || !renderRequestsQueue.isEmpty()) {
             try {
                 Runnable renderRequestAction = renderRequestsQueue.take();
                 renderRequestAction.run();
@@ -122,7 +122,7 @@ public class Client implements LambdaObserver {
      * @param connection the connection to the server
      * @throws IllegalStateException if trying to set a connection after the client already has one
      */
-    public void setConnection(Connection connection) throws IllegalStateException {
+    public void setConnection(Connection connection) {
         if (this.connection == null || !this.connection.isActive()) {
             this.connection = connection;
         }
@@ -160,7 +160,7 @@ public class Client implements LambdaObserver {
      * @param nickname the nickname of the user
      * @throws IllegalStateException tf trying to set the nickname after the client already has one
      */
-    public void setNickname(String nickname) throws IllegalStateException {
+    public void setNickname(String nickname) {
         if (this.nickname == null) {
             this.nickname = nickname;
         }

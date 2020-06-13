@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
-    private final double CELL_CONTENT_MARGIN = 5.0;
-
     @FXML
     GridPane boardPane;
 
@@ -59,19 +57,19 @@ public class InGameController extends AbstractController{
     private final HashMap<BoardElement, Image> boardAssets = new HashMap<>();
     private ImageView blockIcon;
     private ImageView domeIcon;
-    private List<ReducedPlayer> players;
 
     private ImageView getImageView(Image image){
+        final double cellContentMargin = 5.0;
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
-        imageView.fitWidthProperty().bind(boardPane.widthProperty().divide(5).subtract(CELL_CONTENT_MARGIN));
-        imageView.fitHeightProperty().bind(boardPane.heightProperty().divide(5).subtract(CELL_CONTENT_MARGIN));
+        imageView.fitWidthProperty().bind(boardPane.widthProperty().divide(5).subtract(cellContentMargin));
+        imageView.fitHeightProperty().bind(boardPane.heightProperty().divide(5).subtract(cellContentMargin));
         return imageView;
     }
 
     private List<ImageView> getImageStack(ReducedCell cell){
-        players = new ArrayList<>(client.getGame().getPlayersList());
+        List<ReducedPlayer> players = new ArrayList<>(client.getGame().getPlayersList());
         //Temporary rendering, until we find a better way to render stuff
         List<ImageView> imageStack = new ArrayList<>();
         for(int i = 0; i < cell.getTowerHeight(); i++){

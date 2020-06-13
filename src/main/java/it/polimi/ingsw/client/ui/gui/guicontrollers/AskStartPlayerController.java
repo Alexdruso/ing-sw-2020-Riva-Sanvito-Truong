@@ -23,13 +23,11 @@ public class AskStartPlayerController extends AbstractController{
     @FXML
     Label errorLabel;
 
-    private List<ReducedUser> users;
-
     @Override
     public void setupController(){
         playerButtonsPane.getChildren().clear();
         errorLabel.setOpacity(0);
-        users = client.getGame()
+        List<ReducedUser> users = client.getGame()
                 .getPlayersList()
                 .stream()
                 .map(ReducedPlayer::getUser)

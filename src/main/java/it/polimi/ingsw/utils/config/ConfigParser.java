@@ -50,7 +50,7 @@ public class ConfigParser {
      * @return the value bound to the property
      * @throws IllegalArgumentException if the specified key does not exist
      */
-    public String getProperty(String key) throws IllegalArgumentException{
+    public String getProperty(String key) {
         String property = configs.getProperty(key);
         if(property == null){
             throw new IllegalArgumentException("Key does not exist");

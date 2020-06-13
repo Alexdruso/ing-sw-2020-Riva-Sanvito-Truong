@@ -67,7 +67,7 @@ public abstract class AbstractClientState {
      *
      * @throws UnsupportedOperationException if CLIENT_ERROR is not a valid StatusMessage for the current state
      */
-    public void handleClientError() throws UnsupportedOperationException {
+    public void handleClientError() {
         throw new UnsupportedOperationException();
     }
 
@@ -76,7 +76,7 @@ public abstract class AbstractClientState {
      *
      * @throws UnsupportedOperationException if CONTINUE is not a valid StatusMessage for the current state
      */
-    public void handleContinue() throws UnsupportedOperationException {
+    public void handleContinue() {
         throw new UnsupportedOperationException();
     }
 
@@ -85,7 +85,7 @@ public abstract class AbstractClientState {
      *
      * @throws UnsupportedOperationException if OK is not a valid StatusMessage for the current state
      */
-    public void handleOk() throws UnsupportedOperationException {
+    public void handleOk() {
         throw new UnsupportedOperationException();
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractClientState {
      *
      * @throws UnsupportedOperationException if TEAPOT is not a valid StatusMessage for the current state
      */
-    public void handleTeapot() throws UnsupportedOperationException {
+    public void handleTeapot() {
         throw new UnsupportedOperationException();
     }
 

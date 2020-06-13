@@ -83,6 +83,4 @@ public class JavaFXGUI extends Application {
     public static void launchJavaFX() {
         Application.launch();
     }
-
-
 }

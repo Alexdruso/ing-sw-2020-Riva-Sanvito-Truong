@@ -694,7 +694,13 @@ public class Game extends LambdaObservable<Transmittable> {
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue))
+                                .collect(Collectors.toMap(
+                                        e -> e.getKey().toReducedWorkerId(),
+                                        Map.Entry::getValue,
+                                        (k1, k2) -> {
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s are duplicate", k1, k2));
+                                        },
+                                        () -> new EnumMap<>(ReducedWorkerID.class)))
                 )
         );
     }
@@ -718,7 +724,13 @@ public class Game extends LambdaObservable<Transmittable> {
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue)
+                                .collect(Collectors.toMap(
+                                        e -> e.getKey().toReducedWorkerId(),
+                                        Map.Entry::getValue,
+                                        (k1, k2) -> {
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s are duplicate", k1, k2));
+                                        },
+                                        () -> new EnumMap<>(ReducedWorkerID.class))
                                 ),
                         turn.getDomeBuildableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
@@ -726,7 +738,14 @@ public class Game extends LambdaObservable<Transmittable> {
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue)
+                                .collect(Collectors.toMap(
+                                        e -> e.getKey().toReducedWorkerId(),
+                                        Map.Entry::getValue,
+                                        (k1, k2) -> {
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s are duplicate", k1, k2));
+                                        },
+                                        () -> new EnumMap<>(ReducedWorkerID.class)
+                                        )
                                 )
                 )
         );

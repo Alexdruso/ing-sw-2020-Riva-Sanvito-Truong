@@ -4,6 +4,7 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,14 +14,14 @@ public class ReducedPlayer {
     private boolean isInGame;
     private final int playerIndex;
     private ReducedGod god;
-    private Map<ReducedWorkerID, ReducedWorker> workers;
+    private final EnumMap<ReducedWorkerID, ReducedWorker> workers;
 
     public ReducedPlayer(ReducedUser user, boolean isLocalPlayer, int playerIndex) {
         this.user = user;
         this.isLocalPlayer = isLocalPlayer;
         isInGame = true;
         this.playerIndex = playerIndex;
-        workers = new HashMap<>();
+        workers = new EnumMap<>(ReducedWorkerID.class);
     }
 
     public String getNickname() {
@@ -56,7 +57,7 @@ public class ReducedPlayer {
     }
 
     public Map<ReducedWorkerID, ReducedWorker> getWorkers() {
-        return new HashMap<>(workers);
+        return new EnumMap<>(workers);
     }
 
     void addWorker(ReducedWorker worker) {

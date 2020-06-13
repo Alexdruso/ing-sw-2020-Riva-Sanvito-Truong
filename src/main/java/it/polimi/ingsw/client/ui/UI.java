@@ -10,11 +10,11 @@ import it.polimi.ingsw.utils.StringCapturedStackTrace;
 /**
  * A generic user interface.
  */
-public abstract class UI {
+public interface UI {
     /**
      * Initialize the user interface.
      */
-    public abstract void init(Runnable onExit);
+    void init(Runnable onExit);
 
     /**
      * Gets an instance of a UI-specific ClientState.
@@ -23,16 +23,16 @@ public abstract class UI {
      * @param client      the client
      * @return an instance of a UI-specific ClientState
      */
-    public abstract AbstractClientState getClientState(ClientState clientState, Client client);
+    AbstractClientState getClientState(ClientState clientState, Client client);
 
-    public abstract AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client);
+    AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client);
 
     /**
      * Displays an error on the user interface.
      *
      * @param message the error message
      */
-    public abstract void notifyError(String message);
+    void notifyError(String message);
 
     /**
      * Displays an error on the user interface.
@@ -42,7 +42,7 @@ public abstract class UI {
      *
      * @param ex the exception
      */
-    public void notifyError(Exception ex) {
+    default void notifyError(Exception ex) {
         notifyError(new StringCapturedStackTrace(ex).toString());
     }
 
@@ -52,7 +52,7 @@ public abstract class UI {
      * @param message the error message
      * @param ex      the exception
      */
-    public void notifyError(String message, Exception ex) {
+    default void notifyError(String message, Exception ex) {
         notifyError(String.format("%s%nDettagli:%n%s", message, new StringCapturedStackTrace(ex).toString()));
     }
 }

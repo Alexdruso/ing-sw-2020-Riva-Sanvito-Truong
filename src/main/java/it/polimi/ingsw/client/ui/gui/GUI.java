@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GUI extends UI {
+public class GUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(GUI.class.getName());
     private final HashMap<String, SavedScene> sceneMap = new HashMap<>();
     private SavedScene currentScene;

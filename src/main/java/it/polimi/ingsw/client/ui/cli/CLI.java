@@ -26,7 +26,7 @@ import static org.fusesource.jansi.Ansi.ansi;
 /**
  * Represents the CLI.
  */
-public class CLI extends UI {
+public class CLI implements UI {
     private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
@@ -272,13 +272,13 @@ public class CLI extends UI {
     /**
      * Reads a string from the CLI.
      *
-     * @param prompt                the prompt to show when asking for input
-     * @param def                   the default value, suggested to the user
-     * @param expected_input_length the expected input length
+     * @param prompt              the prompt to show when asking for input
+     * @param def                 the default value, suggested to the user
+     * @param expectedInputLength the expected input length
      * @return the string read from the CLI
      */
-    String readString(String prompt, String def, int expected_input_length) {
-        printReadPrompt(prompt, def, expected_input_length);
+    String readString(String prompt, String def, int expectedInputLength) {
+        printReadPrompt(prompt, def, expectedInputLength);
         String line = getLine();
         if (def != null && line.equals("")) {
             return def;
@@ -310,13 +310,13 @@ public class CLI extends UI {
     /**
      * Reads an int from the CLI.
      *
-     * @param prompt                the prompt to show when asking for input
-     * @param def                   the default value, suggested to the user
-     * @param expected_input_length the expected input length
+     * @param prompt              the prompt to show when asking for input
+     * @param def                 the default value, suggested to the user
+     * @param expectedInputLength the expected input length
      * @return the int read from the CLI
      */
-    int readInt(String prompt, Integer def, int expected_input_length) {
-        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expected_input_length);
+    int readInt(String prompt, Integer def, int expectedInputLength) {
+        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expectedInputLength);
         String line = getLine();
         try {
             return Integer.parseInt(line);
@@ -326,7 +326,7 @@ public class CLI extends UI {
                 return def;
             }
             error(String.format("%s %s", line, I18n.string(I18nKey.IS_NOT_AN_INTEGER)));
-            return readInt(prompt, def, expected_input_length);
+            return readInt(prompt, def, expectedInputLength);
         }
     }
 
@@ -359,7 +359,7 @@ public class CLI extends UI {
     }
 
     ReducedCell readCell(ReducedBoard board, String prompt, boolean allowSkip) {
-        String ERROR_INVALID_COORDINATES = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
+        final String errorInvalidCoordinates = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
         ReducedCell res = null;
         while (res == null) {
             String choice = readString(prompt, null, 3);
@@ -367,7 +367,7 @@ public class CLI extends UI {
                 return null;
             }
             if (choice.length() != 2) {
-                error(ERROR_INVALID_COORDINATES);
+                error(errorInvalidCoordinates);
                 continue;
             }
             char choiceCol = choice.toUpperCase().charAt(0);
@@ -375,10 +375,11 @@ public class CLI extends UI {
             int col = choiceCol - 'A';
             int row = choiceRow - '1';
             if (col < 0 || row < 0 || col >= board.getDimension() || row >= board.getDimension()) {
-                error(ERROR_INVALID_COORDINATES);
-                continue;
+                error(errorInvalidCoordinates);
             }
-            res = board.getCell(col, row);
+            else {
+                res = board.getCell(col, row);
+            }
         }
         return res;
     }
@@ -441,14 +442,14 @@ public class CLI extends UI {
     /**
      * Displays the input prompt when asking an input from the user.
      *
-     * @param prompt                the prompt to show when asking for input
-     * @param def                   the default value, suggested to the user
-     * @param expected_input_length the expected input length
+     * @param prompt              the prompt to show when asking for input
+     * @param def                 the default value, suggested to the user
+     * @param expectedInputLength the expected input length
      */
-    private void printReadPrompt(String prompt, String def, int expected_input_length) {
-        String underscores = "_".repeat(expected_input_length);
+    private void printReadPrompt(String prompt, String def, int expectedInputLength) {
+        String underscores = "_".repeat(expectedInputLength);
         String defText = def != null ? String.format(" (%s: %s)", I18n.string(I18nKey.DEFAULT), def) : "";
-        print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expected_input_length));
+        print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expectedInputLength));
     }
 
     void printPlayersOfGame(ReducedGame game) {
@@ -466,7 +467,14 @@ public class CLI extends UI {
             else {
                 resPlayer = resPlayer.a("  ");
             }
-            resPlayer = resPlayer.a(String.format("%s%n    %s: %s%n    %s: %s%n", player.getNickname(), I18n.string(I18nKey.GOD), I18n.string(I18nKey.valueOf(String.format("%s_NAME", player.getGod().getName().toUpperCase()))), I18n.string(I18nKey.WORKERS), Arrays.stream(workersStrings[player.getPlayerIndex()]).map(s -> s.strip()).collect(Collectors.joining(", ")))).reset();
+            resPlayer = resPlayer.a(String.format(
+                    "%s%n    %s: %s%n    %s: %s%n",
+                    player.getNickname(),
+                    I18n.string(I18nKey.GOD),
+                    I18n.string(I18nKey.valueOf(String.format("%s_NAME", player.getGod().getName().toUpperCase()))),
+                    I18n.string(I18nKey.WORKERS),
+                    Arrays.stream(workersStrings[player.getPlayerIndex()]).map(String::strip).collect(Collectors.joining(", ")))
+            ).reset();
             res.append(resPlayer);
         }
         println(ansi().a(res.toString()).reset(), 5, 55);

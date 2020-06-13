@@ -235,7 +235,7 @@ public class TargetCells {
      * @return the resulting TargetCells
      * @throws IllegalArgumentException if the radius is non-positive
      */
-    public static TargetCells fromCellAndRadius(Cell center, int radius) throws IllegalArgumentException{
+    public static TargetCells fromCellAndRadius(Cell center, int radius) {
         if(radius <= 0){
             throw new IllegalArgumentException("Non-Positive Radius");
         }
@@ -268,7 +268,7 @@ public class TargetCells {
      * @return resulting TargetCells
      * @throws IllegalArgumentException if source is of invalid size
      */
-    public static TargetCells fromMatrix(boolean[][] source) throws IllegalArgumentException{
+    public static TargetCells fromMatrix(boolean[][] source) {
         if(source.length != BOARD_SIZE){
             throw new IllegalArgumentException("Source matrix has invalid number of rows: " + source.length);
         }

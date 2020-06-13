@@ -19,7 +19,7 @@ public class ReducedGame {
         board = new ReducedBoard();
     }
 
-    public ArrayList<ReducedPlayer> getPlayersList() {
+    public List<ReducedPlayer> getPlayersList() {
         return new ArrayList<>(players);
     }
 
@@ -52,9 +52,7 @@ public class ReducedGame {
     public void removeWorker(ReducedUser user, ReducedWorkerID workerID, int cellX, int cellY) {
         getBoard().getCell(cellX, cellY).setNoWorker();
         getPlayer(user).ifPresent(
-                player -> {
-                    player.removeWorker(workerID);
-                }
+                player -> player.removeWorker(workerID)
         );
     }
 
