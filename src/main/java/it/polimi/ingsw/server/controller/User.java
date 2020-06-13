@@ -3,7 +3,8 @@ package it.polimi.ingsw.server.controller;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
 /**
- * A utility class that represents what the Model uses to reference a Player outside of it.
+ * A utility class that represents a user connected to the server.
+ * It is also used by the Model to reference a Player outside of it.
  *
  * @see it.polimi.ingsw.server.model.Player
  */
