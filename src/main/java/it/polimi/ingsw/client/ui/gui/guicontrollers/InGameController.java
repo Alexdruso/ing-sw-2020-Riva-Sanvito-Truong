@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.gui.BuildGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
+import it.polimi.ingsw.server.model.board.Board;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
@@ -21,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +56,7 @@ public class InGameController extends AbstractController{
         WORKER_C,
     }
 
-    private final HashMap<BoardElement, Image> boardAssets = new HashMap<>();
+    private final EnumMap<BoardElement, Image> boardAssets = new EnumMap<>(BoardElement.class);
     private ImageView blockIcon;
     private ImageView domeIcon;
 
