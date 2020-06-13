@@ -30,7 +30,6 @@ public class CLI extends UI {
     private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
-    private Runnable onExit;
 
     private Scanner in;
     private PrintWriter out;
@@ -83,7 +82,7 @@ public class CLI extends UI {
         try {
             String inFilename = System.getenv(CLI_INPUT_FILE_ENV_VAR_NAME);
             in = new Scanner(new FileInputStream(inFilename));
-            LOGGER.log(Level.FINE, String.format("Using %s for feeding stdin", inFilename));
+            LOGGER.log(Level.FINE, () -> String.format("Using %s for feeding stdin", inFilename));
             usingInputFile = true;
         }
         catch (NullPointerException | FileNotFoundException e) {
@@ -96,7 +95,7 @@ public class CLI extends UI {
             if (inLoggerFolder != null) {
                 inLoggers.add(new PrintWriter(new FileOutputStream(String.format("%s%d.txt", inLoggerFolder, System.currentTimeMillis()))));
                 inLoggers.add(new PrintWriter(new FileOutputStream(String.format("%slatest.txt", inLoggerFolder))));
-                LOGGER.log(Level.FINE, String.format("Logging inputs in folder %s", inLoggerFolder));
+                LOGGER.log(Level.FINE, () -> String.format("Logging inputs in folder %s", inLoggerFolder));
             }
             else {
                 LOGGER.log(Level.FINER, "Skipping log inputs to file");
@@ -364,7 +363,7 @@ public class CLI extends UI {
         ReducedCell res = null;
         while (res == null) {
             String choice = readString(prompt, null, 3);
-            if (choice.equalsIgnoreCase("x")) {
+            if (allowSkip && choice.equalsIgnoreCase("x")) {
                 return null;
             }
             if (choice.length() != 2) {
