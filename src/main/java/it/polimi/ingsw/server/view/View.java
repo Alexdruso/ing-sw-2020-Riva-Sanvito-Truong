@@ -9,19 +9,23 @@ import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientMess
 import it.polimi.ingsw.utils.observer.LambdaObservable;
 import it.polimi.ingsw.utils.observer.LambdaObserver;
 
+/**
+ * This class represents the View of the MVC Architectural pattern, bound to a specific Connection (thus to a specific User).
+ * It observes the Connection and the Model and gets notified whenever the model evolves or the client sends a message.
+ */
 public class View extends LambdaObservable<ViewClientMessage> implements LambdaObserver {
     /**
-     * The user owning the view
+     * The user owning the view.
      */
     private final User user;
 
     /**
-     * The connection to the client
+     * The connection to the client.
      */
     private final Connection connection;
 
     /**
-     * Handler of a message coming from the client
+     * Handler of a message coming from the client.
      *
      * @param message a message coming from the client
      */
@@ -32,7 +36,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     }
 
     /**
-     * Handler of a disconnect message coming from the client
+     * Handler of a disconnect message coming from the client.
      *
      * @param message a message coming from the client
      */
@@ -42,7 +46,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     }
 
     /**
-     * Handler of a message coming from the game
+     * Handler of a message coming from the game.
      *
      * @param message a message coming from the game
      */
@@ -51,14 +55,14 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     }
 
     /**
-     * Handler of a disconnect message coming from the game
+     * Handler of a disconnect message coming from the game.
      */
     public void handleDisconnection() {
         connection.close();
     }
 
     /**
-     * Handler of a status message
+     * Handler of a status message.
      *
      * @param message a message coming from the controller
      * @throws UnsupportedOperationException
@@ -68,7 +72,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     }
 
     /**
-     * Constructor of the view
+     * Constructor of the view.
      *
      * @param connection the connection inherent to the view
      * @param nickname   the nickname of the User owning the view
@@ -90,7 +94,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     }
 
     /**
-     * Getter of the user
+     * Getter of the user.
      *
      * @return the user
      */

@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 
 /**
  * A bidirectional connection to a remote host.
+ * A thread is spawned once for each run of the software to handle the execution of periodic events,
+ * such as the sending of keep alive messages.
  */
 public class Connection extends LambdaObservable<Transmittable> {
     private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());
@@ -33,6 +35,7 @@ public class Connection extends LambdaObservable<Transmittable> {
 
     /**
      * Instantiates a new Connection from a given Socket.
+     * Each Connections spawns a new Thread to receive incoming data from the socket.
      *
      * @param socket the socket
      * @throws IOException if it is not possible to get the input or output stream for the socket
@@ -51,6 +54,7 @@ public class Connection extends LambdaObservable<Transmittable> {
 
     /**
      * Instantiates a new Connection from a given host and port.
+     * Each Connections spawns a new Thread to receive incoming data from the socket.
      *
      * @param host the host
      * @param port the port
@@ -78,6 +82,12 @@ public class Connection extends LambdaObservable<Transmittable> {
         }, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS);
     }
 
+    /**
+     * Prints a log message on the console, prepending the information about the socket.
+     *
+     * @param level   the log level
+     * @param message the log message
+     */
     private void log(Level level, String message) {
         LOGGER.log(level, () -> String.format("[socket %s] %s", socket.getRemoteSocketAddress().toString().substring(1), message));
     }
@@ -92,7 +102,7 @@ public class Connection extends LambdaObservable<Transmittable> {
     }
 
     /**
-     * Closes the connection.
+     * Closes the connection and stops the receiving thread.
      */
     public void close() {
         if (!isActive.getAndSet(false)) {
@@ -125,6 +135,9 @@ public class Connection extends LambdaObservable<Transmittable> {
         close();
     }
 
+    /**
+     * Notifies the observers of this Connection that the socket was closed, if not already done.
+     */
     private void notifyDisconnection() {
         if (!isClosing.getAndSet(true)) {
             notify(new DisconnectionMessage());
@@ -158,7 +171,7 @@ public class Connection extends LambdaObservable<Transmittable> {
      */
     private Thread startSocketReceiveThread() {
         Thread t = new Thread(() -> {
-            log(Level.INFO, "Receive thread ready");
+            log(Level.FINE, "Receive thread ready");
             while (isActive() && !Thread.currentThread().isInterrupted()) {
                 try {
                     Transmittable inputObject = (Transmittable) socketIn.readObject();

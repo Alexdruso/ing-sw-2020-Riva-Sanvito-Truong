@@ -382,8 +382,6 @@ public class Turn{
      * win conditions
      */
     private void computeWinConditions() {
-        //qui il codice da Move::move
-
         // sets winning turn is there is a the worker is moved from level 2 to level 3
         List<MoveAction> moves = this.getMoves();
         if(!moves.isEmpty()){

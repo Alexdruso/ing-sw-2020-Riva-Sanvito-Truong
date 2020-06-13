@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * This class is the game and its main purpose is to keep the general state of the match.
+ * This class keeps the general state of the match.
  * It provides methods to gain insights on the current state.
  */
 public class Game extends LambdaObservable<Transmittable> {
