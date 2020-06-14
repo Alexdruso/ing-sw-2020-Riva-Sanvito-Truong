@@ -278,7 +278,7 @@ public class Turn{
      * @param allowedWorker the worker to allow performing operations on this turn
      */
     public void addAllowedWorker(Worker allowedWorker){
-        allowedWorkers.add(allowedWorker);
+        this.allowedWorkers.add(allowedWorker);
     }
 
     /**
