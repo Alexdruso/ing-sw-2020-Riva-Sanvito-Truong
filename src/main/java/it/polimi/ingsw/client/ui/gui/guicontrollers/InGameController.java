@@ -244,6 +244,7 @@ public class InGameController extends AbstractController{
 
     private void skip(){
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).skip();
+        clearSideButtons();
     }
 
     private void cancel(){
