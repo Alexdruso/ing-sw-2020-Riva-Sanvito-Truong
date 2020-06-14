@@ -21,10 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
@@ -84,11 +81,13 @@ public class InGameController extends AbstractController{
     public void onSceneShow(){
         lateralLabels.clear();
         lateralLabelsContainer.getChildren().clear();
+        int playerNumber = 0;
         for(ReducedPlayer player: client.getGame().getPlayersList()){
-            PlayerLateralLabel label = new PlayerLateralLabel(player.getNickname(), player.getGod().getName());
+            PlayerLateralLabel label = new PlayerLateralLabel(player.getNickname(), playerNumber, player.getGod().getName());
             label.setOnMouseClicked(e -> System.out.println("clicked " + player.getNickname()));
             lateralLabelsContainer.getChildren().add(label);
             lateralLabels.put(player, label);
+            playerNumber++;
         }
     }
 

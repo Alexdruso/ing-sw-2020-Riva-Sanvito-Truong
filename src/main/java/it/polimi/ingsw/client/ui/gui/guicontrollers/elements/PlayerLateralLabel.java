@@ -1,15 +1,18 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers.elements;
 
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.beans.NamedArg;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,18 +20,42 @@ import java.util.logging.Logger;
 
 public class PlayerLateralLabel extends AnchorPane{
     private static final Logger LOGGER = Logger.getLogger(PlayerLateralLabel.class.getName());
-    private StringProperty playerNameString = new SimpleStringProperty();
-    private StringProperty godNameString = new SimpleStringProperty();
+    private StringProperty playerNameProperty = new SimpleStringProperty();
+    private StringProperty godNameProperty = new SimpleStringProperty();
+    private IntegerProperty playerNumberProperty = new SimpleIntegerProperty();
 
     @FXML AnchorPane container;
     @FXML Label godName;
     @FXML Label playerName;
     @FXML Label statusLabel;
+    @FXML Circle colorTip;
+    @FXML Label colorLabel;
+    //@FXML Rectangle colorRectangleDivider;
+
+    //TODO: create configuration files for this stuff
+    enum Colors {
+        PLAYER1("133C55"),
+        PLAYER2("F2A541"),
+        PLAYER3("353535");
+
+        public final String color;
+
+        Colors(String color){
+            this.color = color;
+        }
+    }
 
     private boolean isSpectating = false;
 
-    public PlayerLateralLabel(@NamedArg("playerName") String playerNameString, @NamedArg("godName") String godNameString) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerLateralLabel.fxml"));
+    public PlayerLateralLabel(@NamedArg("playerName") String playerNameProperty,
+                              @NamedArg("playerNumber") Integer playerNumberProperty,
+                              @NamedArg("godName") String godNameProperty) {
+
+        this.playerNameProperty.set(playerNameProperty);
+        this.playerNumberProperty.set(playerNumberProperty);
+        this.godNameProperty.set(godNameProperty);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerLateralLabel.fxml"), I18n.getResourceBundle());
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -36,8 +63,6 @@ public class PlayerLateralLabel extends AnchorPane{
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
-        setPlayerNameString(playerNameString);
-        setGodNameString(godNameString);
     }
 
 
@@ -72,34 +97,10 @@ public class PlayerLateralLabel extends AnchorPane{
     }
 
     @FXML private void initialize(){
-        playerName.textProperty().bind(playerNameString);
-        godName.textProperty().bind(godNameString);
-    }
-
-    //Here follows a few "useless" functions which are used behind the scenes by JavaFX
-
-    public String getPlayerNameString(){
-        return playerNameString.get();
-    }
-
-    public void setPlayerNameString(String value){
-        this.playerNameString.set(value);
-    }
-
-    public StringProperty playerNameStringProperty(){
-        return playerNameString;
-    }
-
-    public String getGodNameString(){
-        return godNameString.get();
-    }
-
-    public void setGodNameString(String value){
-        this.godNameString.set(value);
-    }
-
-    public StringProperty godNameStringProperty(){
-        return godNameString;
+        playerName.textProperty().bind(playerNameProperty);
+        godName.textProperty().bind(godNameProperty);
+        colorLabel.setText(I18n.string(I18nKey.COLOR));
+        colorTip.setFill(Paint.valueOf(Colors.values()[playerNumberProperty.get()].color));
     }
 }
 
