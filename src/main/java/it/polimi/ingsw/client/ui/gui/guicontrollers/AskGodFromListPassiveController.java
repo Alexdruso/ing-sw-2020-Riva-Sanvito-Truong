@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.ui.gui.AskGodFromListGUIClientState;
 import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -32,10 +33,11 @@ public class AskGodFromListPassiveController extends AbstractController{
 
     @Override
     public void setupController(){
-        waitPromptLabel.setText(String.format(
-                I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THEIR_GOD),
-                client.getCurrentActiveUser().nickname));
-
+        Platform.runLater(() ->
+                waitPromptLabel.setText(String.format(
+                        I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THEIR_GOD),
+                        client.getCurrentActiveUser().nickname))
+        );
         animationHelper.animateLoadingScreen(imageArray, loadingTower);
     }
 
