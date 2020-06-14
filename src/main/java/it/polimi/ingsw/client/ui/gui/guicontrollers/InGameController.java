@@ -248,6 +248,7 @@ public class InGameController extends AbstractController{
 
     private void cancel(){
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).cancel();
+        clearSideButtons();
     }
 
     private void setBoardSize(){
