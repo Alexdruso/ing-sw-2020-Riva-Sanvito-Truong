@@ -80,8 +80,9 @@ public class AskGodsFromListController extends AbstractController {
 
     @FXML
     public void initialize(){
-        lateralGodCard = new LateralGodCard();
+        lateralGodCard = new LateralGodCard(true);
         lateralGodCard.setGodSelectionCallback(this::removeGodIcon);
+        lateralGodCard.setDescription(I18n.string(I18nKey.GOD_DESCRIPTION));
         rootPane.getChildren().add(lateralGodCard);
 
         iconsPane.setHgap(ICON_SPACING_H);

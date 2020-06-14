@@ -6,10 +6,12 @@ import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.gui.BuildGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.LateralGodCard;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.PlayerLateralLabel;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,6 +27,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
+    @FXML StackPane rootPane;
     @FXML GridPane boardPane;
     @FXML AnchorPane boardContainer;
     @FXML Label mainLabel;
@@ -49,6 +52,7 @@ public class InGameController extends AbstractController{
     private final EnumMap<BoardElement, Image> boardAssets = new EnumMap<>(BoardElement.class);
     private ImageView blockIcon;
     private ImageView domeIcon;
+    private LateralGodCard lateralGodCard;
 
     private ImageView getImageView(Image image){
         final double cellContentMargin = 5.0;
@@ -84,11 +88,19 @@ public class InGameController extends AbstractController{
         int playerNumber = 0;
         for(ReducedPlayer player: client.getGame().getPlayersList()){
             PlayerLateralLabel label = new PlayerLateralLabel(player.getNickname(), playerNumber, player.getGod().getName());
-            label.setOnMouseClicked(e -> System.out.println("clicked " + player.getNickname()));
+            label.setOnMouseClicked(e -> {
+                lateralGodCard.setDescription(String.format(I18n.string(I18nKey.S_GOD), player.getNickname()));
+                lateralGodCard.clickGod(player.getGod());
+            });
             lateralLabelsContainer.getChildren().add(label);
             lateralLabels.put(player, label);
             playerNumber++;
         }
+    }
+
+    @Override
+    public void setupController(){
+        lateralGodCard.setGods(new ArrayList<>(client.getGods()));
     }
 
     @FXML
@@ -125,6 +137,9 @@ public class InGameController extends AbstractController{
                 }
             });
         }
+
+        lateralGodCard = new LateralGodCard(false);
+        rootPane.getChildren().add(lateralGodCard);
     }
 
     public void setLabel(String label){

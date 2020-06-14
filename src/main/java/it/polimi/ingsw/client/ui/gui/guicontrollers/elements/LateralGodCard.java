@@ -7,10 +7,13 @@ import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.beans.NamedArg;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.CacheHint;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +21,7 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +50,8 @@ public class LateralGodCard extends StackPane {
     Pane cardPane;
     @FXML
     HBox godText;
+    @FXML
+    Label topLabel;
 
     TranslateTransition gradientPaneTransitionOut;
     TranslateTransition cardPaneTransitionOut;
@@ -56,10 +62,13 @@ public class LateralGodCard extends StackPane {
     private ReducedGod currentGod;
     private boolean sideBarVisible = false;
 
+    private Boolean hasButton;
+
     Consumer<ReducedGod> godSelectionCallback;
 
-    public LateralGodCard(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LateralGodCard.fxml"));
+    public LateralGodCard(@NamedArg("hasButton") Boolean hasButton){
+        this.hasButton = hasButton;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LateralGodCard.fxml"), I18n.getResourceBundle());
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
@@ -80,8 +89,12 @@ public class LateralGodCard extends StackPane {
         }
     }
 
+    public void setDescription(String description){
+        topLabel.setText(description);
+    }
+
     @FXML
-    public void selectGod(ActionEvent event){
+    public void selectGod(){
         if(godSelectionCallback != null){
             godSelectionCallback.accept(currentGod);
         }
@@ -134,6 +147,17 @@ public class LateralGodCard extends StackPane {
                 gradientPane.setTranslateX(-1*(double)newWidth);
             }
         });
+
+        if(hasButton){
+            Button selectGodButton = new Button();
+            selectGodButton.setPrefWidth(300);
+            selectGodButton.setPrefHeight(55);
+            selectGodButton.setText(I18n.string(I18nKey.SELECT_GOD_CARD));
+            selectGodButton.getStyleClass().add("bigbutton");
+            selectGodButton.setOnMouseClicked(e -> selectGod());
+            cardPane.getChildren().add(selectGodButton);
+            ((VBox)cardPane).setMargin(selectGodButton, new Insets(0,0,0,30));
+        }
     }
 
     public void clickGod(ReducedGod reducedGod){
