@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.ui.gui.utils;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
+import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.GUI;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
@@ -38,8 +39,7 @@ public class SceneLoader {
     private double fadeOutDuration;
     private CSSFile cssFile;
     private AbstractClientState state;
-    private ClientTurnState clientTurnState;
-    private AbstractClientTurnState turnState;
+    private AbstractClientTurnState clientTurnState;
 
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
@@ -57,11 +57,11 @@ public class SceneLoader {
     }
 
     public void executeSceneChange(){
-        SavedScene savedScene = null;
+        SavedScene scene = null;
         GUI gui = (GUI)client.getUI();
         if(gui.getCurrentScene() == null || forceSceneChange || !fxmlFile.equals(gui.getCurrentScene().fxmlFile)){
             if(attemptLoadFromSaved){
-                savedScene = loadFromSaved(fxmlFile, (GUI)client.getUI());
+                scene = loadFromSaved(fxmlFile, (GUI)client.getUI());
             }
             if (scene == null){
                 scene = loadAndSave(gui);
@@ -74,26 +74,26 @@ public class SceneLoader {
 
             applySceneFade(scene);
             gui.setCurrentScene(scene);
+        } else {
+            scene = ((GUI) client.getUI()).getCurrentScene();
+            scene.controller.setClient(client);
+            //savedScene.controller.setupController();
+            scene.controller.setState(state);
+            //savedScene.controller.onSceneShow();
         }
     }
+
 
     private void applySceneFade(SavedScene savedScene) {
         if (doApplyFadeOut){
             applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
         }
         else {
-            if(doApplyFadeIn){
+            if (doApplyFadeIn) {
                 applyFadeIn(mainScene, savedScene.root, fadeInDuration);
             } else {
                 Platform.runLater(() -> mainScene.setRoot(savedScene.root));
             }
-            gui.setCurrentScene(savedScene);
-        } else {
-            savedScene = ((GUI) client.getUI()).getCurrentScene();
-            savedScene.controller.setClient(client);
-            //savedScene.controller.setupController();
-            savedScene.controller.setState(state);
-            //savedScene.controller.onSceneShow();
         }
     }
 
