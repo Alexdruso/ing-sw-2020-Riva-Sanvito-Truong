@@ -35,11 +35,12 @@ class Move implements AbstractTurnState {
 
             turn.setWorkerWalkableCells(worker, walkableCellsRadius);
         }
+
         //use powers
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
-        //now set as allowed workers only the workers able to move
 
-        List<Worker> movableWorkers = turn.getAllowedWorkers().stream()
+        //now set as allowed workers only the workers able to move
+        List<Worker> moveAllowedWorkers = turn.getAllowedWorkers().stream()
                 .filter(
                         allowedWorker ->
                                 !turn.getGame().getBoard()
@@ -49,9 +50,9 @@ class Move implements AbstractTurnState {
                 .collect(Collectors.toList());
 
         turn.clearAllowedWorkers();
-        turn.addAllowedWorkers(movableWorkers);
+        turn.addAllowedWorkers(moveAllowedWorkers);
 
-        if (!movableWorkers.isEmpty()) turn.getGame().notifyAskMove(turn); //if a move is possible, ask it
+        if (!moveAllowedWorkers.isEmpty()) turn.getGame().notifyAskMove(turn); //if a move is possible, ask it
         else if (turn.isSkippable()) turn.getGame().skip(); //else if we can skip automatically, do it
         else turn.triggerLosingTurn(); //else it is a losing turn
     }
