@@ -151,16 +151,18 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
     }
 
     private void setCellHighlighting(boolean status){
-        game = client.getGame();
-        turn = game.getTurn();
-        board = game.getBoard();
-        board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(
-                targetedCell -> targetedCell.setHighlighted(status)
-        );
+        if(workerID != null){
+            game = client.getGame();
+            turn = game.getTurn();
+            board = game.getBoard();
+            board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(
+                    targetedCell -> targetedCell.setHighlighted(status)
+            );
 
-        board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(
-                targetedCell -> targetedCell.setHighlighted(status)
-        );
+            board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(
+                    targetedCell -> targetedCell.setHighlighted(status)
+            );
+        }
     }
 
     @Override
