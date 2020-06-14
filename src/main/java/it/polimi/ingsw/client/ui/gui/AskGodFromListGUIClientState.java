@@ -59,6 +59,7 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
         }
         sceneLoaderFactory
                 .setState(ClientState.ASK_GOD_FROM_LIST, this)
+                .forceSceneChange(true)
                 .build()
                 .executeSceneChange();
         savedScene = ((GUI)client.getUI()).getCurrentScene();

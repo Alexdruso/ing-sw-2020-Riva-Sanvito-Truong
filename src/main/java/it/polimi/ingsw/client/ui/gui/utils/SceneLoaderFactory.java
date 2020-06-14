@@ -15,6 +15,7 @@ public class SceneLoaderFactory {
     boolean doApplyFirstFadeOut = true;
     boolean doApplyFadeIn = true;
     boolean attemptLoadFromSaved = true;
+    boolean forceSceneChange = false;
     double fadeInDuration = 500;
     double fadeOutDuration = 500;
     CSSFile cssFile;
@@ -64,6 +65,11 @@ public class SceneLoaderFactory {
 
     public SceneLoaderFactory addCSSFile(CSSFile cssFile){
         this.cssFile = cssFile;
+        return this;
+    }
+
+    public SceneLoaderFactory forceSceneChange(boolean doForce){
+        this.forceSceneChange = doForce;
         return this;
     }
 

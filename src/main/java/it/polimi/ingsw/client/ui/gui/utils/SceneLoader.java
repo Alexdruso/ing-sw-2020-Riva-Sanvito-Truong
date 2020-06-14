@@ -30,12 +30,16 @@ public class SceneLoader {
     private final ClientState clientState;
     private final Scene mainScene;
     private boolean doApplyFadeOut;
-    private final boolean doApplyFirstFadeOut;
-    private final boolean doApplyFadeIn;
-    private final boolean attemptLoadFromSaved;
-    private final double fadeInDuration;
-    private final double fadeOutDuration;
-    private final AbstractClientState state;
+    private boolean doApplyFirstFadeOut;
+    private boolean doApplyFadeIn;
+    private boolean attemptLoadFromSaved;
+    private boolean forceSceneChange;
+    private double fadeInDuration;
+    private double fadeOutDuration;
+    private CSSFile cssFile;
+    private AbstractClientState state;
+    private ClientTurnState clientTurnState;
+    private AbstractClientTurnState turnState;
 
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
@@ -49,14 +53,15 @@ public class SceneLoader {
         this.fadeInDuration = loader.fadeInDuration;
         this.fadeOutDuration = loader.fadeOutDuration;
         this.state = loader.state;
+        this.forceSceneChange = loader.forceSceneChange;
     }
 
     public void executeSceneChange(){
-        SavedScene scene = null;
-        GUI gui = (GUI) client.getUI();
-        if(gui.getCurrentScene() == null || !fxmlFile.equals(gui.getCurrentScene().fxmlFile)){
-            if (attemptLoadFromSaved){
-                scene = loadFromSaved(fxmlFile, gui);
+        SavedScene savedScene = null;
+        GUI gui = (GUI)client.getUI();
+        if(gui.getCurrentScene() == null || forceSceneChange || !fxmlFile.equals(gui.getCurrentScene().fxmlFile)){
+            if(attemptLoadFromSaved){
+                savedScene = loadFromSaved(fxmlFile, (GUI)client.getUI());
             }
             if (scene == null){
                 scene = loadAndSave(gui);
@@ -82,6 +87,13 @@ public class SceneLoader {
             } else {
                 Platform.runLater(() -> mainScene.setRoot(savedScene.root));
             }
+            gui.setCurrentScene(savedScene);
+        } else {
+            savedScene = ((GUI) client.getUI()).getCurrentScene();
+            savedScene.controller.setClient(client);
+            //savedScene.controller.setupController();
+            savedScene.controller.setState(state);
+            //savedScene.controller.onSceneShow();
         }
     }
 
