@@ -18,7 +18,7 @@ class Pan extends AbstractGod {
         @Override
         protected void computeWinCondition(Turn turn) {
             List<MoveAction> moveDownActions = turn.getMoves().stream().filter(action -> action.getTargetLevel() - action.getSourceLevel() <= -2).collect(Collectors.toList());
-            if (moveDownActions.size() > 0) {
+            if (!moveDownActions.isEmpty()) {
                 turn.setWinningTurn();
             }
         }

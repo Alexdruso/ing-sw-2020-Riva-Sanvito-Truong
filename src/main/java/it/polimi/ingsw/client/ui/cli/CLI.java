@@ -26,11 +26,10 @@ import static org.fusesource.jansi.Ansi.ansi;
 /**
  * Represents the CLI.
  */
-public class CLI extends UI {
+public class CLI implements UI {
     private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
-    private Runnable onExit;
 
     private Scanner in;
     private PrintWriter out;
@@ -43,30 +42,30 @@ public class CLI extends UI {
             Ansi.Color.YELLOW,  // level 3
             Ansi.Color.RED      // dome
     };
-    private static final String boardColumnsFormatString = "    %c    ";
-    private static final String boardRowsFormatString = "     \n     \n  %d  \n     \n     ";
-    private static final String emptyCellString = "   ";
-    private static final String domeCellString = "\u2591\u2591\u2591";
+    private static final String BOARD_COLUMNS_FORMAT_STRING = "    %c    ";
+    private static final String BOARD_ROWS_FORMAT_STRING = "     %n     %n  %d  %n     %n     ";
+    private static final String EMPTY_CELL_STRING = "   ";
+    private static final String DOME_CELL_STRING = "\u2591\u2591\u2591";
     private static final String[] levelFormatString = new String[]{
-            "         \n" +
-                    "         \n" +
-                    "   %s   \n" +
-                    "         \n" +
+            "         %n" +
+                    "         %n" +
+                    "   %s   %n" +
+                    "         %n" +
                     "         ",
-            "         \n" +
-                    "         \n" +
-                    "   %s   \n" +
-                    "         \n" +
+            "         %n" +
+                    "         %n" +
+                    "   %s   %n" +
+                    "         %n" +
                     "         ",
-            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n" +
-                    "\u2502       \u2502\n" +
-                    "\u2502  %s  \u2502\n" +
-                    "\u2502       \u2502\n" +
+            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510%n" +
+                    "\u2502       \u2502%n" +
+                    "\u2502  %s  \u2502%n" +
+                    "\u2502       \u2502%n" +
                     "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
-            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n" +
-                    "\u2502 \u250c\u2500\u2500\u2500\u2510 \u2502\n" +
-                    "\u2502 \u2502%s\u2502 \u2502\n" +
-                    "\u2502 \u2514\u2500\u2500\u2500\u2518 \u2502\n" +
+            "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510%n" +
+                    "\u2502 \u250c\u2500\u2500\u2500\u2510 \u2502%n" +
+                    "\u2502 \u2502%s\u2502 \u2502%n" +
+                    "\u2502 \u2514\u2500\u2500\u2500\u2518 \u2502%n" +
                     "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
     };
     private static final String[][] workersStrings = new String[][]{
@@ -74,16 +73,6 @@ public class CLI extends UI {
             {" B ", " b "},
             {" C ", " c "},
     };
-//    private static final Ansi.Color[][] workersColors = new Ansi.Color[][]{
-//            {Ansi.Color.BLUE, Ansi.Color.BLUE},
-//            {Ansi.Color.MAGENTA, Ansi.Color.MAGENTA},
-//            {Ansi.Color.BLACK, Ansi.Color.BLACK},
-//    };
-//    private static final boolean[][] workersBright = new boolean[][]{
-//            {true, false},
-//            {true, false},
-//            {true, false},
-//    };
 
     @Override
     public void init(Runnable onExit) {
@@ -93,7 +82,7 @@ public class CLI extends UI {
         try {
             String inFilename = System.getenv(CLI_INPUT_FILE_ENV_VAR_NAME);
             in = new Scanner(new FileInputStream(inFilename));
-            LOGGER.log(Level.FINE, String.format("Using %s for feeding stdin", inFilename));
+            LOGGER.log(Level.FINE, () -> String.format("Using %s for feeding stdin", inFilename));
             usingInputFile = true;
         }
         catch (NullPointerException | FileNotFoundException e) {
@@ -106,7 +95,7 @@ public class CLI extends UI {
             if (inLoggerFolder != null) {
                 inLoggers.add(new PrintWriter(new FileOutputStream(String.format("%s%d.txt", inLoggerFolder, System.currentTimeMillis()))));
                 inLoggers.add(new PrintWriter(new FileOutputStream(String.format("%slatest.txt", inLoggerFolder))));
-                LOGGER.log(Level.FINE, String.format("Logging inputs in folder %s", inLoggerFolder));
+                LOGGER.log(Level.FINE, () -> String.format("Logging inputs in folder %s", inLoggerFolder));
             }
             else {
                 LOGGER.log(Level.FINER, "Skipping log inputs to file");
@@ -283,13 +272,13 @@ public class CLI extends UI {
     /**
      * Reads a string from the CLI.
      *
-     * @param prompt                the prompt to show when asking for input
-     * @param def                   the default value, suggested to the user
-     * @param expected_input_length the expected input length
+     * @param prompt              the prompt to show when asking for input
+     * @param def                 the default value, suggested to the user
+     * @param expectedInputLength the expected input length
      * @return the string read from the CLI
      */
-    String readString(String prompt, String def, int expected_input_length) {
-        printReadPrompt(prompt, def, expected_input_length);
+    String readString(String prompt, String def, int expectedInputLength) {
+        printReadPrompt(prompt, def, expectedInputLength);
         String line = getLine();
         if (def != null && line.equals("")) {
             return def;
@@ -321,13 +310,13 @@ public class CLI extends UI {
     /**
      * Reads an int from the CLI.
      *
-     * @param prompt                the prompt to show when asking for input
-     * @param def                   the default value, suggested to the user
-     * @param expected_input_length the expected input length
+     * @param prompt              the prompt to show when asking for input
+     * @param def                 the default value, suggested to the user
+     * @param expectedInputLength the expected input length
      * @return the int read from the CLI
      */
-    int readInt(String prompt, Integer def, int expected_input_length) {
-        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expected_input_length);
+    int readInt(String prompt, Integer def, int expectedInputLength) {
+        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expectedInputLength);
         String line = getLine();
         try {
             return Integer.parseInt(line);
@@ -337,7 +326,7 @@ public class CLI extends UI {
                 return def;
             }
             error(String.format("%s %s", line, I18n.string(I18nKey.IS_NOT_AN_INTEGER)));
-            return readInt(prompt, def, expected_input_length);
+            return readInt(prompt, def, expectedInputLength);
         }
     }
 
@@ -370,15 +359,15 @@ public class CLI extends UI {
     }
 
     ReducedCell readCell(ReducedBoard board, String prompt, boolean allowSkip) {
-        String ERROR_INVALID_COORDINATES = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
+        final String errorInvalidCoordinates = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
         ReducedCell res = null;
         while (res == null) {
             String choice = readString(prompt, null, 3);
-            if (choice.equalsIgnoreCase("x")) {
+            if (allowSkip && choice.equalsIgnoreCase("x")) {
                 return null;
             }
             if (choice.length() != 2) {
-                error(ERROR_INVALID_COORDINATES);
+                error(errorInvalidCoordinates);
                 continue;
             }
             char choiceCol = choice.toUpperCase().charAt(0);
@@ -386,10 +375,11 @@ public class CLI extends UI {
             int col = choiceCol - 'A';
             int row = choiceRow - '1';
             if (col < 0 || row < 0 || col >= board.getDimension() || row >= board.getDimension()) {
-                error(ERROR_INVALID_COORDINATES);
-                continue;
+                error(errorInvalidCoordinates);
             }
-            res = board.getCell(col, row);
+            else {
+                res = board.getCell(col, row);
+            }
         }
         return res;
     }
@@ -411,26 +401,7 @@ public class CLI extends UI {
      */
     private String getLine() {
         try {
-            String s;
-            try {
-                s = in.nextLine();
-            }
-            catch (IndexOutOfBoundsException  ex) {
-                // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
-                reopenStdin();
-                return getLine();
-            }
-            if (usingInputFile) {
-                println("");
-                if (s.equalsIgnoreCase("%TIMESTAMP%")) {
-                    s = String.valueOf(System.currentTimeMillis());
-                }
-            }
-            for (PrintWriter inLogger : inLoggers) {
-                inLogger.println(s);
-                inLogger.flush();
-            }
-            return s;
+            return getLineFromOpenStream();
         }
         catch (NoSuchElementException e) {
             reopenStdin();
@@ -439,16 +410,46 @@ public class CLI extends UI {
     }
 
     /**
+     * Reads a line from the currently open stream.
+     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
+     *
+     * @return the read line
+     * @throws NoSuchElementException if the currently open stream has ended
+     */
+    private String getLineFromOpenStream() {
+        String s;
+        try {
+            s = in.nextLine();
+        }
+        catch (IndexOutOfBoundsException ex) {
+            // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
+            reopenStdin();
+            return getLine();
+        }
+        if (usingInputFile) {
+            println("");
+            if (s.equalsIgnoreCase("%TIMESTAMP%")) {
+                s = String.valueOf(System.currentTimeMillis());
+            }
+        }
+        for (PrintWriter inLogger : inLoggers) {
+            inLogger.println(s);
+            inLogger.flush();
+        }
+        return s;
+    }
+
+    /**
      * Displays the input prompt when asking an input from the user.
      *
-     * @param prompt                the prompt to show when asking for input
-     * @param def                   the default value, suggested to the user
-     * @param expected_input_length the expected input length
+     * @param prompt              the prompt to show when asking for input
+     * @param def                 the default value, suggested to the user
+     * @param expectedInputLength the expected input length
      */
-    private void printReadPrompt(String prompt, String def, int expected_input_length) {
-        String underscores = "_".repeat(expected_input_length);
+    private void printReadPrompt(String prompt, String def, int expectedInputLength) {
+        String underscores = "_".repeat(expectedInputLength);
         String defText = def != null ? String.format(" (%s: %s)", I18n.string(I18nKey.DEFAULT), def) : "";
-        print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expected_input_length));
+        print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expectedInputLength));
     }
 
     void printPlayersOfGame(ReducedGame game) {
@@ -466,7 +467,14 @@ public class CLI extends UI {
             else {
                 resPlayer = resPlayer.a("  ");
             }
-            resPlayer = resPlayer.a(String.format("%s%n    %s: %s%n    %s: %s%n", player.getNickname(), I18n.string(I18nKey.GOD), I18n.string(I18nKey.valueOf(String.format("%s_NAME", player.getGod().getName().toUpperCase()))), I18n.string(I18nKey.WORKERS), Arrays.stream(workersStrings[player.getPlayerIndex()]).map(s -> s.strip()).collect(Collectors.joining(", ")))).reset();
+            resPlayer = resPlayer.a(String.format(
+                    "%s%n    %s: %s%n    %s: %s%n",
+                    player.getNickname(),
+                    I18n.string(I18nKey.GOD),
+                    I18n.string(I18nKey.valueOf(String.format("%s_NAME", player.getGod().getName().toUpperCase()))),
+                    I18n.string(I18nKey.WORKERS),
+                    Arrays.stream(workersStrings[player.getPlayerIndex()]).map(String::strip).collect(Collectors.joining(", ")))
+            ).reset();
             res.append(resPlayer);
         }
         println(ansi().a(res.toString()).reset(), 5, 55);
@@ -483,12 +491,12 @@ public class CLI extends UI {
         boardStr.append("\n");
         boardStr.append("     ");
         for (int i = 0; i < dimension; i++) {
-            boardStr.append(String.format(boardColumnsFormatString, (char) (i + 65)));
+            boardStr.append(String.format(BOARD_COLUMNS_FORMAT_STRING, (char) (i + 65)));
         }
         boardStr.append("\n");
         for (int y = 0; y < dimension; y++) {
             Ansi[][] rowAnsi = new Ansi[dimension+1][];
-            String[] rowHeaders = String.format(boardRowsFormatString, y + 1).split("\n");
+            String[] rowHeaders = String.format(BOARD_ROWS_FORMAT_STRING, y + 1).split("\n");
             rowAnsi[0] = new Ansi[rowHeaders.length];
             for (int i = 0; i < rowHeaders.length; i++) {
                 rowAnsi[0][i] = ansi().a(rowHeaders[i]);
@@ -546,7 +554,7 @@ public class CLI extends UI {
 
         if (hasDome) {
             bg = levelsBgColors[4];
-            retStr = String.format(levelFormatString[towerHeight], domeCellString).split("\n");
+            retStr = String.format(levelFormatString[towerHeight], DOME_CELL_STRING).split("\n");
         }
         else {
             bg = levelsBgColors[towerHeight];
@@ -572,24 +580,11 @@ public class CLI extends UI {
         Optional<ReducedWorker> maybeWorker = cell.getWorker();
         if (maybeWorker.isPresent()) {
             ReducedWorker worker = maybeWorker.get();
-//            if (workersBright[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]) {
-//                ret = ret.bgBright(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//            }
-//            else {
-//                ret = ret.bg(workersColors[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
-//            }
-//            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]).reset();
-//            if (brightToRestore) {
-//                ret = ret.bgBright(colorToRestore);
-//            }
-//            else {
-//                ret = ret.bg(colorToRestore);
-//            }
             ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);
             return ret;
         }
         else {
-            return ret.a(emptyCellString);
+            return ret.a(EMPTY_CELL_STRING);
         }
     }
 

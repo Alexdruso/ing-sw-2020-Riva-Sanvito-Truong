@@ -26,7 +26,7 @@ class Prometheus extends AbstractGod {
         @Override
         protected void onBeforeMovement(Turn turn) {
             List<BuildAction> lastBuildActions = turn.getBuilds();
-            if (lastBuildActions.size() > 0) {
+            if (!lastBuildActions.isEmpty()) {
                 BuildAction lastBuild = lastBuildActions.get(0);
                 Worker lastBuildWorker = lastBuild.getWorker();
                 turn.clearAllowedWorkers();
@@ -47,7 +47,7 @@ class Prometheus extends AbstractGod {
         @Override
         protected void onBeforeBuild(Turn turn) {
             List<MoveAction> moveActions = turn.getMoves();
-            if (moveActions.size() == 0) {
+            if (moveActions.isEmpty()) {
                 turn.setSkippable(true);
                 turn.setNextState(TurnState.MOVE.getTurnState());
             }

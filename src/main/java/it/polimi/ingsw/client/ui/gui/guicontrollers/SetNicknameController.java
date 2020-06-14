@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.SetNicknameGUIClientState;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.beans.property.BooleanProperty;
@@ -35,7 +36,7 @@ public class SetNicknameController extends AbstractController{
     @FXML
     public void handleNicknameButton(ActionEvent event){
         if(nicknameField.getLength() != 0) {
-            if(nicknameField.getLength() >= 30){
+            if(nicknameField.getLength() >= ConfigParser.getInstance().getIntProperty("nicknameMaxLength")){
                 //Just to not mess up the rendering of the nickname
                 errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_LENGTH));
                 errorLabel.setOpacity(1);

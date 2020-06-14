@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 
 import java.util.Arrays;
@@ -13,8 +12,8 @@ import java.util.Collection;
  * Finally the Cell instances should be retrieved by the getTargets() method in the board.
  */
 public class TargetCells {
-    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
-    private boolean[][] targets;
+    private static final int BOARD_SIZE = 5;
+    private final boolean[][] targets;
 
     /**
      * Class constructor which creates a TargetCells instance which has no targeted cells
@@ -34,8 +33,6 @@ public class TargetCells {
      */
     @Override
     public boolean equals(Object other){
-        //TODO: we should think about TargetCells sizes, I don't think they can ever be different but checking wouldn't
-        //be too bad
         if(this == other){
             return true;
         }
@@ -43,19 +40,7 @@ public class TargetCells {
             return false;
         }
 
-        //TODO: Andrea - Check if this can be written (it should) as:
-        // return Arrays.deepEquals(targets, ((TargetCells)other).targets);
-        // START CODE TO BE REPLACED
-        TargetCells target = (TargetCells) other;
-        for(int i = 0; i < BOARD_SIZE; i++){
-            for(int j = 0; j < BOARD_SIZE; j++){
-                if(this.getPosition(i, j) != target.getPosition(i, j)){
-                    return false;
-                }
-            }
-        }
-        return true;
-        // END CODE TO BE REPLACED
+        return Arrays.deepEquals(targets, ((TargetCells)other).targets);
     }
 
     /**
@@ -250,7 +235,7 @@ public class TargetCells {
      * @return the resulting TargetCells
      * @throws IllegalArgumentException if the radius is non-positive
      */
-    public static TargetCells fromCellAndRadius(Cell center, int radius) throws IllegalArgumentException{
+    public static TargetCells fromCellAndRadius(Cell center, int radius) {
         if(radius <= 0){
             throw new IllegalArgumentException("Non-Positive Radius");
         }
@@ -283,7 +268,7 @@ public class TargetCells {
      * @return resulting TargetCells
      * @throws IllegalArgumentException if source is of invalid size
      */
-    public static TargetCells fromMatrix(boolean[][] source) throws IllegalArgumentException{
+    public static TargetCells fromMatrix(boolean[][] source) {
         if(source.length != BOARD_SIZE){
             throw new IllegalArgumentException("Source matrix has invalid number of rows: " + source.length);
         }

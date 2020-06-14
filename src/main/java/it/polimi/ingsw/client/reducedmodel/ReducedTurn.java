@@ -5,7 +5,7 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,18 +13,18 @@ public class ReducedTurn {
     private final ReducedPlayer player;
     private final AbstractClientTurnState turnState;
     private final List<ReducedWorkerID> allowedWorkers;
-    private final Map<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells;
-    private final Map<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells;
-    private final Map<ReducedWorkerID, ReducedTargetCells> workerWalkableCells;
+    private final EnumMap<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells;
+    private final EnumMap<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells;
+    private final EnumMap<ReducedWorkerID, ReducedTargetCells> workerWalkableCells;
     private final boolean isSkippable;
 
     public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState) {
         this.player = player;
         this.turnState = turnState;
         this.allowedWorkers = new ArrayList<>();
-        this.workerBlockBuildableCells = new HashMap<>();
-        this.workerDomeBuildableCells = new HashMap<>();
-        this.workerWalkableCells = new HashMap<>();
+        this.workerBlockBuildableCells = new EnumMap<>(ReducedWorkerID.class);
+        this.workerDomeBuildableCells = new EnumMap<>(ReducedWorkerID.class);
+        this.workerWalkableCells = new EnumMap<>(ReducedWorkerID.class);
         this.isSkippable = false;
     }
 
@@ -32,9 +32,9 @@ public class ReducedTurn {
         this.player = player;
         this.turnState = turnState;
         this.allowedWorkers = allowedWorkers;
-        this.workerBlockBuildableCells = new HashMap<>();
-        this.workerDomeBuildableCells = new HashMap<>();
-        this.workerWalkableCells = workerWalkableCells;
+        this.workerBlockBuildableCells = new EnumMap<>(ReducedWorkerID.class);
+        this.workerDomeBuildableCells = new EnumMap<>(ReducedWorkerID.class);
+        this.workerWalkableCells = new EnumMap<>(workerWalkableCells);
         this.isSkippable = isSkippable;
     }
 
@@ -42,10 +42,10 @@ public class ReducedTurn {
         this.player = player;
         this.turnState = turnState;
         this.allowedWorkers = allowedWorkers;
-        this.workerBlockBuildableCells = workerBlockBuildableCells;
-        this.workerDomeBuildableCells = workerDomeBuildableCells;
+        this.workerBlockBuildableCells = new EnumMap<>(workerBlockBuildableCells);
+        this.workerDomeBuildableCells = new EnumMap<>(workerDomeBuildableCells);
         this.isSkippable = isSkippable;
-        this.workerWalkableCells = new HashMap<>();
+        this.workerWalkableCells = new EnumMap<>(ReducedWorkerID.class);
     }
 
     public ReducedPlayer getPlayer() {

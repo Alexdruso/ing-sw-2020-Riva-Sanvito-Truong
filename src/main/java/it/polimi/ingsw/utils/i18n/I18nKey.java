@@ -1,5 +1,11 @@
 package it.polimi.ingsw.utils.i18n;
 
+/**
+ * An enum containing the localized strings.
+ * The localized strings must be provided in the i18n.strings resource bundle;
+ * the resource bundle's keys must be the lowercase version of the values of this enum,
+ * and the resource bundle's keys must be the localized strings.
+ */
 public enum I18nKey {
     BLOCK,
     CHOOSE_BETWEEN_BLOCK_OR_DOME,

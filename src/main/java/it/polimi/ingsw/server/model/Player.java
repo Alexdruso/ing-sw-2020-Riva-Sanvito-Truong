@@ -7,7 +7,7 @@ import it.polimi.ingsw.server.model.workers.WorkerID;
 
 /**
  * This class is the model representation of the physical player.
- * It keep all the information regarding the single player.
+ * It keeps all the information regarding the single player.
  * It provides methods to perform actions on the game.
  */
 
@@ -31,7 +31,7 @@ public class Player {
     /**
      * A manager of the player's in game spells and buffs, must be passed to the turn in the binding process
      */
-    private TurnEventsManager turnEventsManager;
+    private final TurnEventsManager turnEventsManager;
 
     /**
      * The player's workers number, constant and common to all players

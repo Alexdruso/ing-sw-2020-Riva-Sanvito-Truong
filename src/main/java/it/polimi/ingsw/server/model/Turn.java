@@ -278,7 +278,7 @@ public class Turn{
      * @param allowedWorker the worker to allow performing operations on this turn
      */
     public void addAllowedWorker(Worker allowedWorker){
-        allowedWorkers.add(allowedWorker);
+        this.allowedWorkers.add(allowedWorker);
     }
 
     /**
@@ -357,7 +357,6 @@ public class Turn{
         // if lose -> go to state LOSE
         if (this.isLosingTurn()) this.setNextState(TurnState.LOSE.getTurnState());
 
-        // computeWinConditions();
         this.computeWinConditions();
 
         // if win -> go to state WIN
@@ -382,8 +381,6 @@ public class Turn{
      * win conditions
      */
     private void computeWinConditions() {
-        //qui il codice da Move::move
-
         // sets winning turn is there is a the worker is moved from level 2 to level 3
         List<MoveAction> moves = this.getMoves();
         if(!moves.isEmpty()){

@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.model.board;
 import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.server.model.workers.Worker;
 import it.polimi.ingsw.server.model.workers.WorkerID;
-import it.polimi.ingsw.utils.config.ConfigParser;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTest {
     private final Cell cell = new Cell(0, 0);
-    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
+    private static final int BOARD_SIZE = 5;
 
     @ParameterizedTest
     @EnumSource(WorkerID.class)

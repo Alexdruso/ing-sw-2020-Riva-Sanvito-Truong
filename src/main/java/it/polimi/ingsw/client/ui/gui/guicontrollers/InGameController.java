@@ -22,14 +22,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InGameController extends AbstractController{
-    private final double CELL_CONTENT_MARGIN = 5.0;
-
     @FXML GridPane boardPane;
     @FXML AnchorPane boardContainer;
     @FXML Label mainLabel;
@@ -50,23 +48,23 @@ public class InGameController extends AbstractController{
         WORKER_C,
     }
 
-    private final HashMap<BoardElement, Image> boardAssets = new HashMap<>();
     private final HashMap<ReducedPlayer, PlayerLateralLabel> lateralLabels = new HashMap<>();
+    private final EnumMap<BoardElement, Image> boardAssets = new EnumMap<>(BoardElement.class);
     private ImageView blockIcon;
     private ImageView domeIcon;
-    private List<ReducedPlayer> players;
 
     private ImageView getImageView(Image image){
+        final double cellContentMargin = 5.0;
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
-        imageView.fitWidthProperty().bind(boardPane.widthProperty().divide(5).subtract(CELL_CONTENT_MARGIN));
-        imageView.fitHeightProperty().bind(boardPane.heightProperty().divide(5).subtract(CELL_CONTENT_MARGIN));
+        imageView.fitWidthProperty().bind(boardPane.widthProperty().divide(5).subtract(cellContentMargin));
+        imageView.fitHeightProperty().bind(boardPane.heightProperty().divide(5).subtract(cellContentMargin));
         return imageView;
     }
 
     private List<ImageView> getImageStack(ReducedCell cell){
-        players = new ArrayList<>(client.getGame().getPlayersList());
+        List<ReducedPlayer> players = new ArrayList<>(client.getGame().getPlayersList());
         //Temporary rendering, until we find a better way to render stuff
         List<ImageView> imageStack = new ArrayList<>();
         for(int i = 0; i < cell.getTowerHeight(); i++){
@@ -167,12 +165,13 @@ public class InGameController extends AbstractController{
             for(int y = 0; y < 5; y++){
                 ReducedCell cell = board.getCell(x, y);
                 StackPane cellPane = cellPanes.get(5*y+x);
+                final String CELL_HIGHLIGHTED = "cell-highlighted";
                 if(cell.isHighlighted()){
-                    if(!cellPane.getStyleClass().contains("cell-highlighted")){
-                        cellPane.getStyleClass().add("cell-highlighted");
+                    if(!cellPane.getStyleClass().contains(CELL_HIGHLIGHTED)){
+                        cellPane.getStyleClass().add(CELL_HIGHLIGHTED);
                     }
                 } else {
-                    int toRemove = cellPane.getStyleClass().indexOf("cell-highlighted");
+                    int toRemove = cellPane.getStyleClass().indexOf(CELL_HIGHLIGHTED);
                     if(toRemove != -1){
                         cellPane.getStyleClass().remove(toRemove);
                     }

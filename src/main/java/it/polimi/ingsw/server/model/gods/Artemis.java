@@ -21,7 +21,7 @@ class Artemis extends AbstractGod {
             List<MoveAction> moveActions = turn.getMoves();
             if (moveActions.size() == 1) {
                 turn.setSkippable(true);
-                MoveAction lastMove = (MoveAction) moveActions.get(0);
+                MoveAction lastMove = moveActions.get(0);
                 Worker lastMoveWorker = lastMove.getWorker();
                 turn.clearAllowedWorkers();
                 turn.addAllowedWorker(lastMoveWorker);

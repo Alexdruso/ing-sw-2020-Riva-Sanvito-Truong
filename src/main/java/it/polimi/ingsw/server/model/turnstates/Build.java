@@ -7,6 +7,9 @@ import it.polimi.ingsw.server.model.board.Component;
 import it.polimi.ingsw.server.model.board.TargetCells;
 import it.polimi.ingsw.server.model.workers.Worker;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 class Build implements AbstractTurnState {
 
     /**
@@ -42,17 +45,23 @@ class Build implements AbstractTurnState {
         }
         //use powers
         turn.getPlayer().getTurnEventsManager().processBeforeBuildEvents(turn);
-        //compute lose conditions
-        boolean isPossibleBuild = turn.getAllowedWorkers().stream().map(
-                allowedWorker -> !turn.getGame().getBoard()
-                        .getTargets(turn.getWorkerDomeBuildableCells(allowedWorker))
-                        .isEmpty() //check if worker can build dome in some cells
-                        || !turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker))
-                        .isEmpty() //check if worker can build a block somewhere
-        )
-                .reduce(false, (isSomeActionAll, isSomeAction) -> isSomeActionAll || isSomeAction);
 
-        if (isPossibleBuild) turn.getGame().notifyAskBuild(turn); //if there is available build, notify the message
+        //now set as allowed workers only the ones who can build something
+        List<Worker> buildAllowedWorkers = turn.getAllowedWorkers().stream()
+                .filter(
+                        allowedWorker -> !turn.getGame().getBoard()
+                                .getTargets(turn.getWorkerDomeBuildableCells(allowedWorker))
+                                .isEmpty() //check if worker can build dome in some cells
+                                || !turn.getGame().getBoard().getTargets(turn.getWorkerBlockBuildableCells(allowedWorker))
+                                .isEmpty() //check if worker can build a block somewhere
+                )
+                .collect(Collectors.toList());
+
+        turn.clearAllowedWorkers();
+        turn.addAllowedWorkers(buildAllowedWorkers);
+
+        if (!buildAllowedWorkers.isEmpty())
+            turn.getGame().notifyAskBuild(turn); //if there is available build, notify the message
         else if (turn.isSkippable())
             turn.getGame().skip(); //skip automatically to the next state if you can't perform any action
         else turn.triggerLosingTurn(); //else you lost

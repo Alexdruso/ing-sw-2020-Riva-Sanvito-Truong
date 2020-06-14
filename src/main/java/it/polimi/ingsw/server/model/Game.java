@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * This class is the game and its main purpose is to keep the general state of the match.
+ * This class keeps the general state of the match.
  * It provides methods to gain insights on the current state.
  */
 public class Game extends LambdaObservable<Transmittable> {
@@ -31,7 +31,7 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * The number of maximum players of the game
      */
-    private final int MAX_NUMBER_OF_PLAYERS;
+    private final int maxNumberOfPlayers;
     /**
      * The Board object of the game
      */
@@ -67,7 +67,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param numberOfPlayers the number of players
      */
     public Game(int numberOfPlayers) {
-        MAX_NUMBER_OF_PLAYERS = numberOfPlayers;
+        maxNumberOfPlayers = numberOfPlayers;
         subscribedUsers = new BidirectionalLinkedHashMap<>();
         players = new LinkedList<>();
         lastRound = new LinkedList<>();
@@ -82,7 +82,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * @param user the representation of the user
      */
     public void subscribeUser(User user) {
-        if (subscribedUsers.size() == MAX_NUMBER_OF_PLAYERS) {
+        if (subscribedUsers.size() == maxNumberOfPlayers) {
             //This means that adding one will get us over the limit
             throw new IllegalStateException("Too many players");
         }
@@ -694,7 +694,13 @@ public class Game extends LambdaObservable<Transmittable> {
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue))
+                                .collect(Collectors.toMap(
+                                        e -> e.getKey().toReducedWorkerId(),
+                                        Map.Entry::getValue,
+                                        (k1, k2) -> {
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s (while computing walkable cells) are duplicate", k1, k2));
+                                        },
+                                        () -> new EnumMap<>(ReducedWorkerID.class)))
                 )
         );
     }
@@ -718,7 +724,13 @@ public class Game extends LambdaObservable<Transmittable> {
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue)
+                                .collect(Collectors.toMap(
+                                        e -> e.getKey().toReducedWorkerId(),
+                                        Map.Entry::getValue,
+                                        (k1, k2) -> {
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s (while computing block buildable cells) are duplicate", k1, k2));
+                                        },
+                                        () -> new EnumMap<>(ReducedWorkerID.class))
                                 ),
                         turn.getDomeBuildableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
@@ -726,7 +738,14 @@ public class Game extends LambdaObservable<Transmittable> {
                                                 entry.getValue().toReducedTargetCells()
                                         )
                                 )
-                                .collect(Collectors.toMap(e -> e.getKey().toReducedWorkerId(), Map.Entry::getValue)
+                                .collect(Collectors.toMap(
+                                        e -> e.getKey().toReducedWorkerId(),
+                                        Map.Entry::getValue,
+                                        (k1, k2) -> {
+                                            throw new IllegalArgumentException(String.format("Keys %s and %s (while computing dome buildable cells) are duplicate", k1, k2));
+                                        },
+                                        () -> new EnumMap<>(ReducedWorkerID.class)
+                                        )
                                 )
                 )
         );

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.reducedmodel;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.List;
 
 public class ReducedBoard {
     private final ReducedCell[][] cells;
-    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
+    private static final int BOARD_SIZE = 5;
 
     public ReducedBoard() {
         cells = new ReducedCell[BOARD_SIZE][BOARD_SIZE];

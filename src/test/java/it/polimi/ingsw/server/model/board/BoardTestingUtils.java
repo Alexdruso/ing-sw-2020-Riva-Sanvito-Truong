@@ -1,13 +1,12 @@
 package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
 import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class BoardTestingUtils {
-    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
+    private static final int BOARD_SIZE = 5;
 
     public static Stream<Arguments> getCoordPairs(){
         ArrayList<Arguments> coords = new ArrayList<Arguments>();

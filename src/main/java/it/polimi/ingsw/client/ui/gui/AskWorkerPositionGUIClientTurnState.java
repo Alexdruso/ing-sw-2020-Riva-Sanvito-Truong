@@ -18,7 +18,7 @@ public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositi
     @Override
     public void render() {
         InGameController controller = (InGameController)((GUI)client.getUI()).getCurrentScene().controller;
-        Platform.runLater(() -> controller.clearSideButtons());
+        Platform.runLater(controller::clearSideButtons);
         if(client.isCurrentlyActive()){
             Platform.runLater(() -> {
                 controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));

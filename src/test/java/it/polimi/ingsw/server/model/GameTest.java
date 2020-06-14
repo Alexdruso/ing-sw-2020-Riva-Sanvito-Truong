@@ -568,8 +568,8 @@ public class GameTest {
         game.subscribeUser(new User("Buggo"));
         game.subscribeUser(new User("Zeb89"));
         List<Player> playerList = game.getPlayersList();
-        assertEquals(playerList.get(0).getNickname(), "Maria Ortigli");
-        assertEquals(playerList.get(1).getNickname(), "Buggo");
-        assertEquals(playerList.get(2).getNickname(), "Zeb89");
+        assertEquals("Maria Ortigli", playerList.get(0).getNickname());
+        assertEquals("Buggo", playerList.get(1).getNickname());
+        assertEquals("Zeb89", playerList.get(2).getNickname());
     }
 }

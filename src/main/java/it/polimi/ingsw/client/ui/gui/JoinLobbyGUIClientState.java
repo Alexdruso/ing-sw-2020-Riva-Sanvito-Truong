@@ -7,11 +7,8 @@ import it.polimi.ingsw.client.ui.gui.guicontrollers.JoinLobbyController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
-import java.util.logging.Logger;
-
 public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implements GUIClientState{
     private SavedScene savedScene;
-    private static final Logger LOGGER = Logger.getLogger(WaitPlayersGUIClientState.class.getName());
 
     /**
      * Instantiates a new JOIN_LOBBY ClientState.

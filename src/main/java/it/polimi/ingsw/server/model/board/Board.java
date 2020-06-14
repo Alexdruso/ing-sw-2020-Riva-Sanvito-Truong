@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.model.board;
 
-import it.polimi.ingsw.utils.config.ConfigParser;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +19,7 @@ public class Board {
     /**
      * This is the constant lenght of a side of the board
      */
-    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
+    private static final int BOARD_SIZE = 5;
 
     /**
      * This method creates a board with BOARD_SIZE*dimension cells

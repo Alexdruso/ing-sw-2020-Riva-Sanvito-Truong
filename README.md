@@ -10,18 +10,33 @@
 - Alessandro Sanvito (immatriculation number: 891196)
 - Kien Tuong Truong (immatriculation number: 887907)
 
+## Compile
+
+To run the tests and compile the software:
+
+1. Install [Java SE 14](https://docs.oracle.com/en/java/javase/14/)
+2. Install [Maven](https://maven.apache.org/install.html)
+3. Clone this repo
+4. In the cloned repo folder, run:
+```bash
+mvn package
+```
+5. The compiled artifacts (`Santorini-Client.jar` and `Santorini-Server.jar`) are inside the `target` folder.
+
 ## Quick start guide
 
 ### Windows
 
-To run the server:
+#### To run the server:
 
 1. In a terminal window, run:
 ```bash
 Santorini-Server.bat
 ```
 
-To run the client:
+Please, keep in mind that the server expects the configuration files `global.properties` and `server.properties` inside `./config/` (relative to the current working directory).
+
+#### To run the client:
 
 You need to enable the support to UTF-8 characters in the terminal:
 
@@ -41,14 +56,16 @@ Santorini-Client.bat cli
 
 ### Linux / MacOS
 
-To run the server:
+#### To run the server:
 
 1. In a terminal window, run:
 ```bash
 ./Santorini-Server.sh
 ```
 
-To run the client:
+Please, keep in mind that the server expects the configuration files `global.properties` and `server.properties` inside `./config/` (relative to the current working directory).
+
+#### To run the client:
 
 1. In a terminal window, run:
 

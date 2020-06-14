@@ -9,6 +9,7 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +32,11 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The cells that can be built a block on by each worker.
      */
-    private final Map<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells;
+    private final EnumMap<ReducedWorkerID, ReducedTargetCells> workerBlockBuildableCells;
     /**
      * The cells that can be built a block on by each worker.
      */
-    private final Map<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells;
+    private final EnumMap<ReducedWorkerID, ReducedTargetCells> workerDomeBuildableCells;
 
     /**
      * Instantiates a new Server ask build message.
@@ -52,8 +53,8 @@ public class ServerAskBuildMessage implements ServerMessage, ClientHandleable {
         this.user = user;
         this.isSkippable = isSkippable;
         this.allowedWorkers = allowedWorkers;
-        this.workerBlockBuildableCells = workerBlockBuildableCells;
-        this.workerDomeBuildableCells = workerDomeBuildableCells;
+        this.workerBlockBuildableCells = new EnumMap<>(workerBlockBuildableCells);
+        this.workerDomeBuildableCells = new EnumMap<>(workerDomeBuildableCells);
     }
 
     @Override

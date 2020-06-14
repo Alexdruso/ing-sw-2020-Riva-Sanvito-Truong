@@ -18,7 +18,7 @@ public abstract class AbstractClientTurnState {
      *
      * @throws UnsupportedOperationException if CLIENT_ERROR is not a valid StatusMessage for the current state
      */
-    public void handleClientError() throws UnsupportedOperationException {
+    public void handleClientError() {
         throw new UnsupportedOperationException();
     }
 }

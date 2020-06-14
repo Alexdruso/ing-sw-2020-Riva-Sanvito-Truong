@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.model.board;
 
 
-import it.polimi.ingsw.utils.config.ConfigParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TargetCellsTest {
 
-    private static final int BOARD_SIZE = ConfigParser.getInstance().getIntProperty("boardSize");
+    private static final int BOARD_SIZE = 5;
 
     @Test
     public void targetInitShouldBeEmpty(){
@@ -55,12 +54,12 @@ public class TargetCellsTest {
         target.setPosition(x, y, true);
         assertTrue(target.getPosition(x, y));
         List<Cell> targeted = board.getTargets(target);
-        assertEquals(targeted.size(), 1, "Only a single cell should be targeted");
+        assertEquals(1, targeted.size(), "Only a single cell should be targeted");
         assertSame(targeted.get(0), board.getCell(x, y));
         assertTrue(target.getPosition(targeted.get(0)));
         target.setPosition(x, y, false);
         targeted = board.getTargets(target);
-        assertEquals(targeted.size(), 0);
+        assertEquals(0, targeted.size());
     }
 
     @ParameterizedTest
@@ -70,13 +69,13 @@ public class TargetCellsTest {
         TargetCells target = new TargetCells();
         target.setColumn(x, true);
         List<Cell> targeted = board.getTargets(target);
-        assertEquals(targeted.size(), BOARD_SIZE);
+        assertEquals(BOARD_SIZE, targeted.size());
         for(int i = 0; i < BOARD_SIZE; i++){
             assertTrue(targeted.contains(board.getCell(x, i)));
         }
         target.setColumn(x, false);
         targeted = board.getTargets(target);
-        assertEquals(targeted.size(), 0);
+        assertEquals(0, targeted.size());
     }
 
     @ParameterizedTest
@@ -86,13 +85,13 @@ public class TargetCellsTest {
         TargetCells target = new TargetCells();
         target.setRow(y, true);
         List<Cell> targeted = board.getTargets(target);
-        assertEquals(targeted.size(), BOARD_SIZE);
+        assertEquals(BOARD_SIZE, targeted.size());
         for(int i = 0; i < BOARD_SIZE; i++){
             assertTrue(targeted.contains(board.getCell(i, y)));
         }
         target.setRow(y, false);
         targeted = board.getTargets(target);
-        assertEquals(targeted.size(), 0);
+        assertEquals(0, targeted.size());
     }
 
     @Test

@@ -8,9 +8,9 @@ public enum CSSFile {
     TEXT(CSSFile.class.getResource("/css/text.css").toExternalForm()),
     MAIN_MENU(CSSFile.class.getResource("/css/main-menu.css").toExternalForm());
 
-    public final String CSSForm;
+    public final String cssForm;
 
-    CSSFile(String CSSForm){
-        this.CSSForm = CSSForm;
+    CSSFile(String cssForm){
+        this.cssForm = cssForm;
     }
 }

@@ -51,9 +51,11 @@ public class Server{
     }
 
     public Server(int serverPort) throws IOException {
-        int n_THREADS = ConfigParser.getInstance().getIntProperty("numberOfThreads");
+        ConfigParser configParser = ConfigParser.getInstance();
+        int nThreads = configParser.getIntProperty("numberOfThreads");
+        LOGGER.log(Level.INFO, () -> String.format("Starting %s server v. %s...", configParser.getProperty("projectName"), configParser.getProperty("version")));
         serverSocket = getServerSocket(serverPort);
-        executor = Executors.newFixedThreadPool(n_THREADS);
+        executor = Executors.newFixedThreadPool(nThreads);
         ongoingMatches = new ArrayList<>();
         handlers = new ConcurrentHashMap<>();
         lobbyBuilder = new ServerLobbyBuilder(this);

@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client.ui.gui;
 
 import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
-import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -11,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -23,7 +20,6 @@ public class JavaFXGUI extends Application {
 
     private static final Object sceneLock = new Object();
     private static boolean initialized = false;
-    private final HashMap<String, SavedScene> sceneMap = new HashMap<>();
     static Runnable onExit;
 
     @Override
@@ -37,7 +33,7 @@ public class JavaFXGUI extends Application {
             primaryScene = new Scene(root, 1280, 720);
 
             primaryScene.getStylesheets().addAll(
-                    Arrays.stream(CSSFile.values()).map(x -> x.CSSForm).collect(Collectors.toList())
+                    Arrays.stream(CSSFile.values()).map(x -> x.cssForm).collect(Collectors.toList())
             );
             primaryScene.setFill(Color.BLACK); //Ready to fade-in
 
@@ -78,11 +74,6 @@ public class JavaFXGUI extends Application {
         }
     }
 
-    public static void setNextRoot(Parent root){
-        //primaryStage = stage;
-        return;
-    }
-
     @Override
     public void stop() throws Exception {
         super.stop();
@@ -90,8 +81,6 @@ public class JavaFXGUI extends Application {
     }
 
     public static void launchJavaFX() {
-        JavaFXGUI.launch();
+        Application.launch();
     }
-
-
 }

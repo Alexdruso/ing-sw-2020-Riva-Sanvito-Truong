@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.ui.cli;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetNicknameClientState;
+import it.polimi.ingsw.utils.config.ConfigParser;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 
@@ -23,7 +24,17 @@ public class SetNicknameCLIClientState extends AbstractSetNicknameClientState im
 
     @Override
     public void render() {
-        nickname = cli.readString(String.format("%s:", I18n.string(I18nKey.NICKNAME)));
+        do {
+            nickname = cli.readString(String.format("%s:", I18n.string(I18nKey.NICKNAME)));
+            if (nickname.length() == 0) {
+                cli.error(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_GENERIC));
+                nickname = null;
+            }
+            else if (nickname.length() >= ConfigParser.getInstance().getIntProperty("nicknameMaxLength")) {
+                cli.error(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_LENGTH));
+                nickname = null;
+            }
+        } while (nickname == null);
         notifyUiInteraction();
     }
 

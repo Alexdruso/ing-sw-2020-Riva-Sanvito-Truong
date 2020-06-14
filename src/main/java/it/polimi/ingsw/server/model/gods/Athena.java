@@ -29,7 +29,7 @@ class Athena extends AbstractGod {
                 List<MoveAction> athenaMoveUpActions = athenaLastTurn.getMoves().stream().filter(
                         action -> action.getTargetLevel() > action.getSourceLevel()
                 ).collect(Collectors.toList());
-                if (athenaMoveUpActions.size() > 0) {
+                if (!athenaMoveUpActions.isEmpty()) {
                     for (Worker worker : turn.getPlayer().getWorkers()) {
                         TargetCells lowerOrEqualCells = TargetCells.fromCells(
                                 turn.getGame().getBoard().getCellsList().stream().filter(
