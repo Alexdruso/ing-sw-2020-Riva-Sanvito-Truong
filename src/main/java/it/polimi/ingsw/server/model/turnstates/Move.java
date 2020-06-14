@@ -6,6 +6,9 @@ import it.polimi.ingsw.server.model.board.Cell;
 import it.polimi.ingsw.server.model.board.TargetCells;
 import it.polimi.ingsw.server.model.workers.Worker;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 class Move implements AbstractTurnState {
 
     /**
@@ -34,17 +37,21 @@ class Move implements AbstractTurnState {
         }
         //use powers
         turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);
-        //compute lose conditions
-        boolean isPossibleMove = turn.getAllowedWorkers().stream()
-                .map(
+        //now set as allowed workers only the workers able to move
+
+        List<Worker> movableWorkers = turn.getAllowedWorkers().stream()
+                .filter(
                         allowedWorker ->
                                 !turn.getGame().getBoard()
                                         .getTargets(turn.getWorkerWalkableCells(allowedWorker))
                                         .isEmpty()
                 )
-                .reduce(false, (isPossibleActionAll, isPossibleAction) -> isPossibleActionAll || isPossibleAction);
+                .collect(Collectors.toList());
 
-        if (isPossibleMove) turn.getGame().notifyAskMove(turn); //if a move is possible, ask it
+        turn.clearAllowedWorkers();
+        turn.addAllowedWorkers(movableWorkers);
+
+        if (!movableWorkers.isEmpty()) turn.getGame().notifyAskMove(turn); //if a move is possible, ask it
         else if (turn.isSkippable()) turn.getGame().skip(); //else if we can skip automatically, do it
         else turn.triggerLosingTurn(); //else it is a losing turn
     }
