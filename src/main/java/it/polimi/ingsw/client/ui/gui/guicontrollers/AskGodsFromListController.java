@@ -105,9 +105,7 @@ public class AskGodsFromListController extends AbstractController {
         //TODO: change text size dynamically
         label.getStyleClass().add("god-label");
 
-        img.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            lateralGodCard.clickGod(god);
-        });
+        img.setOnMouseClicked((MouseEvent mouseEvent) -> lateralGodCard.clickGod(god));
 
         VBox iconPane = new VBox(img, label);
         iconPane.setAlignment(Pos.CENTER);

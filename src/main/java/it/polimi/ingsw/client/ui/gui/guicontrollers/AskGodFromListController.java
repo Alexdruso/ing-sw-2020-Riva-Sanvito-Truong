@@ -6,20 +6,15 @@ import it.polimi.ingsw.client.ui.gui.utils.GodAsset;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
-import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.CacheHint;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -93,9 +88,7 @@ public class AskGodFromListController extends AbstractController{
         //TODO: change text size dynamically
         label.getStyleClass().add("god-label");
 
-        img.setOnMouseClicked((MouseEvent mouseEvent) -> {
-            lateralGodCard.clickGod(god);
-        });
+        img.setOnMouseClicked((MouseEvent mouseEvent) -> lateralGodCard.clickGod(god));
 
         VBox iconPane = new VBox(img, label);
         iconPane.setAlignment(Pos.CENTER);

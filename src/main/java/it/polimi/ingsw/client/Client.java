@@ -112,7 +112,7 @@ public class Client implements LambdaObserver {
             while (!readyToExit.get() && Duration.between(start, Instant.now()).toMillis() < EXIT_TIMEOUT_MILLIS) {
                 try {
                     // Let's add a bit of leeway to the wait timeout so that we are sure to exit the while after the first cycle
-                    readyToExit.wait(EXIT_TIMEOUT_MILLIS + 1);
+                    readyToExit.wait(EXIT_TIMEOUT_MILLIS + 1L);
                 } catch (InterruptedException ignored) {
                     Thread.currentThread().interrupt();
                 }

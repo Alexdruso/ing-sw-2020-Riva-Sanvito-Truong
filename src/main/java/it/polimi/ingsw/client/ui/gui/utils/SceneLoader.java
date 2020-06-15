@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.ui.gui.utils;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
-import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.GUI;
 import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
@@ -76,7 +75,7 @@ public class SceneLoader {
             scene.controller.setClient(client);
             scene.controller.setupController();
             SavedScene finalScene = scene;
-            Platform.runLater(() -> finalScene.controller.onSceneShow());
+            Platform.runLater(finalScene.controller::onSceneShow);
             scene.controller.setState(state);
 
             applySceneFade(scene);

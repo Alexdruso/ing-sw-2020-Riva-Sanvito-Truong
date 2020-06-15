@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.ui.gui.utils.CSSFile;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;

@@ -8,7 +8,6 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.NamedArg;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -17,11 +16,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
 public class LateralGodCard extends StackPane {
     private static final Logger LOGGER = Logger.getLogger(LateralGodCard.class.getName());
 
-    private Map<GodAsset, Image> cachedCards = new EnumMap<>(GodAsset.class);
+    private final Map<GodAsset, Image> cachedCards = new EnumMap<>(GodAsset.class);
 
     @FXML
     Pane rootPane;
@@ -62,11 +63,11 @@ public class LateralGodCard extends StackPane {
     private ReducedGod currentGod;
     private boolean sideBarVisible = false;
 
-    private Boolean hasButton;
+    private final boolean hasButton;
 
     Consumer<ReducedGod> godSelectionCallback;
 
-    public LateralGodCard(@NamedArg("hasButton") Boolean hasButton){
+    public LateralGodCard(@NamedArg("hasButton") boolean hasButton){
         this.hasButton = hasButton;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LateralGodCard.fxml"), I18n.getResourceBundle());
         fxmlLoader.setRoot(this);

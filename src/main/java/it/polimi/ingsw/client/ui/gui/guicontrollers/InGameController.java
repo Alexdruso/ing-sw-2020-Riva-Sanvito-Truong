@@ -11,7 +11,6 @@ import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.PlayerLateralLabel;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
-import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -230,11 +229,8 @@ public class InGameController extends AbstractController{
 
     public void updatePlayerLabels(){
         for(Map.Entry<ReducedPlayer, PlayerLateralLabel> entry: lateralLabels.entrySet()){
-            if(entry.getKey().equals(client.getGame().getTurn().getPlayer())){
-                entry.getValue().setActiveStatus(true);
-            } else {
-                entry.getValue().setActiveStatus(false);
-            }
+            boolean isActive = entry.getKey().equals(client.getGame().getTurn().getPlayer());
+            entry.getValue().setActiveStatus(isActive);
         }
     }
 
