@@ -16,8 +16,11 @@ public class SceneLoaderFactory {
     boolean doApplyFadeIn = true;
     boolean attemptLoadFromSaved = true;
     boolean forceSceneChange = false;
+    boolean replaceOldScene = true;
     double fadeInDuration = 500;
     double fadeOutDuration = 500;
+    double blurInDuration = 500;
+    double blurOutDuration = 500;
     CSSFile cssFile;
     AbstractClientState state;
 
@@ -60,6 +63,21 @@ public class SceneLoaderFactory {
 
     public SceneLoaderFactory setFadeOutDuration(double duration){
         this.fadeOutDuration = duration;
+        return this;
+    }
+
+    public SceneLoaderFactory setBlurInDuration(double duration){
+        this.blurInDuration = duration;
+        return this;
+    }
+
+    public SceneLoaderFactory setBlurOutDuration(double duration){
+        this.blurOutDuration = duration;
+        return this;
+    }
+
+    public SceneLoaderFactory setReplaceOldScene(boolean replaceOldScene){
+        this.replaceOldScene = replaceOldScene;
         return this;
     }
 

@@ -5,15 +5,17 @@ import it.polimi.ingsw.client.clientstates.AbstractClientState;
 import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.GUI;
+import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
 import it.polimi.ingsw.utils.i18n.I18n;
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
@@ -31,15 +33,16 @@ public class SceneLoader {
     private final ClientState clientState;
     private final Scene mainScene;
     private boolean doApplyFadeOut;
-    private boolean doApplyFirstFadeOut;
-    private boolean doApplyFadeIn;
-    private boolean attemptLoadFromSaved;
-    private boolean forceSceneChange;
-    private double fadeInDuration;
-    private double fadeOutDuration;
-    private CSSFile cssFile;
-    private AbstractClientState state;
-    private AbstractClientTurnState clientTurnState;
+    private final boolean doApplyFirstFadeOut;
+    private final boolean doApplyFadeIn;
+    private final boolean attemptLoadFromSaved;
+    private final boolean forceSceneChange;
+    private final boolean replaceOldScene;
+    private final double fadeInDuration;
+    private final double fadeOutDuration;
+    private final double blurInDuration;
+    private final double blurOutDuration;
+    private final AbstractClientState state;
 
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
@@ -50,10 +53,13 @@ public class SceneLoader {
         this.doApplyFirstFadeOut = loader.doApplyFirstFadeOut;
         this.doApplyFadeIn = loader.doApplyFadeIn;
         this.attemptLoadFromSaved = loader.attemptLoadFromSaved;
+        this.forceSceneChange = loader.forceSceneChange;
+        this.replaceOldScene = loader.replaceOldScene;
         this.fadeInDuration = loader.fadeInDuration;
         this.fadeOutDuration = loader.fadeOutDuration;
+        this.blurInDuration = loader.blurInDuration;
+        this.blurOutDuration = loader.blurOutDuration;
         this.state = loader.state;
-        this.forceSceneChange = loader.forceSceneChange;
     }
 
     public void executeSceneChange(){
@@ -69,7 +75,8 @@ public class SceneLoader {
             }
             scene.controller.setClient(client);
             scene.controller.setupController();
-            scene.controller.onSceneShow();
+            SavedScene finalScene = scene;
+            Platform.runLater(() -> finalScene.controller.onSceneShow());
             scene.controller.setState(state);
 
             applySceneFade(scene);
@@ -77,23 +84,25 @@ public class SceneLoader {
         } else {
             scene = ((GUI) client.getUI()).getCurrentScene();
             scene.controller.setClient(client);
-            //savedScene.controller.setupController();
+            scene.controller.setupController();
             scene.controller.setState(state);
-            //savedScene.controller.onSceneShow();
         }
     }
 
-
     private void applySceneFade(SavedScene savedScene) {
-        if (doApplyFadeOut){
-            applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
-        }
-        else {
-            if (doApplyFadeIn) {
-                applyFadeIn(mainScene, savedScene.root, fadeInDuration);
-            } else {
-                Platform.runLater(() -> mainScene.setRoot(savedScene.root));
+        if(replaceOldScene){
+            if (doApplyFadeOut){
+                applyFadeOut(mainScene, savedScene.root, fadeOutDuration, fadeInDuration);
             }
+            else {
+                if (doApplyFadeIn) {
+                    applyFadeIn(mainScene, savedScene.root, fadeInDuration);
+                } else {
+                    Platform.runLater(() -> JavaFXGUI.setMainRoot((Pane)savedScene.root));
+                }
+            }
+        } else {
+            applyBlurIn(savedScene.root, blurInDuration);
         }
     }
 
@@ -106,6 +115,7 @@ public class SceneLoader {
             return null;
         }
         gui.addScene(fxmlFile, savedScene);
+
         doApplyFadeOut = doApplyFirstFadeOut;
         return savedScene;
     }
@@ -135,9 +145,9 @@ public class SceneLoader {
 
     public static void applyFadeIn(Scene mainScene, Parent newRoot, double duration){
         Platform.runLater(() -> {
-            newRoot.setOpacity(0);
-            mainScene.setRoot(newRoot);
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(duration), newRoot);
+            mainScene.getRoot().setOpacity(0);
+            JavaFXGUI.setMainRoot((Pane)newRoot);
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(duration), mainScene.getRoot());
             fadeIn.setInterpolator(Interpolator.EASE_BOTH);
             fadeIn.setFromValue(0.0);
             fadeIn.setToValue(1.0);
@@ -153,6 +163,58 @@ public class SceneLoader {
             fadeOut.setToValue(0.0);
             fadeOut.play();
             fadeOut.setOnFinished(event -> applyFadeIn(mainScene, newRoot, fadeInDuration));
+        });
+    }
+
+    public static void applyBlurIn(Parent newOverlay, double duration){
+        Platform.runLater(() -> {
+            BoxBlur blur = new BoxBlur();
+            Timeline timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.millis(duration),
+                            new KeyValue(blur.heightProperty(), 15, Interpolator.EASE_BOTH),
+                            new KeyValue(blur.widthProperty(), 15, Interpolator.EASE_BOTH)
+                    ));
+            JavaFXGUI.getMainRoot().setEffect(blur);
+            timeline.setOnFinished(event -> {
+                newOverlay.setTranslateY(0); //Put this back on the screen
+                JavaFXGUI.setOverlayRoot((Pane)newOverlay);
+                JavaFXGUI.getOverlayRoot().setMouseTransparent(false);
+            });
+            timeline.play();
+        });
+    }
+
+    public static void applyBlurOut(double duration){
+        Platform.runLater(() -> {
+            BoxBlur blur = (BoxBlur)JavaFXGUI.getMainRoot().getEffect();
+            Timeline timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.millis(duration/2) ,
+                            new KeyValue(
+                                    JavaFXGUI.getOverlayRoot().getChildren().get(0).translateYProperty(),
+                                    JavaFXGUI.getPrimaryScene().getHeight()*2,
+                                    Interpolator.EASE_BOTH
+                            )
+                    ),
+                    new KeyFrame(
+                            Duration.millis(duration),
+                            new KeyValue(blur.heightProperty(), 0, Interpolator.EASE_BOTH),
+                            new KeyValue(blur.widthProperty(), 0, Interpolator.EASE_BOTH)
+                    )
+            );
+            timeline.setOnFinished(event -> {
+                JavaFXGUI.getOverlayRoot().getChildren().clear();
+                JavaFXGUI.getOverlayRoot().setMouseTransparent(true);
+            });
+            timeline.play();
+        });
+    }
+
+    public static void clearOverlay(){
+        Platform.runLater(() -> {
+            JavaFXGUI.getMainRoot().setEffect(null);
+            JavaFXGUI.getOverlayRoot().getChildren().clear();
         });
     }
 }

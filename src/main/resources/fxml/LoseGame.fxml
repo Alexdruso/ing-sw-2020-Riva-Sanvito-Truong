@@ -1,55 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.LoseGameController">
+<StackPane prefHeight="400.0" prefWidth="720.0" style="-fx-background-color: #00000088;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.LoseGameController">
    <children>
-      <AnchorPane id="VerticalGradientPane" prefHeight="200.0" prefWidth="200.0" />
-      <GridPane alignment="CENTER_RIGHT">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="152.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="245.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="388.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="145.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <VBox alignment="CENTER" spacing="10.0" StackPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleMenu" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%menu" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleReconnect" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%join_another_lobby" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Label fx:id="mainPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="164.0" prefWidth="868.0" styleClass="h1" text="%you_lost" textFill="WHITE" textOverrun="CLIP" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS">
+            <Label fx:id="mainPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="10.0" prefWidth="700.0" styleClass="h3" text="%you_lost" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font size="57.0" />
                </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
             </Label>
-            <Label fx:id="winnerName" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="h3" text="%do_you_want_to_keep_watching_the_game" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="423.0" mnemonicParsing="false" onAction="#handleSpectate" prefHeight="99.0" prefWidth="500.0" styleClass="titlebutton" text="%rejoin_as_spectator" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="winnerName" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" styleClass="h3" text="%do_you_want_to_keep_watching_the_game" textAlignment="CENTER" wrapText="true" VBox.vgrow="NEVER" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleMenu" prefHeight="50.0" prefWidth="350.0" styleClass="bigbutton" text="%menu" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleReconnect" prefHeight="50.0" prefWidth="350.0" styleClass="bigbutton" text="%join_another_lobby" textAlignment="CENTER" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSpectate" prefHeight="50.0" prefWidth="350.0" styleClass="bigbutton" text="%rejoin_as_spectator" textAlignment="CENTER" />
          </children>
-      </GridPane>
+      </VBox>
    </children>
 </StackPane>

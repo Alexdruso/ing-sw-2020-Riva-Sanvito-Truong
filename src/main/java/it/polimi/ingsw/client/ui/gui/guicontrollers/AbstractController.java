@@ -24,7 +24,7 @@ public abstract class AbstractController {
     public void setupController(){ }
 
     /**
-     * Method to be overridden if there is the need to do some operations everytime the scene is loaded,
+     * Method to be overridden if there is the need to do some operations only the first time the scene is loaded,
      * both from FXML or, if the scene has already been loaded once, from the client cache
      */
     public void onSceneShow() { }

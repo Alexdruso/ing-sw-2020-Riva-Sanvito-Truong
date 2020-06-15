@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractLoseGameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -18,18 +19,18 @@ public class LoseGameGUIClientState extends AbstractLoseGameClientState implemen
     }
 
     public void reconnect(){
+        SceneLoader.applyBlurOut(500);
         client.closeConnection();
         client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 
     public void returnToMenu(){
-        client.closeConnection();
-        client.moveToState(ClientState.WELCOME_SCREEN);
+        notifyUiInteraction();
+        SceneLoader.applyBlurOut(2000);
     }
 
     public void spectate(){
-        //This is here to unlock the scene change
-        //notifyUiInteraction();
+        SceneLoader.applyBlurOut(2000);
     }
 
     @Override
@@ -44,7 +45,12 @@ public class LoseGameGUIClientState extends AbstractLoseGameClientState implemen
         );
         if (showLoseScreen.get()) {
             SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/LoseGame.fxml", client);
-            sceneLoaderFactory.setState(ClientState.LOSE_GAME, this).build().executeSceneChange();
+            sceneLoaderFactory.setState(ClientState.LOSE_GAME, this)
+                    .setFadeIn(false)
+                    .setFadeOut(false)
+                    .setReplaceOldScene(false)
+                    .build()
+                    .executeSceneChange();
         }
     }
 }
