@@ -20,17 +20,17 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
     @Override
     public void render() {
         if (client.isCurrentlyActive()) {
-            renderCurrentlyActive();
+            renderMoveCurrentlyActive();
         }
         else {
-            renderCurrentlyInactive();
+            renderMoveCurrentlyInactive();
         }
     }
 
     /**
      * Renders the move CLI client turn state for the currently active player.
      */
-    private void renderCurrentlyActive() {
+    private void renderMoveCurrentlyActive() {
         ReducedGame game = client.getGame();
         ReducedTurn turn = game.getTurn();
         ReducedBoard board = game.getBoard();
@@ -148,7 +148,7 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
     /**
      * Renders the move CLI client turn state for the non-currently active players.
      */
-    private void renderCurrentlyInactive() {
+    private void renderMoveCurrentlyInactive() {
         cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE), client.getCurrentActiveUser().nickname));
     }
 

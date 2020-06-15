@@ -66,7 +66,7 @@ public class ConfigParser {
      * @return the value bound to the property
      * @throws IllegalArgumentException if the specified key does not exist
      */
-    public int getIntProperty(String key) throws IllegalArgumentException {
+    public int getIntProperty(String key) {
         return Integer.parseInt(getProperty(key));
     }
 

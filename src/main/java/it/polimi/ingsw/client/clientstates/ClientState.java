@@ -56,10 +56,5 @@ public enum ClientState {
      * Show the win screen to the player.
      */
     WIN_GAME,
-    /**
-     * Show game passive client state.
-     * TODO: TO BE REMOVED
-     */
-    SHOW_GAME_PASSIVE,
     ;
 }

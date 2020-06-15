@@ -12,9 +12,10 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      *
      * @param key the key whose associated value is to be returned.
      * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
+     * @throws NullPointerException if key is null
      */
     @Override
-    public V getValueFromKey(K key) throws NullPointerException {
+    public V getValueFromKey(K key) {
         return forwardMap.get(key);
     }
 
@@ -23,9 +24,10 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      *
      * @param value the value whose associated key is to be returned.
      * @return the key to which the specified value is mapped, or null if this map contains no mapping for the key.
+     * @throws NullPointerException if value is null
      */
     @Override
-    public K getKeyFromValue(V value) throws NullPointerException {
+    public K getKeyFromValue(V value) {
         return backwardMap.get(value);
     }
 
@@ -36,9 +38,10 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      *
      * @param key key whose presence in this map is to be tested.
      * @return true if this map contains a mapping for the specified key, otherwise false.
+     * @throws NullPointerException if key is null
      */
     @Override
-    public boolean containsKey(K key) throws NullPointerException {
+    public boolean containsKey(K key) {
         return forwardMap.containsKey(key);
     }
 
@@ -49,9 +52,10 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      *
      * @param value value whose presence in this map is to be tested.
      * @return true if this map contains a mapping for the specified value, otherwise false.
+     * @throws NullPointerException if value is null
      */
     @Override
-    public boolean containsValue(V value) throws NullPointerException {
+    public boolean containsValue(V value) {
         return forwardMap.containsValue(value);
     }
 
@@ -72,9 +76,10 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      *
      * @param key   key with which the specified value is to be associated
      * @param value value to be associated with the specified key
+     * @throws NullPointerException if key or value are null
      */
     @Override
-    public void put(K key, V value) throws NullPointerException {
+    public void put(K key, V value) {
         if(key == null){
             throw new NullPointerException("Key is null");
         }
@@ -92,8 +97,8 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      * <p>
      * The map will not contain a mapping for the specified key once the call returns.
      *
-     * @param key
-     * @return
+     * @param key the key to be removed
+     * @return the value associated to the removed key
      */
     @Override
     public V removeByKey(K key) {
@@ -108,8 +113,8 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      * <p>
      * The map will not contain a mapping for the specified key once the call returns.
      *
-     * @param value
-     * @return
+     * @param value the value to be removed
+     * @return the key associated to the temoved value
      */
     @Override
     public K removeByValue(V value) {

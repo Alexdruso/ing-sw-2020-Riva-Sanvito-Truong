@@ -58,7 +58,6 @@ public class GUI implements UI {
             case SET_NICKNAME -> new SetNicknameGUIClientState(client);
             case SET_PLAYERS_COUNT -> new SetPlayersCountGUIClientState(client);
             case WIN_GAME -> new WinGameGUIClientState(client);
-            case SHOW_GAME_PASSIVE -> new ShowGamePassiveGUIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersGUIClientState(client);
             case WELCOME_SCREEN -> new WelcomeScreenGUIClientState(client);
         };

@@ -123,7 +123,6 @@ public class CLI implements UI {
             case LOSE_GAME -> new LoseGameCLIClientState(client);
             case SET_NICKNAME -> new SetNicknameCLIClientState(client);
             case SET_PLAYERS_COUNT -> new SetPlayersCountCLIClientState(client);
-            case SHOW_GAME_PASSIVE -> new ShowGamePassiveCLIClientState(client);
             case WAIT_PLAYERS -> new WaitPlayersCLIClientState(client);
             case WIN_GAME -> new WinGameCLIClientState(client);
             case WELCOME_SCREEN -> new WelcomeScreenCLIClientState(client);

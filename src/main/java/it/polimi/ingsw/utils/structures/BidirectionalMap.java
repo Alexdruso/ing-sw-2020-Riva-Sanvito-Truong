@@ -34,15 +34,17 @@ public interface BidirectionalMap<K, V> extends Serializable {
      * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
      * @param key the key whose associated value is to be returned.
      * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
+     * @throws NullPointerException if key is null
      */
-    V getValueFromKey(K key) throws NullPointerException;
+    V getValueFromKey(K key);
 
     /**
      * Returns the key to which the specified value is mapped, or null if this map contains no mapping for the value.
      * @param value the value whose associated key is to be returned.
      * @return the key to which the specified value is mapped, or null if this map contains no mapping for the key.
+     * @throws NullPointerException if value is null
      */
-    K getKeyFromValue(V value) throws NullPointerException;
+    K getKeyFromValue(V value);
 
     /**
      * Returns true if this map contains a mapping for the specified key. More formally, returns true if and only if
@@ -50,8 +52,9 @@ public interface BidirectionalMap<K, V> extends Serializable {
      * (There can be at most one such mapping.)
      * @param key key whose presence in this map is to be tested.
      * @return true if this map contains a mapping for the specified key, otherwise false.
+     * @throws NullPointerException if key is null
      */
-    boolean containsKey(K key) throws NullPointerException;
+    boolean containsKey(K key);
 
     /**
      * Returns true if this map contains a mapping for the specified value. More formally, returns true if and only if
@@ -59,8 +62,9 @@ public interface BidirectionalMap<K, V> extends Serializable {
      * (There can be at most one such mapping.)
      * @param value value whose presence in this map is to be tested.
      * @return true if this map contains a mapping for the specified value, otherwise false.
+     * @throws NullPointerException if value is null
      */
-    boolean containsValue(V value) throws NullPointerException;
+    boolean containsValue(V value);
 
     /**
      * Returns true if this map contains no key-value mappings.
@@ -74,8 +78,9 @@ public interface BidirectionalMap<K, V> extends Serializable {
      * (A map m is said to contain a mapping for a key k if and only if m.containsKey(k) would return true.)
      * @param key key with which the specified value is to be associated
      * @param value value to be associated with the specified key
+     * @throws NullPointerException if key or value are null
      */
-    void put(K key, V value) throws NullPointerException;
+    void put(K key, V value);
 
     /**
      * Removes the mapping for a key from this map if it is present.
@@ -83,8 +88,8 @@ public interface BidirectionalMap<K, V> extends Serializable {
      * (key==null ? k==null : key.equals(k)), that mapping is removed. (The map can contain at most one such mapping.)
      *
      * The map will not contain a mapping for the specified key once the call returns.
-     * @param key
-     * @return
+     * @param key the key to be removed
+     * @return the value associated to the removed key
      */
     V removeByKey(K key);
 
@@ -94,8 +99,8 @@ public interface BidirectionalMap<K, V> extends Serializable {
      * (key==null ? k==null : key.equals(k)), that mapping is removed. (The map can contain at most one such mapping.)
      *
      * The map will not contain a mapping for the specified key once the call returns.
-     * @param value
-     * @return
+     * @param value the value to be removed
+     * @return the key associated to the removed value
      */
     K removeByValue(V value);
 

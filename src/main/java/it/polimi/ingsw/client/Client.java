@@ -14,6 +14,8 @@ import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
 import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
 import it.polimi.ingsw.utils.observer.LambdaObserver;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -105,9 +107,12 @@ public class Client implements LambdaObserver {
     private void onExit() {
         requestExit();
         synchronized (readyToExit) {
-            if (!readyToExit.get()) {
+            Instant start = Instant.now();
+            // Let's use while to take into account spurious wake ups
+            while (!readyToExit.get() && Duration.between(start, Instant.now()).toMillis() < EXIT_TIMEOUT_MILLIS) {
                 try {
-                    readyToExit.wait(EXIT_TIMEOUT_MILLIS);
+                    // Let's add a bit of leeway to the wait timeout so that we are sure to exit the while after the first cycle
+                    readyToExit.wait(EXIT_TIMEOUT_MILLIS + 1);
                 } catch (InterruptedException ignored) {
                     Thread.currentThread().interrupt();
                 }

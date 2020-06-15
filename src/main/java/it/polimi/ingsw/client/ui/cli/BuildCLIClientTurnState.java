@@ -24,17 +24,17 @@ public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implem
     @Override
     public void render() {
         if (client.isCurrentlyActive()) {
-            renderCurrentlyActive();
+            renderBuildCurrentlyActive();
         }
         else {
-            renderCurrentlyInactive();
+            renderBuildCurrentlyInactive();
         }
     }
 
     /**
      * Renders the build CLI client turn state for the currently active player.
      */
-    private void renderCurrentlyActive() {
+    private void renderBuildCurrentlyActive() {
         ReducedGame game = client.getGame();
         ReducedTurn turn = game.getTurn();
         ReducedBoard board = game.getBoard();
@@ -181,7 +181,7 @@ public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implem
     /**
      * Renders the build CLI client turn state for the non-currently active players.
      */
-    private void renderCurrentlyInactive() {
+    private void renderBuildCurrentlyInactive() {
         cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD), client.getCurrentActiveUser().nickname));
     }
 }
