@@ -9,8 +9,8 @@ public interface ClientHandleable {
     /**
      * Handles the interaction with the client.
      *
-     * @param client the client
+     * @param handler the client
      * @return true if there were no errors
      */
-    boolean handleTransmittable(Client client);
+    boolean handleTransmittable(Client handler);
 }
