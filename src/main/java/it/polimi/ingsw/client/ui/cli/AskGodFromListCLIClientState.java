@@ -26,17 +26,22 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
     public void render() {
         cli.clear();
         if (client.isCurrentlyActive()) {
-            cli.println(String.format("%s:", I18n.string(I18nKey.YOU_CAN_CHOOSE_ONE_OF_THESE_GODS)));
             List<ReducedGod> gods = new ArrayList<>(client.getGods());
-            for (int i = 0; i < gods.size(); i++) {
-                cli.println(String.format("[%d] %s: %s", i + 1, I18n.string(I18nKey.valueOf(String.format("%s_NAME", gods.get(i).name.toUpperCase()))), I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", gods.get(i).name.toUpperCase())))));
-            }
 
             cli.println("");
             while (chosenGod == null) {
+                cli.clear();
+                cli.println(String.format("%s:", I18n.string(I18nKey.YOU_CAN_CHOOSE_ONE_OF_THESE_GODS)));
+                for (int i = 0; i < gods.size(); i++) {
+                    cli.println(String.format("[%d] %s", i + 1, cli.getGodNameAndSubtitle(gods.get(i))));
+                }
                 int choice = cli.readInt(String.format("%s:", I18n.string(I18nKey.CHOOSE_YOUR_GOD))) - 1;
                 try {
                     chosenGod = gods.get(choice);
+                    boolean choiceConfirmed = cli.printGodCardConfirmationScreen(chosenGod);
+                    if (!choiceConfirmed) {
+                        chosenGod = null;
+                    }
                 } catch (IndexOutOfBoundsException e) {
                     cli.error(I18n.string(I18nKey.THE_CHOSEN_GOD_IS_INVALID));
                 }

@@ -9,6 +9,7 @@ import it.polimi.ingsw.client.reducedmodel.*;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
+import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -593,4 +594,15 @@ public class CLI implements UI {
         println("", 28, 0);
     }
 
+    String getGodNameAndSubtitle(ReducedGod god) {
+        return String.format("%s: %s", I18n.string(I18nKey.valueOf(String.format("%s_NAME", god.name.toUpperCase()))), I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", god.name.toUpperCase()))));
+    }
+
+    boolean printGodCardConfirmationScreen(ReducedGod god) {
+        clear();
+        println(getGodNameAndSubtitle(god));
+        println(I18n.string(I18nKey.valueOf(String.format("%s_DESCRIPTION", god.name.toUpperCase()))));
+        println("");
+        return readYesNo(I18n.string(I18nKey.DO_YOU_WANT_TO_CONFIRM_THE_CHOICE_OF_THIS_GOD));
+    }
 }
