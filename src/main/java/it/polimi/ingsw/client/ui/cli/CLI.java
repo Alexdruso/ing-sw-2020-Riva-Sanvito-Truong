@@ -30,6 +30,8 @@ public class CLI implements UI {
     private static final Logger LOGGER = Logger.getLogger(CLI.class.getName());
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
+    private static final String PLATFORM_DEPENDENT_NEWLINE = String.format("%n");
+    private Runnable onExit;
 
     private Scanner in;
     private PrintWriter out;
@@ -222,7 +224,7 @@ public class CLI implements UI {
     }
 
     private void println(Ansi s, int row, int column) {
-        println(ansi().cursor(row, column).a(s.toString().replaceAll("\n", ansi().a('\n').cursorRight(column - 1).toString())));
+        println(ansi().cursor(row, column).a(s.toString().replaceAll(PLATFORM_DEPENDENT_NEWLINE, ansi().a(PLATFORM_DEPENDENT_NEWLINE).cursorRight(column - 1).toString())));
     }
 
     /**
@@ -487,15 +489,15 @@ public class CLI implements UI {
     void drawBoard(ReducedBoard board) {
         int dimension = board.getDimension();
         StringBuilder boardStr = new StringBuilder((dimension+1)*(dimension+1)*9*5);
-        boardStr.append("\n");
+        boardStr.append(PLATFORM_DEPENDENT_NEWLINE);
         boardStr.append("     ");
         for (int i = 0; i < dimension; i++) {
             boardStr.append(String.format(BOARD_COLUMNS_FORMAT_STRING, (char) (i + 65)));
         }
-        boardStr.append("\n");
+        boardStr.append(PLATFORM_DEPENDENT_NEWLINE);
         for (int y = 0; y < dimension; y++) {
             Ansi[][] rowAnsi = new Ansi[dimension+1][];
-            String[] rowHeaders = String.format(BOARD_ROWS_FORMAT_STRING, y + 1).split("\n");
+            String[] rowHeaders = String.format(BOARD_ROWS_FORMAT_STRING, y + 1).split(PLATFORM_DEPENDENT_NEWLINE);
             rowAnsi[0] = new Ansi[rowHeaders.length];
             for (int i = 0; i < rowHeaders.length; i++) {
                 rowAnsi[0][i] = ansi().a(rowHeaders[i]);
@@ -507,7 +509,7 @@ public class CLI implements UI {
                 for (int j = 0; j < dimension + 1; j++) {
                     boardStr.append(rowAnsi[j][i]);
                 }
-                boardStr.append('\n');
+                boardStr.append(PLATFORM_DEPENDENT_NEWLINE);
             }
 
         }
@@ -530,7 +532,7 @@ public class CLI implements UI {
                     res.append(" ");
                 }
             }
-            res.append('\n');
+            res.append(PLATFORM_DEPENDENT_NEWLINE);
         }
         res.append(String.format("%-9s %-9s %-9s %-9s %s%n", I18n.string(I18nKey.GROUND), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.DOME)));
         res.append("          ");
@@ -553,11 +555,11 @@ public class CLI implements UI {
 
         if (hasDome) {
             bg = levelsBgColors[4];
-            retStr = String.format(levelFormatString[towerHeight], DOME_CELL_STRING).split("\n");
+            retStr = String.format(levelFormatString[towerHeight], DOME_CELL_STRING).split(PLATFORM_DEPENDENT_NEWLINE);
         }
         else {
             bg = levelsBgColors[towerHeight];
-            retStr = String.format(levelFormatString[towerHeight], cellWorkerChar).split("\n");
+            retStr = String.format(levelFormatString[towerHeight], cellWorkerChar).split(PLATFORM_DEPENDENT_NEWLINE);
         }
 
         ret = new Ansi[retStr.length];
