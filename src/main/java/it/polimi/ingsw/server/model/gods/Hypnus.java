@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * The god card Hypnus.
  */
-public class Hypnus extends AbstractGod {
+class Hypnus extends AbstractGod {
     /**
      * The TurnEvents for the opponents of the owner of the Hypnus god card.
      */

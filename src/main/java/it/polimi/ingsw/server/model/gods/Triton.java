@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * The god card Triton.
  */
-public class Triton extends AbstractGod {
+class Triton extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Triton god card.
      */

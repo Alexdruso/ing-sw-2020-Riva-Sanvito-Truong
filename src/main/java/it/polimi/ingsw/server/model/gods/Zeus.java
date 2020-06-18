@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * The god card Zeus.
  */
-public class Zeus extends AbstractGod {
+class Zeus extends AbstractGod {
     /**
      * The TurnEvents for the owner of the Triton god card.
      */
