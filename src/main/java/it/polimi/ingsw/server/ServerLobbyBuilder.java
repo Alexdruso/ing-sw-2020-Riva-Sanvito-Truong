@@ -52,7 +52,7 @@ public class ServerLobbyBuilder {
      *
      * @param server the Server reference
      */
-    public ServerLobbyBuilder(Server server) {
+    ServerLobbyBuilder(Server server) {
         this.server = server;
         this.registeredNicknames = new ConcurrentHashMap<>();
         this.lobbyRequestingConnections = new LinkedList<>();
@@ -180,7 +180,7 @@ public class ServerLobbyBuilder {
      * This method begins the main ServerLobbyBuilder thread, waiting for lobby requests and handling them
      * in order to generate a Match.
      */
-    public void start() {
+    void start() {
         while (active) {
             waitForFirstConnection();
 
