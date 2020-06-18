@@ -20,16 +20,35 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "85:53:74:17:3d:df:9e:92:91:97:95:3e:96:09:c5:ec"
+      - run:
+          name: Prepare Maven settings
+          command: cp .circleci/mvn-settings.xml ~/.m2/settings.xml
       - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: circleci-{{ checksum "pom.xml" }}
+          key: circleci-v2-{{ checksum "pom.xml" }}
       - run:
           name: Resolve Maven dependencies
-          command: mvn dependency:go-offline # gets the project dependencies
+          command: mvn dependency:go-offline
+            mvn clean install
+      - run:
+          name: Run tests and build
+          command: mvn clean install
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-          key: circleci-{{ checksum "pom.xml" }}
+          key: circleci-v2-{{ checksum "pom.xml" }}
+      - run:
+          name: Run SonarQube if [sonar] is present in the commit title
+          command: |
+            set +e
+            set +o pipefail
+            last_commit="$(git log -1 --pretty=%B | cat | grep sonar)"
+
+            if [[ ${last_commit} == *[sonar]* ]]; then
+              mvn sonar:sonar "-Dsonar.login=${SONARQUBE_TOKEN}"
+            else
+              echo "[sonar] keyword missing from commit title; skipping SonarQube run."
+            fi
       - run:
           name: Generate javadoc
           command: |
@@ -42,20 +61,6 @@ jobs:
               it.polimi.ingsw
       - store_artifacts:
           path: docs/javadoc
-      - run:
-          name: Run SonarQube if [sonar] is present in the commit title
-          command: |
-            set +e
-            set +o pipefail
-            last_commit="$(git log -1 --pretty=%B | cat | grep sonar)"
-
-            if [[ ${last_commit} == *[sonar]* ]]; then
-              cp .circleci/mvn-settings.xml ~/.m2/settings.xml
-              mvn clean install
-              mvn sonar:sonar "-Dsonar.login=${SONARQUBE_TOKEN}"
-            else
-              echo "[sonar] keyword missing from commit title; skipping SonarQube run."
-            fi
       - run:
           name: Commit new artifacts path
           command: |
