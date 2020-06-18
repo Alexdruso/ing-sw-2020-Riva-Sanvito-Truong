@@ -22,7 +22,9 @@ jobs:
             - "85:53:74:17:3d:df:9e:92:91:97:95:3e:96:09:c5:ec"
       - run:
           name: Prepare Maven settings
-          command: cp .circleci/mvn-settings.xml ~/.m2/settings.xml
+          command: |
+            mkdir ~/.m2/
+            cp .circleci/mvn-settings.xml ~/.m2/settings.xml
       - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: circleci-v2-{{ checksum "pom.xml" }}
