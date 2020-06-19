@@ -30,7 +30,7 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
     /**
      * The worker who performed the move
      */
-    public final ReducedWorkerID performer;
+    public final ReducedWorkerID workerID;
 
     /**
      * The user who performed the action
@@ -45,21 +45,21 @@ public class ServerMoveMessage implements ServerMessage, ClientHandleable {
      * @param sourceCellY The y coordinate of the cell from which the worker moved
      * @param targetCellX The x coordinate of the cell to which the worker moved
      * @param targetCellY The y coordinate of the cell to which the worker moved
-     * @param performer   The worker who performed the move
+     * @param workerID    The worker who performed the move
      */
     public ServerMoveMessage(ReducedUser user, int sourceCellX, int sourceCellY,
-                             int targetCellX, int targetCellY, ReducedWorkerID performer) {
+                             int targetCellX, int targetCellY, ReducedWorkerID workerID) {
         this.user = user;
         this.sourceCellX = sourceCellX;
         this.sourceCellY = sourceCellY;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
-        this.performer = performer;
+        this.workerID = workerID;
     }
 
     @Override
     public boolean handleTransmittable(Client client) {
-        client.getGame().setWorkerCell(user, performer, sourceCellX, sourceCellY, targetCellX, targetCellY);
+        client.getGame().setWorkerCell(user, workerID, sourceCellX, sourceCellY, targetCellX, targetCellY);
         return true;
     }
 }
