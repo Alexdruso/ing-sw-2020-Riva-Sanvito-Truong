@@ -71,7 +71,12 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         } else {
             //Passive screen
             Platform.runLater(() -> {
-                controller.setLabel(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD), client.getCurrentActiveUser().nickname));
+                controller.setLabel(
+                        String.format(
+                                I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD),
+                                client.getCurrentActiveUser().getNickname()
+                        )
+                );
                 controller.setPrompt(I18n.string(I18nKey.ASK_WORKER_START_POSITION_PASSIVE_PROMPT));
                 controller.setBoardClickableStatus(false);
                 controller.redrawBoard();

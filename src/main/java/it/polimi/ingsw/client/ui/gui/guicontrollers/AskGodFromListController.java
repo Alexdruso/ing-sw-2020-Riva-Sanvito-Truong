@@ -63,7 +63,7 @@ public class AskGodFromListController extends AbstractController{
         godListPane.getChildren().clear();
         godListPane.getChildren().addAll(godIcons.entrySet()
                 .stream()
-                .sorted(Comparator.comparing(o -> o.getKey().name))
+                .sorted(Comparator.comparing(o -> o.getKey().getName()))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList()));
     }

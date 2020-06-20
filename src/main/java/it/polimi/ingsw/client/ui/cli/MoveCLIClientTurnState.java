@@ -149,7 +149,12 @@ public class MoveCLIClientTurnState extends AbstractMoveClientTurnState implemen
      * Renders the move CLI client turn state for the non-currently active players.
      */
     private void renderMoveCurrentlyInactive() {
-        cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE), client.getCurrentActiveUser().nickname));
+        cli.println(
+                String.format(
+                        I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE),
+                        client.getCurrentActiveUser().getNickname()
+                )
+        );
     }
 
 }

@@ -29,7 +29,12 @@ public class AskStartPlayerPassiveController extends AbstractController {
 
     @Override
     public void setupController(){
-        welcomeLabel.setText(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER), client.getCurrentActiveUser().nickname));
+        welcomeLabel.setText(
+                String.format(
+                        I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER),
+                        client.getCurrentActiveUser().getNickname()
+                )
+        );
         animationHelper.animateLoadingScreen(imageArray, loadingTower);
     }
 

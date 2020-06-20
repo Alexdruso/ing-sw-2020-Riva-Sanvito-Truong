@@ -27,7 +27,12 @@ public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositi
             });
         } else {
             Platform.runLater(() -> {
-                controller.setLabel(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PLACE_THEIR_WORKERS), client.getCurrentActiveUser().nickname));
+                controller.setLabel(
+                        String.format(
+                                I18n.string(I18nKey.WAIT_FOR_S_TO_PLACE_THEIR_WORKERS),
+                                client.getCurrentActiveUser().getNickname()
+                        )
+                );
                 controller.setPrompt(I18n.string(I18nKey.ASK_WORKER_START_POSITION_PASSIVE_PROMPT));
                 controller.setBoardClickableStatus(false);
             });

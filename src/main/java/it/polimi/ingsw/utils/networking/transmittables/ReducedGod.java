@@ -10,7 +10,7 @@ public class ReducedGod implements Serializable {
     /**
      * The name of the god.
      */
-    public final String name;
+    private final String name;
 
     /**
      * Instantiates a new Reduced god.

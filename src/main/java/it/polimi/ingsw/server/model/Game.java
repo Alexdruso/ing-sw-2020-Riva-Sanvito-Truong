@@ -420,7 +420,7 @@ public class Game extends LambdaObservable<Transmittable> {
                 && chosenGods.size() == players.size() //check right number of gods
                 && (new HashSet<>(chosenGods)).size() == players.size() //Check no duplicates
                 && Arrays.stream(GodCard.values()).map(Enum::toString).collect(Collectors.toList()) //Check right gods
-                .containsAll(chosenGods.stream().map(x -> x.name.toUpperCase()).collect(Collectors.toList()));
+                .containsAll(chosenGods.stream().map(x -> x.getName().toUpperCase()).collect(Collectors.toList()));
     }
 
     /**
@@ -431,7 +431,7 @@ public class Game extends LambdaObservable<Transmittable> {
     public void setAvailableGodsList(List<ReducedGod> chosenGods) {
         availableGods.addAll(
                 chosenGods.stream().map(
-                        reducedGod -> GodCard.valueOf(reducedGod.name.toUpperCase()).getGod()
+                        reducedGod -> GodCard.valueOf(reducedGod.getName().toUpperCase()).getGod()
                 ).collect(Collectors.toList())
         );
         //rotate the player
@@ -460,9 +460,9 @@ public class Game extends LambdaObservable<Transmittable> {
         return gameState == GameState.SET_GODS //check right state
                 && player.equals(players.peek()) //check right player
                 && availableGods.stream().map(God::getName) //check god is in game
-                .anyMatch(x -> x.equalsIgnoreCase(reducedGod.name))
+                .anyMatch(x -> x.equalsIgnoreCase(reducedGod.getName()))
                 && players.stream().filter(x -> x.getGod() != null).map(x -> x.getGod().getName()) //check god not already taken
-                .noneMatch(x -> x.equalsIgnoreCase(reducedGod.name));
+                .noneMatch(x -> x.equalsIgnoreCase(reducedGod.getName()));
     }
 
     /**
@@ -475,7 +475,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void setGod(ReducedGod reducedGod, User user) {
         Player player = getPlayerFromUser(user);
-        GodCard godCard = GodCard.valueOf(reducedGod.name.toUpperCase());
+        GodCard godCard = GodCard.valueOf(reducedGod.getName().toUpperCase());
 
         setGod(player, godCard.getGod());
         notify(new ServerSetGodMessage(user.toReducedUser(), reducedGod));
@@ -539,7 +539,7 @@ public class Game extends LambdaObservable<Transmittable> {
         return gameState == GameState.SET_START_PLAYER //check right state
                 && player.equals(players.peek()) //check it's the player's turn
                 && players.stream().map(Player::getNickname) //check start player is possible
-                .anyMatch(x -> x.equals(startPlayer.nickname));
+                .anyMatch(x -> x.equals(startPlayer.getNickname()));
     }
 
     /**
@@ -549,7 +549,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public void setStartPlayer(ReducedUser startPlayer) {
         //rotate queue till we get the right player
-        while (!players.peek().getNickname().equals(startPlayer.nickname)) {
+        while (!players.peek().getNickname().equals(startPlayer.getNickname())) {
             Player player = players.poll();
             players.add(player);
         }

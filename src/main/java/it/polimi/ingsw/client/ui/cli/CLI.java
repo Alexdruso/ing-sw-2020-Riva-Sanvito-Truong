@@ -594,13 +594,17 @@ public class CLI implements UI {
     }
 
     String getGodNameAndSubtitle(ReducedGod god) {
-        return String.format("%s: %s", I18n.string(I18nKey.valueOf(String.format("%s_NAME", god.name.toUpperCase()))), I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", god.name.toUpperCase()))));
+        return String.format(
+                "%s: %s",
+                I18n.string(I18nKey.valueOf(String.format("%s_NAME", god.getName().toUpperCase()))),
+                I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", god.getName().toUpperCase())))
+        );
     }
 
     boolean printGodCardConfirmationScreen(ReducedGod god) {
         clear();
         println(getGodNameAndSubtitle(god));
-        println(I18n.string(I18nKey.valueOf(String.format("%s_DESCRIPTION", god.name.toUpperCase()))));
+        println(I18n.string(I18nKey.valueOf(String.format("%s_DESCRIPTION", god.getName().toUpperCase()))));
         println("");
         return readYesNo(I18n.string(I18nKey.DO_YOU_WANT_TO_CONFIRM_THE_CHOICE_OF_THIS_GOD));
     }

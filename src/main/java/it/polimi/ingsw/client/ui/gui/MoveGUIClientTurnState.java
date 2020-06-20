@@ -73,7 +73,12 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         }
         else {
             Platform.runLater(() -> {
-                controller.setLabel(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE), client.getCurrentActiveUser().nickname));
+                controller.setLabel(
+                        String.format(
+                                I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE),
+                                client.getCurrentActiveUser().getNickname()
+                        )
+                );
                 controller.setPrompt("");
                 controller.setBoardClickableStatus(false);
                 controller.redrawBoard();

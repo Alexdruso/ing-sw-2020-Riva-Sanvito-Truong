@@ -50,7 +50,12 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
             notifyUiInteraction();
         }
         else {
-            cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THEIR_GOD), client.getCurrentActiveUser().nickname));
+            cli.println(
+                    String.format(
+                            I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THEIR_GOD),
+                            client.getCurrentActiveUser().getNickname()
+                    )
+            );
         }
     }
 }

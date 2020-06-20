@@ -94,6 +94,11 @@ public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClient
      * Renders the ask gods from list client state for the non-currently active client.
      */
     private void renderCurrentlyInactive() {
-        cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_GODS), client.getCurrentActiveUser().nickname));
+        cli.println(
+                String.format(
+                        I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_GODS),
+                        client.getCurrentActiveUser().getNickname()
+                )
+        );
     }
 }

@@ -35,7 +35,7 @@ public class AskStartPlayerController extends AbstractController{
 
         for(ReducedUser user: users){
             Button userButton = new Button();
-            userButton.setText(user.nickname);
+            userButton.setText(user.getNickname());
             userButton.getStyleClass().add("bigbutton");
             userButton.setMaxWidth(400);
             userButton.setPrefWidth(400);

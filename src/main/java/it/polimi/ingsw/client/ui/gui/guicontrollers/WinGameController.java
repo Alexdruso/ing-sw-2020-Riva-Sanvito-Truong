@@ -30,7 +30,7 @@ public class WinGameController extends AbstractController {
 
     public void setLoserPrompts(){
         mainPrompt.setText(I18n.string(I18nKey.LOSER));
-        winnerName.setText(String.format(I18n.string(I18nKey.S_WON), client.getCurrentActiveUser().nickname));
+        winnerName.setText(String.format(I18n.string(I18nKey.S_WON), client.getCurrentActiveUser().getNickname()));
     }
 
     @Override
