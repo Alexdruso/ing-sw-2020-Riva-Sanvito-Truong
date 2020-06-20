@@ -36,9 +36,9 @@ public class ConfigParser {
      */
     private void loadConfig(ConfigFile cfg){
         try {
-            configs.load(new FileInputStream(cfg.path));
+            configs.load(cfg.inputStream);
         } catch (IOException e){
-            LOGGER.log(Level.SEVERE, String.format("Unable to read configuration file from %s%nPlease, make sure it is available or set the %s env var appropriately.", cfg.path, ConfigFile.CONFIG_BASE_PATH_ENV_VAR));
+            LOGGER.log(Level.SEVERE, String.format("Unable to read configuration file %s%nPlease, make sure it is available or set the %s env var appropriately.", cfg.toString(), ConfigFile.CONFIG_BASE_PATH_ENV_VAR));
             System.exit(1);
         }
     }
