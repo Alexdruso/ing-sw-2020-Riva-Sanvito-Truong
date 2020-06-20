@@ -30,7 +30,6 @@ class Hephaestus extends AbstractGod {
 
                 turn.getWorkerBlockBuildableCells(lastBuildWorker).setAllTargets(false);
                 Tower lastBuildTower = lastBuild.getTargetCell().getTower();
-                //TODO: let's decide if this check is better suited here or in Tower (like Tower::isBlockBuildable())
                 if (!lastBuildTower.isComplete() && lastBuildTower.getCurrentLevel() < 3) {
                     turn.getWorkerBlockBuildableCells(lastBuildWorker).setPosition(lastBuild.getTargetCell(), true);
                 }

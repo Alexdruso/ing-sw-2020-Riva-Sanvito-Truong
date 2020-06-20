@@ -225,9 +225,7 @@ public class Game extends LambdaObservable<Transmittable> {
         notify(
                 new ServerRemoveWorkerMessage(
                         getUserFromPlayer(players.peek()).toReducedUser(),
-                        worker.getWorkerID().toReducedWorkerId(),
-                        cell.getX(),
-                        cell.getY()
+                        cell.getX(), cell.getY(), worker.getWorkerID().toReducedWorkerId()
                 )
         );
     }
@@ -480,7 +478,7 @@ public class Game extends LambdaObservable<Transmittable> {
         GodCard godCard = GodCard.valueOf(reducedGod.name.toUpperCase());
 
         setGod(player, godCard.getGod());
-        notify(new ServerSetGodMessage(reducedGod, user.toReducedUser()));
+        notify(new ServerSetGodMessage(user.toReducedUser(), reducedGod));
         //change pseudo turn
         players.poll();
         players.add(player);
@@ -499,8 +497,8 @@ public class Game extends LambdaObservable<Transmittable> {
                 setGod(players.peek(), lastGod);
                 notify(
                         new ServerSetGodMessage(
-                                new ReducedGod(lastGod.getName()),
-                                getUserFromPlayer(players.peek()).toReducedUser()
+                                getUserFromPlayer(players.peek()).toReducedUser(),
+                                new ReducedGod(lastGod.getName())
                         )
                 );
             });
@@ -558,11 +556,12 @@ public class Game extends LambdaObservable<Transmittable> {
         //change state
         gameState = GameState.SET_WORKER_POSITION;
         //send message of start positioning
-        notify(new ServerAskWorkerPositionMessage(
-                        WorkerID.WORKER1.toReducedWorkerId(),
-                        startPlayer,
-                        (new TargetCells()).setAllTargets(true).toReducedTargetCells()
-                )
+        notify(
+            new ServerAskWorkerPositionMessage(
+                startPlayer,
+                WorkerID.WORKER1.toReducedWorkerId(),
+                (new TargetCells()).setAllTargets(true).toReducedTargetCells()
+            )
         );
     }
 
@@ -626,11 +625,12 @@ public class Game extends LambdaObservable<Transmittable> {
                 x -> {
                     //it's yet the user turn, he already has workers to position
                     gameState = GameState.SET_WORKER_POSITION;
-                    notify(new ServerAskWorkerPositionMessage(
-                                    x.getWorkerID().toReducedWorkerId(),
-                                    user.toReducedUser(),
-                                    targetCells.toReducedTargetCells()
-                            )
+                    notify(
+                        new ServerAskWorkerPositionMessage(
+                            user.toReducedUser(),
+                            x.getWorkerID().toReducedWorkerId(),
+                            targetCells.toReducedTargetCells()
+                        )
                     );
                 },
                 () -> {
@@ -645,11 +645,12 @@ public class Game extends LambdaObservable<Transmittable> {
                                         //there is some worker to be positioned
                                         gameState = GameState.SET_WORKER_POSITION;
 
-                                        notify(new ServerAskWorkerPositionMessage(
-                                                        y.getWorkerID().toReducedWorkerId(),
-                                                        getUserFromPlayer(players.peek()).toReducedUser(),
-                                                        targetCells.toReducedTargetCells()
-                                                )
+                                        notify(
+                                            new ServerAskWorkerPositionMessage(
+                                                getUserFromPlayer(players.peek()).toReducedUser(),
+                                                y.getWorkerID().toReducedWorkerId(),
+                                                targetCells.toReducedTargetCells()
+                                            )
                                         );
                                     },
                                     () -> {

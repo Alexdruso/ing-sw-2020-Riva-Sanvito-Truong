@@ -16,7 +16,7 @@ public class ServerAskWorkerPositionMessage implements ServerMessage, ClientHand
     /**
      * The Worker whose position has to be set.
      */
-    public final ReducedWorkerID worker;
+    public final ReducedWorkerID workerID;
     /**
      * The User who has to choose the worker's position.
      */
@@ -28,13 +28,12 @@ public class ServerAskWorkerPositionMessage implements ServerMessage, ClientHand
 
     /**
      * Instantiates a new Server ask worker position message.
-     *
-     * @param worker      the worker
      * @param user        the user
+     * @param workerID    the worker ID
      * @param targetCells the target cells
      */
-    public ServerAskWorkerPositionMessage(ReducedWorkerID worker, ReducedUser user, ReducedTargetCells targetCells) {
-        this.worker = worker;
+    public ServerAskWorkerPositionMessage(ReducedUser user, ReducedWorkerID workerID, ReducedTargetCells targetCells) {
+        this.workerID = workerID;
         this.user = user;
         this.targetCells = targetCells;
     }

@@ -32,7 +32,6 @@ public class CLI implements UI {
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
     private static final String PLATFORM_DEPENDENT_NEWLINE = String.format("%n");
-    private Runnable onExit;
 
     private Scanner in;
     private PrintWriter out;

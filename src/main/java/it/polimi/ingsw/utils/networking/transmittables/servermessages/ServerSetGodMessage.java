@@ -21,10 +21,10 @@ public class ServerSetGodMessage implements ServerMessage, ClientHandleable {
     /**
      * Instantiates a new Server set god message.
      *
-     * @param god  the god
      * @param user the user
+     * @param god  the god
      */
-    public ServerSetGodMessage(ReducedGod god, ReducedUser user) {
+    public ServerSetGodMessage(ReducedUser user, ReducedGod god) {
         this.god = god;
         this.user = user;
     }
