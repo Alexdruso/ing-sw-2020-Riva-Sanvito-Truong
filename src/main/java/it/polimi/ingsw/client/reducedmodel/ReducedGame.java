@@ -28,7 +28,7 @@ public class ReducedGame {
     }
 
     public Optional<ReducedPlayer> getPlayer(ReducedUser user) {
-        return getPlayer(user.nickname);
+        return getPlayer(user.getNickname());
     }
 
     public ReducedTurn getTurn() {

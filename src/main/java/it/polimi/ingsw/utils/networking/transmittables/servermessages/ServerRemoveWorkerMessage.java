@@ -28,13 +28,12 @@ public class ServerRemoveWorkerMessage implements ServerMessage, ClientHandleabl
 
     /**
      * Instantiates a new Server remove worker message.
-     *
      * @param user     the user
-     * @param workerID the worker
      * @param cellX    the cell x
      * @param cellY    the cell y
+     * @param workerID the worker
      */
-    public ServerRemoveWorkerMessage(ReducedUser user, ReducedWorkerID workerID, int cellX, int cellY) {
+    public ServerRemoveWorkerMessage(ReducedUser user, int cellX, int cellY, ReducedWorkerID workerID) {
         this.user = user;
         this.workerID = workerID;
         this.cellX = cellX;

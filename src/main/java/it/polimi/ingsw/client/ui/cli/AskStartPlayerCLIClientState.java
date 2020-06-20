@@ -30,7 +30,7 @@ public class AskStartPlayerCLIClientState extends AbstractAskStartPlayerClientSt
             cli.println(String.format("%s:", I18n.string(I18nKey.THE_PLAYERS_FOR_THIS_MATCH_ARE)));
             List<ReducedUser> users = client.getGame().getPlayersList().stream().map(ReducedPlayer::getUser).collect(Collectors.toList());
             for (int i = 0; i < users.size(); i++) {
-                cli.println(String.format("[%d] %s", i + 1, users.get(i).nickname));
+                cli.println(String.format("[%d] %s", i + 1, users.get(i).getNickname()));
             }
 
             cli.println("");
@@ -46,7 +46,12 @@ public class AskStartPlayerCLIClientState extends AbstractAskStartPlayerClientSt
             notifyUiInteraction();
         }
         else {
-            cli.println(String.format(I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER), client.getCurrentActiveUser().nickname));
+            cli.println(
+                    String.format(
+                            I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER),
+                            client.getCurrentActiveUser().getNickname()
+                    )
+            );
         }
     }
 }

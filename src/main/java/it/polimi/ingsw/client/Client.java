@@ -294,7 +294,7 @@ public class Client implements LambdaObserver {
         for (ReducedUser user : users) {
             players.add(new ReducedPlayer(
                     user,
-                    user.nickname.equals(this.nickname),
+                    user.getNickname().equals(this.nickname),
                     players.size()
             ));
         }
@@ -364,7 +364,7 @@ public class Client implements LambdaObserver {
             return true;
         }
         else {
-            return currentActiveUser.nickname.equals(nickname);
+            return currentActiveUser.getNickname().equals(nickname);
         }
     }
 }

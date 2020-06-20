@@ -90,19 +90,19 @@ class MatchTest {
         assertEquals(myMap.keySet().size(), startSetupMatchMessageList.get(0).userList.length);
         assertEquals(
                 Arrays.stream(nicknames).collect(Collectors.toSet()),
-                Arrays.stream(startSetupMatchMessageList.get(0).userList).map(x -> x.nickname).collect(Collectors.toSet())
+                Arrays.stream(startSetupMatchMessageList.get(0).userList).map(ReducedUser::getNickname).collect(Collectors.toSet())
         );
         List<ServerAskGodsFromListMessage> askGodsFromListMessages = myMessageCaptor.getAllValues().stream()
                 .filter(x -> x instanceof ServerAskGodsFromListMessage).map(x -> (ServerAskGodsFromListMessage) x)
                 .collect(Collectors.toList());
         assertEquals(3, askGodsFromListMessages.size());
-        assertEquals(nicknames[0], askGodsFromListMessages.get(0).user.nickname);
+        assertEquals(nicknames[0], askGodsFromListMessages.get(0).user.getNickname());
         assertEquals(
                 Arrays.stream(GodCard.values()).map(Enum::toString).collect(Collectors.toSet()),
-                askGodsFromListMessages.get(0).getGodsList().stream().map(x -> x.name.toUpperCase()).collect(Collectors.toSet())
+                askGodsFromListMessages.get(0).getGodsList().stream().map(x -> x.getName().toUpperCase()).collect(Collectors.toSet())
         );
         for (ReducedUser user : startSetupMatchMessageList.get(0).userList) {
-            assertTrue(myMap.containsKey(user.nickname));
+            assertTrue(myMap.containsKey(user.getNickname()));
         }
 
     }

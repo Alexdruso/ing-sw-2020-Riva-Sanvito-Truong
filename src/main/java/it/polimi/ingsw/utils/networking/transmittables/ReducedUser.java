@@ -10,7 +10,7 @@ public class ReducedUser implements Serializable {
     /**
      * The Nickname.
      */
-    public final String nickname;
+    private final String nickname;
 
     /**
      * Instantiates a new Reduced user.
@@ -32,5 +32,14 @@ public class ReducedUser implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(nickname);
+    }
+
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
+    public String getNickname() {
+        return nickname;
     }
 }

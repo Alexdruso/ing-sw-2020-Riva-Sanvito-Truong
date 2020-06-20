@@ -29,6 +29,6 @@ public enum GodAsset {
     }
 
     public static GodAsset fromReducedGod(ReducedGod god){
-        return GodAsset.valueOf(god.name.toUpperCase());
+        return GodAsset.valueOf(god.getName().toUpperCase());
     }
 }

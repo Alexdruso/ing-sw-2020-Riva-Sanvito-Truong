@@ -24,7 +24,7 @@ public class ReducedPlayer {
     }
 
     public String getNickname() {
-        return user.nickname;
+        return user.getNickname();
     }
 
     public ReducedUser getUser() {

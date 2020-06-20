@@ -32,9 +32,12 @@ public class AskGodsFromListPassiveController extends AbstractController{
 
     @Override
     public void setupController(){
-        waitPromptLabel.setText(String.format(
-                I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_GODS),
-                client.getCurrentActiveUser().nickname));
+        waitPromptLabel.setText(
+                String.format(
+                        I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_GODS),
+                        client.getCurrentActiveUser().getNickname()
+                )
+        );
 
         animationHelper.animateLoadingScreen(imageArray, loadingTower);
     }

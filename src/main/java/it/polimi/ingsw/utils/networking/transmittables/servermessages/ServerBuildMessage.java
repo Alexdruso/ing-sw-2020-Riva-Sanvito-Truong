@@ -33,7 +33,7 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
     /**
      * The worker who performed the build
      */
-    public final ReducedWorkerID performer;
+    public final ReducedWorkerID workerID;
 
     /**
      * The user who performed the action
@@ -48,16 +48,16 @@ public class ServerBuildMessage implements ServerMessage, ClientHandleable {
      * @param targetCellY The y coordinate of the cell on which the worker built
      * @param component   The component built on the cell
      * @param builtLevel  The level built by the worker
-     * @param performer   The worker who performed the build
+     * @param workerID    The worker who performed the build
      */
     public ServerBuildMessage(ReducedUser user, int targetCellX, int targetCellY,
-                              ReducedComponent component, int builtLevel, ReducedWorkerID performer) {
+                              ReducedComponent component, int builtLevel, ReducedWorkerID workerID) {
         this.user = user;
         this.targetCellX = targetCellX;
         this.targetCellY = targetCellY;
         this.component = component;
         this.builtLevel = builtLevel;
-        this.performer = performer;
+        this.workerID = workerID;
     }
 
     @Override

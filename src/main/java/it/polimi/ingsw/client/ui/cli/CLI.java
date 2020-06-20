@@ -32,7 +32,6 @@ public class CLI implements UI {
     public static final String CLI_INPUT_FILE_ENV_VAR_NAME = "CLI_INPUT_FILE";
     public static final String CLI_LOG_INPUTS_FOLDER_ENV_VAR_NAME = "CLI_LOG_INPUTS_FOLDER";
     private static final String PLATFORM_DEPENDENT_NEWLINE = String.format("%n");
-    private Runnable onExit;
 
     private Scanner in;
     private PrintWriter out;
@@ -595,13 +594,17 @@ public class CLI implements UI {
     }
 
     String getGodNameAndSubtitle(ReducedGod god) {
-        return String.format("%s: %s", I18n.string(I18nKey.valueOf(String.format("%s_NAME", god.name.toUpperCase()))), I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", god.name.toUpperCase()))));
+        return String.format(
+                "%s: %s",
+                I18n.string(I18nKey.valueOf(String.format("%s_NAME", god.getName().toUpperCase()))),
+                I18n.string(I18nKey.valueOf(String.format("%s_SUBTITLE", god.getName().toUpperCase())))
+        );
     }
 
     boolean printGodCardConfirmationScreen(ReducedGod god) {
         clear();
         println(getGodNameAndSubtitle(god));
-        println(I18n.string(I18nKey.valueOf(String.format("%s_DESCRIPTION", god.name.toUpperCase()))));
+        println(I18n.string(I18nKey.valueOf(String.format("%s_DESCRIPTION", god.getName().toUpperCase()))));
         println("");
         return readYesNo(I18n.string(I18nKey.DO_YOU_WANT_TO_CONFIRM_THE_CHOICE_OF_THIS_GOD));
     }
