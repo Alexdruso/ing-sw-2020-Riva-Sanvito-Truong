@@ -87,6 +87,34 @@ Please, keep in mind that the server expects the configuration files `global.pro
 | `CLI_LOG_INPUTS_FOLDER` | The folder in which to log all the inputs from the CLI | A relative or absolute folder path, including the trailing `/`. Default: *empty (do not log inputs)* |
 | `LANGUAGE` | Sets the desired language for the user interface | `en`, `it`. Default: *the system default language* |
 | `LOG_LEVEL` | Sets the log messages verbosity | All the values specified in [java.util.logging.Level](https://docs.oracle.com/en/java/javase/14/docs/api/java.logging/java/util/logging/Level.html). Default: `INFO` |
+| `CONFIG_BASE_PATH` | The folder in which the program will look for properties file (See the [Configuration](#Configuration) section)| A relative or absolute folder path, including the trailing `/`. Default: *empty (use default configuration values)* |
+
+### Configuration
+
+Some configurations can be overridden by copying the `config` folder of this repository on your system and by setting the `CONFIG_BASE_PATH` environment variable to point to that folder.
+
+The configurations inside the folder will override **all** the default values.
+
+#### global.properties
+
+Miscellaneous properties required by both Server and Client
+
+| Name | Description | Type | Default Value |
+| -------------- | ----------- | ----------------- | ----- |
+| `projectName` | The name of the project. Used as a MOTD in the logs.| String | Santorini |
+| `version` | The current version of the project. Used as a MOTD in the logs.| String | N/A |
+| `authors` | The authors of the project| String| A. Riva, A. Sanvito & K. T. Truong |
+| `keepAliveIntervalMs` | The time in millisecond that should pass between each keepAlive message sent on the connection | Integer| 15000 |
+| `nicknameMaxLength` | The maximum length allowed for a player's nickname| Integer| 30 |
+
+#### server.properties
+
+Server related properties
+
+| Name | Description | Type| Default Value |
+| -------------- | ----------- | ----------------- | ----- |
+| `serverPort` | The port on which the server should listen for inbound connections| Integer | 7268 |
+| `numberOfThreads` | The number of threads allowed to run at the same time to handle concurrent matches| Integer | 32 |
 
 ## Development
 
