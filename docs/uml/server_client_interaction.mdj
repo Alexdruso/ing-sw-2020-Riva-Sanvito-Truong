@@ -506,7 +506,7 @@
 											"top": 302,
 											"width": 310,
 											"height": 13,
-											"text": "servermessages"
+											"text": "clientmessages"
 										},
 										{
 											"_type": "LabelView",
@@ -611,7 +611,7 @@
 											"top": 590,
 											"width": 310,
 											"height": 13,
-											"text": "clientmessages"
+											"text": "servermessages"
 										},
 										{
 											"_type": "LabelView",
@@ -3808,7 +3808,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFyvV20H2ikI2M="
 									},
-									"name": "servermessages",
+									"name": "clientmessages",
 									"ownedElements": [
 										{
 											"_type": "UMLInterface",
@@ -3914,7 +3914,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFyvV20H2ikI2M="
 									},
-									"name": "clientmessages",
+									"name": "servermessages",
 									"ownedElements": [
 										{
 											"_type": "UMLInterface",
