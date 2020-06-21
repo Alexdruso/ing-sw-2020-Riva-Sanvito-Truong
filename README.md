@@ -19,7 +19,7 @@
 | GUI | :heavy_check_mark: |
 | Socket | :heavy_check_mark: |
 | Advanced functionality 1 (FA 1) | :heavy_check_mark: Multiple matches ("Partite multiple") |
-| Advanced functionality 2 (FA 2) | :heavy_check_mark: Advanced Gods ("Divinità avanzate") |
+| Advanced functionality 2 (FA 2) | :heavy_check_mark: Advanced Gods ("Divinità avanzate"): Hera, Hestia, Hypnus, Triton, Zeus |
 
 ## Test coverage
 
