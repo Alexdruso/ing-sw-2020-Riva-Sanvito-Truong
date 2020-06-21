@@ -1,7 +1,0 @@
-
-
-
-%TIMESTAMP%
-1
-c3
-d4

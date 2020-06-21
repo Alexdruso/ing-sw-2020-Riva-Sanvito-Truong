@@ -25,7 +25,7 @@
 
 # TODO
 
-Refer to the [./deliverables/report/](./deliverables/report/) folder for further details.
+Refer to the [deliverables/report/](deliverables/report/) folder for further details.
 
 ## Compile
 
@@ -42,7 +42,7 @@ mvn package
 
 ## Quick start guide
 
-The following commands are meant to be run inside the [./deliverables/](`./deliverables/`) folder.
+The following commands are meant to be run inside the [deliverables/](`deliverables/`) folder.
 
 ### Windows
 
