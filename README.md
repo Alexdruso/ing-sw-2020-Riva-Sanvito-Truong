@@ -34,8 +34,6 @@ mvn package
 Santorini-Server.bat
 ```
 
-Please, keep in mind that the server expects the configuration files `global.properties` and `server.properties` inside `./config/` (relative to the current working directory).
-
 #### To run the client:
 
 You need to enable the support to UTF-8 characters in the terminal:
@@ -62,8 +60,6 @@ Santorini-Client.bat cli
 ```bash
 ./Santorini-Server.sh
 ```
-
-Please, keep in mind that the server expects the configuration files `global.properties` and `server.properties` inside `./config/` (relative to the current working directory).
 
 #### To run the client:
 
@@ -93,7 +89,7 @@ Please, keep in mind that the server expects the configuration files `global.pro
 
 Some configurations can be overridden by copying the `config` folder of this repository on your system and by setting the `CONFIG_BASE_PATH` environment variable to point to that folder.
 
-The configurations inside the folder will override **all** the default values.
+The configurations inside the folder will override **all** the default values. Remember to remove the `.example` extension from the file names.
 
 #### global.properties
 
