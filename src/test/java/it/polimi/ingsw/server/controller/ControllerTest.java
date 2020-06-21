@@ -227,7 +227,7 @@ class ControllerTest {
         );
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(1)).skip();
-        verify(myView, times(0)).handleMessage(StatusMessages.CLIENT_ERROR);
+        verify(myView, times(0)).handleStatusMessage(StatusMessages.CLIENT_ERROR);
     }
 
     @Test
@@ -443,6 +443,6 @@ class ControllerTest {
         verify(myGame, times(1)).isValidSkip(myUser);
         verify(myGame, times(0)).skip();
 
-        verify(myView, times(7)).handleMessage(StatusMessages.CLIENT_ERROR);
+        verify(myView, times(7)).handleStatusMessage(StatusMessages.CLIENT_ERROR);
     }
 }

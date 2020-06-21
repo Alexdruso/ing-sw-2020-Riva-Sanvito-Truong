@@ -20,7 +20,6 @@ public class LoseGameGUIClientState extends AbstractLoseGameClientState implemen
 
     public void reconnect(){
         SceneLoader.applyBlurOut(500);
-        client.closeConnection();
         client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 

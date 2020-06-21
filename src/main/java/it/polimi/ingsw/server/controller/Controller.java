@@ -90,7 +90,7 @@ public class Controller implements LambdaObserver {
         if (isValidGodsChoice) {
             model.setAvailableGodsList(action.getGods());
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -107,7 +107,7 @@ public class Controller implements LambdaObserver {
         if (isValidGodChoice) {
             model.setGod(action.getGod(), user);
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -124,7 +124,7 @@ public class Controller implements LambdaObserver {
         if (isValidStartPlayerChoice) {
             model.setStartPlayer(action.startPlayer);
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -141,7 +141,7 @@ public class Controller implements LambdaObserver {
         if (isValidPositioning) {
             model.setWorkerPosition(action.targetCellX, action.targetCellY, action.workerID, user);
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -165,7 +165,7 @@ public class Controller implements LambdaObserver {
                     action.component, action.workerID,
                     user);
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -187,7 +187,7 @@ public class Controller implements LambdaObserver {
                     action.targetCellX, action.targetCellY,
                     action.workerID, user);
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 
@@ -201,7 +201,7 @@ public class Controller implements LambdaObserver {
         if (model.isValidSkip(user)) {
             model.skip();
         } else {
-            view.handleMessage(StatusMessages.CLIENT_ERROR);
+            view.handleStatusMessage(StatusMessages.CLIENT_ERROR);
         }
     }
 

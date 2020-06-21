@@ -17,12 +17,10 @@ public class WinGameGUIClientState extends AbstractWinGameClientState implements
     }
 
     public void reconnect(){
-        client.closeConnection();
         client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 
     public void returnToMenu(){
-        client.closeConnection();
         client.moveToState(ClientState.WELCOME_SCREEN);
     }
 

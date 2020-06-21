@@ -32,10 +32,10 @@ class ViewTest {
         ServerMessage myServerMessage = new ServerStartPlayMatchMessage();
         myView.updateFromGame(myServerMessage);
         verify(myConnection).send(myServerMessage);
-        myView.handleDisconnection();
+        myView.requestDisconnection();
         verify(myConnection).close();
         StatusMessages myStatusMessage = StatusMessages.CLIENT_ERROR;
-        myView.handleMessage(myStatusMessage);
+        myView.handleStatusMessage(myStatusMessage);
         verify(myConnection).send(myStatusMessage);
         ClientMessage myClientMessage = new ClientSetStartPlayerMessage(myView.getUser().toReducedUser());
         myView.updateFromClient(myClientMessage);

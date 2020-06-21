@@ -85,7 +85,7 @@ public class Match implements Runnable {
                     virtualView, (obs, message) ->
                     {
                         if (message instanceof DisconnectionMessage) {
-                            ((View) obs).handleDisconnection();
+                            ((View) obs).requestDisconnection();
                         } else {
                             ((View) obs).updateFromGame(message);
                         }

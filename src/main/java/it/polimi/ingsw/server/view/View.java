@@ -57,7 +57,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
     /**
      * Handler of a disconnect message coming from the game.
      */
-    public void handleDisconnection() {
+    public void requestDisconnection() {
         connection.close();
     }
 
@@ -67,7 +67,7 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      * @param message a message coming from the controller
      * @throws UnsupportedOperationException
      */
-    public void handleMessage(StatusMessages message) {
+    public void handleStatusMessage(StatusMessages message) {
         this.connection.send(message);
     }
 
