@@ -26,7 +26,7 @@ public class LoggerManager {
      */
     public static void setLogLevel() {
         try {
-            setLogLevel(Level.parse(System.getenv(LOG_LEVEL_ENV_VAR_NAME)));
+            setLogLevel(Level.parse(System.getenv(LOG_LEVEL_ENV_VAR_NAME).toUpperCase()));
         }
         catch (NullPointerException e) {
             LOGGER.log(Level.FINEST, "No logging level specified");

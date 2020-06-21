@@ -10,6 +10,23 @@
 - Alessandro Sanvito (immatriculation number: 891196)
 - Kien Tuong Truong (immatriculation number: 887907)
 
+## Implemented features
+
+| Feature | Implemented |
+| ------- | ----------- |
+| All the rules ("Regole complete") | :heavy_check_mark: |
+| CLI | :heavy_check_mark: |
+| GUI | :heavy_check_mark: |
+| Socket | :heavy_check_mark: |
+| Advanced functionality 1 (FA 1) | :heavy_check_mark: Multiple matches ("Partite multiple") |
+| Advanced functionality 2 (FA 2) | :heavy_check_mark: Advanced Gods ("Divinità avanzate") |
+
+## Test coverage
+
+# TODO
+
+Refer to the [./deliverables/report/](./deliverables/report/) folder for further details.
+
 ## Compile
 
 To run the tests and compile the software:
@@ -21,9 +38,11 @@ To run the tests and compile the software:
 ```bash
 mvn package
 ```
-5. The compiled artifacts (`Santorini-Client.jar` and `Santorini-Server.jar`) are inside the `target` folder.
+5. The compiled artifact (`Santorini.jar`) will be inside the `target` folder.
 
 ## Quick start guide
+
+The following commands are meant to be run inside the [./deliverables/](`./deliverables/`) folder.
 
 ### Windows
 
