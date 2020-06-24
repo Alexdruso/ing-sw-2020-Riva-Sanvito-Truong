@@ -22,8 +22,8 @@ public class TargetCells {
         targets = new boolean[BOARD_SIZE][BOARD_SIZE];
     }
 
-    private static boolean isValidCoord(int x, int y){
-        return x >= 0  && x < BOARD_SIZE && y >= 0  && y < BOARD_SIZE;
+    private static boolean isValidCoordinate(int x, int y) {
+        return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
     }
 
     /**
@@ -242,20 +242,20 @@ public class TargetCells {
         TargetCells target = new TargetCells();
 
         for(int i = -1 * radius; i <= radius; i++){
-            if (isValidCoord(center.getX() + i, center.getY() + radius)){
+            if (isValidCoordinate(center.getX() + i, center.getY() + radius)) {
                 target.setPosition(center.getX() + i, center.getY() + radius, true);
             }
-            if (isValidCoord(center.getX() + i, center.getY() -radius)) {
+            if (isValidCoordinate(center.getX() + i, center.getY() - radius)) {
                 target.setPosition(center.getX() + i, center.getY() - radius, true);
             }
         }
 
         for(int i = -1 * radius; i <= radius; i++){
-            if (isValidCoord(center.getX() + radius, center.getY() + i)){
+            if (isValidCoordinate(center.getX() + radius, center.getY() + i)) {
                 target.setPosition(center.getX() + radius, center.getY() + i, true);
             }
-            if (isValidCoord(center.getX() - radius, center.getY() + i)) {
-                target.setPosition(center.getX() - radius , center.getY() + i, true);
+            if (isValidCoordinate(center.getX() - radius, center.getY() + i)) {
+                target.setPosition(center.getX() - radius, center.getY() + i, true);
             }
         }
         return target;
@@ -274,8 +274,10 @@ public class TargetCells {
         }
         TargetCells target = new TargetCells();
         for(int i = 0; i < BOARD_SIZE; i++){
-            if(source[i].length != BOARD_SIZE){
-                throw new IllegalArgumentException("Source matrix has invalid number of columns at row " + i + ": " + source[i].length);
+            if(source[i].length != BOARD_SIZE) {
+                throw new IllegalArgumentException(
+                        "Source matrix has invalid number of columns at row " + i + ": " + source[i].length
+                );
             }
             for(int j = 0; j < BOARD_SIZE; j++){
                 target.setPosition(i, j, source[i][j]);
