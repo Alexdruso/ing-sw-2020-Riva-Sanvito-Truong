@@ -184,7 +184,7 @@ public class Game extends LambdaObservable<Transmittable> {
                         startY,
                         cell.getX(),
                         cell.getY(),
-                        worker.getWorkerID().toReducedWorkerId()
+                        worker.getWorkerID().toReducedWorkerID()
                 )
         );
     }
@@ -207,7 +207,7 @@ public class Game extends LambdaObservable<Transmittable> {
                         cell.getY(),
                         component.toReducedComponent(),
                         builtLevel,
-                        worker.getWorkerID().toReducedWorkerId()
+                        worker.getWorkerID().toReducedWorkerID()
                 )
         );
     }
@@ -225,7 +225,7 @@ public class Game extends LambdaObservable<Transmittable> {
         notify(
                 new ServerRemoveWorkerMessage(
                         getUserFromPlayer(players.peek()).toReducedUser(),
-                        cell.getX(), cell.getY(), worker.getWorkerID().toReducedWorkerId()
+                        cell.getX(), cell.getY(), worker.getWorkerID().toReducedWorkerID()
                 )
         );
     }
@@ -246,7 +246,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                ReducedWorkerID performer, User user) {
 
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerID(performer));
 
         return gameState == GameState.PLAY
                 && sourceCellX >= 0
@@ -259,7 +259,7 @@ public class Game extends LambdaObservable<Transmittable> {
                 && targetCellY <= board.getDimension()
                 && currentTurn.getPlayer().equals(player)
                 && board.getCell(sourceCellX, sourceCellY).getWorker()
-                .map(worker1 -> worker1.equals(player.getWorkerByID(WorkerID.fromReducedWorkerId(performer))))
+                .map(worker1 -> worker1.equals(player.getWorkerByID(WorkerID.fromReducedWorkerID(performer))))
                 .orElse(false)
                 && currentTurn.canMoveTo(worker, board.getCell(targetCellX, targetCellY));
     }
@@ -276,7 +276,7 @@ public class Game extends LambdaObservable<Transmittable> {
                      ReducedWorkerID performer, User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerID(performer));
         try {
             currentTurn.moveTo(worker, targetCell);
         } catch (InvalidTurnStateException e) {
@@ -300,7 +300,7 @@ public class Game extends LambdaObservable<Transmittable> {
 
         Player player = getPlayerFromUser(user);
         Component component = Component.fromReducedComponent(reducedComponent);
-        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerID(performer));
         return gameState == GameState.PLAY
                 && targetCellX >= 0
                 && targetCellX <= board.getDimension()
@@ -327,7 +327,7 @@ public class Game extends LambdaObservable<Transmittable> {
                       User user) {
         Cell targetCell = board.getCell(targetCellX, targetCellY);
         Component component = Component.fromReducedComponent(reducedComponent);
-        Worker worker = getPlayerFromUser(user).getWorkerByID(WorkerID.fromReducedWorkerId(performer));
+        Worker worker = getPlayerFromUser(user).getWorkerByID(WorkerID.fromReducedWorkerID(performer));
         try {
             if (component == Component.BLOCK) {
                 currentTurn.buildBlockIn(worker, targetCell);
@@ -558,9 +558,9 @@ public class Game extends LambdaObservable<Transmittable> {
         //send message of start positioning
         notify(
             new ServerAskWorkerPositionMessage(
-                startPlayer,
-                WorkerID.WORKER1.toReducedWorkerId(),
-                (new TargetCells()).setAllTargets(true).toReducedTargetCells()
+                    startPlayer,
+                    WorkerID.WORKER1.toReducedWorkerID(),
+                    (new TargetCells()).setAllTargets(true).toReducedTargetCells()
             )
         );
     }
@@ -576,7 +576,7 @@ public class Game extends LambdaObservable<Transmittable> {
      */
     public boolean isValidPositioning(int targetCellX, int targetCellY, ReducedWorkerID performer, User user) {
         Player player = getPlayerFromUser(user);
-        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerID(performer));
         return gameState == GameState.SET_WORKER_POSITION //check right state
                 && targetCellX >= 0
                 && targetCellX < board.getDimension()
@@ -584,7 +584,7 @@ public class Game extends LambdaObservable<Transmittable> {
                 && targetCellY < board.getDimension()
                 && player.equals(players.peek()) //check it's player's turn
                 && Arrays.stream(player.getWorkers()).filter(x -> x.getCell() == null) //check if it is the requested worker
-                .findFirst().map(x -> x.getWorkerID() == WorkerID.fromReducedWorkerId(performer))
+                .findFirst().map(x -> x.getWorkerID() == WorkerID.fromReducedWorkerID(performer))
                 .orElse(false)
                 && worker.getCell() == null //check worker has no cell yet
                 && board.getCell(targetCellX, targetCellY).getWorker().isEmpty(); //check cell is not occupied
@@ -601,7 +601,7 @@ public class Game extends LambdaObservable<Transmittable> {
     public void setWorkerPosition(int targetCellX, int targetCellY, ReducedWorkerID performer, User user) {
         Player player = getPlayerFromUser(user);
         Cell targetCell = board.getCell(targetCellX, targetCellY);
-        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerId(performer));
+        Worker worker = player.getWorkerByID(WorkerID.fromReducedWorkerID(performer));
         //set the position
         worker.setCell(targetCell);
         targetCell.setWorker(worker);
@@ -627,9 +627,9 @@ public class Game extends LambdaObservable<Transmittable> {
                     gameState = GameState.SET_WORKER_POSITION;
                     notify(
                         new ServerAskWorkerPositionMessage(
-                            user.toReducedUser(),
-                            x.getWorkerID().toReducedWorkerId(),
-                            targetCells.toReducedTargetCells()
+                                user.toReducedUser(),
+                                x.getWorkerID().toReducedWorkerID(),
+                                targetCells.toReducedTargetCells()
                         )
                     );
                 },
@@ -647,9 +647,9 @@ public class Game extends LambdaObservable<Transmittable> {
 
                                         notify(
                                             new ServerAskWorkerPositionMessage(
-                                                getUserFromPlayer(players.peek()).toReducedUser(),
-                                                y.getWorkerID().toReducedWorkerId(),
-                                                targetCells.toReducedTargetCells()
+                                                    getUserFromPlayer(players.peek()).toReducedUser(),
+                                                    y.getWorkerID().toReducedWorkerID(),
+                                                    targetCells.toReducedTargetCells()
                                             )
                                         );
                                     },
@@ -687,7 +687,7 @@ public class Game extends LambdaObservable<Transmittable> {
                         getUserFromPlayer(turn.getPlayer()).toReducedUser(),
                         turn.isSkippable(),
                         turn.getAllowedWorkers().stream()
-                                .map(worker -> worker.getWorkerID().toReducedWorkerId())
+                                .map(worker -> worker.getWorkerID().toReducedWorkerID())
                                 .collect(Collectors.toList()),
                         turn.getWalkableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
@@ -696,7 +696,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         )
                                 )
                                 .collect(Collectors.toMap(
-                                        e -> e.getKey().toReducedWorkerId(),
+                                        e -> e.getKey().toReducedWorkerID(),
                                         Map.Entry::getValue,
                                         (k1, k2) -> {
                                             throw new IllegalArgumentException(String.format("Keys %s and %s (while computing walkable cells) are duplicate", k1, k2));
@@ -718,7 +718,7 @@ public class Game extends LambdaObservable<Transmittable> {
                         getUserFromPlayer(turn.getPlayer()).toReducedUser(),
                         turn.isSkippable(),
                         turn.getAllowedWorkers().stream()
-                                .map(worker -> worker.getWorkerID().toReducedWorkerId()).collect(Collectors.toList()),
+                                .map(worker -> worker.getWorkerID().toReducedWorkerID()).collect(Collectors.toList()),
                         turn.getBlockBuildableCells().entrySet().stream()
                                 .map(entry -> new AbstractMap.SimpleEntry<>(
                                                 entry.getKey().getWorkerID(),
@@ -726,7 +726,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         )
                                 )
                                 .collect(Collectors.toMap(
-                                        e -> e.getKey().toReducedWorkerId(),
+                                        e -> e.getKey().toReducedWorkerID(),
                                         Map.Entry::getValue,
                                         (k1, k2) -> {
                                             throw new IllegalArgumentException(String.format("Keys %s and %s (while computing block buildable cells) are duplicate", k1, k2));
@@ -740,7 +740,7 @@ public class Game extends LambdaObservable<Transmittable> {
                                         )
                                 )
                                 .collect(Collectors.toMap(
-                                        e -> e.getKey().toReducedWorkerId(),
+                                        e -> e.getKey().toReducedWorkerID(),
                                         Map.Entry::getValue,
                                         (k1, k2) -> {
                                             throw new IllegalArgumentException(String.format("Keys %s and %s (while computing dome buildable cells) are duplicate", k1, k2));

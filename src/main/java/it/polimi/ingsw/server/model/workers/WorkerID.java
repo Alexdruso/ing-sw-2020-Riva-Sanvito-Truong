@@ -11,7 +11,7 @@ public enum WorkerID {
      * @param reducedWorkerID the reduced worker id
      * @return the worker id
      */
-    public static WorkerID fromReducedWorkerId(ReducedWorkerID reducedWorkerID) {
+    public static WorkerID fromReducedWorkerID(ReducedWorkerID reducedWorkerID) {
         return WorkerID.valueOf(reducedWorkerID.toString());
     }
 
@@ -20,7 +20,7 @@ public enum WorkerID {
      *
      * @return the reduced worker id
      */
-    public ReducedWorkerID toReducedWorkerId() {
+    public ReducedWorkerID toReducedWorkerID() {
         return ReducedWorkerID.valueOf(this.name());
     }
 }

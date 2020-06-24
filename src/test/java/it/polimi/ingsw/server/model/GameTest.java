@@ -44,7 +44,7 @@ public class GameTest {
                         0,
                         1,
                         1,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[0]
                 )
         );
@@ -191,7 +191,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -199,7 +199,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         25,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -207,7 +207,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         25,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -215,7 +215,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         25,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -223,12 +223,12 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[2]
                 )
         );
         //pick a position
-        myGame.setWorkerPosition(0, 0, WorkerID.WORKER1.toReducedWorkerId(), users[1]);
+        myGame.setWorkerPosition(0, 0, WorkerID.WORKER1.toReducedWorkerID(), users[1]);
         verify(myView).updateFromGame(any(ServerSetWorkerStartPositionMessage.class));
         verify(myView, times(2)).updateFromGame(any(ServerAskWorkerPositionMessage.class));
         //setWorkerPosition state
@@ -236,7 +236,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         1,
                         1,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -244,15 +244,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         0,
-                        WorkerID.WORKER2.toReducedWorkerId(),
-                        users[1]
-                )
-        );
-        assertFalse(
-                myGame.isValidPositioning(
-                        25,
-                        0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -260,7 +252,15 @@ public class GameTest {
                 myGame.isValidPositioning(
                         25,
                         0,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
+                        users[1]
+                )
+        );
+        assertFalse(
+                myGame.isValidPositioning(
+                        25,
+                        0,
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -268,7 +268,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         25,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -276,12 +276,12 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         0,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[2]
                 )
         );
         //pick a position
-        myGame.setWorkerPosition(1, 1, WorkerID.WORKER2.toReducedWorkerId(), users[1]);
+        myGame.setWorkerPosition(1, 1, WorkerID.WORKER2.toReducedWorkerID(), users[1]);
         verify(myView, times(2)).updateFromGame(any(ServerSetWorkerStartPositionMessage.class));
         verify(myView, times(3)).updateFromGame(any(ServerAskWorkerPositionMessage.class));
         //verify set worker position
@@ -289,7 +289,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         2,
                         2,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[2]
                 )
         );
@@ -297,7 +297,7 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[2]
                 )
         );
@@ -305,12 +305,12 @@ public class GameTest {
                 myGame.isValidPositioning(
                         2,
                         2,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
         //pick a position
-        myGame.setWorkerPosition(2, 2, WorkerID.WORKER1.toReducedWorkerId(), users[2]);
+        myGame.setWorkerPosition(2, 2, WorkerID.WORKER1.toReducedWorkerID(), users[2]);
         verify(myView, times(3)).updateFromGame(any(ServerSetWorkerStartPositionMessage.class));
         verify(myView, times(4)).updateFromGame(any(ServerAskWorkerPositionMessage.class));
         //verify set worker position
@@ -318,12 +318,12 @@ public class GameTest {
                 myGame.isValidPositioning(
                         3,
                         3,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[2]
                 )
         );
         //pick a position
-        myGame.setWorkerPosition(3, 3, WorkerID.WORKER2.toReducedWorkerId(), users[2]);
+        myGame.setWorkerPosition(3, 3, WorkerID.WORKER2.toReducedWorkerID(), users[2]);
         verify(myView, times(4)).updateFromGame(any(ServerSetWorkerStartPositionMessage.class));
         verify(myView, times(5)).updateFromGame(any(ServerAskWorkerPositionMessage.class));
         //verify set worker position
@@ -331,12 +331,12 @@ public class GameTest {
                 myGame.isValidPositioning(
                         4,
                         4,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[0]
                 )
         );
         //pick a position
-        myGame.setWorkerPosition(4, 4, WorkerID.WORKER1.toReducedWorkerId(), users[0]);
+        myGame.setWorkerPosition(4, 4, WorkerID.WORKER1.toReducedWorkerID(), users[0]);
         verify(myView, times(5)).updateFromGame(any(ServerSetWorkerStartPositionMessage.class));
         verify(myView, times(6)).updateFromGame(any(ServerAskWorkerPositionMessage.class));
         //verify set worker position
@@ -344,12 +344,12 @@ public class GameTest {
                 myGame.isValidPositioning(
                         0,
                         1,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[0]
                 )
         );
         //pick a position
-        myGame.setWorkerPosition(0, 1, WorkerID.WORKER2.toReducedWorkerId(), users[0]);
+        myGame.setWorkerPosition(0, 1, WorkerID.WORKER2.toReducedWorkerID(), users[0]);
         verify(myView, times(6)).updateFromGame(any(ServerSetWorkerStartPositionMessage.class));
         verify(myView, times(6)).updateFromGame(any(ServerAskWorkerPositionMessage.class));
         verify(myView).updateFromGame(any(ServerAskMoveMessage.class));
@@ -363,7 +363,7 @@ public class GameTest {
                         0,
                         1,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -373,7 +373,7 @@ public class GameTest {
                         1,
                         1,
                         2,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -383,7 +383,7 @@ public class GameTest {
                         0,
                         1,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -393,7 +393,7 @@ public class GameTest {
                         0,
                         1,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -403,7 +403,7 @@ public class GameTest {
                         0,
                         3,
                         3,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -413,7 +413,7 @@ public class GameTest {
                         0,
                         1,
                         0,
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -423,12 +423,12 @@ public class GameTest {
                         0,
                         1,
                         0,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[2]
                 )
         );
         //make the move
-        myGame.move(1, 0, WorkerID.WORKER1.toReducedWorkerId(), users[1]);
+        myGame.move(1, 0, WorkerID.WORKER1.toReducedWorkerID(), users[1]);
         verify(myView).updateFromGame(any(ServerMoveMessage.class));
         verify(myView).updateFromGame(any(ServerAskBuildMessage.class));
         //now build state
@@ -437,7 +437,7 @@ public class GameTest {
                         0,
                         0,
                         Component.BLOCK.toReducedComponent(),
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -446,7 +446,7 @@ public class GameTest {
                         0,
                         0,
                         Component.DOME.toReducedComponent(),
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -455,7 +455,7 @@ public class GameTest {
                         2,
                         1,
                         Component.DOME.toReducedComponent(),
-                        WorkerID.WORKER2.toReducedWorkerId(),
+                        WorkerID.WORKER2.toReducedWorkerID(),
                         users[1]
                 )
         );
@@ -464,12 +464,12 @@ public class GameTest {
                         0,
                         0,
                         Component.DOME.toReducedComponent(),
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[0]
                 )
         );
         //make the build
-        myGame.build(0, 0, Component.BLOCK.toReducedComponent(), WorkerID.WORKER1.toReducedWorkerId(), users[1]);
+        myGame.build(0, 0, Component.BLOCK.toReducedComponent(), WorkerID.WORKER1.toReducedWorkerID(), users[1]);
         verify(myView).updateFromGame(any(ServerBuildMessage.class));
         verify(myView, times(2)).updateFromGame(any(ServerAskMoveMessage.class));
         //now one turn each
@@ -479,42 +479,42 @@ public class GameTest {
                         2,
                         2,
                         1,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[2]
                 )
         );
-        myGame.move(2, 1, WorkerID.WORKER1.toReducedWorkerId(), users[2]);
+        myGame.move(2, 1, WorkerID.WORKER1.toReducedWorkerID(), users[2]);
         assertTrue(
                 myGame.isValidBuild(
                         2,
                         2,
                         Component.BLOCK.toReducedComponent(),
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[2]
                 )
         );
-        myGame.build(2, 2, Component.BLOCK.toReducedComponent(), WorkerID.WORKER1.toReducedWorkerId(), users[2]);
+        myGame.build(2, 2, Component.BLOCK.toReducedComponent(), WorkerID.WORKER1.toReducedWorkerID(), users[2]);
         assertTrue(
                 myGame.isValidMove(
                         4,
                         4,
                         4,
                         3,
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[0]
                 )
         );
-        myGame.move(4, 3, WorkerID.WORKER1.toReducedWorkerId(), users[0]);
+        myGame.move(4, 3, WorkerID.WORKER1.toReducedWorkerID(), users[0]);
         assertTrue(
                 myGame.isValidBuild(
                         4,
                         4,
                         Component.BLOCK.toReducedComponent(),
-                        WorkerID.WORKER1.toReducedWorkerId(),
+                        WorkerID.WORKER1.toReducedWorkerID(),
                         users[0]
                 )
         );
-        myGame.build(4, 4, Component.BLOCK.toReducedComponent(), WorkerID.WORKER1.toReducedWorkerId(), users[0]);
+        myGame.build(4, 4, Component.BLOCK.toReducedComponent(), WorkerID.WORKER1.toReducedWorkerID(), users[0]);
         assertTrue(
                 myGame.isValidSkip(users[0])
         );
