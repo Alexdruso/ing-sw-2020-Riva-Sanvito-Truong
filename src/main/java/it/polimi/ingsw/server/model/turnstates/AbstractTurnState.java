@@ -17,74 +17,74 @@ public interface AbstractTurnState {
     void setup(Turn turn);
 
     /**
-     * This boolean methods checks if the pawn can move to targetCell
+     * This boolean methods checks if the worker can move to targetCell
      *
-     * @param pawn       the worker we want to move
+     * @param worker     the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
-     * @return if the pawn can move to targetCell
+     * @return if the worker can move to targetCell
      */
-    default boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
+    default boolean canMoveTo(Worker worker, Cell targetCell, Turn turn) {
         return false;
     }
 
     /**
-     * This method moves the pawn to targetCell
+     * This method moves the worker to targetCell
      *
-     * @param pawn       the worker we want to move
+     * @param worker       the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
      * @throws InvalidTurnStateException if not in the right state
      */
-    default void moveTo(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+    default void moveTo(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
     }
 
     /**
-     * This boolean methods checks if the pawn can build a Dome in targetCell
+     * This boolean methods checks if the worker can build a Dome in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
-     * @return true if the pawn can build dome in targetCell
+     * @return true if the worker can build dome in targetCell
      */
-    default boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
+    default boolean canBuildDomeIn(Worker worker, Cell targetCell, Turn turn) {
         return false;
     }
 
     /**
      * This methods builds a dome in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      * @throws InvalidTurnStateException if not in the right state
      */
-    default void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+    default void buildDomeIn(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
     }
 
     /**
-     * This boolean methods checks if the pawn can build a block in targetCell
+     * This boolean methods checks if the worker can build a block in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
-     * @return true if the pawn can build a block in targetCell
+     * @return true if the worker can build a block in targetCell
      */
-    default boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
+    default boolean canBuildBlockIn(Worker worker, Cell targetCell, Turn turn) {
         return false;
     }
 
     /**
      * This methods builds a block in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      * @throws InvalidTurnStateException if not in the right state
      */
-    default void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+    default void buildBlockIn(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
         throw new InvalidTurnStateException();
     }
 

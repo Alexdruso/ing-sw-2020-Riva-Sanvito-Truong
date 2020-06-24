@@ -60,38 +60,38 @@ class Move implements AbstractTurnState {
     /**
      * This boolean methods checks if the pawn can move to targetCell
      *
-     * @param pawn       the worker we want to move
+     * @param worker     the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
      * @return if the pawn can move to targetCell
      */
     @Override
-    public boolean canMoveTo(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getAllowedWorkers().contains(pawn)
-                && turn.getWorkerWalkableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
+    public boolean canMoveTo(Worker worker, Cell targetCell, Turn turn) {
+        return turn.getAllowedWorkers().contains(worker)
+                && turn.getWorkerWalkableCells(worker).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**
      * This method moves the pawn to targetCell
      *
-     * @param pawn       the worker we want to move
+     * @param worker       the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
      */
     @Override
-    public void moveTo(Worker pawn, Cell targetCell, Turn turn) {
+    public void moveTo(Worker worker, Cell targetCell, Turn turn) {
         turn.addPerformedAction(
                 new MoveAction(
-                        pawn.getCell(), //the source cell
+                        worker.getCell(), //the source cell
                         targetCell, //the target cell
-                        pawn.getCell().getTower().getCurrentLevel(), //the source cell level
+                        worker.getCell().getTower().getCurrentLevel(), //the source cell level
                         targetCell.getTower().getCurrentLevel(), //the target cell level
-                        pawn //the performer
+                        worker //the performer
                 )
         );
 
         turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);
 
-        turn.getGame().setWorkerCell(pawn, targetCell);
+        turn.getGame().setWorkerCell(worker, targetCell);
     }
 }

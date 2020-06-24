@@ -70,68 +70,68 @@ class Build implements AbstractTurnState {
     /**
      * This boolean methods checks if the pawn can build a Dome in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker     the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      * @return true if the pawn can build dome in targetCell
      */
     @Override
-    public boolean canBuildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getAllowedWorkers().contains(pawn) &&
-                turn.getWorkerDomeBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
+    public boolean canBuildDomeIn(Worker worker, Cell targetCell, Turn turn) {
+        return turn.getAllowedWorkers().contains(worker) &&
+                turn.getWorkerDomeBuildableCells(worker).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**
      * This methods builds a dome in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      */
     @Override
-    public void buildDomeIn(Worker pawn, Cell targetCell, Turn turn) {
+    public void buildDomeIn(Worker worker, Cell targetCell, Turn turn) {
         turn.addPerformedAction(new BuildAction(targetCell,//the target cell
                 Component.DOME.getInstance(),//the buildable built
                 targetCell.getTower().getCurrentLevel(),//the level on which we built the dome
-                pawn));//the performer
+                worker));//the performer
         turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
 
-        turn.getGame().buildInCell(pawn, targetCell, Component.DOME, targetCell.getTower().getCurrentLevel());
+        turn.getGame().buildInCell(worker, targetCell, Component.DOME, targetCell.getTower().getCurrentLevel());
     }
 
     /**
      * This boolean methods checks if the pawn can build a block in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      * @return true if the pawn can build a block in targetCell
      */
     @Override
-    public boolean canBuildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
-        return turn.getAllowedWorkers().contains(pawn)
-                && turn.getWorkerBlockBuildableCells(pawn).getPosition(targetCell.getX(), targetCell.getY());
+    public boolean canBuildBlockIn(Worker worker, Cell targetCell, Turn turn) {
+        return turn.getAllowedWorkers().contains(worker)
+                && turn.getWorkerBlockBuildableCells(worker).getPosition(targetCell.getX(), targetCell.getY());
     }
 
     /**
      * This methods builds a block in targetCell
      *
-     * @param pawn       the worker who performs the build
+     * @param worker       the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      */
     @Override
-    public void buildBlockIn(Worker pawn, Cell targetCell, Turn turn) {
+    public void buildBlockIn(Worker worker, Cell targetCell, Turn turn) {
         turn.addPerformedAction(
                 new BuildAction(
                         targetCell,//the target cell
                         Component.BLOCK.getInstance(),//the buildable built
                         targetCell.getTower().getCurrentLevel() + 1,//the new level built
-                        pawn));//the performer
+                        worker));//the performer
 
         turn.getPlayer().getTurnEventsManager().processAfterBuildEvents(turn);
 
-        turn.getGame().buildInCell(pawn, targetCell, Component.BLOCK, targetCell.getTower().getCurrentLevel() + 1);
+        turn.getGame().buildInCell(worker, targetCell, Component.BLOCK, targetCell.getTower().getCurrentLevel() + 1);
     }
 
 }
