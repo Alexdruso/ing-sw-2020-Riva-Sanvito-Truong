@@ -21,8 +21,11 @@ public class Cell {
     /**
      * The Tower.
      */
-    private Tower tower;
+    private final Tower tower;
 
+    /**
+     * The worker
+     */
     private Optional<Worker> worker;
 
     /**
@@ -31,17 +34,27 @@ public class Cell {
      * @param x horizontal coordinate of the cell on the board
      * @param y vertical coordinate of the cell on the board
      */
-    public Cell(int x, int y){
+    public Cell(int x, int y) {
         tower = new Tower();
         this.x = x;
         this.y = y;
         worker = Optional.empty();
     }
 
+    /**
+     * Gets x coordinate.
+     *
+     * @return the x coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Gets y coordinate.
+     *
+     * @return the y coordinate
+     */
     public int getY() {
         return y;
     }
@@ -51,7 +64,7 @@ public class Cell {
      *
      * @return the Tower instance
      */
-    public Tower getTower(){
+    public Tower getTower() {
         return tower;
     }
 
@@ -85,6 +98,7 @@ public class Cell {
      * Computes the height difference between two towers. The difference is taken by calculating the height of other
      * minus the height of this. The towers must not be complete
      * (i.e. They must not have a Dome on top)
+     *
      * @param other the other Cell with which to compute the difference
      * @return an int representing the height difference.
      */
