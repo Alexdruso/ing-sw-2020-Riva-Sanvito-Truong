@@ -35,7 +35,7 @@ public class ServerAskGodFromListMessageTest {
         verify(testHarness.getMockedClient()).setCurrentActiveUser(
                 user
         );
-        verify(testHarness.getMockedClient()).setGods(
+        verify(testHarness.getMockedClient()).setGodsAvailableForChoice(
                 godsList
         );
         verify(testHarness.getMockedClient()).moveToState(ClientState.ASK_GOD_FROM_LIST);

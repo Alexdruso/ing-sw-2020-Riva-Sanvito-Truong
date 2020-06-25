@@ -64,7 +64,7 @@ public class AskGodsFromListController extends AbstractController {
     public void setupController(){
         int playersCount = client.getGame().getPlayersCount();
         chooseGodsPrompt.setText(String.format(String.format("%s:", I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));
-        gods = new ArrayList<>(client.getGods());
+        gods = new ArrayList<>(client.getGodsAvailableForChoice());
         lateralGodCard.setGods(gods);
         for(ReducedGod god: gods){
             GodAsset ga = GodAsset.fromReducedGod(god);

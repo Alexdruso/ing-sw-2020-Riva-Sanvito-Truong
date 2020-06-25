@@ -38,7 +38,7 @@ public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClient
      */
     private void renderCurrentlyActive() {
         int playersCount = client.getGame().getPlayersCount();
-        List<ReducedGod> gods = new ArrayList<>(client.getGods());
+        List<ReducedGod> gods = new ArrayList<>(client.getGodsAvailableForChoice());
 
         while (chosenGods.size() < playersCount) {
             cli.clear();

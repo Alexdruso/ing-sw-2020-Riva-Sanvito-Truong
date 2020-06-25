@@ -47,7 +47,7 @@ public class Client implements LambdaObserver {
 
     private ReducedGame game;
     private final Object gameLock = new Object();
-    private List<ReducedGod> gods;
+    private List<ReducedGod> godsAvailableForChoice;
     private final Object godsLock = new Object();
 
     private AbstractClientState currentState;
@@ -318,11 +318,11 @@ public class Client implements LambdaObserver {
     /**
      * Sets the gods that will be available in the currently active game.
      *
-     * @param gods the gods that will be available in the currently active game
+     * @param godsAvailableForChoice the gods that will be available in the currently active game
      */
-    public void setGods(List<ReducedGod> gods) {
+    public void setGodsAvailableForChoice(List<ReducedGod> godsAvailableForChoice) {
         synchronized (godsLock) {
-            this.gods = new ArrayList<>(gods);
+            this.godsAvailableForChoice = new ArrayList<>(godsAvailableForChoice);
         }
     }
 
@@ -330,9 +330,9 @@ public class Client implements LambdaObserver {
      * Gets the gods that are available in the currently active game.
      * @return the gods that are available in the currently active game
      */
-    public List<ReducedGod> getGods() {
+    public List<ReducedGod> getGodsAvailableForChoice() {
         synchronized (godsLock) {
-            return gods;
+            return godsAvailableForChoice;
         }
     }
 

@@ -45,7 +45,7 @@ public class ServerAskGodFromListMessage implements ServerMessage, ClientHandlea
     @Override
     public boolean handleTransmittable(Client client) {
         client.setCurrentActiveUser(user);
-        client.setGods(godsList);
+        client.setGodsAvailableForChoice(godsList);
         client.moveToState(ClientState.ASK_GOD_FROM_LIST);
         return true;
     }

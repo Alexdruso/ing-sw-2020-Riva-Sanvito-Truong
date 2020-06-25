@@ -26,7 +26,7 @@ public class AskGodFromListCLIClientState extends AbstractAskGodFromListClientSt
     public void render() {
         cli.clear();
         if (client.isCurrentlyActive()) {
-            List<ReducedGod> gods = new ArrayList<>(client.getGods());
+            List<ReducedGod> gods = new ArrayList<>(client.getGodsAvailableForChoice());
 
             cli.println("");
             while (chosenGod == null) {
