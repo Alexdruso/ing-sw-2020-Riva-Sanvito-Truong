@@ -2529,7 +2529,7 @@
 											"top": 948,
 											"width": 381.14501953125,
 											"height": 13,
-											"text": "Observable"
+											"text": "LambdaObservable"
 										},
 										{
 											"_type": "LabelView",
@@ -4477,7 +4477,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFxLOpaurYWVCw="
 									},
-									"name": "Observable",
+									"name": "LambdaObservable",
 									"stereotype": "T",
 									"attributes": [
 										{
