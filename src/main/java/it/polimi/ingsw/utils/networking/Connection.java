@@ -9,9 +9,11 @@ import it.polimi.ingsw.utils.observer.LambdaObservable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ public class Connection extends LambdaObservable<Transmittable> {
     private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());
     private static final Timer KEEP_ALIVE_TIMER = new Timer("connectionKeepAliveTimer", true);
     private static final int KEEP_ALIVE_TIMER_INTERVAL_MS = ConfigParser.getInstance().getIntProperty("keepAliveIntervalMs");
+    public static final int SOCKET_CONNECTION_TIMEOUT_MS = ConfigParser.getInstance().getIntProperty("socketConnectionTimeoutMs");
     private final Socket socket;
     private final ObjectInputStream socketIn;
     private final ObjectOutputStream socketOut;
@@ -60,7 +63,14 @@ public class Connection extends LambdaObservable<Transmittable> {
      * @throws IOException if it is not possible to setup the socket
      */
     public Connection(String host, int port) throws IOException {
-        this(new Socket(host, port));
+        this(new Callable<Socket>(){
+            @Override
+            public Socket call() throws IOException {
+                Socket socket = new Socket();
+                socket.connect(new InetSocketAddress(host, port), SOCKET_CONNECTION_TIMEOUT_MS);
+                return socket;
+            }
+        }.call());
     }
 
     /**

@@ -3,3 +3,4 @@ version = 1.0.0
 authors = A. Riva, A. Sanvito, K. T. Truong
 keepAliveIntervalMs = 15000
 nicknameMaxLength = 30
+socketConnectionTimeoutMs = 8000
