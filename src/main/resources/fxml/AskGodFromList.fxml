@@ -25,7 +25,7 @@
           <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="57.0" prefWidth="776.0" styleClass="h1" text="Dolor et rerum minus nulla eum ut. Quos sint minima et. Ipsa eos eum laudantium nihil." textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="57.0" prefWidth="776.0" styleClass="h1" text="%you_can_choose_one_of_these_gods" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <HBox id="chosen-gods-list" fx:id="godListPane" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

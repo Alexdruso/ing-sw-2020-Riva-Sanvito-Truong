@@ -34,7 +34,6 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
 
     @Override
     public void render() {
-        //FIXME: this synchronization will be replaced with a render queue in the Client
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/WaitPlayers.fxml", client);
         sceneLoaderFactory.setState(ClientState.WAIT_PLAYERS, this).build().executeSceneChange();
         savedScene = ((GUI)client.getUI()).getCurrentScene();

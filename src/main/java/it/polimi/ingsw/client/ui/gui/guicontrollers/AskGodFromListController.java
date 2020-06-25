@@ -52,8 +52,6 @@ public class AskGodFromListController extends AbstractController{
     @Override
     public void setupController(){
         godIcons = new HashMap<>();
-        //TODO: move this into FXML
-        chooseGodsPrompt.setText(I18n.string(I18nKey.YOU_CAN_CHOOSE_ONE_OF_THESE_GODS));
         gods = new ArrayList<>(client.getGodsAvailableForChoice());
         lateralGodCard.setGods(gods);
         for(ReducedGod god: gods){

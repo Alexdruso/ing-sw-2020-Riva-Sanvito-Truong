@@ -65,7 +65,6 @@ public class ConnectToServerController extends AbstractController{
 
     public void handleError(String message){
         errorLabel.setOpacity(1);
-        //TODO: localisation
-        errorLabel.setText("Could not connect to the server!");
+        errorLabel.setText(message);
     }
 }

@@ -14,7 +14,7 @@ public enum ConfigFile {
     GLOBAL_CONFIG("global.properties"),
     SERVER_CONFIG("server.properties");
 
-    public InputStream inputStream;
+    private InputStream inputStream;
     public static final String CONFIG_BASE_PATH_ENV_VAR = "CONFIG_BASE_PATH";
     public static final String CONFIG_BASE_PATH_DEFAULT = "/config/default_";
 
@@ -42,6 +42,10 @@ public enum ConfigFile {
                 System.exit(1);
             }
         }
+    }
+
+    public InputStream getInputStream(){
+        return this.inputStream;
     }
 
 
