@@ -83,8 +83,6 @@ public class SceneLoader {
             }
             scene.controller.setClient(client);
             scene.controller.setupController();
-            SavedScene finalScene = scene;
-            Platform.runLater(finalScene.controller::onSceneShow);
             scene.controller.setState(state);
             applySceneFade(scene);
             gui.setCurrentScene(scene);
@@ -94,7 +92,8 @@ public class SceneLoader {
             scene.controller.setupController();
             scene.controller.setState(state);
         }
-        scene.controller.onSceneShow();
+        SavedScene finalScene = scene;
+        Platform.runLater(finalScene.controller::onSceneShow);
     }
 
     /**
