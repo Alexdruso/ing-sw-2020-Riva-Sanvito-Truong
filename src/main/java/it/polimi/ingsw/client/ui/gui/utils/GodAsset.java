@@ -2,6 +2,9 @@ package it.polimi.ingsw.client.ui.gui.utils;
 
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 
+/**
+ * This enum contains all assets needed for the various gods in the game
+ */
 public enum GodAsset {
     APOLLO("/assets/god_cards/apollo_card.png", "/assets/god_icons/apollo_icon.png", "apollo"),
     ARTEMIS("/assets/god_cards/artemis_card.png", "/assets/god_icons/artemis_icon.png", "artemis"),
@@ -18,16 +21,37 @@ public enum GodAsset {
     TRITON("/assets/god_cards/triton_card.png", "/assets/god_icons/triton_icon.png", "triton"),
     ZEUS("/assets/god_cards/zeus_card.png", "/assets/god_icons/zeus_icon.png", "zeus");
 
+    /**
+     * Location of the card asset in the resources folder
+     */
     public final String cardLocation;
+    /**
+     * Location of the icon asset in the resources folder
+     */
     public final String iconLocation;
-    public final String godName; //English name all lowercase. If there are any spaces, substitute with an underscore.
+    /**
+     * English name of the god all lowercase.
+     * If there are any spaces, they should be substituted with an underscore.
+     */
+    public final String godName;
 
+    /**
+     * Enum constructor
+     * @param cardLocation
+     * @param iconLocation
+     * @param godName
+     */
     GodAsset(String cardLocation, String iconLocation, String godName){
         this.cardLocation = cardLocation;
         this.iconLocation = iconLocation;
         this.godName = godName;
     }
 
+    /**
+     * This method returns the GodAsset corresponding to the given god
+     * @param god the god of which we want to retrieve the asset
+     * @return the GodAsset corresponding to the god
+     */
     public static GodAsset fromReducedGod(ReducedGod god){
         return GodAsset.valueOf(god.getName().toUpperCase());
     }

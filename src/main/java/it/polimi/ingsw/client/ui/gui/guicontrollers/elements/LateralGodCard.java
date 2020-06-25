@@ -30,6 +30,9 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This graphical component can be used to show the name, description and card of a god in a scene
+ */
 public class LateralGodCard extends StackPane {
     private static final Logger LOGGER = Logger.getLogger(LateralGodCard.class.getName());
 

@@ -24,6 +24,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class is a helper to load the scene while applying various customization effects (such as animations)
+ * and executes the steps that initialize the scene and its controller.
+ */
 public class SceneLoader {
     private static final Logger LOGGER = Logger.getLogger(SceneLoader.class.getName());
 
@@ -42,6 +46,10 @@ public class SceneLoader {
     private final double blurInDuration;
     private final AbstractClientState state;
 
+    /**
+     * Class constructor
+     * @param loader the SceneLoaderFactory from which to build the SceneLoader
+     */
     protected SceneLoader(SceneLoaderFactory loader){
         this.fxmlFile = loader.fxmlFile;
         this.client = loader.client;
@@ -59,6 +67,9 @@ public class SceneLoader {
         this.state = loader.state;
     }
 
+    /**
+     * The method which starts the scene loading process
+     */
     public void executeSceneChange(){
         SavedScene scene = null;
         GUI gui = (GUI)client.getUI();
@@ -86,6 +97,10 @@ public class SceneLoader {
         scene.controller.onSceneShow();
     }
 
+    /**
+     * This method applies fade in and fade out effects to the current scene and loads the new scene
+     * @param savedScene the new scene to load in
+     */
     private void applySceneFade(SavedScene savedScene) {
         if(replaceOldScene){
             if (doApplyFadeOut){
@@ -103,6 +118,12 @@ public class SceneLoader {
         }
     }
 
+    /**
+     * This method attempts to load an .fxml file and, if successful saves the corrsponding
+     * SavedScene for later use
+     * @param gui the GUI instance
+     * @return the SavedScene if the loading was successful, null otherwise
+     */
     private SavedScene loadAndSave(GUI gui) {
         SavedScene savedScene;
         try{
@@ -117,7 +138,14 @@ public class SceneLoader {
         return savedScene;
     }
 
-
+    /**
+     * This method loads the FXML from memory, creating a SavedScene containing all the scene elements
+     * @param file a String representing the path in the resource folder pointing to the .fxml file
+     * @param clientState the State bound to the scene
+     * @param resourceBundle a ResourceBundle to load i18n strings from
+     * @return a SavedScene instance containing all the scene components
+     * @throws IOException if the path was invalid
+     */
     public static SavedScene loadNewFXML(String file, ClientState clientState, ResourceBundle resourceBundle) throws IOException {
         URL fileURL = SceneLoader.class.getResource(file);
         if(fileURL == null){
@@ -132,14 +160,30 @@ public class SceneLoader {
         return new SavedScene(file, controller, root, clientState);
     }
 
+    /**
+     * This method retrieves a previously stored SavedScene
+     * @param file the .fxml file whose scene we want to load
+     * @param gui the GUI instance
+     * @return the SavedScene instance
+     */
     public static SavedScene loadFromSaved(String file, GUI gui){
         return gui.getScene(file);
     }
 
+    /**
+     * This method retrieves the ResourceBundle for the currently set locale
+     * @return the ResourceBundle
+     */
     private static ResourceBundle geti18n(){
         return I18n.getResourceBundle();
     }
 
+    /**
+     * This method executes the real scene loading by setting the root and starts the fade in animation
+     * @param mainScene the Scene object in which the scene is to be loaded
+     * @param newRoot  the Root object to be loaded in the scene
+     * @param duration the fade in duration
+     */
     public static void applyFadeIn(Scene mainScene, Parent newRoot, double duration){
         Platform.runLater(() -> {
             mainScene.getRoot().setOpacity(0);
@@ -152,6 +196,13 @@ public class SceneLoader {
         });
     }
 
+    /**
+     * This method executes the fade out and optionally executes the fade in
+     * @param mainScene the Scene object in which the animation is to be executed
+     * @param newRoot  the root to be loaded in the scene after the fade out
+     * @param fadeOutDuration the fade out duration
+     * @param fadeInDuration the fade in duration
+     */
     public static void applyFadeOut(Scene mainScene, Parent newRoot, double fadeOutDuration, double fadeInDuration){
         Platform.runLater(() -> {
             FadeTransition fadeOut = new FadeTransition(Duration.millis(fadeOutDuration), mainScene.getRoot());
@@ -163,6 +214,11 @@ public class SceneLoader {
         });
     }
 
+    /**
+     * This method executes the scene loading (as an overlay) by setting the overlay root and starts the blur in animation
+     * @param newOverlay the root to be loaded in the scene
+     * @param duration the blur in duration
+     */
     public static void applyBlurIn(Parent newOverlay, double duration){
         Platform.runLater(() -> {
             BoxBlur blur = new BoxBlur();
@@ -182,6 +238,10 @@ public class SceneLoader {
         });
     }
 
+    /**
+     * This method executes the blur out
+     * @param duration the blur out duration
+     */
     public static void applyBlurOut(double duration){
         Platform.runLater(() -> {
             BoxBlur blur = (BoxBlur)JavaFXGUI.getMainRoot().getEffect();
@@ -205,13 +265,6 @@ public class SceneLoader {
                 JavaFXGUI.getOverlayRoot().setMouseTransparent(true);
             });
             timeline.play();
-        });
-    }
-
-    public static void clearOverlay(){
-        Platform.runLater(() -> {
-            JavaFXGUI.getMainRoot().setEffect(null);
-            JavaFXGUI.getOverlayRoot().getChildren().clear();
         });
     }
 }

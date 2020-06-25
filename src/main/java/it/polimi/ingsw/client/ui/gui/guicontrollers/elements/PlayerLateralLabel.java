@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This graphical component can be used to show the players currently playing in a match
+ */
 public class PlayerLateralLabel extends AnchorPane{
     private static final Logger LOGGER = Logger.getLogger(PlayerLateralLabel.class.getName());
     private StringProperty playerNameProperty = new SimpleStringProperty();

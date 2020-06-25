@@ -24,7 +24,6 @@ public class GUI implements UI {
     };
 
     public void addScene(String fxmlFile, SavedScene savedScene) {
-        //TODO: see if we can load all scenes at startup time
         sceneMap.put(fxmlFile, savedScene);
     }
 
@@ -84,7 +83,6 @@ public class GUI implements UI {
 
     @Override
     public void notifyError(String message) {
-        //TODO: For cleanliness of code, I think we should set a localization file and pass enums
         LOGGER.log(Level.WARNING, message);
         currentScene.controller.handleError(message);
     }
