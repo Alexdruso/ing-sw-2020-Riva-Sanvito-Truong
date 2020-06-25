@@ -62,6 +62,7 @@ public class Connection extends LambdaObservable<Transmittable> {
      * @param port the port
      * @throws IOException if it is not possible to setup the socket
      */
+    @SuppressWarnings("java:S2095") // We cannot wrap the socket creation in a try-with-resources because the socket will be used outside of this method
     public Connection(String host, int port) throws IOException {
         this(new Callable<Socket>(){
             @Override
