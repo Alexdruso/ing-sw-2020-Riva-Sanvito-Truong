@@ -8,13 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SettingsController extends AbstractController {
     private static final Logger LOGGER = Logger.getLogger(SettingsController.class.getName());
-    private static final String LANGUAGE_ENV_VAR_NAME = "LANGUAGE";
 
     @FXML
     ChoiceBox<AvailableLocale> languageChoiceBox;

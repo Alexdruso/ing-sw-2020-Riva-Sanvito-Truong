@@ -67,9 +67,9 @@ public class Connection extends LambdaObservable<Transmittable> {
         this(new Callable<Socket>(){
             @Override
             public Socket call() throws IOException {
-                Socket socket = new Socket();
-                socket.connect(new InetSocketAddress(host, port), SOCKET_CONNECTION_TIMEOUT_MS);
-                return socket;
+                Socket s = new Socket();
+                s.connect(new InetSocketAddress(host, port), SOCKET_CONNECTION_TIMEOUT_MS);
+                return s;
             }
         }.call());
     }
