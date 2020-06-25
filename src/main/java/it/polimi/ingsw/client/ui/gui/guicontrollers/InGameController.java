@@ -99,7 +99,7 @@ public class InGameController extends AbstractController{
 
     @Override
     public void setupController(){
-        lateralGodCard.setGods(new ArrayList<>(client.getGods()));
+        lateralGodCard.setGods(client.getGame().getPlayersList().stream().map(ReducedPlayer::getGod).collect(Collectors.toList()));
     }
 
     @FXML
