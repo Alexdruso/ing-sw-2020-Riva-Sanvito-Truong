@@ -40,7 +40,6 @@ public class SceneLoader {
     private final double fadeInDuration;
     private final double fadeOutDuration;
     private final double blurInDuration;
-    private final double blurOutDuration;
     private final AbstractClientState state;
 
     protected SceneLoader(SceneLoaderFactory loader){
@@ -57,7 +56,6 @@ public class SceneLoader {
         this.fadeInDuration = loader.fadeInDuration;
         this.fadeOutDuration = loader.fadeOutDuration;
         this.blurInDuration = loader.blurInDuration;
-        this.blurOutDuration = loader.blurOutDuration;
         this.state = loader.state;
     }
 

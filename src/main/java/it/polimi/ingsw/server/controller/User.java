@@ -2,13 +2,15 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
+import java.io.Serializable;
+
 /**
  * A utility class that represents a user connected to the server.
  * It is also used by the Model to reference a Player outside of it.
  *
  * @see it.polimi.ingsw.server.model.Player
  */
-public class User {
+public class User implements Serializable {
     public final String nickname;
 
     /**

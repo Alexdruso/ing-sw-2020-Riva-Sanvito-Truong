@@ -30,9 +30,7 @@ public class PlayerLateralLabel extends AnchorPane{
     @FXML Label statusLabel;
     @FXML Circle colorTip;
     @FXML Label colorLabel;
-    //@FXML Rectangle colorRectangleDivider;
 
-    //TODO: create configuration files for this stuff
     enum Colors {
         PLAYER1("133C55"),
         PLAYER2("F2A541"),
@@ -67,7 +65,8 @@ public class PlayerLateralLabel extends AnchorPane{
 
 
     public void setActiveStatus(boolean active){
-        String toRemove, toAdd;
+        String toRemove;
+        String toAdd;
 
         if(active){
             toRemove = "player-lateral-label-passive";

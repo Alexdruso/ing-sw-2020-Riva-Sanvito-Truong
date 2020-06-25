@@ -1,9 +1,10 @@
 package it.polimi.ingsw.utils.structures;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<K,V>{
+public abstract class BidirectionalAbstractMap<K extends Serializable,V extends Serializable> implements BidirectionalMap<K,V>{
     Map<K,V> forwardMap;
     Map<V,K> backwardMap;
 
@@ -172,19 +173,4 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
     public int size() {
         return forwardMap.size();
     }
-
-    /**
-     * Returns a copy of this map that contains all and only the relations from the key set to the value set.
-     *
-     * @return a copy of this map that contains all and only the relations from the key set to the value set.
-     */
-    @Override
-    public abstract Map<K, V> getForwardMap();
-
-    /**
-     * Returns a copy of this map that contains all and only the relations from the value set to the key set.
-     *
-     * @return a copy of this map that contains all and only the relations from the value set to the key set.
-     */
-    public abstract Map<V, K> getBackwardMap();
 }

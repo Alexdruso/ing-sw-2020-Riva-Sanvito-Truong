@@ -1,5 +1,6 @@
 package it.polimi.ingsw.utils.structures;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ import java.util.Map;
  * @param <K> The type of the Key set
  * @param <V> The type of the Value set
  */
-public class BidirectionalHashMap<K, V> extends BidirectionalAbstractMap<K,V> {
+public class BidirectionalHashMap<K extends Serializable, V extends Serializable> extends BidirectionalAbstractMap<K,V> {
 
     public BidirectionalHashMap(){
         forwardMap = new HashMap<>();

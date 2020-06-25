@@ -107,9 +107,7 @@ public class LateralGodCard extends StackPane {
         if(sideBarVisible){
             gradientPaneTransitionOut.setToX(-(gradientPane.getWidth()));
             cardPaneTransitionOut.setToX(-(cardPane.getWidth()));
-            Platform.runLater(() -> {
-                sideBarTransitionOut.play();
-            });
+            Platform.runLater(() -> sideBarTransitionOut.play());
             sideBarVisible = false;
         }
     }
@@ -157,7 +155,7 @@ public class LateralGodCard extends StackPane {
             selectGodButton.getStyleClass().add("bigbutton");
             selectGodButton.setOnMouseClicked(e -> selectGod());
             cardPane.getChildren().add(selectGodButton);
-            ((VBox)cardPane).setMargin(selectGodButton, new Insets(0,0,0,30));
+            VBox.setMargin(selectGodButton, new Insets(0,0,0,30));
         }
     }
 

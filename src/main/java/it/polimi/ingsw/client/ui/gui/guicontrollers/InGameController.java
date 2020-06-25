@@ -80,7 +80,7 @@ public class InGameController extends AbstractController{
         return imageStack;
     }
 
-    @FXML
+    @Override
     public void onSceneShow(){
         lateralLabels.clear();
         lateralLabelsContainer.getChildren().clear();
