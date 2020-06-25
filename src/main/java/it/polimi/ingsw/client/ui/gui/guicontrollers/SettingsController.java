@@ -21,19 +21,12 @@ public class SettingsController extends AbstractController {
 
     @FXML
     public void handleMenuButton(ActionEvent event){
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
-        sceneLoaderFactory.setAttemptLoadFromSaved(true).build().executeSceneChange();
+        switchToMenu();
     }
 
-    private void reloadScreen(){
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/Settings.fxml", client);
-        sceneLoaderFactory
-                .setAttemptLoadFromSaved(true)
-                .forceSceneChange(true)
-                .setFadeOut(false)
-                .setFadeIn(false)
-                .build()
-                .executeSceneChange();
+    private void switchToMenu(){
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
+        sceneLoaderFactory.setAttemptLoadFromSaved(true).build().executeSceneChange();
     }
 
     @Override
@@ -50,7 +43,7 @@ public class SettingsController extends AbstractController {
     public void saveSettings(ActionEvent e){
         I18n.setLocale(languageChoiceBox.getValue().locale);
         ((GUI)client.getUI()).clearSceneMap();
-        reloadScreen();
+        switchToMenu();
     }
 
     @Override
