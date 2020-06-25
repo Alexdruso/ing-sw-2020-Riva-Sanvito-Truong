@@ -34,7 +34,7 @@
                         <Insets bottom="30.0" top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <Label fx:id="errorLabel" prefHeight="26.0" prefWidth="516.0" styleClass="error-message" text="If you ever see this message... I've f'd up real good">
+                  <Label fx:id="errorLabel" prefHeight="26.0" prefWidth="516.0" styleClass="error-message" text="ERROR">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>

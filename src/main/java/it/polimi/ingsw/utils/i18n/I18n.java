@@ -45,6 +45,13 @@ public class I18n {
     }
 
     /**
+     * Returns the locale currently in use.
+     */
+    public static Locale getLocale(){
+        return I18n.locale;
+    }
+
+    /**
      * Forces the loading of the appropriate resource bundle.
      */
     private static void loadResourceBundle() {

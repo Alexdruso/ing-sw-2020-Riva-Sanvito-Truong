@@ -37,8 +37,12 @@ public class JavaFXGUI extends Application {
 
             overlayRoot.setMouseTransparent(true);
             ((StackPane)overlayRoot).setAlignment(Pos.CENTER);
+            mainRoot.setId("root");
+
             mainRoot.setCache(true);
             mainRoot.setCacheHint(CacheHint.SPEED);
+            overlayRoot.setCache(true);
+            overlayRoot.setCacheHint(CacheHint.SPEED);
 
             Pane root = new StackPane(mainRoot, overlayRoot);
 

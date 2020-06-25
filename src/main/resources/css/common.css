@@ -11,7 +11,7 @@
     -fx-text-fill: white;
 }
 
-.root {
+#root {
     -fx-background-image: url('../assets/main_scene_backgound.png');
     -fx-background-color: black;
     -fx-background-size: cover, auto;
@@ -59,6 +59,27 @@
 .text-area .scroll-pane .content {
     -fx-background-color: transparent;
 }
+
+.choice-box {
+    -fx-background-color: #FFFFFF88;
+    -fx-mark-color: #4D7A97;
+    -fx-border-radius: 0 0 0 0;
+}
+
+.choice-box .context-menu { -fx-background-color: #FFFFFFFF; }
+
+.choice-box .menu-item:focused { -fx-background-color: #4D7A97; }
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: black;
+    -fx-font-size: 1.5em;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: white;
+}
+
+
 .bigbutton {
     -fx-background-color: #FFFFFF44;
     -fx-font-family: "Montserrat Light";

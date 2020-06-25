@@ -36,6 +36,10 @@ public class GUI implements UI {
         sceneMap.remove(clientState);
     }
 
+    public void clearSceneMap(){
+        sceneMap.clear();
+    }
+
     public void setCurrentScene(SavedScene current){
         currentScene = current;
     }

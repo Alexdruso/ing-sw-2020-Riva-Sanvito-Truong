@@ -27,7 +27,7 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
         sceneLoaderFactory
                 .setState(ClientState.WELCOME_SCREEN, this)
                 .setFirstFadeOut(false)
-                .setFadeInDuration(2000)
+                .setFadeInDuration(1000)
                 .build()
                 .executeSceneChange();
     }

@@ -75,7 +75,6 @@ public class SceneLoader {
             SavedScene finalScene = scene;
             Platform.runLater(finalScene.controller::onSceneShow);
             scene.controller.setState(state);
-
             applySceneFade(scene);
             gui.setCurrentScene(scene);
         } else {
@@ -84,6 +83,7 @@ public class SceneLoader {
             scene.controller.setupController();
             scene.controller.setState(state);
         }
+        scene.controller.onSceneShow();
     }
 
     private void applySceneFade(SavedScene savedScene) {

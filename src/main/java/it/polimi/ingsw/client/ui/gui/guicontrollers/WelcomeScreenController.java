@@ -26,6 +26,12 @@ public class WelcomeScreenController extends AbstractController {
     }
 
     @FXML
+    public void handleSettings(ActionEvent event) {
+        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/Settings.fxml", client);
+        sceneLoaderFactory.build().executeSceneChange();
+    }
+
+    @FXML
     public void initialize(){
         primaryStage = JavaFXGUI.getPrimaryStage();
     }
