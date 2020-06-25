@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.clientstates;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.Connection;
 
 import java.io.IOException;
@@ -39,7 +41,7 @@ public abstract class AbstractConnectToServerClientState extends AbstractClientS
             client.setConnection(connection);
             client.moveToState(ClientState.SET_NICKNAME);
         } catch (IOException e) {
-            client.getUI().notifyError("Impossibile stabilire una connessione con il server specificato.", e);
+            client.getUI().notifyError(I18n.string(I18nKey.ERROR_CANNOT_CONNECT), e);
             client.moveToState(ClientState.CONNECT_TO_SERVER);
         }
     }

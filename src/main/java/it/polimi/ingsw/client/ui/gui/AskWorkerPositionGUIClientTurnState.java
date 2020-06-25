@@ -57,11 +57,11 @@ public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositi
 
     @Override
     public void cancel() {
-        //For now, we don't allow canceling
+        //We don't allow canceling
     }
 
     @Override
     public void handleError() {
-
+        //Already handled by Controller
     }
 }

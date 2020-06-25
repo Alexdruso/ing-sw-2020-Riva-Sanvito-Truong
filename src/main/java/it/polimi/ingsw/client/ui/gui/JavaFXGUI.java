@@ -50,7 +50,7 @@ public class JavaFXGUI extends Application {
             primaryScene.setFill(Color.BLACK); //Makes the fade go to black instead of white
 
             stage.setScene(primaryScene);
-            stage.setFullScreen(false); //TODO: get this from args maybe?
+            stage.setFullScreen(false);
             initialized = true;
             sceneLock.notifyAll();
         }

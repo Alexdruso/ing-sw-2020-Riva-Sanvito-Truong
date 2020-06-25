@@ -27,6 +27,8 @@ public enum I18nKey {
     DOME,
     E_G,
     ERROR,
+    ERROR_CANNOT_CONNECT,
+    ERROR_INVALID_PORT,
     GOD,
     GOD_DESCRIPTION,
     GODS_ALREADY_CHOSEN,

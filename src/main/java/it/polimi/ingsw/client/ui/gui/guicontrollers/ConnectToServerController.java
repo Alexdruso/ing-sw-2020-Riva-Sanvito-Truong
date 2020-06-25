@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.ConnectToServerGUIClientState;
+import it.polimi.ingsw.utils.i18n.I18n;
+import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -32,8 +34,7 @@ public class ConnectToServerController extends AbstractController{
                 port = portField.getText();
             } else {
                 errorLabel.setOpacity(1);
-                //TODO: localisation
-                errorLabel.setText("Invalid host or port!");
+                errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_PORT));
                 return;
             }
         }
