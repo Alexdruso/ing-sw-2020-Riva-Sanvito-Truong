@@ -1,10 +1,9 @@
 package it.polimi.ingsw.utils.structures;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class BidirectionalAbstractMap<K extends Serializable,V extends Serializable> implements BidirectionalMap<K,V>{
+public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<K,V>{
     Map<K,V> forwardMap;
     Map<V,K> backwardMap;
 

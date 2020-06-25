@@ -5,15 +5,13 @@ import it.polimi.ingsw.server.model.turnevents.TurnEventsManager;
 import it.polimi.ingsw.server.model.workers.Worker;
 import it.polimi.ingsw.server.model.workers.WorkerID;
 
-import java.io.Serializable;
-
 /**
  * This class is the model representation of the physical player.
  * It keeps all the information regarding the single player.
  * It provides methods to perform actions on the game.
  */
 
-public class Player implements Serializable {
+public class Player {
 
     /**
      * The name chosen by the physical player

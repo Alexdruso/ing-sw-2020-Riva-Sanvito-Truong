@@ -27,7 +27,7 @@ import java.util.Set;
  * @param <K> The type of the Key set
  * @param <V> The type of the Value set
  */
-public interface BidirectionalMap<K, V> extends Serializable {
+public interface BidirectionalMap<K, V> {
     /**
      * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
      * @param key the key whose associated value is to be returned.
