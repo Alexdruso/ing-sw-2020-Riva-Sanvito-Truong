@@ -19,7 +19,7 @@
             <Insets bottom="20.0" left="10.0" />
          </padding>
       </Label>
-      <Circle fx:id="colorTip" fill="DODGERBLUE" layoutX="23.0" layoutY="77.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+      <Circle fx:id="colorTip" fill="DODGERBLUE" layoutX="23.0" layoutY="77.0" radius="10.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="1.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
       <Label fx:id="colorLabel" layoutX="36.0" layoutY="65.0" styleClass="h6" text="%color" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="35.0" />
    </children>
 </fx:root>
