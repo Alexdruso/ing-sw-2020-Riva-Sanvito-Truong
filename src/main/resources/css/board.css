@@ -1,12 +1,12 @@
 .player-lateral-label-active {
     -fx-background-color: #FFFFFF33;
-    -fx-border-color: #F2A541;
+    -fx-border-color: white;
     -fx-border-width: 0 0 4px 4px;
 }
 
 .player-lateral-label-passive {
     -fx-background-color: #FFFFFF11;
-    -fx-border-color: #133C55;
+    -fx-border-color: white;
     -fx-border-width: 0 0 4px 4px;
 }
 
