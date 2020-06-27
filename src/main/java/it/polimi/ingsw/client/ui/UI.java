@@ -13,6 +13,8 @@ import it.polimi.ingsw.utils.StringCapturedStackTrace;
 public interface UI {
     /**
      * Initialize the user interface.
+     *
+     * @param onExit a Runnable that the UI must execute when the user requests to exit the program.
      */
     void init(Runnable onExit);
 
@@ -25,6 +27,12 @@ public interface UI {
      */
     AbstractClientState getClientState(ClientState clientState, Client client);
 
+    /**
+     *
+     * @param clientTurnState the requested client turn state
+     * @param client          the client
+     * @return an instance of a UI-specific ClientTurnState
+     */
     AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client);
 
     /**

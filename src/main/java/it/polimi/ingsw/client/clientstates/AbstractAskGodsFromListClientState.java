@@ -7,6 +7,9 @@ import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientChoo
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A generic ASK_GODS_FROM_LIST client state, to be extended by a UI-specific class.
+ */
 public abstract class AbstractAskGodsFromListClientState extends AbstractClientState{
     protected List<ReducedGod> chosenGods;
 

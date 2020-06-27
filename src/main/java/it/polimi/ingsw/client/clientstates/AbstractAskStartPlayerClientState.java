@@ -4,6 +4,9 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetStartPlayerMessage;
 
+/**
+ * A generic ASK_START_PLAYER client state, to be extended by a UI-specific class.
+ */
 public abstract class AbstractAskStartPlayerClientState extends AbstractClientState{
     protected ReducedUser chosenUser;
 

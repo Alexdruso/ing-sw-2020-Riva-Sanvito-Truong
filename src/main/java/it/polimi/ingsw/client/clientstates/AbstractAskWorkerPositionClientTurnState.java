@@ -6,11 +6,19 @@ import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetWorkerStartPositionMessage;
 
+/**
+ * A generic ASK_WORKER_POSITION client turn state, to be extended by a UI-specific class.
+ */
 public abstract class AbstractAskWorkerPositionClientTurnState extends AbstractClientTurnState {
     protected int targetCellX;
     protected int targetCellY;
     protected ReducedWorkerID workerID;
 
+    /**
+     * Initializes the turn state.
+     *
+     * @param client the reference to the Client
+     */
     public AbstractAskWorkerPositionClientTurnState(Client client) {
         super(client);
     }

@@ -5,10 +5,17 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A representation of the board of the game, reduced with respect to the server's Board to contain only the information required by the client.
+ */
 public class ReducedBoard {
     private final ReducedCell[][] cells;
     private static final int BOARD_SIZE = 5;
 
+
+    /**
+     * Instantiates a new Reduced board.
+     */
     public ReducedBoard() {
         cells = new ReducedCell[BOARD_SIZE][BOARD_SIZE];
 
@@ -29,6 +36,7 @@ public class ReducedBoard {
 
     /**
      * This method returns the cell in position (x,y)
+     *
      * @param x the position of the cell on the x axis
      * @param y the position of the cell on the y axis
      * @return the required cell
@@ -55,6 +63,4 @@ public class ReducedBoard {
         }
         return targetedCells;
     }
-
-
 }

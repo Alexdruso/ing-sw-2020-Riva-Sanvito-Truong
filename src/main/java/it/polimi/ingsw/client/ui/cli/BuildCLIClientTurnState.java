@@ -10,11 +10,20 @@ import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
 
+/**
+ * A CLI-specific BUILD client turn state.
+ */
 public class BuildCLIClientTurnState extends AbstractBuildClientTurnState implements CLIClientTurnState {
     private final InGameCLIClientState clientState;
     private final CLI cli;
     private boolean workerWasForced = false;
 
+    /**
+     * Initializes the turn state.
+     *
+     * @param client      the reference to the Client
+     * @param clientState the current ClientState
+     */
     public BuildCLIClientTurnState(Client client, InGameCLIClientState clientState) {
         super(client);
         this.clientState = clientState;

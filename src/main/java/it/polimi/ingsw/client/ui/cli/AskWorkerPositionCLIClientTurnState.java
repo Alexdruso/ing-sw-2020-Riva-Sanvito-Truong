@@ -6,10 +6,19 @@ import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 
+/**
+ * A CLI-specific ASK_WORKER_POSITION client turn state.
+ */
 public class AskWorkerPositionCLIClientTurnState extends AbstractAskWorkerPositionClientTurnState implements CLIClientTurnState {
     private final InGameCLIClientState clientState;
     private final CLI cli;
 
+    /**
+     * Initializes the turn state.
+     *
+     * @param client      the reference to the Client
+     * @param clientState the current ClientState
+     */
     public AskWorkerPositionCLIClientTurnState(Client client, InGameCLIClientState clientState) {
         super(client);
         this.clientState = clientState;

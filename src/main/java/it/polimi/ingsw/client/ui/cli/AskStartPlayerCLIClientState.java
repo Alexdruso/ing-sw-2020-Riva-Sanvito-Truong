@@ -10,6 +10,9 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A CLI-specific ASK_START_PLAYER client state.
+ */
 public class AskStartPlayerCLIClientState extends AbstractAskStartPlayerClientState {
     private final CLI cli;
 

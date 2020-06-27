@@ -7,6 +7,9 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientMoveMessage;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSkipMessage;
 
+/**
+ * A generic MOVE client turn state, to be extended by a UI-specific class.
+ */
 public abstract class AbstractMoveClientTurnState extends AbstractClientTurnState {
     protected int sourceCellX;
     protected int sourceCellY;
@@ -14,6 +17,11 @@ public abstract class AbstractMoveClientTurnState extends AbstractClientTurnStat
     protected int targetCellY;
     protected ReducedWorkerID workerID = null;
 
+    /**
+     * Initializes the turn state.
+     *
+     * @param client the reference to the Client
+     */
     public AbstractMoveClientTurnState(Client client) {
         super(client);
     }

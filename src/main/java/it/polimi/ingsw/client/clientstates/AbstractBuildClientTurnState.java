@@ -8,6 +8,9 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientBuildMessage;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSkipMessage;
 
+/**
+ * A generic BUILD client turn state, to be extended by a UI-specific class.
+ */
 public abstract class AbstractBuildClientTurnState extends AbstractClientTurnState {
     protected int targetCellX;
     protected int targetCellY;
@@ -15,6 +18,11 @@ public abstract class AbstractBuildClientTurnState extends AbstractClientTurnSta
     protected int builtLevel;
     protected ReducedWorkerID workerID = null;
 
+    /**
+     * Initializes the turn state.
+     *
+     * @param client the reference to the Client
+     */
     public AbstractBuildClientTurnState(Client client) {
         super(client);
     }

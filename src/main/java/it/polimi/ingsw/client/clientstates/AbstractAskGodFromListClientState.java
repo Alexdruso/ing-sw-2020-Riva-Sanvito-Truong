@@ -4,6 +4,9 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientChooseGodMessage;
 
+/**
+ * A generic ASK_GOD_FROM_LIST client state, to be extended by a UI-specific class.
+ */
 public abstract class AbstractAskGodFromListClientState extends AbstractClientState{
     protected ReducedGod chosenGod;
 
