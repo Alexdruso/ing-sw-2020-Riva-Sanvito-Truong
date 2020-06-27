@@ -88,9 +88,7 @@ public class PlayerLateralLabel extends AnchorPane{
         } else {
             toRemove = "player-lateral-label-active";
             toAdd = "player-lateral-label-passive";
-            if(!isSpectating){
-                statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());
-            }
+            statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());
         }
 
         int index = container.getStyleClass().indexOf(toRemove);
@@ -108,7 +106,11 @@ public class PlayerLateralLabel extends AnchorPane{
      */
     public void setSpectatingStatus(){
         isSpectating = true;
+        setActiveStatus(false);
         statusLabel.setText(I18n.string(I18nKey.SPECTATING).toUpperCase());
+        colorLabel.setOpacity(0);
+        colorTip.setOpacity(0);
+        godName.setOpacity(0);
     }
 
     @FXML private void initialize(){

@@ -38,7 +38,6 @@ public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositi
             });
         }
         Platform.runLater(() -> {
-            controller.updatePlayerLabels();
             controller.redrawBoard();
         });
     }

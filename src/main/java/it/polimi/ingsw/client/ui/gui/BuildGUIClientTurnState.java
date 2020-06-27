@@ -83,7 +83,6 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
             });
         }
         Platform.runLater(() -> {
-            controller.updatePlayerLabels();
             controller.redrawBoard();
         });
     }

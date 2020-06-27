@@ -91,6 +91,13 @@ public class InGameController extends AbstractController{
                 lateralGodCard.setDescription(String.format(I18n.string(I18nKey.S_GOD), player.getNickname()));
                 lateralGodCard.clickGod(player.getGod());
             });
+            if(player.equals(client.getGame().getTurn().getPlayer())){
+                label.setActiveStatus(true);
+            } else if (player.isInGame()) {
+                label.setActiveStatus(false);
+            } else {
+                label.setSpectatingStatus();
+            }
             lateralLabelsContainer.getChildren().add(label);
             lateralLabels.put(player, label);
             playerNumber++;
@@ -225,13 +232,6 @@ public class InGameController extends AbstractController{
     public void displayComponentSelection(){
         sideButtons.getChildren().add(domeIcon);
         sideButtons.getChildren().add(blockIcon);
-    }
-
-    public void updatePlayerLabels(){
-        for(Map.Entry<ReducedPlayer, PlayerLateralLabel> entry: lateralLabels.entrySet()){
-            boolean isActive = entry.getKey().equals(client.getGame().getTurn().getPlayer());
-            entry.getValue().setActiveStatus(isActive);
-        }
     }
 
     public void clearSideButtons(){
