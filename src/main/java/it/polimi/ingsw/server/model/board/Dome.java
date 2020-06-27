@@ -13,6 +13,8 @@ class Dome implements Buildable {
     /**
      * This method represents whether a worker can walk or build on this block.
      * For a Block object this always returns true.
+     *
+     * @return true if the dome is targetable
      */
     @Override
     public boolean isTargetable() {

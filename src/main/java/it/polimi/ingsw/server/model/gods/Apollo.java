@@ -51,6 +51,11 @@ class Apollo extends AbstractGod {
         }
     };
 
+    /**
+     * Gets the god's name.
+     *
+     * @return the name
+     */
     @Override
     public String getName() {
         return "Apollo";

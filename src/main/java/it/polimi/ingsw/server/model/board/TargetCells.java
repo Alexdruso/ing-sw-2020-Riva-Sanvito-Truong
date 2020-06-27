@@ -12,22 +12,36 @@ import java.util.Collection;
  * Finally the Cell instances should be retrieved by the getTargets() method in the board.
  */
 public class TargetCells {
+    /**
+     * The constant BOARD_SIZE.
+     */
     private static final int BOARD_SIZE = 5;
+    /**
+     * The Targets.
+     */
     private final boolean[][] targets;
 
     /**
      * Class constructor which creates a TargetCells instance which has no targeted cells
      */
-    public TargetCells(){
+    public TargetCells() {
         targets = new boolean[BOARD_SIZE][BOARD_SIZE];
     }
 
+    /**
+     * Is valid coordinate boolean.
+     *
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return the boolean
+     */
     private static boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
     }
 
     /**
      * Overridden equals method to provide equality between two TargetCells instances
+     *
      * @param other the other TargetCells with which to compare
      * @return true if this and other are equal, false otherwise
      */
@@ -45,6 +59,7 @@ public class TargetCells {
 
     /**
      * Overridden hashCode method to provide the hash code of a TargetCells instance.
+     *
      * @return the hashcode of the TargetCells instance
      */
     @Override
@@ -86,9 +101,9 @@ public class TargetCells {
     /**
      * Sets a cell at a given position to the given targeted status
      *
-     * @param x the x coord
-     * @param y the y coord
-     * @param isTargeted  if true the cell is set to targeted, otherwise to un-targeted
+     * @param x          the x coordinate
+     * @param y          the y coordinate
+     * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
     public TargetCells setPosition(int x, int y, boolean isTargeted){
@@ -132,7 +147,7 @@ public class TargetCells {
     /**
      * Sets an entire row's targeted status
      *
-     * @param y the y coord
+     * @param y          the y coordinate
      * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
@@ -146,8 +161,8 @@ public class TargetCells {
     /**
      * Sets an entire row's targeted status
      *
-     * @param x the x coord
-     * @param isTargeted  if true the cells are set to targeted, otherwise to un-targeted
+     * @param x          the x coordinate
+     * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
     public TargetCells setColumn(int x, boolean isTargeted) {

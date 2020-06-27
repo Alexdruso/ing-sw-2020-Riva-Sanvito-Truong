@@ -9,7 +9,13 @@ import java.util.HashMap;
  * The TurnEvents manager, which allows the gods to register their powers and executes them when requested to do so by the game.
  */
 public class TurnEventsManager {
+    /**
+     * The player owning the turn events manager.
+     */
     private final Player player;
+    /**
+     * The Turn events from the opponents.
+     */
     private final HashMap<Player, TurnEvents> turnEventsFromOpponents;
 
     /**
@@ -43,7 +49,8 @@ public class TurnEventsManager {
 
     /**
      * Process turn start events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processTurnStartEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().onTurnStart(turn);
@@ -52,7 +59,8 @@ public class TurnEventsManager {
 
     /**
      * Process before movement events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processBeforeMovementEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().onBeforeMovement(turn);
@@ -61,7 +69,8 @@ public class TurnEventsManager {
 
     /**
      * Process after movement events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processAfterMovementEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().onAfterMovement(turn);
@@ -70,7 +79,8 @@ public class TurnEventsManager {
 
     /**
      * Process before build events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processBeforeBuildEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().onBeforeBuild(turn);
@@ -79,7 +89,8 @@ public class TurnEventsManager {
 
     /**
      * Process after build events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processAfterBuildEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().onAfterBuild(turn);
@@ -88,7 +99,8 @@ public class TurnEventsManager {
 
     /**
      * Process turn end events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processTurnEndEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().onTurnEnd(turn);
@@ -97,7 +109,8 @@ public class TurnEventsManager {
 
     /**
      * Process win condition events.
-     * @param turn
+     *
+     * @param turn the turn
      */
     public void processWinConditionEvents(Turn turn) {
         player.getGod().getOwnerTurnEvents().computeWinCondition(turn);

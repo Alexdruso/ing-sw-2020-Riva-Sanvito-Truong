@@ -8,7 +8,6 @@ import it.polimi.ingsw.server.model.workers.Worker;
  * This class implements Action interface and represents actions in which a worker builds something on a targetCell.
  * It is immutable.
  */
-
 public class BuildAction implements  Action{
     /**
      * The cell on which the worker built
@@ -47,6 +46,8 @@ public class BuildAction implements  Action{
     }
 
     /**
+     * Gets the target cell.
+     *
      * @return The cell on which the worker built
      */
     public Cell getTargetCell() {
@@ -54,6 +55,8 @@ public class BuildAction implements  Action{
     }
 
     /**
+     * Gets the component.
+     *
      * @return The component built on the cell
      */
     public Buildable getComponent() {
@@ -61,6 +64,8 @@ public class BuildAction implements  Action{
     }
 
     /**
+     * Gets the built level.
+     *
      * @return The level built by the worker
      */
     public int getBuiltLevel() {
@@ -68,6 +73,8 @@ public class BuildAction implements  Action{
     }
 
     /**
+     * Gets the worker.
+     *
      * @return The worker who performed the build
      */
     public Worker getWorker() {

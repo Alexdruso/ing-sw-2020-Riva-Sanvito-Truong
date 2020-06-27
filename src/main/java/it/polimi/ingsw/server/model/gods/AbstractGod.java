@@ -39,6 +39,11 @@ abstract class AbstractGod implements God {
         return opponentsTurnEvents;
     }
 
+    /**
+     * Turns the god into a ReducedGod.
+     *
+     * @return the reduced god
+     */
     public ReducedGod toReducedGod() {
         return new ReducedGod(this.getName());
     }

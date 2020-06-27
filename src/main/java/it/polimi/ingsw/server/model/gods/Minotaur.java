@@ -32,7 +32,7 @@ class Minotaur extends AbstractGod {
                             turn.getGame().getBoard().fromBaseCellAndDirection(
                                     targetCell, new Direction(currentCell, targetCell)
                             ).ifPresent(pushbackCell -> {
-                                if (!pushbackCell.getTower().isComplete() && !pushbackCell.getWorker().isPresent()) {
+                                if (!pushbackCell.getTower().isComplete() && pushbackCell.getWorker().isEmpty()) {
                                     walkableTargets.setPosition(targetCell, true);
                                 }
                             });
@@ -58,6 +58,11 @@ class Minotaur extends AbstractGod {
         }
     };
 
+    /**
+     * Gets the god's name.
+     *
+     * @return the name
+     */
     @Override
     public String getName() {
         return "Minotaur";

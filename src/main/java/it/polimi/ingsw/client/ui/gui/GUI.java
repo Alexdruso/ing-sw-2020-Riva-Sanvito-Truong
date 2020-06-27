@@ -34,10 +34,6 @@ public class GUI implements UI {
         return sceneMap.get(fxmlFile);
     }
 
-    void removeScene(ClientState clientState){
-        sceneMap.remove(clientState);
-    }
-
     public void clearSceneMap(){
         sceneMap.clear();
     }

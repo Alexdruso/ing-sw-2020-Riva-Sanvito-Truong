@@ -3,6 +3,9 @@ package it.polimi.ingsw.server.model.turnstates;
 
 import it.polimi.ingsw.server.model.Turn;
 
+/**
+ * The end turn state.
+ */
 class End implements AbstractTurnState {
 
 

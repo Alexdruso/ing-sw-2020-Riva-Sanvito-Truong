@@ -2,6 +2,9 @@ package it.polimi.ingsw.server.model.turnstates;
 
 import it.polimi.ingsw.server.model.Turn;
 
+/**
+ * The win turn state.
+ */
 class Win implements AbstractTurnState {
     /**
      * This method triggers a winning turn

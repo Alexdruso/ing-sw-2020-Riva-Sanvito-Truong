@@ -9,6 +9,9 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A CLI-specific ASK_GODS_FROM_LIST client state.
+ */
 public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClientState {
     private final CLI cli;
 

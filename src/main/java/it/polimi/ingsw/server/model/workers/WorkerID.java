@@ -2,8 +2,18 @@ package it.polimi.ingsw.server.model.workers;
 
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 
+/**
+ * The enum Worker id.
+ */
 public enum WorkerID {
-    WORKER1, WORKER2;
+    /**
+     * ID of the first worker.
+     */
+    WORKER1,
+    /**
+     * ID of the second worker.
+     */
+    WORKER2;
 
     /**
      * Converts a reduced worker id into a worker id

@@ -19,7 +19,10 @@ import java.util.logging.Logger;
  * This class represents the Server. Whenever one Server object is created and run, it waits for
  * connections arriving over the network and dispatches the setup to a ServerConnectionSetupHandler object
  */
-public class Server{
+public class Server {
+    /**
+     * The constant LOGGER.
+     */
     private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
     /**
@@ -44,12 +47,20 @@ public class Server{
     private final Map<Connection, ServerConnectionSetupHandler> handlers;
 
     /**
-     * Class constructor. This method also creates a lobby builder and starts its thread
+     * Instantiates a new Server.
+     *
+     * @throws IOException io exception thrown by the socket
      */
     public Server() throws IOException {
         this(ConfigParser.getInstance().getIntProperty("serverPort"));
     }
 
+    /**
+     * Instantiates a new Server.
+     *
+     * @param serverPort the server port
+     * @throws IOException io exception thrown by the socket
+     */
     public Server(int serverPort) throws IOException {
         ConfigParser configParser = ConfigParser.getInstance();
         int nThreads = configParser.getIntProperty("numberOfThreads");
@@ -75,7 +86,8 @@ public class Server{
 
     /**
      * This method retrieves a new Connection object, when given an inbound socket created by the
-     * ServerSocket when it receives a connection over the newtork.
+     * ServerSocket when it receives a connection over the network.
+     *
      * @param inboundSocket the inbound socket
      * @return a new connection from the inbound socket
      * @throws IOException an input output exception
@@ -86,6 +98,7 @@ public class Server{
 
     /**
      * This method returns a list containing all matches that have been created
+     *
      * @return the list with the reference to the created matches
      */
     List<Match> getOngoingMatches(){
@@ -96,6 +109,7 @@ public class Server{
 
     /**
      * This method returns the ServerLobbyBuilder connected to the server
+     *
      * @return the ServerLobbyBuilder instance
      */
     ServerLobbyBuilder getLobbyBuilder(){
@@ -104,6 +118,7 @@ public class Server{
 
     /**
      * This method accepts a Match instance and executes it in a different thread
+     *
      * @param match the Match to be executed
      */
     void submitMatch(Match match) {
