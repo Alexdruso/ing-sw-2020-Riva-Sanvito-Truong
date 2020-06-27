@@ -8,6 +8,9 @@ import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
+/**
+ * A GUI-specific ASK_START_PLAYER client state.
+ */
 public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientState implements GUIClientState{
     private SavedScene savedScene;
     private boolean wasPassive = false;
@@ -20,10 +23,17 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
         super(client);
     }
 
+    /**
+     * This method sends the client to the menu
+     */
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
     }
 
+    /**
+     * This method is used to select a ReducedUser to be the first player and to notify the Client about the selection
+     * @param user the ReducedUser representing the player that will play first
+     */
     public void selectUser(ReducedUser user){
         chosenUser = user;
         notifyUiInteraction();

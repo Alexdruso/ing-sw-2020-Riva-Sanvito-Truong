@@ -8,6 +8,9 @@ import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.application.Platform;
 
+/**
+ * A GUI-specific MOVE client turn state.
+ */
 public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implements GUIClientTurnState{
     private final InGameGUIClientState clientState;
     private ReducedGame game;
@@ -17,6 +20,11 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
     private InGameController controller;
     private boolean sourceSelected = false;
 
+    /**
+     * Creates a new MOVE_GUI Client Turn State
+     * @param client the client
+     * @param clientState the client state
+     */
     public MoveGUIClientTurnState(Client client, InGameGUIClientState clientState) {
         super(client);
         this.clientState = clientState;

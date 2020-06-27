@@ -32,12 +32,12 @@ public class SetNicknameController extends AbstractController{
     final BooleanProperty firstShow = new SimpleBooleanProperty(true);
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((SetNicknameGUIClientState)state).returnToMenu();
     }
 
     @FXML
-    public void handleNicknameButton(ActionEvent event){
+    void handleNicknameButton(ActionEvent event){
         if(nicknameField.getLength() != 0) {
             if(nicknameField.getLength() >= ConfigParser.getInstance().getIntProperty("nicknameMaxLength")){
                 //Just to not mess up the rendering of the nickname
@@ -60,7 +60,7 @@ public class SetNicknameController extends AbstractController{
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         nicknameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if(Boolean.TRUE.equals(newValue) && firstShow.get()){
                 setNicknameButton.requestFocus();

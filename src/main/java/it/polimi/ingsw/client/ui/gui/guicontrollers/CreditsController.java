@@ -14,7 +14,7 @@ public class CreditsController extends AbstractController{
     private static final Logger LOGGER = Logger.getLogger(CreditsController.class.getName());
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
         sceneLoaderFactory.setAttemptLoadFromSaved(true).build().executeSceneChange();
     }

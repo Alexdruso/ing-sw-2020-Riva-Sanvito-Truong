@@ -28,7 +28,7 @@ public class SettingsController extends AbstractController {
     HBox languageButtons;
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         switchToMenu();
     }
 
@@ -43,7 +43,7 @@ public class SettingsController extends AbstractController {
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         toggleGroup = new ToggleGroup();
         for(AvailableLocale locale: AvailableLocale.values()){
             ToggleButton button = new ToggleButton(locale.toString());
@@ -57,7 +57,7 @@ public class SettingsController extends AbstractController {
     }
 
     @FXML
-    public void saveSettings(ActionEvent e){
+    void saveSettings(ActionEvent e){
         I18n.setLocale(buttonMap.getKeyFromValue((ToggleButton)toggleGroup.getSelectedToggle()).locale);
         ((GUI)client.getUI()).clearSceneMap();
         switchToMenu();

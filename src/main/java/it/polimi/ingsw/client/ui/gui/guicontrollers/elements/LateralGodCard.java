@@ -89,7 +89,7 @@ public class LateralGodCard extends StackPane {
     /**
      * This method is used to set a callback in order for the controller that contains the LateralGodCard component
      * to receive information about whether the God has been selected.
-     * @param callback
+     * @param callback the callback to be executed when the god has been selected
      */
     public void setGodSelectionCallback(Consumer<ReducedGod> callback){
         this.godSelectionCallback = callback;
@@ -97,7 +97,7 @@ public class LateralGodCard extends StackPane {
 
     /**
      * This method takes a list of ReducedGod and loads all the assets for the gods
-     * @param gods
+     * @param gods the list of ReducedGod
      */
     public void setGods(List<ReducedGod> gods){
         for(ReducedGod god: gods){
@@ -140,7 +140,7 @@ public class LateralGodCard extends StackPane {
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         rootPane.setPickOnBounds(false);
         godText.setMouseTransparent(true);
 

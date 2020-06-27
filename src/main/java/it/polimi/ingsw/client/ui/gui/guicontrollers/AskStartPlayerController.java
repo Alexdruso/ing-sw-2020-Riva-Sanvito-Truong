@@ -49,7 +49,7 @@ public class AskStartPlayerController extends AbstractController{
     }
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((AskStartPlayerGUIClientState)state).returnToMenu();
     }
 

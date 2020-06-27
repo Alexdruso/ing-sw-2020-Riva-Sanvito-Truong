@@ -113,7 +113,7 @@ public class InGameController extends AbstractController{
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         boardAssets.put(BoardElement.BLOCK_0, new Image("/assets/board/block_0.png"));
         boardAssets.put(BoardElement.BLOCK_1, new Image("/assets/board/block_1.png"));
         boardAssets.put(BoardElement.BLOCK_2, new Image("/assets/board/block_2.png"));
@@ -151,14 +151,26 @@ public class InGameController extends AbstractController{
         rootPane.getChildren().add(lateralGodCard);
     }
 
+    /**
+     * This method is used to set the label at the top of the scene
+     * @param label the String to be used as the label text
+     */
     public void setLabel(String label){
         mainLabel.setText(label);
     }
 
+    /**
+     * This method is used to set the prompt at the top of the scene
+     * @param prompt the String to be used as the prompt text
+     */
     public void setPrompt(String prompt){
         this.prompt.setText(prompt);
     }
 
+    /**
+     * This method sets whether the board is clickable by the player or not
+     * @param enabled if true, the board becomes clickable.
+     */
     public void setBoardClickableStatus(boolean enabled){
         //Note: the following hack is needed since JavaFX doesn't handle removing by string very well
         //instead, it requires us to find the index and removing at the index
@@ -182,6 +194,9 @@ public class InGameController extends AbstractController{
         }
     }
 
+    /**
+     * This method is used to redraw the board elements
+     */
     public void redrawBoard(){
         ReducedBoard board = client.getGame().getBoard();
         for(int x = 0; x < 5; x++){
@@ -216,6 +231,9 @@ public class InGameController extends AbstractController{
         ((BuildGUIClientTurnState)client.getGame().getTurn().getTurnState()).selectComponent(component);
     }
 
+    /**
+     * This method displays the cancel button on the left side
+     */
     public void displayCancelButton(){
         Button button = new Button();
         button.setText(I18n.string(I18nKey.CANCEL));
@@ -224,6 +242,9 @@ public class InGameController extends AbstractController{
         sideButtons.getChildren().add(button);
     }
 
+    /**
+     * This method displays the skip button on the left side
+     */
     public void displaySkipButton(){
         Button button= new Button();
         button.setText(I18n.string(I18nKey.SKIP));
@@ -232,11 +253,17 @@ public class InGameController extends AbstractController{
         sideButtons.getChildren().add(button);
     }
 
+    /**
+     * This method displays the component selection on the left side
+     */
     public void displayComponentSelection(){
         sideButtons.getChildren().add(domeIcon);
         sideButtons.getChildren().add(blockIcon);
     }
 
+    /**
+     * This method clears all the buttons on the left side of the screen
+     */
     public void clearSideButtons(){
         sideButtons.getChildren().clear();
     }
@@ -268,7 +295,7 @@ public class InGameController extends AbstractController{
     }
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((InGameGUIClientState)state).returnToMenu();
     }
 

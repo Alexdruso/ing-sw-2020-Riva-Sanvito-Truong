@@ -6,6 +6,9 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
 import javafx.scene.Scene;
 
+/**
+ * This class is used to generate SceneLoader instances by using the Builder pattern
+ */
 public class SceneLoaderFactory {
     final String fxmlFile;
     final Client client;
@@ -23,68 +26,133 @@ public class SceneLoaderFactory {
     CSSFile cssFile;
     AbstractClientState state;
 
+    /**
+     * The class constructor
+     * @param fxmlFile the path to the fxml to be loaded in the resources folder
+     * @param client the Client instance
+     */
     public SceneLoaderFactory(String fxmlFile, Client client){
         this.fxmlFile = fxmlFile;
         this.client = client;
         this.mainScene = JavaFXGUI.getPrimaryScene();
     }
 
+    /**
+     * Sets the setFadeOut property for the SceneLoader
+     * @param doApplyFadeout the value for the setFadeOut property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setFadeOut(boolean doApplyFadeout){
         this.doApplyFadeOut = doApplyFadeout;
         return this;
     }
 
+    /**
+     * Sets the doApplyFirstFadeOut property for the SceneLoader
+     * @param doApplyFirstFadeOut the value for the doApplyFirstFadeOut property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setFirstFadeOut(boolean doApplyFirstFadeOut){
         this.doApplyFirstFadeOut = doApplyFirstFadeOut;
         return this;
     }
 
+    /**
+     * Sets the doApplyFadeIn property for the SceneLoader
+     * @param doApplyFadeIn the value for the doApplyFadeIn property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setFadeIn(boolean doApplyFadeIn){
         this.doApplyFadeIn = doApplyFadeIn;
         return this;
     }
 
+    /**
+     * Sets the clientState property for the SceneLoader
+     * @param clientState the value for the clientState property
+     * @param state the value for the state property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setState(ClientState clientState, AbstractClientState state){
         this.clientState = clientState;
         this.state = state;
         return this;
     }
 
+    /**
+     * Sets the attemptLoadFromSaved property for the SceneLoader
+     * @param attemptLoadFromSaved the value for the attemptLoadFromSaved property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setAttemptLoadFromSaved(boolean attemptLoadFromSaved){
         this.attemptLoadFromSaved = attemptLoadFromSaved;
         return this;
     }
 
+    /**
+     * Sets the fadeInDuration property for the SceneLoader
+     * @param duration the value for the fadeInDuration property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setFadeInDuration(double duration){
         this.fadeInDuration = duration;
         return this;
     }
 
+    /**
+     * Sets the fadeOutDuration property for the SceneLoader
+     * @param duration the value for the fadeOutDuration property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setFadeOutDuration(double duration){
         this.fadeOutDuration = duration;
         return this;
     }
 
+    /**
+     * Sets the blurInDuration property for the SceneLoader
+     * @param duration the value for the blurInDuration property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setBlurInDuration(double duration){
         this.blurInDuration = duration;
         return this;
     }
 
+    /**
+     * Sets the replaceOldScene property for the SceneLoader
+     * @param replaceOldScene the value for the replaceOldScene property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory setReplaceOldScene(boolean replaceOldScene){
         this.replaceOldScene = replaceOldScene;
         return this;
     }
 
+    /**
+     * Sets the cssFile property for the SceneLoader
+     * @param cssFile the value for the cssFile property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory addCSSFile(CSSFile cssFile){
         this.cssFile = cssFile;
         return this;
     }
 
+    /**
+     * Sets the forceSceneChange property for the SceneLoader
+     * @param doForce the value for the forceSceneChange property
+     * @return the SceneLoaderFactory instance
+     */
     public SceneLoaderFactory forceSceneChange(boolean doForce){
         this.forceSceneChange = doForce;
         return this;
     }
 
+    /**
+     * This method is used to build the SceneLoader with all the settings saved inside the SceneLoaderFactory
+     * @return the SceneLoader instance
+     */
     public SceneLoader build(){
         return new SceneLoader(this);
     }

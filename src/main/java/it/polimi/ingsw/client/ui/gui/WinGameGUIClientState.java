@@ -6,6 +6,9 @@ import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WinGameController;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
+/**
+ * A GUI-specific WIN_GAME client state.
+ */
 public class WinGameGUIClientState extends AbstractWinGameClientState implements GUIClientState {
     /**
      * Instantiates a new WIN_GAME ClientState.
@@ -16,10 +19,16 @@ public class WinGameGUIClientState extends AbstractWinGameClientState implements
         super(client);
     }
 
+    /**
+     * This method sends the client to the ConnectToServer state
+     */
     public void reconnect(){
         client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 
+    /**
+     * This method sends the client to the menu
+     */
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
     }

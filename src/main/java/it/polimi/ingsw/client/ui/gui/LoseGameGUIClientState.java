@@ -8,6 +8,9 @@ import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * A GUI-specific LOSE_GAME client state.
+ */
 public class LoseGameGUIClientState extends AbstractLoseGameClientState implements GUIClientState {
     /**
      * Instantiates a new LOSE_GAME ClientState.
@@ -18,16 +21,25 @@ public class LoseGameGUIClientState extends AbstractLoseGameClientState implemen
         super(client);
     }
 
+    /**
+     * This method sends the client to the ConnectToServer state and removes the overlay
+     */
     public void reconnect(){
         SceneLoader.applyBlurOut(500);
         client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 
+    /**
+     * This method sends the client to the menu and removes the overlay
+     */
     public void returnToMenu(){
         notifyUiInteraction();
         SceneLoader.applyBlurOut(2000);
     }
 
+    /**
+     * This method removes the overlay, leaving the player to spectate the game
+     */
     public void spectate(){
         SceneLoader.applyBlurOut(2000);
     }

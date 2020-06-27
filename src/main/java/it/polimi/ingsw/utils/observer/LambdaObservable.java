@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+/**
+ * This class should be extended by all classes that wish to implement the Observer design pattern.
+ * This implementation of the design pattern uses Functional interfaces to define how the Observable should update its
+ * observers.
+ * @param <T> the type of message that should be passed along during a notify call
+ */
 public class LambdaObservable<T> {
     /**
      * The list of observers
@@ -14,6 +20,7 @@ public class LambdaObservable<T> {
      * This method can be used to register an observer on the current object
      *
      * @param observer the observer to be registered
+     * @param lambda the method to be run whenever the Observable wants to send a notify to the observer
      */
     public void addObserver(LambdaObserver observer, BiConsumer<LambdaObserver, T> lambda){
         synchronized (observers) {

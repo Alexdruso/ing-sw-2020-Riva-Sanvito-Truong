@@ -11,12 +11,18 @@ import java.util.logging.Logger;
  * This enum holds the paths of all config files
  */
 public enum ConfigFile {
+    /**
+     * The entry representing the file for global properties
+     */
     GLOBAL_CONFIG("global.properties"),
+    /**
+     * The entry representing the file for server properties
+     */
     SERVER_CONFIG("server.properties");
 
     private InputStream inputStream;
-    public static final String CONFIG_BASE_PATH_ENV_VAR = "CONFIG_BASE_PATH";
-    public static final String CONFIG_BASE_PATH_DEFAULT = "/config/default_";
+    static final String CONFIG_BASE_PATH_ENV_VAR = "CONFIG_BASE_PATH";
+    static final String CONFIG_BASE_PATH_DEFAULT = "/config/default_";
 
     /**
      * Enum constructor
@@ -44,6 +50,10 @@ public enum ConfigFile {
         }
     }
 
+    /**
+     * This method is used to retrieve the inputStream for the configuration file of the Enum
+     * @return an InputStream instance that is connected to the configuration file
+     */
     public InputStream getInputStream(){
         return this.inputStream;
     }

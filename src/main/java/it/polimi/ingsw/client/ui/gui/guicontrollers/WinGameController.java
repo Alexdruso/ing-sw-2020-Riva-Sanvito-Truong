@@ -19,18 +19,24 @@ public class WinGameController extends AbstractController {
     @FXML Label mainPrompt;
     @FXML Label winnerName;
 
-    @FXML public void handleReconnect(ActionEvent event){
+    @FXML void handleReconnect(ActionEvent event){
         ((WinGameGUIClientState)state).reconnect();
     }
-    @FXML public void handleMenu(ActionEvent event){
+    @FXML void handleMenu(ActionEvent event){
         ((WinGameGUIClientState)state).returnToMenu();
     }
 
+    /**
+     * This method sets the prompt and the label for the winning player
+     */
     public void setWinnerPrompts(){
         mainPrompt.setText(I18n.string(I18nKey.VICTORIOUS));
         winnerName.setText(I18n.string(I18nKey.CONGRATULATIONS_YOU_WON));
     }
 
+    /**
+     * This method sets the prompt and the label for the losing players
+     */
     public void setLoserPrompts(){
         mainPrompt.setText(I18n.string(I18nKey.LOSER));
         winnerName.setText(String.format(I18n.string(I18nKey.S_WON), client.getCurrentActiveUser().getNickname()));

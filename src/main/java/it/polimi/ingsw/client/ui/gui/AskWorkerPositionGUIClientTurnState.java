@@ -7,9 +7,18 @@ import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.application.Platform;
 
+/**
+ * A GUI-specific ASK_WORKER_POSITION client turn state.
+ */
 public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositionClientTurnState implements GUIClientTurnState{
     private final InGameGUIClientState clientState;
 
+    /**
+     * Instantiates a new ASK_WORKER_POSITION ClientState.
+     *
+     * @param client the client
+     * @param clientState the clientState
+     */
     public AskWorkerPositionGUIClientTurnState(Client client, InGameGUIClientState clientState) {
         super(client);
         this.clientState = clientState;

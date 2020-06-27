@@ -42,7 +42,7 @@ public class AskStartPlayerPassiveController extends AbstractController {
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         imageArray[0] = new Image("assets/loading_tower0_400px.png");
         imageArray[1] = new Image("assets/loading_tower1_400px.png");
         imageArray[2] = new Image("assets/loading_tower2_400px.png");
@@ -50,13 +50,16 @@ public class AskStartPlayerPassiveController extends AbstractController {
         animationHelper = new AnimationHelper();
     }
 
+    /**
+     * This method is used to stop the AnimationHelper
+     */
     public void stopAnimation(){
         animationHelper.stopAnimations();
     }
 
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((AskStartPlayerGUIClientState)state).returnToMenu();
     }
 

@@ -28,7 +28,7 @@ public class ConnectToServerController extends AbstractController{
     private final BooleanProperty firstShow = new SimpleBooleanProperty(true);
 
     @FXML
-    public void handleConnectButton(ActionEvent event){
+    void handleConnectButton(ActionEvent event){
         String host = "127.0.0.1";
         String port = "7268";
         if(hostField.getText().length() != 0) host = hostField.getText();
@@ -45,7 +45,7 @@ public class ConnectToServerController extends AbstractController{
     }
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((ConnectToServerGUIClientState)state).returnToMenu();
     }
 
@@ -56,7 +56,7 @@ public class ConnectToServerController extends AbstractController{
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         errorLabel.setOpacity(0);
         hostField.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if(Boolean.TRUE.equals(newValue) && firstShow.get()){
@@ -66,6 +66,7 @@ public class ConnectToServerController extends AbstractController{
         });
     }
 
+    @Override
     public void handleError(String message){
         errorLabel.setOpacity(1);
         errorLabel.setText(message);

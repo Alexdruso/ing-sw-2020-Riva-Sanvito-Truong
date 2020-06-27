@@ -45,7 +45,7 @@ public class AskGodFromListController extends AbstractController{
     private DoubleProperty fontSize = new SimpleDoubleProperty(10);
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((AskGodFromListGUIClientState)state).returnToMenu();
     }
 
@@ -54,6 +54,10 @@ public class AskGodFromListController extends AbstractController{
         LOGGER.log(Level.SEVERE, message);
     }
 
+    /**
+     * This method is used to remove a god icon after it has been selected in the LateralGodCard pane
+     * @param reducedGod the god that has been selected
+     */
     public void removeGodIcon(ReducedGod reducedGod){
         gods.remove(reducedGod);
         Pane selectedGodPane = godIcons.get(reducedGod);
@@ -79,7 +83,7 @@ public class AskGodFromListController extends AbstractController{
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         lateralGodCard = new LateralGodCard(true);
         lateralGodCard.setGodSelectionCallback(this::removeGodIcon);
         lateralGodCard.setDescription(I18n.string(I18nKey.GOD_DESCRIPTION));

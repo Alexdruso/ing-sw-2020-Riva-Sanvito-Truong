@@ -26,22 +26,43 @@ public class GUI implements UI {
         new Thread(JavaFXGUI::launchJavaFX).start();
     };
 
+    /**
+     * This method adds a scene in the sceneMap in order to be retrieved when the scene is shown again later.
+     * @param fxmlFile a String representing the path of the fxml file
+     * @param savedScene the SavedScene instance containing all the elements of the scene
+     */
     public void addScene(String fxmlFile, SavedScene savedScene) {
         sceneMap.put(fxmlFile, savedScene);
     }
 
+    /**
+     * This method retrieves a scene in the sceneMap
+     * @param fxmlFile a String representing the path of the fxml file
+     * @return the SavedScene associated with the fxmlFile if present, otherwise null
+     */
     public SavedScene getScene(String fxmlFile){
         return sceneMap.get(fxmlFile);
     }
 
+    /**
+     * This method clears the sceneMap in order to invalidate all cached scenes
+     */
     public void clearSceneMap(){
         sceneMap.clear();
     }
 
+    /**
+     * This method is used to set the current SavedScene
+     * @param current the SavedScene instance to be set as the current one
+     */
     public void setCurrentScene(SavedScene current){
         currentScene = current;
     }
 
+    /**
+     * This method is used to retrieve the current SavedScene
+     * @return the current SavedScene instance
+     */
     public SavedScene getCurrentScene(){
         return currentScene;
     }

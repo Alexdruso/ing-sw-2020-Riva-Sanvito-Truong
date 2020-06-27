@@ -7,6 +7,9 @@ import it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
+/**
+ * A GUI-specific WAIT_PLAYERS client state.
+ */
 public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState implements GUIClientState {
     private SavedScene savedScene;
 
@@ -19,6 +22,9 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
         super(client);
     }
 
+    /**
+     * This method sends the client to the menu
+     */
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
     }

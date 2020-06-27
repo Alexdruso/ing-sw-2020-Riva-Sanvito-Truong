@@ -43,6 +43,10 @@ public class ReducedGod implements Serializable {
         return Objects.hash(name);
     }
 
+    /**
+     * This method returns the name of the ReducedGod
+     * @return
+     */
     public String getName() {
         return name;
     }

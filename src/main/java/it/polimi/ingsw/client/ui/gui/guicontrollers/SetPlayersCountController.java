@@ -14,23 +14,23 @@ public class SetPlayersCountController extends AbstractController{
     Label errorLabel;
 
     @FXML
-    public void twoPlayersSelected(ActionEvent event){
+    void twoPlayersSelected(ActionEvent event){
         ((SetPlayersCountGUIClientState)state).setPlayersCount(2);
 
     }
 
     @FXML
-    public void threePlayersSelected(ActionEvent event){
+    void threePlayersSelected(ActionEvent event){
         ((SetPlayersCountGUIClientState)state).setPlayersCount(3);
     }
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((SetPlayersCountGUIClientState)state).returnToMenu();
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         errorLabel.setOpacity(0);
     }
 

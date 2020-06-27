@@ -7,6 +7,9 @@ import it.polimi.ingsw.client.ui.gui.guicontrollers.JoinLobbyController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
+/**
+ * A GUI-specific JOIN_LOBBY client state.
+ */
 public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implements GUIClientState{
     private SavedScene savedScene;
 
@@ -19,6 +22,9 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
         super(client);
     }
 
+    /**
+     * This method is used to send the client to the menu
+     */
     public void returnToMenu(){
         client.moveToState(ClientState.WELCOME_SCREEN);
     }

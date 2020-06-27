@@ -5,6 +5,9 @@ import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
 
+/**
+ * A GUI-specific WELCOME_SCREEN client state.
+ */
 public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState implements GUIClientState {
     /**
      * Instantiates a new ClientState.

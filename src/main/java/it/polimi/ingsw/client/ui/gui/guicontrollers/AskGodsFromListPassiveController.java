@@ -29,7 +29,7 @@ public class AskGodsFromListPassiveController extends AbstractController{
     AnimationHelper animationHelper;
 
     @FXML
-    public void handleMenuButton(ActionEvent event){
+    void handleMenuButton(ActionEvent event){
         ((AskGodsFromListGUIClientState)state).returnToMenu();
     }
 
@@ -46,7 +46,7 @@ public class AskGodsFromListPassiveController extends AbstractController{
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         imageArray[0] = new Image("assets/loading_tower0_400px.png");
         imageArray[1] = new Image("assets/loading_tower1_400px.png");
         imageArray[2] = new Image("assets/loading_tower2_400px.png");
@@ -54,6 +54,9 @@ public class AskGodsFromListPassiveController extends AbstractController{
         animationHelper = new AnimationHelper();
     }
 
+    /**
+     * This method stops the AnimationHelper
+     */
     public void stopAnimation(){
         animationHelper.stopAnimations();
     }

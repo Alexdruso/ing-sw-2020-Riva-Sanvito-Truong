@@ -12,6 +12,9 @@ import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
 import javafx.application.Platform;
 
+/**
+ * A GUI-specific BUILD client turn state.
+ */
 public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implements GUIClientTurnState {
     private final InGameGUIClientState clientState;
     private ReducedGame game;
@@ -21,6 +24,12 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
     private ReducedComponent selectedComponent;
     private boolean targetSelected = false;
 
+    /**
+     * Initializes the turn state.
+     *
+     * @param client      the reference to the Client
+     * @param clientState the current ClientState
+     */
     public BuildGUIClientTurnState(Client client, InGameGUIClientState clientState) {
         super(client);
         this.clientState = clientState;
@@ -174,6 +183,10 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         selectedComponent = null;
     }
 
+    /**
+     * This method is used to notify to the client that the player has chosen a Component to be built
+     * @param component the ReducedComponent to be built
+     */
     public void selectComponent(ReducedComponent component) {
         this.component = component;
         selectedComponent = null;

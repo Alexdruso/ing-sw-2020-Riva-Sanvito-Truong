@@ -67,7 +67,7 @@ public class JavaFXGUI extends Application {
 
     /**
      * This method sets the main root of the scene
-     * @param newRoot
+     * @param newRoot the new root of the scene
      */
     public static void setMainRoot(Pane newRoot){
         mainRoot.getChildren().clear();
@@ -76,7 +76,7 @@ public class JavaFXGUI extends Application {
 
     /**
      * This method retrieves the main root of the scene
-     * @return
+     * @return the main root of the scene
      */
     public static Pane getMainRoot() {
         return mainRoot;
@@ -84,7 +84,7 @@ public class JavaFXGUI extends Application {
 
     /**
      * This method sets the root for the overlay
-     * @param newRoot
+     * @param newRoot the new root for the overlay
      */
     public static void setOverlayRoot(Pane newRoot){
         overlayRoot.getChildren().clear();
@@ -93,7 +93,7 @@ public class JavaFXGUI extends Application {
 
     /**
      * This method retrieves the overlay root of the scene
-     * @return
+     * @return the overlay root
      */
     public static Pane getOverlayRoot() {
         return overlayRoot;
@@ -101,7 +101,7 @@ public class JavaFXGUI extends Application {
 
     /**
      * This method retrieves the Scene instance
-     * @return
+     * @return the Scene instance
      */
     public static Scene getPrimaryScene(){
         synchronized(sceneLock){
@@ -119,7 +119,7 @@ public class JavaFXGUI extends Application {
 
     /**
      * This method retrieves the Stage instance
-     * @return
+     * @return the Stage instance
      */
     public static Stage getPrimaryStage(){
         synchronized(sceneLock){
@@ -141,6 +141,9 @@ public class JavaFXGUI extends Application {
         onExit.run();
     }
 
+    /**
+     * This method is used to launch the JavaFX application
+     */
     public static void launchJavaFX() {
         Application.launch();
     }

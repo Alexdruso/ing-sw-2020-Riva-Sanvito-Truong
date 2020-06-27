@@ -18,24 +18,24 @@ public class WelcomeScreenController extends AbstractController {
     private static final Logger LOGGER = Logger.getLogger(WelcomeScreenController.class.getName());
 
     @FXML
-    public void handleJoinLobby(ActionEvent event) {
+    void handleJoinLobby(ActionEvent event) {
         client.moveToState(ClientState.CONNECT_TO_SERVER);
     }
 
     @FXML
-    public void handleCredits(ActionEvent event) {
+    void handleCredits(ActionEvent event) {
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/Credits.fxml", client);
         sceneLoaderFactory.build().executeSceneChange();
     }
 
     @FXML
-    public void handleSettings(ActionEvent event) {
+    void handleSettings(ActionEvent event) {
         SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/Settings.fxml", client);
         sceneLoaderFactory.build().executeSceneChange();
     }
 
     @FXML
-    public void initialize(){
+    void initialize(){
         primaryStage = JavaFXGUI.getPrimaryStage();
     }
 
