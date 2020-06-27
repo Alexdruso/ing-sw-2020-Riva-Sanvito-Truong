@@ -19,6 +19,8 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
     private ReducedPlayer player;
     private InGameController controller;
     private boolean sourceSelected = false;
+    private boolean firstRender = true;
+
 
     /**
      * Creates a new MOVE_GUI Client Turn State
@@ -38,61 +40,68 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         this.board = game.getBoard();
         this.player = turn.getPlayer();
 
-        Platform.runLater(() -> {
-            controller.setLabel("");
-            controller.setPrompt("");
-            controller.clearSideButtons();
-        });
+        if(firstRender){
+            Platform.runLater(() -> {
+                controller.setLabel("");
+                controller.setPrompt("");
+                controller.clearSideButtons();
+            });
+            if (client.isCurrentlyActive() && turn.isSkippable()) {
+                Platform.runLater(controller::displaySkipButton);
+            }
+            firstRender = false;
+        }
 
         if (client.isCurrentlyActive()) {
-            if (turn.getAllowedWorkers().size() == 1) {
-                workerID = turn.getAllowedWorkers().get(0);
-                ReducedWorker worker = player.getWorker(workerID);
-                ReducedCell workerCell = worker.getCell();
-                sourceCellX = workerCell.getX();
-                sourceCellY = workerCell.getY();
-                sourceSelected = true;
-                board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
-                        targetedCell -> targetedCell.setHighlighted(true)
-                );
-                Platform.runLater(() -> {
-                    controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
-                    controller.setPrompt("");
-                });
-            } else {
-                Platform.runLater(() -> {
-                    controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));
-                    controller.setPrompt("");
-                });
-            }
-            Platform.runLater(() -> {
-                controller.setBoardClickableStatus(true);
-                controller.redrawBoard();
-            });
-            if (turn.isSkippable()) {
-                Platform.runLater(() -> {
-                    controller.clearSideButtons();
-                    controller.displaySkipButton();
-                });
-            }
-            else {
-                Platform.runLater(() -> controller.setPrompt(""));
-            }
-        }
-        else {
-            Platform.runLater(() -> {
-                controller.setLabel(
-                        String.format(
-                                I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE),
-                                client.getCurrentActiveUser().getNickname()
-                        )
-                );
-                controller.setPrompt("");
-                controller.setBoardClickableStatus(false);
-                controller.redrawBoard();
-            });
+            showActiveScreen();
+        } else {
+            showPassiveScreen();
         }
         Platform.runLater(controller::redrawBoard);
+    }
+
+    private void showActiveScreen(){
+        if (turn.getAllowedWorkers().size() == 1) {
+            //The worker is automatically determined since there's only one that can move
+            workerID = turn.getAllowedWorkers().get(0);
+            ReducedWorker worker = player.getWorker(workerID);
+            ReducedCell workerCell = worker.getCell();
+            sourceCellX = workerCell.getX();
+            sourceCellY = workerCell.getY();
+            sourceSelected = true;
+            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
+                    targetedCell -> targetedCell.setHighlighted(true)
+            );
+            //Ask for the target, with no possibility of canceling
+            Platform.runLater(() -> {
+                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
+                controller.setPrompt("");
+            });
+        } else {
+            //Ask which worker the player wants to move
+            Platform.runLater(() -> {
+                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));
+                controller.setPrompt("");
+            });
+        }
+        Platform.runLater(() -> {
+            controller.setBoardClickableStatus(true);
+            controller.redrawBoard();
+        });
+    }
+
+    private void showPassiveScreen(){
+        Platform.runLater(() -> {
+            controller.setLabel(
+                    String.format(
+                            I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE),
+                            client.getCurrentActiveUser().getNickname()
+                    )
+            );
+            controller.setPrompt("");
+            controller.setBoardClickableStatus(false);
+            controller.redrawBoard();
+        });
     }
 
     @Override
@@ -103,6 +112,7 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         this.player = turn.getPlayer();
 
         if(!sourceSelected){
+            //The cell selected is to select the worker
             sourceCellX = x;
             sourceCellY = y;
             ReducedCell cell = board.getCell(x, y);
@@ -119,14 +129,14 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
                     }
             );
             if(workerID != null){
+                //If a cell containing a correct worker has been selected, highlight available cells and ask for target
                 board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(
                         targetedCell -> targetedCell.setHighlighted(true)
                 );
                 Platform.runLater(() -> {
                     controller.redrawBoard();
                     controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));
-                    controller.clearSideButtons();
-                    controller.displayCancelButton();
+                    controller.displayCancelButton(); //We're in the case in which we select a worker: we can cancel
                 });
                 sourceSelected = true;
             }
@@ -154,12 +164,14 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         );
         sourceSelected = false;
         workerID = null;
-        Platform.runLater(() -> controller.redrawBoard());
+        firstRender = true;
+        render();
     }
 
     @Override
     public void handleError() {
-        workerID = null;
         sourceSelected = false;
+        workerID = null;
+        firstRender = true;
     }
 }

@@ -23,6 +23,7 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
     private InGameController controller;
     private ReducedComponent selectedComponent;
     private boolean targetSelected = false;
+    private boolean firstRender = true;
 
     /**
      * Initializes the turn state.
@@ -45,53 +46,59 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         this.turn = game.getTurn();
         this.board = game.getBoard();
 
-        Platform.runLater(() -> {
-            controller.setLabel("");
-            controller.setPrompt("");
-            controller.clearSideButtons();
-        });
+        if(firstRender){
+            Platform.runLater(() -> {
+                controller.setLabel("");
+                controller.setPrompt("");
+                controller.clearSideButtons();
+            });
+            if(client.isCurrentlyActive() && turn.isSkippable()){
+                Platform.runLater(controller::displaySkipButton);
+            }
+            firstRender = false;
+        }
 
         if(client.isCurrentlyActive()){
-            if(turn.getAllowedWorkers().size() == 1){
-                //Case in which the choice of the worker is forced: automatically set workerID
-                workerID = turn.getAllowedWorkers().get(0);
-                setCellHighlighting(true);
-                Platform.runLater(() -> {
-                    controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));
-                    controller.setBoardClickableStatus(true);
-                    controller.redrawBoard();
-                });
-            } else {
-                //Case in which we expect the player to choose a worker
-                Platform.runLater(() -> {
-                    controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_USE_TO_BUILD));
-                    controller.setBoardClickableStatus(true);
-                    controller.redrawBoard();
-                });
-            }
-            if (turn.isSkippable()) {
-                Platform.runLater(() -> {
-                    controller.clearSideButtons();
-                    controller.displaySkipButton();
-                });
-            } else {
-                Platform.runLater(() -> controller.setPrompt(""));
-            }
+            showActiveScreen();
         } else {
-            //Passive screen
+            showPassiveScreen();
+        }
+
+        Platform.runLater(controller::redrawBoard);
+    }
+
+    private void showActiveScreen(){
+        if(turn.getAllowedWorkers().size() == 1){
+            //Case in which the choice of the worker is forced: automatically set workerID
+            workerID = turn.getAllowedWorkers().get(0);
+            setCellHighlighting(true);
             Platform.runLater(() -> {
-                controller.setLabel(
-                        String.format(
-                                I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD),
-                                client.getCurrentActiveUser().getNickname()
-                        )
-                );
-                controller.setPrompt(I18n.string(I18nKey.ASK_WORKER_START_POSITION_PASSIVE_PROMPT));
-                controller.setBoardClickableStatus(false);
+                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));
+                controller.setBoardClickableStatus(true);
+                controller.redrawBoard();
+            });
+        } else {
+            //Case in which we expect the player to choose a worker
+            Platform.runLater(() -> {
+                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_USE_TO_BUILD));
+                controller.setBoardClickableStatus(true);
                 controller.redrawBoard();
             });
         }
-        Platform.runLater(controller::redrawBoard);
+    }
+
+    private void showPassiveScreen(){
+        Platform.runLater(() -> {
+            controller.setLabel(
+                    String.format(
+                            I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD),
+                            client.getCurrentActiveUser().getNickname()
+                    )
+            );
+            controller.setPrompt(I18n.string(I18nKey.ASK_WORKER_START_POSITION_PASSIVE_PROMPT));
+            controller.setBoardClickableStatus(false);
+            controller.redrawBoard();
+        });
     }
 
     @Override
@@ -107,11 +114,11 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
                     worker -> {
                         if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {
                             workerID = worker.getWorkerID();
-
                             setCellHighlighting(true);
                             Platform.runLater(() -> {
                                 controller.redrawBoard();
                                 controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));
+                                controller.displayCancelButton();
                             });
                         } else {
                             Platform.runLater(() -> client.getUI().notifyError(I18n.string(I18nKey.YOU_CANT_BUILD_WITH_THE_SPECIFIED_WORKER)));
@@ -158,7 +165,10 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
 
     @Override
     public void cancel() {
-        //Cannot cancel a build
+        setCellHighlighting(false);
+        workerID = null;
+        firstRender = true;
+        render();
     }
 
     private void setCellHighlighting(boolean status){
@@ -178,9 +188,14 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
 
     @Override
     public void handleError() {
-        workerID = null;
-        targetSelected = false;
-        selectedComponent = null;
+        if(workerID != null){
+            //Wrongly selected target
+            workerID = null;
+            targetSelected = false;
+            selectedComponent = null;
+            firstRender = true;
+        }
+        //If the worker has been wrongly selected, do nothing
     }
 
     /**

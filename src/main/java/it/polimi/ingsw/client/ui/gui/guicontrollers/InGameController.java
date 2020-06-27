@@ -40,6 +40,10 @@ public class InGameController extends AbstractController{
     private List<StackPane> cellPanes;
     private boolean active = false;
 
+    private boolean isSkipDisplayed = false;
+    private boolean isCancelDisplayed = false;
+    private boolean isComponentSelectionDisplayed = false;
+
     private enum BoardElement {
         BLOCK_0,
         BLOCK_1,
@@ -235,30 +239,39 @@ public class InGameController extends AbstractController{
      * This method displays the cancel button on the left side
      */
     public void displayCancelButton(){
-        Button button = new Button();
-        button.setText(I18n.string(I18nKey.CANCEL));
-        button.setOnAction(e -> cancel());
-        button.getStyleClass().add("bigbutton");
-        sideButtons.getChildren().add(button);
+        if(!isCancelDisplayed){
+            Button button = new Button();
+            button.setText(I18n.string(I18nKey.CANCEL));
+            button.setOnAction(e -> cancel());
+            button.getStyleClass().add("bigbutton");
+            sideButtons.getChildren().add(button);
+            isCancelDisplayed = true;
+        }
     }
 
     /**
      * This method displays the skip button on the left side
      */
     public void displaySkipButton(){
-        Button button= new Button();
-        button.setText(I18n.string(I18nKey.SKIP));
-        button.setOnAction(e -> skip());
-        button.getStyleClass().add("bigbutton");
-        sideButtons.getChildren().add(button);
+        if(!isSkipDisplayed){
+            Button button= new Button();
+            button.setText(I18n.string(I18nKey.SKIP));
+            button.setOnAction(e -> skip());
+            button.getStyleClass().add("bigbutton");
+            sideButtons.getChildren().add(button);
+            isSkipDisplayed = true;
+        }
     }
 
     /**
      * This method displays the component selection on the left side
      */
     public void displayComponentSelection(){
-        sideButtons.getChildren().add(domeIcon);
-        sideButtons.getChildren().add(blockIcon);
+        if(!isComponentSelectionDisplayed){
+            sideButtons.getChildren().add(domeIcon);
+            sideButtons.getChildren().add(blockIcon);
+            isComponentSelectionDisplayed = true;
+        }
     }
 
     /**
@@ -266,6 +279,9 @@ public class InGameController extends AbstractController{
      */
     public void clearSideButtons(){
         sideButtons.getChildren().clear();
+        isSkipDisplayed = false;
+        isCancelDisplayed = false;
+        isComponentSelectionDisplayed = false;
     }
 
     private void skip(){
