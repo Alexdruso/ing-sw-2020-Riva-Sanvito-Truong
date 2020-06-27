@@ -2,12 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.ui.gui.guicontrollers.CreditsController">
    <children>
@@ -25,11 +26,22 @@
           <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label id="credit-text" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="520.0" prefWidth="893.0" text="%credits_text" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Label>
+            <TextFlow id="credit-text" lineSpacing="30.0" prefHeight="200.0" prefWidth="200.0" styleClass="italic" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="credits-text" text="%credits_text_1" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="%credits_text_2" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="credits-text" text="%credits_text_3" />
+                  <Text fill="WHITE" lineSpacing="3000.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="italic" text="%credits_text_4" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="credits-text" text="%credits_text_5" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-italic" text="%credits_text_6" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-italic" text="%credits_text_7" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold-italic" text="%credits_text_8" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="italic" text="%credits_text_9" />
+               </children>
+               <padding>
+                  <Insets top="60.0" />
+               </padding>
+            </TextFlow>
             <AnchorPane cache="true" prefHeight="100.0" prefWidth="154.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleMenuButton" prefHeight="50.0" prefWidth="150.0" styleClass="bigbutton" text="%menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />

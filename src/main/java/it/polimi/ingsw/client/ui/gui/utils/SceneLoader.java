@@ -229,9 +229,12 @@ public class SceneLoader {
                     ));
             JavaFXGUI.getMainRoot().setEffect(blur);
             timeline.setOnFinished(event -> {
-                newOverlay.setTranslateY(0); //Put this back on the screen
+                newOverlay.setTranslateY(JavaFXGUI.getPrimaryStage().getHeight()); //Put this back on the screen
+                TranslateTransition tt = new TranslateTransition(Duration.millis(500), newOverlay);
+                tt.setToY(0);
                 JavaFXGUI.setOverlayRoot((Pane)newOverlay);
                 JavaFXGUI.getOverlayRoot().setMouseTransparent(false);
+                tt.play();
             });
             timeline.play();
         });

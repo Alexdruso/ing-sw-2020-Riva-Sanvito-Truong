@@ -48,6 +48,12 @@ public class PlayerLateralLabel extends AnchorPane{
 
     private boolean isSpectating = false;
 
+    /**
+     * Class Constructor for a single PlayerLateralLabel
+     * @param playerNameProperty a String containing the name of the player
+     * @param playerNumberProperty an Integer containing the position of the player in the playing order
+     * @param godNameProperty a String containing the player's God name
+     */
     public PlayerLateralLabel(@NamedArg("playerName") String playerNameProperty,
                               @NamedArg("playerNumber") Integer playerNumberProperty,
                               @NamedArg("godName") String godNameProperty) {
@@ -67,6 +73,10 @@ public class PlayerLateralLabel extends AnchorPane{
     }
 
 
+    /**
+     * This method sets the graphical status of a label, depending on the value of active
+     * @param active if true, the label is set to active. If false, the label is set to inactive.
+     */
     public void setActiveStatus(boolean active){
         String toRemove;
         String toAdd;
@@ -78,9 +88,7 @@ public class PlayerLateralLabel extends AnchorPane{
         } else {
             toRemove = "player-lateral-label-active";
             toAdd = "player-lateral-label-passive";
-            if(!isSpectating){
-                statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());
-            }
+            statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());
         }
 
         int index = container.getStyleClass().indexOf(toRemove);
@@ -93,9 +101,16 @@ public class PlayerLateralLabel extends AnchorPane{
 
     }
 
+    /**
+     * This method sets the graphical status of a label to Spectating
+     */
     public void setSpectatingStatus(){
         isSpectating = true;
+        setActiveStatus(false);
         statusLabel.setText(I18n.string(I18nKey.SPECTATING).toUpperCase());
+        colorLabel.setOpacity(0);
+        colorTip.setOpacity(0);
+        godName.setOpacity(0);
     }
 
     @FXML private void initialize(){

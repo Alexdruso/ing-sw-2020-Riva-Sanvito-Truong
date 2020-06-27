@@ -70,6 +70,10 @@ public class LateralGodCard extends StackPane {
 
     Consumer<ReducedGod> godSelectionCallback;
 
+    /**
+     * Class Constructor
+     * @param hasButton true if there should be a button displayed under the god card
+     */
     public LateralGodCard(@NamedArg("hasButton") boolean hasButton){
         this.hasButton = hasButton;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LateralGodCard.fxml"), I18n.getResourceBundle());
@@ -82,10 +86,19 @@ public class LateralGodCard extends StackPane {
         }
     }
 
+    /**
+     * This method is used to set a callback in order for the controller that contains the LateralGodCard component
+     * to receive information about whether the God has been selected.
+     * @param callback
+     */
     public void setGodSelectionCallback(Consumer<ReducedGod> callback){
         this.godSelectionCallback = callback;
     }
 
+    /**
+     * This method takes a list of ReducedGod and loads all the assets for the gods
+     * @param gods
+     */
     public void setGods(List<ReducedGod> gods){
         for(ReducedGod god: gods){
             GodAsset ga = GodAsset.fromReducedGod(god);
@@ -93,10 +106,18 @@ public class LateralGodCard extends StackPane {
         }
     }
 
+    /**
+     * This method sets the panel description text
+     * @param description a String containing the description
+     */
     public void setDescription(String description){
         topLabel.setText(description);
     }
 
+    /**
+     * This method is called when the button is pressed (if present).
+     * It also retracts the LateralGodCard pane to the left side
+     */
     @FXML
     public void selectGod(){
         if(godSelectionCallback != null){
@@ -105,6 +126,9 @@ public class LateralGodCard extends StackPane {
         reverse();
     }
 
+    /**
+     * Retracts the LateralGodCard pane to the left side
+     */
     @FXML
     public void reverse(){
         if(sideBarVisible){
@@ -160,8 +184,26 @@ public class LateralGodCard extends StackPane {
             cardPane.getChildren().add(selectGodButton);
             VBox.setMargin(selectGodButton, new Insets(0,0,0,30));
         }
+
+        selectedCard.setOnMouseEntered(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        selectedCard.setOnMouseExited(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);
+            st.setToX(1);
+            st.setToY(1);
+            st.play();
+        });
     }
 
+    /**
+     * This method shows the LateralGodCard pane and sets the appropriate text
+     * @param reducedGod the ReducedGod that should be shown
+     */
     public void clickGod(ReducedGod reducedGod){
         currentGod = reducedGod;
         GodAsset ga = GodAsset.fromReducedGod(reducedGod);

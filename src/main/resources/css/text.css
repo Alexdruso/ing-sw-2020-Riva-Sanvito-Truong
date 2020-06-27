@@ -19,6 +19,18 @@
 }
 
 @font-face{
+    src: url("../fonts/Montserrat-Italic.ttf");
+}
+
+@font-face{
+    src: url("../fonts/Montserrat-LightItalic.ttf");
+}
+
+@font-face{
+    src: url("../fonts/Montserrat-BoldItalic.ttf");
+}
+
+@font-face{
     src: url("../fonts/Montserrat-Light.ttf");
 }
 
@@ -62,9 +74,24 @@
     -fx-text-fill: #FFFFFF88;
 }
 
+.italic {
+    -fx-font-family: "Montserrat Italic";
+    -fx-font-size: 2em;
+}
+
+.bold-italic {
+    -fx-font-family: "Montserrat Bold Italic";
+}
+
 .normal-text {
     -fx-font-family: "Montserrat ExtraLight";
     -fx-font-size: 1.7em;
+    -fx-text-fill: white;
+}
+
+.credits-text {
+    -fx-font-family: "Montserrat ExtraLight";
+    -fx-font-size: 2em;
     -fx-text-fill: white;
 }
 

@@ -13,6 +13,9 @@ import javafx.scene.image.ImageView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the AskStartPlayer state, passive version
+ */
 public class AskStartPlayerPassiveController extends AbstractController {
 
     private final Image[] imageArray = new Image[4];

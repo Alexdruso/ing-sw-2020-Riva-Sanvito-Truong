@@ -12,7 +12,9 @@ import javafx.scene.image.ImageView;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * Controller for the JoinLobby state
+ */
 public class JoinLobbyController extends AbstractController {
 
     private final Image[] imageArray = new Image[4];

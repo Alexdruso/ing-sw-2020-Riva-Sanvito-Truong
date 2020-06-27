@@ -96,6 +96,34 @@
     -fx-text-fill: black;
 }
 
+.toggle-button {
+    -fx-background-color: #FFFFFF44;
+    -fx-font-family: "Montserrat Light";
+    -fx-font-size: 2em;
+    -fx-text-fill: white;
+}
+
+.toggle-button:focused {
+    -fx-background-color: #FFFFFF66;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #4D7A97;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #4D7A9788
+}
+
+.toggle-button:selected:hover {
+    -fx-background-color: #4D7A97;
+}
+
+.toggle-button:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
