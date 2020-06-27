@@ -337,10 +337,10 @@ public class CLI implements UI {
         while (true) {
             String choice = readString(String.format("%s [%s/%s]", prompt, yes, no), null, 3);
 
-            if (choice.equalsIgnoreCase(yes) || (choice.length() > 0 && choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1)))) {
+            if (choice.equalsIgnoreCase(yes) || (choice.length() == 1 && choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1)))) {
                 return true;
             }
-            if (choice.equalsIgnoreCase(no) || (choice.length() > 0 && choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1)))) {
+            if (choice.equalsIgnoreCase(no) || (choice.length() == 1 && choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1)))) {
                 return false;
             }
 
