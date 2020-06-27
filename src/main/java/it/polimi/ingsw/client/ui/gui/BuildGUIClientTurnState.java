@@ -82,9 +82,7 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
                 controller.redrawBoard();
             });
         }
-        Platform.runLater(() -> {
-            controller.redrawBoard();
-        });
+        Platform.runLater(controller::redrawBoard);
     }
 
     @Override

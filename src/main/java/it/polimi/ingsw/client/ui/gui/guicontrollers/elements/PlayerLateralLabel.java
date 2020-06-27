@@ -46,8 +46,6 @@ public class PlayerLateralLabel extends AnchorPane{
         }
     }
 
-    private boolean isSpectating = false;
-
     /**
      * Class Constructor for a single PlayerLateralLabel
      * @param playerNameProperty a String containing the name of the player
@@ -105,7 +103,6 @@ public class PlayerLateralLabel extends AnchorPane{
      * This method sets the graphical status of a label to Spectating
      */
     public void setSpectatingStatus(){
-        isSpectating = true;
         setActiveStatus(false);
         statusLabel.setText(I18n.string(I18nKey.SPECTATING).toUpperCase());
         colorLabel.setOpacity(0);

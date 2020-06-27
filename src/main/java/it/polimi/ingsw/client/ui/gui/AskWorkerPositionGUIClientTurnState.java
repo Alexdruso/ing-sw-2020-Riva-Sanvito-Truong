@@ -37,9 +37,7 @@ public class AskWorkerPositionGUIClientTurnState extends AbstractAskWorkerPositi
                 controller.setBoardClickableStatus(false);
             });
         }
-        Platform.runLater(() -> {
-            controller.redrawBoard();
-        });
+        Platform.runLater(controller::redrawBoard);
     }
 
     @Override

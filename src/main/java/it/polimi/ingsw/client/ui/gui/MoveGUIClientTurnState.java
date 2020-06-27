@@ -84,9 +84,7 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
                 controller.redrawBoard();
             });
         }
-        Platform.runLater(() -> {
-            controller.redrawBoard();
-        });
+        Platform.runLater(controller::redrawBoard);
     }
 
     @Override
