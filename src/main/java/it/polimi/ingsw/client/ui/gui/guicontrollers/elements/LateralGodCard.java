@@ -184,6 +184,20 @@ public class LateralGodCard extends StackPane {
             cardPane.getChildren().add(selectGodButton);
             VBox.setMargin(selectGodButton, new Insets(0,0,0,30));
         }
+
+        selectedCard.setOnMouseEntered(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        selectedCard.setOnMouseExited(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);
+            st.setToX(1);
+            st.setToY(1);
+            st.play();
+        });
     }
 
     /**

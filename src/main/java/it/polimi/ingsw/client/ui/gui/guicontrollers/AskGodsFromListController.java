@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.ui.gui.utils.GodAsset;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -98,6 +100,18 @@ public class AskGodsFromListController extends AbstractController {
                 .subtract(ICONS_PER_ROW*ICON_SPACING_H + 2*SCROLLPANE_INNER_PADDING)
                 .divide(ICONS_PER_ROW));
         img.setCache(true);
+        img.setOnMouseEntered(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), img);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+        img.setOnMouseExited(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(200), img);
+            st.setToX(1);
+            st.setToY(1);
+            st.play();
+        });
 
         Label label = new Label();
 
