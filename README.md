@@ -58,7 +58,8 @@ Santorini-Server.bat
 You need to enable the support to UTF-8 characters in the terminal:
 
 1. Open the `Area geografica` control panel (Run > `intl.cpl`)
-2. In the `Opzioni di amministrazione` tab, choose `Cambia impostazioni locali del sistema` and check `Utilizzare UTF-8 per il supporto della lingua a livello mondiale`.
+2. In the `Opzioni di amministrazione` tab, choose `Cambia impostazioni locali del sistema` and check `Beta: utilizzare Unicode UTF-8 per il supporto della lingua a livello mondiale`.
+![How to enable Windows UTF-8 support](./.github/assets/windows_utf8_support.png "How to enable Windows UTF-8 support")
 3. In a terminal window, run:
 
 **For the GUI:**
@@ -66,10 +67,14 @@ You need to enable the support to UTF-8 characters in the terminal:
 Santorini-Client.bat
 ```
 
+![The Santorini GUI running in Windows](.github/assets/windows_santorini_cli.png "The Santorini GUI running in Windows")
+
 **For the CLI:**
 ```bash
 Santorini-Client.bat cli
 ```
+
+![The Santorini CLI running in Windows](.github/assets/windows_santorini_cli.png "The Santorini CLI running in Windows")
 
 ### Linux / MacOS
 
