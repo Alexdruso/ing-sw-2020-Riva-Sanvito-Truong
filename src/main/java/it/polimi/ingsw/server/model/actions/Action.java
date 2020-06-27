@@ -8,6 +8,8 @@ import it.polimi.ingsw.server.model.workers.Worker;
  */
 public interface Action {
     /**
+     * Gets the worker.
+     *
      * @return The worker who performed the action
      */
     Worker getWorker();

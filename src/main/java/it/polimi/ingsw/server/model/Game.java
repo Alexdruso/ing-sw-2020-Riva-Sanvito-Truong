@@ -26,6 +26,9 @@ import java.util.stream.Collectors;
  * It provides methods to gain insights on the current state.
  */
 public class Game extends LambdaObservable<Transmittable> {
+    /**
+     * The constant LOGGER.
+     */
     private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
 
     /**
@@ -287,11 +290,11 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Checks if the PlayerBuildCommand can be executed
      *
-     * @param targetCellX        The x coordinate of the cell on which the worker built
-     * @param targetCellY        The y coordinate of the cell on which the worker built
-     * @param reducedComponent   The component built on the cell
-     * @param performer          The worker who performed the build
-     * @param user               the user that triggered the command
+     * @param targetCellX      The x coordinate of the cell on which the worker built
+     * @param targetCellY      The y coordinate of the cell on which the worker built
+     * @param reducedComponent The component built on the cell
+     * @param performer        The worker who performed the build
+     * @param user             the user that triggered the command
      * @return true if the command is valid, false otherwise
      */
     public boolean isValidBuild(int targetCellX, int targetCellY,
@@ -316,11 +319,11 @@ public class Game extends LambdaObservable<Transmittable> {
     /**
      * Executes the PlayerBuildCommand
      *
-     * @param targetCellX        The x coordinate of the cell on which the worker built
-     * @param targetCellY        The y coordinate of the cell on which the worker built
-     * @param reducedComponent   The component built on the cell
-     * @param performer          The worker who performed the build
-     * @param user               the user that triggered the command
+     * @param targetCellX      The x coordinate of the cell on which the worker built
+     * @param targetCellY      The y coordinate of the cell on which the worker built
+     * @param reducedComponent The component built on the cell
+     * @param performer        The worker who performed the build
+     * @param user             the user that triggered the command
      */
     public void build(int targetCellX, int targetCellY,
                       ReducedComponent reducedComponent, ReducedWorkerID performer,

@@ -8,11 +8,25 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedComponent;
  * relative class.
  */
 public enum Component {
+    /**
+     * The Block.
+     */
     BLOCK(new Block()),
+    /**
+     * The Dome.
+     */
     DOME(new Dome());
 
+    /**
+     * The Buildable.
+     */
     private final Buildable buildable;
 
+    /**
+     * Instantiates a new Component.
+     *
+     * @param buildable the buildable
+     */
     Component(Buildable buildable) {
         this.buildable = buildable;
     }

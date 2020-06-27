@@ -42,10 +42,14 @@ public enum TurnState {
      */
     LOSE(new Lose());
 
+    /**
+     * The Abstract turn state.
+     */
     private final AbstractTurnState abstractTurnState;
 
     /**
-     * Creator of TurnCreator
+     * Instantiates a new turn state.
+     *
      * @param abstractTurnState the turnstate we want to initialize
      */
     TurnState(AbstractTurnState abstractTurnState) {

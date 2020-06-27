@@ -29,7 +29,8 @@ public class Worker {
 
     /**
      * This method just builds the worker without any cell
-     * @param player the player who owns this worker
+     *
+     * @param player   the player who owns this worker
      * @param workerID the worker ID
      */
     public Worker(Player player, WorkerID workerID){
@@ -40,6 +41,7 @@ public class Worker {
     /**
      * This method sets a new position for the worker.
      * It must be called at least once
+     *
      * @param cell the cell we want to move the player to
      */
     public void setCell(Cell cell){
@@ -48,6 +50,7 @@ public class Worker {
 
     /**
      * This methods returns the worker's cell
+     *
      * @return the worker's cell
      */
     public Cell getCell(){
@@ -65,6 +68,7 @@ public class Worker {
 
     /**
      * Gets the Worker ID
+     *
      * @return the Worker ID
      */
     public WorkerID getWorkerID() {
@@ -73,6 +77,7 @@ public class Worker {
 
     /**
      * Overridden equals method
+     *
      * @param o the object to compare
      * @return true if this equals object
      */
@@ -87,6 +92,7 @@ public class Worker {
 
     /**
      * Overridden hashcode method
+     *
      * @return hashed value of worker
      */
     @Override

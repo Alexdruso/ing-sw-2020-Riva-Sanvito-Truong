@@ -2,6 +2,9 @@ package it.polimi.ingsw.server.model.turnstates;
 
 import it.polimi.ingsw.server.model.Turn;
 
+/**
+ * The start turn state.
+ */
 class Start implements AbstractTurnState {
 
     /**

@@ -6,6 +6,8 @@ package it.polimi.ingsw.server.model.board;
 public interface Buildable {
     /**
      * This method represents whether a worker can walk or build on this block.
+     *
+     * @return true if the buildable is targetable
      */
     boolean isTargetable();
 }

@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
  * This class represents a single game lobby, to which players may join
  */
 public class ServerLobbyBuilder {
+    /**
+     * The constant LOGGER.
+     */
     private static final Logger LOGGER = Logger.getLogger(ServerLobbyBuilder.class.getName());
 
     /**
@@ -136,6 +139,7 @@ public class ServerLobbyBuilder {
      *
      * @param nickname   a String representing the nickname of the user is communicating
      * @param connection the Connection from which the user is
+     * @return true if there were no errors
      */
     public boolean handleLobbyRequest(String nickname, Connection connection) {
         synchronized (registeredNicknames) {
@@ -197,6 +201,11 @@ public class ServerLobbyBuilder {
         }
     }
 
+    /**
+     * Gets participants list.
+     *
+     * @return the participants list
+     */
     private List<AbstractMap.SimpleEntry<Connection, String>> getParticipantsList() {
         List<AbstractMap.SimpleEntry<Connection, String>> participants = new LinkedList<>();
 
@@ -222,6 +231,9 @@ public class ServerLobbyBuilder {
         return participants;
     }
 
+    /**
+     * Wait for the other participants.
+     */
     private void waitForParticipants() {
         synchronized (lobbyRequestingConnections) {
             while (lobbyRequestingConnections.size() < currentLobbyPlayerCount && lobbyRequestingConnections.get(0).equals(firstConnection)) {
@@ -235,6 +247,9 @@ public class ServerLobbyBuilder {
         }
     }
 
+    /**
+     * Wait for the current lobby player count to be set.
+     */
     private void waitForCurrentLobbyPlayerCount() {
         synchronized (playerCountLock) {
             currentLobbyPlayerCount = 0;
@@ -250,6 +265,9 @@ public class ServerLobbyBuilder {
         }
     }
 
+    /**
+     * Wait for the first connection.
+     */
     private void waitForFirstConnection() {
         synchronized (lobbyRequestingConnections) {
             while (lobbyRequestingConnections.isEmpty()) {

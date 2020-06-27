@@ -9,6 +9,9 @@ import it.polimi.ingsw.server.model.workers.Worker;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The move turn state.
+ */
 class Move implements AbstractTurnState {
 
     /**
@@ -74,7 +77,7 @@ class Move implements AbstractTurnState {
     /**
      * This method moves the pawn to targetCell
      *
-     * @param worker       the worker we want to move
+     * @param worker     the worker we want to move
      * @param targetCell the cell we want to move the worker to
      * @param turn       the Context
      */

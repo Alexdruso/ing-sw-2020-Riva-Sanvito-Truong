@@ -171,7 +171,7 @@ public class Controller implements LambdaObserver {
 
     /**
      * This method handles movement actions
-
+     *
      * @param action the PlayerMoveCommand that has been requested
      * @param view   the View that triggered this command
      * @param user   the User that triggered this command

@@ -65,7 +65,6 @@ public class View extends LambdaObservable<ViewClientMessage> implements LambdaO
      * Handler of a status message.
      *
      * @param message a message coming from the controller
-     * @throws UnsupportedOperationException
      */
     public void handleStatusMessage(StatusMessages message) {
         this.connection.send(message);

@@ -240,7 +240,7 @@ public class Turn{
     /**
      * This method sets new dome buildable cells for the worker
      *
-     * @param worker the worker involved
+     * @param worker      the worker involved
      * @param targetCells TargetCells related to Cells the Worker can build a dome in
      */
     public void setWorkerDomeBuildableCells(Worker worker, TargetCells targetCells){
@@ -250,7 +250,7 @@ public class Turn{
     /**
      * This method sets new walkable cells for the worker
      *
-     * @param worker the worker involved
+     * @param worker      the worker involved
      * @param targetCells TargetCells related to Cells the Worker can walk in
      */
     public void setWorkerWalkableCells(Worker worker, TargetCells targetCells){
@@ -259,6 +259,7 @@ public class Turn{
 
     /**
      * Returns a set of the allowed workers
+     *
      * @return a set of workers allowed to perform the action
      */
     public Set<Worker> getAllowedWorkers(){

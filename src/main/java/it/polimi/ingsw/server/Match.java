@@ -21,6 +21,9 @@ import java.util.logging.Logger;
  * Before calling the "run" method, the server should add nicknames and connections in order.
  */
 public class Match implements Runnable {
+    /**
+     * The constant LOGGER.
+     */
     private static final Logger LOGGER = Logger.getLogger(Match.class.getName());
     /**
      * The server.
@@ -65,8 +68,7 @@ public class Match implements Runnable {
      * The general contract of the method <code>run</code> is that it may
      * take any action whatsoever.
      *
-     *
-     * @see Thread#run()
+     * @see Thread#run() Thread#run()
      */
     @Override
     public void run() {

@@ -16,8 +16,9 @@ public class Direction {
 
     /**
      * The class constructor.
-     * @param firstCell
-     * @param secondCell
+     *
+     * @param firstCell  the first cell
+     * @param secondCell the second cell
      */
     public Direction(Cell firstCell, Cell secondCell){
         dx = secondCell.getX() - firstCell.getX();

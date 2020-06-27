@@ -3,6 +3,9 @@ package it.polimi.ingsw.server.model.actions;
 import it.polimi.ingsw.server.model.board.Cell;
 import it.polimi.ingsw.server.model.workers.Worker;
 
+/**
+ * The type Move action.
+ */
 public class MoveAction implements Action{
 
     /**
@@ -28,7 +31,7 @@ public class MoveAction implements Action{
     /**
      * The worker who performed the move
      */
-    private Worker worker;
+    private final Worker worker;
 
     /**
      * Constructor, stores all the variables by reference
@@ -48,6 +51,8 @@ public class MoveAction implements Action{
     }
 
     /**
+     * Gets source cell.
+     *
      * @return The cell from which the worker moved
      */
     public Cell getSourceCell() {
@@ -55,6 +60,8 @@ public class MoveAction implements Action{
     }
 
     /**
+     * Gets target cell.
+     *
      * @return The cell to which the worker moved
      */
     public Cell getTargetCell() {
@@ -62,6 +69,8 @@ public class MoveAction implements Action{
     }
 
     /**
+     * Gets source level.
+     *
      * @return The level of the cell from which the worker moved
      */
     public int getSourceLevel() {
@@ -69,6 +78,8 @@ public class MoveAction implements Action{
     }
 
     /**
+     * Gets target level.
+     *
      * @return The level of the cell to which the worker moved
      */
     public int getTargetLevel() {
@@ -76,6 +87,8 @@ public class MoveAction implements Action{
     }
 
     /**
+     * Gets worker.
+     *
      * @return The worker who performed the move
      */
     public Worker getWorker() {

@@ -9,6 +9,9 @@ import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
  * @see it.polimi.ingsw.server.model.Player
  */
 public class User {
+    /**
+     * The user's nickname.
+     */
     public final String nickname;
 
     /**

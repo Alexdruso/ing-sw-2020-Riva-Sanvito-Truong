@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 /**
  * This class represents the game board
  */
-
 public class Board {
     /**
      * This groups all the tiles which make up the board
@@ -38,6 +37,7 @@ public class Board {
 
     /**
      * This method returns the side length of the board
+     *
      * @return the side length of the board
      */
     public int getDimension(){
@@ -46,6 +46,7 @@ public class Board {
 
     /**
      * This method returns the cell in position (x,y)
+     *
      * @param x the position of the cell on the x axis
      * @param y the position of the cell on the y axis
      * @return the required cell
@@ -65,6 +66,7 @@ public class Board {
 
     /**
      * This method returns the Cell instances targeted by target
+     *
      * @param target the TargetCells instance with the cells that are targeted
      * @return a List of Cell objects that were targeted
      */
@@ -83,7 +85,8 @@ public class Board {
     /**
      * From a given base cell and a direction, this method retrieves the cell starting from base
      * and moving by towards the given Direction
-     * @param base the base Cell
+     *
+     * @param base      the starting cell
      * @param direction the Direction
      * @return the resulting Cell, calculated starting from base and doing a translation towards Direction
      */

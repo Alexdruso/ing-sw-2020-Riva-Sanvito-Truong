@@ -91,8 +91,16 @@ public enum GodCard {
     ZEUS(new Zeus()),
     ;
 
+    /**
+     * The God.
+     */
     private final God god;
 
+    /**
+     * Instantiates a new God card.
+     *
+     * @param god the god
+     */
     GodCard(God god) {
         this.god = god;
     }

@@ -7,20 +7,27 @@ import java.util.ArrayList;
  * or an incomplete tower
  */
 public class Tower {
-    //Might implement this as an array later
+    /**
+     * The Components.
+     */
     private final ArrayList<Buildable> components;
 
-    private static class InvalidBuildException extends RuntimeException {}
+    /**
+     * The type Invalid build exception.
+     */
+    private static class InvalidBuildException extends RuntimeException {
+    }
 
     /**
      * Class constructor
      */
-    public Tower(){
+    public Tower() {
         components = new ArrayList<>();
     }
 
     /**
      * This method checks whether or not a dome is present on the tower at any level
+     *
      * @return true if a dome is present, otherwise false
      */
     public boolean isComplete(){
@@ -32,9 +39,9 @@ public class Tower {
 
     /**
      * This method returns the highest level occupied by a block in the tower
+     *
      * @return the level of the block that is placed highest
      */
-
     public int getCurrentLevel(){
         int count = 0;
         for (Buildable c: components){
@@ -45,6 +52,7 @@ public class Tower {
 
     /**
      * This method places a component on the tower
+     *
      * @param component the instance of the Component enum which is to be built
      * @throws InvalidBuildException if attempting a build action on a complete tower
      */

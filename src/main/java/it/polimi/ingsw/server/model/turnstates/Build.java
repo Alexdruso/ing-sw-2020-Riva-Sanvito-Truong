@@ -10,6 +10,9 @@ import it.polimi.ingsw.server.model.workers.Worker;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The build turn state.
+ */
 class Build implements AbstractTurnState {
 
     /**
@@ -84,7 +87,7 @@ class Build implements AbstractTurnState {
     /**
      * This methods builds a dome in targetCell
      *
-     * @param worker       the worker who performs the build
+     * @param worker     the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      */
@@ -102,7 +105,7 @@ class Build implements AbstractTurnState {
     /**
      * This boolean methods checks if the pawn can build a block in targetCell
      *
-     * @param worker       the worker who performs the build
+     * @param worker     the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      * @return true if the pawn can build a block in targetCell
@@ -116,7 +119,7 @@ class Build implements AbstractTurnState {
     /**
      * This methods builds a block in targetCell
      *
-     * @param worker       the worker who performs the build
+     * @param worker     the worker who performs the build
      * @param targetCell the cell involved in the build
      * @param turn       the Context
      */
