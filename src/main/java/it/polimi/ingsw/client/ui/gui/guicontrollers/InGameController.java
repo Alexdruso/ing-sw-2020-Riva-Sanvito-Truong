@@ -25,6 +25,9 @@ import javafx.scene.layout.VBox;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for the InGame state
+ */
 public class InGameController extends AbstractController{
     @FXML StackPane rootPane;
     @FXML GridPane boardPane;

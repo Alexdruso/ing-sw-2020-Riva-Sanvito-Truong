@@ -12,6 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller for the SetNickname state
+ */
 public class SetNicknameController extends AbstractController{
 
     @FXML

@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Controller for the SetPlayersCount state
+ */
 public class SetPlayersCountController extends AbstractController{
 
     @FXML

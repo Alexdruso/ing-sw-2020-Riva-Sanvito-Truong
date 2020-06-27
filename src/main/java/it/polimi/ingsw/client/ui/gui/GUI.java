@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class represents the GUI instance
+ */
 public class GUI implements UI {
     private static final Logger LOGGER = Logger.getLogger(GUI.class.getName());
     private final HashMap<String, SavedScene> sceneMap = new HashMap<>();

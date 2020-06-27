@@ -15,6 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * This is the main JavaFX Application class. Its start method will be invoked by the SantoriniApp
+ */
 public class JavaFXGUI extends Application {
     private static final Logger LOGGER = Logger.getLogger(JavaFXGUI.class.getName());
     private static Stage primaryStage;
@@ -62,24 +65,44 @@ public class JavaFXGUI extends Application {
         stage.show();
     }
 
+    /**
+     * This method sets the main root of the scene
+     * @param newRoot
+     */
     public static void setMainRoot(Pane newRoot){
         mainRoot.getChildren().clear();
         mainRoot.getChildren().add(newRoot);
     }
 
+    /**
+     * This method retrieves the main root of the scene
+     * @return
+     */
     public static Pane getMainRoot() {
         return mainRoot;
     }
 
+    /**
+     * This method sets the root for the overlay
+     * @param newRoot
+     */
     public static void setOverlayRoot(Pane newRoot){
         overlayRoot.getChildren().clear();
         overlayRoot.getChildren().add(newRoot);
     }
 
+    /**
+     * This method retrieves the overlay root of the scene
+     * @return
+     */
     public static Pane getOverlayRoot() {
         return overlayRoot;
     }
 
+    /**
+     * This method retrieves the Scene instance
+     * @return
+     */
     public static Scene getPrimaryScene(){
         synchronized(sceneLock){
             while (!initialized) {
@@ -94,6 +117,10 @@ public class JavaFXGUI extends Application {
         }
     }
 
+    /**
+     * This method retrieves the Stage instance
+     * @return
+     */
     public static Stage getPrimaryStage(){
         synchronized(sceneLock){
             while (!initialized) {

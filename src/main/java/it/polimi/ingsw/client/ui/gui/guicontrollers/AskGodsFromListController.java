@@ -28,6 +28,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for the AskGodsFromList state
+ */
 public class AskGodsFromListController extends AbstractController {
     private static final int ICONS_PER_ROW = 5;
     private static final double ICON_SPACING_H = 30;

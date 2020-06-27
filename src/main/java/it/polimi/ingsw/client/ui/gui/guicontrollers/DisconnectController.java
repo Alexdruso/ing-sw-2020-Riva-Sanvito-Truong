@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the Disconnect state
+ */
 public class DisconnectController extends AbstractController {
     private static final Logger LOGGER = Logger.getLogger(DisconnectController.class.getName());
 

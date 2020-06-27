@@ -3,18 +3,33 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractClientState;
 
+/**
+ * This abstract class defines all the methods that should be implemented by all JavaFX controllers
+ */
 public abstract class AbstractController {
     Client client;
     AbstractClientState state;
 
+    /**
+     * This method sets the client in the controller
+     * @param client the Client instance
+     */
     public void setClient(Client client){
         this.client = client;
     }
 
+    /**
+     * This method sets the ClientState in the controller
+     * @param state the AbstractClientState instance
+     */
     public void setState(AbstractClientState state){
         this.state = state;
     }
 
+    /**
+     * This method defines how the controller handles an error coming from the server
+     * @param message the error message
+     */
     public abstract void handleError(String message);
 
     /**

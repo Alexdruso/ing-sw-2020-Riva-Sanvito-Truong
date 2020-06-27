@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the WinGame state
+ */
 public class WinGameController extends AbstractController {
     private static final Logger LOGGER = Logger.getLogger(WinGameController.class.getName());
 

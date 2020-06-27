@@ -27,6 +27,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for the AskGodFromList state
+ */
 public class AskGodFromListController extends AbstractController{
     private static final Logger LOGGER = Logger.getLogger(AskGodFromListController.class.getName());
     private static final double FONT_SIZE_RATIO = 100;

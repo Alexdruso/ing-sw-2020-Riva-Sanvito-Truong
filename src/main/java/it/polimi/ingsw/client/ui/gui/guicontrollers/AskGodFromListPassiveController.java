@@ -14,6 +14,9 @@ import javafx.scene.image.ImageView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the AskGodFromList state, passive version
+ */
 public class AskGodFromListPassiveController extends AbstractController{
     private final Image[] imageArray = new Image[4];
     private static final Logger LOGGER = Logger.getLogger(AskGodFromListPassiveController.class.getName());

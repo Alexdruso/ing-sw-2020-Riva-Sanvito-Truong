@@ -14,6 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for the AskStartPlayer state
+ */
 public class AskStartPlayerController extends AbstractController{
 
     private static final Logger LOGGER = Logger.getLogger(AskStartPlayerController.class.getName());

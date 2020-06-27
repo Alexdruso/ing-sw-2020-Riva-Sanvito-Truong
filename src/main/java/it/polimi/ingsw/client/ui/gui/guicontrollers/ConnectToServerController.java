@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang.math.NumberUtils;
 
+/**
+ * Controller for the ConnectToServer state
+ */
 public class ConnectToServerController extends AbstractController{
     @FXML
     Button connectButton;

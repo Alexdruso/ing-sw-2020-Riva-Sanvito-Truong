@@ -13,6 +13,9 @@ import javafx.scene.image.ImageView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the WaitPlayers State
+ */
 public class WaitPlayersController extends AbstractController{
     private final Image[] imageArray = new Image[4];
     private static final Logger LOGGER = Logger.getLogger(WaitPlayersController.class.getName());

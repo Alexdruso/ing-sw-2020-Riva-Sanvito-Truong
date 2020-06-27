@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the LoseGame state
+ */
 public class LoseGameController extends AbstractController {
     private static final Logger LOGGER = Logger.getLogger(LoseGameController.class.getName());
 

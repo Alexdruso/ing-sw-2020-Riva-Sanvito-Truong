@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the WelcomeScreen state
+ */
 public class WelcomeScreenController extends AbstractController {
     Stage primaryStage;
     private static final Logger LOGGER = Logger.getLogger(WelcomeScreenController.class.getName());

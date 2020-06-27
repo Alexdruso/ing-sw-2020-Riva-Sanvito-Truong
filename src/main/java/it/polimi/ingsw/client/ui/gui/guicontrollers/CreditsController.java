@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * Controller for the Credits
+ */
 public class CreditsController extends AbstractController{
     private static final Logger LOGGER = Logger.getLogger(CreditsController.class.getName());
 

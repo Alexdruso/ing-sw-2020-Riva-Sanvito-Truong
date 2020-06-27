@@ -15,6 +15,9 @@ import javafx.scene.layout.HBox;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the Settings screen
+ */
 public class SettingsController extends AbstractController {
     private static final Logger LOGGER = Logger.getLogger(SettingsController.class.getName());
 
