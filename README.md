@@ -67,7 +67,7 @@ You need to enable the support to UTF-8 characters in the terminal:
 Santorini-Client.bat
 ```
 
-![The Santorini GUI running in Windows](.github/assets/windows_santorini_cli.png "The Santorini GUI running in Windows")
+![The Santorini GUI running in Windows](.github/assets/windows_santorini_gui.png "The Santorini GUI running in Windows")
 
 **For the CLI:**
 ```bash
