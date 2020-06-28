@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ConfigParser</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.config</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ConfigParser (it.polimi.ingsw.utils.config)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConfigParser</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/ 20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.config;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.io.IOException;
+<i>4</i>&nbsp;import java.util.Properties;
+<i>5</i>&nbsp;import java.util.logging.Level;
+<i>6</i>&nbsp;import java.util.logging.Logger;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * This singleton, when instantiated, reads and stores all configuration variables.
+<i>10</i>&nbsp; * Values should be retrieved by getConfiguration().
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;public class ConfigParser {
+<b class="fc"><i>13</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(ConfigParser.class.getName());</b>
+<i>14</i>&nbsp;    //NOTE: For now, configs should only be loaded at startup. No hot-reload, as this leads
+<i>15</i>&nbsp;    //to possible desynchronization issues
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    private static ConfigParser instance;
+<i>18</i>&nbsp;    private final Properties configs;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Constructor for the class.
+<i>22</i>&nbsp;     * Being a singleton, this class should be instantiated via getInstance().
+<i>23</i>&nbsp;     */
+<b class="fc"><i>24</i>&nbsp;    private ConfigParser(){</b>
+<b class="fc"><i>25</i>&nbsp;        configs = new Properties();</b>
+<b class="fc"><i>26</i>&nbsp;        for(ConfigFile c: ConfigFile.values()){</b>
+<b class="fc"><i>27</i>&nbsp;            loadConfig(c);</b>
+<i>28</i>&nbsp;        }
+<b class="fc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * This method reads a properties configuration file, storing all read variables into configs
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @param cfg the ConfigFile instance that represents that file that is to be read
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    private void loadConfig(ConfigFile cfg){
+<i>37</i>&nbsp;        try {
+<b class="fc"><i>38</i>&nbsp;            configs.load(cfg.getInputStream());</b>
+<b class="nc"><i>39</i>&nbsp;        } catch (IOException e){</b>
+<b class="nc"><i>40</i>&nbsp;            LOGGER.log(Level.SEVERE, String.format(&quot;Unable to read configuration file %s%nPlease, make sure it is available or set the %s env var appropriately.&quot;, cfg.toString(), ConfigFile.CONFIG_BASE_PATH_ENV_VAR));</b>
+<b class="nc"><i>41</i>&nbsp;            System.exit(1);</b>
+<b class="fc"><i>42</i>&nbsp;        }</b>
+<b class="fc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Reads the value bound to the specified key from the configuration.
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @param key the name of the property to be retrieved
+<i>49</i>&nbsp;     * @return the value bound to the property
+<i>50</i>&nbsp;     * @throws IllegalArgumentException if the specified key does not exist
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    public String getProperty(String key) {
+<b class="fc"><i>53</i>&nbsp;        String property = configs.getProperty(key);</b>
+<b class="fc"><i>54</i>&nbsp;        if(property == null){</b>
+<b class="nc"><i>55</i>&nbsp;            throw new IllegalArgumentException(&quot;Key does not exist&quot;);</b>
+<i>56</i>&nbsp;        } else {
+<b class="fc"><i>57</i>&nbsp;            return property;</b>
+<i>58</i>&nbsp;        }
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * Reads the value bound to the specified key from the configuration, casting it to an int.
+<i>63</i>&nbsp;     *
+<i>64</i>&nbsp;     * @param key the name of the property to be retrieved
+<i>65</i>&nbsp;     * @return the value bound to the property
+<i>66</i>&nbsp;     * @throws IllegalArgumentException if the specified key does not exist
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public int getIntProperty(String key) {
+<b class="fc"><i>69</i>&nbsp;        return Integer.parseInt(getProperty(key));</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * This method allows to retrieve the instance of ConfigParser, if it exists, otherwise it creates one
+<i>74</i>&nbsp;     * and returns the newly created instance
+<i>75</i>&nbsp;     *
+<i>76</i>&nbsp;     * @return the ConfigParser singleton instance
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    public static ConfigParser getInstance(){
+<b class="fc"><i>79</i>&nbsp;        if(instance == null){</b>
+<b class="fc"><i>80</i>&nbsp;            instance = new ConfigParser();</b>
+<i>81</i>&nbsp;        }
+<b class="fc"><i>82</i>&nbsp;        return instance;</b>
+<i>83</i>&nbsp;    }
+<i>84</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

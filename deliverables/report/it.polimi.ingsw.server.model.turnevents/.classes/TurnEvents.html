@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TurnEvents</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.turnevents</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TurnEvents (it.polimi.ingsw.server.model.turnevents)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TurnEvents</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$bnrtryT0</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$bYC9mugp</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$Ge27P4xV</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$gNrXrX7P</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$gUAqsyG2</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$kgsjvcE9</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$TtQyX3SV</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$vfREWtwF</td>
+  </tr>
+  <tr>
+    <td class="name">TurnEvents$MockitoMock$2089779064$auxiliary$XAsFYm95</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.turnevents;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * This class defines the hooks the gods can attach to in order to modify the default game behavior.
+<i>7</i>&nbsp; */
+<b class="fc"><i>8</i>&nbsp;public class TurnEvents {</b>
+<i>9</i>&nbsp;    /**
+<i>10</i>&nbsp;     * Allows a god to perform custom actions when a new turn starts for a player.
+<i>11</i>&nbsp;     * By default (if not overridden by a subclass), no custom action is performed.
+<i>12</i>&nbsp;     *
+<i>13</i>&nbsp;     * @param turn the current Turn
+<i>14</i>&nbsp;     */
+<i>15</i>&nbsp;    protected void onTurnStart(Turn turn) {
+<i>16</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>17</i>&nbsp;    }</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * Allows a god to perform custom actions before the game allows the player to perform the move action.
+<i>21</i>&nbsp;     * By default (if not overridden by a subclass), no custom action is performed.
+<i>22</i>&nbsp;     *
+<i>23</i>&nbsp;     * @param turn the current Turn
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    protected void onBeforeMovement(Turn turn) {
+<i>26</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Allows a god to perform custom actions after the player has performed the move action.
+<i>31</i>&nbsp;     * By default (if not overridden by a subclass), no custom action is performed.
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @param turn the current Turn
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    protected void onAfterMovement(Turn turn) {
+<i>36</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * Allows a god to perform custom actions before the game allows the player to perform the build action.
+<i>41</i>&nbsp;     * By default (if not overridden by a subclass), no custom action is performed.
+<i>42</i>&nbsp;     *
+<i>43</i>&nbsp;     * @param turn the current Turn
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    protected void onBeforeBuild(Turn turn) {
+<i>46</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Allows a god to perform custom actions after the player has performed the move action.
+<i>51</i>&nbsp;     * By default (if not overridden by a subclass), no custom action is performed.
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param turn the current Turn
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    protected void onAfterBuild(Turn turn) {
+<i>56</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>57</i>&nbsp;    }</b>
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Allows a god to perform custom actions when a turn ends for a player.
+<i>61</i>&nbsp;     * By default (if not overridden by a subclass), no custom action is performed.
+<i>62</i>&nbsp;     *
+<i>63</i>&nbsp;     * @param turn the current Turn
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    protected void onTurnEnd(Turn turn) {
+<i>66</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * Allows a god to perform custom actions when computing the win conditions for a player.
+<i>71</i>&nbsp;     * By default (if not overridden by a subclass), no custom win condition is applied.
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @param turn the current Turn
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    protected void computeWinCondition(Turn turn) {
+<i>76</i>&nbsp;        // By default (if not overridden by a subclass), no custom action is performed.
+<b class="fc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

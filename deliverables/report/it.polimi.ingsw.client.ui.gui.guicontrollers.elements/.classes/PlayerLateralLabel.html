@@ -1,0 +1,229 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PlayerLateralLabel</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui.guicontrollers.elements</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PlayerLateralLabel (it.polimi.ingsw.client.ui.gui.guicontrollers.elements)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlayerLateralLabel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 40)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PlayerLateralLabel$Colors</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 47)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui.guicontrollers.elements;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
+<i>5</i>&nbsp;import javafx.beans.NamedArg;
+<i>6</i>&nbsp;import javafx.beans.property.IntegerProperty;
+<i>7</i>&nbsp;import javafx.beans.property.SimpleIntegerProperty;
+<i>8</i>&nbsp;import javafx.beans.property.SimpleStringProperty;
+<i>9</i>&nbsp;import javafx.beans.property.StringProperty;
+<i>10</i>&nbsp;import javafx.fxml.FXML;
+<i>11</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>12</i>&nbsp;import javafx.scene.control.Label;
+<i>13</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i>14</i>&nbsp;import javafx.scene.paint.Paint;
+<i>15</i>&nbsp;import javafx.scene.shape.Circle;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import java.io.IOException;
+<i>18</i>&nbsp;import java.util.logging.Level;
+<i>19</i>&nbsp;import java.util.logging.Logger;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * This graphical component can be used to show the players currently playing in a match
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public class PlayerLateralLabel extends AnchorPane{
+<b class="nc"><i>25</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(PlayerLateralLabel.class.getName());</b>
+<b class="nc"><i>26</i>&nbsp;    private StringProperty playerNameProperty = new SimpleStringProperty();</b>
+<b class="nc"><i>27</i>&nbsp;    private StringProperty godNameProperty = new SimpleStringProperty();</b>
+<b class="nc"><i>28</i>&nbsp;    private IntegerProperty playerNumberProperty = new SimpleIntegerProperty();</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @FXML AnchorPane container;
+<i>31</i>&nbsp;    @FXML Label godName;
+<i>32</i>&nbsp;    @FXML Label playerName;
+<i>33</i>&nbsp;    @FXML Label statusLabel;
+<i>34</i>&nbsp;    @FXML Circle colorTip;
+<i>35</i>&nbsp;    @FXML Label colorLabel;
+<i>36</i>&nbsp;
+<b class="nc"><i>37</i>&nbsp;    enum Colors {</b>
+<b class="nc"><i>38</i>&nbsp;        PLAYER1(&quot;133C55&quot;),</b>
+<b class="nc"><i>39</i>&nbsp;        PLAYER2(&quot;F2A541&quot;),</b>
+<b class="nc"><i>40</i>&nbsp;        PLAYER3(&quot;353535&quot;);</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;        public final String color;
+<i>43</i>&nbsp;
+<b class="nc"><i>44</i>&nbsp;        Colors(String color){</b>
+<b class="nc"><i>45</i>&nbsp;            this.color = color;</b>
+<b class="nc"><i>46</i>&nbsp;        }</b>
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Class Constructor for a single PlayerLateralLabel
+<i>51</i>&nbsp;     * @param playerNameProperty a String containing the name of the player
+<i>52</i>&nbsp;     * @param playerNumberProperty an Integer containing the position of the player in the playing order
+<i>53</i>&nbsp;     * @param godNameProperty a String containing the player&#39;s God name
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public PlayerLateralLabel(@NamedArg(&quot;playerName&quot;) String playerNameProperty,
+<i>56</i>&nbsp;                              @NamedArg(&quot;playerNumber&quot;) Integer playerNumberProperty,
+<b class="nc"><i>57</i>&nbsp;                              @NamedArg(&quot;godName&quot;) String godNameProperty) {</b>
+<i>58</i>&nbsp;
+<b class="nc"><i>59</i>&nbsp;        this.playerNameProperty.set(playerNameProperty);</b>
+<b class="nc"><i>60</i>&nbsp;        this.playerNumberProperty.set(playerNumberProperty);</b>
+<b class="nc"><i>61</i>&nbsp;        this.godNameProperty.set(I18n.string(I18nKey.valueOf(godNameProperty.toUpperCase()+&quot;_NAME&quot;)));</b>
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(&quot;/fxml/PlayerLateralLabel.fxml&quot;), I18n.getResourceBundle());</b>
+<b class="nc"><i>64</i>&nbsp;        fxmlLoader.setRoot(this);</b>
+<b class="nc"><i>65</i>&nbsp;        fxmlLoader.setController(this);</b>
+<i>66</i>&nbsp;        try {
+<b class="nc"><i>67</i>&nbsp;            fxmlLoader.load();</b>
+<b class="nc"><i>68</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>69</i>&nbsp;            LOGGER.log(Level.SEVERE, e.getMessage(), e);</b>
+<b class="nc"><i>70</i>&nbsp;        }</b>
+<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * This method sets the graphical status of a label, depending on the value of active
+<i>76</i>&nbsp;     * @param active if true, the label is set to active. If false, the label is set to inactive.
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    public void setActiveStatus(boolean active){
+<i>79</i>&nbsp;        String toRemove;
+<i>80</i>&nbsp;        String toAdd;
+<i>81</i>&nbsp;
+<b class="nc"><i>82</i>&nbsp;        if(active){</b>
+<b class="nc"><i>83</i>&nbsp;            toRemove = &quot;player-lateral-label-passive&quot;;</b>
+<b class="nc"><i>84</i>&nbsp;            toAdd = &quot;player-lateral-label-active&quot;;</b>
+<b class="nc"><i>85</i>&nbsp;            statusLabel.setText(I18n.string(I18nKey.CURRENTLY_PLAYING).toUpperCase());</b>
+<i>86</i>&nbsp;        } else {
+<b class="nc"><i>87</i>&nbsp;            toRemove = &quot;player-lateral-label-active&quot;;</b>
+<b class="nc"><i>88</i>&nbsp;            toAdd = &quot;player-lateral-label-passive&quot;;</b>
+<b class="nc"><i>89</i>&nbsp;            statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());</b>
+<i>90</i>&nbsp;        }
+<i>91</i>&nbsp;
+<b class="nc"><i>92</i>&nbsp;        int index = container.getStyleClass().indexOf(toRemove);</b>
+<b class="nc"><i>93</i>&nbsp;        if(index != -1){</b>
+<b class="nc"><i>94</i>&nbsp;            container.getStyleClass().remove(index);</b>
+<i>95</i>&nbsp;        }
+<b class="nc"><i>96</i>&nbsp;        if(!container.getStyleClass().contains(toAdd)){</b>
+<b class="nc"><i>97</i>&nbsp;            container.getStyleClass().add(toAdd);</b>
+<i>98</i>&nbsp;        }
+<i>99</i>&nbsp;
+<b class="nc"><i>100</i>&nbsp;    }</b>
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * This method sets the graphical status of a label to Spectating
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    public void setSpectatingStatus(){
+<b class="nc"><i>106</i>&nbsp;        setActiveStatus(false);</b>
+<b class="nc"><i>107</i>&nbsp;        statusLabel.setText(I18n.string(I18nKey.SPECTATING).toUpperCase());</b>
+<b class="nc"><i>108</i>&nbsp;        colorLabel.setOpacity(0);</b>
+<b class="nc"><i>109</i>&nbsp;        colorTip.setOpacity(0);</b>
+<b class="nc"><i>110</i>&nbsp;        godName.setOpacity(0);</b>
+<b class="nc"><i>111</i>&nbsp;    }</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    @FXML private void initialize(){
+<b class="nc"><i>114</i>&nbsp;        playerName.textProperty().bind(playerNameProperty);</b>
+<b class="nc"><i>115</i>&nbsp;        godName.textProperty().bind(godNameProperty);</b>
+<b class="nc"><i>116</i>&nbsp;        colorLabel.setText(I18n.string(I18nKey.COLOR));</b>
+<b class="nc"><i>117</i>&nbsp;        colorTip.setFill(Paint.valueOf(Colors.values()[playerNumberProperty.get()].color));</b>
+<b class="nc"><i>118</i>&nbsp;    }</b>
+<i>119</i>&nbsp;}
+<i>120</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

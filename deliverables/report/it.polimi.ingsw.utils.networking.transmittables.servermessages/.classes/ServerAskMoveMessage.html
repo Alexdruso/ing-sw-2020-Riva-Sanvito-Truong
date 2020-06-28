@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ServerAskMoveMessage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.networking.transmittables.servermessages</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ServerAskMoveMessage (it.polimi.ingsw.utils.networking.transmittables.servermessages)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ServerAskMoveMessage</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.networking.transmittables.servermessages;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientState;
+<i>5</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientTurnState;
+<i>6</i>&nbsp;import it.polimi.ingsw.client.reducedmodel.ReducedTurn;
+<i>7</i>&nbsp;import it.polimi.ingsw.utils.networking.ClientHandleable;
+<i>8</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
+<i>9</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+<i>10</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.util.EnumMap;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;import java.util.Map;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * The type Server ask move message.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;public class ServerAskMoveMessage implements ServerMessage, ClientHandleable {
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * The User who has to move.
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public final ReducedUser user;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * A boolean expressing if the move action can be skipped.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    public final boolean isSkippable;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * The workers allowed to move.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    private final List&lt;ReducedWorkerID&gt; allowedWorkers;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * The Worker walkable cells.
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    private final EnumMap&lt;ReducedWorkerID, ReducedTargetCells&gt; workerWalkableCells;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Instantiates a new Server ask move message.
+<i>39</i>&nbsp;     *
+<i>40</i>&nbsp;     * @param user                the user
+<i>41</i>&nbsp;     * @param isSkippable         the boolean expressing if the move action can be skipped
+<i>42</i>&nbsp;     * @param allowedWorkers      the allowed workers
+<i>43</i>&nbsp;     * @param workerWalkableCells the worker walkable cells
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    public ServerAskMoveMessage(ReducedUser user, boolean isSkippable, List&lt;ReducedWorkerID&gt; allowedWorkers,
+<b class="fc"><i>46</i>&nbsp;                                Map&lt;ReducedWorkerID, ReducedTargetCells&gt; workerWalkableCells) {</b>
+<b class="fc"><i>47</i>&nbsp;        this.user = user;</b>
+<b class="fc"><i>48</i>&nbsp;        this.isSkippable = isSkippable;</b>
+<b class="fc"><i>49</i>&nbsp;        this.allowedWorkers = allowedWorkers;</b>
+<b class="fc"><i>50</i>&nbsp;        this.workerWalkableCells = new EnumMap&lt;&gt;(workerWalkableCells);</b>
+<b class="fc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    @Override
+<i>54</i>&nbsp;    public boolean handleTransmittable(Client client) {
+<b class="fc"><i>55</i>&nbsp;        client.setCurrentActiveUser(user);</b>
+<b class="fc"><i>56</i>&nbsp;        client.moveToState(ClientState.IN_GAME);</b>
+<b class="fc"><i>57</i>&nbsp;        client.getGame().getPlayer(user).ifPresent(</b>
+<b class="fc"><i>58</i>&nbsp;                targetUser -&gt; client.getGame().setTurn(new ReducedTurn(targetUser, client.getUI().getClientTurnState(ClientTurnState.MOVE, client), allowedWorkers, workerWalkableCells, isSkippable))</b>
+<i>59</i>&nbsp;        );
+<b class="fc"><i>60</i>&nbsp;        client.requestRender();</b>
+<b class="fc"><i>61</i>&nbsp;        return true;</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

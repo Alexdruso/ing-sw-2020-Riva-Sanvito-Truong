@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WaitPlayersCLIClientState</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.cli</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WaitPlayersCLIClientState (it.polimi.ingsw.client.ui.cli)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WaitPlayersCLIClientState</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.cli;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractWaitPlayersClientState;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
+<i>6</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * The CLI-specific JOIN_LOBBY ClientState.
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class WaitPlayersCLIClientState extends AbstractWaitPlayersClientState implements CLIClientState {
+<i>12</i>&nbsp;    private final CLI cli;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * Instantiates a new CLI-specific JOIN_LOBBY ClientState.
+<i>16</i>&nbsp;     *
+<i>17</i>&nbsp;     * @param client the client
+<i>18</i>&nbsp;     */
+<i>19</i>&nbsp;    public WaitPlayersCLIClientState(Client client) {
+<b class="nc"><i>20</i>&nbsp;        super(client);</b>
+<b class="nc"><i>21</i>&nbsp;        cli = (CLI) client.getUI();</b>
+<b class="nc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Override
+<i>25</i>&nbsp;    public void render() {
+<b class="nc"><i>26</i>&nbsp;        cli.println(&quot;&quot;);</b>
+<b class="nc"><i>27</i>&nbsp;        cli.println(I18n.string(I18nKey.WAITING_FOR_THE_OTHER_PLAYERS));</b>
+<b class="nc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

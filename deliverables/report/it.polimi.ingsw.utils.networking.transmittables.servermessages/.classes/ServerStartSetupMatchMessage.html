@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ServerStartSetupMatchMessage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.networking.transmittables.servermessages</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ServerStartSetupMatchMessage (it.polimi.ingsw.utils.networking.transmittables.servermessages)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ServerStartSetupMatchMessage</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.networking.transmittables.servermessages;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.networking.ClientHandleable;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * The type Server start setup match message.
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;public class ServerStartSetupMatchMessage implements ServerMessage, ClientHandleable {
+<i>11</i>&nbsp;    /**
+<i>12</i>&nbsp;     * The list of users participating into the game.
+<i>13</i>&nbsp;     */
+<i>14</i>&nbsp;    public final ReducedUser[] userList;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * Instantiates a new Server start setup match message.
+<i>18</i>&nbsp;     *
+<i>19</i>&nbsp;     * @param userList the user list
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    public ServerStartSetupMatchMessage(ReducedUser[] userList) {
+<b class="fc"><i>22</i>&nbsp;        super();</b>
+<b class="fc"><i>23</i>&nbsp;        this.userList = userList;</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public boolean handleTransmittable(Client client) {
+<b class="fc"><i>28</i>&nbsp;        client.createGame(userList);</b>
+<b class="fc"><i>29</i>&nbsp;        return true;</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

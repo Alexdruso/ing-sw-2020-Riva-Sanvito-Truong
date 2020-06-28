@@ -1,0 +1,147 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ClientChooseGodsMessage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.networking.transmittables.clientmessages</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ClientChooseGodsMessage (it.polimi.ingsw.utils.networking.transmittables.clientmessages)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ClientChooseGodsMessage</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ClientChooseGodsMessage$MockitoMock$904963450</td>
+  </tr>
+  <tr>
+    <td class="name">ClientChooseGodsMessage$MockitoMock$904963450$auxiliary$4tKZmggT</td>
+  </tr>
+  <tr>
+    <td class="name">ClientChooseGodsMessage$MockitoMock$904963450$auxiliary$gOZV322o</td>
+  </tr>
+  <tr>
+    <td class="name">ClientChooseGodsMessage$MockitoMock$904963450$auxiliary$SnYbOsWU</td>
+  </tr>
+  <tr>
+    <td class="name">ClientChooseGodsMessage$MockitoMock$904963450$auxiliary$w0ZQD5vq</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.networking.transmittables.clientmessages;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.controller.Controller;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.controller.User;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.view.View;
+<i>6</i>&nbsp;import it.polimi.ingsw.utils.networking.ControllerHandleable;
+<i>7</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * This immutable class represents a command to set the gods allowed in a game.
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public class ClientChooseGodsMessage implements ClientMessage, ControllerHandleable {
+<i>16</i>&nbsp;    private final List&lt;ReducedGod&gt; gods;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Class constructor
+<i>20</i>&nbsp;     *
+<i>21</i>&nbsp;     * @param gods the gods allowed in the game
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public ClientChooseGodsMessage(List&lt;ReducedGod&gt; gods) {
+<b class="fc"><i>24</i>&nbsp;        super();</b>
+<b class="fc"><i>25</i>&nbsp;        this.gods = gods;</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public boolean handleTransmittable(Controller handler, View view, User user) {
+<b class="fc"><i>30</i>&nbsp;        handler.dispatchChooseGodsAction(this, view, user);</b>
+<b class="fc"><i>31</i>&nbsp;        return true;</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Gets the gods chosen by the user.
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @return the gods
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public List&lt;ReducedGod&gt; getGods() {
+<b class="fc"><i>40</i>&nbsp;        return new ArrayList&lt;&gt;(gods);</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

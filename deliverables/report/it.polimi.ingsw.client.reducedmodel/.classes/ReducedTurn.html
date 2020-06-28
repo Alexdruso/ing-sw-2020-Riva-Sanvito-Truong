@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ReducedTurn</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.reducedmodel</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ReducedTurn (it.polimi.ingsw.client.reducedmodel)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReducedTurn</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    30%
+  </span>
+  <span class="absValue">
+    (3/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79,4%
+  </span>
+  <span class="absValue">
+    (27/ 34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.reducedmodel;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.ArrayList;
+<i>8</i>&nbsp;import java.util.EnumMap;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;import java.util.Map;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * A representation of a turn of the game, reduced with respect to the server&#39;s Turn to contain only the information required by the client.
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public class ReducedTurn {
+<i>16</i>&nbsp;    private final ReducedPlayer player;
+<i>17</i>&nbsp;    private final AbstractClientTurnState turnState;
+<i>18</i>&nbsp;    private final List&lt;ReducedWorkerID&gt; allowedWorkers;
+<i>19</i>&nbsp;    private final EnumMap&lt;ReducedWorkerID, ReducedTargetCells&gt; workerBlockBuildableCells;
+<i>20</i>&nbsp;    private final EnumMap&lt;ReducedWorkerID, ReducedTargetCells&gt; workerDomeBuildableCells;
+<i>21</i>&nbsp;    private final EnumMap&lt;ReducedWorkerID, ReducedTargetCells&gt; workerWalkableCells;
+<i>22</i>&nbsp;    private final boolean isSkippable;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Instantiates a new Reduced turn without setting any kind of buildable or walkable cells.
+<i>26</i>&nbsp;     *
+<i>27</i>&nbsp;     * @param player    the player who is playing the turn
+<i>28</i>&nbsp;     * @param turnState the turn state the turn is currently into
+<i>29</i>&nbsp;     */
+<b class="fc"><i>30</i>&nbsp;    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState) {</b>
+<b class="fc"><i>31</i>&nbsp;        this.player = player;</b>
+<b class="fc"><i>32</i>&nbsp;        this.turnState = turnState;</b>
+<b class="fc"><i>33</i>&nbsp;        this.allowedWorkers = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>34</i>&nbsp;        this.workerBlockBuildableCells = new EnumMap&lt;&gt;(ReducedWorkerID.class);</b>
+<b class="fc"><i>35</i>&nbsp;        this.workerDomeBuildableCells = new EnumMap&lt;&gt;(ReducedWorkerID.class);</b>
+<b class="fc"><i>36</i>&nbsp;        this.workerWalkableCells = new EnumMap&lt;&gt;(ReducedWorkerID.class);</b>
+<b class="fc"><i>37</i>&nbsp;        this.isSkippable = false;</b>
+<b class="fc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Instantiates a new Reduced and sets the walkable cells.
+<i>42</i>&nbsp;     *
+<i>43</i>&nbsp;     * @param player              the player who is playing the turn
+<i>44</i>&nbsp;     * @param turnState           the turn state the turn is currently into
+<i>45</i>&nbsp;     * @param allowedWorkers      the allowed workers
+<i>46</i>&nbsp;     * @param workerWalkableCells the worker walkable cells
+<i>47</i>&nbsp;     * @param isSkippable         whether the turn is skippable
+<i>48</i>&nbsp;     */
+<b class="fc"><i>49</i>&nbsp;    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState, List&lt;ReducedWorkerID&gt; allowedWorkers, Map&lt;ReducedWorkerID, ReducedTargetCells&gt; workerWalkableCells, boolean isSkippable) {</b>
+<b class="fc"><i>50</i>&nbsp;        this.player = player;</b>
+<b class="fc"><i>51</i>&nbsp;        this.turnState = turnState;</b>
+<b class="fc"><i>52</i>&nbsp;        this.allowedWorkers = allowedWorkers;</b>
+<b class="fc"><i>53</i>&nbsp;        this.workerBlockBuildableCells = new EnumMap&lt;&gt;(ReducedWorkerID.class);</b>
+<b class="fc"><i>54</i>&nbsp;        this.workerDomeBuildableCells = new EnumMap&lt;&gt;(ReducedWorkerID.class);</b>
+<b class="fc"><i>55</i>&nbsp;        this.workerWalkableCells = new EnumMap&lt;&gt;(workerWalkableCells);</b>
+<b class="fc"><i>56</i>&nbsp;        this.isSkippable = isSkippable;</b>
+<b class="fc"><i>57</i>&nbsp;    }</b>
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Instantiates a new Reduced and sets the walkable cells.
+<i>61</i>&nbsp;     *
+<i>62</i>&nbsp;     * @param player                    the player who is playing the turn
+<i>63</i>&nbsp;     * @param turnState                 the turn state the turn is currently into
+<i>64</i>&nbsp;     * @param allowedWorkers            the allowed workers
+<i>65</i>&nbsp;     * @param workerBlockBuildableCells the worker block buildable cells
+<i>66</i>&nbsp;     * @param workerDomeBuildableCells  the worker dome buildable cells
+<i>67</i>&nbsp;     * @param isSkippable               whether the turn is skippable
+<i>68</i>&nbsp;     */
+<b class="fc"><i>69</i>&nbsp;    public ReducedTurn(ReducedPlayer player, AbstractClientTurnState turnState, List&lt;ReducedWorkerID&gt; allowedWorkers, Map&lt;ReducedWorkerID, ReducedTargetCells&gt; workerBlockBuildableCells, Map&lt;ReducedWorkerID, ReducedTargetCells&gt; workerDomeBuildableCells, boolean isSkippable) {</b>
+<b class="fc"><i>70</i>&nbsp;        this.player = player;</b>
+<b class="fc"><i>71</i>&nbsp;        this.turnState = turnState;</b>
+<b class="fc"><i>72</i>&nbsp;        this.allowedWorkers = allowedWorkers;</b>
+<b class="fc"><i>73</i>&nbsp;        this.workerBlockBuildableCells = new EnumMap&lt;&gt;(workerBlockBuildableCells);</b>
+<b class="fc"><i>74</i>&nbsp;        this.workerDomeBuildableCells = new EnumMap&lt;&gt;(workerDomeBuildableCells);</b>
+<b class="fc"><i>75</i>&nbsp;        this.isSkippable = isSkippable;</b>
+<b class="fc"><i>76</i>&nbsp;        this.workerWalkableCells = new EnumMap&lt;&gt;(ReducedWorkerID.class);</b>
+<b class="fc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    /**
+<i>80</i>&nbsp;     * Gets the player who is actively playing the turn.
+<i>81</i>&nbsp;     *
+<i>82</i>&nbsp;     * @return the player who is actively playing the turn
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    public ReducedPlayer getPlayer() {
+<b class="nc"><i>85</i>&nbsp;        return player;</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    /**
+<i>89</i>&nbsp;     * Gets the turn state.
+<i>90</i>&nbsp;     *
+<i>91</i>&nbsp;     * @return the turn state
+<i>92</i>&nbsp;     */
+<i>93</i>&nbsp;    public AbstractClientTurnState getTurnState() {
+<b class="nc"><i>94</i>&nbsp;        return turnState;</b>
+<i>95</i>&nbsp;    }
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    /**
+<i>98</i>&nbsp;     * Gets the allowed workers.
+<i>99</i>&nbsp;     *
+<i>100</i>&nbsp;     * @return the allowed workers
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    public List&lt;ReducedWorkerID&gt; getAllowedWorkers() {
+<b class="nc"><i>103</i>&nbsp;        return allowedWorkers;</b>
+<i>104</i>&nbsp;    }
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    /**
+<i>107</i>&nbsp;     * Gets the worker block buildable cells of a worker.
+<i>108</i>&nbsp;     *
+<i>109</i>&nbsp;     * @param workerID the worker id
+<i>110</i>&nbsp;     * @return the worker block buildable cells
+<i>111</i>&nbsp;     */
+<i>112</i>&nbsp;    public ReducedTargetCells getWorkerBlockBuildableCells(ReducedWorkerID workerID) {
+<b class="nc"><i>113</i>&nbsp;        return workerBlockBuildableCells.get(workerID);</b>
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * Gets the worker dome buildable cells of a worker.
+<i>118</i>&nbsp;     *
+<i>119</i>&nbsp;     * @param workerID the worker id
+<i>120</i>&nbsp;     * @return the worker dome buildable cells
+<i>121</i>&nbsp;     */
+<i>122</i>&nbsp;    public ReducedTargetCells getWorkerDomeBuildableCells(ReducedWorkerID workerID) {
+<b class="nc"><i>123</i>&nbsp;        return workerDomeBuildableCells.get(workerID);</b>
+<i>124</i>&nbsp;    }
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;    /**
+<i>127</i>&nbsp;     * Gets the worker walkable cells of a worker.
+<i>128</i>&nbsp;     *
+<i>129</i>&nbsp;     * @param workerID the worker id
+<i>130</i>&nbsp;     * @return the worker walkable cells
+<i>131</i>&nbsp;     */
+<i>132</i>&nbsp;    public ReducedTargetCells getWorkerWalkableCells(ReducedWorkerID workerID) {
+<b class="nc"><i>133</i>&nbsp;        return workerWalkableCells.get(workerID);</b>
+<i>134</i>&nbsp;    }
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    /**
+<i>137</i>&nbsp;     * Checks if the turn is skippable.
+<i>138</i>&nbsp;     *
+<i>139</i>&nbsp;     * @return whether the turn is skippable
+<i>140</i>&nbsp;     */
+<i>141</i>&nbsp;    public boolean isSkippable() {
+<b class="nc"><i>142</i>&nbsp;        return isSkippable;</b>
+<i>143</i>&nbsp;    }
+<i>144</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

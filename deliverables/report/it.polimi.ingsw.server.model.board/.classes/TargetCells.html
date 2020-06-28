@@ -1,0 +1,464 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TargetCells</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.board</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TargetCells (it.polimi.ingsw.server.model.board)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TargetCells</td>
+<td class="coverageStat">
+  <span class="percent">
+    95%
+  </span>
+  <span class="absValue">
+    (19/ 20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98,7%
+  </span>
+  <span class="absValue">
+    (78/ 79)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$2xP5DMCw</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$DJq4MzqO</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$e12aZfuo</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$eCWkraHI</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$g84B6a9c</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$gSKdRhx0</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$HWkcKYKY</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$ofJSYtxg</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$PKPicel5</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$QM1zlR0o</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$QToSHM0i</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$TMOn8XKq</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$Wf9dCGNk</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$XpN5C5A1</td>
+  </tr>
+  <tr>
+    <td class="name">TargetCells$MockitoMock$861985920$auxiliary$yajeTRsN</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    95%
+  </span>
+  <span class="absValue">
+    (19/ 20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98,7%
+  </span>
+  <span class="absValue">
+    (78/ 79)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.board;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedTargetCells;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.Arrays;
+<i>6</i>&nbsp;import java.util.Collection;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * This class represents a set of cells that are targeted for actions.
+<i>10</i>&nbsp; * A TargetCells instance should be created either via the fromMatrix() method or via constructor.
+<i>11</i>&nbsp; * The instance should then be modified via the setPosition, setRow, setColumn methods.
+<i>12</i>&nbsp; * Finally the Cell instances should be retrieved by the getTargets() method in the board.
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;public class TargetCells {
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * The constant BOARD_SIZE.
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    private static final int BOARD_SIZE = 5;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * The Targets.
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    private final boolean[][] targets;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Class constructor which creates a TargetCells instance which has no targeted cells
+<i>26</i>&nbsp;     */
+<b class="fc"><i>27</i>&nbsp;    public TargetCells() {</b>
+<b class="fc"><i>28</i>&nbsp;        targets = new boolean[BOARD_SIZE][BOARD_SIZE];</b>
+<b class="fc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Is valid coordinate boolean.
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     * @param x the x coordinate
+<i>35</i>&nbsp;     * @param y the y coordinate
+<i>36</i>&nbsp;     * @return the boolean
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    private static boolean isValidCoordinate(int x, int y) {
+<b class="fc"><i>39</i>&nbsp;        return x &gt;= 0 &amp;&amp; x &lt; BOARD_SIZE &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; BOARD_SIZE;</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Overridden equals method to provide equality between two TargetCells instances
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @param other the other TargetCells with which to compare
+<i>46</i>&nbsp;     * @return true if this and other are equal, false otherwise
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    @Override
+<i>49</i>&nbsp;    public boolean equals(Object other){
+<b class="fc"><i>50</i>&nbsp;        if(this == other){</b>
+<b class="fc"><i>51</i>&nbsp;            return true;</b>
+<i>52</i>&nbsp;        }
+<b class="fc"><i>53</i>&nbsp;        if(!(other instanceof TargetCells)){</b>
+<b class="fc"><i>54</i>&nbsp;            return false;</b>
+<i>55</i>&nbsp;        }
+<i>56</i>&nbsp;
+<b class="fc"><i>57</i>&nbsp;        return Arrays.deepEquals(targets, ((TargetCells)other).targets);</b>
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * Overridden hashCode method to provide the hash code of a TargetCells instance.
+<i>62</i>&nbsp;     *
+<i>63</i>&nbsp;     * @return the hashcode of the TargetCells instance
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    @Override
+<i>66</i>&nbsp;    public int hashCode() {
+<b class="nc"><i>67</i>&nbsp;        return Arrays.deepHashCode(targets);</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * This method checks if the TargetCells has any cell set to be targeted
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @return false if there are targeted cells, true otherwise
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    public boolean isEmpty(){
+<b class="fc"><i>76</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>77</i>&nbsp;            for(int j = 0; j &lt; BOARD_SIZE; j++){</b>
+<b class="fc"><i>78</i>&nbsp;                if(targets[i][j]){</b>
+<b class="fc"><i>79</i>&nbsp;                    return false;</b>
+<i>80</i>&nbsp;                }
+<i>81</i>&nbsp;            }
+<i>82</i>&nbsp;        }
+<b class="fc"><i>83</i>&nbsp;        return true;</b>
+<i>84</i>&nbsp;    }
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;    /**
+<i>87</i>&nbsp;     * This method sets all cells to the same value
+<i>88</i>&nbsp;     *
+<i>89</i>&nbsp;     * @param isTargeted if true, sets all cells to targeted. Otherwise, if false sets all cells to un-targeted
+<i>90</i>&nbsp;     * @return resulting TargetCells
+<i>91</i>&nbsp;     */
+<i>92</i>&nbsp;    public TargetCells setAllTargets(boolean isTargeted){
+<b class="fc"><i>93</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>94</i>&nbsp;            for(int j = 0; j &lt; BOARD_SIZE; j++){</b>
+<b class="fc"><i>95</i>&nbsp;                targets[i][j] = isTargeted;</b>
+<i>96</i>&nbsp;            }
+<i>97</i>&nbsp;        }
+<b class="fc"><i>98</i>&nbsp;        return this;</b>
+<i>99</i>&nbsp;    }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    /**
+<i>102</i>&nbsp;     * Sets a cell at a given position to the given targeted status
+<i>103</i>&nbsp;     *
+<i>104</i>&nbsp;     * @param x          the x coordinate
+<i>105</i>&nbsp;     * @param y          the y coordinate
+<i>106</i>&nbsp;     * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
+<i>107</i>&nbsp;     * @return resulting TargetCells
+<i>108</i>&nbsp;     */
+<i>109</i>&nbsp;    public TargetCells setPosition(int x, int y, boolean isTargeted){
+<b class="fc"><i>110</i>&nbsp;        targets[x][y] = isTargeted;</b>
+<b class="fc"><i>111</i>&nbsp;        return this;</b>
+<i>112</i>&nbsp;    }
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    /**
+<i>115</i>&nbsp;     * Sets a cell at a given position to the given targeted status
+<i>116</i>&nbsp;     *
+<i>117</i>&nbsp;     * @param cell       the cell whose coordinates are object of this update
+<i>118</i>&nbsp;     * @param isTargeted if true the cell is set to targeted, otherwise to un-targeted
+<i>119</i>&nbsp;     * @return resulting TargetCells
+<i>120</i>&nbsp;     */
+<i>121</i>&nbsp;    public TargetCells setPosition(Cell cell, boolean isTargeted){
+<b class="fc"><i>122</i>&nbsp;        targets[cell.getX()][cell.getY()] = isTargeted;</b>
+<b class="fc"><i>123</i>&nbsp;        return this;</b>
+<i>124</i>&nbsp;    }
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;    /**
+<i>127</i>&nbsp;     * Retrieves the targeted status of the cell at a given position
+<i>128</i>&nbsp;     *
+<i>129</i>&nbsp;     * @param x int representing the x coordinate of the cell to be checked
+<i>130</i>&nbsp;     * @param y int representing the y coordinate of the cell to be checked
+<i>131</i>&nbsp;     * @return true if the cell is targeted, false otherwise
+<i>132</i>&nbsp;     */
+<i>133</i>&nbsp;    public boolean getPosition(int x, int y){
+<b class="fc"><i>134</i>&nbsp;        return targets[x][y];</b>
+<i>135</i>&nbsp;    }
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;    /**
+<i>138</i>&nbsp;     * Retrieves the targeted status of the given Cell
+<i>139</i>&nbsp;     *
+<i>140</i>&nbsp;     * @param cell the Cell object to be checked
+<i>141</i>&nbsp;     * @return true if the cell is targeted, false otherwise
+<i>142</i>&nbsp;     */
+<i>143</i>&nbsp;    public boolean getPosition(Cell cell){
+<b class="fc"><i>144</i>&nbsp;        return targets[cell.getX()][cell.getY()];</b>
+<i>145</i>&nbsp;    }
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    /**
+<i>148</i>&nbsp;     * Sets an entire row&#39;s targeted status
+<i>149</i>&nbsp;     *
+<i>150</i>&nbsp;     * @param y          the y coordinate
+<i>151</i>&nbsp;     * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
+<i>152</i>&nbsp;     * @return resulting TargetCells
+<i>153</i>&nbsp;     */
+<i>154</i>&nbsp;    public TargetCells setRow(int y, boolean isTargeted) {
+<b class="fc"><i>155</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>156</i>&nbsp;            targets[i][y] = isTargeted;</b>
+<i>157</i>&nbsp;        }
+<b class="fc"><i>158</i>&nbsp;        return this;</b>
+<i>159</i>&nbsp;    }
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;    /**
+<i>162</i>&nbsp;     * Sets an entire row&#39;s targeted status
+<i>163</i>&nbsp;     *
+<i>164</i>&nbsp;     * @param x          the x coordinate
+<i>165</i>&nbsp;     * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
+<i>166</i>&nbsp;     * @return resulting TargetCells
+<i>167</i>&nbsp;     */
+<i>168</i>&nbsp;    public TargetCells setColumn(int x, boolean isTargeted) {
+<b class="fc"><i>169</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>170</i>&nbsp;            targets[x][i] = isTargeted;</b>
+<i>171</i>&nbsp;        }
+<b class="fc"><i>172</i>&nbsp;        return this;</b>
+<i>173</i>&nbsp;    }
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;    /**
+<i>176</i>&nbsp;     * Sets the edge cells&#39; targeted status
+<i>177</i>&nbsp;     *
+<i>178</i>&nbsp;     * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
+<i>179</i>&nbsp;     * @return resulting TargetCells
+<i>180</i>&nbsp;     */
+<i>181</i>&nbsp;    public TargetCells setEdges(boolean isTargeted){
+<b class="fc"><i>182</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>183</i>&nbsp;            targets[0][i] = isTargeted;</b>
+<b class="fc"><i>184</i>&nbsp;            targets[BOARD_SIZE-1][i] = isTargeted;</b>
+<i>185</i>&nbsp;        }
+<i>186</i>&nbsp;
+<b class="fc"><i>187</i>&nbsp;        for(int i = 1; i &lt; BOARD_SIZE - 1; i++){</b>
+<b class="fc"><i>188</i>&nbsp;            targets[i][0] = isTargeted;</b>
+<b class="fc"><i>189</i>&nbsp;            targets[i][BOARD_SIZE-1] = isTargeted;</b>
+<i>190</i>&nbsp;        }
+<b class="fc"><i>191</i>&nbsp;        return this;</b>
+<i>192</i>&nbsp;    }
+<i>193</i>&nbsp;
+<i>194</i>&nbsp;    /**
+<i>195</i>&nbsp;     * Sets this to be the intersection of this and other.
+<i>196</i>&nbsp;     * Cells in this after the method call with be targeted if and only if they were
+<i>197</i>&nbsp;     * previously targeted and if they are targeted by other
+<i>198</i>&nbsp;     *
+<i>199</i>&nbsp;     * @param other the other TargetCells instances with which apply the intersection
+<i>200</i>&nbsp;     * @return resulting TargetCells
+<i>201</i>&nbsp;     */
+<i>202</i>&nbsp;    public TargetCells intersect(TargetCells other){
+<b class="fc"><i>203</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>204</i>&nbsp;            for(int j = 0; j &lt; BOARD_SIZE; j++){</b>
+<b class="fc"><i>205</i>&nbsp;                targets[i][j] = targets[i][j] &amp;&amp; other.getPosition(i, j);</b>
+<i>206</i>&nbsp;            }
+<i>207</i>&nbsp;        }
+<b class="fc"><i>208</i>&nbsp;        return this;</b>
+<i>209</i>&nbsp;    }
+<i>210</i>&nbsp;
+<i>211</i>&nbsp;    /**
+<i>212</i>&nbsp;     * This method inverts each cell&#39;s targeted status. i.e. a targeted cell becomes not targeted and vice versa
+<i>213</i>&nbsp;     *
+<i>214</i>&nbsp;     * @return the resulting TargetCells
+<i>215</i>&nbsp;     */
+<i>216</i>&nbsp;    public TargetCells invert(){
+<b class="fc"><i>217</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>218</i>&nbsp;            for(int j = 0; j &lt; BOARD_SIZE; j++){</b>
+<b class="fc"><i>219</i>&nbsp;                targets[i][j] = !targets[i][j];</b>
+<i>220</i>&nbsp;            }
+<i>221</i>&nbsp;        }
+<b class="fc"><i>222</i>&nbsp;        return this;</b>
+<i>223</i>&nbsp;    }
+<i>224</i>&nbsp;
+<i>225</i>&nbsp;
+<i>226</i>&nbsp;    /**
+<i>227</i>&nbsp;     * Sets this to be the union of this and other.
+<i>228</i>&nbsp;     * Cells in this after the method call with be targeted either if they were
+<i>229</i>&nbsp;     * previously targeted or if they are targeted by other
+<i>230</i>&nbsp;     *
+<i>231</i>&nbsp;     * @param other the other TargetCells instances with which apply the union
+<i>232</i>&nbsp;     * @return resulting TargetCells
+<i>233</i>&nbsp;     */
+<i>234</i>&nbsp;    public TargetCells union(TargetCells other){
+<b class="fc"><i>235</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>236</i>&nbsp;            for(int j = 0; j &lt; BOARD_SIZE; j++){</b>
+<b class="fc"><i>237</i>&nbsp;                targets[i][j] = targets[i][j] || other.getPosition(i, j);</b>
+<i>238</i>&nbsp;            }
+<i>239</i>&nbsp;        }
+<b class="fc"><i>240</i>&nbsp;        return this;</b>
+<i>241</i>&nbsp;    }
+<i>242</i>&nbsp;
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    /**
+<i>245</i>&nbsp;     * Factory method which creates a new TargetCells that sets to targeted all the cells around the center
+<i>246</i>&nbsp;     * with Manhattan distance of radius. This operation excludes the center itself.
+<i>247</i>&nbsp;     *
+<i>248</i>&nbsp;     * @param center The center cell of the targeted area
+<i>249</i>&nbsp;     * @param radius The Manhattan distance around the center at which all cells will be targeted, excluding the center.
+<i>250</i>&nbsp;     * @return the resulting TargetCells
+<i>251</i>&nbsp;     * @throws IllegalArgumentException if the radius is non-positive
+<i>252</i>&nbsp;     */
+<i>253</i>&nbsp;    public static TargetCells fromCellAndRadius(Cell center, int radius) {
+<b class="fc"><i>254</i>&nbsp;        if(radius &lt;= 0){</b>
+<b class="fc"><i>255</i>&nbsp;            throw new IllegalArgumentException(&quot;Non-Positive Radius&quot;);</b>
+<i>256</i>&nbsp;        }
+<b class="fc"><i>257</i>&nbsp;        TargetCells target = new TargetCells();</b>
+<i>258</i>&nbsp;
+<b class="fc"><i>259</i>&nbsp;        for(int i = -1 * radius; i &lt;= radius; i++){</b>
+<b class="fc"><i>260</i>&nbsp;            if (isValidCoordinate(center.getX() + i, center.getY() + radius)) {</b>
+<b class="fc"><i>261</i>&nbsp;                target.setPosition(center.getX() + i, center.getY() + radius, true);</b>
+<i>262</i>&nbsp;            }
+<b class="fc"><i>263</i>&nbsp;            if (isValidCoordinate(center.getX() + i, center.getY() - radius)) {</b>
+<b class="fc"><i>264</i>&nbsp;                target.setPosition(center.getX() + i, center.getY() - radius, true);</b>
+<i>265</i>&nbsp;            }
+<i>266</i>&nbsp;        }
+<i>267</i>&nbsp;
+<b class="fc"><i>268</i>&nbsp;        for(int i = -1 * radius; i &lt;= radius; i++){</b>
+<b class="fc"><i>269</i>&nbsp;            if (isValidCoordinate(center.getX() + radius, center.getY() + i)) {</b>
+<b class="fc"><i>270</i>&nbsp;                target.setPosition(center.getX() + radius, center.getY() + i, true);</b>
+<i>271</i>&nbsp;            }
+<b class="fc"><i>272</i>&nbsp;            if (isValidCoordinate(center.getX() - radius, center.getY() + i)) {</b>
+<b class="fc"><i>273</i>&nbsp;                target.setPosition(center.getX() - radius, center.getY() + i, true);</b>
+<i>274</i>&nbsp;            }
+<i>275</i>&nbsp;        }
+<b class="fc"><i>276</i>&nbsp;        return target;</b>
+<i>277</i>&nbsp;    }
+<i>278</i>&nbsp;
+<i>279</i>&nbsp;    /**
+<i>280</i>&nbsp;     * Factory method to create a TargetCells method from a boolean matrix
+<i>281</i>&nbsp;     *
+<i>282</i>&nbsp;     * @param source the matrix from which to build the TargetCells instance
+<i>283</i>&nbsp;     * @return resulting TargetCells
+<i>284</i>&nbsp;     * @throws IllegalArgumentException if source is of invalid size
+<i>285</i>&nbsp;     */
+<i>286</i>&nbsp;    public static TargetCells fromMatrix(boolean[][] source) {
+<b class="fc"><i>287</i>&nbsp;        if(source.length != BOARD_SIZE){</b>
+<b class="fc"><i>288</i>&nbsp;            throw new IllegalArgumentException(&quot;Source matrix has invalid number of rows: &quot; + source.length);</b>
+<i>289</i>&nbsp;        }
+<b class="fc"><i>290</i>&nbsp;        TargetCells target = new TargetCells();</b>
+<b class="fc"><i>291</i>&nbsp;        for(int i = 0; i &lt; BOARD_SIZE; i++){</b>
+<b class="fc"><i>292</i>&nbsp;            if(source[i].length != BOARD_SIZE) {</b>
+<b class="fc"><i>293</i>&nbsp;                throw new IllegalArgumentException(</b>
+<i>294</i>&nbsp;                        &quot;Source matrix has invalid number of columns at row &quot; + i + &quot;: &quot; + source[i].length
+<i>295</i>&nbsp;                );
+<i>296</i>&nbsp;            }
+<b class="fc"><i>297</i>&nbsp;            for(int j = 0; j &lt; BOARD_SIZE; j++){</b>
+<b class="fc"><i>298</i>&nbsp;                target.setPosition(i, j, source[i][j]);</b>
+<i>299</i>&nbsp;            }
+<i>300</i>&nbsp;        }
+<b class="fc"><i>301</i>&nbsp;        return target;</b>
+<i>302</i>&nbsp;    }
+<i>303</i>&nbsp;
+<i>304</i>&nbsp;    /**
+<i>305</i>&nbsp;     * Factory method to create a TargetCells method from a collection of cells.
+<i>306</i>&nbsp;     *
+<i>307</i>&nbsp;     * @param cells the cells whose positions will be marked as targeted
+<i>308</i>&nbsp;     * @return resulting TargetCells
+<i>309</i>&nbsp;     */
+<i>310</i>&nbsp;    public static TargetCells fromCells(Collection&lt;Cell&gt; cells) {
+<b class="fc"><i>311</i>&nbsp;        TargetCells target = new TargetCells();</b>
+<b class="fc"><i>312</i>&nbsp;        for (Cell cell : cells) {</b>
+<b class="fc"><i>313</i>&nbsp;            target.setPosition(cell, true);</b>
+<b class="fc"><i>314</i>&nbsp;        }</b>
+<b class="fc"><i>315</i>&nbsp;        return target;</b>
+<i>316</i>&nbsp;    }
+<i>317</i>&nbsp;
+<i>318</i>&nbsp;    /**
+<i>319</i>&nbsp;     * Creates a reduced version of the target cell
+<i>320</i>&nbsp;     *
+<i>321</i>&nbsp;     * @return a reduced version of the target cell
+<i>322</i>&nbsp;     */
+<i>323</i>&nbsp;    public ReducedTargetCells toReducedTargetCells() {
+<b class="fc"><i>324</i>&nbsp;        return new ReducedTargetCells(this.targets);</b>
+<i>325</i>&nbsp;    }
+<i>326</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

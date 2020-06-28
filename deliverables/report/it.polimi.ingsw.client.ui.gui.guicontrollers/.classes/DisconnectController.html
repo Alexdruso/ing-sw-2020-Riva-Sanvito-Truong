@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DisconnectController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui.guicontrollers</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DisconnectController (it.polimi.ingsw.client.ui.gui.guicontrollers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DisconnectController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui.guicontrollers;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.ui.gui.DisconnectGUIClientState;
+<i>4</i>&nbsp;import javafx.event.ActionEvent;
+<i>5</i>&nbsp;import javafx.fxml.FXML;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.logging.Level;
+<i>8</i>&nbsp;import java.util.logging.Logger;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * Controller for the Disconnect state
+<i>12</i>&nbsp; */
+<b class="nc"><i>13</i>&nbsp;public class DisconnectController extends AbstractController {</b>
+<b class="nc"><i>14</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(DisconnectController.class.getName());</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @FXML
+<i>17</i>&nbsp;    private void handleReconnect(ActionEvent event){
+<b class="nc"><i>18</i>&nbsp;        ((DisconnectGUIClientState)state).reconnect();</b>
+<b class="nc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @FXML
+<i>22</i>&nbsp;    private void handleMenu(ActionEvent event){
+<b class="nc"><i>23</i>&nbsp;            ((DisconnectGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>28</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

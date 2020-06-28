@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BidirectionalMap</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.structures</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BidirectionalMap (it.polimi.ingsw.utils.structures)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">BidirectionalMap</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.structures;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.Map;
+<i>4</i>&nbsp;import java.util.Set;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * An object that represents a bijection between elements of type K belonging to one set (the Key set) and elements of
+<i>8</i>&nbsp; * type V belonging to another set (the Value set)
+<i>9</i>&nbsp; *
+<i>10</i>&nbsp; * The relation from the Key set to the Value set is, by convention, called the Forward relation. On the other hand,
+<i>11</i>&nbsp; * the relation from the Value set to the Key set is, by convention, called the Backward relation.
+<i>12</i>&nbsp; *
+<i>13</i>&nbsp; * This means that for each element of the Key set there is only one corresponding element in the Value set and
+<i>14</i>&nbsp; * vice-versa.
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * This interface is based on the Map&amp;lt;K, V&amp;gt; interface, yet it does not extend it as it does not follow Liskov&#39;s
+<i>17</i>&nbsp; * substitution rule. As a matter of fact, a BidirectionalMap requires that the values be unique,
+<i>18</i>&nbsp; * a condition that does not have to hold true for a Map.
+<i>19</i>&nbsp; *
+<i>20</i>&nbsp; * The terms &quot;Key&quot; and &quot;Value&quot; are only used as convention, in order to maintain similarity with the standard Map
+<i>21</i>&nbsp; * interface, but the data structure is, in fact, symmetrical and does not distinguish forward and backwards direction
+<i>22</i>&nbsp; * if not for the name of the methods.
+<i>23</i>&nbsp; *
+<i>24</i>&nbsp; * For this bidirectional map, null values are not allowed neither as key, nor as values.
+<i>25</i>&nbsp; *
+<i>26</i>&nbsp; * @param &lt;K&gt; The type of the Key set
+<i>27</i>&nbsp; * @param &lt;V&gt; The type of the Value set
+<i>28</i>&nbsp; */
+<i>29</i>&nbsp;public interface BidirectionalMap&lt;K, V&gt; {
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.
+<i>32</i>&nbsp;     * @param key the key whose associated value is to be returned.
+<i>33</i>&nbsp;     * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
+<i>34</i>&nbsp;     * @throws NullPointerException if key is null
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    V getValueFromKey(K key);
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Returns the key to which the specified value is mapped, or null if this map contains no mapping for the value.
+<i>40</i>&nbsp;     * @param value the value whose associated key is to be returned.
+<i>41</i>&nbsp;     * @return the key to which the specified value is mapped, or null if this map contains no mapping for the key.
+<i>42</i>&nbsp;     * @throws NullPointerException if value is null
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    K getKeyFromValue(V value);
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Returns true if this map contains a mapping for the specified key. More formally, returns true if and only if
+<i>48</i>&nbsp;     * this map contains a mapping for a key k such that (key==null ? k==null : key.equals(k)).
+<i>49</i>&nbsp;     * (There can be at most one such mapping.)
+<i>50</i>&nbsp;     * @param key key whose presence in this map is to be tested.
+<i>51</i>&nbsp;     * @return true if this map contains a mapping for the specified key, otherwise false.
+<i>52</i>&nbsp;     * @throws NullPointerException if key is null
+<i>53</i>&nbsp;     */
+<i>54</i>&nbsp;    boolean containsKey(K key);
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Returns true if this map contains a mapping for the specified value. More formally, returns true if and only if
+<i>58</i>&nbsp;     * this map contains a mapping for a value v such that (value==null ? v==null : value.equals(v)).
+<i>59</i>&nbsp;     * (There can be at most one such mapping.)
+<i>60</i>&nbsp;     * @param value value whose presence in this map is to be tested.
+<i>61</i>&nbsp;     * @return true if this map contains a mapping for the specified value, otherwise false.
+<i>62</i>&nbsp;     * @throws NullPointerException if value is null
+<i>63</i>&nbsp;     */
+<i>64</i>&nbsp;    boolean containsValue(V value);
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Returns true if this map contains no key-value mappings.
+<i>68</i>&nbsp;     * @return true if this map contains no key-value mappings, false otherwise.
+<i>69</i>&nbsp;     */
+<i>70</i>&nbsp;    boolean isEmpty();
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * Associates the specified value with the specified key in this map (optional operation).
+<i>74</i>&nbsp;     * If the map previously contained a mapping for the key, the old value is replaced by the specified value.
+<i>75</i>&nbsp;     * (A map m is said to contain a mapping for a key k if and only if m.containsKey(k) would return true.)
+<i>76</i>&nbsp;     * @param key key with which the specified value is to be associated
+<i>77</i>&nbsp;     * @param value value to be associated with the specified key
+<i>78</i>&nbsp;     * @throws NullPointerException if key or value are null
+<i>79</i>&nbsp;     */
+<i>80</i>&nbsp;    void put(K key, V value);
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Removes the mapping for a key from this map if it is present.
+<i>84</i>&nbsp;     * More formally, if this map contains a mapping from key k to value v such that
+<i>85</i>&nbsp;     * (key==null ? k==null : key.equals(k)), that mapping is removed. (The map can contain at most one such mapping.)
+<i>86</i>&nbsp;     *
+<i>87</i>&nbsp;     * The map will not contain a mapping for the specified key once the call returns.
+<i>88</i>&nbsp;     * @param key the key to be removed
+<i>89</i>&nbsp;     * @return the value associated to the removed key
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    V removeByKey(K key);
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Removes the mapping for a value from this map if it is present.
+<i>95</i>&nbsp;     * More formally, if this map contains a mapping from key k to value v such that
+<i>96</i>&nbsp;     * (key==null ? k==null : key.equals(k)), that mapping is removed. (The map can contain at most one such mapping.)
+<i>97</i>&nbsp;     *
+<i>98</i>&nbsp;     * The map will not contain a mapping for the specified key once the call returns.
+<i>99</i>&nbsp;     * @param value the value to be removed
+<i>100</i>&nbsp;     * @return the key associated to the removed value
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    K removeByValue(V value);
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    /**
+<i>105</i>&nbsp;     * Returns a Set view of the forward mappings contained in this map.
+<i>106</i>&nbsp;     * @return a set view of the forward mappings contained in this map.
+<i>107</i>&nbsp;     */
+<i>108</i>&nbsp;    Set&lt;Map.Entry&lt;K, V&gt;&gt; forwardEntrySet();
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    /**
+<i>111</i>&nbsp;     * Returns a Set view of the backward mappings contained in this map.
+<i>112</i>&nbsp;     * @return a set view of the backward mappings contained in this map.
+<i>113</i>&nbsp;     */
+<i>114</i>&nbsp;    Set&lt;Map.Entry&lt;V, K&gt;&gt; backwardEntrySet();
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * Returns a Set view of the keys contained in this map.
+<i>118</i>&nbsp;     * @return a set view of the keys contained in this map
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    Set&lt;K&gt; keySet();
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;    /**
+<i>123</i>&nbsp;     * Returns a Set view of the values contained in this map.
+<i>124</i>&nbsp;     * @return a Set view of the values contained in this map
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    Set&lt;V&gt; values();
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;    /**
+<i>129</i>&nbsp;     * Returns the number of key-value mappings in this map.
+<i>130</i>&nbsp;     * If the map contains more than Integer.MAX_VALUE elements, returns INTEGER.MAX_VALUE.
+<i>131</i>&nbsp;     * @return the number of key-value mappings in this map.
+<i>132</i>&nbsp;     */
+<i>133</i>&nbsp;    int size();
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    /**
+<i>137</i>&nbsp;     * Returns the hash code value for this map.
+<i>138</i>&nbsp;     * The hash code of a map is defined to be the sum of the hash codes of each entry in the map&#39;s entrySet() view.
+<i>139</i>&nbsp;     * This ensures that m1.equals(m2) implies that m1.hashCode()==m2.hashCode() for any two maps m1 and m2,
+<i>140</i>&nbsp;     * as required by the general contract of Object.hashCode().
+<i>141</i>&nbsp;     *
+<i>142</i>&nbsp;     * @return the hash code value for this map.
+<i>143</i>&nbsp;     */
+<i>144</i>&nbsp;    @Override
+<i>145</i>&nbsp;    int hashCode();
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    /**
+<i>148</i>&nbsp;     * Returns a copy of this map that contains all and only the relations from the key set to the value set.
+<i>149</i>&nbsp;     *
+<i>150</i>&nbsp;     * @return a copy of this map that contains all and only the relations from the key set to the value set.
+<i>151</i>&nbsp;     */
+<i>152</i>&nbsp;    Map&lt;K, V&gt; getForwardMap();
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;    /**
+<i>155</i>&nbsp;     * Returns a copy of this map that contains all and only the relations from the value set to the key set.
+<i>156</i>&nbsp;     *
+<i>157</i>&nbsp;     * @return a copy of this map that contains all and only the relations from the value set to the key set.
+<i>158</i>&nbsp;     */
+<i>159</i>&nbsp;    Map&lt;V, K&gt; getBackwardMap();
+<i>160</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

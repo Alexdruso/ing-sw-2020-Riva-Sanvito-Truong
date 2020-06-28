@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ConnectToServerController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui.guicontrollers</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ConnectToServerController (it.polimi.ingsw.client.ui.gui.guicontrollers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConnectToServerController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui.guicontrollers;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.ui.gui.ConnectToServerGUIClientState;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
+<i>6</i>&nbsp;import javafx.beans.property.BooleanProperty;
+<i>7</i>&nbsp;import javafx.beans.property.SimpleBooleanProperty;
+<i>8</i>&nbsp;import javafx.event.ActionEvent;
+<i>9</i>&nbsp;import javafx.fxml.FXML;
+<i>10</i>&nbsp;import javafx.scene.control.Button;
+<i>11</i>&nbsp;import javafx.scene.control.Label;
+<i>12</i>&nbsp;import javafx.scene.control.TextField;
+<i>13</i>&nbsp;import org.apache.commons.lang.math.NumberUtils;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * Controller for the ConnectToServer state
+<i>17</i>&nbsp; */
+<b class="nc"><i>18</i>&nbsp;public class ConnectToServerController extends AbstractController{</b>
+<i>19</i>&nbsp;    @FXML
+<i>20</i>&nbsp;    Button connectButton;
+<i>21</i>&nbsp;    @FXML
+<i>22</i>&nbsp;    TextField hostField;
+<i>23</i>&nbsp;    @FXML
+<i>24</i>&nbsp;    TextField portField;
+<i>25</i>&nbsp;    @FXML
+<i>26</i>&nbsp;    Label errorLabel;
+<i>27</i>&nbsp;
+<b class="nc"><i>28</i>&nbsp;    private final BooleanProperty firstShow = new SimpleBooleanProperty(true);</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    void handleConnectButton(ActionEvent event){
+<b class="nc"><i>32</i>&nbsp;        String host = &quot;127.0.0.1&quot;;</b>
+<b class="nc"><i>33</i>&nbsp;        String port = &quot;7268&quot;;</b>
+<b class="nc"><i>34</i>&nbsp;        if(hostField.getText().length() != 0) host = hostField.getText();</b>
+<b class="nc"><i>35</i>&nbsp;        if(portField.getText().length() != 0) {</b>
+<b class="nc"><i>36</i>&nbsp;            if(NumberUtils.isNumber(portField.getText())){</b>
+<b class="nc"><i>37</i>&nbsp;                port = portField.getText();</b>
+<i>38</i>&nbsp;            } else {
+<b class="nc"><i>39</i>&nbsp;                errorLabel.setOpacity(1);</b>
+<b class="nc"><i>40</i>&nbsp;                errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_PORT));</b>
+<b class="nc"><i>41</i>&nbsp;                return;</b>
+<i>42</i>&nbsp;            }
+<i>43</i>&nbsp;        }
+<b class="nc"><i>44</i>&nbsp;        ((ConnectToServerGUIClientState)state).setHostPort(host, port);</b>
+<b class="nc"><i>45</i>&nbsp;    }</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @FXML
+<i>48</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>49</i>&nbsp;        ((ConnectToServerGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @Override
+<i>53</i>&nbsp;    public void onSceneShow(){
+<b class="nc"><i>54</i>&nbsp;        firstShow.setValue(true);</b>
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @Override
+<i>58</i>&nbsp;    public void tearDown(){
+<b class="nc"><i>59</i>&nbsp;        errorLabel.setOpacity(0);</b>
+<b class="nc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    @FXML
+<i>63</i>&nbsp;    void initialize(){
+<b class="nc"><i>64</i>&nbsp;        errorLabel.setOpacity(0);</b>
+<b class="nc"><i>65</i>&nbsp;        hostField.focusedProperty().addListener((obs, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>66</i>&nbsp;            if(Boolean.TRUE.equals(newValue) &amp;&amp; firstShow.get()){</b>
+<b class="nc"><i>67</i>&nbsp;                connectButton.requestFocus();</b>
+<b class="nc"><i>68</i>&nbsp;                firstShow.setValue(false);</b>
+<i>69</i>&nbsp;            }
+<b class="nc"><i>70</i>&nbsp;        });</b>
+<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    @Override
+<i>74</i>&nbsp;    public void handleError(String message){
+<b class="nc"><i>75</i>&nbsp;        errorLabel.setOpacity(1);</b>
+<b class="nc"><i>76</i>&nbsp;        errorLabel.setText(I18n.string(I18nKey.ERROR_CANNOT_CONNECT));</b>
+<b class="nc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

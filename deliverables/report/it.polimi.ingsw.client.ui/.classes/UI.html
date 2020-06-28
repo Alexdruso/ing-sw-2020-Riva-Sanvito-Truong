@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UI (it.polimi.ingsw.client.ui)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UI$MockitoMock$599476038</td>
+  </tr>
+  <tr>
+    <td class="name">UI$MockitoMock$599476038$auxiliary$GU2zdmYM</td>
+  </tr>
+  <tr>
+    <td class="name">UI$MockitoMock$599476038$auxiliary$GY2L13o5</td>
+  </tr>
+  <tr>
+    <td class="name">UI$MockitoMock$599476038$auxiliary$Pp71EzO8</td>
+  </tr>
+  <tr>
+    <td class="name">UI$MockitoMock$599476038$auxiliary$vSCEBQ6x</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractClientState;
+<i>5</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
+<i>6</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientState;
+<i>7</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientTurnState;
+<i>8</i>&nbsp;import it.polimi.ingsw.utils.StringCapturedStackTrace;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * A generic user interface.
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public interface UI {
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * Initialize the user interface.
+<i>16</i>&nbsp;     *
+<i>17</i>&nbsp;     * @param onExit a Runnable that the UI must execute when the user requests to exit the program.
+<i>18</i>&nbsp;     */
+<i>19</i>&nbsp;    void init(Runnable onExit);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * Gets an instance of a UI-specific ClientState.
+<i>23</i>&nbsp;     *
+<i>24</i>&nbsp;     * @param clientState the requested client state
+<i>25</i>&nbsp;     * @param client      the client
+<i>26</i>&nbsp;     * @return an instance of a UI-specific ClientState
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    AbstractClientState getClientState(ClientState clientState, Client client);
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param clientTurnState the requested client turn state
+<i>33</i>&nbsp;     * @param client          the client
+<i>34</i>&nbsp;     * @return an instance of a UI-specific ClientTurnState
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client);
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Displays an error on the user interface.
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     * @param message the error message
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    void notifyError(String message);
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Displays an error on the user interface.
+<i>47</i>&nbsp;     * Please, be aware that this function is not intended to display debug messages to developers,
+<i>48</i>&nbsp;     * but to render nicely-formatted error messages to the end user, hoping that they will be useful
+<i>49</i>&nbsp;     * to her/him in order to identify what she/he did wrong.
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     * @param ex the exception
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    default void notifyError(Exception ex) {
+<b class="nc"><i>54</i>&nbsp;        notifyError(new StringCapturedStackTrace(ex).toString());</b>
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Displays an error on the user interface.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @param message the error message
+<i>61</i>&nbsp;     * @param ex      the exception
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    default void notifyError(String message, Exception ex) {
+<b class="nc"><i>64</i>&nbsp;        notifyError(String.format(&quot;%s%nDettagli:%n%s&quot;, message, new StringCapturedStackTrace(ex).toString()));</b>
+<b class="nc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

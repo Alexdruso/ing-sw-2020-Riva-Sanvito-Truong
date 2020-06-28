@@ -1,0 +1,284 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Match</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Match (it.polimi.ingsw.server)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Match</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89,8%
+  </span>
+  <span class="absValue">
+    (44/ 49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.controller.Controller;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.controller.User;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.Game;
+<i>6</i>&nbsp;import it.polimi.ingsw.server.view.View;
+<i>7</i>&nbsp;import it.polimi.ingsw.utils.networking.Connection;
+<i>8</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.DisconnectionMessage;
+<i>9</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.util.LinkedHashMap;
+<i>12</i>&nbsp;import java.util.LinkedList;
+<i>13</i>&nbsp;import java.util.List;
+<i>14</i>&nbsp;import java.util.Map;
+<i>15</i>&nbsp;import java.util.logging.Level;
+<i>16</i>&nbsp;import java.util.logging.Logger;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;/**
+<i>19</i>&nbsp; * This class is designed to be able to run on a separate thread and initialize all the classes
+<i>20</i>&nbsp; * needed to start the game, in particular Game,VirtualView and Controller.
+<i>21</i>&nbsp; * Before calling the &quot;run&quot; method, the server should add nicknames and connections in order.
+<i>22</i>&nbsp; */
+<i>23</i>&nbsp;public class Match implements Runnable {
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * The constant LOGGER.
+<i>26</i>&nbsp;     */
+<b class="fc"><i>27</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(Match.class.getName());</b>
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * The server.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    private final Server server;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * The participants, represented by nickname and connection.
+<i>34</i>&nbsp;     */
+<b class="fc"><i>35</i>&nbsp;    private final LinkedHashMap&lt;String, Connection&gt; participantsNicknameToConnection = new LinkedHashMap&lt;&gt;();</b>
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * The model.
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    private Game model;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * The views related to each participant
+<i>42</i>&nbsp;     */
+<b class="fc"><i>43</i>&nbsp;    private final List&lt;View&gt; virtualViews = new LinkedList&lt;&gt;();</b>
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * The controller.
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    private Controller controller;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Boolean flag to shutdown the Match.
+<i>50</i>&nbsp;     */
+<b class="fc"><i>51</i>&nbsp;    private boolean isPlaying = true;</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * The match constructor.
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @param server the server hosting the match
+<i>57</i>&nbsp;     */
+<b class="fc"><i>58</i>&nbsp;    public Match(Server server) {</b>
+<b class="fc"><i>59</i>&nbsp;        this.server = server;</b>
+<b class="fc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * When an object implementing interface &lt;code&gt;Runnable&lt;/code&gt; is used
+<i>64</i>&nbsp;     * to create a thread, starting the thread causes the object&#39;s
+<i>65</i>&nbsp;     * &lt;code&gt;run&lt;/code&gt; method to be called in that separately executing
+<i>66</i>&nbsp;     * thread.
+<i>67</i>&nbsp;     * &lt;p&gt;
+<i>68</i>&nbsp;     * The general contract of the method &lt;code&gt;run&lt;/code&gt; is that it may
+<i>69</i>&nbsp;     * take any action whatsoever.
+<i>70</i>&nbsp;     *
+<i>71</i>&nbsp;     * @see Thread#run() Thread#run()
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    @Override
+<i>74</i>&nbsp;    public void run() {
+<i>75</i>&nbsp;        //create a new game
+<b class="fc"><i>76</i>&nbsp;        this.model = new Game(this.participantsNicknameToConnection.size());</b>
+<i>77</i>&nbsp;        //create the controller
+<b class="fc"><i>78</i>&nbsp;        this.controller = new Controller(model);</b>
+<i>79</i>&nbsp;        //Create the views and add the player to the Game
+<b class="fc"><i>80</i>&nbsp;        for (View virtualView : this.virtualViews) {</b>
+<i>81</i>&nbsp;            //get the user from the view
+<b class="fc"><i>82</i>&nbsp;            User user = virtualView.getUser();</b>
+<i>83</i>&nbsp;            //add the user as a player in the model
+<b class="fc"><i>84</i>&nbsp;            model.subscribeUser(user);</b>
+<i>85</i>&nbsp;            //the view observes the model
+<b class="fc"><i>86</i>&nbsp;            model.addObserver(</b>
+<i>87</i>&nbsp;                    virtualView, (obs, message) -&gt;
+<i>88</i>&nbsp;                    {
+<b class="fc"><i>89</i>&nbsp;                        if (message instanceof DisconnectionMessage) {</b>
+<b class="fc"><i>90</i>&nbsp;                            ((View) obs).requestDisconnection();</b>
+<i>91</i>&nbsp;                        } else {
+<b class="fc"><i>92</i>&nbsp;                            ((View) obs).updateFromGame(message);</b>
+<i>93</i>&nbsp;                        }
+<b class="fc"><i>94</i>&nbsp;                    }</b>
+<i>95</i>&nbsp;            );
+<i>96</i>&nbsp;            //the controller observes the view
+<b class="fc"><i>97</i>&nbsp;            virtualView.addObserver(controller, (obs, message) -&gt;</b>
+<b class="fc"><i>98</i>&nbsp;                    ((Controller) obs).update(message));</b>
+<i>99</i>&nbsp;            //check if connection is still up, if not send a disconnection message to dismantle the game
+<b class="fc"><i>100</i>&nbsp;            if (!participantsNicknameToConnection.get(user.nickname).isActive()) {</b>
+<b class="fc"><i>101</i>&nbsp;                virtualView.updateFromClient(new DisconnectionMessage());</b>
+<i>102</i>&nbsp;            }
+<b class="fc"><i>103</i>&nbsp;        }</b>
+<i>104</i>&nbsp;        //Start setup procedure
+<b class="fc"><i>105</i>&nbsp;        model.setup();</b>
+<i>106</i>&nbsp;        //now just make the controller work on this thread
+<b class="fc"><i>107</i>&nbsp;        while (this.isPlaying()) {</b>
+<i>108</i>&nbsp;            try {
+<b class="fc"><i>109</i>&nbsp;                this.controller.dispatchViewClientMessages();</b>
+<b class="nc"><i>110</i>&nbsp;            } catch (Exception e) {</b>
+<b class="nc"><i>111</i>&nbsp;                LOGGER.log(Level.SEVERE, e.getMessage(), e);</b>
+<b class="nc"><i>112</i>&nbsp;                participantsNicknameToConnection.values().stream()</b>
+<b class="nc"><i>113</i>&nbsp;                        .filter(Connection::isActive).forEach(connection -&gt; connection.send(StatusMessages.SERVER_ERROR));</b>
+<b class="nc"><i>114</i>&nbsp;                break;</b>
+<b class="fc"><i>115</i>&nbsp;            }</b>
+<i>116</i>&nbsp;            //check if the game is active
+<b class="fc"><i>117</i>&nbsp;            this.setIsPlaying(this.model.isActive());</b>
+<i>118</i>&nbsp;        }
+<i>119</i>&nbsp;        //Removes itself from the server
+<b class="fc"><i>120</i>&nbsp;        server.removeMatch(this);</b>
+<b class="fc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    /**
+<i>124</i>&nbsp;     * Adds the connection and the nickname to the match own participants initializing the view.
+<i>125</i>&nbsp;     *
+<i>126</i>&nbsp;     * @param nickname   the nickname chosen by the participants
+<i>127</i>&nbsp;     * @param connection the connection of the participant
+<i>128</i>&nbsp;     */
+<i>129</i>&nbsp;    public void addParticipant(String nickname, Connection connection) {
+<b class="fc"><i>130</i>&nbsp;        this.participantsNicknameToConnection.put(nickname, connection);</b>
+<b class="fc"><i>131</i>&nbsp;        virtualViews.add(new View(connection, nickname));</b>
+<b class="fc"><i>132</i>&nbsp;    }</b>
+<i>133</i>&nbsp;
+<i>134</i>&nbsp;    /**
+<i>135</i>&nbsp;     * Adds all the participants from the parameter to the match own participants initializing the views.
+<i>136</i>&nbsp;     * It should be called only before executing run.
+<i>137</i>&nbsp;     *
+<i>138</i>&nbsp;     * @param participants the structure holding the participants to be added
+<i>139</i>&nbsp;     */
+<i>140</i>&nbsp;    public void addParticipants(Map&lt;String, Connection&gt; participants) {
+<b class="fc"><i>141</i>&nbsp;        this.participantsNicknameToConnection.putAll(participants);</b>
+<i>142</i>&nbsp;
+<b class="fc"><i>143</i>&nbsp;        for (Map.Entry&lt;String, Connection&gt; participant : participants.entrySet()) {</b>
+<b class="fc"><i>144</i>&nbsp;            virtualViews.add(new View(participant.getValue(), participant.getKey()));</b>
+<b class="fc"><i>145</i>&nbsp;        }</b>
+<b class="fc"><i>146</i>&nbsp;    }</b>
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    /**
+<i>149</i>&nbsp;     * Returns the participants to the match, represented by their nickname and connection
+<i>150</i>&nbsp;     *
+<i>151</i>&nbsp;     * @return the participants to the match
+<i>152</i>&nbsp;     */
+<i>153</i>&nbsp;    public Map&lt;String, Connection&gt; getParticipantsNicknameToConnection() {
+<b class="fc"><i>154</i>&nbsp;        return new LinkedHashMap&lt;&gt;(this.participantsNicknameToConnection);</b>
+<i>155</i>&nbsp;    }
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;    /**
+<i>158</i>&nbsp;     * Gets model.
+<i>159</i>&nbsp;     *
+<i>160</i>&nbsp;     * @return the model
+<i>161</i>&nbsp;     */
+<i>162</i>&nbsp;    public Game getModel() {
+<b class="fc"><i>163</i>&nbsp;        return model;</b>
+<i>164</i>&nbsp;    }
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;    /**
+<i>167</i>&nbsp;     * Gets virtual views.
+<i>168</i>&nbsp;     *
+<i>169</i>&nbsp;     * @return the virtual views
+<i>170</i>&nbsp;     */
+<i>171</i>&nbsp;    public List&lt;View&gt; getVirtualViews() {
+<b class="fc"><i>172</i>&nbsp;        return new LinkedList&lt;&gt;(virtualViews);</b>
+<i>173</i>&nbsp;    }
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;    /**
+<i>176</i>&nbsp;     * Gets controller.
+<i>177</i>&nbsp;     *
+<i>178</i>&nbsp;     * @return the controller
+<i>179</i>&nbsp;     */
+<i>180</i>&nbsp;    public Controller getController() {
+<b class="fc"><i>181</i>&nbsp;        return controller;</b>
+<i>182</i>&nbsp;    }
+<i>183</i>&nbsp;
+<i>184</i>&nbsp;    /**
+<i>185</i>&nbsp;     * Is playing boolean.
+<i>186</i>&nbsp;     *
+<i>187</i>&nbsp;     * @return the boolean
+<i>188</i>&nbsp;     */
+<i>189</i>&nbsp;    public boolean isPlaying() {
+<b class="fc"><i>190</i>&nbsp;        return isPlaying;</b>
+<i>191</i>&nbsp;    }
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;    /**
+<i>194</i>&nbsp;     * Sets isPlaying.
+<i>195</i>&nbsp;     *
+<i>196</i>&nbsp;     * @param isPlaying the parameter telling if the match is still active
+<i>197</i>&nbsp;     */
+<i>198</i>&nbsp;    public void setIsPlaying(boolean isPlaying) {
+<b class="fc"><i>199</i>&nbsp;        this.isPlaying = isPlaying;</b>
+<b class="fc"><i>200</i>&nbsp;    }</b>
+<i>201</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

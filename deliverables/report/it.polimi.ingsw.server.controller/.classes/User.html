@@ -1,0 +1,136 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: User</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: User (it.polimi.ingsw.server.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">User$MockitoMock$1932335297</td>
+  </tr>
+  <tr>
+    <td class="name">User$MockitoMock$1932335297$auxiliary$fNhch5ev</td>
+  </tr>
+  <tr>
+    <td class="name">User$MockitoMock$1932335297$auxiliary$O5kji3T8</td>
+  </tr>
+  <tr>
+    <td class="name">User$MockitoMock$1932335297$auxiliary$qkG4bO9K</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * A utility class that represents a user connected to the server.
+<i>7</i>&nbsp; * It is also used by the Model to reference a Player outside of it.
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * @see it.polimi.ingsw.server.model.Player
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class User {
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * The user&#39;s nickname.
+<i>14</i>&nbsp;     */
+<i>15</i>&nbsp;    public final String nickname;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Instantiates a new User.
+<i>19</i>&nbsp;     *
+<i>20</i>&nbsp;     * @param nickname the nickname
+<i>21</i>&nbsp;     */
+<b class="fc"><i>22</i>&nbsp;    public User(String nickname) {</b>
+<b class="fc"><i>23</i>&nbsp;        this.nickname = nickname;</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Converts a User into a ReducedUser
+<i>28</i>&nbsp;     *
+<i>29</i>&nbsp;     * @return the reduced user
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    public ReducedUser toReducedUser() {
+<b class="fc"><i>32</i>&nbsp;        return new ReducedUser(nickname);</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StatusMessages</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.networking.transmittables</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StatusMessages (it.polimi.ingsw.utils.networking.transmittables)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StatusMessages</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.networking.transmittables;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * An enum to contain all possible messages that can be sent from the Controller to the View
+<i>5</i>&nbsp; */
+<b class="fc"><i>6</i>&nbsp;public enum StatusMessages implements Transmittable {</b>
+<i>7</i>&nbsp;    /**
+<i>8</i>&nbsp;     * Response message if the command could not be executed due to a bad request from the client.
+<i>9</i>&nbsp;     */
+<b class="fc"><i>10</i>&nbsp;    CLIENT_ERROR,</b>
+<i>11</i>&nbsp;    /**
+<i>12</i>&nbsp;     * Response message if the command succeeded, but the other party needs additional information to complete it.
+<i>13</i>&nbsp;     */
+<b class="fc"><i>14</i>&nbsp;    CONTINUE,</b>
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * Response message if the command has been executed successfully.
+<i>17</i>&nbsp;     */
+<b class="fc"><i>18</i>&nbsp;    OK,</b>
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * Response message if the command could not be executed due to an unexpected server error.
+<i>21</i>&nbsp;     */
+<b class="fc"><i>22</i>&nbsp;    SERVER_ERROR,</b>
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Response message if the server received an invalid request because it&#39;s just a teapot.
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     * @see &lt;a href=&quot;https://tools.ietf.org/html/rfc2324&quot;&gt;RFC 2324&lt;/a&gt;
+<i>27</i>&nbsp;     */
+<b class="fc"><i>28</i>&nbsp;    TEAPOT;</b>
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

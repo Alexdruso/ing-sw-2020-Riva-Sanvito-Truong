@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Hypnus</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Hypnus (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Hypnus</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Hypnus$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/ 17)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/ 21)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.workers.Worker;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.Arrays;
+<i>8</i>&nbsp;import java.util.Comparator;
+<i>9</i>&nbsp;import java.util.Set;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * The god card Hypnus.
+<i>13</i>&nbsp; */
+<b class="fc"><i>14</i>&nbsp;class Hypnus extends AbstractGod {</b>
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * The TurnEvents for the opponents of the owner of the Hypnus god card.
+<i>17</i>&nbsp;     */
+<b class="fc"><i>18</i>&nbsp;    private static final TurnEvents opponentsTurnEvents = new TurnEvents() {</b>
+<i>19</i>&nbsp;        @Override
+<i>20</i>&nbsp;        protected void onBeforeMovement(Turn turn) {
+<i>21</i>&nbsp;            //check if turn has just begun
+<b class="fc"><i>22</i>&nbsp;            if (turn.getPerformedAction().isEmpty()) {</b>
+<i>23</i>&nbsp;                //check if there is one worker above all the others
+<b class="fc"><i>24</i>&nbsp;                Arrays.stream(turn.getPlayer().getWorkers())</b>
+<b class="fc"><i>25</i>&nbsp;                        .max(Comparator.comparingInt(x -&gt; x.getCell().getTower().getCurrentLevel()))</b>
+<b class="fc"><i>26</i>&nbsp;                        .ifPresent(</b>
+<b class="fc"><i>27</i>&nbsp;                                maxWorker -&gt; Arrays.stream(turn.getPlayer().getWorkers())</b>
+<b class="fc"><i>28</i>&nbsp;                                        .filter(worker -&gt; !worker.equals(maxWorker))</b>
+<b class="fc"><i>29</i>&nbsp;                                        .map(worker -&gt; worker.getCell().getTower().getCurrentLevel())</b>
+<b class="fc"><i>30</i>&nbsp;                                        .filter(level -&gt; level == maxWorker.getCell().getTower().getCurrentLevel())</b>
+<b class="fc"><i>31</i>&nbsp;                                        .findFirst().ifPresentOrElse(</b>
+<i>32</i>&nbsp;                                                level -&gt; {
+<b class="fc"><i>33</i>&nbsp;                                                },</b>
+<i>34</i>&nbsp;                                                () -&gt; {
+<i>35</i>&nbsp;                                                    //if there is one worker above all the others,
+<i>36</i>&nbsp;                                                    //remove him from allowed workers
+<b class="fc"><i>37</i>&nbsp;                                                    Set&lt;Worker&gt; allowedWorkers = turn.getAllowedWorkers();</b>
+<b class="fc"><i>38</i>&nbsp;                                                    allowedWorkers.removeIf(worker -&gt; worker.equals(maxWorker));</b>
+<b class="fc"><i>39</i>&nbsp;                                                    turn.clearAllowedWorkers();</b>
+<b class="fc"><i>40</i>&nbsp;                                                    turn.addAllowedWorkers(allowedWorkers);</b>
+<b class="fc"><i>41</i>&nbsp;                                                }</b>
+<i>42</i>&nbsp;                                        )
+<i>43</i>&nbsp;                        );
+<i>44</i>&nbsp;            }
+<b class="fc"><i>45</i>&nbsp;        }</b>
+<i>46</i>&nbsp;    };
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Gets the god&#39;s name.
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     * @return the name
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    @Override
+<i>54</i>&nbsp;    public String getName() {
+<b class="fc"><i>55</i>&nbsp;        return &quot;Hypnus&quot;;</b>
+<i>56</i>&nbsp;    }
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * Gets the TurnEvents for the opponents of the player owning Hypnus.
+<i>60</i>&nbsp;     *
+<i>61</i>&nbsp;     * @return the TurnEvents for the opponents of the player owning Hypnus
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    @Override
+<i>64</i>&nbsp;    public TurnEvents getOpponentsTurnEvents() {
+<b class="fc"><i>65</i>&nbsp;        return opponentsTurnEvents;</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

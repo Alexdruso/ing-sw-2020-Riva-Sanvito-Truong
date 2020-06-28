@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AnimationHelper</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AnimationHelper (it.polimi.ingsw.client.ui.gui.utils)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AnimationHelper</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 9)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AnimationHelper$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 16)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.application.Platform;
+<i>4</i>&nbsp;import javafx.scene.image.Image;
+<i>5</i>&nbsp;import javafx.scene.image.ImageView;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.LinkedList;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;import java.util.Timer;
+<i>10</i>&nbsp;import java.util.TimerTask;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * This class handles complex animations on elements of the GUI.
+<i>15</i>&nbsp; */
+<b class="nc"><i>16</i>&nbsp;public class AnimationHelper {</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Structure holding all the timer threads handling the animations.
+<i>20</i>&nbsp;     */
+<b class="nc"><i>21</i>&nbsp;    private final List&lt;Timer&gt; animationTimers = new LinkedList&lt;&gt;();</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * This method creates a new timer to show a loading animation on an ImageView using
+<i>25</i>&nbsp;     * the images in the imageArray, shown in sequence.
+<i>26</i>&nbsp;     *
+<i>27</i>&nbsp;     * @param imageArray   the image array
+<i>28</i>&nbsp;     * @param loadingImage the loading image
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    public void animateLoadingScreen(Image[] imageArray, ImageView loadingImage) {
+<i>31</i>&nbsp;
+<b class="nc"><i>32</i>&nbsp;        Timer animationTimer = new Timer(true);</b>
+<i>33</i>&nbsp;
+<b class="nc"><i>34</i>&nbsp;        animationTimer.schedule(new TimerTask() {</b>
+<b class="nc"><i>35</i>&nbsp;            int imgCount = 0;</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;            @Override
+<i>38</i>&nbsp;            public void run() {
+<b class="nc"><i>39</i>&nbsp;                Platform.runLater(() -&gt; loadingImage.setImage(imageArray[imgCount]));</b>
+<b class="nc"><i>40</i>&nbsp;                if (imgCount == imageArray.length - 1) {</b>
+<b class="nc"><i>41</i>&nbsp;                    imgCount = 0;</b>
+<i>42</i>&nbsp;                } else {
+<b class="nc"><i>43</i>&nbsp;                    imgCount++;</b>
+<i>44</i>&nbsp;                }
+<b class="nc"><i>45</i>&nbsp;            }</b>
+<i>46</i>&nbsp;        }, 0, 1000);
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;        animationTimers.add(animationTimer);</b>
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Shuts down the animations.
+<i>53</i>&nbsp;     */
+<i>54</i>&nbsp;    public void stopAnimations() {
+<b class="nc"><i>55</i>&nbsp;        animationTimers.forEach(Timer::cancel);</b>
+<b class="nc"><i>56</i>&nbsp;        animationTimers.clear();</b>
+<b class="nc"><i>57</i>&nbsp;    }</b>
+<i>58</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

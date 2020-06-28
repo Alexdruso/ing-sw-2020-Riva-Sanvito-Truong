@@ -1,0 +1,133 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AbstractGod</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AbstractGod (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AbstractGod</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83,3%
+  </span>
+  <span class="absValue">
+    (5/ 6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * The base representation of a god card.
+<i>8</i>&nbsp; * It needs to be extended by each one of the actual god cards.
+<i>9</i>&nbsp; * For each god, it allows to specify a set of hooks that need to be attached either to the current player or to all his opponents.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * @see TurnEvents
+<i>12</i>&nbsp; */
+<b class="fc"><i>13</i>&nbsp;abstract class AbstractGod implements God {</b>
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * A default TurnEvents instance that applies no actions for the player owning the god
+<i>16</i>&nbsp;     */
+<b class="fc"><i>17</i>&nbsp;    private static final TurnEvents ownerTurnEvents = new TurnEvents();</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * A default TurnEvents instance that applies no actions for the opponents of the player owning the god
+<i>21</i>&nbsp;     */
+<b class="fc"><i>22</i>&nbsp;    private static final TurnEvents opponentsTurnEvents = new TurnEvents();</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Gets a default TurnEvents instance that applies no actions for the player owning the god unless overridden by a subclass.
+<i>26</i>&nbsp;     *
+<i>27</i>&nbsp;     * @return the owner turn events
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    public TurnEvents getOwnerTurnEvents() {
+<b class="fc"><i>30</i>&nbsp;        return ownerTurnEvents;</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Gets a default TurnEvents instance that applies no actions for the opponents of the player owning the god unless overridden by a subclass.
+<i>35</i>&nbsp;     *
+<i>36</i>&nbsp;     * @return the opponents turn events
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public TurnEvents getOpponentsTurnEvents() {
+<b class="fc"><i>39</i>&nbsp;        return opponentsTurnEvents;</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Turns the god into a ReducedGod.
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @return the reduced god
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    public ReducedGod toReducedGod() {
+<b class="nc"><i>48</i>&nbsp;        return new ReducedGod(this.getName());</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

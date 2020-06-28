@@ -1,0 +1,197 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ServerConnectionSetupHandler</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ServerConnectionSetupHandler (it.polimi.ingsw.server)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ServerConnectionSetupHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/ 11)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$buiricQV</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$Ei8kPbQF</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$GUkworax</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$gvcSfuGp</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$QJEUXjro</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$TJiJdnvU</td>
+  </tr>
+  <tr>
+    <td class="name">ServerConnectionSetupHandler$MockitoMock$1393785182$auxiliary$YsFLpRfD</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/ 11)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.utils.networking.Connection;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.networking.ServerHandleable;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.Transmittable;
+<i>6</i>&nbsp;import it.polimi.ingsw.utils.observer.LambdaObserver;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * This class has the responsibility of handling the first steps of game setup.
+<i>10</i>&nbsp; * In particular it handles the request for a nickname and the joining of a lobby for a newly connected
+<i>11</i>&nbsp; * client
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public class ServerConnectionSetupHandler implements LambdaObserver {
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * The reference to the server
+<i>16</i>&nbsp;     */
+<i>17</i>&nbsp;    private final Server server;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * The connection of which this object is Observer and to which it needs to send messages
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    private final Connection connection;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * The nickname of the player
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    private String nickname;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * The class constructor
+<i>29</i>&nbsp;     *
+<i>30</i>&nbsp;     * @param server     the Server instance
+<i>31</i>&nbsp;     * @param connection the Connection instance
+<i>32</i>&nbsp;     */
+<b class="fc"><i>33</i>&nbsp;    public ServerConnectionSetupHandler(Server server, Connection connection) {</b>
+<b class="fc"><i>34</i>&nbsp;        this.server = server;</b>
+<b class="fc"><i>35</i>&nbsp;        this.connection = connection;</b>
+<b class="fc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Gets connection.
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     * @return the connection
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    public Connection getConnection() {
+<b class="fc"><i>44</i>&nbsp;        return connection;</b>
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * Gets lobby builder.
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @return the lobby builder
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    public ServerLobbyBuilder getLobbyBuilder() {
+<b class="fc"><i>53</i>&nbsp;        return server.getLobbyBuilder();</b>
+<i>54</i>&nbsp;    }
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * This method is called by the Observable to update the observer
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @param message the message to be received
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public void update(Transmittable message) {
+<b class="fc"><i>63</i>&nbsp;        ((ServerHandleable) message).handleTransmittable(this);</b>
+<b class="fc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Sets nickname.
+<i>68</i>&nbsp;     *
+<i>69</i>&nbsp;     * @param nickname the nickname
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    public void setNickname(String nickname) {
+<b class="fc"><i>72</i>&nbsp;        this.nickname = nickname;</b>
+<b class="fc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * Gets nickname.
+<i>77</i>&nbsp;     *
+<i>78</i>&nbsp;     * @return the nickname
+<i>79</i>&nbsp;     */
+<i>80</i>&nbsp;    public String getNickname() {
+<b class="fc"><i>81</i>&nbsp;        return this.nickname;</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

@@ -21,11 +21,15 @@
 | Advanced functionality 1 (FA 1) | :heavy_check_mark: Multiple matches ("Partite multiple") |
 | Advanced functionality 2 (FA 2) | :heavy_check_mark: Advanced Gods ("Divinità avanzate"): Hera, Hestia, Hypnus, Triton, Zeus |
 
-## Test coverage
+## Testing
 
-# TODO
+Extensive testing was performed on all parts of the software, both by writing unit tests and with manual QA.
+The unit tests cover 95% of the lines of the server components as a whole. The few non-covered lines mainly deal with runtime exceptions, such as the interruption of a thread caused by an exit request.
+The client has less unit tests since most of it deals with UI-specific functions that would have need to be mocked, thus resulting in testing the mocks more than the client itself.
 
-Refer to the [`deliverables/report/`](./deliverables/report) folder for further details.
+The unit tests run automatically at each commit thanks to [a Continuous Integration pipeline](./.circleci/config.yml).
+
+Refer to the [`deliverables/report/`](./deliverables/report) folder for further details on the unit tests.
 
 ## Compile
 

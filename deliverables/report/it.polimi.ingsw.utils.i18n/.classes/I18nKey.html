@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: I18nKey</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.i18n</a> ]
+</div>
+
+<h1>Coverage Summary for Class: I18nKey (it.polimi.ingsw.utils.i18n)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">I18nKey</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (134/ 134)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.i18n;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * An enum containing the localized strings.
+<i>5</i>&nbsp; * The localized strings must be provided in the i18n.strings resource bundle;
+<i>6</i>&nbsp; * the resource bundle&#39;s keys must be the lowercase version of the values of this enum,
+<i>7</i>&nbsp; * and the resource bundle&#39;s keys must be the localized strings.
+<i>8</i>&nbsp; */
+<b class="fc"><i>9</i>&nbsp;@SuppressWarnings(&quot;JavaDoc&quot;)</b>
+<i>10</i>&nbsp;public enum I18nKey {
+<b class="fc"><i>11</i>&nbsp;    BLOCK,</b>
+<b class="fc"><i>12</i>&nbsp;    CHOOSE_BETWEEN_BLOCK_OR_DOME,</b>
+<b class="fc"><i>13</i>&nbsp;    CHOOSE_BETWEEN_YES_OR_NO,</b>
+<b class="fc"><i>14</i>&nbsp;    CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE,</b>
+<b class="fc"><i>15</i>&nbsp;    CHOOSE_THE_GOD_D,</b>
+<b class="fc"><i>16</i>&nbsp;    CHOOSE_THE_PLAYER_THAT_WILL_START_FIRST,</b>
+<b class="fc"><i>17</i>&nbsp;    CHOOSE_ONE_OF_YOUR_WORKERS,</b>
+<b class="fc"><i>18</i>&nbsp;    CHOOSE_YOUR_GOD,</b>
+<b class="fc"><i>19</i>&nbsp;    CONGRATULATIONS_YOU_WON,</b>
+<b class="fc"><i>20</i>&nbsp;    COLOR,</b>
+<b class="fc"><i>21</i>&nbsp;    CURRENTLY_PLAYING,</b>
+<b class="fc"><i>22</i>&nbsp;    DEFAULT,</b>
+<b class="fc"><i>23</i>&nbsp;    DISCONNECTED_FROM_THE_SERVER,</b>
+<b class="fc"><i>24</i>&nbsp;    DO_YOU_WANT_TO_BUILD_A_BLOCK_OR_A_DOME,</b>
+<b class="fc"><i>25</i>&nbsp;    DO_YOU_WANT_TO_CONFIRM_THE_CHOICE_OF_THIS_GOD,</b>
+<b class="fc"><i>26</i>&nbsp;    DO_YOU_WANT_TO_KEEP_WATCHING_THE_GAME,</b>
+<b class="fc"><i>27</i>&nbsp;    DO_YOU_WANT_TO_START_A_NEW_MATCH,</b>
+<b class="fc"><i>28</i>&nbsp;    DOME,</b>
+<b class="fc"><i>29</i>&nbsp;    E_G,</b>
+<b class="fc"><i>30</i>&nbsp;    ERROR,</b>
+<b class="fc"><i>31</i>&nbsp;    ERROR_CANNOT_CONNECT,</b>
+<b class="fc"><i>32</i>&nbsp;    ERROR_INVALID_PORT,</b>
+<b class="fc"><i>33</i>&nbsp;    GOD,</b>
+<b class="fc"><i>34</i>&nbsp;    GOD_DESCRIPTION,</b>
+<b class="fc"><i>35</i>&nbsp;    GODS_ALREADY_CHOSEN,</b>
+<b class="fc"><i>36</i>&nbsp;    GROUND,</b>
+<b class="fc"><i>37</i>&nbsp;    HEIGHT_ABBR,</b>
+<b class="fc"><i>38</i>&nbsp;    INSERT_A_VALID_COORDINATE,</b>
+<b class="fc"><i>39</i>&nbsp;    IS_NOT_AN_INTEGER,</b>
+<b class="fc"><i>40</i>&nbsp;    LEGEND,</b>
+<b class="fc"><i>41</i>&nbsp;    LOOKING_FOR_A_MATCH,</b>
+<b class="fc"><i>42</i>&nbsp;    NICKNAME,</b>
+<b class="fc"><i>43</i>&nbsp;    NO,</b>
+<b class="fc"><i>44</i>&nbsp;    NUMBER_OF_PLAYERS,</b>
+<b class="fc"><i>45</i>&nbsp;    PORT,</b>
+<b class="fc"><i>46</i>&nbsp;    PLAYERS,</b>
+<b class="fc"><i>47</i>&nbsp;    PRESS_RETURN_TO_BEGIN,</b>
+<b class="fc"><i>48</i>&nbsp;    PRESS_RETURN_TO_CONTINUE,</b>
+<b class="fc"><i>49</i>&nbsp;    S_WON,</b>
+<b class="fc"><i>50</i>&nbsp;    S_GOD,</b>
+<b class="fc"><i>51</i>&nbsp;    SERVER_ADDRESS,</b>
+<b class="fc"><i>52</i>&nbsp;    THE_CHOSEN_GOD_IS_INVALID,</b>
+<b class="fc"><i>53</i>&nbsp;    THE_CHOSEN_PLAYER_IS_INVALID,</b>
+<b class="fc"><i>54</i>&nbsp;    THE_PLAYERS_FOR_THIS_MATCH_ARE,</b>
+<b class="fc"><i>55</i>&nbsp;    TOWER,</b>
+<b class="fc"><i>56</i>&nbsp;    UNABLE_TO_ESTABLISH_CONNECTION_WITH_SPECIFIED_SERVER,</b>
+<b class="fc"><i>57</i>&nbsp;    WAIT_FOR_S_TO_CHOOSE_THEIR_GOD,</b>
+<b class="fc"><i>58</i>&nbsp;    WAIT_FOR_S_TO_CHOOSE_THE_GODS,</b>
+<b class="fc"><i>59</i>&nbsp;    WAIT_FOR_S_TO_CHOOSE_THE_STARTING_PLAYER,</b>
+<b class="fc"><i>60</i>&nbsp;    WAIT_FOR_S_TO_PLACE_THEIR_WORKERS,</b>
+<b class="fc"><i>61</i>&nbsp;    WAIT_FOR_S_TO_PERFORM_THEIR_BUILD,</b>
+<b class="fc"><i>62</i>&nbsp;    WAIT_FOR_S_TO_PERFORM_THEIR_MOVE,</b>
+<b class="fc"><i>63</i>&nbsp;    WAITING_FOR_THE_OTHER_PLAYERS,</b>
+<b class="fc"><i>64</i>&nbsp;    WELCOME_TO_THE_SERVER_S,</b>
+<b class="fc"><i>65</i>&nbsp;    WHERE_DO_YOU_WANT_TO_BUILD,</b>
+<b class="fc"><i>66</i>&nbsp;    WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER,</b>
+<b class="fc"><i>67</i>&nbsp;    WHICH_WORKER_DO_YOU_WANT_TO_MOVE,</b>
+<b class="fc"><i>68</i>&nbsp;    WHICH_WORKER_DO_YOU_WANT_TO_USE_TO_BUILD,</b>
+<b class="fc"><i>69</i>&nbsp;    WORKERS,</b>
+<b class="fc"><i>70</i>&nbsp;    X_TO_CANCEL,</b>
+<b class="fc"><i>71</i>&nbsp;    X_TO_SKIP,</b>
+<b class="fc"><i>72</i>&nbsp;    YES,</b>
+<b class="fc"><i>73</i>&nbsp;    YOU_ARE_THE_FIRST_PLAYER_IN_THE_SERVER,</b>
+<b class="fc"><i>74</i>&nbsp;    YOU_CAN_CHOOSE_ONE_OF_THESE_GODS,</b>
+<b class="fc"><i>75</i>&nbsp;    YOU_CANT_BUILD_IN_THE_SPECIFIED_CELL,</b>
+<b class="fc"><i>76</i>&nbsp;    YOU_CANT_BUILD_WITH_THE_SPECIFIED_WORKER,</b>
+<b class="fc"><i>77</i>&nbsp;    YOU_CANT_MOVE_THE_SPECIFIED_WORKER,</b>
+<b class="fc"><i>78</i>&nbsp;    YOU_CANT_PLACE_THE_WORKER_IN_THE_SPECIFIED_CELL,</b>
+<b class="fc"><i>79</i>&nbsp;    YOU_LOST,</b>
+<b class="fc"><i>80</i>&nbsp;    JOIN_LOBBY,</b>
+<b class="fc"><i>81</i>&nbsp;    SETTINGS,</b>
+<b class="fc"><i>82</i>&nbsp;    CREDITS,</b>
+<b class="fc"><i>83</i>&nbsp;    MENU,</b>
+<b class="fc"><i>84</i>&nbsp;    CONNECT,</b>
+<b class="fc"><i>85</i>&nbsp;    CONNECT_TO_SERVER_PROMPT_1,</b>
+<b class="fc"><i>86</i>&nbsp;    CONNECT_TO_SERVER_PROMPT_2,</b>
+<b class="fc"><i>87</i>&nbsp;    SERVER_FOUND,</b>
+<b class="fc"><i>88</i>&nbsp;    NICKNAME_PROMPT,</b>
+<b class="fc"><i>89</i>&nbsp;    SET_NICKNAME,</b>
+<b class="fc"><i>90</i>&nbsp;    SELECT_GOD_CARD,</b>
+<b class="fc"><i>91</i>&nbsp;    ERROR_INVALID_NICKNAME_GENERIC,</b>
+<b class="fc"><i>92</i>&nbsp;    ERROR_INVALID_NICKNAME_LENGTH,</b>
+<b class="fc"><i>93</i>&nbsp;    ERROR_NICKNAME_TAKEN,</b>
+<b class="fc"><i>94</i>&nbsp;    ASK_WORKER_START_POSITION_PROMPT,</b>
+<b class="fc"><i>95</i>&nbsp;    ASK_WORKER_START_POSITION_PASSIVE_PROMPT,</b>
+<b class="fc"><i>96</i>&nbsp;    SPECTATING,</b>
+<b class="fc"><i>97</i>&nbsp;    WAITING_FOR_THEIR_TURN,</b>
+<b class="fc"><i>98</i>&nbsp;    SKIP,</b>
+<b class="fc"><i>99</i>&nbsp;    CANCEL,</b>
+<b class="fc"><i>100</i>&nbsp;    VICTORIOUS,</b>
+<b class="fc"><i>101</i>&nbsp;    LOSER,</b>
+<b class="fc"><i>102</i>&nbsp;    APOLLO_NAME,</b>
+<b class="fc"><i>103</i>&nbsp;    ARTEMIS_NAME,</b>
+<b class="fc"><i>104</i>&nbsp;    ATHENA_NAME,</b>
+<b class="fc"><i>105</i>&nbsp;    ATLAS_NAME,</b>
+<b class="fc"><i>106</i>&nbsp;    DEMETER_NAME,</b>
+<b class="fc"><i>107</i>&nbsp;    HEPHAESTUS_NAME,</b>
+<b class="fc"><i>108</i>&nbsp;    HERA_NAME,</b>
+<b class="fc"><i>109</i>&nbsp;    HESTIA_NAME,</b>
+<b class="fc"><i>110</i>&nbsp;    HYPNUS_NAME,</b>
+<b class="fc"><i>111</i>&nbsp;    MINOTAUR_NAME,</b>
+<b class="fc"><i>112</i>&nbsp;    PAN_NAME,</b>
+<b class="fc"><i>113</i>&nbsp;    PROMETHEUS_NAME,</b>
+<b class="fc"><i>114</i>&nbsp;    TRITON_NAME,</b>
+<b class="fc"><i>115</i>&nbsp;    ZEUS_NAME,</b>
+<b class="fc"><i>116</i>&nbsp;    APOLLO_SUBTITLE,</b>
+<b class="fc"><i>117</i>&nbsp;    ARTEMIS_SUBTITLE,</b>
+<b class="fc"><i>118</i>&nbsp;    ATHENA_SUBTITLE,</b>
+<b class="fc"><i>119</i>&nbsp;    ATLAS_SUBTITLE,</b>
+<b class="fc"><i>120</i>&nbsp;    DEMETER_SUBTITLE,</b>
+<b class="fc"><i>121</i>&nbsp;    HEPHAESTUS_SUBTITLE,</b>
+<b class="fc"><i>122</i>&nbsp;    HERA_SUBTITLE,</b>
+<b class="fc"><i>123</i>&nbsp;    HESTIA_SUBTITLE,</b>
+<b class="fc"><i>124</i>&nbsp;    HYPNUS_SUBTITLE,</b>
+<b class="fc"><i>125</i>&nbsp;    MINOTAUR_SUBTITLE,</b>
+<b class="fc"><i>126</i>&nbsp;    PAN_SUBTITLE,</b>
+<b class="fc"><i>127</i>&nbsp;    PROMETHEUS_SUBTITLE,</b>
+<b class="fc"><i>128</i>&nbsp;    TRITON_SUBTITLE,</b>
+<b class="fc"><i>129</i>&nbsp;    ZEUS_SUBTITLE,</b>
+<b class="fc"><i>130</i>&nbsp;    APOLLO_DESCRIPTION,</b>
+<b class="fc"><i>131</i>&nbsp;    ARTEMIS_DESCRIPTION,</b>
+<b class="fc"><i>132</i>&nbsp;    ATHENA_DESCRIPTION,</b>
+<b class="fc"><i>133</i>&nbsp;    ATLAS_DESCRIPTION,</b>
+<b class="fc"><i>134</i>&nbsp;    DEMETER_DESCRIPTION,</b>
+<b class="fc"><i>135</i>&nbsp;    HEPHAESTUS_DESCRIPTION,</b>
+<b class="fc"><i>136</i>&nbsp;    HERA_DESCRIPTION,</b>
+<b class="fc"><i>137</i>&nbsp;    HESTIA_DESCRIPTION,</b>
+<b class="fc"><i>138</i>&nbsp;    HYPNUS_DESCRIPTION,</b>
+<b class="fc"><i>139</i>&nbsp;    MINOTAUR_DESCRIPTION,</b>
+<b class="fc"><i>140</i>&nbsp;    PAN_DESCRIPTION,</b>
+<b class="fc"><i>141</i>&nbsp;    PROMETHEUS_DESCRIPTION,</b>
+<b class="fc"><i>142</i>&nbsp;    TRITON_DESCRIPTION,</b>
+<b class="fc"><i>143</i>&nbsp;    ZEUS_DESCRIPTION;</b>
+<i>144</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

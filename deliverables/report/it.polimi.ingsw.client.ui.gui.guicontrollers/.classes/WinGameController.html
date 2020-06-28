@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WinGameController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui.guicontrollers</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WinGameController (it.polimi.ingsw.client.ui.gui.guicontrollers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WinGameController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui.guicontrollers;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.ui.gui.WinGameGUIClientState;
+<i>4</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
+<i>6</i>&nbsp;import javafx.event.ActionEvent;
+<i>7</i>&nbsp;import javafx.fxml.FXML;
+<i>8</i>&nbsp;import javafx.scene.control.Label;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.logging.Level;
+<i>11</i>&nbsp;import java.util.logging.Logger;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * Controller for the WinGame state
+<i>15</i>&nbsp; */
+<b class="nc"><i>16</i>&nbsp;public class WinGameController extends AbstractController {</b>
+<b class="nc"><i>17</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(WinGameController.class.getName());</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @FXML Label mainPrompt;
+<i>20</i>&nbsp;    @FXML Label winnerName;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @FXML void handleReconnect(ActionEvent event){
+<b class="nc"><i>23</i>&nbsp;        ((WinGameGUIClientState)state).reconnect();</b>
+<b class="nc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;    @FXML void handleMenu(ActionEvent event){
+<b class="nc"><i>26</i>&nbsp;        ((WinGameGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * This method sets the prompt and the label for the winning player
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    public void setWinnerPrompts(){
+<b class="nc"><i>33</i>&nbsp;        mainPrompt.setText(I18n.string(I18nKey.VICTORIOUS));</b>
+<b class="nc"><i>34</i>&nbsp;        winnerName.setText(I18n.string(I18nKey.CONGRATULATIONS_YOU_WON));</b>
+<b class="nc"><i>35</i>&nbsp;    }</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * This method sets the prompt and the label for the losing players
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    public void setLoserPrompts(){
+<b class="nc"><i>41</i>&nbsp;        mainPrompt.setText(I18n.string(I18nKey.LOSER));</b>
+<b class="nc"><i>42</i>&nbsp;        winnerName.setText(String.format(I18n.string(I18nKey.S_WON), client.getCurrentActiveUser().getNickname()));</b>
+<b class="nc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @Override
+<i>46</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>47</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<b class="nc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Triton</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Triton (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Triton</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Triton$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (24/ 24)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (28/ 28)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.actions.MoveAction;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.board.Board;
+<i>6</i>&nbsp;import it.polimi.ingsw.server.model.board.Cell;
+<i>7</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>8</i>&nbsp;import it.polimi.ingsw.server.model.turnstates.TurnState;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * The god card Triton.
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;class Triton extends AbstractGod {</b>
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * The TurnEvents for the owner of the Triton god card.
+<i>18</i>&nbsp;     */
+<b class="fc"><i>19</i>&nbsp;    private static final TurnEvents ownerTurnEvents = new TurnEvents() {</b>
+<i>20</i>&nbsp;        @Override
+<i>21</i>&nbsp;        protected void onBeforeMovement(Turn turn) {
+<b class="fc"><i>22</i>&nbsp;            List&lt;MoveAction&gt; moveActions = turn.getMoves();</b>
+<b class="fc"><i>23</i>&nbsp;            if (!moveActions.isEmpty()) {</b>
+<b class="fc"><i>24</i>&nbsp;                MoveAction lastMove = moveActions.get(moveActions.size() - 1);</b>
+<b class="fc"><i>25</i>&nbsp;                Cell targetCell = lastMove.getTargetCell();</b>
+<b class="fc"><i>26</i>&nbsp;                Board board = turn.getGame().getBoard();</b>
+<i>27</i>&nbsp;                //if last move was on border, then we can skip this move
+<b class="fc"><i>28</i>&nbsp;                if (</b>
+<b class="fc"><i>29</i>&nbsp;                        targetCell.getX() == 0</b>
+<b class="fc"><i>30</i>&nbsp;                                || targetCell.getX() == board.getDimension() - 1</b>
+<b class="fc"><i>31</i>&nbsp;                                || targetCell.getY() == 0</b>
+<b class="fc"><i>32</i>&nbsp;                                || targetCell.getY() == board.getDimension() - 1</b>
+<i>33</i>&nbsp;                ) {
+<b class="fc"><i>34</i>&nbsp;                    turn.setSkippable(true);</b>
+<i>35</i>&nbsp;                }
+<i>36</i>&nbsp;            }
+<b class="fc"><i>37</i>&nbsp;        }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;        @Override
+<i>40</i>&nbsp;        protected void onAfterMovement(Turn turn) {
+<b class="fc"><i>41</i>&nbsp;            List&lt;MoveAction&gt; moveActions = turn.getMoves();</b>
+<b class="fc"><i>42</i>&nbsp;            MoveAction lastMove = moveActions.get(moveActions.size() - 1);</b>
+<b class="fc"><i>43</i>&nbsp;            Cell targetCell = lastMove.getTargetCell();</b>
+<b class="fc"><i>44</i>&nbsp;            Board board = turn.getGame().getBoard();</b>
+<i>45</i>&nbsp;            //if last move was on border, then we can move again
+<b class="fc"><i>46</i>&nbsp;            if (</b>
+<b class="fc"><i>47</i>&nbsp;                    targetCell.getX() == 0</b>
+<b class="fc"><i>48</i>&nbsp;                            || targetCell.getX() == board.getDimension() - 1</b>
+<b class="fc"><i>49</i>&nbsp;                            || targetCell.getY() == 0</b>
+<b class="fc"><i>50</i>&nbsp;                            || targetCell.getY() == board.getDimension() - 1</b>
+<i>51</i>&nbsp;            ) {
+<b class="fc"><i>52</i>&nbsp;                turn.setNextState(TurnState.MOVE.getTurnState());</b>
+<i>53</i>&nbsp;            }
+<b class="fc"><i>54</i>&nbsp;        }</b>
+<i>55</i>&nbsp;    };
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Gets the god&#39;s name.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @return the name
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    @Override
+<i>63</i>&nbsp;    public String getName() {
+<b class="fc"><i>64</i>&nbsp;        return &quot;Triton&quot;;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /**
+<i>68</i>&nbsp;     * Gets the TurnEvents for the player owning Triton.
+<i>69</i>&nbsp;     *
+<i>70</i>&nbsp;     * @return the TurnEvents for the player owning Triton
+<i>71</i>&nbsp;     */
+<i>72</i>&nbsp;    @Override
+<i>73</i>&nbsp;    public TurnEvents getOwnerTurnEvents() {
+<b class="fc"><i>74</i>&nbsp;        return ownerTurnEvents;</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

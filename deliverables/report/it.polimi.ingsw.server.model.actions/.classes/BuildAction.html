@@ -1,0 +1,166 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BuildAction</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.actions</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BuildAction (it.polimi.ingsw.server.model.actions)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BuildAction</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.actions;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.board.Buildable;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.board.Cell;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.workers.Worker;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * This class implements Action interface and represents actions in which a worker builds something on a targetCell.
+<i>9</i>&nbsp; * It is immutable.
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class BuildAction implements  Action{
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * The cell on which the worker built
+<i>14</i>&nbsp;     */
+<i>15</i>&nbsp;    private final Cell targetCell;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * The component built on the cell
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    private final Buildable component;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * The level built by the worker.
+<i>24</i>&nbsp;     * Beware, this is the level AFTER the worker performed the build
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    private final int builtLevel;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * The worker who performed the build
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    private final Worker worker;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Constructor, stores all the variables by reference
+<i>35</i>&nbsp;     *
+<i>36</i>&nbsp;     * @param targetCell The cell on which the worker built
+<i>37</i>&nbsp;     * @param component  The component built on the cell
+<i>38</i>&nbsp;     * @param builtLevel The level built by the worker
+<i>39</i>&nbsp;     * @param worker     The worker who performed the build
+<i>40</i>&nbsp;     */
+<b class="fc"><i>41</i>&nbsp;    public BuildAction(Cell targetCell, Buildable component, int builtLevel, Worker worker) {</b>
+<b class="fc"><i>42</i>&nbsp;        this.targetCell = targetCell;</b>
+<b class="fc"><i>43</i>&nbsp;        this.component = component;</b>
+<b class="fc"><i>44</i>&nbsp;        this.builtLevel = builtLevel;</b>
+<b class="fc"><i>45</i>&nbsp;        this.worker = worker;</b>
+<b class="fc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Gets the target cell.
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     * @return The cell on which the worker built
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    public Cell getTargetCell() {
+<b class="fc"><i>54</i>&nbsp;        return targetCell;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Gets the component.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @return The component built on the cell
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    public Buildable getComponent() {
+<b class="fc"><i>63</i>&nbsp;        return component;</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Gets the built level.
+<i>68</i>&nbsp;     *
+<i>69</i>&nbsp;     * @return The level built by the worker
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    public int getBuiltLevel() {
+<b class="fc"><i>72</i>&nbsp;        return builtLevel;</b>
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * Gets the worker.
+<i>77</i>&nbsp;     *
+<i>78</i>&nbsp;     * @return The worker who performed the build
+<i>79</i>&nbsp;     */
+<i>80</i>&nbsp;    public Worker getWorker() {
+<b class="fc"><i>81</i>&nbsp;        return worker;</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

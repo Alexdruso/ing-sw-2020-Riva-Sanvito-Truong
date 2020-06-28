@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Direction</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.board</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Direction (it.polimi.ingsw.server.model.board)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Direction</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.board;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * This immutable class represents a direction, which is the vector representing the displacement from a Cell to another
+<i>5</i>&nbsp; */
+<i>6</i>&nbsp;public class Direction {
+<i>7</i>&nbsp;    /**
+<i>8</i>&nbsp;     * The displacement on the x axis
+<i>9</i>&nbsp;     */
+<i>10</i>&nbsp;    public final int dx;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * The displacement on the y axis
+<i>14</i>&nbsp;     */
+<i>15</i>&nbsp;    public final int dy;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * The class constructor.
+<i>19</i>&nbsp;     *
+<i>20</i>&nbsp;     * @param firstCell  the first cell
+<i>21</i>&nbsp;     * @param secondCell the second cell
+<i>22</i>&nbsp;     */
+<b class="fc"><i>23</i>&nbsp;    public Direction(Cell firstCell, Cell secondCell){</b>
+<b class="fc"><i>24</i>&nbsp;        dx = secondCell.getX() - firstCell.getX();</b>
+<b class="fc"><i>25</i>&nbsp;        dy = secondCell.getY() - firstCell.getY();</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

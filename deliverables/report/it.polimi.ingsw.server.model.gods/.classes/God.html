@@ -1,0 +1,88 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: God</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: God (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">God$MockitoMock$563814561</td>
+  </tr>
+  <tr>
+    <td class="name">God$MockitoMock$563814561$auxiliary$mZZDlT6s</td>
+  </tr>
+  <tr>
+    <td class="name">God$MockitoMock$563814561$auxiliary$VGSXrwjZ</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * The interface of a god.
+<i>7</i>&nbsp; * For each god, it allows to specify a set of hooks that need to be attached either to the current player or to all his opponents.
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * @see TurnEvents
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public interface God {
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * Gets the god&#39;s name.
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @return the name
+<i>16</i>&nbsp;     */
+<i>17</i>&nbsp;    String getName();
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * Gets the TurnEvents to be applied to the player owning the god.
+<i>21</i>&nbsp;     *
+<i>22</i>&nbsp;     * @return the owner turn events
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    TurnEvents getOwnerTurnEvents();
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Gets the TurnEvents to be applied to all the opponents of the player owning the god.
+<i>28</i>&nbsp;     *
+<i>29</i>&nbsp;     * @return the opponents turn events
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    TurnEvents getOpponentsTurnEvents();
+<i>32</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

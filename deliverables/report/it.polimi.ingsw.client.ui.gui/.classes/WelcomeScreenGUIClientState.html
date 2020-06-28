@@ -1,0 +1,120 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WelcomeScreenGUIClientState</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WelcomeScreenGUIClientState (it.polimi.ingsw.client.ui.gui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WelcomeScreenGUIClientState</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
+<i>5</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientState;
+<i>6</i>&nbsp;import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * A GUI-specific WELCOME_SCREEN client state.
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState implements GUIClientState {
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * Instantiates a new ClientState.
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @param client the client
+<i>16</i>&nbsp;     */
+<i>17</i>&nbsp;    public WelcomeScreenGUIClientState(Client client) {
+<b class="nc"><i>18</i>&nbsp;        super(client);</b>
+<b class="nc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Override
+<i>22</i>&nbsp;    public void setup() {
+<b class="nc"><i>23</i>&nbsp;        super.setup();</b>
+<b class="nc"><i>24</i>&nbsp;        client.closeConnection();</b>
+<b class="nc"><i>25</i>&nbsp;    }</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Override
+<i>28</i>&nbsp;    public void render() {
+<b class="nc"><i>29</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MainMenu.fxml&quot;, client);</b>
+<b class="nc"><i>30</i>&nbsp;        sceneLoaderBuilder</b>
+<b class="nc"><i>31</i>&nbsp;                .setState(ClientState.WELCOME_SCREEN, this)</b>
+<b class="nc"><i>32</i>&nbsp;                .setFirstFadeOut(false)</b>
+<b class="nc"><i>33</i>&nbsp;                .setFadeInDuration(1000)</b>
+<b class="nc"><i>34</i>&nbsp;                .build()</b>
+<b class="nc"><i>35</i>&nbsp;                .executeSceneChange();</b>
+<b class="nc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

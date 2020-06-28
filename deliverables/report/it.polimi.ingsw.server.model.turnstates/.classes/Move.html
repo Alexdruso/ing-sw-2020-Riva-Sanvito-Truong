@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Move</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.turnstates</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Move (it.polimi.ingsw.server.model.turnstates)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Move</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (35/ 35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.turnstates;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.actions.MoveAction;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.board.Cell;
+<i>6</i>&nbsp;import it.polimi.ingsw.server.model.board.TargetCells;
+<i>7</i>&nbsp;import it.polimi.ingsw.server.model.workers.Worker;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;import java.util.stream.Collectors;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * The move turn state.
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;class Move implements AbstractTurnState {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * This method sets things up before we can use the other methods provided by the state
+<i>19</i>&nbsp;     *
+<i>20</i>&nbsp;     * @param turn the Context
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    public void setup(Turn turn) {
+<i>23</i>&nbsp;        //Sets default next state
+<b class="fc"><i>24</i>&nbsp;        turn.setNextState(TurnState.BUILD.getTurnState());</b>
+<b class="fc"><i>25</i>&nbsp;        setupDefaultAllowedWorkers(turn);</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;        //for every worker, initializes a target cell with the radius minus blocked cells
+<b class="fc"><i>28</i>&nbsp;        for (Worker worker : turn.getPlayer().getWorkers()) {</b>
+<b class="fc"><i>29</i>&nbsp;            TargetCells walkableCellsRadius = TargetCells.fromCellAndRadius(worker.getCell(), 1);</b>
+<i>30</i>&nbsp;
+<b class="fc"><i>31</i>&nbsp;            turn.getGame().getBoard().getTargets(walkableCellsRadius)</b>
+<b class="fc"><i>32</i>&nbsp;                    .stream()</b>
+<b class="fc"><i>33</i>&nbsp;                    .filter(cell -&gt;</b>
+<b class="fc"><i>34</i>&nbsp;                            cell.getTower().isComplete()</b>
+<b class="fc"><i>35</i>&nbsp;                                    || cell.getWorker().isPresent()</b>
+<b class="fc"><i>36</i>&nbsp;                                    || worker.getCell().getHeightDifference(cell) &gt; 1)</b>
+<b class="fc"><i>37</i>&nbsp;                    .forEach(cell -&gt; walkableCellsRadius.setPosition(cell, false));</b>
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;            turn.setWorkerWalkableCells(worker, walkableCellsRadius);</b>
+<i>40</i>&nbsp;        }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;        //use powers
+<b class="fc"><i>43</i>&nbsp;        turn.getPlayer().getTurnEventsManager().processBeforeMovementEvents(turn);</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;        //now set as allowed workers only the workers able to move
+<b class="fc"><i>46</i>&nbsp;        List&lt;Worker&gt; moveAllowedWorkers = turn.getAllowedWorkers().stream()</b>
+<b class="fc"><i>47</i>&nbsp;                .filter(</b>
+<i>48</i>&nbsp;                        allowedWorker -&gt;
+<b class="fc"><i>49</i>&nbsp;                                !turn.getGame().getBoard()</b>
+<b class="fc"><i>50</i>&nbsp;                                        .getTargets(turn.getWorkerWalkableCells(allowedWorker))</b>
+<b class="fc"><i>51</i>&nbsp;                                        .isEmpty()</b>
+<i>52</i>&nbsp;                )
+<b class="fc"><i>53</i>&nbsp;                .collect(Collectors.toList());</b>
+<i>54</i>&nbsp;
+<b class="fc"><i>55</i>&nbsp;        turn.clearAllowedWorkers();</b>
+<b class="fc"><i>56</i>&nbsp;        turn.addAllowedWorkers(moveAllowedWorkers);</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        if (!moveAllowedWorkers.isEmpty()) turn.getGame().notifyAskMove(turn); //if a move is possible, ask it</b>
+<b class="fc"><i>59</i>&nbsp;        else if (turn.isSkippable()) turn.getGame().skip(); //else if we can skip automatically, do it</b>
+<b class="fc"><i>60</i>&nbsp;        else turn.triggerLosingTurn(); //else it is a losing turn</b>
+<b class="fc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * This boolean methods checks if the pawn can move to targetCell
+<i>65</i>&nbsp;     *
+<i>66</i>&nbsp;     * @param worker     the worker we want to move
+<i>67</i>&nbsp;     * @param targetCell the cell we want to move the worker to
+<i>68</i>&nbsp;     * @param turn       the Context
+<i>69</i>&nbsp;     * @return if the pawn can move to targetCell
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    @Override
+<i>72</i>&nbsp;    public boolean canMoveTo(Worker worker, Cell targetCell, Turn turn) {
+<b class="fc"><i>73</i>&nbsp;        return turn.getAllowedWorkers().contains(worker)</b>
+<b class="fc"><i>74</i>&nbsp;                &amp;&amp; turn.getWorkerWalkableCells(worker).getPosition(targetCell.getX(), targetCell.getY());</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    /**
+<i>78</i>&nbsp;     * This method moves the pawn to targetCell
+<i>79</i>&nbsp;     *
+<i>80</i>&nbsp;     * @param worker     the worker we want to move
+<i>81</i>&nbsp;     * @param targetCell the cell we want to move the worker to
+<i>82</i>&nbsp;     * @param turn       the Context
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    @Override
+<i>85</i>&nbsp;    public void moveTo(Worker worker, Cell targetCell, Turn turn) {
+<b class="fc"><i>86</i>&nbsp;        turn.addPerformedAction(</b>
+<i>87</i>&nbsp;                new MoveAction(
+<b class="fc"><i>88</i>&nbsp;                        worker.getCell(), //the source cell</b>
+<i>89</i>&nbsp;                        targetCell, //the target cell
+<b class="fc"><i>90</i>&nbsp;                        worker.getCell().getTower().getCurrentLevel(), //the source cell level</b>
+<b class="fc"><i>91</i>&nbsp;                        targetCell.getTower().getCurrentLevel(), //the target cell level</b>
+<i>92</i>&nbsp;                        worker //the performer
+<i>93</i>&nbsp;                )
+<i>94</i>&nbsp;        );
+<i>95</i>&nbsp;
+<b class="fc"><i>96</i>&nbsp;        turn.getPlayer().getTurnEventsManager().processAfterMovementEvents(turn);</b>
+<i>97</i>&nbsp;
+<b class="fc"><i>98</i>&nbsp;        turn.getGame().setWorkerCell(worker, targetCell);</b>
+<b class="fc"><i>99</i>&nbsp;    }</b>
+<i>100</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

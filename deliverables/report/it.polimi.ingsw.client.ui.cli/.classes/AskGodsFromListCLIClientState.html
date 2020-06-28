@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AskGodsFromListCLIClientState</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.cli</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AskGodsFromListCLIClientState (it.polimi.ingsw.client.ui.cli)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AskGodsFromListCLIClientState</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.cli;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractAskGodsFromListClientState;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
+<i>6</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
+<i>7</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * A CLI-specific ASK_GODS_FROM_LIST client state.
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public class AskGodsFromListCLIClientState extends AbstractAskGodsFromListClientState {
+<i>16</i>&nbsp;    private final CLI cli;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Instantiates a new CLI-specific CONNECT_TO_SERVER ClientState.
+<i>20</i>&nbsp;     *
+<i>21</i>&nbsp;     * @param client the client
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public AskGodsFromListCLIClientState(Client client) {
+<b class="nc"><i>24</i>&nbsp;        super(client);</b>
+<b class="nc"><i>25</i>&nbsp;        cli = (CLI) client.getUI();</b>
+<b class="nc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public void render() {
+<b class="nc"><i>30</i>&nbsp;        cli.clear();</b>
+<b class="nc"><i>31</i>&nbsp;        if (client.isCurrentlyActive()) {</b>
+<b class="nc"><i>32</i>&nbsp;            renderCurrentlyActive();</b>
+<i>33</i>&nbsp;        }
+<i>34</i>&nbsp;        else {
+<b class="nc"><i>35</i>&nbsp;            renderCurrentlyInactive();</b>
+<i>36</i>&nbsp;        }
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * Renders the ask gods from list client state for the currently active client.
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    private void renderCurrentlyActive() {
+<b class="nc"><i>43</i>&nbsp;        int playersCount = client.getGame().getPlayersCount();</b>
+<b class="nc"><i>44</i>&nbsp;        List&lt;ReducedGod&gt; gods = new ArrayList&lt;&gt;(client.getGodsAvailableForChoice());</b>
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        while (chosenGods.size() &lt; playersCount) {</b>
+<b class="nc"><i>47</i>&nbsp;            cli.clear();</b>
+<b class="nc"><i>48</i>&nbsp;            showGodsList(playersCount, gods);</b>
+<b class="nc"><i>49</i>&nbsp;            cli.println(&quot;&quot;);</b>
+<b class="nc"><i>50</i>&nbsp;            getGodChoice(gods);</b>
+<i>51</i>&nbsp;        }
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;        notifyUiInteraction();</b>
+<b class="nc"><i>54</i>&nbsp;    }</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Asks the player to choose a god and registers it as one of the gods chosen for the match.
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @param gods the list of gods the user can choose from
+<i>60</i>&nbsp;     */
+<i>61</i>&nbsp;    private void getGodChoice(List&lt;ReducedGod&gt; gods) {
+<b class="nc"><i>62</i>&nbsp;        int choice = cli.readInt(String.format(String.format(&quot;%s:&quot;, I18n.string(I18nKey.CHOOSE_THE_GOD_D)), chosenGods.size() + 1)) - 1;</b>
+<i>63</i>&nbsp;        try {
+<b class="nc"><i>64</i>&nbsp;            ReducedGod chosenGod = gods.get(choice);</b>
+<b class="nc"><i>65</i>&nbsp;            boolean choiceConfirmed = cli.printGodCardConfirmationScreen(chosenGod);</b>
+<b class="nc"><i>66</i>&nbsp;            if (choiceConfirmed) {</b>
+<b class="nc"><i>67</i>&nbsp;                chosenGods.add(chosenGod);</b>
+<b class="nc"><i>68</i>&nbsp;                gods.remove(choice);</b>
+<i>69</i>&nbsp;            }
+<i>70</i>&nbsp;        }
+<b class="nc"><i>71</i>&nbsp;        catch (IndexOutOfBoundsException e) {</b>
+<b class="nc"><i>72</i>&nbsp;            cli.error(I18n.string(I18nKey.THE_CHOSEN_GOD_IS_INVALID));</b>
+<b class="nc"><i>73</i>&nbsp;        }</b>
+<b class="nc"><i>74</i>&nbsp;    }</b>
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /**
+<i>77</i>&nbsp;     * Shows to the player the list of gods available to choose and already chosen.
+<i>78</i>&nbsp;     *
+<i>79</i>&nbsp;     * @param playersCount the number of players in the match
+<i>80</i>&nbsp;     * @param gods         the list of gods the user can choose from
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    private void showGodsList(int playersCount, List&lt;ReducedGod&gt; gods) {
+<b class="nc"><i>83</i>&nbsp;        cli.println(String.format(String.format(&quot;%s:&quot;, I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));</b>
+<b class="nc"><i>84</i>&nbsp;        for (int i = 0; i &lt; gods.size(); i++) {</b>
+<b class="nc"><i>85</i>&nbsp;            cli.println(String.format(&quot;[%02d] %s&quot;, i + 1, cli.getGodNameAndSubtitle(gods.get(i))));</b>
+<i>86</i>&nbsp;        }
+<b class="nc"><i>87</i>&nbsp;        if (!chosenGods.isEmpty()) {</b>
+<b class="nc"><i>88</i>&nbsp;            cli.println(&quot;&quot;);</b>
+<b class="nc"><i>89</i>&nbsp;            cli.println(String.format(&quot;%s:&quot;, I18n.string(I18nKey.GODS_ALREADY_CHOSEN)));</b>
+<b class="nc"><i>90</i>&nbsp;            for (ReducedGod chosenGod : chosenGods) {</b>
+<b class="nc"><i>91</i>&nbsp;                cli.println(String.format(&quot;- %s&quot;, cli.getGodNameAndSubtitle(chosenGod)));</b>
+<b class="nc"><i>92</i>&nbsp;            }</b>
+<i>93</i>&nbsp;        }
+<b class="nc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Renders the ask gods from list client state for the non-currently active client.
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    private void renderCurrentlyInactive() {
+<b class="nc"><i>100</i>&nbsp;        cli.println(</b>
+<b class="nc"><i>101</i>&nbsp;                String.format(</b>
+<b class="nc"><i>102</i>&nbsp;                        I18n.string(I18nKey.WAIT_FOR_S_TO_CHOOSE_THE_GODS),</b>
+<b class="nc"><i>103</i>&nbsp;                        client.getCurrentActiveUser().getNickname()</b>
+<i>104</i>&nbsp;                )
+<i>105</i>&nbsp;        );
+<b class="nc"><i>106</i>&nbsp;    }</b>
+<i>107</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

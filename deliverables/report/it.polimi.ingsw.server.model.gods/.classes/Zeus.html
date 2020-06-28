@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Zeus</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Zeus (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Zeus</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Zeus$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.Arrays;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * The god card Zeus.
+<i>10</i>&nbsp; */
+<b class="fc"><i>11</i>&nbsp;class Zeus extends AbstractGod {</b>
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * The TurnEvents for the owner of the Triton god card.
+<i>14</i>&nbsp;     */
+<b class="fc"><i>15</i>&nbsp;    private static final TurnEvents ownerTurnEvents = new TurnEvents() {</b>
+<i>16</i>&nbsp;        @Override
+<i>17</i>&nbsp;        protected void onBeforeBuild(Turn turn) {
+<b class="fc"><i>18</i>&nbsp;            Arrays.stream(turn.getPlayer().getWorkers())</b>
+<b class="fc"><i>19</i>&nbsp;                    .forEach(</b>
+<i>20</i>&nbsp;                            worker -&gt; {
+<b class="fc"><i>21</i>&nbsp;                                if (worker.getCell().getTower().getCurrentLevel() &lt; 3) {</b>
+<b class="fc"><i>22</i>&nbsp;                                    turn.getWorkerBlockBuildableCells(worker)</b>
+<b class="fc"><i>23</i>&nbsp;                                            .setPosition(worker.getCell(), true);</b>
+<i>24</i>&nbsp;                                }
+<b class="fc"><i>25</i>&nbsp;                            }</b>
+<i>26</i>&nbsp;                    );
+<b class="fc"><i>27</i>&nbsp;        }</b>
+<i>28</i>&nbsp;    };
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Gets the god&#39;s name.
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @return the name
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    @Override
+<i>36</i>&nbsp;    public String getName() {
+<b class="fc"><i>37</i>&nbsp;        return &quot;Zeus&quot;;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Gets the TurnEvents for the player owning Zeus.
+<i>42</i>&nbsp;     *
+<i>43</i>&nbsp;     * @return the TurnEvents for the player owning Zeus
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    @Override
+<i>46</i>&nbsp;    public TurnEvents getOwnerTurnEvents() {
+<b class="fc"><i>47</i>&nbsp;        return ownerTurnEvents;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

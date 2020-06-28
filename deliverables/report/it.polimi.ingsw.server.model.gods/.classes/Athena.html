@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Athena</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Athena (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Athena</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Athena$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/ 19)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/ 23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Player;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.actions.MoveAction;
+<i>6</i>&nbsp;import it.polimi.ingsw.server.model.board.TargetCells;
+<i>7</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>8</i>&nbsp;import it.polimi.ingsw.server.model.workers.Worker;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;import java.util.stream.Collectors;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * The god card Athena.
+<i>15</i>&nbsp; */
+<b class="fc"><i>16</i>&nbsp;class Athena extends AbstractGod {</b>
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * The TurnEvents for the opponents of the owner of the Athena god card.
+<i>19</i>&nbsp;     */
+<b class="fc"><i>20</i>&nbsp;    private static final TurnEvents opponentsTurnEvents = new TurnEvents() {</b>
+<i>21</i>&nbsp;        @Override
+<i>22</i>&nbsp;        protected void onBeforeMovement(Turn turn) {
+<b class="fc"><i>23</i>&nbsp;            Player athenaPlayer = turn.getGame().getPlayersList().stream().filter(</b>
+<b class="fc"><i>24</i>&nbsp;                    player -&gt; player.getGod().equals(GodCard.ATHENA.getGod())</b>
+<b class="fc"><i>25</i>&nbsp;            ).findFirst().orElse(null);</b>
+<b class="fc"><i>26</i>&nbsp;            turn.getGame().getLastRoundTurnsList().stream().filter(</b>
+<b class="fc"><i>27</i>&nbsp;                    previousTurn -&gt; previousTurn.getPlayer().equals(athenaPlayer)</b>
+<b class="fc"><i>28</i>&nbsp;            ).findFirst().ifPresent(athenaLastTurn -&gt; {</b>
+<b class="fc"><i>29</i>&nbsp;                List&lt;MoveAction&gt; athenaMoveUpActions = athenaLastTurn.getMoves().stream().filter(</b>
+<b class="fc"><i>30</i>&nbsp;                        action -&gt; action.getTargetLevel() &gt; action.getSourceLevel()</b>
+<b class="fc"><i>31</i>&nbsp;                ).collect(Collectors.toList());</b>
+<b class="fc"><i>32</i>&nbsp;                if (!athenaMoveUpActions.isEmpty()) {</b>
+<b class="fc"><i>33</i>&nbsp;                    for (Worker worker : turn.getPlayer().getWorkers()) {</b>
+<b class="fc"><i>34</i>&nbsp;                        TargetCells lowerOrEqualCells = TargetCells.fromCells(</b>
+<b class="fc"><i>35</i>&nbsp;                                turn.getGame().getBoard().getCellsList().stream().filter(</b>
+<b class="fc"><i>36</i>&nbsp;                                        cell -&gt; cell.getTower().getCurrentLevel() &lt;= worker.getCell().getTower().getCurrentLevel()</b>
+<b class="fc"><i>37</i>&nbsp;                                ).collect(Collectors.toList())</b>
+<i>38</i>&nbsp;                        );
+<b class="fc"><i>39</i>&nbsp;                        turn.getWorkerWalkableCells(worker).intersect(lowerOrEqualCells);</b>
+<i>40</i>&nbsp;                    }
+<i>41</i>&nbsp;                }
+<b class="fc"><i>42</i>&nbsp;            });</b>
+<i>43</i>&nbsp;
+<b class="fc"><i>44</i>&nbsp;        }</b>
+<i>45</i>&nbsp;    };
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * Gets the god&#39;s name.
+<i>49</i>&nbsp;     *
+<i>50</i>&nbsp;     * @return the name
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    @Override
+<i>53</i>&nbsp;    public String getName() {
+<b class="fc"><i>54</i>&nbsp;        return &quot;Athena&quot;;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Gets the TurnEvents for the opponents of the player owning Athena.
+<i>59</i>&nbsp;     *
+<i>60</i>&nbsp;     * @return the TurnEvents for the opponents of the player owning Athena
+<i>61</i>&nbsp;     */
+<i>62</i>&nbsp;    @Override
+<i>63</i>&nbsp;    public TurnEvents getOpponentsTurnEvents() {
+<b class="fc"><i>64</i>&nbsp;        return opponentsTurnEvents;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

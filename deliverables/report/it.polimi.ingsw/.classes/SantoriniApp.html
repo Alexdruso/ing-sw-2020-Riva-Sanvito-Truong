@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SantoriniApp</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SantoriniApp (it.polimi.ingsw)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SantoriniApp</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 23)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SantoriniApp$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">SantoriniApp$LaunchComponent</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 26)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.ui.UI;
+<i>5</i>&nbsp;import it.polimi.ingsw.client.ui.cli.CLI;
+<i>6</i>&nbsp;import it.polimi.ingsw.client.ui.gui.GUI;
+<i>7</i>&nbsp;import it.polimi.ingsw.server.Server;
+<i>8</i>&nbsp;import it.polimi.ingsw.utils.LoggerManager;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.io.IOException;
+<i>11</i>&nbsp;import java.util.logging.Level;
+<i>12</i>&nbsp;import java.util.logging.Logger;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * The entrypoint of the Santorini game.
+<i>16</i>&nbsp; *
+<i>17</i>&nbsp; * @see it.polimi.ingsw.client
+<i>18</i>&nbsp; * @see it.polimi.ingsw.server
+<i>19</i>&nbsp; */
+<b class="nc"><i>20</i>&nbsp;public class SantoriniApp {</b>
+<b class="nc"><i>21</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(SantoriniApp.class.getName());</b>
+<i>22</i>&nbsp;
+<b class="nc"><i>23</i>&nbsp;    private enum LaunchComponent {</b>
+<b class="nc"><i>24</i>&nbsp;        CLI, GUI, SERVER</b>
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Initializes and launches the Santorini app.
+<i>29</i>&nbsp;     * To run the client with a GUI, do not specify any command line argument or specify &quot;gui&quot;.
+<i>30</i>&nbsp;     * To run the client with a CLI, specify &quot;cli&quot; as the first command line argument.
+<i>31</i>&nbsp;     * To run the server, specify &quot;server&quot; as the first command line argument.
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @param args the command line arguments
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    public static void main(String[] args) {
+<b class="nc"><i>36</i>&nbsp;        LoggerManager.setLogLevel();</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;        String launchComponentValue = args.length &gt; 0 ? args[0] : &quot;gui&quot;;</b>
+<b class="nc"><i>39</i>&nbsp;        LaunchComponent launchComponent = LaunchComponent.valueOf(launchComponentValue.toUpperCase());</b>
+<i>40</i>&nbsp;
+<b class="nc"><i>41</i>&nbsp;        switch (launchComponent) {</b>
+<b class="nc"><i>42</i>&nbsp;            case CLI -&gt; launchClient(false);</b>
+<b class="nc"><i>43</i>&nbsp;            case GUI -&gt; launchClient(true);</b>
+<b class="nc"><i>44</i>&nbsp;            case SERVER -&gt; launchServer();</b>
+<i>45</i>&nbsp;        }
+<b class="nc"><i>46</i>&nbsp;    }</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    /**
+<i>49</i>&nbsp;     * Initializes and launches the Santorini client app.
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     * @param withGUI whether to launch the GUI version of the client
+<i>52</i>&nbsp;     */
+<i>53</i>&nbsp;    private static void launchClient(boolean withGUI) {
+<i>54</i>&nbsp;        UI ui;
+<b class="nc"><i>55</i>&nbsp;        if (withGUI) {</b>
+<b class="nc"><i>56</i>&nbsp;            ui = new GUI();</b>
+<i>57</i>&nbsp;        }
+<i>58</i>&nbsp;        else {
+<b class="nc"><i>59</i>&nbsp;            ui = new CLI();</b>
+<i>60</i>&nbsp;        }
+<b class="nc"><i>61</i>&nbsp;        Client client = new Client(ui);</b>
+<b class="nc"><i>62</i>&nbsp;        client.run();</b>
+<b class="nc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * Initializes and launches the Santorini server app
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    private static void launchServer() {
+<i>69</i>&nbsp;        Server server;
+<i>70</i>&nbsp;        try{
+<b class="nc"><i>71</i>&nbsp;            server = new Server();</b>
+<b class="nc"><i>72</i>&nbsp;            server.start();</b>
+<b class="nc"><i>73</i>&nbsp;        } catch (IOException e){</b>
+<b class="nc"><i>74</i>&nbsp;            LOGGER.log(Level.SEVERE, &quot;Could not initialize server&quot;, e);</b>
+<b class="nc"><i>75</i>&nbsp;            System.exit(1);</b>
+<b class="nc"><i>76</i>&nbsp;        }</b>
+<b class="nc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

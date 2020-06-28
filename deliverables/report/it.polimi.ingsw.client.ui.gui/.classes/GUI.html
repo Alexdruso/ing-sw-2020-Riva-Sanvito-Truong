@@ -1,0 +1,218 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GUI</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.client.ui.gui</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GUI (it.polimi.ingsw.client.ui.gui)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 37)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GUI$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 39)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractClientState;
+<i>5</i>&nbsp;import it.polimi.ingsw.client.clientstates.AbstractClientTurnState;
+<i>6</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientState;
+<i>7</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientTurnState;
+<i>8</i>&nbsp;import it.polimi.ingsw.client.ui.UI;
+<i>9</i>&nbsp;import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import java.util.HashMap;
+<i>12</i>&nbsp;import java.util.logging.Level;
+<i>13</i>&nbsp;import java.util.logging.Logger;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * This class represents the GUI instance
+<i>17</i>&nbsp; */
+<b class="nc"><i>18</i>&nbsp;public class GUI implements UI {</b>
+<b class="nc"><i>19</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(GUI.class.getName());</b>
+<b class="nc"><i>20</i>&nbsp;    private final HashMap&lt;String, SavedScene&gt; sceneMap = new HashMap&lt;&gt;();</b>
+<i>21</i>&nbsp;    private SavedScene currentScene;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    @Override
+<i>24</i>&nbsp;    public void init(Runnable onExit) {
+<b class="nc"><i>25</i>&nbsp;        JavaFXGUI.onExit = onExit;</b>
+<b class="nc"><i>26</i>&nbsp;        new Thread(JavaFXGUI::launchJavaFX).start();</b>
+<b class="nc"><i>27</i>&nbsp;    };</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * This method adds a scene in the sceneMap in order to be retrieved when the scene is shown again later.
+<i>31</i>&nbsp;     * @param fxmlFile a String representing the path of the fxml file
+<i>32</i>&nbsp;     * @param savedScene the SavedScene instance containing all the elements of the scene
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    public void addScene(String fxmlFile, SavedScene savedScene) {
+<b class="nc"><i>35</i>&nbsp;        sceneMap.put(fxmlFile, savedScene);</b>
+<b class="nc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * This method retrieves a scene in the sceneMap
+<i>40</i>&nbsp;     * @param fxmlFile a String representing the path of the fxml file
+<i>41</i>&nbsp;     * @return the SavedScene associated with the fxmlFile if present, otherwise null
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    public SavedScene getScene(String fxmlFile){
+<b class="nc"><i>44</i>&nbsp;        return sceneMap.get(fxmlFile);</b>
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * This method clears the sceneMap in order to invalidate all cached scenes
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public void clearSceneMap(){
+<b class="nc"><i>51</i>&nbsp;        sceneMap.clear();</b>
+<b class="nc"><i>52</i>&nbsp;    }</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * This method is used to set the current SavedScene
+<i>56</i>&nbsp;     * @param current the SavedScene instance to be set as the current one
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    public void setCurrentScene(SavedScene current){
+<b class="nc"><i>59</i>&nbsp;        currentScene = current;</b>
+<b class="nc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * This method is used to retrieve the current SavedScene
+<i>64</i>&nbsp;     * @return the current SavedScene instance
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    public SavedScene getCurrentScene(){
+<b class="nc"><i>67</i>&nbsp;        return currentScene;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    @Override
+<i>71</i>&nbsp;    public AbstractClientState getClientState(ClientState clientState, Client client) {
+<b class="nc"><i>72</i>&nbsp;        return switch (clientState) {</b>
+<b class="nc"><i>73</i>&nbsp;            case ASK_GOD_FROM_LIST -&gt; new AskGodFromListGUIClientState(client);</b>
+<b class="nc"><i>74</i>&nbsp;            case ASK_GODS_FROM_LIST -&gt; new AskGodsFromListGUIClientState(client);</b>
+<b class="nc"><i>75</i>&nbsp;            case ASK_START_PLAYER -&gt; new AskStartPlayerGUIClientState(client);</b>
+<b class="nc"><i>76</i>&nbsp;            case CONNECT_TO_SERVER -&gt; new ConnectToServerGUIClientState(client);</b>
+<b class="nc"><i>77</i>&nbsp;            case DISCONNECT -&gt; new DisconnectGUIClientState(client);</b>
+<b class="nc"><i>78</i>&nbsp;            case JOIN_LOBBY -&gt; new JoinLobbyGUIClientState(client);</b>
+<b class="nc"><i>79</i>&nbsp;            case IN_GAME -&gt; new InGameGUIClientState(client);</b>
+<b class="nc"><i>80</i>&nbsp;            case LOSE_GAME -&gt; new LoseGameGUIClientState(client);</b>
+<b class="nc"><i>81</i>&nbsp;            case SET_NICKNAME -&gt; new SetNicknameGUIClientState(client);</b>
+<b class="nc"><i>82</i>&nbsp;            case SET_PLAYERS_COUNT -&gt; new SetPlayersCountGUIClientState(client);</b>
+<b class="nc"><i>83</i>&nbsp;            case WIN_GAME -&gt; new WinGameGUIClientState(client);</b>
+<b class="nc"><i>84</i>&nbsp;            case WAIT_PLAYERS -&gt; new WaitPlayersGUIClientState(client);</b>
+<b class="nc"><i>85</i>&nbsp;            case WELCOME_SCREEN -&gt; new WelcomeScreenGUIClientState(client);</b>
+<i>86</i>&nbsp;        };
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    @Override
+<i>90</i>&nbsp;    public AbstractClientTurnState getClientTurnState(ClientTurnState clientTurnState, Client client) {
+<i>91</i>&nbsp;        try {
+<b class="nc"><i>92</i>&nbsp;            return switch (clientTurnState) {</b>
+<b class="nc"><i>93</i>&nbsp;                case ASK_WORKER_POSITION -&gt; new AskWorkerPositionGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());</b>
+<b class="nc"><i>94</i>&nbsp;                case BUILD -&gt; new BuildGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());</b>
+<b class="nc"><i>95</i>&nbsp;                case MOVE -&gt; new MoveGUIClientTurnState(client, (InGameGUIClientState) client.getCurrentState());</b>
+<i>96</i>&nbsp;            };
+<i>97</i>&nbsp;        }
+<b class="nc"><i>98</i>&nbsp;        catch (ClassCastException e) {</b>
+<i>99</i>&nbsp;            // We can&#39;t have a ClientTurnState if we aren&#39;t within InGame ClientState
+<b class="nc"><i>100</i>&nbsp;            throw new IllegalStateException();</b>
+<i>101</i>&nbsp;        }
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    @Override
+<i>105</i>&nbsp;    public void notifyError(String message) {
+<b class="nc"><i>106</i>&nbsp;        LOGGER.log(Level.WARNING, message);</b>
+<b class="nc"><i>107</i>&nbsp;        currentScene.controller.handleError(message);</b>
+<b class="nc"><i>108</i>&nbsp;    }</b>
+<i>109</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

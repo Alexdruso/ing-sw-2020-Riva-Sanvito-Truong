@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ReducedTargetCells</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.networking.transmittables</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ReducedTargetCells (it.polimi.ingsw.utils.networking.transmittables)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReducedTargetCells</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    22,2%
+  </span>
+  <span class="absValue">
+    (4/ 18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ReducedTargetCells$MockitoMock$2140475969</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedTargetCells$MockitoMock$2140475969$auxiliary$1L1DHB6m</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedTargetCells$MockitoMock$2140475969$auxiliary$kBOFtYB3</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedTargetCells$MockitoMock$2140475969$auxiliary$shXfuehX</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedTargetCells$MockitoMock$2140475969$auxiliary$t2oSpMe0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    22,2%
+  </span>
+  <span class="absValue">
+    (4/ 18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.networking.transmittables;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.io.Serializable;
+<i>4</i>&nbsp;import java.util.Arrays;
+<i>5</i>&nbsp;import java.util.Objects;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * A reduced version of the TargetCells implementation made to be sent over the air
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;public class ReducedTargetCells implements Serializable {
+<i>11</i>&nbsp;    private final int boardSize;
+<i>12</i>&nbsp;    private final boolean[][] targets;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * Class constructor which creates a ReducedTargetCells instance from a boolean matrix
+<i>16</i>&nbsp;     *
+<i>17</i>&nbsp;     * @param targets the matrix
+<i>18</i>&nbsp;     */
+<b class="fc"><i>19</i>&nbsp;    public ReducedTargetCells(boolean[][] targets) {</b>
+<b class="fc"><i>20</i>&nbsp;        this.boardSize = targets.length;</b>
+<b class="fc"><i>21</i>&nbsp;        this.targets = targets.clone();</b>
+<b class="fc"><i>22</i>&nbsp;    }</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * This method checks if the ReducedTargetCells has any cell set to be targeted
+<i>26</i>&nbsp;     *
+<i>27</i>&nbsp;     * @return false if there are targeted cells, true otherwise
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    public boolean isEmpty() {
+<b class="nc"><i>30</i>&nbsp;        for (int i = 0; i &lt; boardSize; i++) {</b>
+<b class="nc"><i>31</i>&nbsp;            for (int j = 0; j &lt; boardSize; j++) {</b>
+<b class="nc"><i>32</i>&nbsp;                if (targets[i][j]) {</b>
+<b class="nc"><i>33</i>&nbsp;                    return false;</b>
+<i>34</i>&nbsp;                }
+<i>35</i>&nbsp;            }
+<i>36</i>&nbsp;        }
+<b class="nc"><i>37</i>&nbsp;        return true;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Retrieves the targeted status of the cell at a given position
+<i>42</i>&nbsp;     *
+<i>43</i>&nbsp;     * @param x int representing the x coordinate of the cell to be checked
+<i>44</i>&nbsp;     * @param y int representing the y coordinate of the cell to be checked
+<i>45</i>&nbsp;     * @return true if the cell is targeted, false otherwise
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    public boolean getPosition(int x, int y) {
+<b class="nc"><i>48</i>&nbsp;        return targets[x][y];</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Overridden equals method
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     * @param o the object to compare
+<i>55</i>&nbsp;     * @return true if the objects are equal
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    @Override
+<i>58</i>&nbsp;    public boolean equals(Object o) {
+<b class="nc"><i>59</i>&nbsp;        if (this == o) return true;</b>
+<b class="nc"><i>60</i>&nbsp;        if (o == null || getClass() != o.getClass()) return false;</b>
+<b class="nc"><i>61</i>&nbsp;        ReducedTargetCells that = (ReducedTargetCells) o;</b>
+<b class="nc"><i>62</i>&nbsp;        return boardSize == that.boardSize &amp;&amp;</b>
+<b class="nc"><i>63</i>&nbsp;                Arrays.equals(targets, that.targets);</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Overridden hashcode method
+<i>68</i>&nbsp;     *
+<i>69</i>&nbsp;     * @return the object hashcode
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    @Override
+<i>72</i>&nbsp;    public int hashCode() {
+<b class="nc"><i>73</i>&nbsp;        int result = Objects.hash(boardSize);</b>
+<b class="nc"><i>74</i>&nbsp;        result = 31 * result + Arrays.hashCode(targets);</b>
+<b class="nc"><i>75</i>&nbsp;        return result;</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

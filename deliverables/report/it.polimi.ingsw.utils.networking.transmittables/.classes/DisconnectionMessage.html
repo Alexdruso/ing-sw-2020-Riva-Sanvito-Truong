@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DisconnectionMessage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils.networking.transmittables</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DisconnectionMessage (it.polimi.ingsw.utils.networking.transmittables)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DisconnectionMessage</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">DisconnectionMessage$MockitoMock$441091132</td>
+  </tr>
+  <tr>
+    <td class="name">DisconnectionMessage$MockitoMock$441091132$auxiliary$9LaOHZcL</td>
+  </tr>
+  <tr>
+    <td class="name">DisconnectionMessage$MockitoMock$441091132$auxiliary$cYckaLIZ</td>
+  </tr>
+  <tr>
+    <td class="name">DisconnectionMessage$MockitoMock$441091132$auxiliary$eTLS219Z</td>
+  </tr>
+  <tr>
+    <td class="name">DisconnectionMessage$MockitoMock$441091132$auxiliary$j5sFPvSC</td>
+  </tr>
+  <tr>
+    <td class="name">DisconnectionMessage$MockitoMock$441091132$auxiliary$vZ2J1gPm</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils.networking.transmittables;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.client.Client;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.clientstates.ClientState;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.ServerConnectionSetupHandler;
+<i>6</i>&nbsp;import it.polimi.ingsw.server.controller.Controller;
+<i>7</i>&nbsp;import it.polimi.ingsw.server.controller.User;
+<i>8</i>&nbsp;import it.polimi.ingsw.server.view.View;
+<i>9</i>&nbsp;import it.polimi.ingsw.utils.networking.ClientHandleable;
+<i>10</i>&nbsp;import it.polimi.ingsw.utils.networking.ControllerHandleable;
+<i>11</i>&nbsp;import it.polimi.ingsw.utils.networking.ServerHandleable;
+<i>12</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientMessage;
+<i>13</i>&nbsp;import it.polimi.ingsw.utils.networking.transmittables.servermessages.ServerMessage;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * This message handles both client and server disconnections
+<i>17</i>&nbsp; */
+<b class="fc"><i>18</i>&nbsp;public class DisconnectionMessage implements ClientMessage, ClientHandleable,</b>
+<i>19</i>&nbsp;        ServerMessage, ControllerHandleable, ServerHandleable {
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Handles the interaction with the controller.
+<i>22</i>&nbsp;     *
+<i>23</i>&nbsp;     * @param handler the controller
+<i>24</i>&nbsp;     * @param view    the view
+<i>25</i>&nbsp;     * @param user    the user
+<i>26</i>&nbsp;     * @return true if there were no errors.
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public boolean handleTransmittable(Controller handler, View view, User user) {
+<b class="fc"><i>30</i>&nbsp;        handler.dispatchDrawAction(view, user);</b>
+<b class="fc"><i>31</i>&nbsp;        return true;</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Handles the interaction with the server.
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @param handler the handler
+<i>38</i>&nbsp;     * @return true if there were no errors.
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public boolean handleTransmittable(ServerConnectionSetupHandler handler) {
+<b class="fc"><i>42</i>&nbsp;        return handler.getLobbyBuilder().handleDisconnection(handler.getConnection());</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Handles the interaction with the client.
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @param client the client
+<i>49</i>&nbsp;     * @return true if there were no errors
+<i>50</i>&nbsp;     */
+<i>51</i>&nbsp;    @Override
+<i>52</i>&nbsp;    public boolean handleTransmittable(Client client) {
+<b class="fc"><i>53</i>&nbsp;        client.moveToState(ClientState.DISCONNECT);</b>
+<b class="fc"><i>54</i>&nbsp;        return true;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

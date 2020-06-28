@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Artemis</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.server.model.gods</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Artemis (it.polimi.ingsw.server.model.gods)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Artemis</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Artemis$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/ 14)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/ 18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.server.model.gods;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.server.model.Turn;
+<i>4</i>&nbsp;import it.polimi.ingsw.server.model.actions.MoveAction;
+<i>5</i>&nbsp;import it.polimi.ingsw.server.model.turnevents.TurnEvents;
+<i>6</i>&nbsp;import it.polimi.ingsw.server.model.turnstates.TurnState;
+<i>7</i>&nbsp;import it.polimi.ingsw.server.model.workers.Worker;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * The god card Artemis.
+<i>13</i>&nbsp; */
+<b class="fc"><i>14</i>&nbsp;class Artemis extends AbstractGod {</b>
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * The TurnEvents for the owner of the Artemis god card.
+<i>17</i>&nbsp;     */
+<b class="fc"><i>18</i>&nbsp;    private static final TurnEvents ownerTurnEvents = new TurnEvents(){</b>
+<i>19</i>&nbsp;        @Override
+<i>20</i>&nbsp;        protected void onBeforeMovement(Turn turn) {
+<b class="fc"><i>21</i>&nbsp;            List&lt;MoveAction&gt; moveActions = turn.getMoves();</b>
+<b class="fc"><i>22</i>&nbsp;            if (moveActions.size() == 1) {</b>
+<b class="fc"><i>23</i>&nbsp;                turn.setSkippable(true);</b>
+<b class="fc"><i>24</i>&nbsp;                MoveAction lastMove = moveActions.get(0);</b>
+<b class="fc"><i>25</i>&nbsp;                Worker lastMoveWorker = lastMove.getWorker();</b>
+<b class="fc"><i>26</i>&nbsp;                turn.clearAllowedWorkers();</b>
+<b class="fc"><i>27</i>&nbsp;                turn.addAllowedWorker(lastMoveWorker);</b>
+<b class="fc"><i>28</i>&nbsp;                turn.getWorkerWalkableCells(lastMoveWorker).setPosition(lastMove.getSourceCell(), false);</b>
+<i>29</i>&nbsp;            }
+<b class="fc"><i>30</i>&nbsp;        }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;        @Override
+<i>33</i>&nbsp;        protected void onAfterMovement(Turn turn) {
+<b class="fc"><i>34</i>&nbsp;            List&lt;MoveAction&gt; moveActions = turn.getMoves();</b>
+<b class="fc"><i>35</i>&nbsp;            if (moveActions.size() == 1) {</b>
+<b class="fc"><i>36</i>&nbsp;                turn.setNextState(TurnState.MOVE.getTurnState());</b>
+<i>37</i>&nbsp;            }
+<b class="fc"><i>38</i>&nbsp;        }</b>
+<i>39</i>&nbsp;    };
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * Gets the god&#39;s name.
+<i>43</i>&nbsp;     *
+<i>44</i>&nbsp;     * @return the name
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    @Override
+<i>47</i>&nbsp;    public String getName() {
+<b class="fc"><i>48</i>&nbsp;        return &quot;Artemis&quot;;</b>
+<i>49</i>&nbsp;    }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Gets the TurnEvents for the player owning Artemis.
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     * @return the TurnEvents for the player owning Artemis
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    @Override
+<i>57</i>&nbsp;    public TurnEvents getOwnerTurnEvents() {
+<b class="fc"><i>58</i>&nbsp;        return ownerTurnEvents;</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LoggerManager</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LoggerManager (it.polimi.ingsw.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoggerManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.logging.Handler;
+<i>4</i>&nbsp;import java.util.logging.Level;
+<i>5</i>&nbsp;import java.util.logging.LogManager;
+<i>6</i>&nbsp;import java.util.logging.Logger;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * The Logger manager.
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class LoggerManager {
+<b class="nc"><i>12</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(LoggerManager.class.getName());</b>
+<i>13</i>&nbsp;    /**
+<i>14</i>&nbsp;     * The constant containing the name of the environment variable that specifies the desired log level.
+<i>15</i>&nbsp;     *
+<i>16</i>&nbsp;     * @see java.util.logging.Level
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    public static final String LOG_LEVEL_ENV_VAR_NAME = &quot;LOG_LEVEL&quot;;
+<i>19</i>&nbsp;
+<b class="nc"><i>20</i>&nbsp;    private LoggerManager() {</b>
+<b class="nc"><i>21</i>&nbsp;        throw new IllegalStateException(&quot;Do not try to instantiate this utility class&quot;);</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Sets the log level specified in the environment variable.
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    public static void setLogLevel() {
+<i>28</i>&nbsp;        try {
+<b class="nc"><i>29</i>&nbsp;            setLogLevel(Level.parse(System.getenv(LOG_LEVEL_ENV_VAR_NAME).toUpperCase()));</b>
+<i>30</i>&nbsp;        }
+<b class="nc"><i>31</i>&nbsp;        catch (NullPointerException e) {</b>
+<b class="nc"><i>32</i>&nbsp;            LOGGER.log(Level.FINEST, &quot;No logging level specified&quot;);</b>
+<i>33</i>&nbsp;        }
+<b class="nc"><i>34</i>&nbsp;        catch (IllegalArgumentException e) {</b>
+<b class="nc"><i>35</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Invalid logging level&quot;, e);</b>
+<b class="nc"><i>36</i>&nbsp;        }</b>
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * Sets the log level.
+<i>41</i>&nbsp;     *
+<i>42</i>&nbsp;     * @param level the log level
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    public static void setLogLevel(Level level) {
+<b class="nc"><i>45</i>&nbsp;        Logger rootLogger = LogManager.getLogManager().getLogger(&quot;&quot;);</b>
+<b class="nc"><i>46</i>&nbsp;        rootLogger.setLevel(level);</b>
+<b class="nc"><i>47</i>&nbsp;        for (Handler h : rootLogger.getHandlers()) {</b>
+<b class="nc"><i>48</i>&nbsp;            h.setLevel(level);</b>
+<i>49</i>&nbsp;        }
+<b class="nc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-06-28 21:31</div>
+</div>
+</body>
+</html>
