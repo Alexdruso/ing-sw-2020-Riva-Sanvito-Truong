@@ -152,6 +152,8 @@ public class InGameController extends AbstractController{
             });
         }
 
+        lateralLabelsContainer.setPickOnBounds(false);
+
         lateralGodCard = new LateralGodCard(false);
         rootPane.getChildren().add(lateralGodCard);
     }
