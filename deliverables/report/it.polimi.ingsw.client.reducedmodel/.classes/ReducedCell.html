@@ -23,12 +23,9 @@
 <h1>Coverage Summary for Class: ReducedCell (it.polimi.ingsw.client.reducedmodel)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,30 +39,82 @@
   <td class="name">ReducedCell</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (12/ 12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 12)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/ 24)
+    (24/ 24)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$0jdJEI7N</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$1F6TW6WN</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$AU73LD84</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$BCQepbZl</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$hwB88II8</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$jhvNLkQh</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$kmr7Ryks</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$lfsYTHtQ</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$os6TPvf2</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$R5vv26Gm</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$SC7iouYD</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$truOZOZk</td>
+  </tr>
+  <tr>
+    <td class="name">ReducedCell$MockitoMock$827147853$auxiliary$yOKGRoGT</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (24/ 24)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -95,14 +144,14 @@
 <i>21</i>&nbsp;     * @param x the x coordinate
 <i>22</i>&nbsp;     * @param y the y coordinate
 <i>23</i>&nbsp;     */
-<b class="nc"><i>24</i>&nbsp;    public ReducedCell(int x, int y) {</b>
-<b class="nc"><i>25</i>&nbsp;        this.x = x;</b>
-<b class="nc"><i>26</i>&nbsp;        this.y = y;</b>
-<b class="nc"><i>27</i>&nbsp;        towerHeight = 0;</b>
-<b class="nc"><i>28</i>&nbsp;        hasDome = false;</b>
-<b class="nc"><i>29</i>&nbsp;        isHighlighted = false;</b>
-<b class="nc"><i>30</i>&nbsp;        worker = Optional.empty();</b>
-<b class="nc"><i>31</i>&nbsp;    }</b>
+<b class="fc"><i>24</i>&nbsp;    public ReducedCell(int x, int y) {</b>
+<b class="fc"><i>25</i>&nbsp;        this.x = x;</b>
+<b class="fc"><i>26</i>&nbsp;        this.y = y;</b>
+<b class="fc"><i>27</i>&nbsp;        towerHeight = 0;</b>
+<b class="fc"><i>28</i>&nbsp;        hasDome = false;</b>
+<b class="fc"><i>29</i>&nbsp;        isHighlighted = false;</b>
+<b class="fc"><i>30</i>&nbsp;        worker = Optional.empty();</b>
+<b class="fc"><i>31</i>&nbsp;    }</b>
 <i>32</i>&nbsp;
 <i>33</i>&nbsp;    /**
 <i>34</i>&nbsp;     * Gets the x coordinate.
@@ -110,7 +159,7 @@
 <i>36</i>&nbsp;     * @return the x coordinate
 <i>37</i>&nbsp;     */
 <i>38</i>&nbsp;    public int getX() {
-<b class="nc"><i>39</i>&nbsp;        return x;</b>
+<b class="fc"><i>39</i>&nbsp;        return x;</b>
 <i>40</i>&nbsp;    }
 <i>41</i>&nbsp;
 <i>42</i>&nbsp;    /**
@@ -119,7 +168,7 @@
 <i>45</i>&nbsp;     * @return the y coordinate
 <i>46</i>&nbsp;     */
 <i>47</i>&nbsp;    public int getY() {
-<b class="nc"><i>48</i>&nbsp;        return y;</b>
+<b class="fc"><i>48</i>&nbsp;        return y;</b>
 <i>49</i>&nbsp;    }
 <i>50</i>&nbsp;
 <i>51</i>&nbsp;    /**
@@ -128,7 +177,7 @@
 <i>54</i>&nbsp;     * @return the tower height
 <i>55</i>&nbsp;     */
 <i>56</i>&nbsp;    public int getTowerHeight() {
-<b class="nc"><i>57</i>&nbsp;        return towerHeight;</b>
+<b class="fc"><i>57</i>&nbsp;        return towerHeight;</b>
 <i>58</i>&nbsp;    }
 <i>59</i>&nbsp;
 <i>60</i>&nbsp;    /**
@@ -137,7 +186,7 @@
 <i>63</i>&nbsp;     * @return whether the cell has a dome built in it
 <i>64</i>&nbsp;     */
 <i>65</i>&nbsp;    public boolean hasDome() {
-<b class="nc"><i>66</i>&nbsp;        return hasDome;</b>
+<b class="fc"><i>66</i>&nbsp;        return hasDome;</b>
 <i>67</i>&nbsp;    }
 <i>68</i>&nbsp;
 <i>69</i>&nbsp;    /**
@@ -146,7 +195,7 @@
 <i>72</i>&nbsp;     * @return whether the cell is in an highlighted state
 <i>73</i>&nbsp;     */
 <i>74</i>&nbsp;    public boolean isHighlighted() {
-<b class="nc"><i>75</i>&nbsp;        return isHighlighted;</b>
+<b class="fc"><i>75</i>&nbsp;        return isHighlighted;</b>
 <i>76</i>&nbsp;    }
 <i>77</i>&nbsp;
 <i>78</i>&nbsp;    /**
@@ -155,7 +204,7 @@
 <i>81</i>&nbsp;     * @return the worker; if no worker is present, Optional.empty() is returned
 <i>82</i>&nbsp;     */
 <i>83</i>&nbsp;    public Optional&lt;ReducedWorker&gt; getWorker() {
-<b class="nc"><i>84</i>&nbsp;        return worker;</b>
+<b class="fc"><i>84</i>&nbsp;        return worker;</b>
 <i>85</i>&nbsp;    }
 <i>86</i>&nbsp;
 <i>87</i>&nbsp;    /**
@@ -164,8 +213,8 @@
 <i>90</i>&nbsp;     * @param towerHeight the tower height
 <i>91</i>&nbsp;     */
 <i>92</i>&nbsp;    public void setTowerHeight(int towerHeight) {
-<b class="nc"><i>93</i>&nbsp;        this.towerHeight = towerHeight;</b>
-<b class="nc"><i>94</i>&nbsp;    }</b>
+<b class="fc"><i>93</i>&nbsp;        this.towerHeight = towerHeight;</b>
+<b class="fc"><i>94</i>&nbsp;    }</b>
 <i>95</i>&nbsp;
 <i>96</i>&nbsp;    /**
 <i>97</i>&nbsp;     * Sets if the cell has a dome built on it.
@@ -173,8 +222,8 @@
 <i>99</i>&nbsp;     * @param hasDome whether the cell has a dome built on it
 <i>100</i>&nbsp;     */
 <i>101</i>&nbsp;    public void setHasDome(boolean hasDome) {
-<b class="nc"><i>102</i>&nbsp;        this.hasDome = hasDome;</b>
-<b class="nc"><i>103</i>&nbsp;    }</b>
+<b class="fc"><i>102</i>&nbsp;        this.hasDome = hasDome;</b>
+<b class="fc"><i>103</i>&nbsp;    }</b>
 <i>104</i>&nbsp;
 <i>105</i>&nbsp;    /**
 <i>106</i>&nbsp;     * Sets the highlighted state of the cell.
@@ -182,8 +231,8 @@
 <i>108</i>&nbsp;     * @param highlighted whether the cell is to be marked as highlighted
 <i>109</i>&nbsp;     */
 <i>110</i>&nbsp;    public void setHighlighted(boolean highlighted) {
-<b class="nc"><i>111</i>&nbsp;        isHighlighted = highlighted;</b>
-<b class="nc"><i>112</i>&nbsp;    }</b>
+<b class="fc"><i>111</i>&nbsp;        isHighlighted = highlighted;</b>
+<b class="fc"><i>112</i>&nbsp;    }</b>
 <i>113</i>&nbsp;
 <i>114</i>&nbsp;    /**
 <i>115</i>&nbsp;     * Puts a worker on the cell.
@@ -191,22 +240,22 @@
 <i>117</i>&nbsp;     * @param worker the worker
 <i>118</i>&nbsp;     */
 <i>119</i>&nbsp;    public void setWorker(ReducedWorker worker) {
-<b class="nc"><i>120</i>&nbsp;        this.worker = Optional.of(worker);</b>
-<b class="nc"><i>121</i>&nbsp;    }</b>
+<b class="fc"><i>120</i>&nbsp;        this.worker = Optional.of(worker);</b>
+<b class="fc"><i>121</i>&nbsp;    }</b>
 <i>122</i>&nbsp;
 <i>123</i>&nbsp;    /**
 <i>124</i>&nbsp;     * Removes the worker from the cell, if any is present.
 <i>125</i>&nbsp;     */
 <i>126</i>&nbsp;    public void setNoWorker() {
-<b class="nc"><i>127</i>&nbsp;        worker = Optional.empty();</b>
-<b class="nc"><i>128</i>&nbsp;    }</b>
+<b class="fc"><i>127</i>&nbsp;        worker = Optional.empty();</b>
+<b class="fc"><i>128</i>&nbsp;    }</b>
 <i>129</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 21:31</div>
+    <div style="float:right;">generated on 2020-06-28 23:52</div>
 </div>
 </body>
 </html>
