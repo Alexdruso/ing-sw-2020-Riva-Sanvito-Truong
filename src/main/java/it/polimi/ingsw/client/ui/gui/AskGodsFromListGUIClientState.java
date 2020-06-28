@@ -36,7 +36,8 @@ public class AskGodsFromListGUIClientState extends AbstractAskGodsFromListClient
     /**
      * This method is called to add a God to the selection list and, when enough Gods have been chose, send the notification
      * to the Client.
-     * @param god the Reducedgod instance of the chosen God
+     *
+     * @param god the ReducedGod instance of the chosen God
      */
     public void addChosenGod(ReducedGod god){
         chosenGods.add(god);

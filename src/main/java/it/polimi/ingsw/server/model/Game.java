@@ -569,7 +569,7 @@ public class Game extends LambdaObservable<Transmittable> {
     }
 
     /**
-     * Checks if the choice is gine
+     * Checks if the choice is fine
      *
      * @param targetCellX the x coordinate of the cell to which the worker shall be positioned
      * @param targetCellY the y coordinate of the cell to which the worker shall be positioned
@@ -710,7 +710,7 @@ public class Game extends LambdaObservable<Transmittable> {
     }
 
     /**
-     * notifies an askBuildMessage retrieving informations from the turn
+     * notifies an askBuildMessage retrieving information from the turn
      *
      * @param turn the turn asking to notify the ask build
      */

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class ConfigParser {
     private static final Logger LOGGER = Logger.getLogger(ConfigParser.class.getName());
     //NOTE: For now, configs should only be loaded at startup. No hot-reload, as this leads
-    //to possible desync issues
+    //to possible desynchronization issues
 
     private static ConfigParser instance;
     private final Properties configs;

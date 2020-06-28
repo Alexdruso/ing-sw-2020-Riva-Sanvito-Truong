@@ -118,8 +118,9 @@ public class SceneLoader {
     }
 
     /**
-     * This method attempts to load an .fxml file and, if successful saves the corrsponding
+     * This method attempts to load an .fxml file and, if successful saves the corresponding
      * SavedScene for later use
+     *
      * @param gui the GUI instance
      * @return the SavedScene if the loading was successful, null otherwise
      */

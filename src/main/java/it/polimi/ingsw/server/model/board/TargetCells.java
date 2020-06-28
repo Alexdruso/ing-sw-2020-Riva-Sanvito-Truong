@@ -126,8 +126,8 @@ public class TargetCells {
     /**
      * Retrieves the targeted status of the cell at a given position
      *
-     * @param x int representing the x coord of the cell to be checked
-     * @param y int representing the y coord of the cell to be checked
+     * @param x int representing the x coordinate of the cell to be checked
+     * @param y int representing the y coordinate of the cell to be checked
      * @return true if the cell is targeted, false otherwise
      */
     public boolean getPosition(int x, int y){
@@ -138,7 +138,7 @@ public class TargetCells {
      * Retrieves the targeted status of the given Cell
      *
      * @param cell the Cell object to be checked
-     * @return true if the cell is targetd, false otherwise
+     * @return true if the cell is targeted, false otherwise
      */
     public boolean getPosition(Cell cell){
         return targets[cell.getX()][cell.getY()];
@@ -175,7 +175,7 @@ public class TargetCells {
     /**
      * Sets the edge cells' targeted status
      *
-     * @param isTargeted if true the cells are set to targetd, otherwise to un-targeted
+     * @param isTargeted if true the cells are set to targeted, otherwise to un-targeted
      * @return resulting TargetCells
      */
     public TargetCells setEdges(boolean isTargeted){
@@ -209,7 +209,7 @@ public class TargetCells {
     }
 
     /**
-     * This method inverts each cell's targeted status. i.e. a targeted cell becomes untargeted and viceversa
+     * This method inverts each cell's targeted status. i.e. a targeted cell becomes not targeted and vice versa
      *
      * @return the resulting TargetCells
      */

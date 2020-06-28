@@ -30,6 +30,12 @@ public class ReducedGod implements Serializable {
         name = that.name;
     }
 
+    /**
+     * Equals boolean.
+     *
+     * @param o the o
+     * @return the boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,6 +44,11 @@ public class ReducedGod implements Serializable {
         return Objects.equals(name, that.name);
     }
 
+    /**
+     * Hash code int.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name);
@@ -45,7 +56,8 @@ public class ReducedGod implements Serializable {
 
     /**
      * This method returns the name of the ReducedGod
-     * @return
+     *
+     * @return the god's name
      */
     public String getName() {
         return name;

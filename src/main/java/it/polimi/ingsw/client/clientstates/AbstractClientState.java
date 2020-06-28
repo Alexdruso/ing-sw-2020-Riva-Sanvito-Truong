@@ -102,6 +102,7 @@ public abstract class AbstractClientState {
      * Handles a SERVER_ERROR StatusMessage sent by the server.
      */
     public void handleServerError() {
+        //noinspection SpellCheckingInspection,SpellCheckingInspection
         client.getUI().notifyError("Si e' verificato un errore del server.");
     }
 

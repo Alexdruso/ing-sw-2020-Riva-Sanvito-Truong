@@ -16,7 +16,7 @@ public class Board {
     private final Cell[][] tiles;
 
     /**
-     * This is the constant lenght of a side of the board
+     * This is the constant length of a side of the board
      */
     private static final int BOARD_SIZE = 5;
 

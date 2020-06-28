@@ -40,8 +40,8 @@ public class ReducedTargetCells implements Serializable {
     /**
      * Retrieves the targeted status of the cell at a given position
      *
-     * @param x int representing the x coord of the cell to be checked
-     * @param y int representing the y coord of the cell to be checked
+     * @param x int representing the x coordinate of the cell to be checked
+     * @param y int representing the y coordinate of the cell to be checked
      * @return true if the cell is targeted, false otherwise
      */
     public boolean getPosition(int x, int y) {

@@ -139,7 +139,7 @@ public abstract class BidirectionalAbstractMap<K,V> implements BidirectionalMap<
      * The map will not contain a mapping for the specified key once the call returns.
      *
      * @param value the value to be removed
-     * @return the key associated to the temoved value
+     * @return the key associated to the removed value
      */
     @Override
     public K removeByValue(V value) {
