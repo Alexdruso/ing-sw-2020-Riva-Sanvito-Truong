@@ -1,10 +1,9 @@
 package it.polimi.ingsw.client.reducedmodel;
 
-import it.polimi.ingsw.server.model.Player;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedWorkerID;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 class ReducedWorkerTest {

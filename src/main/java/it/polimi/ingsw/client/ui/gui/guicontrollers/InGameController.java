@@ -5,7 +5,6 @@ import it.polimi.ingsw.client.reducedmodel.ReducedCell;
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.gui.BuildGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
-import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.LateralGodCard;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.PlayerLateralLabel;
@@ -23,7 +22,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**

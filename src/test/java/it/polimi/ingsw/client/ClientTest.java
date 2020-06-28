@@ -7,7 +7,6 @@ import it.polimi.ingsw.client.clientstates.ClientTurnState;
 import it.polimi.ingsw.client.ui.UI;
 import it.polimi.ingsw.utils.networking.ClientHandleable;
 import it.polimi.ingsw.utils.networking.Connection;
-import it.polimi.ingsw.utils.networking.ServerHandleable;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import it.polimi.ingsw.utils.networking.transmittables.StatusMessages;

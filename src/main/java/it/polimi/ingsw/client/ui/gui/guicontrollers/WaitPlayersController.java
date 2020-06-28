@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
-import it.polimi.ingsw.client.ui.gui.WaitPlayersGUIClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
 import it.polimi.ingsw.utils.i18n.I18n;
@@ -31,7 +30,7 @@ public class WaitPlayersController extends AbstractController{
 
     @FXML
     void handleMenuButton(ActionEvent event){
-        new MenuConfirmation().showMenuConfirmation(client);
+        MenuConfirmation.showMenuConfirmation(client);
     }
 
     @Override

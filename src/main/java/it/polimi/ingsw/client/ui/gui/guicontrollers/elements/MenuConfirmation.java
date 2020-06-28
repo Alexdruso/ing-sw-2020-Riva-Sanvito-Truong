@@ -8,12 +8,12 @@ import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 import javafx.fxml.FXML;
 
 public class MenuConfirmation extends AbstractController {
-    private static Client client;
+    private static Client menuConfirmationClient;
 
     @FXML
     void menu(){
         SceneLoader.applyBlurOut(1000);
-        client.moveToState(ClientState.WELCOME_SCREEN);
+        menuConfirmationClient.moveToState(ClientState.WELCOME_SCREEN);
     }
 
     @FXML
@@ -22,8 +22,8 @@ public class MenuConfirmation extends AbstractController {
     }
 
     public static void showMenuConfirmation(Client client){
-        if(MenuConfirmation.client == null){
-            MenuConfirmation.client = client;
+        if(menuConfirmationClient == null){
+            menuConfirmationClient = client;
         }
         SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MenuConfirmation.fxml", client);
         sceneLoaderBuilder
