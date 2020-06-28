@@ -37,22 +37,68 @@ public class Client implements LambdaObserver {
      */
     public static final int EXIT_TIMEOUT_MILLIS = 500;
 
+    /**
+     * Whether the user has requested the client to exit; the client should try to close any open connection
+     * and exit gracefully whenever this attribute is set tu true.
+     */
     private final AtomicBoolean exitRequested = new AtomicBoolean(false);
+    /**
+     * Whether the client performed all the operations required to accomplish a clean exit (e.g., graceful disconnection
+     * from the server, ...)
+     */
     private final AtomicBoolean readyToExit = new AtomicBoolean(false);
 
+    /**
+     * The connection to the server, if any has been established.
+     */
     private Connection connection;
+    /**
+     * The nickname the user registered for themselves.
+     */
     private String nickname;
+    /**
+     * The UI to use to interact with the user.
+     */
     private final UI ui;
+    /**
+     * A queue of Runnables that perform the renders on the UI. They are picked up by the main thread of the client
+     * and dispatched to the appropriate Client State, until the logic of the application or the user request the client
+     * to quit.
+     */
     private final BlockingQueue<Runnable> renderRequestsQueue = new LinkedBlockingQueue<>();
 
+    /**
+     * The current game.
+     */
     private ReducedGame game;
+    /**
+     * A utility object to perform synchronization on "game".
+     */
     private final Object gameLock = new Object();
+    /**
+     * A list of gods that are available for the user to choose.
+     */
     private List<ReducedGod> godsAvailableForChoice;
+    /**
+     * A utility object to perform synchronization on "godsAvailableForChoice".
+     */
     private final Object godsLock = new Object();
 
+    /**
+     * The current Client State
+     */
     private AbstractClientState currentState;
+    /**
+     * A utility object to perform synchronization on "currentState".
+     */
     private final Object currentStateLock = new Object();
+    /**
+     * The next state that will be loaded as soon as changeState() is called.
+     */
     private ClientState nextState;
+    /**
+     * The user who has control on the current turn.
+     */
     private ReducedUser currentActiveUser;
 
     /**
@@ -61,10 +107,8 @@ public class Client implements LambdaObserver {
      * @param ui the user interface this Client will use
      */
     public Client(UI ui) {
-        ConfigParser configParser = ConfigParser.getInstance();
         this.ui = ui;
         nextState = ClientState.WELCOME_SCREEN;
-        LOGGER.log(Level.INFO, () -> String.format("Starting %s client v. %s...", configParser.getProperty("projectName"), configParser.getProperty("version")));
     }
 
     /**
@@ -72,6 +116,8 @@ public class Client implements LambdaObserver {
      * The user interface renders itself in this function, in the thread that originally called Client::run.
      */
     public void run() {
+        ConfigParser configParser = ConfigParser.getInstance();
+        LOGGER.log(Level.INFO, () -> String.format("Starting %s client v. %s...", configParser.getProperty("projectName"), configParser.getProperty("version")));
         ui.init(this::onExit);
         changeState();
 
@@ -273,7 +319,6 @@ public class Client implements LambdaObserver {
                 case OK -> currentState.handleOk();
                 case TEAPOT -> currentState.handleTeapot();
                 case SERVER_ERROR -> currentState.handleServerError();
-                default -> throw new IllegalStateException();
             }
         }
         else if (message instanceof ClientHandleable) {
