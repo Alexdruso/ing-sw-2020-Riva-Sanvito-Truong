@@ -58,7 +58,7 @@ public class PlayerLateralLabel extends AnchorPane{
 
         this.playerNameProperty.set(playerNameProperty);
         this.playerNumberProperty.set(playerNumberProperty);
-        this.godNameProperty.set(godNameProperty);
+        this.godNameProperty.set(I18n.string(I18nKey.valueOf(godNameProperty.toUpperCase()+"_NAME")));
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerLateralLabel.fxml"), I18n.getResourceBundle());
         fxmlLoader.setRoot(this);
