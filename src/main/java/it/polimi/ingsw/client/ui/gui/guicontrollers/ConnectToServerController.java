@@ -52,6 +52,10 @@ public class ConnectToServerController extends AbstractController{
     @Override
     public void onSceneShow(){
         firstShow.setValue(true);
+    }
+
+    @Override
+    public void tearDown(){
         errorLabel.setOpacity(0);
     }
 
@@ -69,6 +73,6 @@ public class ConnectToServerController extends AbstractController{
     @Override
     public void handleError(String message){
         errorLabel.setOpacity(1);
-        errorLabel.setText(message);
+        errorLabel.setText(I18n.string(I18nKey.ERROR_CANNOT_CONNECT));
     }
 }
