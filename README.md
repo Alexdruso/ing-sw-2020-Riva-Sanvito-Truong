@@ -25,7 +25,7 @@
 
 Extensive testing was performed on all parts of the software, both by writing unit tests and with manual QA.
 The unit tests cover 95% of the lines of the server components as a whole. The few non-covered lines mainly deal with runtime exceptions, such as the interruption of a thread caused by an exit request.
-The client has less unit tests since most of it deals with UI-specific functions that would have need to be mocked, thus resulting in testing the mocks more than the client itself.
+The client has less unit tests since most of it deals with UI-specific functions that would have need to be mocked, thus resulting in testing the mocks more than the client itself. In any case, the classes dealing with the model representation are covered by unit tests.
 
 The unit tests run automatically at each commit thanks to [a Continuous Integration pipeline](./.circleci/config.yml).
 
