@@ -29,15 +29,15 @@
           <RowConstraints maxHeight="130.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="waitPromptLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Placeholder Text" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="waitPromptLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="880.0" styleClass="h1" text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaplaceholder" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
                   <Label maxHeight="1.7976931348623157E308" styleClass="h3" text="%wait_player_choose_god_prompt" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="60.0" />
                      </VBox.margin>
                   </Label>
-                  <AnchorPane prefHeight="316.0" prefWidth="930.0" VBox.vgrow="NEVER">
+                  <AnchorPane prefHeight="316.0" prefWidth="930.0" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fx:id="loadingTower" fitHeight="500.0" fitWidth="140.0" layoutX="395.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.bottomAnchor="2.0">
                            <image>

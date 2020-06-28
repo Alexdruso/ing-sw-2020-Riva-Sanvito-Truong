@@ -7,6 +7,7 @@ import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +43,7 @@ public class AskGodsFromListPassiveController extends AbstractController{
                         client.getCurrentActiveUser().getNickname()
                 )
         );
+        waitPromptLabel.setAlignment(Pos.CENTER);
 
         animationHelper.animateLoadingScreen(imageArray, loadingTower);
     }
