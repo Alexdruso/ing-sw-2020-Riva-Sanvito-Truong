@@ -2827,7 +2827,7 @@
 											"top": 702,
 											"width": 222,
 											"height": 13,
-											"text": "reducedModel"
+											"text": "reducedmodel"
 										},
 										{
 											"_type": "LabelView",
@@ -4657,7 +4657,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFyvVw4mWhlfiQ="
 							},
-							"name": "reducedModel"
+							"name": "reducedmodel"
 						}
 					]
 				},
