@@ -74,6 +74,9 @@ public class SceneLoader {
         SavedScene scene = null;
         GUI gui = (GUI)client.getUI();
         if(gui.getCurrentScene() == null || forceSceneChange || !fxmlFile.equals(gui.getCurrentScene().fxmlFile)){
+            if(gui.getCurrentScene() != null){
+                gui.getCurrentScene().controller.tearDown();
+            }
             if(attemptLoadFromSaved){
                 scene = loadFromSaved(fxmlFile, (GUI)client.getUI());
             }
@@ -85,7 +88,9 @@ public class SceneLoader {
             scene.controller.setupController();
             scene.controller.setState(state);
             applySceneFade(scene);
-            gui.setCurrentScene(scene);
+            if(replaceOldScene){
+                gui.setCurrentScene(scene);
+            }
         } else {
             scene = ((GUI) client.getUI()).getCurrentScene();
             scene.controller.setClient(client);

@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 import it.polimi.ingsw.client.ui.gui.AskGodsFromListGUIClientState;
 import it.polimi.ingsw.client.ui.gui.JavaFXGUI;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.LateralGodCard;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.client.ui.gui.utils.GodAsset;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
@@ -52,10 +53,9 @@ public class AskGodsFromListController extends AbstractController {
     private Map<ReducedGod, Pane> godIcons = new HashMap<>();
     private List<ReducedGod> gods;
 
-
     @FXML
     void handleMenuButton(ActionEvent event){
-        ((AskGodsFromListGUIClientState)state).returnToMenu();
+        MenuConfirmation.showMenuConfirmation(client);
     }
 
     @Override

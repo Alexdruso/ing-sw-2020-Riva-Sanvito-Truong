@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.AskGodFromListGUIClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
@@ -31,7 +32,7 @@ public class AskGodFromListPassiveController extends AbstractController{
 
     @FXML
     void handleMenuButton(ActionEvent event){
-        ((AskGodFromListGUIClientState)state).returnToMenu();
+        MenuConfirmation.showMenuConfirmation(client);
     }
 
     @Override

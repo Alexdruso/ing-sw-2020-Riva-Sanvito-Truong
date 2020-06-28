@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.JoinLobbyGUIClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
@@ -30,7 +31,7 @@ public class JoinLobbyController extends AbstractController {
 
     @FXML
     void handleMenuButton(ActionEvent event){
-        ((JoinLobbyGUIClientState)state).returnToMenu();
+        MenuConfirmation.showMenuConfirmation(client);
     }
 
     @Override

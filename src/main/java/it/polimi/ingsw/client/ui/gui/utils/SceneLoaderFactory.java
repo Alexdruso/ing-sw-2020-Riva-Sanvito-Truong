@@ -22,7 +22,7 @@ public class SceneLoaderFactory {
     boolean replaceOldScene = true;
     double fadeInDuration = 500;
     double fadeOutDuration = 500;
-    double blurInDuration = 500;
+    double blurInDuration = 250;
     CSSFile cssFile;
     AbstractClientState state;
 

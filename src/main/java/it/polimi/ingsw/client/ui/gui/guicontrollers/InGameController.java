@@ -7,6 +7,7 @@ import it.polimi.ingsw.client.ui.gui.BuildGUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.GUIClientTurnState;
 import it.polimi.ingsw.client.ui.gui.InGameGUIClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.LateralGodCard;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.PlayerLateralLabel;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.i18n.I18nKey;
@@ -312,7 +313,7 @@ public class InGameController extends AbstractController{
 
     @FXML
     void handleMenuButton(ActionEvent event){
-        ((InGameGUIClientState)state).returnToMenu();
+        MenuConfirmation.showMenuConfirmation(client);
     }
 
     @Override

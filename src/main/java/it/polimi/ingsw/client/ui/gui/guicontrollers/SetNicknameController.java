@@ -56,11 +56,16 @@ public class SetNicknameController extends AbstractController{
     public void onSceneShow(){
         firstShow.setValue(true);
         nicknameField.clear();
+    }
+
+    @Override
+    public void tearDown(){
         errorLabel.setOpacity(0);
     }
 
     @FXML
     void initialize(){
+        errorLabel.setOpacity(0);
         nicknameField.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if(Boolean.TRUE.equals(newValue) && firstShow.get()){
                 setNicknameButton.requestFocus();

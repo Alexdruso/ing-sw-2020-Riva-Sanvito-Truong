@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.reducedmodel.ReducedPlayer;
 import it.polimi.ingsw.client.ui.gui.AskStartPlayerGUIClientState;
+import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,7 +51,7 @@ public class AskStartPlayerController extends AbstractController{
 
     @FXML
     void handleMenuButton(ActionEvent event){
-        ((AskStartPlayerGUIClientState)state).returnToMenu();
+        MenuConfirmation.showMenuConfirmation(client);
     }
 
     @Override

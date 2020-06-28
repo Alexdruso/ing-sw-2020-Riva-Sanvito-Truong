@@ -43,4 +43,9 @@ public abstract class AbstractController {
      * both from FXML or, if the scene has already been loaded once, from the client cache
      */
     public void onSceneShow() { }
+
+    /**
+     * Method to be overridden if there is the need to do some operations when the scene is unloaded
+     */
+    public void tearDown() { }
 }
