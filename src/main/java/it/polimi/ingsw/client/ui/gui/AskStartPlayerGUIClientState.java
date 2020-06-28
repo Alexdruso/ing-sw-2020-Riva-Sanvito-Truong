@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractAskStartPlayerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskStartPlayerPassiveController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedUser;
 
 /**
@@ -51,15 +51,15 @@ public class AskStartPlayerGUIClientState extends AbstractAskStartPlayerClientSt
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory;
+        SceneLoaderBuilder sceneLoaderBuilder;
         if(client.isCurrentlyActive()){
-            sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayer.fxml", client);
+            sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/AskStartPlayer.fxml", client);
             wasPassive = false;
         } else {
-            sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskStartPlayerPassive.fxml", client);
+            sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/AskStartPlayerPassive.fxml", client);
             wasPassive = true;
         }
-        sceneLoaderFactory.setState(ClientState.ASK_START_PLAYER, this).build().executeSceneChange();
+        sceneLoaderBuilder.setState(ClientState.ASK_START_PLAYER, this).build().executeSceneChange();
         savedScene = ((GUI)client.getUI()).getCurrentScene();
     }
 }

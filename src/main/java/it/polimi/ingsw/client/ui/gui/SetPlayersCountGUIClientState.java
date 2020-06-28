@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractSetPlayersCountClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific SET_PLAYERS_COUNT client state.
@@ -37,7 +37,7 @@ public class SetPlayersCountGUIClientState extends AbstractSetPlayersCountClient
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/SetPlayersCount.fxml", client);
-        sceneLoaderFactory.setState(ClientState.SET_PLAYERS_COUNT, this).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/SetPlayersCount.fxml", client);
+        sceneLoaderBuilder.setState(ClientState.SET_PLAYERS_COUNT, this).build().executeSceneChange();
     }
 }

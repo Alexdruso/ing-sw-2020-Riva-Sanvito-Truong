@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AbstractController;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 import javafx.fxml.FXML;
 
 public class MenuConfirmation extends AbstractController {
@@ -25,8 +25,8 @@ public class MenuConfirmation extends AbstractController {
         if(MenuConfirmation.client == null){
             MenuConfirmation.client = client;
         }
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MenuConfirmation.fxml", client);
-        sceneLoaderFactory
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MenuConfirmation.fxml", client);
+        sceneLoaderBuilder
                 .setFadeIn(false)
                 .setFadeOut(false)
                 .setReplaceOldScene(false)

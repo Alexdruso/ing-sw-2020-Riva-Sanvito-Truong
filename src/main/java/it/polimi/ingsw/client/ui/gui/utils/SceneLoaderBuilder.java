@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 /**
  * This class is used to generate SceneLoader instances by using the Builder pattern
  */
-public class SceneLoaderFactory {
+public class SceneLoaderBuilder {
     final String fxmlFile;
     final Client client;
     final Scene mainScene;
@@ -31,7 +31,7 @@ public class SceneLoaderFactory {
      * @param fxmlFile the path to the fxml to be loaded in the resources folder
      * @param client the Client instance
      */
-    public SceneLoaderFactory(String fxmlFile, Client client){
+    public SceneLoaderBuilder(String fxmlFile, Client client){
         this.fxmlFile = fxmlFile;
         this.client = client;
         this.mainScene = JavaFXGUI.getPrimaryScene();
@@ -42,7 +42,7 @@ public class SceneLoaderFactory {
      * @param doApplyFadeout the value for the setFadeOut property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setFadeOut(boolean doApplyFadeout){
+    public SceneLoaderBuilder setFadeOut(boolean doApplyFadeout){
         this.doApplyFadeOut = doApplyFadeout;
         return this;
     }
@@ -52,7 +52,7 @@ public class SceneLoaderFactory {
      * @param doApplyFirstFadeOut the value for the doApplyFirstFadeOut property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setFirstFadeOut(boolean doApplyFirstFadeOut){
+    public SceneLoaderBuilder setFirstFadeOut(boolean doApplyFirstFadeOut){
         this.doApplyFirstFadeOut = doApplyFirstFadeOut;
         return this;
     }
@@ -62,7 +62,7 @@ public class SceneLoaderFactory {
      * @param doApplyFadeIn the value for the doApplyFadeIn property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setFadeIn(boolean doApplyFadeIn){
+    public SceneLoaderBuilder setFadeIn(boolean doApplyFadeIn){
         this.doApplyFadeIn = doApplyFadeIn;
         return this;
     }
@@ -73,7 +73,7 @@ public class SceneLoaderFactory {
      * @param state the value for the state property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setState(ClientState clientState, AbstractClientState state){
+    public SceneLoaderBuilder setState(ClientState clientState, AbstractClientState state){
         this.clientState = clientState;
         this.state = state;
         return this;
@@ -84,7 +84,7 @@ public class SceneLoaderFactory {
      * @param attemptLoadFromSaved the value for the attemptLoadFromSaved property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setAttemptLoadFromSaved(boolean attemptLoadFromSaved){
+    public SceneLoaderBuilder setAttemptLoadFromSaved(boolean attemptLoadFromSaved){
         this.attemptLoadFromSaved = attemptLoadFromSaved;
         return this;
     }
@@ -94,7 +94,7 @@ public class SceneLoaderFactory {
      * @param duration the value for the fadeInDuration property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setFadeInDuration(double duration){
+    public SceneLoaderBuilder setFadeInDuration(double duration){
         this.fadeInDuration = duration;
         return this;
     }
@@ -104,7 +104,7 @@ public class SceneLoaderFactory {
      * @param duration the value for the fadeOutDuration property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setFadeOutDuration(double duration){
+    public SceneLoaderBuilder setFadeOutDuration(double duration){
         this.fadeOutDuration = duration;
         return this;
     }
@@ -114,7 +114,7 @@ public class SceneLoaderFactory {
      * @param duration the value for the blurInDuration property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setBlurInDuration(double duration){
+    public SceneLoaderBuilder setBlurInDuration(double duration){
         this.blurInDuration = duration;
         return this;
     }
@@ -124,7 +124,7 @@ public class SceneLoaderFactory {
      * @param replaceOldScene the value for the replaceOldScene property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory setReplaceOldScene(boolean replaceOldScene){
+    public SceneLoaderBuilder setReplaceOldScene(boolean replaceOldScene){
         this.replaceOldScene = replaceOldScene;
         return this;
     }
@@ -134,7 +134,7 @@ public class SceneLoaderFactory {
      * @param cssFile the value for the cssFile property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory addCSSFile(CSSFile cssFile){
+    public SceneLoaderBuilder addCSSFile(CSSFile cssFile){
         this.cssFile = cssFile;
         return this;
     }
@@ -144,7 +144,7 @@ public class SceneLoaderFactory {
      * @param doForce the value for the forceSceneChange property
      * @return the SceneLoaderFactory instance
      */
-    public SceneLoaderFactory forceSceneChange(boolean doForce){
+    public SceneLoaderBuilder forceSceneChange(boolean doForce){
         this.forceSceneChange = doForce;
         return this;
     }

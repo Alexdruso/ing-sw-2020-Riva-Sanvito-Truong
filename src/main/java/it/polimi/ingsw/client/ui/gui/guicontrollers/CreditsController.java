@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -15,8 +15,8 @@ public class CreditsController extends AbstractController{
 
     @FXML
     void handleMenuButton(ActionEvent event){
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
-        sceneLoaderFactory.setAttemptLoadFromSaved(true).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MainMenu.fxml", client);
+        sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();
     }
 
     @Override

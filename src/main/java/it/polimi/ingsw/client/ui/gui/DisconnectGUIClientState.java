@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractDisconnectClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific DISCONNECT client state.
@@ -38,8 +38,8 @@ public class DisconnectGUIClientState extends AbstractDisconnectClientState impl
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/Disconnect.fxml", client);
-        sceneLoaderFactory.setState(ClientState.DISCONNECT, this)
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/Disconnect.fxml", client);
+        sceneLoaderBuilder.setState(ClientState.DISCONNECT, this)
                 .setFadeIn(false)
                 .setFadeOut(false)
                 .setReplaceOldScene(false)

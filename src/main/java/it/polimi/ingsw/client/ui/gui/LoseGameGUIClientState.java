@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractLoseGameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -55,8 +55,8 @@ public class LoseGameGUIClientState extends AbstractLoseGameClientState implemen
                 }
         );
         if (showLoseScreen.get()) {
-            SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/LoseGame.fxml", client);
-            sceneLoaderFactory.setState(ClientState.LOSE_GAME, this)
+            SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/LoseGame.fxml", client);
+            sceneLoaderBuilder.setState(ClientState.LOSE_GAME, this)
                     .setFadeIn(false)
                     .setFadeOut(false)
                     .setReplaceOldScene(false)

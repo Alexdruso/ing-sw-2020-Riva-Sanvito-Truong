@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWinGameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WinGameController;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific WIN_GAME client state.
@@ -35,8 +35,8 @@ public class WinGameGUIClientState extends AbstractWinGameClientState implements
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/EndGame.fxml", client);
-        sceneLoaderFactory.setState(ClientState.WIN_GAME, this).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/EndGame.fxml", client);
+        sceneLoaderBuilder.setState(ClientState.WIN_GAME, this).build().executeSceneChange();
         WinGameController controller = (WinGameController) ((GUI)client.getUI()).getCurrentScene().controller;
         if (client.isCurrentlyActive()) {
             controller.setWinnerPrompts();

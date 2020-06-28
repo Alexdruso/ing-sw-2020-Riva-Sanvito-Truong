@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractAskGodFromListClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.AskGodFromListPassiveController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 import it.polimi.ingsw.utils.networking.transmittables.ReducedGod;
 
 /**
@@ -52,15 +52,15 @@ public class AskGodFromListGUIClientState extends AbstractAskGodFromListClientSt
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory;
+        SceneLoaderBuilder sceneLoaderBuilder;
         if(client.isCurrentlyActive()){
-            sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodFromList.fxml", client);
+            sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/AskGodFromList.fxml", client);
             wasPassive = false;
         } else {
-            sceneLoaderFactory = new SceneLoaderFactory("/fxml/AskGodFromListPassive.fxml", client);
+            sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/AskGodFromListPassive.fxml", client);
             wasPassive = true;
         }
-        sceneLoaderFactory
+        sceneLoaderBuilder
                 .setState(ClientState.ASK_GOD_FROM_LIST, this)
                 .forceSceneChange(true)
                 .build()

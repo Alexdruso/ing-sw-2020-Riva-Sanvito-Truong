@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractWaitPlayersClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.WaitPlayersController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific WAIT_PLAYERS client state.
@@ -40,8 +40,8 @@ public class WaitPlayersGUIClientState extends AbstractWaitPlayersClientState im
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/WaitPlayers.fxml", client);
-        sceneLoaderFactory.setState(ClientState.WAIT_PLAYERS, this).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/WaitPlayers.fxml", client);
+        sceneLoaderBuilder.setState(ClientState.WAIT_PLAYERS, this).build().executeSceneChange();
         savedScene = ((GUI)client.getUI()).getCurrentScene();
     }
 }

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client.ui.gui.guicontrollers;
 
 import it.polimi.ingsw.client.ui.gui.GUI;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 import it.polimi.ingsw.utils.i18n.AvailableLocale;
 import it.polimi.ingsw.utils.i18n.I18n;
 import it.polimi.ingsw.utils.structures.BidirectionalHashMap;
@@ -33,8 +33,8 @@ public class SettingsController extends AbstractController {
     }
 
     private void switchToMenu(){
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
-        sceneLoaderFactory.setAttemptLoadFromSaved(true).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MainMenu.fxml", client);
+        sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();
     }
 
     @Override

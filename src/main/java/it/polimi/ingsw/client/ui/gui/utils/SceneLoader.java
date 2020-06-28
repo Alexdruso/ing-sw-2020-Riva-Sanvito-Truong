@@ -50,7 +50,7 @@ public class SceneLoader {
      * Class constructor
      * @param loader the SceneLoaderFactory from which to build the SceneLoader
      */
-    protected SceneLoader(SceneLoaderFactory loader){
+    protected SceneLoader(SceneLoaderBuilder loader){
         this.fxmlFile = loader.fxmlFile;
         this.client = loader.client;
         this.clientState = loader.clientState;

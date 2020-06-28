@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.clientstates.AbstractJoinLobbyClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.guicontrollers.JoinLobbyController;
 import it.polimi.ingsw.client.ui.gui.utils.SavedScene;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific JOIN_LOBBY client state.
@@ -40,8 +40,8 @@ public class JoinLobbyGUIClientState extends AbstractJoinLobbyClientState implem
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/JoinLobby.fxml", client);
-        sceneLoaderFactory.setState(ClientState.JOIN_LOBBY, this).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/JoinLobby.fxml", client);
+        sceneLoaderBuilder.setState(ClientState.JOIN_LOBBY, this).build().executeSceneChange();
         savedScene = ((GUI)client.getUI()).getCurrentScene();
     }
 }

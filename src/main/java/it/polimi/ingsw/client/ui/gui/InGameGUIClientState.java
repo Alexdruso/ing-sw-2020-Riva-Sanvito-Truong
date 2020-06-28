@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractInGameClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
 import it.polimi.ingsw.client.ui.gui.utils.SceneLoader;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific IN_GAME client state.
@@ -32,8 +32,8 @@ public class InGameGUIClientState extends AbstractInGameClientState implements G
     public void render() {
         if(sceneLoader == null){
             //Initial render, specific renderings are handled by ClientTurnStates
-            SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/InGame.fxml", client);
-            sceneLoader = sceneLoaderFactory.setState(ClientState.IN_GAME, this).build();
+            SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/InGame.fxml", client);
+            sceneLoader = sceneLoaderBuilder.setState(ClientState.IN_GAME, this).build();
         }
         sceneLoader.executeSceneChange();
         client.getGame().getTurn().getTurnState().render();

@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractConnectToServerClientState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific CONNECT_TO_SERVER client state.
@@ -45,7 +45,7 @@ public class ConnectToServerGUIClientState extends AbstractConnectToServerClient
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/ConnectToServer.fxml", client);
-        sceneLoaderFactory.setState(ClientState.CONNECT_TO_SERVER, this).build().executeSceneChange();
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/ConnectToServer.fxml", client);
+        sceneLoaderBuilder.setState(ClientState.CONNECT_TO_SERVER, this).build().executeSceneChange();
     }
 }

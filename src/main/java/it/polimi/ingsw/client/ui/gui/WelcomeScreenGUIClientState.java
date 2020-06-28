@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.ui.gui;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.clientstates.AbstractWelcomeScreenState;
 import it.polimi.ingsw.client.clientstates.ClientState;
-import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderFactory;
+import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 
 /**
  * A GUI-specific WELCOME_SCREEN client state.
@@ -26,8 +26,8 @@ public class WelcomeScreenGUIClientState extends AbstractWelcomeScreenState impl
 
     @Override
     public void render() {
-        SceneLoaderFactory sceneLoaderFactory = new SceneLoaderFactory("/fxml/MainMenu.fxml", client);
-        sceneLoaderFactory
+        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MainMenu.fxml", client);
+        sceneLoaderBuilder
                 .setState(ClientState.WELCOME_SCREEN, this)
                 .setFirstFadeOut(false)
                 .setFadeInDuration(1000)
