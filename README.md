@@ -70,6 +70,9 @@ Santorini-Client.bat
 ![The Santorini GUI running in Windows](.github/assets/windows_santorini_gui.png "The Santorini GUI running in Windows")
 
 **For the CLI:**
+
+Requirement: a terminal window of at least 105 columns by 30 rows.
+
 ```bash
 Santorini-Client.bat cli
 ```
@@ -94,10 +97,17 @@ Santorini-Client.bat cli
 ./Santorini-Client.sh
 ```
 
+![The Santorini GUI running in MacOS](.github/assets/macos_santorini_gui.png "The Santorini GUI running in MacOS")
+
 **For the CLI:**
+
+Requirement: a terminal window of at least 105 columns by 30 rows.
+
 ```bash
 ./Santorini-Client.sh cli
 ```
+
+![The Santorini CLI running in MacOS](.github/assets/macos_santorini_cli.png "The Santorini CLI running in MacOS")
 
 ### Environment variables
 
