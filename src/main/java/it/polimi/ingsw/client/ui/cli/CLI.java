@@ -219,10 +219,23 @@ public class CLI implements UI {
         println(ansi().a(i));
     }
 
+    /**
+     * Prints an Ansi object, adding a newline at the end.
+     *
+     * @param s the Ansi object
+     */
     private void println(Ansi s) {
         out.println(s);
     }
 
+    /**
+     * Prints an Ansi object at the given position, taking care of aligning all the new lines to the block,
+     * adding a newline at the end.
+     *
+     * @param s      the Ansi object
+     * @param row    the row in which to start the block
+     * @param column the column in which to start the block
+     */
     private void println(Ansi s, int row, int column) {
         println(ansi().cursor(row, column).a(s.toString().replaceAll(PLATFORM_DEPENDENT_NEWLINE, ansi().a(PLATFORM_DEPENDENT_NEWLINE).cursorRight(column - 1).toString())));
     }
@@ -245,6 +258,10 @@ public class CLI implements UI {
         readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);
     }
 
+    /**
+     * Clears the previous line, leaving the cursor on that line.
+     * Useful to replace the contents of the previous line.
+     */
     void moveUpAndClearLine() {
         println(ansi().cursorUpLine().eraseLine().cursorUpLine());
     }
@@ -331,6 +348,12 @@ public class CLI implements UI {
         }
     }
 
+    /**
+     * Asks the user to choose between yes and no.
+     *
+     * @param prompt the prompt to show to the user
+     * @return the user choice
+     */
     boolean readYesNo(String prompt) {
         String yes = I18n.string(I18nKey.YES);
         String no = I18n.string(I18nKey.NO);
@@ -359,6 +382,14 @@ public class CLI implements UI {
         return readCell(board, prompt, false);
     }
 
+    /**
+     * Reads the coordinate of a cell from the CLI and returns the corresponding ReducedCell.
+     *
+     * @param board     the board to which the cells belong
+     * @param prompt    the prompt to show when asking for input
+     * @param allowSkip whether to allow the user to skip the cell choice
+     * @return the selected ReducedCell; if allowSkip was true and the user skipped the choice, null is returned
+     */
     ReducedCell readCell(ReducedBoard board, String prompt, boolean allowSkip) {
         final String errorInvalidCoordinates = String.format("%s (%s C2)", I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));
         ReducedCell res = null;
@@ -453,6 +484,11 @@ public class CLI implements UI {
         print(af("%s%s %s", prompt, defText, underscores).cursorLeft(expectedInputLength));
     }
 
+    /**
+     * Prints the list of players of the given game.
+     *
+     * @param game the game whose players are to be printed
+     */
     void printPlayersOfGame(ReducedGame game) {
         StringBuilder res = new StringBuilder();
         res.append(ansi().a(String.format("%s:%n%n", I18n.string(I18nKey.PLAYERS))));
@@ -482,7 +518,7 @@ public class CLI implements UI {
     }
 
     /**
-     * Draw board.
+     * Draws the board.
      *
      * @param board the board
      */
@@ -517,6 +553,9 @@ public class CLI implements UI {
         print(ansi().cursor(0, 0).a(boardStr.toString()));
     }
 
+    /**
+     * Draws a legend of the cells colors and symbols.
+     */
     void drawLegend() {
         StringBuilder res = new StringBuilder();
         res.append(ansi().a(String.format("%s:%n%n", I18n.string(I18nKey.LEGEND))));
@@ -543,10 +582,25 @@ public class CLI implements UI {
         println(ansi().a(res.toString()).reset(), 18, 55);
     }
 
+    /**
+     * Obtains the Ansi object representing a ReducedCell.
+     *
+     * @param cell the cell to print
+     * @return the Ansi object representing the cell
+     */
     private Ansi[] getCellAnsi(ReducedCell cell) {
         return getCellAnsi(cell.hasDome(), cell.getTowerHeight(), getCellWorkerChar(cell), cell.isHighlighted());
     }
 
+    /**
+     * Obtains the Ansi object representing a ReducedCell.
+     *
+     * @param hasDome        whether the cell has a dome
+     * @param towerHeight    the height of the tower build on the cell
+     * @param cellWorkerChar the character representing the worker on the cell
+     * @param isHighlighted  whether the cell should be highlighted
+     * @return the Ansi object representing the cell
+     */
     private Ansi[] getCellAnsi(boolean hasDome, int towerHeight, Ansi cellWorkerChar, boolean isHighlighted) {
         Ansi[] ret;
         Ansi.Color bg;
@@ -576,6 +630,12 @@ public class CLI implements UI {
         return ret;
     }
 
+    /**
+     * Gets the Ansi object representing the player on a ReducedCell.
+     *
+     * @param cell the cell
+     * @return the Ansi object representing the player
+     */
     private Ansi getCellWorkerChar(ReducedCell cell) {
         Ansi ret = ansi();
         Optional<ReducedWorker> maybeWorker = cell.getWorker();
@@ -589,10 +649,19 @@ public class CLI implements UI {
         }
     }
 
+    /**
+     * Moves the cursor at the position in the console where the game status should be printed.
+     */
     void moveCursorToStatusPosition() {
         println("", 28, 0);
     }
 
+    /**
+     * Obtains the name and subtitle of a ReducedGod to be printed.
+     *
+     * @param god the ReducedGod whose details are requested
+     * @return the name and subtitle of a ReducedGod ready to be printed
+     */
     String getGodNameAndSubtitle(ReducedGod god) {
         return String.format(
                 "%s: %s",
@@ -601,6 +670,12 @@ public class CLI implements UI {
         );
     }
 
+    /**
+     * Prints a confirmation screen to allow the user to see a god's powers and confirm their choice.
+     *
+     * @param god the ReducedGod to show the screen about
+     * @return whether the user confirmed their choice
+     */
     boolean printGodCardConfirmationScreen(ReducedGod god) {
         clear();
         println(getGodNameAndSubtitle(god));
