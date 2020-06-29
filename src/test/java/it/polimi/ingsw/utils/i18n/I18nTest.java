@@ -5,15 +5,18 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class I18nTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "en", "it"})
     void testStrings(String language) {
+        assertNotNull(I18n.getResourceBundle());
         if (!language.equalsIgnoreCase("")) {
-            I18n.setLocale(new Locale(language));
+            Locale locale = new Locale(language);
+            I18n.setLocale(locale);
+            assertEquals(locale, I18n.getLocale());
+            assertNotNull(I18n.getResourceBundle());
         }
         for (I18nKey key: I18nKey.values()) {
             String s = I18n.string(key);
