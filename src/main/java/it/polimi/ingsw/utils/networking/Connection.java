@@ -27,6 +27,9 @@ public class Connection extends LambdaObservable<Transmittable> {
     private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());
     private static final Timer KEEP_ALIVE_TIMER = new Timer("connectionKeepAliveTimer", true);
     private static final int KEEP_ALIVE_TIMER_INTERVAL_MS = ConfigParser.getInstance().getIntProperty("keepAliveIntervalMs");
+    /**
+     * The maximum time allowed to establish a connection to a remote host.
+     */
     public static final int SOCKET_CONNECTION_TIMEOUT_MS = ConfigParser.getInstance().getIntProperty("socketConnectionTimeoutMs");
     private final Socket socket;
     private final ObjectInputStream socketIn;
