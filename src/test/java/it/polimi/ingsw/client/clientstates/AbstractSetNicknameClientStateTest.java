@@ -1,16 +1,17 @@
 package it.polimi.ingsw.client.clientstates;
 
-import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientChooseGodMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientChooseGodsMessage;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetNicknameMessage;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-class AbstractAskGodFromListClientStateTest {
+class AbstractSetNicknameClientStateTest {
     AbstractClientStateTestHarness testHarness = new AbstractClientStateTestHarness();
 
-    private class ClientStateToTest extends AbstractAskGodFromListClientState {
+    private class ClientStateToTest extends AbstractSetNicknameClientState {
         private ClientStateToTest() {
             super(testHarness.getClient());
         }
@@ -30,6 +31,6 @@ class AbstractAskGodFromListClientStateTest {
     @Test
     void notifyUiInteraction() {
         clientState.notifyUiInteraction();
-        verify(testHarness.getConnection()).send(any(ClientChooseGodMessage.class));
+        verify(testHarness.getConnection()).send(any(ClientSetNicknameMessage.class));
     }
 }

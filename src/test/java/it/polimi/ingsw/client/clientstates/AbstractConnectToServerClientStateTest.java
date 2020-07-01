@@ -1,16 +1,18 @@
 package it.polimi.ingsw.client.clientstates;
 
-import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientChooseGodMessage;
+import it.polimi.ingsw.utils.networking.Connection;
+import it.polimi.ingsw.utils.networking.transmittables.clientmessages.ClientSetStartPlayerMessage;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-class AbstractAskGodFromListClientStateTest {
+class AbstractConnectToServerClientStateTest {
     AbstractClientStateTestHarness testHarness = new AbstractClientStateTestHarness();
 
-    private class ClientStateToTest extends AbstractAskGodFromListClientState {
+    private class ClientStateToTest extends AbstractConnectToServerClientState {
         private ClientStateToTest() {
             super(testHarness.getClient());
         }
@@ -29,7 +31,6 @@ class AbstractAskGodFromListClientStateTest {
 
     @Test
     void notifyUiInteraction() {
-        clientState.notifyUiInteraction();
-        verify(testHarness.getConnection()).send(any(ClientChooseGodMessage.class));
+        assertThrows(IllegalArgumentException.class, clientState::notifyUiInteraction);
     }
 }
