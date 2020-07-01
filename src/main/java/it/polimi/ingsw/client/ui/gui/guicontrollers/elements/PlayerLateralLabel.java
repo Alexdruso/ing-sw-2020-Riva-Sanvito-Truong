@@ -34,13 +34,23 @@ public class PlayerLateralLabel extends AnchorPane{
     @FXML Circle colorTip;
     @FXML Label colorLabel;
 
+    /**
+     * An enum that represents the color assigned to each of the three players
+     */
     enum Colors {
         PLAYER1("133C55"),
         PLAYER2("F2A541"),
         PLAYER3("353535");
 
+        /**
+         * This attribute is a hex string representing the color
+         */
         public final String color;
 
+        /**
+         * This method sets the color to the player
+         * @param color a hex string representing the color
+         */
         Colors(String color){
             this.color = color;
         }
@@ -110,6 +120,9 @@ public class PlayerLateralLabel extends AnchorPane{
         godName.setOpacity(0);
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML private void initialize(){
         playerName.textProperty().bind(playerNameProperty);
         godName.textProperty().bind(godNameProperty);

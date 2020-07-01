@@ -13,22 +13,38 @@ public class SetPlayersCountController extends AbstractController{
     @FXML
     Label errorLabel;
 
+
+    /**
+     * This method sends to the TurnState the information that the player wants to play in a two-player game
+     * @param event the mouse click event
+     */
     @FXML
     void twoPlayersSelected(ActionEvent event){
         ((SetPlayersCountGUIClientState)state).setPlayersCount(2);
 
     }
 
+    /**
+     * This method sends to the TurnState the information that the player wants to play in a three-player game
+     * @param event the mouse click event
+     */
     @FXML
     void threePlayersSelected(ActionEvent event){
         ((SetPlayersCountGUIClientState)state).setPlayersCount(3);
     }
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         ((SetPlayersCountGUIClientState)state).returnToMenu();
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         errorLabel.setOpacity(0);

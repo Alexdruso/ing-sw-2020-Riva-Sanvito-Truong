@@ -27,6 +27,10 @@ public class ConnectToServerController extends AbstractController{
 
     private final BooleanProperty firstShow = new SimpleBooleanProperty(true);
 
+    /**
+     * Handles the connect button, checking if the input in the portField is valid and, if so, sets the host and port in the ClientState
+     * @param event the mouse click event
+     */
     @FXML
     void handleConnectButton(ActionEvent event){
         String host = "127.0.0.1";
@@ -44,6 +48,10 @@ public class ConnectToServerController extends AbstractController{
         ((ConnectToServerGUIClientState)state).setHostPort(host, port);
     }
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         ((ConnectToServerGUIClientState)state).returnToMenu();
@@ -59,6 +67,9 @@ public class ConnectToServerController extends AbstractController{
         errorLabel.setOpacity(0);
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         errorLabel.setOpacity(0);

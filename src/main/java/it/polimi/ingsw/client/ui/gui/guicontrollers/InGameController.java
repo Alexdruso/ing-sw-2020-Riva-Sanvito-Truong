@@ -47,13 +47,37 @@ public class InGameController extends AbstractController{
     private boolean isCancelDisplayed = false;
     private boolean isComponentSelectionDisplayed = false;
 
+    /**
+     * This enum represents all the possible board elements that should be renderized on screen
+     */
     private enum BoardElement {
+        /**
+         * A block on the ground level
+         */
         BLOCK_0,
+        /**
+         * A block on the first level
+         */
         BLOCK_1,
+        /**
+         * A block on the second leve
+         */
         BLOCK_2,
+        /**
+         * A dome
+         */
         DOME,
+        /**
+         * A worker of the first player
+         */
         WORKER_A,
+        /**
+         * A worker of the second player
+         */
         WORKER_B,
+        /**
+         * A worker of the third player
+         */
         WORKER_C,
     }
 
@@ -63,6 +87,11 @@ public class InGameController extends AbstractController{
     private ImageView domeIcon;
     private LateralGodCard lateralGodCard;
 
+    /**
+     * This method, when given an Image instance, returns an ImageView with the correct dimensions, which are bound to the size of the board
+     * @param image the Image instance whose ImageView is to be resized accordingly to the board's size
+     * @return the resulting ImageView
+     */
     private ImageView getImageView(Image image){
         final double cellContentMargin = 5.0;
         ImageView imageView = new ImageView(image);
@@ -73,6 +102,11 @@ public class InGameController extends AbstractController{
         return imageView;
     }
 
+    /**
+     * This method returns the correct rendering for a cell, including blocks, domes and workers
+     * @param cell the cell to be rendered
+     * @return a list of ImageView in the order in which they should be rendered, from the bottom up
+     */
     private List<ImageView> getImageStack(ReducedCell cell){
         List<ReducedPlayer> players = new ArrayList<>(client.getGame().getPlayersList());
         //Temporary rendering, until we find a better way to render stuff
@@ -119,6 +153,9 @@ public class InGameController extends AbstractController{
         lateralGodCard.setGods(client.getGame().getPlayersList().stream().map(ReducedPlayer::getGod).collect(Collectors.toList()));
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         boardAssets.put(BoardElement.BLOCK_0, new Image("/assets/board/block_0.png"));
@@ -229,12 +266,20 @@ public class InGameController extends AbstractController{
         }
     }
 
+    /**
+     * This method retrieves the coordinate of the clicked StackPane and sends the information to the TurnState
+     * @param pane the StackPane which has been clicked by the user
+     */
     private void selectCell(StackPane pane){
         Integer x = GridPane.getColumnIndex(pane);
         Integer y = GridPane.getRowIndex(pane);
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).selectCell(x, y);
     }
 
+    /**
+     * This method sends information to the TurnState that a particular component has been selected
+     * @param component the ReducedComponent that has been selected
+     */
     private void selectComponent(ReducedComponent component){
         clearSideButtons();
         ((BuildGUIClientTurnState)client.getGame().getTurn().getTurnState()).selectComponent(component);
@@ -289,16 +334,25 @@ public class InGameController extends AbstractController{
         isComponentSelectionDisplayed = false;
     }
 
+    /**
+     * This method sends to the TurnState the information that the player wants to skip the turn
+     */
     private void skip(){
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).skip();
         clearSideButtons();
     }
 
+    /**
+     * This method sends to the TurnState the information that the player wants to cancel the last action
+     */
     private void cancel(){
         ((GUIClientTurnState)client.getGame().getTurn().getTurnState()).cancel();
         clearSideButtons();
     }
 
+    /**
+     * This method sets the board size with respect to its containing Pane
+     */
     private void setBoardSize(){
         double width = boardContainer.getWidth();
         double height = boardContainer.getHeight();
@@ -315,6 +369,10 @@ public class InGameController extends AbstractController{
         }
     }
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         MenuConfirmation.showMenuConfirmation(client);

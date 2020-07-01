@@ -53,6 +53,11 @@ public class AskGodsFromListController extends AbstractController {
     private Map<ReducedGod, Pane> godIcons = new HashMap<>();
     private List<ReducedGod> gods;
 
+
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         MenuConfirmation.showMenuConfirmation(client);
@@ -93,6 +98,10 @@ public class AskGodsFromListController extends AbstractController {
                 .collect(Collectors.toList()));
     }
 
+
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         lateralGodCard = new LateralGodCard(true);
@@ -106,6 +115,12 @@ public class AskGodsFromListController extends AbstractController {
                 SCROLLPANE_INNER_PADDING, SCROLLPANE_INNER_PADDING));
     }
 
+    /**
+     * This method returns a Pane containing a God icon and a label containing its name
+     * @param ga the GodAsset instance of the god
+     * @param god the ReducedGod instance representing the god
+     * @return the Pane containing the God icon and a label containing its name
+     */
     private Pane getIconPane(GodAsset ga, ReducedGod god){
         ImageView img = new ImageView(ga.iconLocation);
         img.setPreserveRatio(true);

@@ -139,6 +139,9 @@ public class LateralGodCard extends StackPane {
         }
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         rootPane.setPickOnBounds(false);

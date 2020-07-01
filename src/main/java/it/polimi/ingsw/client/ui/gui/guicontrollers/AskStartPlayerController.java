@@ -49,6 +49,10 @@ public class AskStartPlayerController extends AbstractController{
         }
     }
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         MenuConfirmation.showMenuConfirmation(client);

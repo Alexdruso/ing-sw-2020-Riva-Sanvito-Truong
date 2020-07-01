@@ -31,11 +31,20 @@ public class SetNicknameController extends AbstractController{
 
     final BooleanProperty firstShow = new SimpleBooleanProperty(true);
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         ((SetNicknameGUIClientState)state).returnToMenu();
     }
 
+
+    /**
+     * This method handles the request to submit a nickname, verifying its length and, if valid, forwarding the request to the ClientState
+     * @param event the mouse click event
+     */
     @FXML
     void handleNicknameButton(ActionEvent event){
         if(nicknameField.getLength() != 0) {
@@ -63,6 +72,9 @@ public class SetNicknameController extends AbstractController{
         errorLabel.setOpacity(0);
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         errorLabel.setOpacity(0);

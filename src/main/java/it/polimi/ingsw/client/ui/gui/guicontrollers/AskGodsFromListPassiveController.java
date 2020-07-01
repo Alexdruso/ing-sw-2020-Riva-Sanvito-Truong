@@ -29,6 +29,10 @@ public class AskGodsFromListPassiveController extends AbstractController{
 
     AnimationHelper animationHelper;
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         MenuConfirmation.showMenuConfirmation(client);
@@ -47,6 +51,9 @@ public class AskGodsFromListPassiveController extends AbstractController{
         animationHelper.animateLoadingScreen(imageArray, loadingTower);
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         imageArray[0] = new Image("assets/loading_tower0_400px.png");

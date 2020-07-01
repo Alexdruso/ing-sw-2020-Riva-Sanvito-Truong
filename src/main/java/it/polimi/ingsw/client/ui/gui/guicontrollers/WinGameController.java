@@ -19,9 +19,19 @@ public class WinGameController extends AbstractController {
     @FXML Label mainPrompt;
     @FXML Label winnerName;
 
+
+    /**
+     * This method sends to the ClientState the information that the player wants to join another game
+     * @param event the mouse click event
+     */
     @FXML void handleReconnect(ActionEvent event){
         ((WinGameGUIClientState)state).reconnect();
     }
+
+    /**
+     * This method sends to the ClientState the information that the player wants to go back to the menu
+     * @param event the mouse click event
+     */
     @FXML void handleMenu(ActionEvent event){
         ((WinGameGUIClientState)state).returnToMenu();
     }

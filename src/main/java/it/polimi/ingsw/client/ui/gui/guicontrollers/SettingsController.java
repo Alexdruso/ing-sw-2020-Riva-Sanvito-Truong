@@ -27,11 +27,18 @@ public class SettingsController extends AbstractController {
     @FXML
     HBox languageButtons;
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         switchToMenu();
     }
 
+    /**
+     * This method sends the client to the menu
+     */
     private void switchToMenu(){
         SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MainMenu.fxml", client);
         sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();
@@ -42,6 +49,9 @@ public class SettingsController extends AbstractController {
         buttonMap.getValueFromKey(AvailableLocale.fromLocale(I18n.getLocale())).setSelected(true);
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         toggleGroup = new ToggleGroup();
@@ -56,6 +66,10 @@ public class SettingsController extends AbstractController {
         }
     }
 
+    /**
+     * This method saves the settings and sends the client to the menu
+     * @param e the mouse click event
+     */
     @FXML
     void saveSettings(ActionEvent e){
         I18n.setLocale(buttonMap.getKeyFromValue((ToggleButton)toggleGroup.getSelectedToggle()).locale);

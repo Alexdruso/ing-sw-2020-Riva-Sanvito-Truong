@@ -45,6 +45,10 @@ public class AskGodFromListController extends AbstractController{
 
     private DoubleProperty fontSize = new SimpleDoubleProperty(10);
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         MenuConfirmation.showMenuConfirmation(client);
@@ -83,6 +87,9 @@ public class AskGodFromListController extends AbstractController{
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * JavaFX initialization method
+     */
     @FXML
     void initialize(){
         lateralGodCard = new LateralGodCard(true);
@@ -91,6 +98,12 @@ public class AskGodFromListController extends AbstractController{
         rootPane.getChildren().add(lateralGodCard);
     }
 
+    /**
+     * This method returns a single pane containing a God card and its name
+     * @param ga the GodAsset instance of the god
+     * @param god the ReducedGod representing the God
+     * @return a Pane containing the God card and a Label with its name
+     */
     private Pane getIconPane(GodAsset ga, ReducedGod god){
         ImageView img = new ImageView(ga.cardLocation);
         img.setPreserveRatio(true);

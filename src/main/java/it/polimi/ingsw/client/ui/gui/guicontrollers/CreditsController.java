@@ -13,6 +13,10 @@ import java.util.logging.Logger;
 public class CreditsController extends AbstractController{
     private static final Logger LOGGER = Logger.getLogger(CreditsController.class.getName());
 
+    /**
+     * Handles menu button on screen
+     * @param event the mouse click event
+     */
     @FXML
     void handleMenuButton(ActionEvent event){
         SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder("/fxml/MainMenu.fxml", client);
