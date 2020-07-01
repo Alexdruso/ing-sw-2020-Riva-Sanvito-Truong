@@ -7,6 +7,9 @@ import it.polimi.ingsw.server.model.workers.Worker;
 
 import java.util.List;
 
+/**
+ * A generic TurnState, which is one of the possible states of the State pattern that handles the Turn.
+ */
 public interface AbstractTurnState {
 
     /**

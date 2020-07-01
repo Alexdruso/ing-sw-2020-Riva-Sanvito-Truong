@@ -67,6 +67,9 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         Platform.runLater(controller::redrawBoard);
     }
 
+    /**
+     * Shows the GUI screen for the active player during the build phase of a turn.
+     */
     private void showActiveScreen(){
         if(turn.getAllowedWorkers().size() == 1){
             //Case in which the choice of the worker is forced: automatically set workerID
@@ -87,6 +90,9 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         }
     }
 
+    /**
+     * Shows the GUI screen for the non-active players during the build phase of a turn.
+     */
     private void showPassiveScreen(){
         Platform.runLater(() -> {
             controller.setLabel(
@@ -171,6 +177,12 @@ public class BuildGUIClientTurnState extends AbstractBuildClientTurnState implem
         render();
     }
 
+    /**
+     * Sets the cell highlighting status.
+     * If true, the cell will be shown lighter in the board.
+     *
+     * @param status the cell highlighting status
+     */
     private void setCellHighlighting(boolean status){
         if(workerID != null){
             game = client.getGame();

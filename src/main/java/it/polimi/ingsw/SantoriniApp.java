@@ -20,6 +20,9 @@ import java.util.logging.Logger;
 public class SantoriniApp {
     private static final Logger LOGGER = Logger.getLogger(SantoriniApp.class.getName());
 
+    /**
+     * The Santorini components that can be launched.
+     */
     private enum LaunchComponent {
         CLI, GUI, SERVER
     }

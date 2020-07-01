@@ -15,6 +15,11 @@ public enum ReducedWorkerID {
 
     private final int workerIDIndex;
 
+    /**
+     * Constructs a new ReducedWorkerID.
+     *
+     * @param workerIDIndex the worker ID index
+     */
     ReducedWorkerID(int workerIDIndex) {
         this.workerIDIndex = workerIDIndex;
     }

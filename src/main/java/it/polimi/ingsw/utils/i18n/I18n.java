@@ -12,6 +12,9 @@ public class I18n {
     private static Locale locale;
     private static final String LANGUAGE_ENV_VAR_NAME = "LANGUAGE";
 
+    /**
+     * Prevents I18n to be initialized as a class instance (it must be accessed statically).
+     */
     private I18n() {
         throw new IllegalStateException("This class is meant to be used only with static methods");
     }

@@ -60,6 +60,9 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         Platform.runLater(controller::redrawBoard);
     }
 
+    /**
+     * Shows the GUI screen for the active player during the build phase of a move.
+     */
     private void showActiveScreen(){
         if (turn.getAllowedWorkers().size() == 1) {
             //The worker is automatically determined since there's only one that can move
@@ -90,6 +93,9 @@ public class MoveGUIClientTurnState extends AbstractMoveClientTurnState implemen
         });
     }
 
+    /**
+     * Shows the GUI screen for the non-active players during the move phase of a turn.
+     */
     private void showPassiveScreen(){
         Platform.runLater(() -> {
             controller.setLabel(

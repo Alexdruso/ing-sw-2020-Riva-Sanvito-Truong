@@ -25,6 +25,9 @@ public class InGameCLIClientState extends AbstractInGameClientState implements C
         client.getGame().getTurn().getTurnState().render();
     }
 
+    /**
+     * Redraws the IN_GAME CLI screen, with the players, board, legend; then, moves the cursor to the status position.
+     */
     void redrawInGameElements() {
         cli.clear();
         cli.printPlayersOfGame(client.getGame());

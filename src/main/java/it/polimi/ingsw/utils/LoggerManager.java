@@ -17,6 +17,9 @@ public class LoggerManager {
      */
     public static final String LOG_LEVEL_ENV_VAR_NAME = "LOG_LEVEL";
 
+    /**
+     * Prevents the LoggerManager to be initialized as a class instance (it must be accessed statically).
+     */
     private LoggerManager() {
         throw new IllegalStateException("Do not try to instantiate this utility class");
     }
