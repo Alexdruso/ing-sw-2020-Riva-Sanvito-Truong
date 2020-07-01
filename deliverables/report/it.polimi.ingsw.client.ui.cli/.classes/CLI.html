@@ -319,402 +319,477 @@
 <b class="nc"><i>219</i>&nbsp;        println(ansi().a(i));</b>
 <b class="nc"><i>220</i>&nbsp;    }</b>
 <i>221</i>&nbsp;
-<i>222</i>&nbsp;    private void println(Ansi s) {
-<b class="nc"><i>223</i>&nbsp;        out.println(s);</b>
-<b class="nc"><i>224</i>&nbsp;    }</b>
-<i>225</i>&nbsp;
-<i>226</i>&nbsp;    private void println(Ansi s, int row, int column) {
-<b class="nc"><i>227</i>&nbsp;        println(ansi().cursor(row, column).a(s.toString().replaceAll(PLATFORM_DEPENDENT_NEWLINE, ansi().a(PLATFORM_DEPENDENT_NEWLINE).cursorRight(column - 1).toString())));</b>
-<b class="nc"><i>228</i>&nbsp;    }</b>
-<i>229</i>&nbsp;
-<i>230</i>&nbsp;    /**
-<i>231</i>&nbsp;     * Displays an error message.
-<i>232</i>&nbsp;     *
-<i>233</i>&nbsp;     * @param s the error message
-<i>234</i>&nbsp;     */
-<i>235</i>&nbsp;    void error(String s) {
-<b class="nc"><i>236</i>&nbsp;        println(ansi().render(&quot;@|bold,red %s:|@ %s&quot;, I18n.string(I18nKey.ERROR), s));</b>
-<b class="nc"><i>237</i>&nbsp;        pause();</b>
-<b class="nc"><i>238</i>&nbsp;        println(ansi().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine());</b>
-<b class="nc"><i>239</i>&nbsp;    }</b>
-<i>240</i>&nbsp;
-<i>241</i>&nbsp;    /**
-<i>242</i>&nbsp;     * Waits until the user presses &#39;Return&#39;.
-<i>243</i>&nbsp;     */
-<i>244</i>&nbsp;    void pause() {
-<b class="nc"><i>245</i>&nbsp;        readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);</b>
-<b class="nc"><i>246</i>&nbsp;    }</b>
-<i>247</i>&nbsp;
-<i>248</i>&nbsp;    void moveUpAndClearLine() {
-<b class="nc"><i>249</i>&nbsp;        println(ansi().cursorUpLine().eraseLine().cursorUpLine());</b>
-<b class="nc"><i>250</i>&nbsp;    }</b>
-<i>251</i>&nbsp;
-<i>252</i>&nbsp;    /**
-<i>253</i>&nbsp;     * Reads a string from the CLI.
-<i>254</i>&nbsp;     *
-<i>255</i>&nbsp;     * @param prompt the prompt to show when asking for input
-<i>256</i>&nbsp;     * @return the string read from the CLI
-<i>257</i>&nbsp;     */
-<i>258</i>&nbsp;    String readString(String prompt) {
-<b class="nc"><i>259</i>&nbsp;        return readString(prompt, null, 15);</b>
-<i>260</i>&nbsp;    }
-<i>261</i>&nbsp;
-<i>262</i>&nbsp;    /**
-<i>263</i>&nbsp;     * Reads a string from the CLI.
-<i>264</i>&nbsp;     *
-<i>265</i>&nbsp;     * @param prompt the prompt to show when asking for input
-<i>266</i>&nbsp;     * @param def    the default value, suggested to the user
-<i>267</i>&nbsp;     * @return the string read from the CLI
-<i>268</i>&nbsp;     */
-<i>269</i>&nbsp;    String readString(String prompt, String def) {
-<b class="nc"><i>270</i>&nbsp;        return readString(prompt, def, def.length() + 2);</b>
-<i>271</i>&nbsp;    }
-<i>272</i>&nbsp;
-<i>273</i>&nbsp;    /**
-<i>274</i>&nbsp;     * Reads a string from the CLI.
-<i>275</i>&nbsp;     *
-<i>276</i>&nbsp;     * @param prompt              the prompt to show when asking for input
-<i>277</i>&nbsp;     * @param def                 the default value, suggested to the user
-<i>278</i>&nbsp;     * @param expectedInputLength the expected input length
-<i>279</i>&nbsp;     * @return the string read from the CLI
-<i>280</i>&nbsp;     */
-<i>281</i>&nbsp;    String readString(String prompt, String def, int expectedInputLength) {
-<b class="nc"><i>282</i>&nbsp;        printReadPrompt(prompt, def, expectedInputLength);</b>
-<b class="nc"><i>283</i>&nbsp;        String line = getLine();</b>
-<b class="nc"><i>284</i>&nbsp;        if (def != null &amp;&amp; line.equals(&quot;&quot;)) {</b>
-<b class="nc"><i>285</i>&nbsp;            return def;</b>
-<i>286</i>&nbsp;        }
-<b class="nc"><i>287</i>&nbsp;        return line;</b>
+<i>222</i>&nbsp;    /**
+<i>223</i>&nbsp;     * Prints an Ansi object, adding a newline at the end.
+<i>224</i>&nbsp;     *
+<i>225</i>&nbsp;     * @param s the Ansi object
+<i>226</i>&nbsp;     */
+<i>227</i>&nbsp;    private void println(Ansi s) {
+<b class="nc"><i>228</i>&nbsp;        out.println(s);</b>
+<b class="nc"><i>229</i>&nbsp;    }</b>
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;    /**
+<i>232</i>&nbsp;     * Prints an Ansi object at the given position, taking care of aligning all the new lines to the block,
+<i>233</i>&nbsp;     * adding a newline at the end.
+<i>234</i>&nbsp;     *
+<i>235</i>&nbsp;     * @param s      the Ansi object
+<i>236</i>&nbsp;     * @param row    the row in which to start the block
+<i>237</i>&nbsp;     * @param column the column in which to start the block
+<i>238</i>&nbsp;     */
+<i>239</i>&nbsp;    private void println(Ansi s, int row, int column) {
+<b class="nc"><i>240</i>&nbsp;        println(ansi().cursor(row, column).a(s.toString().replaceAll(PLATFORM_DEPENDENT_NEWLINE, ansi().a(PLATFORM_DEPENDENT_NEWLINE).cursorRight(column - 1).toString())));</b>
+<b class="nc"><i>241</i>&nbsp;    }</b>
+<i>242</i>&nbsp;
+<i>243</i>&nbsp;    /**
+<i>244</i>&nbsp;     * Displays an error message.
+<i>245</i>&nbsp;     *
+<i>246</i>&nbsp;     * @param s the error message
+<i>247</i>&nbsp;     */
+<i>248</i>&nbsp;    void error(String s) {
+<b class="nc"><i>249</i>&nbsp;        println(ansi().render(&quot;@|bold,red %s:|@ %s&quot;, I18n.string(I18nKey.ERROR), s));</b>
+<b class="nc"><i>250</i>&nbsp;        pause();</b>
+<b class="nc"><i>251</i>&nbsp;        println(ansi().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine().eraseLine().cursorUpLine());</b>
+<b class="nc"><i>252</i>&nbsp;    }</b>
+<i>253</i>&nbsp;
+<i>254</i>&nbsp;    /**
+<i>255</i>&nbsp;     * Waits until the user presses &#39;Return&#39;.
+<i>256</i>&nbsp;     */
+<i>257</i>&nbsp;    void pause() {
+<b class="nc"><i>258</i>&nbsp;        readString(I18n.string(I18nKey.PRESS_RETURN_TO_CONTINUE), null, 0);</b>
+<b class="nc"><i>259</i>&nbsp;    }</b>
+<i>260</i>&nbsp;
+<i>261</i>&nbsp;    /**
+<i>262</i>&nbsp;     * Clears the previous line, leaving the cursor on that line.
+<i>263</i>&nbsp;     * Useful to replace the contents of the previous line.
+<i>264</i>&nbsp;     */
+<i>265</i>&nbsp;    void moveUpAndClearLine() {
+<b class="nc"><i>266</i>&nbsp;        println(ansi().cursorUpLine().eraseLine().cursorUpLine());</b>
+<b class="nc"><i>267</i>&nbsp;    }</b>
+<i>268</i>&nbsp;
+<i>269</i>&nbsp;    /**
+<i>270</i>&nbsp;     * Reads a string from the CLI.
+<i>271</i>&nbsp;     *
+<i>272</i>&nbsp;     * @param prompt the prompt to show when asking for input
+<i>273</i>&nbsp;     * @return the string read from the CLI
+<i>274</i>&nbsp;     */
+<i>275</i>&nbsp;    String readString(String prompt) {
+<b class="nc"><i>276</i>&nbsp;        return readString(prompt, null, 15);</b>
+<i>277</i>&nbsp;    }
+<i>278</i>&nbsp;
+<i>279</i>&nbsp;    /**
+<i>280</i>&nbsp;     * Reads a string from the CLI.
+<i>281</i>&nbsp;     *
+<i>282</i>&nbsp;     * @param prompt the prompt to show when asking for input
+<i>283</i>&nbsp;     * @param def    the default value, suggested to the user
+<i>284</i>&nbsp;     * @return the string read from the CLI
+<i>285</i>&nbsp;     */
+<i>286</i>&nbsp;    String readString(String prompt, String def) {
+<b class="nc"><i>287</i>&nbsp;        return readString(prompt, def, def.length() + 2);</b>
 <i>288</i>&nbsp;    }
 <i>289</i>&nbsp;
 <i>290</i>&nbsp;    /**
-<i>291</i>&nbsp;     * Reads an int from the CLI.
+<i>291</i>&nbsp;     * Reads a string from the CLI.
 <i>292</i>&nbsp;     *
-<i>293</i>&nbsp;     * @param prompt the prompt to show when asking for input
-<i>294</i>&nbsp;     * @return the int read from the CLI
-<i>295</i>&nbsp;     */
-<i>296</i>&nbsp;    int readInt(String prompt) {
-<b class="nc"><i>297</i>&nbsp;        return readInt(prompt, null, 3);</b>
-<i>298</i>&nbsp;    }
-<i>299</i>&nbsp;
-<i>300</i>&nbsp;    /**
-<i>301</i>&nbsp;     * Reads an int from the CLI.
-<i>302</i>&nbsp;     *
-<i>303</i>&nbsp;     * @param prompt the prompt to show when asking for input
-<i>304</i>&nbsp;     * @param def    the default value, suggested to the user
-<i>305</i>&nbsp;     * @return the int read from the CLI
-<i>306</i>&nbsp;     */
-<i>307</i>&nbsp;    int readInt(String prompt, Integer def) {
-<b class="nc"><i>308</i>&nbsp;        return readInt(prompt, def, (int) (Math.ceil(Math.log10(def)) + 2));</b>
-<i>309</i>&nbsp;    }
-<i>310</i>&nbsp;
-<i>311</i>&nbsp;    /**
-<i>312</i>&nbsp;     * Reads an int from the CLI.
-<i>313</i>&nbsp;     *
-<i>314</i>&nbsp;     * @param prompt              the prompt to show when asking for input
-<i>315</i>&nbsp;     * @param def                 the default value, suggested to the user
-<i>316</i>&nbsp;     * @param expectedInputLength the expected input length
-<i>317</i>&nbsp;     * @return the int read from the CLI
-<i>318</i>&nbsp;     */
-<i>319</i>&nbsp;    int readInt(String prompt, Integer def, int expectedInputLength) {
-<b class="nc"><i>320</i>&nbsp;        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expectedInputLength);</b>
-<b class="nc"><i>321</i>&nbsp;        String line = getLine();</b>
-<i>322</i>&nbsp;        try {
-<b class="nc"><i>323</i>&nbsp;            return Integer.parseInt(line);</b>
-<i>324</i>&nbsp;        }
-<b class="nc"><i>325</i>&nbsp;        catch (NumberFormatException e) {</b>
-<b class="nc"><i>326</i>&nbsp;            if (def != null &amp;&amp; line.equals(&quot;&quot;)) {</b>
-<b class="nc"><i>327</i>&nbsp;                return def;</b>
-<i>328</i>&nbsp;            }
-<b class="nc"><i>329</i>&nbsp;            error(String.format(&quot;%s %s&quot;, line, I18n.string(I18nKey.IS_NOT_AN_INTEGER)));</b>
-<b class="nc"><i>330</i>&nbsp;            return readInt(prompt, def, expectedInputLength);</b>
-<i>331</i>&nbsp;        }
-<i>332</i>&nbsp;    }
-<i>333</i>&nbsp;
-<i>334</i>&nbsp;    boolean readYesNo(String prompt) {
-<b class="nc"><i>335</i>&nbsp;        String yes = I18n.string(I18nKey.YES);</b>
-<b class="nc"><i>336</i>&nbsp;        String no = I18n.string(I18nKey.NO);</b>
-<i>337</i>&nbsp;        while (true) {
-<b class="nc"><i>338</i>&nbsp;            String choice = readString(String.format(&quot;%s [%s/%s]&quot;, prompt, yes, no), null, 3);</b>
-<i>339</i>&nbsp;
-<b class="nc"><i>340</i>&nbsp;            if (choice.equalsIgnoreCase(yes) || (choice.length() == 1 &amp;&amp; choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1)))) {</b>
-<b class="nc"><i>341</i>&nbsp;                return true;</b>
-<i>342</i>&nbsp;            }
-<b class="nc"><i>343</i>&nbsp;            if (choice.equalsIgnoreCase(no) || (choice.length() == 1 &amp;&amp; choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1)))) {</b>
-<b class="nc"><i>344</i>&nbsp;                return false;</b>
+<i>293</i>&nbsp;     * @param prompt              the prompt to show when asking for input
+<i>294</i>&nbsp;     * @param def                 the default value, suggested to the user
+<i>295</i>&nbsp;     * @param expectedInputLength the expected input length
+<i>296</i>&nbsp;     * @return the string read from the CLI
+<i>297</i>&nbsp;     */
+<i>298</i>&nbsp;    String readString(String prompt, String def, int expectedInputLength) {
+<b class="nc"><i>299</i>&nbsp;        printReadPrompt(prompt, def, expectedInputLength);</b>
+<b class="nc"><i>300</i>&nbsp;        String line = getLine();</b>
+<b class="nc"><i>301</i>&nbsp;        if (def != null &amp;&amp; line.equals(&quot;&quot;)) {</b>
+<b class="nc"><i>302</i>&nbsp;            return def;</b>
+<i>303</i>&nbsp;        }
+<b class="nc"><i>304</i>&nbsp;        return line;</b>
+<i>305</i>&nbsp;    }
+<i>306</i>&nbsp;
+<i>307</i>&nbsp;    /**
+<i>308</i>&nbsp;     * Reads an int from the CLI.
+<i>309</i>&nbsp;     *
+<i>310</i>&nbsp;     * @param prompt the prompt to show when asking for input
+<i>311</i>&nbsp;     * @return the int read from the CLI
+<i>312</i>&nbsp;     */
+<i>313</i>&nbsp;    int readInt(String prompt) {
+<b class="nc"><i>314</i>&nbsp;        return readInt(prompt, null, 3);</b>
+<i>315</i>&nbsp;    }
+<i>316</i>&nbsp;
+<i>317</i>&nbsp;    /**
+<i>318</i>&nbsp;     * Reads an int from the CLI.
+<i>319</i>&nbsp;     *
+<i>320</i>&nbsp;     * @param prompt the prompt to show when asking for input
+<i>321</i>&nbsp;     * @param def    the default value, suggested to the user
+<i>322</i>&nbsp;     * @return the int read from the CLI
+<i>323</i>&nbsp;     */
+<i>324</i>&nbsp;    int readInt(String prompt, Integer def) {
+<b class="nc"><i>325</i>&nbsp;        return readInt(prompt, def, (int) (Math.ceil(Math.log10(def)) + 2));</b>
+<i>326</i>&nbsp;    }
+<i>327</i>&nbsp;
+<i>328</i>&nbsp;    /**
+<i>329</i>&nbsp;     * Reads an int from the CLI.
+<i>330</i>&nbsp;     *
+<i>331</i>&nbsp;     * @param prompt              the prompt to show when asking for input
+<i>332</i>&nbsp;     * @param def                 the default value, suggested to the user
+<i>333</i>&nbsp;     * @param expectedInputLength the expected input length
+<i>334</i>&nbsp;     * @return the int read from the CLI
+<i>335</i>&nbsp;     */
+<i>336</i>&nbsp;    int readInt(String prompt, Integer def, int expectedInputLength) {
+<b class="nc"><i>337</i>&nbsp;        printReadPrompt(prompt, def != null ? Integer.toString(def) : null, expectedInputLength);</b>
+<b class="nc"><i>338</i>&nbsp;        String line = getLine();</b>
+<i>339</i>&nbsp;        try {
+<b class="nc"><i>340</i>&nbsp;            return Integer.parseInt(line);</b>
+<i>341</i>&nbsp;        }
+<b class="nc"><i>342</i>&nbsp;        catch (NumberFormatException e) {</b>
+<b class="nc"><i>343</i>&nbsp;            if (def != null &amp;&amp; line.equals(&quot;&quot;)) {</b>
+<b class="nc"><i>344</i>&nbsp;                return def;</b>
 <i>345</i>&nbsp;            }
-<i>346</i>&nbsp;
-<b class="nc"><i>347</i>&nbsp;            error(I18n.string(I18nKey.CHOOSE_BETWEEN_YES_OR_NO));</b>
-<b class="nc"><i>348</i>&nbsp;        }</b>
+<b class="nc"><i>346</i>&nbsp;            error(String.format(&quot;%s %s&quot;, line, I18n.string(I18nKey.IS_NOT_AN_INTEGER)));</b>
+<b class="nc"><i>347</i>&nbsp;            return readInt(prompt, def, expectedInputLength);</b>
+<i>348</i>&nbsp;        }
 <i>349</i>&nbsp;    }
 <i>350</i>&nbsp;
 <i>351</i>&nbsp;    /**
-<i>352</i>&nbsp;     * Reads the coordinate of a cell from the CLI and returns the corresponding ReducedCell.
+<i>352</i>&nbsp;     * Asks the user to choose between yes and no.
 <i>353</i>&nbsp;     *
-<i>354</i>&nbsp;     * @param board  the board to which the cells belong
-<i>355</i>&nbsp;     * @param prompt the prompt to show when asking for input
-<i>356</i>&nbsp;     * @return the selected ReducedCell
-<i>357</i>&nbsp;     */
-<i>358</i>&nbsp;    ReducedCell readCell(ReducedBoard board, String prompt) {
-<b class="nc"><i>359</i>&nbsp;        return readCell(board, prompt, false);</b>
-<i>360</i>&nbsp;    }
-<i>361</i>&nbsp;
-<i>362</i>&nbsp;    ReducedCell readCell(ReducedBoard board, String prompt, boolean allowSkip) {
-<b class="nc"><i>363</i>&nbsp;        final String errorInvalidCoordinates = String.format(&quot;%s (%s C2)&quot;, I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));</b>
-<b class="nc"><i>364</i>&nbsp;        ReducedCell res = null;</b>
-<b class="nc"><i>365</i>&nbsp;        while (res == null) {</b>
-<b class="nc"><i>366</i>&nbsp;            String choice = readString(prompt, null, 3);</b>
-<b class="nc"><i>367</i>&nbsp;            if (allowSkip &amp;&amp; choice.equalsIgnoreCase(&quot;x&quot;)) {</b>
-<b class="nc"><i>368</i>&nbsp;                return null;</b>
-<i>369</i>&nbsp;            }
-<b class="nc"><i>370</i>&nbsp;            if (choice.length() != 2) {</b>
-<b class="nc"><i>371</i>&nbsp;                error(errorInvalidCoordinates);</b>
-<b class="nc"><i>372</i>&nbsp;                continue;</b>
-<i>373</i>&nbsp;            }
-<b class="nc"><i>374</i>&nbsp;            char choiceCol = choice.toUpperCase().charAt(0);</b>
-<b class="nc"><i>375</i>&nbsp;            char choiceRow = choice.charAt(1);</b>
-<b class="nc"><i>376</i>&nbsp;            int col = choiceCol - &#39;A&#39;;</b>
-<b class="nc"><i>377</i>&nbsp;            int row = choiceRow - &#39;1&#39;;</b>
-<b class="nc"><i>378</i>&nbsp;            if (col &lt; 0 || row &lt; 0 || col &gt;= board.getDimension() || row &gt;= board.getDimension()) {</b>
-<b class="nc"><i>379</i>&nbsp;                error(errorInvalidCoordinates);</b>
-<i>380</i>&nbsp;            }
-<i>381</i>&nbsp;            else {
-<b class="nc"><i>382</i>&nbsp;                res = board.getCell(col, row);</b>
-<i>383</i>&nbsp;            }
-<b class="nc"><i>384</i>&nbsp;        }</b>
-<b class="nc"><i>385</i>&nbsp;        return res;</b>
-<i>386</i>&nbsp;    }
-<i>387</i>&nbsp;
-<i>388</i>&nbsp;    /**
-<i>389</i>&nbsp;     * Reopens stdin and initializes in to a scanner bound to it.
-<i>390</i>&nbsp;     */
-<i>391</i>&nbsp;    private void reopenStdin() {
-<b class="nc"><i>392</i>&nbsp;        in = new Scanner(System.in);</b>
-<b class="nc"><i>393</i>&nbsp;        usingInputFile = false;</b>
-<b class="nc"><i>394</i>&nbsp;    }</b>
-<i>395</i>&nbsp;
-<i>396</i>&nbsp;    /**
-<i>397</i>&nbsp;     * Reads a line from the input. If an input file was specified for input, the file is used
-<i>398</i>&nbsp;     * as input source until its end is reached, then the input is moved to stdin.
-<i>399</i>&nbsp;     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
-<i>400</i>&nbsp;     *
-<i>401</i>&nbsp;     * @return the read line
-<i>402</i>&nbsp;     */
-<i>403</i>&nbsp;    private String getLine() {
-<i>404</i>&nbsp;        try {
-<b class="nc"><i>405</i>&nbsp;            return getLineFromOpenStream();</b>
-<i>406</i>&nbsp;        }
-<b class="nc"><i>407</i>&nbsp;        catch (NoSuchElementException e) {</b>
-<b class="nc"><i>408</i>&nbsp;            reopenStdin();</b>
-<b class="nc"><i>409</i>&nbsp;            return getLine();</b>
-<i>410</i>&nbsp;        }
-<i>411</i>&nbsp;    }
-<i>412</i>&nbsp;
-<i>413</i>&nbsp;    /**
-<i>414</i>&nbsp;     * Reads a line from the currently open stream.
-<i>415</i>&nbsp;     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
-<i>416</i>&nbsp;     *
-<i>417</i>&nbsp;     * @return the read line
-<i>418</i>&nbsp;     * @throws NoSuchElementException if the currently open stream has ended
-<i>419</i>&nbsp;     */
-<i>420</i>&nbsp;    private String getLineFromOpenStream() {
-<i>421</i>&nbsp;        String s;
-<i>422</i>&nbsp;        try {
-<b class="nc"><i>423</i>&nbsp;            s = in.nextLine();</b>
-<i>424</i>&nbsp;        }
-<b class="nc"><i>425</i>&nbsp;        catch (IndexOutOfBoundsException ex) {</b>
-<i>426</i>&nbsp;            // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
-<b class="nc"><i>427</i>&nbsp;            reopenStdin();</b>
-<b class="nc"><i>428</i>&nbsp;            return getLine();</b>
-<b class="nc"><i>429</i>&nbsp;        }</b>
-<b class="nc"><i>430</i>&nbsp;        if (usingInputFile) {</b>
-<b class="nc"><i>431</i>&nbsp;            println(&quot;&quot;);</b>
-<b class="nc"><i>432</i>&nbsp;            if (s.equalsIgnoreCase(&quot;%TIMESTAMP%&quot;)) {</b>
-<b class="nc"><i>433</i>&nbsp;                s = String.valueOf(System.currentTimeMillis());</b>
-<i>434</i>&nbsp;            }
-<i>435</i>&nbsp;        }
-<b class="nc"><i>436</i>&nbsp;        for (PrintWriter inLogger : inLoggers) {</b>
-<b class="nc"><i>437</i>&nbsp;            inLogger.println(s);</b>
-<b class="nc"><i>438</i>&nbsp;            inLogger.flush();</b>
-<b class="nc"><i>439</i>&nbsp;        }</b>
-<b class="nc"><i>440</i>&nbsp;        return s;</b>
-<i>441</i>&nbsp;    }
-<i>442</i>&nbsp;
-<i>443</i>&nbsp;    /**
-<i>444</i>&nbsp;     * Displays the input prompt when asking an input from the user.
-<i>445</i>&nbsp;     *
-<i>446</i>&nbsp;     * @param prompt              the prompt to show when asking for input
-<i>447</i>&nbsp;     * @param def                 the default value, suggested to the user
-<i>448</i>&nbsp;     * @param expectedInputLength the expected input length
-<i>449</i>&nbsp;     */
-<i>450</i>&nbsp;    private void printReadPrompt(String prompt, String def, int expectedInputLength) {
-<b class="nc"><i>451</i>&nbsp;        String underscores = &quot;_&quot;.repeat(expectedInputLength);</b>
-<b class="nc"><i>452</i>&nbsp;        String defText = def != null ? String.format(&quot; (%s: %s)&quot;, I18n.string(I18nKey.DEFAULT), def) : &quot;&quot;;</b>
-<b class="nc"><i>453</i>&nbsp;        print(af(&quot;%s%s %s&quot;, prompt, defText, underscores).cursorLeft(expectedInputLength));</b>
-<b class="nc"><i>454</i>&nbsp;    }</b>
-<i>455</i>&nbsp;
-<i>456</i>&nbsp;    void printPlayersOfGame(ReducedGame game) {
-<b class="nc"><i>457</i>&nbsp;        StringBuilder res = new StringBuilder();</b>
-<b class="nc"><i>458</i>&nbsp;        res.append(ansi().a(String.format(&quot;%s:%n%n&quot;, I18n.string(I18nKey.PLAYERS))));</b>
-<b class="nc"><i>459</i>&nbsp;        for (ReducedPlayer player : game.getPlayersList()) {</b>
-<b class="nc"><i>460</i>&nbsp;            Ansi resPlayer = ansi();</b>
-<b class="nc"><i>461</i>&nbsp;            if (player.isLocalPlayer()) {</b>
-<b class="nc"><i>462</i>&nbsp;                resPlayer = resPlayer.bold();</b>
-<i>463</i>&nbsp;            }
-<b class="nc"><i>464</i>&nbsp;            ReducedTurn turn = game.getTurn();</b>
-<b class="nc"><i>465</i>&nbsp;            if (turn != null &amp;&amp; turn.getPlayer().equals(player)) {</b>
-<b class="nc"><i>466</i>&nbsp;                resPlayer = resPlayer.fgBrightCyan().a(&quot;\u25cf &quot;);</b>
-<i>467</i>&nbsp;            }
-<i>468</i>&nbsp;            else {
-<b class="nc"><i>469</i>&nbsp;                resPlayer = resPlayer.a(&quot;  &quot;);</b>
-<i>470</i>&nbsp;            }
-<b class="nc"><i>471</i>&nbsp;            resPlayer = resPlayer.a(String.format(</b>
-<i>472</i>&nbsp;                    &quot;%s%n    %s: %s%n    %s: %s%n&quot;,
-<b class="nc"><i>473</i>&nbsp;                    player.getNickname(),</b>
-<b class="nc"><i>474</i>&nbsp;                    I18n.string(I18nKey.GOD),</b>
-<b class="nc"><i>475</i>&nbsp;                    I18n.string(I18nKey.valueOf(String.format(&quot;%s_NAME&quot;, player.getGod().getName().toUpperCase()))),</b>
-<b class="nc"><i>476</i>&nbsp;                    I18n.string(I18nKey.WORKERS),</b>
-<b class="nc"><i>477</i>&nbsp;                    Arrays.stream(workersStrings[player.getPlayerIndex()]).map(String::strip).collect(Collectors.joining(&quot;, &quot;)))</b>
-<b class="nc"><i>478</i>&nbsp;            ).reset();</b>
-<b class="nc"><i>479</i>&nbsp;            res.append(resPlayer);</b>
-<b class="nc"><i>480</i>&nbsp;        }</b>
-<b class="nc"><i>481</i>&nbsp;        println(ansi().a(res.toString()).reset(), 5, 55);</b>
-<b class="nc"><i>482</i>&nbsp;    }</b>
-<i>483</i>&nbsp;
-<i>484</i>&nbsp;    /**
-<i>485</i>&nbsp;     * Draw board.
-<i>486</i>&nbsp;     *
-<i>487</i>&nbsp;     * @param board the board
-<i>488</i>&nbsp;     */
-<i>489</i>&nbsp;    void drawBoard(ReducedBoard board) {
-<b class="nc"><i>490</i>&nbsp;        int dimension = board.getDimension();</b>
-<b class="nc"><i>491</i>&nbsp;        StringBuilder boardStr = new StringBuilder((dimension+1)*(dimension+1)*9*5);</b>
-<b class="nc"><i>492</i>&nbsp;        boardStr.append(PLATFORM_DEPENDENT_NEWLINE);</b>
-<b class="nc"><i>493</i>&nbsp;        boardStr.append(&quot;     &quot;);</b>
-<b class="nc"><i>494</i>&nbsp;        for (int i = 0; i &lt; dimension; i++) {</b>
-<b class="nc"><i>495</i>&nbsp;            boardStr.append(String.format(BOARD_COLUMNS_FORMAT_STRING, (char) (i + 65)));</b>
-<i>496</i>&nbsp;        }
-<b class="nc"><i>497</i>&nbsp;        boardStr.append(PLATFORM_DEPENDENT_NEWLINE);</b>
-<b class="nc"><i>498</i>&nbsp;        for (int y = 0; y &lt; dimension; y++) {</b>
-<b class="nc"><i>499</i>&nbsp;            Ansi[][] rowAnsi = new Ansi[dimension+1][];</b>
-<b class="nc"><i>500</i>&nbsp;            String[] rowHeaders = String.format(BOARD_ROWS_FORMAT_STRING, y + 1).split(PLATFORM_DEPENDENT_NEWLINE);</b>
-<b class="nc"><i>501</i>&nbsp;            rowAnsi[0] = new Ansi[rowHeaders.length];</b>
-<b class="nc"><i>502</i>&nbsp;            for (int i = 0; i &lt; rowHeaders.length; i++) {</b>
-<b class="nc"><i>503</i>&nbsp;                rowAnsi[0][i] = ansi().a(rowHeaders[i]);</b>
-<i>504</i>&nbsp;            }
-<b class="nc"><i>505</i>&nbsp;            for (int x = 0; x &lt; dimension; x++) {</b>
-<b class="nc"><i>506</i>&nbsp;                rowAnsi[x+1] = getCellAnsi(board.getCell(x, y));</b>
-<i>507</i>&nbsp;            }
-<b class="nc"><i>508</i>&nbsp;            for (int i = 0; i &lt; rowAnsi[0].length; i++) {</b>
-<b class="nc"><i>509</i>&nbsp;                for (int j = 0; j &lt; dimension + 1; j++) {</b>
-<b class="nc"><i>510</i>&nbsp;                    boardStr.append(rowAnsi[j][i]);</b>
-<i>511</i>&nbsp;                }
-<b class="nc"><i>512</i>&nbsp;                boardStr.append(PLATFORM_DEPENDENT_NEWLINE);</b>
-<i>513</i>&nbsp;            }
-<i>514</i>&nbsp;
-<i>515</i>&nbsp;        }
-<i>516</i>&nbsp;
-<b class="nc"><i>517</i>&nbsp;        print(ansi().cursor(0, 0).a(boardStr.toString()));</b>
+<i>354</i>&nbsp;     * @param prompt the prompt to show to the user
+<i>355</i>&nbsp;     * @return the user choice
+<i>356</i>&nbsp;     */
+<i>357</i>&nbsp;    boolean readYesNo(String prompt) {
+<b class="nc"><i>358</i>&nbsp;        String yes = I18n.string(I18nKey.YES);</b>
+<b class="nc"><i>359</i>&nbsp;        String no = I18n.string(I18nKey.NO);</b>
+<i>360</i>&nbsp;        while (true) {
+<b class="nc"><i>361</i>&nbsp;            String choice = readString(String.format(&quot;%s [%s/%s]&quot;, prompt, yes, no), null, 3);</b>
+<i>362</i>&nbsp;
+<b class="nc"><i>363</i>&nbsp;            if (choice.equalsIgnoreCase(yes) || (choice.length() == 1 &amp;&amp; choice.substring(0, 1).equalsIgnoreCase(yes.substring(0, 1)))) {</b>
+<b class="nc"><i>364</i>&nbsp;                return true;</b>
+<i>365</i>&nbsp;            }
+<b class="nc"><i>366</i>&nbsp;            if (choice.equalsIgnoreCase(no) || (choice.length() == 1 &amp;&amp; choice.substring(0, 1).equalsIgnoreCase(no.substring(0, 1)))) {</b>
+<b class="nc"><i>367</i>&nbsp;                return false;</b>
+<i>368</i>&nbsp;            }
+<i>369</i>&nbsp;
+<b class="nc"><i>370</i>&nbsp;            error(I18n.string(I18nKey.CHOOSE_BETWEEN_YES_OR_NO));</b>
+<b class="nc"><i>371</i>&nbsp;        }</b>
+<i>372</i>&nbsp;    }
+<i>373</i>&nbsp;
+<i>374</i>&nbsp;    /**
+<i>375</i>&nbsp;     * Reads the coordinate of a cell from the CLI and returns the corresponding ReducedCell.
+<i>376</i>&nbsp;     *
+<i>377</i>&nbsp;     * @param board  the board to which the cells belong
+<i>378</i>&nbsp;     * @param prompt the prompt to show when asking for input
+<i>379</i>&nbsp;     * @return the selected ReducedCell
+<i>380</i>&nbsp;     */
+<i>381</i>&nbsp;    ReducedCell readCell(ReducedBoard board, String prompt) {
+<b class="nc"><i>382</i>&nbsp;        return readCell(board, prompt, false);</b>
+<i>383</i>&nbsp;    }
+<i>384</i>&nbsp;
+<i>385</i>&nbsp;    /**
+<i>386</i>&nbsp;     * Reads the coordinate of a cell from the CLI and returns the corresponding ReducedCell.
+<i>387</i>&nbsp;     *
+<i>388</i>&nbsp;     * @param board     the board to which the cells belong
+<i>389</i>&nbsp;     * @param prompt    the prompt to show when asking for input
+<i>390</i>&nbsp;     * @param allowSkip whether to allow the user to skip the cell choice
+<i>391</i>&nbsp;     * @return the selected ReducedCell; if allowSkip was true and the user skipped the choice, null is returned
+<i>392</i>&nbsp;     */
+<i>393</i>&nbsp;    ReducedCell readCell(ReducedBoard board, String prompt, boolean allowSkip) {
+<b class="nc"><i>394</i>&nbsp;        final String errorInvalidCoordinates = String.format(&quot;%s (%s C2)&quot;, I18n.string(I18nKey.INSERT_A_VALID_COORDINATE), I18n.string(I18nKey.E_G));</b>
+<b class="nc"><i>395</i>&nbsp;        ReducedCell res = null;</b>
+<b class="nc"><i>396</i>&nbsp;        while (res == null) {</b>
+<b class="nc"><i>397</i>&nbsp;            String choice = readString(prompt, null, 3);</b>
+<b class="nc"><i>398</i>&nbsp;            if (allowSkip &amp;&amp; choice.equalsIgnoreCase(&quot;x&quot;)) {</b>
+<b class="nc"><i>399</i>&nbsp;                return null;</b>
+<i>400</i>&nbsp;            }
+<b class="nc"><i>401</i>&nbsp;            if (choice.length() != 2) {</b>
+<b class="nc"><i>402</i>&nbsp;                error(errorInvalidCoordinates);</b>
+<b class="nc"><i>403</i>&nbsp;                continue;</b>
+<i>404</i>&nbsp;            }
+<b class="nc"><i>405</i>&nbsp;            char choiceCol = choice.toUpperCase().charAt(0);</b>
+<b class="nc"><i>406</i>&nbsp;            char choiceRow = choice.charAt(1);</b>
+<b class="nc"><i>407</i>&nbsp;            int col = choiceCol - &#39;A&#39;;</b>
+<b class="nc"><i>408</i>&nbsp;            int row = choiceRow - &#39;1&#39;;</b>
+<b class="nc"><i>409</i>&nbsp;            if (col &lt; 0 || row &lt; 0 || col &gt;= board.getDimension() || row &gt;= board.getDimension()) {</b>
+<b class="nc"><i>410</i>&nbsp;                error(errorInvalidCoordinates);</b>
+<i>411</i>&nbsp;            }
+<i>412</i>&nbsp;            else {
+<b class="nc"><i>413</i>&nbsp;                res = board.getCell(col, row);</b>
+<i>414</i>&nbsp;            }
+<b class="nc"><i>415</i>&nbsp;        }</b>
+<b class="nc"><i>416</i>&nbsp;        return res;</b>
+<i>417</i>&nbsp;    }
+<i>418</i>&nbsp;
+<i>419</i>&nbsp;    /**
+<i>420</i>&nbsp;     * Reopens stdin and initializes in to a scanner bound to it.
+<i>421</i>&nbsp;     */
+<i>422</i>&nbsp;    private void reopenStdin() {
+<b class="nc"><i>423</i>&nbsp;        in = new Scanner(System.in);</b>
+<b class="nc"><i>424</i>&nbsp;        usingInputFile = false;</b>
+<b class="nc"><i>425</i>&nbsp;    }</b>
+<i>426</i>&nbsp;
+<i>427</i>&nbsp;    /**
+<i>428</i>&nbsp;     * Reads a line from the input. If an input file was specified for input, the file is used
+<i>429</i>&nbsp;     * as input source until its end is reached, then the input is moved to stdin.
+<i>430</i>&nbsp;     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
+<i>431</i>&nbsp;     *
+<i>432</i>&nbsp;     * @return the read line
+<i>433</i>&nbsp;     */
+<i>434</i>&nbsp;    private String getLine() {
+<i>435</i>&nbsp;        try {
+<b class="nc"><i>436</i>&nbsp;            return getLineFromOpenStream();</b>
+<i>437</i>&nbsp;        }
+<b class="nc"><i>438</i>&nbsp;        catch (NoSuchElementException e) {</b>
+<b class="nc"><i>439</i>&nbsp;            reopenStdin();</b>
+<b class="nc"><i>440</i>&nbsp;            return getLine();</b>
+<i>441</i>&nbsp;        }
+<i>442</i>&nbsp;    }
+<i>443</i>&nbsp;
+<i>444</i>&nbsp;    /**
+<i>445</i>&nbsp;     * Reads a line from the currently open stream.
+<i>446</i>&nbsp;     * If reading from file, the special value %TIMESTAMP% is replaced with the current timestamp.
+<i>447</i>&nbsp;     *
+<i>448</i>&nbsp;     * @return the read line
+<i>449</i>&nbsp;     * @throws NoSuchElementException if the currently open stream has ended
+<i>450</i>&nbsp;     */
+<i>451</i>&nbsp;    private String getLineFromOpenStream() {
+<i>452</i>&nbsp;        String s;
+<i>453</i>&nbsp;        try {
+<b class="nc"><i>454</i>&nbsp;            s = in.nextLine();</b>
+<i>455</i>&nbsp;        }
+<b class="nc"><i>456</i>&nbsp;        catch (IndexOutOfBoundsException ex) {</b>
+<i>457</i>&nbsp;            // Sometimes, if the input does not contain only ASCII-printable, Java throws an IndexOutOfBoundsException.
+<b class="nc"><i>458</i>&nbsp;            reopenStdin();</b>
+<b class="nc"><i>459</i>&nbsp;            return getLine();</b>
+<b class="nc"><i>460</i>&nbsp;        }</b>
+<b class="nc"><i>461</i>&nbsp;        if (usingInputFile) {</b>
+<b class="nc"><i>462</i>&nbsp;            println(&quot;&quot;);</b>
+<b class="nc"><i>463</i>&nbsp;            if (s.equalsIgnoreCase(&quot;%TIMESTAMP%&quot;)) {</b>
+<b class="nc"><i>464</i>&nbsp;                s = String.valueOf(System.currentTimeMillis());</b>
+<i>465</i>&nbsp;            }
+<i>466</i>&nbsp;        }
+<b class="nc"><i>467</i>&nbsp;        for (PrintWriter inLogger : inLoggers) {</b>
+<b class="nc"><i>468</i>&nbsp;            inLogger.println(s);</b>
+<b class="nc"><i>469</i>&nbsp;            inLogger.flush();</b>
+<b class="nc"><i>470</i>&nbsp;        }</b>
+<b class="nc"><i>471</i>&nbsp;        return s;</b>
+<i>472</i>&nbsp;    }
+<i>473</i>&nbsp;
+<i>474</i>&nbsp;    /**
+<i>475</i>&nbsp;     * Displays the input prompt when asking an input from the user.
+<i>476</i>&nbsp;     *
+<i>477</i>&nbsp;     * @param prompt              the prompt to show when asking for input
+<i>478</i>&nbsp;     * @param def                 the default value, suggested to the user
+<i>479</i>&nbsp;     * @param expectedInputLength the expected input length
+<i>480</i>&nbsp;     */
+<i>481</i>&nbsp;    private void printReadPrompt(String prompt, String def, int expectedInputLength) {
+<b class="nc"><i>482</i>&nbsp;        String underscores = &quot;_&quot;.repeat(expectedInputLength);</b>
+<b class="nc"><i>483</i>&nbsp;        String defText = def != null ? String.format(&quot; (%s: %s)&quot;, I18n.string(I18nKey.DEFAULT), def) : &quot;&quot;;</b>
+<b class="nc"><i>484</i>&nbsp;        print(af(&quot;%s%s %s&quot;, prompt, defText, underscores).cursorLeft(expectedInputLength));</b>
+<b class="nc"><i>485</i>&nbsp;    }</b>
+<i>486</i>&nbsp;
+<i>487</i>&nbsp;    /**
+<i>488</i>&nbsp;     * Prints the list of players of the given game.
+<i>489</i>&nbsp;     *
+<i>490</i>&nbsp;     * @param game the game whose players are to be printed
+<i>491</i>&nbsp;     */
+<i>492</i>&nbsp;    void printPlayersOfGame(ReducedGame game) {
+<b class="nc"><i>493</i>&nbsp;        StringBuilder res = new StringBuilder();</b>
+<b class="nc"><i>494</i>&nbsp;        res.append(ansi().a(String.format(&quot;%s:%n%n&quot;, I18n.string(I18nKey.PLAYERS))));</b>
+<b class="nc"><i>495</i>&nbsp;        for (ReducedPlayer player : game.getPlayersList()) {</b>
+<b class="nc"><i>496</i>&nbsp;            Ansi resPlayer = ansi();</b>
+<b class="nc"><i>497</i>&nbsp;            if (player.isLocalPlayer()) {</b>
+<b class="nc"><i>498</i>&nbsp;                resPlayer = resPlayer.bold();</b>
+<i>499</i>&nbsp;            }
+<b class="nc"><i>500</i>&nbsp;            ReducedTurn turn = game.getTurn();</b>
+<b class="nc"><i>501</i>&nbsp;            if (turn != null &amp;&amp; turn.getPlayer().equals(player)) {</b>
+<b class="nc"><i>502</i>&nbsp;                resPlayer = resPlayer.fgBrightCyan().a(&quot;\u25cf &quot;);</b>
+<i>503</i>&nbsp;            }
+<i>504</i>&nbsp;            else {
+<b class="nc"><i>505</i>&nbsp;                resPlayer = resPlayer.a(&quot;  &quot;);</b>
+<i>506</i>&nbsp;            }
+<b class="nc"><i>507</i>&nbsp;            resPlayer = resPlayer.a(String.format(</b>
+<i>508</i>&nbsp;                    &quot;%s%n    %s: %s%n    %s: %s%n&quot;,
+<b class="nc"><i>509</i>&nbsp;                    player.getNickname(),</b>
+<b class="nc"><i>510</i>&nbsp;                    I18n.string(I18nKey.GOD),</b>
+<b class="nc"><i>511</i>&nbsp;                    I18n.string(I18nKey.valueOf(String.format(&quot;%s_NAME&quot;, player.getGod().getName().toUpperCase()))),</b>
+<b class="nc"><i>512</i>&nbsp;                    I18n.string(I18nKey.WORKERS),</b>
+<b class="nc"><i>513</i>&nbsp;                    Arrays.stream(workersStrings[player.getPlayerIndex()]).map(String::strip).collect(Collectors.joining(&quot;, &quot;)))</b>
+<b class="nc"><i>514</i>&nbsp;            ).reset();</b>
+<b class="nc"><i>515</i>&nbsp;            res.append(resPlayer);</b>
+<b class="nc"><i>516</i>&nbsp;        }</b>
+<b class="nc"><i>517</i>&nbsp;        println(ansi().a(res.toString()).reset(), 5, 55);</b>
 <b class="nc"><i>518</i>&nbsp;    }</b>
 <i>519</i>&nbsp;
-<i>520</i>&nbsp;    void drawLegend() {
-<b class="nc"><i>521</i>&nbsp;        StringBuilder res = new StringBuilder();</b>
-<b class="nc"><i>522</i>&nbsp;        res.append(ansi().a(String.format(&quot;%s:%n%n&quot;, I18n.string(I18nKey.LEGEND))));</b>
-<b class="nc"><i>523</i>&nbsp;        Ansi[][] cellLevels = new Ansi[5][];</b>
-<b class="nc"><i>524</i>&nbsp;        for (int i = 0; i &lt;= 3; i++) {</b>
-<b class="nc"><i>525</i>&nbsp;            cellLevels[i] = getCellAnsi(false, i, ansi().a(&quot;   &quot;), false);</b>
-<i>526</i>&nbsp;        }
-<b class="nc"><i>527</i>&nbsp;        cellLevels[4] = getCellAnsi(true, 0, ansi().a(&quot;   &quot;), false);</b>
-<b class="nc"><i>528</i>&nbsp;        for (int i = 0; i &lt; cellLevels[0].length; i++) {</b>
-<b class="nc"><i>529</i>&nbsp;            for (int j = 0; j &lt;= 4; j++) {</b>
-<b class="nc"><i>530</i>&nbsp;                res.append(cellLevels[j][i]);</b>
-<b class="nc"><i>531</i>&nbsp;                if (j &lt; 4) {</b>
-<b class="nc"><i>532</i>&nbsp;                    res.append(&quot; &quot;);</b>
-<i>533</i>&nbsp;                }
-<i>534</i>&nbsp;            }
-<b class="nc"><i>535</i>&nbsp;            res.append(PLATFORM_DEPENDENT_NEWLINE);</b>
-<i>536</i>&nbsp;        }
-<b class="nc"><i>537</i>&nbsp;        res.append(String.format(&quot;%-9s %-9s %-9s %-9s %s%n&quot;, I18n.string(I18nKey.GROUND), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.DOME)));</b>
-<b class="nc"><i>538</i>&nbsp;        res.append(&quot;          &quot;);</b>
-<b class="nc"><i>539</i>&nbsp;        for (int i = 1; i &lt;= 3; i++) {</b>
-<b class="nc"><i>540</i>&nbsp;            res.append(String.format(&quot;%-10s&quot;, String.format(&quot;(%s: %d)&quot;, I18n.string(I18nKey.HEIGHT_ABBR), i)));</b>
-<i>541</i>&nbsp;        }
-<i>542</i>&nbsp;
-<b class="nc"><i>543</i>&nbsp;        println(ansi().a(res.toString()).reset(), 18, 55);</b>
-<b class="nc"><i>544</i>&nbsp;    }</b>
-<i>545</i>&nbsp;
-<i>546</i>&nbsp;    private Ansi[] getCellAnsi(ReducedCell cell) {
-<b class="nc"><i>547</i>&nbsp;        return getCellAnsi(cell.hasDome(), cell.getTowerHeight(), getCellWorkerChar(cell), cell.isHighlighted());</b>
-<i>548</i>&nbsp;    }
-<i>549</i>&nbsp;
-<i>550</i>&nbsp;    private Ansi[] getCellAnsi(boolean hasDome, int towerHeight, Ansi cellWorkerChar, boolean isHighlighted) {
-<i>551</i>&nbsp;        Ansi[] ret;
-<i>552</i>&nbsp;        Ansi.Color bg;
-<b class="nc"><i>553</i>&nbsp;        Ansi.Color fg = Ansi.Color.DEFAULT;</b>
-<i>554</i>&nbsp;        String[] retStr;
+<i>520</i>&nbsp;    /**
+<i>521</i>&nbsp;     * Draws the board.
+<i>522</i>&nbsp;     *
+<i>523</i>&nbsp;     * @param board the board
+<i>524</i>&nbsp;     */
+<i>525</i>&nbsp;    void drawBoard(ReducedBoard board) {
+<b class="nc"><i>526</i>&nbsp;        int dimension = board.getDimension();</b>
+<b class="nc"><i>527</i>&nbsp;        StringBuilder boardStr = new StringBuilder((dimension+1)*(dimension+1)*9*5);</b>
+<b class="nc"><i>528</i>&nbsp;        boardStr.append(PLATFORM_DEPENDENT_NEWLINE);</b>
+<b class="nc"><i>529</i>&nbsp;        boardStr.append(&quot;     &quot;);</b>
+<b class="nc"><i>530</i>&nbsp;        for (int i = 0; i &lt; dimension; i++) {</b>
+<b class="nc"><i>531</i>&nbsp;            boardStr.append(String.format(BOARD_COLUMNS_FORMAT_STRING, (char) (i + 65)));</b>
+<i>532</i>&nbsp;        }
+<b class="nc"><i>533</i>&nbsp;        boardStr.append(PLATFORM_DEPENDENT_NEWLINE);</b>
+<b class="nc"><i>534</i>&nbsp;        for (int y = 0; y &lt; dimension; y++) {</b>
+<b class="nc"><i>535</i>&nbsp;            Ansi[][] rowAnsi = new Ansi[dimension+1][];</b>
+<b class="nc"><i>536</i>&nbsp;            String[] rowHeaders = String.format(BOARD_ROWS_FORMAT_STRING, y + 1).split(PLATFORM_DEPENDENT_NEWLINE);</b>
+<b class="nc"><i>537</i>&nbsp;            rowAnsi[0] = new Ansi[rowHeaders.length];</b>
+<b class="nc"><i>538</i>&nbsp;            for (int i = 0; i &lt; rowHeaders.length; i++) {</b>
+<b class="nc"><i>539</i>&nbsp;                rowAnsi[0][i] = ansi().a(rowHeaders[i]);</b>
+<i>540</i>&nbsp;            }
+<b class="nc"><i>541</i>&nbsp;            for (int x = 0; x &lt; dimension; x++) {</b>
+<b class="nc"><i>542</i>&nbsp;                rowAnsi[x+1] = getCellAnsi(board.getCell(x, y));</b>
+<i>543</i>&nbsp;            }
+<b class="nc"><i>544</i>&nbsp;            for (int i = 0; i &lt; rowAnsi[0].length; i++) {</b>
+<b class="nc"><i>545</i>&nbsp;                for (int j = 0; j &lt; dimension + 1; j++) {</b>
+<b class="nc"><i>546</i>&nbsp;                    boardStr.append(rowAnsi[j][i]);</b>
+<i>547</i>&nbsp;                }
+<b class="nc"><i>548</i>&nbsp;                boardStr.append(PLATFORM_DEPENDENT_NEWLINE);</b>
+<i>549</i>&nbsp;            }
+<i>550</i>&nbsp;
+<i>551</i>&nbsp;        }
+<i>552</i>&nbsp;
+<b class="nc"><i>553</i>&nbsp;        print(ansi().cursor(0, 0).a(boardStr.toString()));</b>
+<b class="nc"><i>554</i>&nbsp;    }</b>
 <i>555</i>&nbsp;
-<b class="nc"><i>556</i>&nbsp;        if (hasDome) {</b>
-<b class="nc"><i>557</i>&nbsp;            bg = levelsBgColors[4];</b>
-<b class="nc"><i>558</i>&nbsp;            retStr = String.format(levelFormatString[towerHeight], DOME_CELL_STRING).split(PLATFORM_DEPENDENT_NEWLINE);</b>
-<i>559</i>&nbsp;        }
-<i>560</i>&nbsp;        else {
-<b class="nc"><i>561</i>&nbsp;            bg = levelsBgColors[towerHeight];</b>
-<b class="nc"><i>562</i>&nbsp;            retStr = String.format(levelFormatString[towerHeight], cellWorkerChar).split(PLATFORM_DEPENDENT_NEWLINE);</b>
-<i>563</i>&nbsp;        }
-<i>564</i>&nbsp;
-<b class="nc"><i>565</i>&nbsp;        ret = new Ansi[retStr.length];</b>
-<b class="nc"><i>566</i>&nbsp;        for (int i = 0; i &lt; retStr.length; i++) {</b>
-<b class="nc"><i>567</i>&nbsp;            ret[i] = ansi().reset().fg(fg);</b>
-<b class="nc"><i>568</i>&nbsp;            if (isHighlighted) {</b>
-<b class="nc"><i>569</i>&nbsp;                ret[i] = ret[i].bgBright(bg);</b>
-<i>570</i>&nbsp;            }
-<i>571</i>&nbsp;            else {
-<b class="nc"><i>572</i>&nbsp;                ret[i] = ret[i].bg(bg);</b>
+<i>556</i>&nbsp;    /**
+<i>557</i>&nbsp;     * Draws a legend of the cells colors and symbols.
+<i>558</i>&nbsp;     */
+<i>559</i>&nbsp;    void drawLegend() {
+<b class="nc"><i>560</i>&nbsp;        StringBuilder res = new StringBuilder();</b>
+<b class="nc"><i>561</i>&nbsp;        res.append(ansi().a(String.format(&quot;%s:%n%n&quot;, I18n.string(I18nKey.LEGEND))));</b>
+<b class="nc"><i>562</i>&nbsp;        Ansi[][] cellLevels = new Ansi[5][];</b>
+<b class="nc"><i>563</i>&nbsp;        for (int i = 0; i &lt;= 3; i++) {</b>
+<b class="nc"><i>564</i>&nbsp;            cellLevels[i] = getCellAnsi(false, i, ansi().a(&quot;   &quot;), false);</b>
+<i>565</i>&nbsp;        }
+<b class="nc"><i>566</i>&nbsp;        cellLevels[4] = getCellAnsi(true, 0, ansi().a(&quot;   &quot;), false);</b>
+<b class="nc"><i>567</i>&nbsp;        for (int i = 0; i &lt; cellLevels[0].length; i++) {</b>
+<b class="nc"><i>568</i>&nbsp;            for (int j = 0; j &lt;= 4; j++) {</b>
+<b class="nc"><i>569</i>&nbsp;                res.append(cellLevels[j][i]);</b>
+<b class="nc"><i>570</i>&nbsp;                if (j &lt; 4) {</b>
+<b class="nc"><i>571</i>&nbsp;                    res.append(&quot; &quot;);</b>
+<i>572</i>&nbsp;                }
 <i>573</i>&nbsp;            }
-<b class="nc"><i>574</i>&nbsp;            ret[i] = ret[i].a(retStr[i]).reset();</b>
+<b class="nc"><i>574</i>&nbsp;            res.append(PLATFORM_DEPENDENT_NEWLINE);</b>
 <i>575</i>&nbsp;        }
-<b class="nc"><i>576</i>&nbsp;        return ret;</b>
-<i>577</i>&nbsp;    }
-<i>578</i>&nbsp;
-<i>579</i>&nbsp;    private Ansi getCellWorkerChar(ReducedCell cell) {
-<b class="nc"><i>580</i>&nbsp;        Ansi ret = ansi();</b>
-<b class="nc"><i>581</i>&nbsp;        Optional&lt;ReducedWorker&gt; maybeWorker = cell.getWorker();</b>
-<b class="nc"><i>582</i>&nbsp;        if (maybeWorker.isPresent()) {</b>
-<b class="nc"><i>583</i>&nbsp;            ReducedWorker worker = maybeWorker.get();</b>
-<b class="nc"><i>584</i>&nbsp;            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);</b>
-<b class="nc"><i>585</i>&nbsp;            return ret;</b>
-<i>586</i>&nbsp;        }
-<i>587</i>&nbsp;        else {
-<b class="nc"><i>588</i>&nbsp;            return ret.a(EMPTY_CELL_STRING);</b>
-<i>589</i>&nbsp;        }
-<i>590</i>&nbsp;    }
-<i>591</i>&nbsp;
-<i>592</i>&nbsp;    void moveCursorToStatusPosition() {
-<b class="nc"><i>593</i>&nbsp;        println(&quot;&quot;, 28, 0);</b>
-<b class="nc"><i>594</i>&nbsp;    }</b>
-<i>595</i>&nbsp;
-<i>596</i>&nbsp;    String getGodNameAndSubtitle(ReducedGod god) {
-<b class="nc"><i>597</i>&nbsp;        return String.format(</b>
-<i>598</i>&nbsp;                &quot;%s: %s&quot;,
-<b class="nc"><i>599</i>&nbsp;                I18n.string(I18nKey.valueOf(String.format(&quot;%s_NAME&quot;, god.getName().toUpperCase()))),</b>
-<b class="nc"><i>600</i>&nbsp;                I18n.string(I18nKey.valueOf(String.format(&quot;%s_SUBTITLE&quot;, god.getName().toUpperCase())))</b>
-<i>601</i>&nbsp;        );
-<i>602</i>&nbsp;    }
-<i>603</i>&nbsp;
-<i>604</i>&nbsp;    boolean printGodCardConfirmationScreen(ReducedGod god) {
-<b class="nc"><i>605</i>&nbsp;        clear();</b>
-<b class="nc"><i>606</i>&nbsp;        println(getGodNameAndSubtitle(god));</b>
-<b class="nc"><i>607</i>&nbsp;        println(I18n.string(I18nKey.valueOf(String.format(&quot;%s_DESCRIPTION&quot;, god.getName().toUpperCase()))));</b>
-<b class="nc"><i>608</i>&nbsp;        println(&quot;&quot;);</b>
-<b class="nc"><i>609</i>&nbsp;        return readYesNo(I18n.string(I18nKey.DO_YOU_WANT_TO_CONFIRM_THE_CHOICE_OF_THIS_GOD));</b>
-<i>610</i>&nbsp;    }
-<i>611</i>&nbsp;}
+<b class="nc"><i>576</i>&nbsp;        res.append(String.format(&quot;%-9s %-9s %-9s %-9s %s%n&quot;, I18n.string(I18nKey.GROUND), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.TOWER), I18n.string(I18nKey.DOME)));</b>
+<b class="nc"><i>577</i>&nbsp;        res.append(&quot;          &quot;);</b>
+<b class="nc"><i>578</i>&nbsp;        for (int i = 1; i &lt;= 3; i++) {</b>
+<b class="nc"><i>579</i>&nbsp;            res.append(String.format(&quot;%-10s&quot;, String.format(&quot;(%s: %d)&quot;, I18n.string(I18nKey.HEIGHT_ABBR), i)));</b>
+<i>580</i>&nbsp;        }
+<i>581</i>&nbsp;
+<b class="nc"><i>582</i>&nbsp;        println(ansi().a(res.toString()).reset(), 18, 55);</b>
+<b class="nc"><i>583</i>&nbsp;    }</b>
+<i>584</i>&nbsp;
+<i>585</i>&nbsp;    /**
+<i>586</i>&nbsp;     * Obtains the Ansi object representing a ReducedCell.
+<i>587</i>&nbsp;     *
+<i>588</i>&nbsp;     * @param cell the cell to print
+<i>589</i>&nbsp;     * @return the Ansi object representing the cell
+<i>590</i>&nbsp;     */
+<i>591</i>&nbsp;    private Ansi[] getCellAnsi(ReducedCell cell) {
+<b class="nc"><i>592</i>&nbsp;        return getCellAnsi(cell.hasDome(), cell.getTowerHeight(), getCellWorkerChar(cell), cell.isHighlighted());</b>
+<i>593</i>&nbsp;    }
+<i>594</i>&nbsp;
+<i>595</i>&nbsp;    /**
+<i>596</i>&nbsp;     * Obtains the Ansi object representing a ReducedCell.
+<i>597</i>&nbsp;     *
+<i>598</i>&nbsp;     * @param hasDome        whether the cell has a dome
+<i>599</i>&nbsp;     * @param towerHeight    the height of the tower build on the cell
+<i>600</i>&nbsp;     * @param cellWorkerChar the character representing the worker on the cell
+<i>601</i>&nbsp;     * @param isHighlighted  whether the cell should be highlighted
+<i>602</i>&nbsp;     * @return the Ansi object representing the cell
+<i>603</i>&nbsp;     */
+<i>604</i>&nbsp;    private Ansi[] getCellAnsi(boolean hasDome, int towerHeight, Ansi cellWorkerChar, boolean isHighlighted) {
+<i>605</i>&nbsp;        Ansi[] ret;
+<i>606</i>&nbsp;        Ansi.Color bg;
+<b class="nc"><i>607</i>&nbsp;        Ansi.Color fg = Ansi.Color.DEFAULT;</b>
+<i>608</i>&nbsp;        String[] retStr;
+<i>609</i>&nbsp;
+<b class="nc"><i>610</i>&nbsp;        if (hasDome) {</b>
+<b class="nc"><i>611</i>&nbsp;            bg = levelsBgColors[4];</b>
+<b class="nc"><i>612</i>&nbsp;            retStr = String.format(levelFormatString[towerHeight], DOME_CELL_STRING).split(PLATFORM_DEPENDENT_NEWLINE);</b>
+<i>613</i>&nbsp;        }
+<i>614</i>&nbsp;        else {
+<b class="nc"><i>615</i>&nbsp;            bg = levelsBgColors[towerHeight];</b>
+<b class="nc"><i>616</i>&nbsp;            retStr = String.format(levelFormatString[towerHeight], cellWorkerChar).split(PLATFORM_DEPENDENT_NEWLINE);</b>
+<i>617</i>&nbsp;        }
+<i>618</i>&nbsp;
+<b class="nc"><i>619</i>&nbsp;        ret = new Ansi[retStr.length];</b>
+<b class="nc"><i>620</i>&nbsp;        for (int i = 0; i &lt; retStr.length; i++) {</b>
+<b class="nc"><i>621</i>&nbsp;            ret[i] = ansi().reset().fg(fg);</b>
+<b class="nc"><i>622</i>&nbsp;            if (isHighlighted) {</b>
+<b class="nc"><i>623</i>&nbsp;                ret[i] = ret[i].bgBright(bg);</b>
+<i>624</i>&nbsp;            }
+<i>625</i>&nbsp;            else {
+<b class="nc"><i>626</i>&nbsp;                ret[i] = ret[i].bg(bg);</b>
+<i>627</i>&nbsp;            }
+<b class="nc"><i>628</i>&nbsp;            ret[i] = ret[i].a(retStr[i]).reset();</b>
+<i>629</i>&nbsp;        }
+<b class="nc"><i>630</i>&nbsp;        return ret;</b>
+<i>631</i>&nbsp;    }
+<i>632</i>&nbsp;
+<i>633</i>&nbsp;    /**
+<i>634</i>&nbsp;     * Gets the Ansi object representing the player on a ReducedCell.
+<i>635</i>&nbsp;     *
+<i>636</i>&nbsp;     * @param cell the cell
+<i>637</i>&nbsp;     * @return the Ansi object representing the player
+<i>638</i>&nbsp;     */
+<i>639</i>&nbsp;    private Ansi getCellWorkerChar(ReducedCell cell) {
+<b class="nc"><i>640</i>&nbsp;        Ansi ret = ansi();</b>
+<b class="nc"><i>641</i>&nbsp;        Optional&lt;ReducedWorker&gt; maybeWorker = cell.getWorker();</b>
+<b class="nc"><i>642</i>&nbsp;        if (maybeWorker.isPresent()) {</b>
+<b class="nc"><i>643</i>&nbsp;            ReducedWorker worker = maybeWorker.get();</b>
+<b class="nc"><i>644</i>&nbsp;            ret = ret.a(workersStrings[worker.getPlayer().getPlayerIndex()][worker.getWorkerID().getWorkerIDIndex()]);</b>
+<b class="nc"><i>645</i>&nbsp;            return ret;</b>
+<i>646</i>&nbsp;        }
+<i>647</i>&nbsp;        else {
+<b class="nc"><i>648</i>&nbsp;            return ret.a(EMPTY_CELL_STRING);</b>
+<i>649</i>&nbsp;        }
+<i>650</i>&nbsp;    }
+<i>651</i>&nbsp;
+<i>652</i>&nbsp;    /**
+<i>653</i>&nbsp;     * Moves the cursor at the position in the console where the game status should be printed.
+<i>654</i>&nbsp;     */
+<i>655</i>&nbsp;    void moveCursorToStatusPosition() {
+<b class="nc"><i>656</i>&nbsp;        println(&quot;&quot;, 28, 0);</b>
+<b class="nc"><i>657</i>&nbsp;    }</b>
+<i>658</i>&nbsp;
+<i>659</i>&nbsp;    /**
+<i>660</i>&nbsp;     * Obtains the name and subtitle of a ReducedGod to be printed.
+<i>661</i>&nbsp;     *
+<i>662</i>&nbsp;     * @param god the ReducedGod whose details are requested
+<i>663</i>&nbsp;     * @return the name and subtitle of a ReducedGod ready to be printed
+<i>664</i>&nbsp;     */
+<i>665</i>&nbsp;    String getGodNameAndSubtitle(ReducedGod god) {
+<b class="nc"><i>666</i>&nbsp;        return String.format(</b>
+<i>667</i>&nbsp;                &quot;%s: %s&quot;,
+<b class="nc"><i>668</i>&nbsp;                I18n.string(I18nKey.valueOf(String.format(&quot;%s_NAME&quot;, god.getName().toUpperCase()))),</b>
+<b class="nc"><i>669</i>&nbsp;                I18n.string(I18nKey.valueOf(String.format(&quot;%s_SUBTITLE&quot;, god.getName().toUpperCase())))</b>
+<i>670</i>&nbsp;        );
+<i>671</i>&nbsp;    }
+<i>672</i>&nbsp;
+<i>673</i>&nbsp;    /**
+<i>674</i>&nbsp;     * Prints a confirmation screen to allow the user to see a god&#39;s powers and confirm their choice.
+<i>675</i>&nbsp;     *
+<i>676</i>&nbsp;     * @param god the ReducedGod to show the screen about
+<i>677</i>&nbsp;     * @return whether the user confirmed their choice
+<i>678</i>&nbsp;     */
+<i>679</i>&nbsp;    boolean printGodCardConfirmationScreen(ReducedGod god) {
+<b class="nc"><i>680</i>&nbsp;        clear();</b>
+<b class="nc"><i>681</i>&nbsp;        println(getGodNameAndSubtitle(god));</b>
+<b class="nc"><i>682</i>&nbsp;        println(I18n.string(I18nKey.valueOf(String.format(&quot;%s_DESCRIPTION&quot;, god.getName().toUpperCase()))));</b>
+<b class="nc"><i>683</i>&nbsp;        println(&quot;&quot;);</b>
+<b class="nc"><i>684</i>&nbsp;        return readYesNo(I18n.string(I18nKey.DO_YOU_WANT_TO_CONFIRM_THE_CHOICE_OF_THIS_GOD));</b>
+<i>685</i>&nbsp;    }
+<i>686</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

@@ -134,96 +134,109 @@
 <i>34</i>&nbsp;    @FXML Circle colorTip;
 <i>35</i>&nbsp;    @FXML Label colorLabel;
 <i>36</i>&nbsp;
-<b class="nc"><i>37</i>&nbsp;    enum Colors {</b>
-<b class="nc"><i>38</i>&nbsp;        PLAYER1(&quot;133C55&quot;),</b>
-<b class="nc"><i>39</i>&nbsp;        PLAYER2(&quot;F2A541&quot;),</b>
-<b class="nc"><i>40</i>&nbsp;        PLAYER3(&quot;353535&quot;);</b>
-<i>41</i>&nbsp;
-<i>42</i>&nbsp;        public final String color;
-<i>43</i>&nbsp;
-<b class="nc"><i>44</i>&nbsp;        Colors(String color){</b>
-<b class="nc"><i>45</i>&nbsp;            this.color = color;</b>
-<b class="nc"><i>46</i>&nbsp;        }</b>
-<i>47</i>&nbsp;    }
-<i>48</i>&nbsp;
-<i>49</i>&nbsp;    /**
-<i>50</i>&nbsp;     * Class Constructor for a single PlayerLateralLabel
-<i>51</i>&nbsp;     * @param playerNameProperty a String containing the name of the player
-<i>52</i>&nbsp;     * @param playerNumberProperty an Integer containing the position of the player in the playing order
-<i>53</i>&nbsp;     * @param godNameProperty a String containing the player&#39;s God name
-<i>54</i>&nbsp;     */
-<i>55</i>&nbsp;    public PlayerLateralLabel(@NamedArg(&quot;playerName&quot;) String playerNameProperty,
-<i>56</i>&nbsp;                              @NamedArg(&quot;playerNumber&quot;) Integer playerNumberProperty,
-<b class="nc"><i>57</i>&nbsp;                              @NamedArg(&quot;godName&quot;) String godNameProperty) {</b>
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * An enum that represents the color assigned to each of the three players
+<i>39</i>&nbsp;     */
+<b class="nc"><i>40</i>&nbsp;    enum Colors {</b>
+<b class="nc"><i>41</i>&nbsp;        PLAYER1(&quot;133C55&quot;),</b>
+<b class="nc"><i>42</i>&nbsp;        PLAYER2(&quot;F2A541&quot;),</b>
+<b class="nc"><i>43</i>&nbsp;        PLAYER3(&quot;353535&quot;);</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;        /**
+<i>46</i>&nbsp;         * This attribute is a hex string representing the color
+<i>47</i>&nbsp;         */
+<i>48</i>&nbsp;        public final String color;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;        /**
+<i>51</i>&nbsp;         * This method sets the color to the player
+<i>52</i>&nbsp;         * @param color a hex string representing the color
+<i>53</i>&nbsp;         */
+<b class="nc"><i>54</i>&nbsp;        Colors(String color){</b>
+<b class="nc"><i>55</i>&nbsp;            this.color = color;</b>
+<b class="nc"><i>56</i>&nbsp;        }</b>
+<i>57</i>&nbsp;    }
 <i>58</i>&nbsp;
-<b class="nc"><i>59</i>&nbsp;        this.playerNameProperty.set(playerNameProperty);</b>
-<b class="nc"><i>60</i>&nbsp;        this.playerNumberProperty.set(playerNumberProperty);</b>
-<b class="nc"><i>61</i>&nbsp;        this.godNameProperty.set(I18n.string(I18nKey.valueOf(godNameProperty.toUpperCase()+&quot;_NAME&quot;)));</b>
-<i>62</i>&nbsp;
-<b class="nc"><i>63</i>&nbsp;        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(&quot;/fxml/PlayerLateralLabel.fxml&quot;), I18n.getResourceBundle());</b>
-<b class="nc"><i>64</i>&nbsp;        fxmlLoader.setRoot(this);</b>
-<b class="nc"><i>65</i>&nbsp;        fxmlLoader.setController(this);</b>
-<i>66</i>&nbsp;        try {
-<b class="nc"><i>67</i>&nbsp;            fxmlLoader.load();</b>
-<b class="nc"><i>68</i>&nbsp;        } catch (IOException e) {</b>
-<b class="nc"><i>69</i>&nbsp;            LOGGER.log(Level.SEVERE, e.getMessage(), e);</b>
-<b class="nc"><i>70</i>&nbsp;        }</b>
-<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>59</i>&nbsp;    /**
+<i>60</i>&nbsp;     * Class Constructor for a single PlayerLateralLabel
+<i>61</i>&nbsp;     * @param playerNameProperty a String containing the name of the player
+<i>62</i>&nbsp;     * @param playerNumberProperty an Integer containing the position of the player in the playing order
+<i>63</i>&nbsp;     * @param godNameProperty a String containing the player&#39;s God name
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    public PlayerLateralLabel(@NamedArg(&quot;playerName&quot;) String playerNameProperty,
+<i>66</i>&nbsp;                              @NamedArg(&quot;playerNumber&quot;) Integer playerNumberProperty,
+<b class="nc"><i>67</i>&nbsp;                              @NamedArg(&quot;godName&quot;) String godNameProperty) {</b>
+<i>68</i>&nbsp;
+<b class="nc"><i>69</i>&nbsp;        this.playerNameProperty.set(playerNameProperty);</b>
+<b class="nc"><i>70</i>&nbsp;        this.playerNumberProperty.set(playerNumberProperty);</b>
+<b class="nc"><i>71</i>&nbsp;        this.godNameProperty.set(I18n.string(I18nKey.valueOf(godNameProperty.toUpperCase()+&quot;_NAME&quot;)));</b>
 <i>72</i>&nbsp;
-<i>73</i>&nbsp;
-<i>74</i>&nbsp;    /**
-<i>75</i>&nbsp;     * This method sets the graphical status of a label, depending on the value of active
-<i>76</i>&nbsp;     * @param active if true, the label is set to active. If false, the label is set to inactive.
-<i>77</i>&nbsp;     */
-<i>78</i>&nbsp;    public void setActiveStatus(boolean active){
-<i>79</i>&nbsp;        String toRemove;
-<i>80</i>&nbsp;        String toAdd;
-<i>81</i>&nbsp;
-<b class="nc"><i>82</i>&nbsp;        if(active){</b>
-<b class="nc"><i>83</i>&nbsp;            toRemove = &quot;player-lateral-label-passive&quot;;</b>
-<b class="nc"><i>84</i>&nbsp;            toAdd = &quot;player-lateral-label-active&quot;;</b>
-<b class="nc"><i>85</i>&nbsp;            statusLabel.setText(I18n.string(I18nKey.CURRENTLY_PLAYING).toUpperCase());</b>
-<i>86</i>&nbsp;        } else {
-<b class="nc"><i>87</i>&nbsp;            toRemove = &quot;player-lateral-label-active&quot;;</b>
-<b class="nc"><i>88</i>&nbsp;            toAdd = &quot;player-lateral-label-passive&quot;;</b>
-<b class="nc"><i>89</i>&nbsp;            statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());</b>
-<i>90</i>&nbsp;        }
+<b class="nc"><i>73</i>&nbsp;        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(&quot;/fxml/PlayerLateralLabel.fxml&quot;), I18n.getResourceBundle());</b>
+<b class="nc"><i>74</i>&nbsp;        fxmlLoader.setRoot(this);</b>
+<b class="nc"><i>75</i>&nbsp;        fxmlLoader.setController(this);</b>
+<i>76</i>&nbsp;        try {
+<b class="nc"><i>77</i>&nbsp;            fxmlLoader.load();</b>
+<b class="nc"><i>78</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>79</i>&nbsp;            LOGGER.log(Level.SEVERE, e.getMessage(), e);</b>
+<b class="nc"><i>80</i>&nbsp;        }</b>
+<b class="nc"><i>81</i>&nbsp;    }</b>
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    /**
+<i>85</i>&nbsp;     * This method sets the graphical status of a label, depending on the value of active
+<i>86</i>&nbsp;     * @param active if true, the label is set to active. If false, the label is set to inactive.
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    public void setActiveStatus(boolean active){
+<i>89</i>&nbsp;        String toRemove;
+<i>90</i>&nbsp;        String toAdd;
 <i>91</i>&nbsp;
-<b class="nc"><i>92</i>&nbsp;        int index = container.getStyleClass().indexOf(toRemove);</b>
-<b class="nc"><i>93</i>&nbsp;        if(index != -1){</b>
-<b class="nc"><i>94</i>&nbsp;            container.getStyleClass().remove(index);</b>
-<i>95</i>&nbsp;        }
-<b class="nc"><i>96</i>&nbsp;        if(!container.getStyleClass().contains(toAdd)){</b>
-<b class="nc"><i>97</i>&nbsp;            container.getStyleClass().add(toAdd);</b>
-<i>98</i>&nbsp;        }
-<i>99</i>&nbsp;
-<b class="nc"><i>100</i>&nbsp;    }</b>
+<b class="nc"><i>92</i>&nbsp;        if(active){</b>
+<b class="nc"><i>93</i>&nbsp;            toRemove = &quot;player-lateral-label-passive&quot;;</b>
+<b class="nc"><i>94</i>&nbsp;            toAdd = &quot;player-lateral-label-active&quot;;</b>
+<b class="nc"><i>95</i>&nbsp;            statusLabel.setText(I18n.string(I18nKey.CURRENTLY_PLAYING).toUpperCase());</b>
+<i>96</i>&nbsp;        } else {
+<b class="nc"><i>97</i>&nbsp;            toRemove = &quot;player-lateral-label-active&quot;;</b>
+<b class="nc"><i>98</i>&nbsp;            toAdd = &quot;player-lateral-label-passive&quot;;</b>
+<b class="nc"><i>99</i>&nbsp;            statusLabel.setText(I18n.string(I18nKey.WAITING_FOR_THEIR_TURN).toUpperCase());</b>
+<i>100</i>&nbsp;        }
 <i>101</i>&nbsp;
-<i>102</i>&nbsp;    /**
-<i>103</i>&nbsp;     * This method sets the graphical status of a label to Spectating
-<i>104</i>&nbsp;     */
-<i>105</i>&nbsp;    public void setSpectatingStatus(){
-<b class="nc"><i>106</i>&nbsp;        setActiveStatus(false);</b>
-<b class="nc"><i>107</i>&nbsp;        statusLabel.setText(I18n.string(I18nKey.SPECTATING).toUpperCase());</b>
-<b class="nc"><i>108</i>&nbsp;        colorLabel.setOpacity(0);</b>
-<b class="nc"><i>109</i>&nbsp;        colorTip.setOpacity(0);</b>
-<b class="nc"><i>110</i>&nbsp;        godName.setOpacity(0);</b>
-<b class="nc"><i>111</i>&nbsp;    }</b>
-<i>112</i>&nbsp;
-<i>113</i>&nbsp;    @FXML private void initialize(){
-<b class="nc"><i>114</i>&nbsp;        playerName.textProperty().bind(playerNameProperty);</b>
-<b class="nc"><i>115</i>&nbsp;        godName.textProperty().bind(godNameProperty);</b>
-<b class="nc"><i>116</i>&nbsp;        colorLabel.setText(I18n.string(I18nKey.COLOR));</b>
-<b class="nc"><i>117</i>&nbsp;        colorTip.setFill(Paint.valueOf(Colors.values()[playerNumberProperty.get()].color));</b>
-<b class="nc"><i>118</i>&nbsp;    }</b>
-<i>119</i>&nbsp;}
-<i>120</i>&nbsp;
+<b class="nc"><i>102</i>&nbsp;        int index = container.getStyleClass().indexOf(toRemove);</b>
+<b class="nc"><i>103</i>&nbsp;        if(index != -1){</b>
+<b class="nc"><i>104</i>&nbsp;            container.getStyleClass().remove(index);</b>
+<i>105</i>&nbsp;        }
+<b class="nc"><i>106</i>&nbsp;        if(!container.getStyleClass().contains(toAdd)){</b>
+<b class="nc"><i>107</i>&nbsp;            container.getStyleClass().add(toAdd);</b>
+<i>108</i>&nbsp;        }
+<i>109</i>&nbsp;
+<b class="nc"><i>110</i>&nbsp;    }</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * This method sets the graphical status of a label to Spectating
+<i>114</i>&nbsp;     */
+<i>115</i>&nbsp;    public void setSpectatingStatus(){
+<b class="nc"><i>116</i>&nbsp;        setActiveStatus(false);</b>
+<b class="nc"><i>117</i>&nbsp;        statusLabel.setText(I18n.string(I18nKey.SPECTATING).toUpperCase());</b>
+<b class="nc"><i>118</i>&nbsp;        colorLabel.setOpacity(0);</b>
+<b class="nc"><i>119</i>&nbsp;        colorTip.setOpacity(0);</b>
+<b class="nc"><i>120</i>&nbsp;        godName.setOpacity(0);</b>
+<b class="nc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    /**
+<i>124</i>&nbsp;     * JavaFX initialization method
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    @FXML private void initialize(){
+<b class="nc"><i>127</i>&nbsp;        playerName.textProperty().bind(playerNameProperty);</b>
+<b class="nc"><i>128</i>&nbsp;        godName.textProperty().bind(godNameProperty);</b>
+<b class="nc"><i>129</i>&nbsp;        colorLabel.setText(I18n.string(I18nKey.COLOR));</b>
+<b class="nc"><i>130</i>&nbsp;        colorTip.setFill(Paint.valueOf(Colors.values()[playerNumberProperty.get()].color));</b>
+<b class="nc"><i>131</i>&nbsp;    }</b>
+<i>132</i>&nbsp;}
+<i>133</i>&nbsp;
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

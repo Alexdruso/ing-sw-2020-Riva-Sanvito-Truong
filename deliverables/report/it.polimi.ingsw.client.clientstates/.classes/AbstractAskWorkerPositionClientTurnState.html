@@ -42,26 +42,26 @@
   <td class="name">AbstractAskWorkerPositionClientTurnState</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/ 4)
+    (3/ 4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    83,3%
   </span>
   <span class="absValue">
-    (0/ 12)
+    (10/ 12)
   </span>
 </td>
 </tr>
@@ -94,22 +94,22 @@
 <i>20</i>&nbsp;     * @param client the reference to the Client
 <i>21</i>&nbsp;     */
 <i>22</i>&nbsp;    public AbstractAskWorkerPositionClientTurnState(Client client) {
-<b class="nc"><i>23</i>&nbsp;        super(client);</b>
-<b class="nc"><i>24</i>&nbsp;    }</b>
+<b class="fc"><i>23</i>&nbsp;        super(client);</b>
+<b class="fc"><i>24</i>&nbsp;    }</b>
 <i>25</i>&nbsp;
 <i>26</i>&nbsp;    @Override
 <i>27</i>&nbsp;    public void notifyUiInteraction() {
-<b class="nc"><i>28</i>&nbsp;        client.getGame().getPlayer(client.getNickname()).ifPresent(</b>
+<b class="fc"><i>28</i>&nbsp;        client.getGame().getPlayer(client.getNickname()).ifPresent(</b>
 <i>29</i>&nbsp;                player -&gt; {
-<b class="nc"><i>30</i>&nbsp;                    ReducedWorkerID[] reducedWorkerIDS = ReducedWorkerID.values();</b>
-<b class="nc"><i>31</i>&nbsp;                    int workerIDIndex = player.getWorkers().size();</b>
-<b class="nc"><i>32</i>&nbsp;                    if (workerIDIndex &lt; reducedWorkerIDS.length) {</b>
-<b class="nc"><i>33</i>&nbsp;                        workerID = reducedWorkerIDS[workerIDIndex];</b>
-<b class="nc"><i>34</i>&nbsp;                        client.getConnection().send(new ClientSetWorkerStartPositionMessage(targetCellX, targetCellY, workerID));</b>
+<b class="fc"><i>30</i>&nbsp;                    ReducedWorkerID[] reducedWorkerIDS = ReducedWorkerID.values();</b>
+<b class="fc"><i>31</i>&nbsp;                    int workerIDIndex = player.getWorkers().size();</b>
+<b class="fc"><i>32</i>&nbsp;                    if (workerIDIndex &lt; reducedWorkerIDS.length) {</b>
+<b class="fc"><i>33</i>&nbsp;                        workerID = reducedWorkerIDS[workerIDIndex];</b>
+<b class="fc"><i>34</i>&nbsp;                        client.getConnection().send(new ClientSetWorkerStartPositionMessage(targetCellX, targetCellY, workerID));</b>
 <i>35</i>&nbsp;                    }
-<b class="nc"><i>36</i>&nbsp;                }</b>
+<b class="fc"><i>36</i>&nbsp;                }</b>
 <i>37</i>&nbsp;        );
-<b class="nc"><i>38</i>&nbsp;    }</b>
+<b class="fc"><i>38</i>&nbsp;    }</b>
 <i>39</i>&nbsp;
 <i>40</i>&nbsp;    @Override
 <i>41</i>&nbsp;    public void handleClientError() {
@@ -121,7 +121,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

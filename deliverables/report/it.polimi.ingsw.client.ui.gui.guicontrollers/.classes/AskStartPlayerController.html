@@ -123,23 +123,27 @@
 <b class="nc"><i>49</i>&nbsp;        }</b>
 <b class="nc"><i>50</i>&nbsp;    }</b>
 <i>51</i>&nbsp;
-<i>52</i>&nbsp;    @FXML
-<i>53</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>54</i>&nbsp;        MenuConfirmation.showMenuConfirmation(client);</b>
-<b class="nc"><i>55</i>&nbsp;    }</b>
-<i>56</i>&nbsp;
-<i>57</i>&nbsp;    @Override
-<i>58</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>59</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Handles menu button on screen
+<i>54</i>&nbsp;     * @param event the mouse click event
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    @FXML
+<i>57</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>58</i>&nbsp;        MenuConfirmation.showMenuConfirmation(client);</b>
+<b class="nc"><i>59</i>&nbsp;    }</b>
 <i>60</i>&nbsp;
-<b class="nc"><i>61</i>&nbsp;    }</b>
-<i>62</i>&nbsp;}
+<i>61</i>&nbsp;    @Override
+<i>62</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>63</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

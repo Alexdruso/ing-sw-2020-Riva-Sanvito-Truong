@@ -139,68 +139,71 @@
 <b class="nc"><i>20</i>&nbsp;public class SantoriniApp {</b>
 <b class="nc"><i>21</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(SantoriniApp.class.getName());</b>
 <i>22</i>&nbsp;
-<b class="nc"><i>23</i>&nbsp;    private enum LaunchComponent {</b>
-<b class="nc"><i>24</i>&nbsp;        CLI, GUI, SERVER</b>
-<i>25</i>&nbsp;    }
-<i>26</i>&nbsp;
-<i>27</i>&nbsp;    /**
-<i>28</i>&nbsp;     * Initializes and launches the Santorini app.
-<i>29</i>&nbsp;     * To run the client with a GUI, do not specify any command line argument or specify &quot;gui&quot;.
-<i>30</i>&nbsp;     * To run the client with a CLI, specify &quot;cli&quot; as the first command line argument.
-<i>31</i>&nbsp;     * To run the server, specify &quot;server&quot; as the first command line argument.
-<i>32</i>&nbsp;     *
-<i>33</i>&nbsp;     * @param args the command line arguments
-<i>34</i>&nbsp;     */
-<i>35</i>&nbsp;    public static void main(String[] args) {
-<b class="nc"><i>36</i>&nbsp;        LoggerManager.setLogLevel();</b>
-<i>37</i>&nbsp;
-<b class="nc"><i>38</i>&nbsp;        String launchComponentValue = args.length &gt; 0 ? args[0] : &quot;gui&quot;;</b>
-<b class="nc"><i>39</i>&nbsp;        LaunchComponent launchComponent = LaunchComponent.valueOf(launchComponentValue.toUpperCase());</b>
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * The Santorini components that can be launched.
+<i>25</i>&nbsp;     */
+<b class="nc"><i>26</i>&nbsp;    private enum LaunchComponent {</b>
+<b class="nc"><i>27</i>&nbsp;        CLI, GUI, SERVER</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Initializes and launches the Santorini app.
+<i>32</i>&nbsp;     * To run the client with a GUI, do not specify any command line argument or specify &quot;gui&quot;.
+<i>33</i>&nbsp;     * To run the client with a CLI, specify &quot;cli&quot; as the first command line argument.
+<i>34</i>&nbsp;     * To run the server, specify &quot;server&quot; as the first command line argument.
+<i>35</i>&nbsp;     *
+<i>36</i>&nbsp;     * @param args the command line arguments
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public static void main(String[] args) {
+<b class="nc"><i>39</i>&nbsp;        LoggerManager.setLogLevel();</b>
 <i>40</i>&nbsp;
-<b class="nc"><i>41</i>&nbsp;        switch (launchComponent) {</b>
-<b class="nc"><i>42</i>&nbsp;            case CLI -&gt; launchClient(false);</b>
-<b class="nc"><i>43</i>&nbsp;            case GUI -&gt; launchClient(true);</b>
-<b class="nc"><i>44</i>&nbsp;            case SERVER -&gt; launchServer();</b>
-<i>45</i>&nbsp;        }
-<b class="nc"><i>46</i>&nbsp;    }</b>
-<i>47</i>&nbsp;
-<i>48</i>&nbsp;    /**
-<i>49</i>&nbsp;     * Initializes and launches the Santorini client app.
-<i>50</i>&nbsp;     *
-<i>51</i>&nbsp;     * @param withGUI whether to launch the GUI version of the client
-<i>52</i>&nbsp;     */
-<i>53</i>&nbsp;    private static void launchClient(boolean withGUI) {
-<i>54</i>&nbsp;        UI ui;
-<b class="nc"><i>55</i>&nbsp;        if (withGUI) {</b>
-<b class="nc"><i>56</i>&nbsp;            ui = new GUI();</b>
-<i>57</i>&nbsp;        }
-<i>58</i>&nbsp;        else {
-<b class="nc"><i>59</i>&nbsp;            ui = new CLI();</b>
+<b class="nc"><i>41</i>&nbsp;        String launchComponentValue = args.length &gt; 0 ? args[0] : &quot;gui&quot;;</b>
+<b class="nc"><i>42</i>&nbsp;        LaunchComponent launchComponent = LaunchComponent.valueOf(launchComponentValue.toUpperCase());</b>
+<i>43</i>&nbsp;
+<b class="nc"><i>44</i>&nbsp;        switch (launchComponent) {</b>
+<b class="nc"><i>45</i>&nbsp;            case CLI -&gt; launchClient(false);</b>
+<b class="nc"><i>46</i>&nbsp;            case GUI -&gt; launchClient(true);</b>
+<b class="nc"><i>47</i>&nbsp;            case SERVER -&gt; launchServer();</b>
+<i>48</i>&nbsp;        }
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Initializes and launches the Santorini client app.
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     * @param withGUI whether to launch the GUI version of the client
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    private static void launchClient(boolean withGUI) {
+<i>57</i>&nbsp;        UI ui;
+<b class="nc"><i>58</i>&nbsp;        if (withGUI) {</b>
+<b class="nc"><i>59</i>&nbsp;            ui = new GUI();</b>
 <i>60</i>&nbsp;        }
-<b class="nc"><i>61</i>&nbsp;        Client client = new Client(ui);</b>
-<b class="nc"><i>62</i>&nbsp;        client.run();</b>
-<b class="nc"><i>63</i>&nbsp;    }</b>
-<i>64</i>&nbsp;
-<i>65</i>&nbsp;    /**
-<i>66</i>&nbsp;     * Initializes and launches the Santorini server app
-<i>67</i>&nbsp;     */
-<i>68</i>&nbsp;    private static void launchServer() {
-<i>69</i>&nbsp;        Server server;
-<i>70</i>&nbsp;        try{
-<b class="nc"><i>71</i>&nbsp;            server = new Server();</b>
-<b class="nc"><i>72</i>&nbsp;            server.start();</b>
-<b class="nc"><i>73</i>&nbsp;        } catch (IOException e){</b>
-<b class="nc"><i>74</i>&nbsp;            LOGGER.log(Level.SEVERE, &quot;Could not initialize server&quot;, e);</b>
-<b class="nc"><i>75</i>&nbsp;            System.exit(1);</b>
-<b class="nc"><i>76</i>&nbsp;        }</b>
-<b class="nc"><i>77</i>&nbsp;    }</b>
-<i>78</i>&nbsp;}
+<i>61</i>&nbsp;        else {
+<b class="nc"><i>62</i>&nbsp;            ui = new CLI();</b>
+<i>63</i>&nbsp;        }
+<b class="nc"><i>64</i>&nbsp;        Client client = new Client(ui);</b>
+<b class="nc"><i>65</i>&nbsp;        client.run();</b>
+<b class="nc"><i>66</i>&nbsp;    }</b>
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    /**
+<i>69</i>&nbsp;     * Initializes and launches the Santorini server app
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    private static void launchServer() {
+<i>72</i>&nbsp;        Server server;
+<i>73</i>&nbsp;        try{
+<b class="nc"><i>74</i>&nbsp;            server = new Server();</b>
+<b class="nc"><i>75</i>&nbsp;            server.start();</b>
+<b class="nc"><i>76</i>&nbsp;        } catch (IOException e){</b>
+<b class="nc"><i>77</i>&nbsp;            LOGGER.log(Level.SEVERE, &quot;Could not initialize server&quot;, e);</b>
+<b class="nc"><i>78</i>&nbsp;            System.exit(1);</b>
+<b class="nc"><i>79</i>&nbsp;        }</b>
+<b class="nc"><i>80</i>&nbsp;    }</b>
+<i>81</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

@@ -141,155 +141,167 @@
 <b class="nc"><i>67</i>&nbsp;        Platform.runLater(controller::redrawBoard);</b>
 <b class="nc"><i>68</i>&nbsp;    }</b>
 <i>69</i>&nbsp;
-<i>70</i>&nbsp;    private void showActiveScreen(){
-<b class="nc"><i>71</i>&nbsp;        if(turn.getAllowedWorkers().size() == 1){</b>
-<i>72</i>&nbsp;            //Case in which the choice of the worker is forced: automatically set workerID
-<b class="nc"><i>73</i>&nbsp;            workerID = turn.getAllowedWorkers().get(0);</b>
-<b class="nc"><i>74</i>&nbsp;            setCellHighlighting(true);</b>
-<b class="nc"><i>75</i>&nbsp;            Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>76</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));</b>
-<b class="nc"><i>77</i>&nbsp;                controller.setBoardClickableStatus(true);</b>
-<b class="nc"><i>78</i>&nbsp;                controller.redrawBoard();</b>
-<b class="nc"><i>79</i>&nbsp;            });</b>
-<i>80</i>&nbsp;        } else {
-<i>81</i>&nbsp;            //Case in which we expect the player to choose a worker
-<b class="nc"><i>82</i>&nbsp;            Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>83</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_USE_TO_BUILD));</b>
-<b class="nc"><i>84</i>&nbsp;                controller.setBoardClickableStatus(true);</b>
-<b class="nc"><i>85</i>&nbsp;                controller.redrawBoard();</b>
-<b class="nc"><i>86</i>&nbsp;            });</b>
-<i>87</i>&nbsp;        }
-<b class="nc"><i>88</i>&nbsp;    }</b>
-<i>89</i>&nbsp;
-<i>90</i>&nbsp;    private void showPassiveScreen(){
-<b class="nc"><i>91</i>&nbsp;        Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>92</i>&nbsp;            controller.setLabel(</b>
-<b class="nc"><i>93</i>&nbsp;                    String.format(</b>
-<b class="nc"><i>94</i>&nbsp;                            I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD),</b>
-<b class="nc"><i>95</i>&nbsp;                            client.getCurrentActiveUser().getNickname()</b>
-<i>96</i>&nbsp;                    )
-<i>97</i>&nbsp;            );
-<b class="nc"><i>98</i>&nbsp;            controller.setPrompt(I18n.string(I18nKey.ASK_WORKER_START_POSITION_PASSIVE_PROMPT));</b>
-<b class="nc"><i>99</i>&nbsp;            controller.setBoardClickableStatus(false);</b>
-<b class="nc"><i>100</i>&nbsp;            controller.redrawBoard();</b>
-<b class="nc"><i>101</i>&nbsp;        });</b>
-<b class="nc"><i>102</i>&nbsp;    }</b>
-<i>103</i>&nbsp;
-<i>104</i>&nbsp;    @Override
-<i>105</i>&nbsp;    public void selectCell(int x, int y) {
-<b class="nc"><i>106</i>&nbsp;        game = client.getGame();</b>
-<b class="nc"><i>107</i>&nbsp;        turn = game.getTurn();</b>
-<b class="nc"><i>108</i>&nbsp;        board = game.getBoard();</b>
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * Shows the GUI screen for the active player during the build phase of a turn.
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    private void showActiveScreen(){
+<b class="nc"><i>74</i>&nbsp;        if(turn.getAllowedWorkers().size() == 1){</b>
+<i>75</i>&nbsp;            //Case in which the choice of the worker is forced: automatically set workerID
+<b class="nc"><i>76</i>&nbsp;            workerID = turn.getAllowedWorkers().get(0);</b>
+<b class="nc"><i>77</i>&nbsp;            setCellHighlighting(true);</b>
+<b class="nc"><i>78</i>&nbsp;            Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>79</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));</b>
+<b class="nc"><i>80</i>&nbsp;                controller.setBoardClickableStatus(true);</b>
+<b class="nc"><i>81</i>&nbsp;                controller.redrawBoard();</b>
+<b class="nc"><i>82</i>&nbsp;            });</b>
+<i>83</i>&nbsp;        } else {
+<i>84</i>&nbsp;            //Case in which we expect the player to choose a worker
+<b class="nc"><i>85</i>&nbsp;            Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>86</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_USE_TO_BUILD));</b>
+<b class="nc"><i>87</i>&nbsp;                controller.setBoardClickableStatus(true);</b>
+<b class="nc"><i>88</i>&nbsp;                controller.redrawBoard();</b>
+<b class="nc"><i>89</i>&nbsp;            });</b>
+<i>90</i>&nbsp;        }
+<b class="nc"><i>91</i>&nbsp;    }</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Shows the GUI screen for the non-active players during the build phase of a turn.
+<i>95</i>&nbsp;     */
+<i>96</i>&nbsp;    private void showPassiveScreen(){
+<b class="nc"><i>97</i>&nbsp;        Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>98</i>&nbsp;            controller.setLabel(</b>
+<b class="nc"><i>99</i>&nbsp;                    String.format(</b>
+<b class="nc"><i>100</i>&nbsp;                            I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_BUILD),</b>
+<b class="nc"><i>101</i>&nbsp;                            client.getCurrentActiveUser().getNickname()</b>
+<i>102</i>&nbsp;                    )
+<i>103</i>&nbsp;            );
+<b class="nc"><i>104</i>&nbsp;            controller.setPrompt(I18n.string(I18nKey.ASK_WORKER_START_POSITION_PASSIVE_PROMPT));</b>
+<b class="nc"><i>105</i>&nbsp;            controller.setBoardClickableStatus(false);</b>
+<b class="nc"><i>106</i>&nbsp;            controller.redrawBoard();</b>
+<b class="nc"><i>107</i>&nbsp;        });</b>
+<b class="nc"><i>108</i>&nbsp;    }</b>
 <i>109</i>&nbsp;
-<b class="nc"><i>110</i>&nbsp;        if(workerID == null) {</b>
-<i>111</i>&nbsp;            //Infer that the selected cell is to choose a worker
-<b class="nc"><i>112</i>&nbsp;            ReducedCell sourceCell = board.getCell(x, y);</b>
-<b class="nc"><i>113</i>&nbsp;            sourceCell.getWorker().ifPresent(</b>
-<i>114</i>&nbsp;                    worker -&gt; {
-<b class="nc"><i>115</i>&nbsp;                        if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {</b>
-<b class="nc"><i>116</i>&nbsp;                            workerID = worker.getWorkerID();</b>
-<b class="nc"><i>117</i>&nbsp;                            setCellHighlighting(true);</b>
-<b class="nc"><i>118</i>&nbsp;                            Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>119</i>&nbsp;                                controller.redrawBoard();</b>
-<b class="nc"><i>120</i>&nbsp;                                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));</b>
-<b class="nc"><i>121</i>&nbsp;                                controller.displayCancelButton();</b>
-<b class="nc"><i>122</i>&nbsp;                            });</b>
-<i>123</i>&nbsp;                        } else {
-<b class="nc"><i>124</i>&nbsp;                            Platform.runLater(() -&gt; client.getUI().notifyError(I18n.string(I18nKey.YOU_CANT_BUILD_WITH_THE_SPECIFIED_WORKER)));</b>
-<i>125</i>&nbsp;                        }
-<b class="nc"><i>126</i>&nbsp;                    }</b>
-<i>127</i>&nbsp;            );
-<b class="nc"><i>128</i>&nbsp;            targetSelected = false;</b>
-<b class="nc"><i>129</i>&nbsp;        } else if (!targetSelected) {</b>
-<b class="nc"><i>130</i>&nbsp;            targetCellX = x;</b>
-<b class="nc"><i>131</i>&nbsp;            targetCellY = y;</b>
-<b class="nc"><i>132</i>&nbsp;            targetSelected = true;</b>
-<i>133</i>&nbsp;
-<b class="nc"><i>134</i>&nbsp;            setCellHighlighting(false);</b>
-<i>135</i>&nbsp;
-<b class="nc"><i>136</i>&nbsp;            boolean canBuildBlock = turn.getWorkerBlockBuildableCells(workerID).getPosition(targetCellX, targetCellY);</b>
-<b class="nc"><i>137</i>&nbsp;            boolean canBuildDome = turn.getWorkerDomeBuildableCells(workerID).getPosition(targetCellX, targetCellY);</b>
-<i>138</i>&nbsp;
-<b class="nc"><i>139</i>&nbsp;            if (canBuildBlock &amp;&amp; canBuildDome) {</b>
-<b class="nc"><i>140</i>&nbsp;                selectedComponent = null;</b>
-<b class="nc"><i>141</i>&nbsp;                setCellHighlighting(false);</b>
-<b class="nc"><i>142</i>&nbsp;                board.getCell(x, y).setHighlighted(true);</b>
-<b class="nc"><i>143</i>&nbsp;                Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>144</i>&nbsp;                    controller.displayComponentSelection();</b>
-<b class="nc"><i>145</i>&nbsp;                    controller.redrawBoard();</b>
-<b class="nc"><i>146</i>&nbsp;                    controller.setPrompt(I18n.string(I18nKey.CHOOSE_BETWEEN_BLOCK_OR_DOME));</b>
-<b class="nc"><i>147</i>&nbsp;                });</b>
-<i>148</i>&nbsp;            } else {
-<b class="nc"><i>149</i>&nbsp;                selectedComponent = canBuildBlock ? ReducedComponent.BLOCK : ReducedComponent.DOME;</b>
-<i>150</i>&nbsp;            }
-<b class="nc"><i>151</i>&nbsp;            if(selectedComponent != null){</b>
-<b class="nc"><i>152</i>&nbsp;                component = selectedComponent;</b>
-<b class="nc"><i>153</i>&nbsp;                selectedComponent = null;</b>
-<b class="nc"><i>154</i>&nbsp;                clientState.notifyUiInteraction();</b>
-<i>155</i>&nbsp;            }
-<i>156</i>&nbsp;        }
-<b class="nc"><i>157</i>&nbsp;    }</b>
-<i>158</i>&nbsp;
-<i>159</i>&nbsp;    @Override
-<i>160</i>&nbsp;    public void skip() {
-<b class="nc"><i>161</i>&nbsp;        setCellHighlighting(false);</b>
-<b class="nc"><i>162</i>&nbsp;        workerID = null;</b>
-<b class="nc"><i>163</i>&nbsp;        clientState.notifyUiInteraction();</b>
-<b class="nc"><i>164</i>&nbsp;    }</b>
-<i>165</i>&nbsp;
-<i>166</i>&nbsp;    @Override
-<i>167</i>&nbsp;    public void cancel() {
-<b class="nc"><i>168</i>&nbsp;        setCellHighlighting(false);</b>
-<b class="nc"><i>169</i>&nbsp;        workerID = null;</b>
-<b class="nc"><i>170</i>&nbsp;        firstRender = true;</b>
-<b class="nc"><i>171</i>&nbsp;        render();</b>
-<b class="nc"><i>172</i>&nbsp;    }</b>
-<i>173</i>&nbsp;
-<i>174</i>&nbsp;    private void setCellHighlighting(boolean status){
-<b class="nc"><i>175</i>&nbsp;        if(workerID != null){</b>
-<b class="nc"><i>176</i>&nbsp;            game = client.getGame();</b>
-<b class="nc"><i>177</i>&nbsp;            turn = game.getTurn();</b>
-<b class="nc"><i>178</i>&nbsp;            board = game.getBoard();</b>
-<b class="nc"><i>179</i>&nbsp;            board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(</b>
-<b class="nc"><i>180</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(status)</b>
-<i>181</i>&nbsp;            );
-<i>182</i>&nbsp;
-<b class="nc"><i>183</i>&nbsp;            board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(</b>
-<b class="nc"><i>184</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(status)</b>
-<i>185</i>&nbsp;            );
-<i>186</i>&nbsp;        }
-<b class="nc"><i>187</i>&nbsp;    }</b>
-<i>188</i>&nbsp;
-<i>189</i>&nbsp;    @Override
-<i>190</i>&nbsp;    public void handleError() {
-<b class="nc"><i>191</i>&nbsp;        if(workerID != null){</b>
-<i>192</i>&nbsp;            //Wrongly selected target
-<b class="nc"><i>193</i>&nbsp;            workerID = null;</b>
-<b class="nc"><i>194</i>&nbsp;            targetSelected = false;</b>
-<b class="nc"><i>195</i>&nbsp;            selectedComponent = null;</b>
-<b class="nc"><i>196</i>&nbsp;            firstRender = true;</b>
-<i>197</i>&nbsp;        }
-<i>198</i>&nbsp;        //If the worker has been wrongly selected, do nothing
+<i>110</i>&nbsp;    @Override
+<i>111</i>&nbsp;    public void selectCell(int x, int y) {
+<b class="nc"><i>112</i>&nbsp;        game = client.getGame();</b>
+<b class="nc"><i>113</i>&nbsp;        turn = game.getTurn();</b>
+<b class="nc"><i>114</i>&nbsp;        board = game.getBoard();</b>
+<i>115</i>&nbsp;
+<b class="nc"><i>116</i>&nbsp;        if(workerID == null) {</b>
+<i>117</i>&nbsp;            //Infer that the selected cell is to choose a worker
+<b class="nc"><i>118</i>&nbsp;            ReducedCell sourceCell = board.getCell(x, y);</b>
+<b class="nc"><i>119</i>&nbsp;            sourceCell.getWorker().ifPresent(</b>
+<i>120</i>&nbsp;                    worker -&gt; {
+<b class="nc"><i>121</i>&nbsp;                        if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {</b>
+<b class="nc"><i>122</i>&nbsp;                            workerID = worker.getWorkerID();</b>
+<b class="nc"><i>123</i>&nbsp;                            setCellHighlighting(true);</b>
+<b class="nc"><i>124</i>&nbsp;                            Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>125</i>&nbsp;                                controller.redrawBoard();</b>
+<b class="nc"><i>126</i>&nbsp;                                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_BUILD));</b>
+<b class="nc"><i>127</i>&nbsp;                                controller.displayCancelButton();</b>
+<b class="nc"><i>128</i>&nbsp;                            });</b>
+<i>129</i>&nbsp;                        } else {
+<b class="nc"><i>130</i>&nbsp;                            Platform.runLater(() -&gt; client.getUI().notifyError(I18n.string(I18nKey.YOU_CANT_BUILD_WITH_THE_SPECIFIED_WORKER)));</b>
+<i>131</i>&nbsp;                        }
+<b class="nc"><i>132</i>&nbsp;                    }</b>
+<i>133</i>&nbsp;            );
+<b class="nc"><i>134</i>&nbsp;            targetSelected = false;</b>
+<b class="nc"><i>135</i>&nbsp;        } else if (!targetSelected) {</b>
+<b class="nc"><i>136</i>&nbsp;            targetCellX = x;</b>
+<b class="nc"><i>137</i>&nbsp;            targetCellY = y;</b>
+<b class="nc"><i>138</i>&nbsp;            targetSelected = true;</b>
+<i>139</i>&nbsp;
+<b class="nc"><i>140</i>&nbsp;            setCellHighlighting(false);</b>
+<i>141</i>&nbsp;
+<b class="nc"><i>142</i>&nbsp;            boolean canBuildBlock = turn.getWorkerBlockBuildableCells(workerID).getPosition(targetCellX, targetCellY);</b>
+<b class="nc"><i>143</i>&nbsp;            boolean canBuildDome = turn.getWorkerDomeBuildableCells(workerID).getPosition(targetCellX, targetCellY);</b>
+<i>144</i>&nbsp;
+<b class="nc"><i>145</i>&nbsp;            if (canBuildBlock &amp;&amp; canBuildDome) {</b>
+<b class="nc"><i>146</i>&nbsp;                selectedComponent = null;</b>
+<b class="nc"><i>147</i>&nbsp;                setCellHighlighting(false);</b>
+<b class="nc"><i>148</i>&nbsp;                board.getCell(x, y).setHighlighted(true);</b>
+<b class="nc"><i>149</i>&nbsp;                Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>150</i>&nbsp;                    controller.displayComponentSelection();</b>
+<b class="nc"><i>151</i>&nbsp;                    controller.redrawBoard();</b>
+<b class="nc"><i>152</i>&nbsp;                    controller.setPrompt(I18n.string(I18nKey.CHOOSE_BETWEEN_BLOCK_OR_DOME));</b>
+<b class="nc"><i>153</i>&nbsp;                });</b>
+<i>154</i>&nbsp;            } else {
+<b class="nc"><i>155</i>&nbsp;                selectedComponent = canBuildBlock ? ReducedComponent.BLOCK : ReducedComponent.DOME;</b>
+<i>156</i>&nbsp;            }
+<b class="nc"><i>157</i>&nbsp;            if(selectedComponent != null){</b>
+<b class="nc"><i>158</i>&nbsp;                component = selectedComponent;</b>
+<b class="nc"><i>159</i>&nbsp;                selectedComponent = null;</b>
+<b class="nc"><i>160</i>&nbsp;                clientState.notifyUiInteraction();</b>
+<i>161</i>&nbsp;            }
+<i>162</i>&nbsp;        }
+<b class="nc"><i>163</i>&nbsp;    }</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;    @Override
+<i>166</i>&nbsp;    public void skip() {
+<b class="nc"><i>167</i>&nbsp;        setCellHighlighting(false);</b>
+<b class="nc"><i>168</i>&nbsp;        workerID = null;</b>
+<b class="nc"><i>169</i>&nbsp;        clientState.notifyUiInteraction();</b>
+<b class="nc"><i>170</i>&nbsp;    }</b>
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;    @Override
+<i>173</i>&nbsp;    public void cancel() {
+<b class="nc"><i>174</i>&nbsp;        setCellHighlighting(false);</b>
+<b class="nc"><i>175</i>&nbsp;        workerID = null;</b>
+<b class="nc"><i>176</i>&nbsp;        firstRender = true;</b>
+<b class="nc"><i>177</i>&nbsp;        render();</b>
+<b class="nc"><i>178</i>&nbsp;    }</b>
+<i>179</i>&nbsp;
+<i>180</i>&nbsp;    /**
+<i>181</i>&nbsp;     * Sets the cell highlighting status.
+<i>182</i>&nbsp;     * If true, the cell will be shown lighter in the board.
+<i>183</i>&nbsp;     *
+<i>184</i>&nbsp;     * @param status the cell highlighting status
+<i>185</i>&nbsp;     */
+<i>186</i>&nbsp;    private void setCellHighlighting(boolean status){
+<b class="nc"><i>187</i>&nbsp;        if(workerID != null){</b>
+<b class="nc"><i>188</i>&nbsp;            game = client.getGame();</b>
+<b class="nc"><i>189</i>&nbsp;            turn = game.getTurn();</b>
+<b class="nc"><i>190</i>&nbsp;            board = game.getBoard();</b>
+<b class="nc"><i>191</i>&nbsp;            board.getTargets(turn.getWorkerBlockBuildableCells(workerID)).forEach(</b>
+<b class="nc"><i>192</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(status)</b>
+<i>193</i>&nbsp;            );
+<i>194</i>&nbsp;
+<b class="nc"><i>195</i>&nbsp;            board.getTargets(turn.getWorkerDomeBuildableCells(workerID)).forEach(</b>
+<b class="nc"><i>196</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(status)</b>
+<i>197</i>&nbsp;            );
+<i>198</i>&nbsp;        }
 <b class="nc"><i>199</i>&nbsp;    }</b>
 <i>200</i>&nbsp;
-<i>201</i>&nbsp;    /**
-<i>202</i>&nbsp;     * This method is used to notify to the client that the player has chosen a Component to be built
-<i>203</i>&nbsp;     * @param component the ReducedComponent to be built
-<i>204</i>&nbsp;     */
-<i>205</i>&nbsp;    public void selectComponent(ReducedComponent component) {
-<b class="nc"><i>206</i>&nbsp;        this.component = component;</b>
-<b class="nc"><i>207</i>&nbsp;        selectedComponent = null;</b>
-<b class="nc"><i>208</i>&nbsp;        clientState.notifyUiInteraction();</b>
-<b class="nc"><i>209</i>&nbsp;        board.getCell(targetCellX, targetCellY).setHighlighted(false);</b>
-<b class="nc"><i>210</i>&nbsp;        Platform.runLater(() -&gt; controller.setPrompt(&quot;&quot;));</b>
+<i>201</i>&nbsp;    @Override
+<i>202</i>&nbsp;    public void handleError() {
+<b class="nc"><i>203</i>&nbsp;        if(workerID != null){</b>
+<i>204</i>&nbsp;            //Wrongly selected target
+<b class="nc"><i>205</i>&nbsp;            workerID = null;</b>
+<b class="nc"><i>206</i>&nbsp;            targetSelected = false;</b>
+<b class="nc"><i>207</i>&nbsp;            selectedComponent = null;</b>
+<b class="nc"><i>208</i>&nbsp;            firstRender = true;</b>
+<i>209</i>&nbsp;        }
+<i>210</i>&nbsp;        //If the worker has been wrongly selected, do nothing
 <b class="nc"><i>211</i>&nbsp;    }</b>
-<i>212</i>&nbsp;}
+<i>212</i>&nbsp;
+<i>213</i>&nbsp;    /**
+<i>214</i>&nbsp;     * This method is used to notify to the client that the player has chosen a Component to be built
+<i>215</i>&nbsp;     * @param component the ReducedComponent to be built
+<i>216</i>&nbsp;     */
+<i>217</i>&nbsp;    public void selectComponent(ReducedComponent component) {
+<b class="nc"><i>218</i>&nbsp;        this.component = component;</b>
+<b class="nc"><i>219</i>&nbsp;        selectedComponent = null;</b>
+<b class="nc"><i>220</i>&nbsp;        clientState.notifyUiInteraction();</b>
+<b class="nc"><i>221</i>&nbsp;        board.getCell(targetCellX, targetCellY).setHighlighted(false);</b>
+<b class="nc"><i>222</i>&nbsp;        Platform.runLater(() -&gt; controller.setPrompt(&quot;&quot;));</b>
+<b class="nc"><i>223</i>&nbsp;    }</b>
+<i>224</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

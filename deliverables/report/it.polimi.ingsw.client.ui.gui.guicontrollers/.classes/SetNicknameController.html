@@ -105,61 +105,73 @@
 <i>31</i>&nbsp;
 <b class="nc"><i>32</i>&nbsp;    final BooleanProperty firstShow = new SimpleBooleanProperty(true);</b>
 <i>33</i>&nbsp;
-<i>34</i>&nbsp;    @FXML
-<i>35</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>36</i>&nbsp;        ((SetNicknameGUIClientState)state).returnToMenu();</b>
-<b class="nc"><i>37</i>&nbsp;    }</b>
-<i>38</i>&nbsp;
-<i>39</i>&nbsp;    @FXML
-<i>40</i>&nbsp;    void handleNicknameButton(ActionEvent event){
-<b class="nc"><i>41</i>&nbsp;        if(nicknameField.getLength() != 0) {</b>
-<b class="nc"><i>42</i>&nbsp;            if(nicknameField.getLength() &gt;= ConfigParser.getInstance().getIntProperty(&quot;nicknameMaxLength&quot;)){</b>
-<i>43</i>&nbsp;                //Just to not mess up the rendering of the nickname
-<b class="nc"><i>44</i>&nbsp;                errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_LENGTH));</b>
-<b class="nc"><i>45</i>&nbsp;                errorLabel.setOpacity(1);</b>
-<i>46</i>&nbsp;            } else {
-<b class="nc"><i>47</i>&nbsp;                ((SetNicknameGUIClientState) state).setNickname(nicknameField.getText());</b>
-<i>48</i>&nbsp;            }
-<i>49</i>&nbsp;        } else {
-<b class="nc"><i>50</i>&nbsp;            errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_GENERIC));</b>
-<b class="nc"><i>51</i>&nbsp;            errorLabel.setOpacity(1);</b>
-<i>52</i>&nbsp;        }
-<b class="nc"><i>53</i>&nbsp;    }</b>
-<i>54</i>&nbsp;
-<i>55</i>&nbsp;    @Override
-<i>56</i>&nbsp;    public void onSceneShow(){
-<b class="nc"><i>57</i>&nbsp;        firstShow.setValue(true);</b>
-<b class="nc"><i>58</i>&nbsp;        nicknameField.clear();</b>
-<b class="nc"><i>59</i>&nbsp;    }</b>
-<i>60</i>&nbsp;
-<i>61</i>&nbsp;    @Override
-<i>62</i>&nbsp;    public void tearDown(){
-<b class="nc"><i>63</i>&nbsp;        errorLabel.setOpacity(0);</b>
-<b class="nc"><i>64</i>&nbsp;    }</b>
-<i>65</i>&nbsp;
-<i>66</i>&nbsp;    @FXML
-<i>67</i>&nbsp;    void initialize(){
-<b class="nc"><i>68</i>&nbsp;        errorLabel.setOpacity(0);</b>
-<b class="nc"><i>69</i>&nbsp;        nicknameField.focusedProperty().addListener((obs, oldValue, newValue) -&gt; {</b>
-<b class="nc"><i>70</i>&nbsp;            if(Boolean.TRUE.equals(newValue) &amp;&amp; firstShow.get()){</b>
-<b class="nc"><i>71</i>&nbsp;                setNicknameButton.requestFocus();</b>
-<b class="nc"><i>72</i>&nbsp;                firstShow.setValue(false);</b>
-<i>73</i>&nbsp;            }
-<b class="nc"><i>74</i>&nbsp;        });</b>
-<b class="nc"><i>75</i>&nbsp;    }</b>
-<i>76</i>&nbsp;
-<i>77</i>&nbsp;    @Override
-<i>78</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>79</i>&nbsp;        errorLabel.setText(I18n.string(I18nKey.ERROR_NICKNAME_TAKEN));</b>
-<b class="nc"><i>80</i>&nbsp;        errorLabel.setOpacity(1);</b>
-<b class="nc"><i>81</i>&nbsp;    }</b>
-<i>82</i>&nbsp;}
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Handles menu button on screen
+<i>36</i>&nbsp;     * @param event the mouse click event
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    @FXML
+<i>39</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>40</i>&nbsp;        ((SetNicknameGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * This method handles the request to submit a nickname, verifying its length and, if valid, forwarding the request to the ClientState
+<i>46</i>&nbsp;     * @param event the mouse click event
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    @FXML
+<i>49</i>&nbsp;    void handleNicknameButton(ActionEvent event){
+<b class="nc"><i>50</i>&nbsp;        if(nicknameField.getLength() != 0) {</b>
+<b class="nc"><i>51</i>&nbsp;            if(nicknameField.getLength() &gt;= ConfigParser.getInstance().getIntProperty(&quot;nicknameMaxLength&quot;)){</b>
+<i>52</i>&nbsp;                //Just to not mess up the rendering of the nickname
+<b class="nc"><i>53</i>&nbsp;                errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_LENGTH));</b>
+<b class="nc"><i>54</i>&nbsp;                errorLabel.setOpacity(1);</b>
+<i>55</i>&nbsp;            } else {
+<b class="nc"><i>56</i>&nbsp;                ((SetNicknameGUIClientState) state).setNickname(nicknameField.getText());</b>
+<i>57</i>&nbsp;            }
+<i>58</i>&nbsp;        } else {
+<b class="nc"><i>59</i>&nbsp;            errorLabel.setText(I18n.string(I18nKey.ERROR_INVALID_NICKNAME_GENERIC));</b>
+<b class="nc"><i>60</i>&nbsp;            errorLabel.setOpacity(1);</b>
+<i>61</i>&nbsp;        }
+<b class="nc"><i>62</i>&nbsp;    }</b>
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    @Override
+<i>65</i>&nbsp;    public void onSceneShow(){
+<b class="nc"><i>66</i>&nbsp;        firstShow.setValue(true);</b>
+<b class="nc"><i>67</i>&nbsp;        nicknameField.clear();</b>
+<b class="nc"><i>68</i>&nbsp;    }</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    @Override
+<i>71</i>&nbsp;    public void tearDown(){
+<b class="nc"><i>72</i>&nbsp;        errorLabel.setOpacity(0);</b>
+<b class="nc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * JavaFX initialization method
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    @FXML
+<i>79</i>&nbsp;    void initialize(){
+<b class="nc"><i>80</i>&nbsp;        errorLabel.setOpacity(0);</b>
+<b class="nc"><i>81</i>&nbsp;        nicknameField.focusedProperty().addListener((obs, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>82</i>&nbsp;            if(Boolean.TRUE.equals(newValue) &amp;&amp; firstShow.get()){</b>
+<b class="nc"><i>83</i>&nbsp;                setNicknameButton.requestFocus();</b>
+<b class="nc"><i>84</i>&nbsp;                firstShow.setValue(false);</b>
+<i>85</i>&nbsp;            }
+<b class="nc"><i>86</i>&nbsp;        });</b>
+<b class="nc"><i>87</i>&nbsp;    }</b>
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    @Override
+<i>90</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>91</i>&nbsp;        errorLabel.setText(I18n.string(I18nKey.ERROR_NICKNAME_TAKEN));</b>
+<b class="nc"><i>92</i>&nbsp;        errorLabel.setOpacity(1);</b>
+<b class="nc"><i>93</i>&nbsp;    }</b>
+<i>94</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

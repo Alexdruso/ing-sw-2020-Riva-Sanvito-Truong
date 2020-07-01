@@ -50,18 +50,18 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (7/ 14)
+    (14/ 14)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    54,5%
+    100%
   </span>
   <span class="absValue">
-    (12/ 22)
+    (22/ 22)
   </span>
 </td>
 </tr>
@@ -155,7 +155,7 @@
 <i>81</i>&nbsp;     */
 <i>82</i>&nbsp;    @Override
 <i>83</i>&nbsp;    public boolean containsValue(V value) {
-<b class="nc"><i>84</i>&nbsp;        return forwardMap.containsValue(value);</b>
+<b class="fc"><i>84</i>&nbsp;        return forwardMap.containsValue(value);</b>
 <i>85</i>&nbsp;    }
 <i>86</i>&nbsp;
 <i>87</i>&nbsp;    /**
@@ -165,7 +165,7 @@
 <i>91</i>&nbsp;     */
 <i>92</i>&nbsp;    @Override
 <i>93</i>&nbsp;    public boolean isEmpty() {
-<b class="nc"><i>94</i>&nbsp;        return forwardMap.isEmpty();</b>
+<b class="fc"><i>94</i>&nbsp;        return forwardMap.isEmpty();</b>
 <i>95</i>&nbsp;    }
 <i>96</i>&nbsp;
 <i>97</i>&nbsp;    /**
@@ -180,10 +180,10 @@
 <i>106</i>&nbsp;    @Override
 <i>107</i>&nbsp;    public void put(K key, V value) {
 <b class="fc"><i>108</i>&nbsp;        if(key == null){</b>
-<b class="nc"><i>109</i>&nbsp;            throw new NullPointerException(&quot;Key is null&quot;);</b>
+<b class="fc"><i>109</i>&nbsp;            throw new NullPointerException(&quot;Key is null&quot;);</b>
 <i>110</i>&nbsp;        }
 <b class="fc"><i>111</i>&nbsp;        if(value == null){</b>
-<b class="nc"><i>112</i>&nbsp;            throw new NullPointerException(&quot;Value is null&quot;);</b>
+<b class="fc"><i>112</i>&nbsp;            throw new NullPointerException(&quot;Value is null&quot;);</b>
 <i>113</i>&nbsp;        }
 <b class="fc"><i>114</i>&nbsp;        forwardMap.put(key, value);</b>
 <b class="fc"><i>115</i>&nbsp;        backwardMap.put(value, key);</b>
@@ -217,8 +217,8 @@
 <i>143</i>&nbsp;     */
 <i>144</i>&nbsp;    @Override
 <i>145</i>&nbsp;    public K removeByValue(V value) {
-<b class="nc"><i>146</i>&nbsp;        forwardMap.remove(backwardMap.get(value));</b>
-<b class="nc"><i>147</i>&nbsp;        return backwardMap.remove(value);</b>
+<b class="fc"><i>146</i>&nbsp;        forwardMap.remove(backwardMap.get(value));</b>
+<b class="fc"><i>147</i>&nbsp;        return backwardMap.remove(value);</b>
 <i>148</i>&nbsp;    }
 <i>149</i>&nbsp;
 <i>150</i>&nbsp;    /**
@@ -228,7 +228,7 @@
 <i>154</i>&nbsp;     */
 <i>155</i>&nbsp;    @Override
 <i>156</i>&nbsp;    public Set&lt;Map.Entry&lt;K, V&gt;&gt; forwardEntrySet() {
-<b class="nc"><i>157</i>&nbsp;        return forwardMap.entrySet();</b>
+<b class="fc"><i>157</i>&nbsp;        return forwardMap.entrySet();</b>
 <i>158</i>&nbsp;    }
 <i>159</i>&nbsp;
 <i>160</i>&nbsp;    /**
@@ -238,7 +238,7 @@
 <i>164</i>&nbsp;     */
 <i>165</i>&nbsp;    @Override
 <i>166</i>&nbsp;    public Set&lt;Map.Entry&lt;V, K&gt;&gt; backwardEntrySet() {
-<b class="nc"><i>167</i>&nbsp;        return backwardMap.entrySet();</b>
+<b class="fc"><i>167</i>&nbsp;        return backwardMap.entrySet();</b>
 <i>168</i>&nbsp;    }
 <i>169</i>&nbsp;
 <i>170</i>&nbsp;    /**
@@ -248,7 +248,7 @@
 <i>174</i>&nbsp;     */
 <i>175</i>&nbsp;    @Override
 <i>176</i>&nbsp;    public Set&lt;K&gt; keySet() {
-<b class="nc"><i>177</i>&nbsp;        return forwardMap.keySet();</b>
+<b class="fc"><i>177</i>&nbsp;        return forwardMap.keySet();</b>
 <i>178</i>&nbsp;    }
 <i>179</i>&nbsp;
 <i>180</i>&nbsp;    /**
@@ -258,7 +258,7 @@
 <i>184</i>&nbsp;     */
 <i>185</i>&nbsp;    @Override
 <i>186</i>&nbsp;    public Set&lt;V&gt; values() {
-<b class="nc"><i>187</i>&nbsp;        return backwardMap.keySet();</b>
+<b class="fc"><i>187</i>&nbsp;        return backwardMap.keySet();</b>
 <i>188</i>&nbsp;    }
 <i>189</i>&nbsp;
 <i>190</i>&nbsp;    /**
@@ -277,7 +277,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

@@ -91,44 +91,47 @@
 <i>17</i>&nbsp;     */
 <i>18</i>&nbsp;    public static final String LOG_LEVEL_ENV_VAR_NAME = &quot;LOG_LEVEL&quot;;
 <i>19</i>&nbsp;
-<b class="nc"><i>20</i>&nbsp;    private LoggerManager() {</b>
-<b class="nc"><i>21</i>&nbsp;        throw new IllegalStateException(&quot;Do not try to instantiate this utility class&quot;);</b>
-<i>22</i>&nbsp;    }
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;    /**
-<i>25</i>&nbsp;     * Sets the log level specified in the environment variable.
-<i>26</i>&nbsp;     */
-<i>27</i>&nbsp;    public static void setLogLevel() {
-<i>28</i>&nbsp;        try {
-<b class="nc"><i>29</i>&nbsp;            setLogLevel(Level.parse(System.getenv(LOG_LEVEL_ENV_VAR_NAME).toUpperCase()));</b>
-<i>30</i>&nbsp;        }
-<b class="nc"><i>31</i>&nbsp;        catch (NullPointerException e) {</b>
-<b class="nc"><i>32</i>&nbsp;            LOGGER.log(Level.FINEST, &quot;No logging level specified&quot;);</b>
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Prevents the LoggerManager to be initialized as a class instance (it must be accessed statically).
+<i>22</i>&nbsp;     */
+<b class="nc"><i>23</i>&nbsp;    private LoggerManager() {</b>
+<b class="nc"><i>24</i>&nbsp;        throw new IllegalStateException(&quot;Do not try to instantiate this utility class&quot;);</b>
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Sets the log level specified in the environment variable.
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    public static void setLogLevel() {
+<i>31</i>&nbsp;        try {
+<b class="nc"><i>32</i>&nbsp;            setLogLevel(Level.parse(System.getenv(LOG_LEVEL_ENV_VAR_NAME).toUpperCase()));</b>
 <i>33</i>&nbsp;        }
-<b class="nc"><i>34</i>&nbsp;        catch (IllegalArgumentException e) {</b>
-<b class="nc"><i>35</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Invalid logging level&quot;, e);</b>
-<b class="nc"><i>36</i>&nbsp;        }</b>
-<b class="nc"><i>37</i>&nbsp;    }</b>
-<i>38</i>&nbsp;
-<i>39</i>&nbsp;    /**
-<i>40</i>&nbsp;     * Sets the log level.
-<i>41</i>&nbsp;     *
-<i>42</i>&nbsp;     * @param level the log level
-<i>43</i>&nbsp;     */
-<i>44</i>&nbsp;    public static void setLogLevel(Level level) {
-<b class="nc"><i>45</i>&nbsp;        Logger rootLogger = LogManager.getLogManager().getLogger(&quot;&quot;);</b>
-<b class="nc"><i>46</i>&nbsp;        rootLogger.setLevel(level);</b>
-<b class="nc"><i>47</i>&nbsp;        for (Handler h : rootLogger.getHandlers()) {</b>
-<b class="nc"><i>48</i>&nbsp;            h.setLevel(level);</b>
-<i>49</i>&nbsp;        }
-<b class="nc"><i>50</i>&nbsp;    }</b>
-<i>51</i>&nbsp;}
+<b class="nc"><i>34</i>&nbsp;        catch (NullPointerException e) {</b>
+<b class="nc"><i>35</i>&nbsp;            LOGGER.log(Level.FINEST, &quot;No logging level specified&quot;);</b>
+<i>36</i>&nbsp;        }
+<b class="nc"><i>37</i>&nbsp;        catch (IllegalArgumentException e) {</b>
+<b class="nc"><i>38</i>&nbsp;            LOGGER.log(Level.INFO, &quot;Invalid logging level&quot;, e);</b>
+<b class="nc"><i>39</i>&nbsp;        }</b>
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Sets the log level.
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @param level the log level
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    public static void setLogLevel(Level level) {
+<b class="nc"><i>48</i>&nbsp;        Logger rootLogger = LogManager.getLogManager().getLogger(&quot;&quot;);</b>
+<b class="nc"><i>49</i>&nbsp;        rootLogger.setLevel(level);</b>
+<b class="nc"><i>50</i>&nbsp;        for (Handler h : rootLogger.getHandlers()) {</b>
+<b class="nc"><i>51</i>&nbsp;            h.setLevel(level);</b>
+<i>52</i>&nbsp;        }
+<b class="nc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

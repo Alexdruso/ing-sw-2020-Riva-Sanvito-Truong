@@ -134,127 +134,133 @@
 <b class="nc"><i>60</i>&nbsp;        Platform.runLater(controller::redrawBoard);</b>
 <b class="nc"><i>61</i>&nbsp;    }</b>
 <i>62</i>&nbsp;
-<i>63</i>&nbsp;    private void showActiveScreen(){
-<b class="nc"><i>64</i>&nbsp;        if (turn.getAllowedWorkers().size() == 1) {</b>
-<i>65</i>&nbsp;            //The worker is automatically determined since there&#39;s only one that can move
-<b class="nc"><i>66</i>&nbsp;            workerID = turn.getAllowedWorkers().get(0);</b>
-<b class="nc"><i>67</i>&nbsp;            ReducedWorker worker = player.getWorker(workerID);</b>
-<b class="nc"><i>68</i>&nbsp;            ReducedCell workerCell = worker.getCell();</b>
-<b class="nc"><i>69</i>&nbsp;            sourceCellX = workerCell.getX();</b>
-<b class="nc"><i>70</i>&nbsp;            sourceCellY = workerCell.getY();</b>
-<b class="nc"><i>71</i>&nbsp;            sourceSelected = true;</b>
-<b class="nc"><i>72</i>&nbsp;            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
-<b class="nc"><i>73</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(true)</b>
-<i>74</i>&nbsp;            );
-<i>75</i>&nbsp;            //Ask for the target, with no possibility of canceling
-<b class="nc"><i>76</i>&nbsp;            Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>77</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));</b>
-<b class="nc"><i>78</i>&nbsp;                controller.setPrompt(&quot;&quot;);</b>
-<b class="nc"><i>79</i>&nbsp;            });</b>
-<b class="nc"><i>80</i>&nbsp;        } else {</b>
-<i>81</i>&nbsp;            //Ask which worker the player wants to move
-<b class="nc"><i>82</i>&nbsp;            Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>83</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));</b>
-<b class="nc"><i>84</i>&nbsp;                controller.setPrompt(&quot;&quot;);</b>
-<b class="nc"><i>85</i>&nbsp;            });</b>
-<i>86</i>&nbsp;        }
-<b class="nc"><i>87</i>&nbsp;        Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>88</i>&nbsp;            controller.setBoardClickableStatus(true);</b>
-<b class="nc"><i>89</i>&nbsp;            controller.redrawBoard();</b>
-<b class="nc"><i>90</i>&nbsp;        });</b>
-<b class="nc"><i>91</i>&nbsp;    }</b>
-<i>92</i>&nbsp;
-<i>93</i>&nbsp;    private void showPassiveScreen(){
-<b class="nc"><i>94</i>&nbsp;        Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>95</i>&nbsp;            controller.setLabel(</b>
-<b class="nc"><i>96</i>&nbsp;                    String.format(</b>
-<b class="nc"><i>97</i>&nbsp;                            I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE),</b>
-<b class="nc"><i>98</i>&nbsp;                            client.getCurrentActiveUser().getNickname()</b>
-<i>99</i>&nbsp;                    )
-<i>100</i>&nbsp;            );
-<b class="nc"><i>101</i>&nbsp;            controller.setPrompt(&quot;&quot;);</b>
-<b class="nc"><i>102</i>&nbsp;            controller.setBoardClickableStatus(false);</b>
-<b class="nc"><i>103</i>&nbsp;            controller.redrawBoard();</b>
-<b class="nc"><i>104</i>&nbsp;        });</b>
-<b class="nc"><i>105</i>&nbsp;    }</b>
-<i>106</i>&nbsp;
-<i>107</i>&nbsp;    @Override
-<i>108</i>&nbsp;    public void selectCell(int x, int y) {
-<b class="nc"><i>109</i>&nbsp;        this.game = client.getGame();</b>
-<b class="nc"><i>110</i>&nbsp;        this.turn = game.getTurn();</b>
-<b class="nc"><i>111</i>&nbsp;        this.board = game.getBoard();</b>
-<b class="nc"><i>112</i>&nbsp;        this.player = turn.getPlayer();</b>
-<i>113</i>&nbsp;
-<b class="nc"><i>114</i>&nbsp;        if(!sourceSelected){</b>
-<i>115</i>&nbsp;            //The cell selected is to select the worker
-<b class="nc"><i>116</i>&nbsp;            sourceCellX = x;</b>
-<b class="nc"><i>117</i>&nbsp;            sourceCellY = y;</b>
-<b class="nc"><i>118</i>&nbsp;            ReducedCell cell = board.getCell(x, y);</b>
-<b class="nc"><i>119</i>&nbsp;            cell.getWorker().ifPresent(</b>
-<i>120</i>&nbsp;                    worker -&gt; {
-<b class="nc"><i>121</i>&nbsp;                        if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {</b>
-<b class="nc"><i>122</i>&nbsp;                            if (turn.getAllowedWorkers().contains(worker.getWorkerID())) {</b>
-<b class="nc"><i>123</i>&nbsp;                                workerID = worker.getWorkerID();</b>
-<i>124</i>&nbsp;                            }
-<i>125</i>&nbsp;                            else {
-<b class="nc"><i>126</i>&nbsp;                                Platform.runLater(() -&gt; client.getUI().notifyError(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER)));</b>
-<i>127</i>&nbsp;                            }
-<i>128</i>&nbsp;                        }
-<b class="nc"><i>129</i>&nbsp;                    }</b>
-<i>130</i>&nbsp;            );
-<b class="nc"><i>131</i>&nbsp;            if(workerID != null){</b>
-<i>132</i>&nbsp;                //If a cell containing a correct worker has been selected, highlight available cells and ask for target
-<b class="nc"><i>133</i>&nbsp;                board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
-<b class="nc"><i>134</i>&nbsp;                        targetedCell -&gt; targetedCell.setHighlighted(true)</b>
-<i>135</i>&nbsp;                );
-<b class="nc"><i>136</i>&nbsp;                Platform.runLater(() -&gt; {</b>
-<b class="nc"><i>137</i>&nbsp;                    controller.redrawBoard();</b>
-<b class="nc"><i>138</i>&nbsp;                    controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));</b>
-<b class="nc"><i>139</i>&nbsp;                    controller.displayCancelButton(); //We&#39;re in the case in which we select a worker: we can cancel</b>
-<b class="nc"><i>140</i>&nbsp;                });</b>
-<b class="nc"><i>141</i>&nbsp;                sourceSelected = true;</b>
-<i>142</i>&nbsp;            }
-<b class="nc"><i>143</i>&nbsp;        } else {</b>
-<b class="nc"><i>144</i>&nbsp;            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
-<b class="nc"><i>145</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(false)</b>
-<i>146</i>&nbsp;            );
-<b class="nc"><i>147</i>&nbsp;            targetCellX = x;</b>
-<b class="nc"><i>148</i>&nbsp;            targetCellY = y;</b>
-<b class="nc"><i>149</i>&nbsp;            clientState.notifyUiInteraction();</b>
-<b class="nc"><i>150</i>&nbsp;            sourceSelected = false;</b>
-<i>151</i>&nbsp;        }
-<b class="nc"><i>152</i>&nbsp;    }</b>
-<i>153</i>&nbsp;
-<i>154</i>&nbsp;    @Override
-<i>155</i>&nbsp;    public void skip() {
-<b class="nc"><i>156</i>&nbsp;        workerID = null;</b>
-<b class="nc"><i>157</i>&nbsp;        clientState.notifyUiInteraction();</b>
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * Shows the GUI screen for the active player during the build phase of a move.
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    private void showActiveScreen(){
+<b class="nc"><i>67</i>&nbsp;        if (turn.getAllowedWorkers().size() == 1) {</b>
+<i>68</i>&nbsp;            //The worker is automatically determined since there&#39;s only one that can move
+<b class="nc"><i>69</i>&nbsp;            workerID = turn.getAllowedWorkers().get(0);</b>
+<b class="nc"><i>70</i>&nbsp;            ReducedWorker worker = player.getWorker(workerID);</b>
+<b class="nc"><i>71</i>&nbsp;            ReducedCell workerCell = worker.getCell();</b>
+<b class="nc"><i>72</i>&nbsp;            sourceCellX = workerCell.getX();</b>
+<b class="nc"><i>73</i>&nbsp;            sourceCellY = workerCell.getY();</b>
+<b class="nc"><i>74</i>&nbsp;            sourceSelected = true;</b>
+<b class="nc"><i>75</i>&nbsp;            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
+<b class="nc"><i>76</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(true)</b>
+<i>77</i>&nbsp;            );
+<i>78</i>&nbsp;            //Ask for the target, with no possibility of canceling
+<b class="nc"><i>79</i>&nbsp;            Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>80</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));</b>
+<b class="nc"><i>81</i>&nbsp;                controller.setPrompt(&quot;&quot;);</b>
+<b class="nc"><i>82</i>&nbsp;            });</b>
+<b class="nc"><i>83</i>&nbsp;        } else {</b>
+<i>84</i>&nbsp;            //Ask which worker the player wants to move
+<b class="nc"><i>85</i>&nbsp;            Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>86</i>&nbsp;                controller.setLabel(I18n.string(I18nKey.WHICH_WORKER_DO_YOU_WANT_TO_MOVE));</b>
+<b class="nc"><i>87</i>&nbsp;                controller.setPrompt(&quot;&quot;);</b>
+<b class="nc"><i>88</i>&nbsp;            });</b>
+<i>89</i>&nbsp;        }
+<b class="nc"><i>90</i>&nbsp;        Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>91</i>&nbsp;            controller.setBoardClickableStatus(true);</b>
+<b class="nc"><i>92</i>&nbsp;            controller.redrawBoard();</b>
+<b class="nc"><i>93</i>&nbsp;        });</b>
+<b class="nc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Shows the GUI screen for the non-active players during the move phase of a turn.
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    private void showPassiveScreen(){
+<b class="nc"><i>100</i>&nbsp;        Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>101</i>&nbsp;            controller.setLabel(</b>
+<b class="nc"><i>102</i>&nbsp;                    String.format(</b>
+<b class="nc"><i>103</i>&nbsp;                            I18n.string(I18nKey.WAIT_FOR_S_TO_PERFORM_THEIR_MOVE),</b>
+<b class="nc"><i>104</i>&nbsp;                            client.getCurrentActiveUser().getNickname()</b>
+<i>105</i>&nbsp;                    )
+<i>106</i>&nbsp;            );
+<b class="nc"><i>107</i>&nbsp;            controller.setPrompt(&quot;&quot;);</b>
+<b class="nc"><i>108</i>&nbsp;            controller.setBoardClickableStatus(false);</b>
+<b class="nc"><i>109</i>&nbsp;            controller.redrawBoard();</b>
+<b class="nc"><i>110</i>&nbsp;        });</b>
+<b class="nc"><i>111</i>&nbsp;    }</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    @Override
+<i>114</i>&nbsp;    public void selectCell(int x, int y) {
+<b class="nc"><i>115</i>&nbsp;        this.game = client.getGame();</b>
+<b class="nc"><i>116</i>&nbsp;        this.turn = game.getTurn();</b>
+<b class="nc"><i>117</i>&nbsp;        this.board = game.getBoard();</b>
+<b class="nc"><i>118</i>&nbsp;        this.player = turn.getPlayer();</b>
+<i>119</i>&nbsp;
+<b class="nc"><i>120</i>&nbsp;        if(!sourceSelected){</b>
+<i>121</i>&nbsp;            //The cell selected is to select the worker
+<b class="nc"><i>122</i>&nbsp;            sourceCellX = x;</b>
+<b class="nc"><i>123</i>&nbsp;            sourceCellY = y;</b>
+<b class="nc"><i>124</i>&nbsp;            ReducedCell cell = board.getCell(x, y);</b>
+<b class="nc"><i>125</i>&nbsp;            cell.getWorker().ifPresent(</b>
+<i>126</i>&nbsp;                    worker -&gt; {
+<b class="nc"><i>127</i>&nbsp;                        if (worker.getPlayer().getUser().equals(client.getCurrentActiveUser())) {</b>
+<b class="nc"><i>128</i>&nbsp;                            if (turn.getAllowedWorkers().contains(worker.getWorkerID())) {</b>
+<b class="nc"><i>129</i>&nbsp;                                workerID = worker.getWorkerID();</b>
+<i>130</i>&nbsp;                            }
+<i>131</i>&nbsp;                            else {
+<b class="nc"><i>132</i>&nbsp;                                Platform.runLater(() -&gt; client.getUI().notifyError(I18n.string(I18nKey.YOU_CANT_MOVE_THE_SPECIFIED_WORKER)));</b>
+<i>133</i>&nbsp;                            }
+<i>134</i>&nbsp;                        }
+<b class="nc"><i>135</i>&nbsp;                    }</b>
+<i>136</i>&nbsp;            );
+<b class="nc"><i>137</i>&nbsp;            if(workerID != null){</b>
+<i>138</i>&nbsp;                //If a cell containing a correct worker has been selected, highlight available cells and ask for target
+<b class="nc"><i>139</i>&nbsp;                board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
+<b class="nc"><i>140</i>&nbsp;                        targetedCell -&gt; targetedCell.setHighlighted(true)</b>
+<i>141</i>&nbsp;                );
+<b class="nc"><i>142</i>&nbsp;                Platform.runLater(() -&gt; {</b>
+<b class="nc"><i>143</i>&nbsp;                    controller.redrawBoard();</b>
+<b class="nc"><i>144</i>&nbsp;                    controller.setLabel(I18n.string(I18nKey.WHERE_DO_YOU_WANT_TO_PLACE_YOUR_WORKER));</b>
+<b class="nc"><i>145</i>&nbsp;                    controller.displayCancelButton(); //We&#39;re in the case in which we select a worker: we can cancel</b>
+<b class="nc"><i>146</i>&nbsp;                });</b>
+<b class="nc"><i>147</i>&nbsp;                sourceSelected = true;</b>
+<i>148</i>&nbsp;            }
+<b class="nc"><i>149</i>&nbsp;        } else {</b>
+<b class="nc"><i>150</i>&nbsp;            board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
+<b class="nc"><i>151</i>&nbsp;                    targetedCell -&gt; targetedCell.setHighlighted(false)</b>
+<i>152</i>&nbsp;            );
+<b class="nc"><i>153</i>&nbsp;            targetCellX = x;</b>
+<b class="nc"><i>154</i>&nbsp;            targetCellY = y;</b>
+<b class="nc"><i>155</i>&nbsp;            clientState.notifyUiInteraction();</b>
+<b class="nc"><i>156</i>&nbsp;            sourceSelected = false;</b>
+<i>157</i>&nbsp;        }
 <b class="nc"><i>158</i>&nbsp;    }</b>
 <i>159</i>&nbsp;
 <i>160</i>&nbsp;    @Override
-<i>161</i>&nbsp;    public void cancel() {
-<b class="nc"><i>162</i>&nbsp;        board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
-<b class="nc"><i>163</i>&nbsp;                targetedCell -&gt; targetedCell.setHighlighted(false)</b>
-<i>164</i>&nbsp;        );
-<b class="nc"><i>165</i>&nbsp;        sourceSelected = false;</b>
-<b class="nc"><i>166</i>&nbsp;        workerID = null;</b>
-<b class="nc"><i>167</i>&nbsp;        firstRender = true;</b>
-<b class="nc"><i>168</i>&nbsp;        render();</b>
-<b class="nc"><i>169</i>&nbsp;    }</b>
-<i>170</i>&nbsp;
-<i>171</i>&nbsp;    @Override
-<i>172</i>&nbsp;    public void handleError() {
-<b class="nc"><i>173</i>&nbsp;        sourceSelected = false;</b>
-<b class="nc"><i>174</i>&nbsp;        workerID = null;</b>
-<b class="nc"><i>175</i>&nbsp;        firstRender = true;</b>
-<b class="nc"><i>176</i>&nbsp;    }</b>
-<i>177</i>&nbsp;}
+<i>161</i>&nbsp;    public void skip() {
+<b class="nc"><i>162</i>&nbsp;        workerID = null;</b>
+<b class="nc"><i>163</i>&nbsp;        clientState.notifyUiInteraction();</b>
+<b class="nc"><i>164</i>&nbsp;    }</b>
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;    @Override
+<i>167</i>&nbsp;    public void cancel() {
+<b class="nc"><i>168</i>&nbsp;        board.getTargets(turn.getWorkerWalkableCells(workerID)).forEach(</b>
+<b class="nc"><i>169</i>&nbsp;                targetedCell -&gt; targetedCell.setHighlighted(false)</b>
+<i>170</i>&nbsp;        );
+<b class="nc"><i>171</i>&nbsp;        sourceSelected = false;</b>
+<b class="nc"><i>172</i>&nbsp;        workerID = null;</b>
+<b class="nc"><i>173</i>&nbsp;        firstRender = true;</b>
+<b class="nc"><i>174</i>&nbsp;        render();</b>
+<b class="nc"><i>175</i>&nbsp;    }</b>
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;    @Override
+<i>178</i>&nbsp;    public void handleError() {
+<b class="nc"><i>179</i>&nbsp;        sourceSelected = false;</b>
+<b class="nc"><i>180</i>&nbsp;        workerID = null;</b>
+<b class="nc"><i>181</i>&nbsp;        firstRender = true;</b>
+<b class="nc"><i>182</i>&nbsp;    }</b>
+<i>183</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

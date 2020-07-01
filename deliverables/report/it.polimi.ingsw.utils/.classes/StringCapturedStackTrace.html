@@ -77,25 +77,33 @@
 <i>3</i>&nbsp;import java.io.PrintWriter;
 <i>4</i>&nbsp;import java.io.StringWriter;
 <i>5</i>&nbsp;
-<i>6</i>&nbsp;public class StringCapturedStackTrace {
-<i>7</i>&nbsp;    StringWriter errors;
-<i>8</i>&nbsp;
-<b class="nc"><i>9</i>&nbsp;    public StringCapturedStackTrace (Exception ex) {</b>
-<b class="nc"><i>10</i>&nbsp;        errors = new StringWriter();</b>
-<b class="nc"><i>11</i>&nbsp;        ex.printStackTrace(new PrintWriter(errors));</b>
-<b class="nc"><i>12</i>&nbsp;    }</b>
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;    @Override
-<i>15</i>&nbsp;    public String toString() {
-<b class="nc"><i>16</i>&nbsp;        return errors.toString();</b>
-<i>17</i>&nbsp;    }
-<i>18</i>&nbsp;}
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * A class to transform an exception to a string stack trace.
+<i>8</i>&nbsp; */
+<i>9</i>&nbsp;public class StringCapturedStackTrace {
+<i>10</i>&nbsp;    StringWriter errors;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * Initializes a new StringCapturedStackTrace
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @param ex the exception to extract the stack trace from
+<i>16</i>&nbsp;     */
+<b class="nc"><i>17</i>&nbsp;    public StringCapturedStackTrace (Exception ex) {</b>
+<b class="nc"><i>18</i>&nbsp;        errors = new StringWriter();</b>
+<b class="nc"><i>19</i>&nbsp;        ex.printStackTrace(new PrintWriter(errors));</b>
+<b class="nc"><i>20</i>&nbsp;    }</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Override
+<i>23</i>&nbsp;    public String toString() {
+<b class="nc"><i>24</i>&nbsp;        return errors.toString();</b>
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

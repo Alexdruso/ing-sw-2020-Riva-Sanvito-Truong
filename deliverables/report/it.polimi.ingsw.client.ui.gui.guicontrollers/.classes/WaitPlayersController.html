@@ -74,73 +74,79 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.client.ui.gui.guicontrollers;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import it.polimi.ingsw.client.ui.gui.WaitPlayersGUIClientState;
-<i>4</i>&nbsp;import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
-<i>5</i>&nbsp;import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
-<i>6</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
-<i>7</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
-<i>8</i>&nbsp;import javafx.event.ActionEvent;
-<i>9</i>&nbsp;import javafx.fxml.FXML;
-<i>10</i>&nbsp;import javafx.scene.control.Label;
-<i>11</i>&nbsp;import javafx.scene.image.Image;
-<i>12</i>&nbsp;import javafx.scene.image.ImageView;
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;import java.util.logging.Level;
-<i>15</i>&nbsp;import java.util.logging.Logger;
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;/**
-<i>18</i>&nbsp; * Controller for the WaitPlayers State
-<i>19</i>&nbsp; */
-<b class="nc"><i>20</i>&nbsp;public class WaitPlayersController extends AbstractController{</b>
-<b class="nc"><i>21</i>&nbsp;    private final Image[] imageArray = new Image[4];</b>
-<b class="nc"><i>22</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(WaitPlayersController.class.getName());</b>
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;    @FXML
-<i>25</i>&nbsp;    Label waitPromptLabel;
-<i>26</i>&nbsp;
-<i>27</i>&nbsp;    @FXML
-<i>28</i>&nbsp;    ImageView loadingTower;
-<i>29</i>&nbsp;
-<i>30</i>&nbsp;    AnimationHelper animationHelper;
-<i>31</i>&nbsp;
-<i>32</i>&nbsp;    @FXML
-<i>33</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>34</i>&nbsp;        new MenuConfirmation().showMenuConfirmation(client);</b>
-<b class="nc"><i>35</i>&nbsp;    }</b>
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    @Override
-<i>38</i>&nbsp;    public void setupController(){
-<b class="nc"><i>39</i>&nbsp;        waitPromptLabel.setText(I18n.string(I18nKey.WAITING_FOR_THE_OTHER_PLAYERS));</b>
-<b class="nc"><i>40</i>&nbsp;        animationHelper.animateLoadingScreen(imageArray, loadingTower);</b>
-<b class="nc"><i>41</i>&nbsp;    }</b>
-<i>42</i>&nbsp;
-<i>43</i>&nbsp;    @FXML
-<i>44</i>&nbsp;    void initialize(){
-<b class="nc"><i>45</i>&nbsp;        imageArray[0] = new Image(&quot;assets/loading_tower0_400px.png&quot;);</b>
-<b class="nc"><i>46</i>&nbsp;        imageArray[1] = new Image(&quot;assets/loading_tower1_400px.png&quot;);</b>
-<b class="nc"><i>47</i>&nbsp;        imageArray[2] = new Image(&quot;assets/loading_tower2_400px.png&quot;);</b>
-<b class="nc"><i>48</i>&nbsp;        imageArray[3] = new Image(&quot;assets/loading_tower3_400px.png&quot;);</b>
-<b class="nc"><i>49</i>&nbsp;        animationHelper = new AnimationHelper();</b>
-<b class="nc"><i>50</i>&nbsp;    }</b>
-<i>51</i>&nbsp;
-<i>52</i>&nbsp;    @Override
-<i>53</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>54</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<b class="nc"><i>55</i>&nbsp;    }</b>
-<i>56</i>&nbsp;
-<i>57</i>&nbsp;    /**
-<i>58</i>&nbsp;     * This method stops the AnimationHelper
-<i>59</i>&nbsp;     */
-<i>60</i>&nbsp;    public void stopAnimation(){
-<b class="nc"><i>61</i>&nbsp;        animationHelper.stopAnimations();</b>
-<b class="nc"><i>62</i>&nbsp;    }</b>
-<i>63</i>&nbsp;}
+<i>3</i>&nbsp;import it.polimi.ingsw.client.ui.gui.guicontrollers.elements.MenuConfirmation;
+<i>4</i>&nbsp;import it.polimi.ingsw.client.ui.gui.utils.AnimationHelper;
+<i>5</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18n;
+<i>6</i>&nbsp;import it.polimi.ingsw.utils.i18n.I18nKey;
+<i>7</i>&nbsp;import javafx.event.ActionEvent;
+<i>8</i>&nbsp;import javafx.fxml.FXML;
+<i>9</i>&nbsp;import javafx.scene.control.Label;
+<i>10</i>&nbsp;import javafx.scene.image.Image;
+<i>11</i>&nbsp;import javafx.scene.image.ImageView;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import java.util.logging.Level;
+<i>14</i>&nbsp;import java.util.logging.Logger;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * Controller for the WaitPlayers State
+<i>18</i>&nbsp; */
+<b class="nc"><i>19</i>&nbsp;public class WaitPlayersController extends AbstractController{</b>
+<b class="nc"><i>20</i>&nbsp;    private final Image[] imageArray = new Image[4];</b>
+<b class="nc"><i>21</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(WaitPlayersController.class.getName());</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    @FXML
+<i>24</i>&nbsp;    Label waitPromptLabel;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @FXML
+<i>27</i>&nbsp;    ImageView loadingTower;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    AnimationHelper animationHelper;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * Handles menu button on screen
+<i>33</i>&nbsp;     * @param event the mouse click event
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    @FXML
+<i>36</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>37</i>&nbsp;        MenuConfirmation.showMenuConfirmation(client);</b>
+<b class="nc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public void setupController(){
+<b class="nc"><i>42</i>&nbsp;        waitPromptLabel.setText(I18n.string(I18nKey.WAITING_FOR_THE_OTHER_PLAYERS));</b>
+<b class="nc"><i>43</i>&nbsp;        animationHelper.animateLoadingScreen(imageArray, loadingTower);</b>
+<b class="nc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * JavaFX initialization method
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    @FXML
+<i>50</i>&nbsp;    void initialize(){
+<b class="nc"><i>51</i>&nbsp;        imageArray[0] = new Image(&quot;assets/loading_tower0_400px.png&quot;);</b>
+<b class="nc"><i>52</i>&nbsp;        imageArray[1] = new Image(&quot;assets/loading_tower1_400px.png&quot;);</b>
+<b class="nc"><i>53</i>&nbsp;        imageArray[2] = new Image(&quot;assets/loading_tower2_400px.png&quot;);</b>
+<b class="nc"><i>54</i>&nbsp;        imageArray[3] = new Image(&quot;assets/loading_tower3_400px.png&quot;);</b>
+<b class="nc"><i>55</i>&nbsp;        animationHelper = new AnimationHelper();</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    @Override
+<i>59</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>60</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<b class="nc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * This method stops the AnimationHelper
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    public void stopAnimation(){
+<b class="nc"><i>67</i>&nbsp;        animationHelper.stopAnimations();</b>
+<b class="nc"><i>68</i>&nbsp;    }</b>
+<i>69</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

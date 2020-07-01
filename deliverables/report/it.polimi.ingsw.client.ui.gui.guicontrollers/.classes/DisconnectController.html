@@ -87,28 +87,37 @@
 <b class="nc"><i>13</i>&nbsp;public class DisconnectController extends AbstractController {</b>
 <b class="nc"><i>14</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(DisconnectController.class.getName());</b>
 <i>15</i>&nbsp;
-<i>16</i>&nbsp;    @FXML
-<i>17</i>&nbsp;    private void handleReconnect(ActionEvent event){
-<b class="nc"><i>18</i>&nbsp;        ((DisconnectGUIClientState)state).reconnect();</b>
-<b class="nc"><i>19</i>&nbsp;    }</b>
-<i>20</i>&nbsp;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Handles the reconnection button
+<i>19</i>&nbsp;     * @param event the mouse click event
+<i>20</i>&nbsp;     */
 <i>21</i>&nbsp;    @FXML
-<i>22</i>&nbsp;    private void handleMenu(ActionEvent event){
-<b class="nc"><i>23</i>&nbsp;            ((DisconnectGUIClientState)state).returnToMenu();</b>
+<i>22</i>&nbsp;    private void handleReconnect(ActionEvent event){
+<b class="nc"><i>23</i>&nbsp;        ((DisconnectGUIClientState)state).reconnect();</b>
 <b class="nc"><i>24</i>&nbsp;    }</b>
 <i>25</i>&nbsp;
-<i>26</i>&nbsp;    @Override
-<i>27</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>28</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<i>29</i>&nbsp;
-<b class="nc"><i>30</i>&nbsp;    }</b>
-<i>31</i>&nbsp;}
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * Handles menu button on screen
+<i>28</i>&nbsp;     * @param event the mouse click event
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    private void handleMenu(ActionEvent event){
+<b class="nc"><i>32</i>&nbsp;            ((DisconnectGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>33</i>&nbsp;    }</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Override
+<i>36</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>37</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>38</i>&nbsp;
+<b class="nc"><i>39</i>&nbsp;    }</b>
+<i>40</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

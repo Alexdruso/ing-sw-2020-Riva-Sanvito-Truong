@@ -127,100 +127,115 @@
 <b class="nc"><i>53</i>&nbsp;    private Map&lt;ReducedGod, Pane&gt; godIcons = new HashMap&lt;&gt;();</b>
 <i>54</i>&nbsp;    private List&lt;ReducedGod&gt; gods;
 <i>55</i>&nbsp;
-<i>56</i>&nbsp;    @FXML
-<i>57</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>58</i>&nbsp;        MenuConfirmation.showMenuConfirmation(client);</b>
-<b class="nc"><i>59</i>&nbsp;    }</b>
-<i>60</i>&nbsp;
-<i>61</i>&nbsp;    @Override
-<i>62</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>63</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<i>64</i>&nbsp;       //Nothing to handle
-<b class="nc"><i>65</i>&nbsp;    }</b>
-<i>66</i>&nbsp;
-<i>67</i>&nbsp;    /**
-<i>68</i>&nbsp;     * This method is a callback for the LateralGodCard in order to remove a selected god from the selection screen
-<i>69</i>&nbsp;     * @param reducedGod the ReducedGod instance representing the God to be removed
-<i>70</i>&nbsp;     */
-<i>71</i>&nbsp;    public void removeGodIcon(ReducedGod reducedGod){
-<b class="nc"><i>72</i>&nbsp;        gods.remove(reducedGod);</b>
-<b class="nc"><i>73</i>&nbsp;        Pane selectedGodPane = godIcons.get(reducedGod);</b>
-<b class="nc"><i>74</i>&nbsp;        iconsPane.getChildren().remove(selectedGodPane);</b>
-<b class="nc"><i>75</i>&nbsp;        ((AskGodsFromListGUIClientState)state).addChosenGod(reducedGod);</b>
-<b class="nc"><i>76</i>&nbsp;    }</b>
-<i>77</i>&nbsp;
-<i>78</i>&nbsp;    @Override
-<i>79</i>&nbsp;    public void setupController(){
-<b class="nc"><i>80</i>&nbsp;        int playersCount = client.getGame().getPlayersCount();</b>
-<b class="nc"><i>81</i>&nbsp;        chooseGodsPrompt.setText(String.format(String.format(&quot;%s:&quot;, I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));</b>
-<b class="nc"><i>82</i>&nbsp;        gods = new ArrayList&lt;&gt;(client.getGodsAvailableForChoice());</b>
-<b class="nc"><i>83</i>&nbsp;        lateralGodCard.setGods(gods);</b>
-<b class="nc"><i>84</i>&nbsp;        for(ReducedGod god: gods){</b>
-<b class="nc"><i>85</i>&nbsp;            GodAsset ga = GodAsset.fromReducedGod(god);</b>
-<b class="nc"><i>86</i>&nbsp;            godIcons.put(god, getIconPane(ga, god));</b>
-<b class="nc"><i>87</i>&nbsp;        }</b>
-<b class="nc"><i>88</i>&nbsp;        iconsPane.getChildren().clear();</b>
-<b class="nc"><i>89</i>&nbsp;        iconsPane.getChildren().addAll(godIcons.entrySet()</b>
-<b class="nc"><i>90</i>&nbsp;                .stream()</b>
-<b class="nc"><i>91</i>&nbsp;                .sorted(Comparator.comparing(o -&gt; o.getKey().getName()))</b>
-<b class="nc"><i>92</i>&nbsp;                .map(Map.Entry::getValue)</b>
-<b class="nc"><i>93</i>&nbsp;                .collect(Collectors.toList()));</b>
-<b class="nc"><i>94</i>&nbsp;    }</b>
-<i>95</i>&nbsp;
-<i>96</i>&nbsp;    @FXML
-<i>97</i>&nbsp;    void initialize(){
-<b class="nc"><i>98</i>&nbsp;        lateralGodCard = new LateralGodCard(true);</b>
-<b class="nc"><i>99</i>&nbsp;        lateralGodCard.setGodSelectionCallback(this::removeGodIcon);</b>
-<b class="nc"><i>100</i>&nbsp;        lateralGodCard.setDescription(I18n.string(I18nKey.GOD_DESCRIPTION));</b>
-<b class="nc"><i>101</i>&nbsp;        rootPane.getChildren().add(lateralGodCard);</b>
-<i>102</i>&nbsp;
-<b class="nc"><i>103</i>&nbsp;        iconsPane.setHgap(ICON_SPACING_H);</b>
-<b class="nc"><i>104</i>&nbsp;        iconsPane.setVgap(ICON_SPACING_V);</b>
-<b class="nc"><i>105</i>&nbsp;        iconsPane.setPadding(new Insets(SCROLLPANE_INNER_PADDING,SCROLLPANE_INNER_PADDING,</b>
-<i>106</i>&nbsp;                SCROLLPANE_INNER_PADDING, SCROLLPANE_INNER_PADDING));
-<b class="nc"><i>107</i>&nbsp;    }</b>
-<i>108</i>&nbsp;
-<i>109</i>&nbsp;    private Pane getIconPane(GodAsset ga, ReducedGod god){
-<b class="nc"><i>110</i>&nbsp;        ImageView img = new ImageView(ga.iconLocation);</b>
-<b class="nc"><i>111</i>&nbsp;        img.setPreserveRatio(true);</b>
-<b class="nc"><i>112</i>&nbsp;        img.fitWidthProperty().bind(iconsPane.widthProperty()</b>
-<b class="nc"><i>113</i>&nbsp;                .subtract(ICONS_PER_ROW*ICON_SPACING_H + 2*SCROLLPANE_INNER_PADDING)</b>
-<b class="nc"><i>114</i>&nbsp;                .divide(ICONS_PER_ROW));</b>
-<b class="nc"><i>115</i>&nbsp;        img.setCache(true);</b>
-<b class="nc"><i>116</i>&nbsp;        img.setOnMouseEntered(e -&gt; {</b>
-<b class="nc"><i>117</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), img);</b>
-<b class="nc"><i>118</i>&nbsp;            st.setToX(1.1);</b>
-<b class="nc"><i>119</i>&nbsp;            st.setToY(1.1);</b>
-<b class="nc"><i>120</i>&nbsp;            st.play();</b>
-<b class="nc"><i>121</i>&nbsp;        });</b>
-<b class="nc"><i>122</i>&nbsp;        img.setOnMouseExited(e -&gt; {</b>
-<b class="nc"><i>123</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), img);</b>
-<b class="nc"><i>124</i>&nbsp;            st.setToX(1);</b>
-<b class="nc"><i>125</i>&nbsp;            st.setToY(1);</b>
-<b class="nc"><i>126</i>&nbsp;            st.play();</b>
-<b class="nc"><i>127</i>&nbsp;        });</b>
-<i>128</i>&nbsp;
-<b class="nc"><i>129</i>&nbsp;        Label label = new Label();</b>
-<i>130</i>&nbsp;
-<b class="nc"><i>131</i>&nbsp;        label.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_NAME&quot;)));</b>
-<b class="nc"><i>132</i>&nbsp;        fontSize.bind(JavaFXGUI.getPrimaryScene().widthProperty().add(JavaFXGUI.getPrimaryStage().heightProperty()).divide(FONT_SIZE_RATIO));</b>
-<b class="nc"><i>133</i>&nbsp;        label.styleProperty().bind(Bindings.concat(&quot;-fx-font-size: &quot;, fontSize.asString()));</b>
-<b class="nc"><i>134</i>&nbsp;        label.getStyleClass().add(&quot;god-label&quot;);</b>
-<i>135</i>&nbsp;
-<b class="nc"><i>136</i>&nbsp;        img.setOnMouseClicked((MouseEvent mouseEvent) -&gt; lateralGodCard.clickGod(god));</b>
-<i>137</i>&nbsp;
-<b class="nc"><i>138</i>&nbsp;        VBox iconPane = new VBox(img, label);</b>
-<b class="nc"><i>139</i>&nbsp;        iconPane.setAlignment(Pos.CENTER);</b>
-<i>140</i>&nbsp;
-<b class="nc"><i>141</i>&nbsp;        return iconPane;</b>
-<i>142</i>&nbsp;    }
-<i>143</i>&nbsp;}
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    /**
+<i>58</i>&nbsp;     * Handles menu button on screen
+<i>59</i>&nbsp;     * @param event the mouse click event
+<i>60</i>&nbsp;     */
+<i>61</i>&nbsp;    @FXML
+<i>62</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>63</i>&nbsp;        MenuConfirmation.showMenuConfirmation(client);</b>
+<b class="nc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @Override
+<i>67</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>68</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>69</i>&nbsp;       //Nothing to handle
+<b class="nc"><i>70</i>&nbsp;    }</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * This method is a callback for the LateralGodCard in order to remove a selected god from the selection screen
+<i>74</i>&nbsp;     * @param reducedGod the ReducedGod instance representing the God to be removed
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public void removeGodIcon(ReducedGod reducedGod){
+<b class="nc"><i>77</i>&nbsp;        gods.remove(reducedGod);</b>
+<b class="nc"><i>78</i>&nbsp;        Pane selectedGodPane = godIcons.get(reducedGod);</b>
+<b class="nc"><i>79</i>&nbsp;        iconsPane.getChildren().remove(selectedGodPane);</b>
+<b class="nc"><i>80</i>&nbsp;        ((AskGodsFromListGUIClientState)state).addChosenGod(reducedGod);</b>
+<b class="nc"><i>81</i>&nbsp;    }</b>
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    @Override
+<i>84</i>&nbsp;    public void setupController(){
+<b class="nc"><i>85</i>&nbsp;        int playersCount = client.getGame().getPlayersCount();</b>
+<b class="nc"><i>86</i>&nbsp;        chooseGodsPrompt.setText(String.format(String.format(&quot;%s:&quot;, I18n.string(I18nKey.CHOOSE_D_GODS_THAT_WILL_BE_AVAILABLE)), playersCount));</b>
+<b class="nc"><i>87</i>&nbsp;        gods = new ArrayList&lt;&gt;(client.getGodsAvailableForChoice());</b>
+<b class="nc"><i>88</i>&nbsp;        lateralGodCard.setGods(gods);</b>
+<b class="nc"><i>89</i>&nbsp;        for(ReducedGod god: gods){</b>
+<b class="nc"><i>90</i>&nbsp;            GodAsset ga = GodAsset.fromReducedGod(god);</b>
+<b class="nc"><i>91</i>&nbsp;            godIcons.put(god, getIconPane(ga, god));</b>
+<b class="nc"><i>92</i>&nbsp;        }</b>
+<b class="nc"><i>93</i>&nbsp;        iconsPane.getChildren().clear();</b>
+<b class="nc"><i>94</i>&nbsp;        iconsPane.getChildren().addAll(godIcons.entrySet()</b>
+<b class="nc"><i>95</i>&nbsp;                .stream()</b>
+<b class="nc"><i>96</i>&nbsp;                .sorted(Comparator.comparing(o -&gt; o.getKey().getName()))</b>
+<b class="nc"><i>97</i>&nbsp;                .map(Map.Entry::getValue)</b>
+<b class="nc"><i>98</i>&nbsp;                .collect(Collectors.toList()));</b>
+<b class="nc"><i>99</i>&nbsp;    }</b>
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * JavaFX initialization method
+<i>104</i>&nbsp;     */
+<i>105</i>&nbsp;    @FXML
+<i>106</i>&nbsp;    void initialize(){
+<b class="nc"><i>107</i>&nbsp;        lateralGodCard = new LateralGodCard(true);</b>
+<b class="nc"><i>108</i>&nbsp;        lateralGodCard.setGodSelectionCallback(this::removeGodIcon);</b>
+<b class="nc"><i>109</i>&nbsp;        lateralGodCard.setDescription(I18n.string(I18nKey.GOD_DESCRIPTION));</b>
+<b class="nc"><i>110</i>&nbsp;        rootPane.getChildren().add(lateralGodCard);</b>
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;        iconsPane.setHgap(ICON_SPACING_H);</b>
+<b class="nc"><i>113</i>&nbsp;        iconsPane.setVgap(ICON_SPACING_V);</b>
+<b class="nc"><i>114</i>&nbsp;        iconsPane.setPadding(new Insets(SCROLLPANE_INNER_PADDING,SCROLLPANE_INNER_PADDING,</b>
+<i>115</i>&nbsp;                SCROLLPANE_INNER_PADDING, SCROLLPANE_INNER_PADDING));
+<b class="nc"><i>116</i>&nbsp;    }</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    /**
+<i>119</i>&nbsp;     * This method returns a Pane containing a God icon and a label containing its name
+<i>120</i>&nbsp;     * @param ga the GodAsset instance of the god
+<i>121</i>&nbsp;     * @param god the ReducedGod instance representing the god
+<i>122</i>&nbsp;     * @return the Pane containing the God icon and a label containing its name
+<i>123</i>&nbsp;     */
+<i>124</i>&nbsp;    private Pane getIconPane(GodAsset ga, ReducedGod god){
+<b class="nc"><i>125</i>&nbsp;        ImageView img = new ImageView(ga.iconLocation);</b>
+<b class="nc"><i>126</i>&nbsp;        img.setPreserveRatio(true);</b>
+<b class="nc"><i>127</i>&nbsp;        img.fitWidthProperty().bind(iconsPane.widthProperty()</b>
+<b class="nc"><i>128</i>&nbsp;                .subtract(ICONS_PER_ROW*ICON_SPACING_H + 2*SCROLLPANE_INNER_PADDING)</b>
+<b class="nc"><i>129</i>&nbsp;                .divide(ICONS_PER_ROW));</b>
+<b class="nc"><i>130</i>&nbsp;        img.setCache(true);</b>
+<b class="nc"><i>131</i>&nbsp;        img.setOnMouseEntered(e -&gt; {</b>
+<b class="nc"><i>132</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), img);</b>
+<b class="nc"><i>133</i>&nbsp;            st.setToX(1.1);</b>
+<b class="nc"><i>134</i>&nbsp;            st.setToY(1.1);</b>
+<b class="nc"><i>135</i>&nbsp;            st.play();</b>
+<b class="nc"><i>136</i>&nbsp;        });</b>
+<b class="nc"><i>137</i>&nbsp;        img.setOnMouseExited(e -&gt; {</b>
+<b class="nc"><i>138</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), img);</b>
+<b class="nc"><i>139</i>&nbsp;            st.setToX(1);</b>
+<b class="nc"><i>140</i>&nbsp;            st.setToY(1);</b>
+<b class="nc"><i>141</i>&nbsp;            st.play();</b>
+<b class="nc"><i>142</i>&nbsp;        });</b>
+<i>143</i>&nbsp;
+<b class="nc"><i>144</i>&nbsp;        Label label = new Label();</b>
+<i>145</i>&nbsp;
+<b class="nc"><i>146</i>&nbsp;        label.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_NAME&quot;)));</b>
+<b class="nc"><i>147</i>&nbsp;        fontSize.bind(JavaFXGUI.getPrimaryScene().widthProperty().add(JavaFXGUI.getPrimaryStage().heightProperty()).divide(FONT_SIZE_RATIO));</b>
+<b class="nc"><i>148</i>&nbsp;        label.styleProperty().bind(Bindings.concat(&quot;-fx-font-size: &quot;, fontSize.asString()));</b>
+<b class="nc"><i>149</i>&nbsp;        label.getStyleClass().add(&quot;god-label&quot;);</b>
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;        img.setOnMouseClicked((MouseEvent mouseEvent) -&gt; lateralGodCard.clickGod(god));</b>
+<i>152</i>&nbsp;
+<b class="nc"><i>153</i>&nbsp;        VBox iconPane = new VBox(img, label);</b>
+<b class="nc"><i>154</i>&nbsp;        iconPane.setAlignment(Pos.CENTER);</b>
+<i>155</i>&nbsp;
+<b class="nc"><i>156</i>&nbsp;        return iconPane;</b>
+<i>157</i>&nbsp;    }
+<i>158</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

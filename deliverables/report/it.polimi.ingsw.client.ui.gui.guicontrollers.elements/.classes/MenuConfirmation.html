@@ -81,45 +81,59 @@
 <i>7</i>&nbsp;import it.polimi.ingsw.client.ui.gui.utils.SceneLoaderBuilder;
 <i>8</i>&nbsp;import javafx.fxml.FXML;
 <i>9</i>&nbsp;
-<b class="nc"><i>10</i>&nbsp;public class MenuConfirmation extends AbstractController {</b>
-<i>11</i>&nbsp;    private static Client client;
-<i>12</i>&nbsp;
-<i>13</i>&nbsp;    @FXML
-<i>14</i>&nbsp;    void menu(){
-<b class="nc"><i>15</i>&nbsp;        SceneLoader.applyBlurOut(1000);</b>
-<b class="nc"><i>16</i>&nbsp;        client.moveToState(ClientState.WELCOME_SCREEN);</b>
-<b class="nc"><i>17</i>&nbsp;    }</b>
-<i>18</i>&nbsp;
-<i>19</i>&nbsp;    @FXML
-<i>20</i>&nbsp;    void hide(){
-<b class="nc"><i>21</i>&nbsp;        SceneLoader.applyBlurOut(1000);</b>
-<b class="nc"><i>22</i>&nbsp;    }</b>
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;    public static void showMenuConfirmation(Client client){
-<b class="nc"><i>25</i>&nbsp;        if(MenuConfirmation.client == null){</b>
-<b class="nc"><i>26</i>&nbsp;            MenuConfirmation.client = client;</b>
-<i>27</i>&nbsp;        }
-<b class="nc"><i>28</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MenuConfirmation.fxml&quot;, client);</b>
-<b class="nc"><i>29</i>&nbsp;        sceneLoaderBuilder</b>
-<b class="nc"><i>30</i>&nbsp;                .setFadeIn(false)</b>
-<b class="nc"><i>31</i>&nbsp;                .setFadeOut(false)</b>
-<b class="nc"><i>32</i>&nbsp;                .setReplaceOldScene(false)</b>
-<b class="nc"><i>33</i>&nbsp;                .forceSceneChange(true)</b>
-<b class="nc"><i>34</i>&nbsp;                .build()</b>
-<b class="nc"><i>35</i>&nbsp;                .executeSceneChange();</b>
-<b class="nc"><i>36</i>&nbsp;    }</b>
-<i>37</i>&nbsp;
-<i>38</i>&nbsp;    @Override
-<i>39</i>&nbsp;    public void handleError(String message) {
-<i>40</i>&nbsp;        //No error to handle
-<b class="nc"><i>41</i>&nbsp;    }</b>
-<i>42</i>&nbsp;}
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * This class represents an overlay used to ask the user for confirmation on its intention to return to the menu
+<i>12</i>&nbsp; */
+<b class="nc"><i>13</i>&nbsp;public class MenuConfirmation extends AbstractController {</b>
+<i>14</i>&nbsp;    private static Client menuConfirmationClient;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * This method sends the client to the menu
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    @FXML
+<i>21</i>&nbsp;    void menu(){
+<b class="nc"><i>22</i>&nbsp;        SceneLoader.applyBlurOut(1000);</b>
+<b class="nc"><i>23</i>&nbsp;        menuConfirmationClient.moveToState(ClientState.WELCOME_SCREEN);</b>
+<b class="nc"><i>24</i>&nbsp;    }</b>
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * This method remove the overlay
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    @FXML
+<i>30</i>&nbsp;    void hide(){
+<b class="nc"><i>31</i>&nbsp;        SceneLoader.applyBlurOut(1000);</b>
+<b class="nc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * This method is used to show the overlay
+<i>36</i>&nbsp;     * @param client the Client instance in which to show the overlay
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public static void showMenuConfirmation(Client client){
+<b class="nc"><i>39</i>&nbsp;        if(menuConfirmationClient == null){</b>
+<b class="nc"><i>40</i>&nbsp;            menuConfirmationClient = client;</b>
+<i>41</i>&nbsp;        }
+<b class="nc"><i>42</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MenuConfirmation.fxml&quot;, client);</b>
+<b class="nc"><i>43</i>&nbsp;        sceneLoaderBuilder</b>
+<b class="nc"><i>44</i>&nbsp;                .setFadeIn(false)</b>
+<b class="nc"><i>45</i>&nbsp;                .setFadeOut(false)</b>
+<b class="nc"><i>46</i>&nbsp;                .setReplaceOldScene(false)</b>
+<b class="nc"><i>47</i>&nbsp;                .forceSceneChange(true)</b>
+<b class="nc"><i>48</i>&nbsp;                .build()</b>
+<b class="nc"><i>49</i>&nbsp;                .executeSceneChange();</b>
+<b class="nc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @Override
+<i>53</i>&nbsp;    public void handleError(String message) {
+<i>54</i>&nbsp;        //No error to handle
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

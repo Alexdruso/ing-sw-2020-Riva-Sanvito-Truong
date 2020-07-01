@@ -101,53 +101,67 @@
 <i>27</i>&nbsp;    @FXML
 <i>28</i>&nbsp;    HBox languageButtons;
 <i>29</i>&nbsp;
-<i>30</i>&nbsp;    @FXML
-<i>31</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>32</i>&nbsp;        switchToMenu();</b>
-<b class="nc"><i>33</i>&nbsp;    }</b>
-<i>34</i>&nbsp;
-<i>35</i>&nbsp;    private void switchToMenu(){
-<b class="nc"><i>36</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MainMenu.fxml&quot;, client);</b>
-<b class="nc"><i>37</i>&nbsp;        sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();</b>
-<b class="nc"><i>38</i>&nbsp;    }</b>
-<i>39</i>&nbsp;
-<i>40</i>&nbsp;    @Override
-<i>41</i>&nbsp;    public void onSceneShow(){
-<b class="nc"><i>42</i>&nbsp;        buttonMap.getValueFromKey(AvailableLocale.fromLocale(I18n.getLocale())).setSelected(true);</b>
-<b class="nc"><i>43</i>&nbsp;    }</b>
-<i>44</i>&nbsp;
-<i>45</i>&nbsp;    @FXML
-<i>46</i>&nbsp;    void initialize(){
-<b class="nc"><i>47</i>&nbsp;        toggleGroup = new ToggleGroup();</b>
-<b class="nc"><i>48</i>&nbsp;        for(AvailableLocale locale: AvailableLocale.values()){</b>
-<b class="nc"><i>49</i>&nbsp;            ToggleButton button = new ToggleButton(locale.toString());</b>
-<b class="nc"><i>50</i>&nbsp;            button.setToggleGroup(toggleGroup);</b>
-<b class="nc"><i>51</i>&nbsp;            button.setGraphic(new ImageView(locale.icon));</b>
-<b class="nc"><i>52</i>&nbsp;            button.setPrefHeight(70);</b>
-<b class="nc"><i>53</i>&nbsp;            button.setPrefWidth(200);</b>
-<b class="nc"><i>54</i>&nbsp;            buttonMap.put(locale, button);</b>
-<b class="nc"><i>55</i>&nbsp;            languageButtons.getChildren().add(button);</b>
-<i>56</i>&nbsp;        }
-<b class="nc"><i>57</i>&nbsp;    }</b>
-<i>58</i>&nbsp;
-<i>59</i>&nbsp;    @FXML
-<i>60</i>&nbsp;    void saveSettings(ActionEvent e){
-<b class="nc"><i>61</i>&nbsp;        I18n.setLocale(buttonMap.getKeyFromValue((ToggleButton)toggleGroup.getSelectedToggle()).locale);</b>
-<b class="nc"><i>62</i>&nbsp;        ((GUI)client.getUI()).clearSceneMap();</b>
-<b class="nc"><i>63</i>&nbsp;        switchToMenu();</b>
-<b class="nc"><i>64</i>&nbsp;    }</b>
-<i>65</i>&nbsp;
-<i>66</i>&nbsp;    @Override
-<i>67</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>68</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<b class="nc"><i>69</i>&nbsp;    }</b>
-<i>70</i>&nbsp;}
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Handles menu button on screen
+<i>32</i>&nbsp;     * @param event the mouse click event
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    @FXML
+<i>35</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>36</i>&nbsp;        switchToMenu();</b>
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * This method sends the client to the menu
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    private void switchToMenu(){
+<b class="nc"><i>43</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MainMenu.fxml&quot;, client);</b>
+<b class="nc"><i>44</i>&nbsp;        sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();</b>
+<b class="nc"><i>45</i>&nbsp;    }</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @Override
+<i>48</i>&nbsp;    public void onSceneShow(){
+<b class="nc"><i>49</i>&nbsp;        buttonMap.getValueFromKey(AvailableLocale.fromLocale(I18n.getLocale())).setSelected(true);</b>
+<b class="nc"><i>50</i>&nbsp;    }</b>
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * JavaFX initialization method
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    @FXML
+<i>56</i>&nbsp;    void initialize(){
+<b class="nc"><i>57</i>&nbsp;        toggleGroup = new ToggleGroup();</b>
+<b class="nc"><i>58</i>&nbsp;        for(AvailableLocale locale: AvailableLocale.values()){</b>
+<b class="nc"><i>59</i>&nbsp;            ToggleButton button = new ToggleButton(locale.toString());</b>
+<b class="nc"><i>60</i>&nbsp;            button.setToggleGroup(toggleGroup);</b>
+<b class="nc"><i>61</i>&nbsp;            button.setGraphic(new ImageView(locale.icon));</b>
+<b class="nc"><i>62</i>&nbsp;            button.setPrefHeight(70);</b>
+<b class="nc"><i>63</i>&nbsp;            button.setPrefWidth(200);</b>
+<b class="nc"><i>64</i>&nbsp;            buttonMap.put(locale, button);</b>
+<b class="nc"><i>65</i>&nbsp;            languageButtons.getChildren().add(button);</b>
+<i>66</i>&nbsp;        }
+<b class="nc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * This method saves the settings and sends the client to the menu
+<i>71</i>&nbsp;     * @param e the mouse click event
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    @FXML
+<i>74</i>&nbsp;    void saveSettings(ActionEvent e){
+<b class="nc"><i>75</i>&nbsp;        I18n.setLocale(buttonMap.getKeyFromValue((ToggleButton)toggleGroup.getSelectedToggle()).locale);</b>
+<b class="nc"><i>76</i>&nbsp;        ((GUI)client.getUI()).clearSceneMap();</b>
+<b class="nc"><i>77</i>&nbsp;        switchToMenu();</b>
+<b class="nc"><i>78</i>&nbsp;    }</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    @Override
+<i>81</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>82</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<b class="nc"><i>83</i>&nbsp;    }</b>
+<i>84</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

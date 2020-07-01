@@ -91,39 +91,54 @@
 <i>17</i>&nbsp;    Stage primaryStage;
 <b class="nc"><i>18</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(WelcomeScreenController.class.getName());</b>
 <i>19</i>&nbsp;
-<i>20</i>&nbsp;    @FXML
-<i>21</i>&nbsp;    void handleJoinLobby(ActionEvent event) {
-<b class="nc"><i>22</i>&nbsp;        client.moveToState(ClientState.CONNECT_TO_SERVER);</b>
-<b class="nc"><i>23</i>&nbsp;    }</b>
-<i>24</i>&nbsp;
-<i>25</i>&nbsp;    @FXML
-<i>26</i>&nbsp;    void handleCredits(ActionEvent event) {
-<b class="nc"><i>27</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/Credits.fxml&quot;, client);</b>
-<b class="nc"><i>28</i>&nbsp;        sceneLoaderBuilder.build().executeSceneChange();</b>
-<b class="nc"><i>29</i>&nbsp;    }</b>
-<i>30</i>&nbsp;
-<i>31</i>&nbsp;    @FXML
-<i>32</i>&nbsp;    void handleSettings(ActionEvent event) {
-<b class="nc"><i>33</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/Settings.fxml&quot;, client);</b>
-<b class="nc"><i>34</i>&nbsp;        sceneLoaderBuilder.build().executeSceneChange();</b>
-<b class="nc"><i>35</i>&nbsp;    }</b>
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    @FXML
-<i>38</i>&nbsp;    void initialize(){
-<b class="nc"><i>39</i>&nbsp;        primaryStage = JavaFXGUI.getPrimaryStage();</b>
-<b class="nc"><i>40</i>&nbsp;    }</b>
-<i>41</i>&nbsp;
-<i>42</i>&nbsp;    @Override
-<i>43</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>44</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<b class="nc"><i>45</i>&nbsp;    }</b>
-<i>46</i>&nbsp;}
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * This method sends the client to the CONNECT_TO_SERVER state
+<i>22</i>&nbsp;     * @param event the mouse click event
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    @FXML
+<i>25</i>&nbsp;    void handleJoinLobby(ActionEvent event) {
+<b class="nc"><i>26</i>&nbsp;        client.moveToState(ClientState.CONNECT_TO_SERVER);</b>
+<b class="nc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * This method sends to the client to the Credits screen
+<i>31</i>&nbsp;     * @param event the mouse click event
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    @FXML
+<i>34</i>&nbsp;    void handleCredits(ActionEvent event) {
+<b class="nc"><i>35</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/Credits.fxml&quot;, client);</b>
+<b class="nc"><i>36</i>&nbsp;        sceneLoaderBuilder.build().executeSceneChange();</b>
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * This method sends the client to the Settings screen
+<i>41</i>&nbsp;     * @param event the mouse click event
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    @FXML
+<i>44</i>&nbsp;    void handleSettings(ActionEvent event) {
+<b class="nc"><i>45</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/Settings.fxml&quot;, client);</b>
+<b class="nc"><i>46</i>&nbsp;        sceneLoaderBuilder.build().executeSceneChange();</b>
+<b class="nc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * JavaFX initialization method
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    @FXML
+<i>53</i>&nbsp;    void initialize(){
+<b class="nc"><i>54</i>&nbsp;        primaryStage = JavaFXGUI.getPrimaryStage();</b>
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @Override
+<i>58</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>59</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<b class="nc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

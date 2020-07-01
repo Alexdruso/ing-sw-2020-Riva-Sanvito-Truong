@@ -99,21 +99,24 @@
 <b class="nc"><i>25</i>&nbsp;        client.getGame().getTurn().getTurnState().render();</b>
 <b class="nc"><i>26</i>&nbsp;    }</b>
 <i>27</i>&nbsp;
-<i>28</i>&nbsp;    void redrawInGameElements() {
-<b class="nc"><i>29</i>&nbsp;        cli.clear();</b>
-<b class="nc"><i>30</i>&nbsp;        cli.printPlayersOfGame(client.getGame());</b>
-<b class="nc"><i>31</i>&nbsp;        cli.drawLegend();</b>
-<b class="nc"><i>32</i>&nbsp;        cli.drawBoard(client.getGame().getBoard());</b>
-<b class="nc"><i>33</i>&nbsp;        cli.moveCursorToStatusPosition();</b>
-<b class="nc"><i>34</i>&nbsp;    }</b>
-<i>35</i>&nbsp;
-<i>36</i>&nbsp;}
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Redraws the IN_GAME CLI screen, with the players, board, legend; then, moves the cursor to the status position.
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    void redrawInGameElements() {
+<b class="nc"><i>32</i>&nbsp;        cli.clear();</b>
+<b class="nc"><i>33</i>&nbsp;        cli.printPlayersOfGame(client.getGame());</b>
+<b class="nc"><i>34</i>&nbsp;        cli.drawLegend();</b>
+<b class="nc"><i>35</i>&nbsp;        cli.drawBoard(client.getGame().getBoard());</b>
+<b class="nc"><i>36</i>&nbsp;        cli.moveCursorToStatusPosition();</b>
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

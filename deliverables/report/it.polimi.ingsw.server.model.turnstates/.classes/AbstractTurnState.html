@@ -55,34 +55,34 @@
 </td>
 </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$75WlQaSP</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$3VNaYdO4</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$AShyDPci</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$4Z3r6mna</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$Mqp2LBNa</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$hECnuqzQ</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$szrNIGOI</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$mBUapvtd</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$tuDoPxFq</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$MJqqbnha</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$VVas1V1B</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$O1Lvce6y</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$wrzlOgF0</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$Swq6E0YA</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$yvwbMa0k</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$TLyUtB7j</td>
   </tr>
   <tr>
-    <td class="name">AbstractTurnState$MockitoMock$696792934$auxiliary$zhY0XdhL</td>
+    <td class="name">AbstractTurnState$MockitoMock$1054203671$auxiliary$w0iUJNgc</td>
   </tr>
 <tr>
   <td class="name"><strong>total</strong></td>
@@ -118,109 +118,112 @@
 <i>7</i>&nbsp;
 <i>8</i>&nbsp;import java.util.List;
 <i>9</i>&nbsp;
-<i>10</i>&nbsp;public interface AbstractTurnState {
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;    /**
-<i>13</i>&nbsp;     * This method sets things up before we can use the other methods provided by the state
-<i>14</i>&nbsp;     *
-<i>15</i>&nbsp;     * @param turn the Context
-<i>16</i>&nbsp;     */
-<i>17</i>&nbsp;    void setup(Turn turn);
-<i>18</i>&nbsp;
-<i>19</i>&nbsp;    /**
-<i>20</i>&nbsp;     * This boolean methods checks if the worker can move to targetCell
-<i>21</i>&nbsp;     *
-<i>22</i>&nbsp;     * @param worker     the worker we want to move
-<i>23</i>&nbsp;     * @param targetCell the cell we want to move the worker to
-<i>24</i>&nbsp;     * @param turn       the Context
-<i>25</i>&nbsp;     * @return if the worker can move to targetCell
-<i>26</i>&nbsp;     */
-<i>27</i>&nbsp;    default boolean canMoveTo(Worker worker, Cell targetCell, Turn turn) {
-<b class="fc"><i>28</i>&nbsp;        return false;</b>
-<i>29</i>&nbsp;    }
-<i>30</i>&nbsp;
-<i>31</i>&nbsp;    /**
-<i>32</i>&nbsp;     * This method moves the worker to targetCell
-<i>33</i>&nbsp;     *
-<i>34</i>&nbsp;     * @param worker       the worker we want to move
-<i>35</i>&nbsp;     * @param targetCell the cell we want to move the worker to
-<i>36</i>&nbsp;     * @param turn       the Context
-<i>37</i>&nbsp;     * @throws InvalidTurnStateException if not in the right state
-<i>38</i>&nbsp;     */
-<i>39</i>&nbsp;    default void moveTo(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
-<b class="fc"><i>40</i>&nbsp;        throw new InvalidTurnStateException();</b>
-<i>41</i>&nbsp;    }
-<i>42</i>&nbsp;
-<i>43</i>&nbsp;    /**
-<i>44</i>&nbsp;     * This boolean methods checks if the worker can build a Dome in targetCell
-<i>45</i>&nbsp;     *
-<i>46</i>&nbsp;     * @param worker       the worker who performs the build
-<i>47</i>&nbsp;     * @param targetCell the cell involved in the build
-<i>48</i>&nbsp;     * @param turn       the Context
-<i>49</i>&nbsp;     * @return true if the worker can build dome in targetCell
-<i>50</i>&nbsp;     */
-<i>51</i>&nbsp;    default boolean canBuildDomeIn(Worker worker, Cell targetCell, Turn turn) {
-<b class="fc"><i>52</i>&nbsp;        return false;</b>
-<i>53</i>&nbsp;    }
-<i>54</i>&nbsp;
-<i>55</i>&nbsp;    /**
-<i>56</i>&nbsp;     * This methods builds a dome in targetCell
-<i>57</i>&nbsp;     *
-<i>58</i>&nbsp;     * @param worker       the worker who performs the build
-<i>59</i>&nbsp;     * @param targetCell the cell involved in the build
-<i>60</i>&nbsp;     * @param turn       the Context
-<i>61</i>&nbsp;     * @throws InvalidTurnStateException if not in the right state
-<i>62</i>&nbsp;     */
-<i>63</i>&nbsp;    default void buildDomeIn(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
-<b class="fc"><i>64</i>&nbsp;        throw new InvalidTurnStateException();</b>
-<i>65</i>&nbsp;    }
-<i>66</i>&nbsp;
-<i>67</i>&nbsp;    /**
-<i>68</i>&nbsp;     * This boolean methods checks if the worker can build a block in targetCell
-<i>69</i>&nbsp;     *
-<i>70</i>&nbsp;     * @param worker       the worker who performs the build
-<i>71</i>&nbsp;     * @param targetCell the cell involved in the build
-<i>72</i>&nbsp;     * @param turn       the Context
-<i>73</i>&nbsp;     * @return true if the worker can build a block in targetCell
-<i>74</i>&nbsp;     */
-<i>75</i>&nbsp;    default boolean canBuildBlockIn(Worker worker, Cell targetCell, Turn turn) {
-<b class="fc"><i>76</i>&nbsp;        return false;</b>
-<i>77</i>&nbsp;    }
-<i>78</i>&nbsp;
-<i>79</i>&nbsp;    /**
-<i>80</i>&nbsp;     * This methods builds a block in targetCell
-<i>81</i>&nbsp;     *
-<i>82</i>&nbsp;     * @param worker       the worker who performs the build
-<i>83</i>&nbsp;     * @param targetCell the cell involved in the build
-<i>84</i>&nbsp;     * @param turn       the Context
-<i>85</i>&nbsp;     * @throws InvalidTurnStateException if not in the right state
-<i>86</i>&nbsp;     */
-<i>87</i>&nbsp;    default void buildBlockIn(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
-<b class="fc"><i>88</i>&nbsp;        throw new InvalidTurnStateException();</b>
-<i>89</i>&nbsp;    }
-<i>90</i>&nbsp;
-<i>91</i>&nbsp;    /**
-<i>92</i>&nbsp;     * This method sets up the default allowed workers in the context
-<i>93</i>&nbsp;     *
-<i>94</i>&nbsp;     * @param turn the Context
-<i>95</i>&nbsp;     */
-<i>96</i>&nbsp;    default void setupDefaultAllowedWorkers(Turn turn) {
-<i>97</i>&nbsp;        //If there are no performed actions, the player can use all the workers by default
-<i>98</i>&nbsp;        //Otherwise he is bound to the last worker who performed the action
-<b class="fc"><i>99</i>&nbsp;        if (turn.getPerformedAction().isEmpty()) {</b>
-<b class="fc"><i>100</i>&nbsp;            turn.addAllowedWorkers(turn.getPlayer().getWorkers());</b>
-<i>101</i>&nbsp;        } else {
-<b class="fc"><i>102</i>&nbsp;            List&lt;Action&gt; performedActions = turn.getPerformedAction();</b>
-<b class="fc"><i>103</i>&nbsp;            turn.addAllowedWorker(performedActions.get(performedActions.size() - 1).getWorker());</b>
-<i>104</i>&nbsp;        }
-<b class="fc"><i>105</i>&nbsp;    }</b>
-<i>106</i>&nbsp;}
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * A generic TurnState, which is one of the possible states of the State pattern that handles the Turn.
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public interface AbstractTurnState {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * This method sets things up before we can use the other methods provided by the state
+<i>17</i>&nbsp;     *
+<i>18</i>&nbsp;     * @param turn the Context
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    void setup(Turn turn);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * This boolean methods checks if the worker can move to targetCell
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @param worker     the worker we want to move
+<i>26</i>&nbsp;     * @param targetCell the cell we want to move the worker to
+<i>27</i>&nbsp;     * @param turn       the Context
+<i>28</i>&nbsp;     * @return if the worker can move to targetCell
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    default boolean canMoveTo(Worker worker, Cell targetCell, Turn turn) {
+<b class="fc"><i>31</i>&nbsp;        return false;</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * This method moves the worker to targetCell
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @param worker       the worker we want to move
+<i>38</i>&nbsp;     * @param targetCell the cell we want to move the worker to
+<i>39</i>&nbsp;     * @param turn       the Context
+<i>40</i>&nbsp;     * @throws InvalidTurnStateException if not in the right state
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    default void moveTo(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+<b class="fc"><i>43</i>&nbsp;        throw new InvalidTurnStateException();</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * This boolean methods checks if the worker can build a Dome in targetCell
+<i>48</i>&nbsp;     *
+<i>49</i>&nbsp;     * @param worker       the worker who performs the build
+<i>50</i>&nbsp;     * @param targetCell the cell involved in the build
+<i>51</i>&nbsp;     * @param turn       the Context
+<i>52</i>&nbsp;     * @return true if the worker can build dome in targetCell
+<i>53</i>&nbsp;     */
+<i>54</i>&nbsp;    default boolean canBuildDomeIn(Worker worker, Cell targetCell, Turn turn) {
+<b class="fc"><i>55</i>&nbsp;        return false;</b>
+<i>56</i>&nbsp;    }
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * This methods builds a dome in targetCell
+<i>60</i>&nbsp;     *
+<i>61</i>&nbsp;     * @param worker       the worker who performs the build
+<i>62</i>&nbsp;     * @param targetCell the cell involved in the build
+<i>63</i>&nbsp;     * @param turn       the Context
+<i>64</i>&nbsp;     * @throws InvalidTurnStateException if not in the right state
+<i>65</i>&nbsp;     */
+<i>66</i>&nbsp;    default void buildDomeIn(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+<b class="fc"><i>67</i>&nbsp;        throw new InvalidTurnStateException();</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * This boolean methods checks if the worker can build a block in targetCell
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @param worker       the worker who performs the build
+<i>74</i>&nbsp;     * @param targetCell the cell involved in the build
+<i>75</i>&nbsp;     * @param turn       the Context
+<i>76</i>&nbsp;     * @return true if the worker can build a block in targetCell
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    default boolean canBuildBlockIn(Worker worker, Cell targetCell, Turn turn) {
+<b class="fc"><i>79</i>&nbsp;        return false;</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * This methods builds a block in targetCell
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @param worker       the worker who performs the build
+<i>86</i>&nbsp;     * @param targetCell the cell involved in the build
+<i>87</i>&nbsp;     * @param turn       the Context
+<i>88</i>&nbsp;     * @throws InvalidTurnStateException if not in the right state
+<i>89</i>&nbsp;     */
+<i>90</i>&nbsp;    default void buildBlockIn(Worker worker, Cell targetCell, Turn turn) throws InvalidTurnStateException {
+<b class="fc"><i>91</i>&nbsp;        throw new InvalidTurnStateException();</b>
+<i>92</i>&nbsp;    }
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    /**
+<i>95</i>&nbsp;     * This method sets up the default allowed workers in the context
+<i>96</i>&nbsp;     *
+<i>97</i>&nbsp;     * @param turn the Context
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    default void setupDefaultAllowedWorkers(Turn turn) {
+<i>100</i>&nbsp;        //If there are no performed actions, the player can use all the workers by default
+<i>101</i>&nbsp;        //Otherwise he is bound to the last worker who performed the action
+<b class="fc"><i>102</i>&nbsp;        if (turn.getPerformedAction().isEmpty()) {</b>
+<b class="fc"><i>103</i>&nbsp;            turn.addAllowedWorkers(turn.getPlayer().getWorkers());</b>
+<i>104</i>&nbsp;        } else {
+<b class="fc"><i>105</i>&nbsp;            List&lt;Action&gt; performedActions = turn.getPerformedAction();</b>
+<b class="fc"><i>106</i>&nbsp;            turn.addAllowedWorker(performedActions.get(performedActions.size() - 1).getWorker());</b>
+<i>107</i>&nbsp;        }
+<b class="fc"><i>108</i>&nbsp;    }</b>
+<i>109</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

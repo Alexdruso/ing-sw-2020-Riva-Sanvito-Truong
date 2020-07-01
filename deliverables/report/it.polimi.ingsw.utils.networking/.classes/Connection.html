@@ -39,18 +39,18 @@
   <td class="name">Connection</td>
 <td class="coverageStat">
   <span class="percent">
-    9,1%
+    18,2%
   </span>
   <span class="absValue">
-    (1/ 11)
+    (2/ 11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    5,5%
+    8,2%
   </span>
   <span class="absValue">
-    (4/ 73)
+    (6/ 73)
   </span>
 </td>
 </tr>
@@ -58,18 +58,18 @@
     <td class="name">Connection$1</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 2)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/ 4)
+    (3/ 4)
   </span>
 </td>
   </tr>
@@ -93,51 +93,51 @@
 </td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862</td>
+    <td class="name">Connection$MockitoMock$136100506</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$08hNyFcV</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$3bJatZsL</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$AnrsM7mn</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$7e5JxeCI</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$ayWW7unS</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$ElBznAkQ</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$dOuatlSv</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$Fm1SqYOL</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$fp9mhHjM</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$g59yWkHA</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$GVY6Qxhj</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$ISrTdp6x</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$ldb0PUcf</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$LcJErpGB</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$StBpoC86</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$wUyhkhAh</td>
   </tr>
   <tr>
-    <td class="name">Connection$MockitoMock$856770862$auxiliary$ZNBFGNix</td>
+    <td class="name">Connection$MockitoMock$136100506$auxiliary$zFEXd2oc</td>
   </tr>
 <tr>
   <td class="name"><strong>total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    6,7%
+    26,7%
   </span>
   <span class="absValue">
-    (1/ 15)
+    (4/ 15)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    4,9%
+    11%
   </span>
   <span class="absValue">
-    (4/ 82)
+    (9/ 82)
   </span>
 </td>
 </tr>
@@ -176,186 +176,189 @@
 <b class="fc"><i>27</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(Connection.class.getName());</b>
 <b class="fc"><i>28</i>&nbsp;    private static final Timer KEEP_ALIVE_TIMER = new Timer(&quot;connectionKeepAliveTimer&quot;, true);</b>
 <b class="fc"><i>29</i>&nbsp;    private static final int KEEP_ALIVE_TIMER_INTERVAL_MS = ConfigParser.getInstance().getIntProperty(&quot;keepAliveIntervalMs&quot;);</b>
-<b class="fc"><i>30</i>&nbsp;    public static final int SOCKET_CONNECTION_TIMEOUT_MS = ConfigParser.getInstance().getIntProperty(&quot;socketConnectionTimeoutMs&quot;);</b>
-<i>31</i>&nbsp;    private final Socket socket;
-<i>32</i>&nbsp;    private final ObjectInputStream socketIn;
-<i>33</i>&nbsp;    private final ObjectOutputStream socketOut;
-<i>34</i>&nbsp;    private final Thread receiveThread;
-<i>35</i>&nbsp;    private final AtomicBoolean isActive;
-<i>36</i>&nbsp;    private final AtomicBoolean isClosing;
-<i>37</i>&nbsp;
-<i>38</i>&nbsp;    /**
-<i>39</i>&nbsp;     * Instantiates a new Connection from a given Socket.
-<i>40</i>&nbsp;     * Each Connections spawns a new Thread to receive incoming data from the socket.
-<i>41</i>&nbsp;     *
-<i>42</i>&nbsp;     * @param socket the socket
-<i>43</i>&nbsp;     * @throws IOException if it is not possible to get the input or output stream for the socket
-<i>44</i>&nbsp;     */
-<b class="nc"><i>45</i>&nbsp;    public Connection(Socket socket) throws IOException {</b>
-<b class="nc"><i>46</i>&nbsp;        this.socket = socket;</b>
-<b class="nc"><i>47</i>&nbsp;        log(Level.FINE, &quot;Connection established&quot;);</b>
-<b class="nc"><i>48</i>&nbsp;        isActive = new AtomicBoolean(true);</b>
-<b class="nc"><i>49</i>&nbsp;        isClosing = new AtomicBoolean(false);</b>
-<b class="nc"><i>50</i>&nbsp;        socketOut = new ObjectOutputStream(socket.getOutputStream());</b>
-<b class="nc"><i>51</i>&nbsp;        socketOut.flush(); // This is required otherwise the following instantiation of ObjectInputStream will block forever</b>
-<b class="nc"><i>52</i>&nbsp;        socketIn = new ObjectInputStream(socket.getInputStream());</b>
-<b class="nc"><i>53</i>&nbsp;        receiveThread = startSocketReceiveThread();</b>
-<b class="nc"><i>54</i>&nbsp;        scheduleKeepAlive();</b>
-<b class="nc"><i>55</i>&nbsp;    }</b>
-<i>56</i>&nbsp;
-<i>57</i>&nbsp;    /**
-<i>58</i>&nbsp;     * Instantiates a new Connection from a given host and port.
-<i>59</i>&nbsp;     * Each Connections spawns a new Thread to receive incoming data from the socket.
-<i>60</i>&nbsp;     *
-<i>61</i>&nbsp;     * @param host the host
-<i>62</i>&nbsp;     * @param port the port
-<i>63</i>&nbsp;     * @throws IOException if it is not possible to setup the socket
-<i>64</i>&nbsp;     */
-<i>65</i>&nbsp;    @SuppressWarnings(&quot;java:S2095&quot;) // We cannot wrap the socket creation in a try-with-resources because the socket will be used outside of this method
-<i>66</i>&nbsp;    public Connection(String host, int port) throws IOException {
-<b class="nc"><i>67</i>&nbsp;        this(new Callable&lt;Socket&gt;(){</b>
-<i>68</i>&nbsp;            @Override
-<i>69</i>&nbsp;            public Socket call() throws IOException {
-<b class="nc"><i>70</i>&nbsp;                Socket s = new Socket();</b>
-<b class="nc"><i>71</i>&nbsp;                s.connect(new InetSocketAddress(host, port), SOCKET_CONNECTION_TIMEOUT_MS);</b>
-<b class="nc"><i>72</i>&nbsp;                return s;</b>
-<i>73</i>&nbsp;            }
-<b class="nc"><i>74</i>&nbsp;        }.call());</b>
-<b class="nc"><i>75</i>&nbsp;    }</b>
-<i>76</i>&nbsp;
-<i>77</i>&nbsp;    /**
-<i>78</i>&nbsp;     * Schedules the periodic sending of &quot;keep alive&quot; packets to the other end of the socket,
-<i>79</i>&nbsp;     * in order not to let the connection time out if no other packet is sent for a long period.
-<i>80</i>&nbsp;     */
-<i>81</i>&nbsp;    private void scheduleKeepAlive() {
-<b class="nc"><i>82</i>&nbsp;        Connection.KEEP_ALIVE_TIMER.schedule(new TimerTask() {</b>
-<i>83</i>&nbsp;            @Override
-<i>84</i>&nbsp;            public void run() {
-<b class="nc"><i>85</i>&nbsp;                if (isActive()) {</b>
-<b class="nc"><i>86</i>&nbsp;                    send(new KeepAlive());</b>
-<i>87</i>&nbsp;                }
-<i>88</i>&nbsp;                else {
-<b class="nc"><i>89</i>&nbsp;                    cancel();</b>
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * The maximum time allowed to establish a connection to a remote host.
+<i>32</i>&nbsp;     */
+<b class="fc"><i>33</i>&nbsp;    public static final int SOCKET_CONNECTION_TIMEOUT_MS = ConfigParser.getInstance().getIntProperty(&quot;socketConnectionTimeoutMs&quot;);</b>
+<i>34</i>&nbsp;    private final Socket socket;
+<i>35</i>&nbsp;    private final ObjectInputStream socketIn;
+<i>36</i>&nbsp;    private final ObjectOutputStream socketOut;
+<i>37</i>&nbsp;    private final Thread receiveThread;
+<i>38</i>&nbsp;    private final AtomicBoolean isActive;
+<i>39</i>&nbsp;    private final AtomicBoolean isClosing;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    /**
+<i>42</i>&nbsp;     * Instantiates a new Connection from a given Socket.
+<i>43</i>&nbsp;     * Each Connections spawns a new Thread to receive incoming data from the socket.
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @param socket the socket
+<i>46</i>&nbsp;     * @throws IOException if it is not possible to get the input or output stream for the socket
+<i>47</i>&nbsp;     */
+<b class="nc"><i>48</i>&nbsp;    public Connection(Socket socket) throws IOException {</b>
+<b class="nc"><i>49</i>&nbsp;        this.socket = socket;</b>
+<b class="nc"><i>50</i>&nbsp;        log(Level.FINE, &quot;Connection established&quot;);</b>
+<b class="nc"><i>51</i>&nbsp;        isActive = new AtomicBoolean(true);</b>
+<b class="nc"><i>52</i>&nbsp;        isClosing = new AtomicBoolean(false);</b>
+<b class="nc"><i>53</i>&nbsp;        socketOut = new ObjectOutputStream(socket.getOutputStream());</b>
+<b class="nc"><i>54</i>&nbsp;        socketOut.flush(); // This is required otherwise the following instantiation of ObjectInputStream will block forever</b>
+<b class="nc"><i>55</i>&nbsp;        socketIn = new ObjectInputStream(socket.getInputStream());</b>
+<b class="nc"><i>56</i>&nbsp;        receiveThread = startSocketReceiveThread();</b>
+<b class="nc"><i>57</i>&nbsp;        scheduleKeepAlive();</b>
+<b class="nc"><i>58</i>&nbsp;    }</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * Instantiates a new Connection from a given host and port.
+<i>62</i>&nbsp;     * Each Connections spawns a new Thread to receive incoming data from the socket.
+<i>63</i>&nbsp;     *
+<i>64</i>&nbsp;     * @param host the host
+<i>65</i>&nbsp;     * @param port the port
+<i>66</i>&nbsp;     * @throws IOException if it is not possible to setup the socket
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    @SuppressWarnings(&quot;java:S2095&quot;) // We cannot wrap the socket creation in a try-with-resources because the socket will be used outside of this method
+<i>69</i>&nbsp;    public Connection(String host, int port) throws IOException {
+<b class="fc"><i>70</i>&nbsp;        this(new Callable&lt;Socket&gt;(){</b>
+<i>71</i>&nbsp;            @Override
+<i>72</i>&nbsp;            public Socket call() throws IOException {
+<b class="fc"><i>73</i>&nbsp;                Socket s = new Socket();</b>
+<b class="fc"><i>74</i>&nbsp;                s.connect(new InetSocketAddress(host, port), SOCKET_CONNECTION_TIMEOUT_MS);</b>
+<b class="nc"><i>75</i>&nbsp;                return s;</b>
+<i>76</i>&nbsp;            }
+<b class="fc"><i>77</i>&nbsp;        }.call());</b>
+<b class="nc"><i>78</i>&nbsp;    }</b>
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    /**
+<i>81</i>&nbsp;     * Schedules the periodic sending of &quot;keep alive&quot; packets to the other end of the socket,
+<i>82</i>&nbsp;     * in order not to let the connection time out if no other packet is sent for a long period.
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    private void scheduleKeepAlive() {
+<b class="nc"><i>85</i>&nbsp;        Connection.KEEP_ALIVE_TIMER.schedule(new TimerTask() {</b>
+<i>86</i>&nbsp;            @Override
+<i>87</i>&nbsp;            public void run() {
+<b class="nc"><i>88</i>&nbsp;                if (isActive()) {</b>
+<b class="nc"><i>89</i>&nbsp;                    send(new KeepAlive());</b>
 <i>90</i>&nbsp;                }
-<b class="nc"><i>91</i>&nbsp;            }</b>
-<i>92</i>&nbsp;        }, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS);
-<b class="nc"><i>93</i>&nbsp;    }</b>
-<i>94</i>&nbsp;
-<i>95</i>&nbsp;    /**
-<i>96</i>&nbsp;     * Prints a log message on the console, prepending the information about the socket.
-<i>97</i>&nbsp;     *
-<i>98</i>&nbsp;     * @param level   the log level
-<i>99</i>&nbsp;     * @param message the log message
-<i>100</i>&nbsp;     */
-<i>101</i>&nbsp;    private void log(Level level, String message) {
-<b class="nc"><i>102</i>&nbsp;        LOGGER.log(level, () -&gt; String.format(&quot;[socket %s] %s&quot;, socket.getRemoteSocketAddress().toString().substring(1), message));</b>
-<b class="nc"><i>103</i>&nbsp;    }</b>
-<i>104</i>&nbsp;
-<i>105</i>&nbsp;    /**
-<i>106</i>&nbsp;     * Checks if the connection is active.
-<i>107</i>&nbsp;     *
-<i>108</i>&nbsp;     * @return whether or not the connection is active
-<i>109</i>&nbsp;     */
-<i>110</i>&nbsp;    public boolean isActive() {
-<b class="nc"><i>111</i>&nbsp;        return isActive.get();</b>
-<i>112</i>&nbsp;    }
-<i>113</i>&nbsp;
-<i>114</i>&nbsp;    /**
-<i>115</i>&nbsp;     * Closes the connection and stops the receiving thread.
-<i>116</i>&nbsp;     */
-<i>117</i>&nbsp;    public void close() {
-<b class="nc"><i>118</i>&nbsp;        if (!isActive.getAndSet(false)) {</b>
-<b class="nc"><i>119</i>&nbsp;            return;</b>
-<i>120</i>&nbsp;        }
-<b class="nc"><i>121</i>&nbsp;        log(Level.FINE, &quot;Closing the connection&quot;);</b>
-<i>122</i>&nbsp;        try {
-<b class="nc"><i>123</i>&nbsp;            socketOut.close();</b>
-<b class="nc"><i>124</i>&nbsp;        } catch (IOException ignored) {</b>
-<b class="nc"><i>125</i>&nbsp;            log(Level.FINER, &quot;Unable to close out socket&quot;);</b>
-<b class="nc"><i>126</i>&nbsp;        }</b>
-<i>127</i>&nbsp;        try {
-<b class="nc"><i>128</i>&nbsp;            socketIn.close();</b>
-<b class="nc"><i>129</i>&nbsp;        } catch (IOException ignored) {</b>
-<b class="nc"><i>130</i>&nbsp;            log(Level.FINER, &quot;Unable to close in socket&quot;);</b>
-<b class="nc"><i>131</i>&nbsp;        }</b>
-<i>132</i>&nbsp;        try {
-<b class="nc"><i>133</i>&nbsp;            socket.close();</b>
-<b class="nc"><i>134</i>&nbsp;        } catch (IOException ignored) {</b>
-<b class="nc"><i>135</i>&nbsp;            log(Level.FINER, &quot;Unable to close socket&quot;);</b>
-<b class="nc"><i>136</i>&nbsp;        }</b>
-<i>137</i>&nbsp;        try {
-<b class="nc"><i>138</i>&nbsp;            receiveThread.interrupt();</b>
-<b class="nc"><i>139</i>&nbsp;            receiveThread.join();</b>
-<b class="nc"><i>140</i>&nbsp;        } catch (Exception ignored) {</b>
-<b class="nc"><i>141</i>&nbsp;            log(Level.FINER, &quot;Unable to close receiving thread&quot;);</b>
-<b class="nc"><i>142</i>&nbsp;        }</b>
-<b class="nc"><i>143</i>&nbsp;    }</b>
-<i>144</i>&nbsp;
-<i>145</i>&nbsp;    /**
-<i>146</i>&nbsp;     * Notifies the observers of this Connection that the socket was closed, if not already done.
-<i>147</i>&nbsp;     */
-<i>148</i>&nbsp;    private void notifyDisconnection() {
-<b class="nc"><i>149</i>&nbsp;        if (!isClosing.getAndSet(true)) {</b>
-<b class="nc"><i>150</i>&nbsp;            notify(new DisconnectionMessage());</b>
-<i>151</i>&nbsp;        }
-<b class="nc"><i>152</i>&nbsp;    }</b>
-<i>153</i>&nbsp;
-<i>154</i>&nbsp;    /**
-<i>155</i>&nbsp;     * Sends a message to the remote host.
-<i>156</i>&nbsp;     * The message is sent synchronously.
-<i>157</i>&nbsp;     *
-<i>158</i>&nbsp;     * @param message the message to be sent
-<i>159</i>&nbsp;     */
-<i>160</i>&nbsp;    public void send(Transmittable message) {
-<i>161</i>&nbsp;        try {
-<b class="nc"><i>162</i>&nbsp;            synchronized (socketOut) {</b>
-<b class="nc"><i>163</i>&nbsp;                if (!isActive()) {</b>
-<b class="nc"><i>164</i>&nbsp;                    return;</b>
-<i>165</i>&nbsp;                }
-<b class="nc"><i>166</i>&nbsp;                log(Level.FINE, String.format(&quot;Sending message %s...&quot;, message.getClass().getName()));</b>
-<b class="nc"><i>167</i>&nbsp;                socketOut.writeObject(message);</b>
-<b class="nc"><i>168</i>&nbsp;            }</b>
-<b class="nc"><i>169</i>&nbsp;        } catch (IOException e) {</b>
-<b class="nc"><i>170</i>&nbsp;            notifyDisconnection();</b>
-<b class="nc"><i>171</i>&nbsp;        }</b>
-<b class="nc"><i>172</i>&nbsp;    }</b>
-<i>173</i>&nbsp;
-<i>174</i>&nbsp;    /**
-<i>175</i>&nbsp;     * Starts the thread that handles the messages incoming from the remote host.
-<i>176</i>&nbsp;     *
-<i>177</i>&nbsp;     * @return the thread that handles the messages incoming from the remote host
-<i>178</i>&nbsp;     */
-<i>179</i>&nbsp;    private Thread startSocketReceiveThread() {
-<b class="nc"><i>180</i>&nbsp;        Thread t = new Thread(() -&gt; {</b>
-<b class="nc"><i>181</i>&nbsp;            log(Level.FINE, &quot;Receive thread ready&quot;);</b>
-<b class="nc"><i>182</i>&nbsp;            while (isActive() &amp;&amp; !Thread.currentThread().isInterrupted()) {</b>
-<i>183</i>&nbsp;                try {
-<b class="nc"><i>184</i>&nbsp;                    Transmittable inputObject = (Transmittable) socketIn.readObject();</b>
-<b class="nc"><i>185</i>&nbsp;                    if (inputObject instanceof KeepAlive) {</b>
-<b class="nc"><i>186</i>&nbsp;                        log(Level.FINER, &quot;Received keep alive&quot;);</b>
-<i>187</i>&nbsp;                    }
-<i>188</i>&nbsp;                    else {
-<b class="nc"><i>189</i>&nbsp;                        log(Level.FINE, String.format(&quot;Received message %s&quot;, inputObject.getClass().getName()));</b>
-<b class="nc"><i>190</i>&nbsp;                        notify(inputObject, true);</b>
-<i>191</i>&nbsp;                    }
-<b class="nc"><i>192</i>&nbsp;                } catch (IOException e) {</b>
-<b class="nc"><i>193</i>&nbsp;                    notifyDisconnection();</b>
-<b class="nc"><i>194</i>&nbsp;                } catch (ClassNotFoundException | ClassCastException e) {</b>
-<b class="nc"><i>195</i>&nbsp;                    LOGGER.log(Level.SEVERE, &quot;Exception in receive thread&quot;, e);</b>
-<b class="nc"><i>196</i>&nbsp;                }</b>
-<i>197</i>&nbsp;            }
-<b class="nc"><i>198</i>&nbsp;        }, String.format(&quot;ConnectionReceive-%s&quot;, socket.getRemoteSocketAddress().toString()));</b>
-<b class="nc"><i>199</i>&nbsp;        t.start();</b>
-<b class="nc"><i>200</i>&nbsp;        return t;</b>
-<i>201</i>&nbsp;    }
-<i>202</i>&nbsp;
-<i>203</i>&nbsp;}
+<i>91</i>&nbsp;                else {
+<b class="nc"><i>92</i>&nbsp;                    cancel();</b>
+<i>93</i>&nbsp;                }
+<b class="nc"><i>94</i>&nbsp;            }</b>
+<i>95</i>&nbsp;        }, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS, Connection.KEEP_ALIVE_TIMER_INTERVAL_MS);
+<b class="nc"><i>96</i>&nbsp;    }</b>
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * Prints a log message on the console, prepending the information about the socket.
+<i>100</i>&nbsp;     *
+<i>101</i>&nbsp;     * @param level   the log level
+<i>102</i>&nbsp;     * @param message the log message
+<i>103</i>&nbsp;     */
+<i>104</i>&nbsp;    private void log(Level level, String message) {
+<b class="nc"><i>105</i>&nbsp;        LOGGER.log(level, () -&gt; String.format(&quot;[socket %s] %s&quot;, socket.getRemoteSocketAddress().toString().substring(1), message));</b>
+<b class="nc"><i>106</i>&nbsp;    }</b>
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Checks if the connection is active.
+<i>110</i>&nbsp;     *
+<i>111</i>&nbsp;     * @return whether or not the connection is active
+<i>112</i>&nbsp;     */
+<i>113</i>&nbsp;    public boolean isActive() {
+<b class="nc"><i>114</i>&nbsp;        return isActive.get();</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    /**
+<i>118</i>&nbsp;     * Closes the connection and stops the receiving thread.
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    public void close() {
+<b class="nc"><i>121</i>&nbsp;        if (!isActive.getAndSet(false)) {</b>
+<b class="nc"><i>122</i>&nbsp;            return;</b>
+<i>123</i>&nbsp;        }
+<b class="nc"><i>124</i>&nbsp;        log(Level.FINE, &quot;Closing the connection&quot;);</b>
+<i>125</i>&nbsp;        try {
+<b class="nc"><i>126</i>&nbsp;            socketOut.close();</b>
+<b class="nc"><i>127</i>&nbsp;        } catch (IOException ignored) {</b>
+<b class="nc"><i>128</i>&nbsp;            log(Level.FINER, &quot;Unable to close out socket&quot;);</b>
+<b class="nc"><i>129</i>&nbsp;        }</b>
+<i>130</i>&nbsp;        try {
+<b class="nc"><i>131</i>&nbsp;            socketIn.close();</b>
+<b class="nc"><i>132</i>&nbsp;        } catch (IOException ignored) {</b>
+<b class="nc"><i>133</i>&nbsp;            log(Level.FINER, &quot;Unable to close in socket&quot;);</b>
+<b class="nc"><i>134</i>&nbsp;        }</b>
+<i>135</i>&nbsp;        try {
+<b class="nc"><i>136</i>&nbsp;            socket.close();</b>
+<b class="nc"><i>137</i>&nbsp;        } catch (IOException ignored) {</b>
+<b class="nc"><i>138</i>&nbsp;            log(Level.FINER, &quot;Unable to close socket&quot;);</b>
+<b class="nc"><i>139</i>&nbsp;        }</b>
+<i>140</i>&nbsp;        try {
+<b class="nc"><i>141</i>&nbsp;            receiveThread.interrupt();</b>
+<b class="nc"><i>142</i>&nbsp;            receiveThread.join();</b>
+<b class="nc"><i>143</i>&nbsp;        } catch (Exception ignored) {</b>
+<b class="nc"><i>144</i>&nbsp;            log(Level.FINER, &quot;Unable to close receiving thread&quot;);</b>
+<b class="nc"><i>145</i>&nbsp;        }</b>
+<b class="nc"><i>146</i>&nbsp;    }</b>
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    /**
+<i>149</i>&nbsp;     * Notifies the observers of this Connection that the socket was closed, if not already done.
+<i>150</i>&nbsp;     */
+<i>151</i>&nbsp;    private void notifyDisconnection() {
+<b class="nc"><i>152</i>&nbsp;        if (!isClosing.getAndSet(true)) {</b>
+<b class="nc"><i>153</i>&nbsp;            notify(new DisconnectionMessage());</b>
+<i>154</i>&nbsp;        }
+<b class="nc"><i>155</i>&nbsp;    }</b>
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;    /**
+<i>158</i>&nbsp;     * Sends a message to the remote host.
+<i>159</i>&nbsp;     * The message is sent synchronously.
+<i>160</i>&nbsp;     *
+<i>161</i>&nbsp;     * @param message the message to be sent
+<i>162</i>&nbsp;     */
+<i>163</i>&nbsp;    public void send(Transmittable message) {
+<i>164</i>&nbsp;        try {
+<b class="nc"><i>165</i>&nbsp;            synchronized (socketOut) {</b>
+<b class="nc"><i>166</i>&nbsp;                if (!isActive()) {</b>
+<b class="nc"><i>167</i>&nbsp;                    return;</b>
+<i>168</i>&nbsp;                }
+<b class="nc"><i>169</i>&nbsp;                log(Level.FINE, String.format(&quot;Sending message %s...&quot;, message.getClass().getName()));</b>
+<b class="nc"><i>170</i>&nbsp;                socketOut.writeObject(message);</b>
+<b class="nc"><i>171</i>&nbsp;            }</b>
+<b class="nc"><i>172</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>173</i>&nbsp;            notifyDisconnection();</b>
+<b class="nc"><i>174</i>&nbsp;        }</b>
+<b class="nc"><i>175</i>&nbsp;    }</b>
+<i>176</i>&nbsp;
+<i>177</i>&nbsp;    /**
+<i>178</i>&nbsp;     * Starts the thread that handles the messages incoming from the remote host.
+<i>179</i>&nbsp;     *
+<i>180</i>&nbsp;     * @return the thread that handles the messages incoming from the remote host
+<i>181</i>&nbsp;     */
+<i>182</i>&nbsp;    private Thread startSocketReceiveThread() {
+<b class="nc"><i>183</i>&nbsp;        Thread t = new Thread(() -&gt; {</b>
+<b class="nc"><i>184</i>&nbsp;            log(Level.FINE, &quot;Receive thread ready&quot;);</b>
+<b class="nc"><i>185</i>&nbsp;            while (isActive() &amp;&amp; !Thread.currentThread().isInterrupted()) {</b>
+<i>186</i>&nbsp;                try {
+<b class="nc"><i>187</i>&nbsp;                    Transmittable inputObject = (Transmittable) socketIn.readObject();</b>
+<b class="nc"><i>188</i>&nbsp;                    if (inputObject instanceof KeepAlive) {</b>
+<b class="nc"><i>189</i>&nbsp;                        log(Level.FINER, &quot;Received keep alive&quot;);</b>
+<i>190</i>&nbsp;                    }
+<i>191</i>&nbsp;                    else {
+<b class="nc"><i>192</i>&nbsp;                        log(Level.FINE, String.format(&quot;Received message %s&quot;, inputObject.getClass().getName()));</b>
+<b class="nc"><i>193</i>&nbsp;                        notify(inputObject, true);</b>
+<i>194</i>&nbsp;                    }
+<b class="nc"><i>195</i>&nbsp;                } catch (IOException e) {</b>
+<b class="nc"><i>196</i>&nbsp;                    notifyDisconnection();</b>
+<b class="nc"><i>197</i>&nbsp;                } catch (ClassNotFoundException | ClassCastException e) {</b>
+<b class="nc"><i>198</i>&nbsp;                    LOGGER.log(Level.SEVERE, &quot;Exception in receive thread&quot;, e);</b>
+<b class="nc"><i>199</i>&nbsp;                }</b>
+<i>200</i>&nbsp;            }
+<b class="nc"><i>201</i>&nbsp;        }, String.format(&quot;ConnectionReceive-%s&quot;, socket.getRemoteSocketAddress().toString()));</b>
+<b class="nc"><i>202</i>&nbsp;        t.start();</b>
+<b class="nc"><i>203</i>&nbsp;        return t;</b>
+<i>204</i>&nbsp;    }
+<i>205</i>&nbsp;
+<i>206</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

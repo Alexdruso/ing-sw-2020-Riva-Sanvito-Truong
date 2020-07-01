@@ -87,38 +87,54 @@
 <i>13</i>&nbsp;    @FXML
 <i>14</i>&nbsp;    Label errorLabel;
 <i>15</i>&nbsp;
-<i>16</i>&nbsp;    @FXML
-<i>17</i>&nbsp;    void twoPlayersSelected(ActionEvent event){
-<b class="nc"><i>18</i>&nbsp;        ((SetPlayersCountGUIClientState)state).setPlayersCount(2);</b>
-<i>19</i>&nbsp;
-<b class="nc"><i>20</i>&nbsp;    }</b>
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;    @FXML
-<i>23</i>&nbsp;    void threePlayersSelected(ActionEvent event){
-<b class="nc"><i>24</i>&nbsp;        ((SetPlayersCountGUIClientState)state).setPlayersCount(3);</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * This method sends to the TurnState the information that the player wants to play in a two-player game
+<i>19</i>&nbsp;     * @param event the mouse click event
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    @FXML
+<i>22</i>&nbsp;    void twoPlayersSelected(ActionEvent event){
+<b class="nc"><i>23</i>&nbsp;        ((SetPlayersCountGUIClientState)state).setPlayersCount(2);</b>
+<i>24</i>&nbsp;
 <b class="nc"><i>25</i>&nbsp;    }</b>
 <i>26</i>&nbsp;
-<i>27</i>&nbsp;    @FXML
-<i>28</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>29</i>&nbsp;        ((SetPlayersCountGUIClientState)state).returnToMenu();</b>
-<b class="nc"><i>30</i>&nbsp;    }</b>
-<i>31</i>&nbsp;
-<i>32</i>&nbsp;    @FXML
-<i>33</i>&nbsp;    void initialize(){
-<b class="nc"><i>34</i>&nbsp;        errorLabel.setOpacity(0);</b>
-<b class="nc"><i>35</i>&nbsp;    }</b>
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    @Override
-<i>38</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>39</i>&nbsp;        errorLabel.setOpacity(1);</b>
-<b class="nc"><i>40</i>&nbsp;    }</b>
-<i>41</i>&nbsp;}
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * This method sends to the TurnState the information that the player wants to play in a three-player game
+<i>29</i>&nbsp;     * @param event the mouse click event
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    @FXML
+<i>32</i>&nbsp;    void threePlayersSelected(ActionEvent event){
+<b class="nc"><i>33</i>&nbsp;        ((SetPlayersCountGUIClientState)state).setPlayersCount(3);</b>
+<b class="nc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Handles menu button on screen
+<i>38</i>&nbsp;     * @param event the mouse click event
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    @FXML
+<i>41</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>42</i>&nbsp;        ((SetPlayersCountGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * JavaFX initialization method
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    @FXML
+<i>49</i>&nbsp;    void initialize(){
+<b class="nc"><i>50</i>&nbsp;        errorLabel.setOpacity(0);</b>
+<b class="nc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    @Override
+<i>54</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>55</i>&nbsp;        errorLabel.setOpacity(1);</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

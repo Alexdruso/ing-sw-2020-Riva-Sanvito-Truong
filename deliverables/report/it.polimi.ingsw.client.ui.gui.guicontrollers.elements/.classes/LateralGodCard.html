@@ -213,88 +213,91 @@
 <i>139</i>&nbsp;        }
 <b class="nc"><i>140</i>&nbsp;    }</b>
 <i>141</i>&nbsp;
-<i>142</i>&nbsp;    @FXML
-<i>143</i>&nbsp;    void initialize(){
-<b class="nc"><i>144</i>&nbsp;        rootPane.setPickOnBounds(false);</b>
-<b class="nc"><i>145</i>&nbsp;        godText.setMouseTransparent(true);</b>
-<i>146</i>&nbsp;
-<b class="nc"><i>147</i>&nbsp;        gradientPane.setOnMouseClicked(e -&gt; reverse());</b>
-<i>148</i>&nbsp;
-<b class="nc"><i>149</i>&nbsp;        gradientPane.setCacheHint(CacheHint.SPEED);</b>
-<b class="nc"><i>150</i>&nbsp;        gradientPane.setTranslateX(-1920);</b>
-<b class="nc"><i>151</i>&nbsp;        cardPane.setCacheHint(CacheHint.SPEED);</b>
-<b class="nc"><i>152</i>&nbsp;        cardPane.setTranslateX(-1280);</b>
-<i>153</i>&nbsp;
-<b class="nc"><i>154</i>&nbsp;        gradientPaneTransitionOut = new TranslateTransition(Duration.millis(400), gradientPane);</b>
-<b class="nc"><i>155</i>&nbsp;        cardPaneTransitionOut = new TranslateTransition(Duration.millis(200), cardPane);</b>
-<b class="nc"><i>156</i>&nbsp;        PauseTransition delayTransition = new PauseTransition(Duration.millis(200));</b>
-<b class="nc"><i>157</i>&nbsp;        SequentialTransition pausingTransition = new SequentialTransition(delayTransition, gradientPaneTransitionOut);</b>
-<b class="nc"><i>158</i>&nbsp;        sideBarTransitionOut = new ParallelTransition(cardPaneTransitionOut, pausingTransition);</b>
-<b class="nc"><i>159</i>&nbsp;        sideBarTransitionOut.setInterpolator(Interpolator.LINEAR);</b>
-<i>160</i>&nbsp;
-<b class="nc"><i>161</i>&nbsp;        TranslateTransition gradientPaneTransitionIn = new TranslateTransition(Duration.millis(400), gradientPane);</b>
-<b class="nc"><i>162</i>&nbsp;        TranslateTransition cardPaneTransitionIn = new TranslateTransition(Duration.millis(200), cardPane);</b>
-<b class="nc"><i>163</i>&nbsp;        gradientPaneTransitionIn.setToX(0);</b>
-<b class="nc"><i>164</i>&nbsp;        cardPaneTransitionIn.setToX(0);</b>
-<b class="nc"><i>165</i>&nbsp;        delayTransition = new PauseTransition(Duration.millis(200));</b>
-<b class="nc"><i>166</i>&nbsp;        pausingTransition = new SequentialTransition(delayTransition, cardPaneTransitionIn);</b>
-<b class="nc"><i>167</i>&nbsp;        sideBarTransitionIn = new ParallelTransition(gradientPaneTransitionIn, pausingTransition);</b>
-<b class="nc"><i>168</i>&nbsp;        sideBarTransitionIn.setInterpolator(Interpolator.LINEAR);</b>
-<i>169</i>&nbsp;
-<b class="nc"><i>170</i>&nbsp;        JavaFXGUI.getPrimaryScene().widthProperty().addListener((o, oldWidth, newWidth) -&gt; {</b>
-<b class="nc"><i>171</i>&nbsp;            if(!sideBarVisible){</b>
-<i>172</i>&nbsp;                //Move side bar to just outside the screen
-<b class="nc"><i>173</i>&nbsp;                gradientPane.setTranslateX(-1*(double)newWidth);</b>
-<i>174</i>&nbsp;            }
-<b class="nc"><i>175</i>&nbsp;        });</b>
-<i>176</i>&nbsp;
-<b class="nc"><i>177</i>&nbsp;        if(hasButton){</b>
-<b class="nc"><i>178</i>&nbsp;            Button selectGodButton = new Button();</b>
-<b class="nc"><i>179</i>&nbsp;            selectGodButton.setPrefWidth(300);</b>
-<b class="nc"><i>180</i>&nbsp;            selectGodButton.setPrefHeight(55);</b>
-<b class="nc"><i>181</i>&nbsp;            selectGodButton.setText(I18n.string(I18nKey.SELECT_GOD_CARD));</b>
-<b class="nc"><i>182</i>&nbsp;            selectGodButton.getStyleClass().add(&quot;bigbutton&quot;);</b>
-<b class="nc"><i>183</i>&nbsp;            selectGodButton.setOnMouseClicked(e -&gt; selectGod());</b>
-<b class="nc"><i>184</i>&nbsp;            cardPane.getChildren().add(selectGodButton);</b>
-<b class="nc"><i>185</i>&nbsp;            VBox.setMargin(selectGodButton, new Insets(0,0,0,30));</b>
-<i>186</i>&nbsp;        }
-<i>187</i>&nbsp;
-<b class="nc"><i>188</i>&nbsp;        selectedCard.setOnMouseEntered(e -&gt; {</b>
-<b class="nc"><i>189</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);</b>
-<b class="nc"><i>190</i>&nbsp;            st.setToX(1.1);</b>
-<b class="nc"><i>191</i>&nbsp;            st.setToY(1.1);</b>
-<b class="nc"><i>192</i>&nbsp;            st.play();</b>
-<b class="nc"><i>193</i>&nbsp;        });</b>
-<i>194</i>&nbsp;
-<b class="nc"><i>195</i>&nbsp;        selectedCard.setOnMouseExited(e -&gt; {</b>
-<b class="nc"><i>196</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);</b>
-<b class="nc"><i>197</i>&nbsp;            st.setToX(1);</b>
-<b class="nc"><i>198</i>&nbsp;            st.setToY(1);</b>
-<b class="nc"><i>199</i>&nbsp;            st.play();</b>
-<b class="nc"><i>200</i>&nbsp;        });</b>
-<b class="nc"><i>201</i>&nbsp;    }</b>
-<i>202</i>&nbsp;
-<i>203</i>&nbsp;    /**
-<i>204</i>&nbsp;     * This method shows the LateralGodCard pane and sets the appropriate text
-<i>205</i>&nbsp;     * @param reducedGod the ReducedGod that should be shown
-<i>206</i>&nbsp;     */
-<i>207</i>&nbsp;    public void clickGod(ReducedGod reducedGod){
-<b class="nc"><i>208</i>&nbsp;        currentGod = reducedGod;</b>
-<b class="nc"><i>209</i>&nbsp;        GodAsset ga = GodAsset.fromReducedGod(reducedGod);</b>
-<b class="nc"><i>210</i>&nbsp;        selectedCard.setImage(cachedCards.get(ga));</b>
-<b class="nc"><i>211</i>&nbsp;        godName.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_NAME&quot;)));</b>
-<b class="nc"><i>212</i>&nbsp;        godSubtitle.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_SUBTITLE&quot;)));</b>
-<b class="nc"><i>213</i>&nbsp;        godDescription.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_DESCRIPTION&quot;)));</b>
-<b class="nc"><i>214</i>&nbsp;        sideBarTransitionIn.play();</b>
-<b class="nc"><i>215</i>&nbsp;        sideBarVisible = true;</b>
-<b class="nc"><i>216</i>&nbsp;    }</b>
-<i>217</i>&nbsp;}
+<i>142</i>&nbsp;    /**
+<i>143</i>&nbsp;     * JavaFX initialization method
+<i>144</i>&nbsp;     */
+<i>145</i>&nbsp;    @FXML
+<i>146</i>&nbsp;    void initialize(){
+<b class="nc"><i>147</i>&nbsp;        rootPane.setPickOnBounds(false);</b>
+<b class="nc"><i>148</i>&nbsp;        godText.setMouseTransparent(true);</b>
+<i>149</i>&nbsp;
+<b class="nc"><i>150</i>&nbsp;        gradientPane.setOnMouseClicked(e -&gt; reverse());</b>
+<i>151</i>&nbsp;
+<b class="nc"><i>152</i>&nbsp;        gradientPane.setCacheHint(CacheHint.SPEED);</b>
+<b class="nc"><i>153</i>&nbsp;        gradientPane.setTranslateX(-1920);</b>
+<b class="nc"><i>154</i>&nbsp;        cardPane.setCacheHint(CacheHint.SPEED);</b>
+<b class="nc"><i>155</i>&nbsp;        cardPane.setTranslateX(-1280);</b>
+<i>156</i>&nbsp;
+<b class="nc"><i>157</i>&nbsp;        gradientPaneTransitionOut = new TranslateTransition(Duration.millis(400), gradientPane);</b>
+<b class="nc"><i>158</i>&nbsp;        cardPaneTransitionOut = new TranslateTransition(Duration.millis(200), cardPane);</b>
+<b class="nc"><i>159</i>&nbsp;        PauseTransition delayTransition = new PauseTransition(Duration.millis(200));</b>
+<b class="nc"><i>160</i>&nbsp;        SequentialTransition pausingTransition = new SequentialTransition(delayTransition, gradientPaneTransitionOut);</b>
+<b class="nc"><i>161</i>&nbsp;        sideBarTransitionOut = new ParallelTransition(cardPaneTransitionOut, pausingTransition);</b>
+<b class="nc"><i>162</i>&nbsp;        sideBarTransitionOut.setInterpolator(Interpolator.LINEAR);</b>
+<i>163</i>&nbsp;
+<b class="nc"><i>164</i>&nbsp;        TranslateTransition gradientPaneTransitionIn = new TranslateTransition(Duration.millis(400), gradientPane);</b>
+<b class="nc"><i>165</i>&nbsp;        TranslateTransition cardPaneTransitionIn = new TranslateTransition(Duration.millis(200), cardPane);</b>
+<b class="nc"><i>166</i>&nbsp;        gradientPaneTransitionIn.setToX(0);</b>
+<b class="nc"><i>167</i>&nbsp;        cardPaneTransitionIn.setToX(0);</b>
+<b class="nc"><i>168</i>&nbsp;        delayTransition = new PauseTransition(Duration.millis(200));</b>
+<b class="nc"><i>169</i>&nbsp;        pausingTransition = new SequentialTransition(delayTransition, cardPaneTransitionIn);</b>
+<b class="nc"><i>170</i>&nbsp;        sideBarTransitionIn = new ParallelTransition(gradientPaneTransitionIn, pausingTransition);</b>
+<b class="nc"><i>171</i>&nbsp;        sideBarTransitionIn.setInterpolator(Interpolator.LINEAR);</b>
+<i>172</i>&nbsp;
+<b class="nc"><i>173</i>&nbsp;        JavaFXGUI.getPrimaryScene().widthProperty().addListener((o, oldWidth, newWidth) -&gt; {</b>
+<b class="nc"><i>174</i>&nbsp;            if(!sideBarVisible){</b>
+<i>175</i>&nbsp;                //Move side bar to just outside the screen
+<b class="nc"><i>176</i>&nbsp;                gradientPane.setTranslateX(-1*(double)newWidth);</b>
+<i>177</i>&nbsp;            }
+<b class="nc"><i>178</i>&nbsp;        });</b>
+<i>179</i>&nbsp;
+<b class="nc"><i>180</i>&nbsp;        if(hasButton){</b>
+<b class="nc"><i>181</i>&nbsp;            Button selectGodButton = new Button();</b>
+<b class="nc"><i>182</i>&nbsp;            selectGodButton.setPrefWidth(300);</b>
+<b class="nc"><i>183</i>&nbsp;            selectGodButton.setPrefHeight(55);</b>
+<b class="nc"><i>184</i>&nbsp;            selectGodButton.setText(I18n.string(I18nKey.SELECT_GOD_CARD));</b>
+<b class="nc"><i>185</i>&nbsp;            selectGodButton.getStyleClass().add(&quot;bigbutton&quot;);</b>
+<b class="nc"><i>186</i>&nbsp;            selectGodButton.setOnMouseClicked(e -&gt; selectGod());</b>
+<b class="nc"><i>187</i>&nbsp;            cardPane.getChildren().add(selectGodButton);</b>
+<b class="nc"><i>188</i>&nbsp;            VBox.setMargin(selectGodButton, new Insets(0,0,0,30));</b>
+<i>189</i>&nbsp;        }
+<i>190</i>&nbsp;
+<b class="nc"><i>191</i>&nbsp;        selectedCard.setOnMouseEntered(e -&gt; {</b>
+<b class="nc"><i>192</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);</b>
+<b class="nc"><i>193</i>&nbsp;            st.setToX(1.1);</b>
+<b class="nc"><i>194</i>&nbsp;            st.setToY(1.1);</b>
+<b class="nc"><i>195</i>&nbsp;            st.play();</b>
+<b class="nc"><i>196</i>&nbsp;        });</b>
+<i>197</i>&nbsp;
+<b class="nc"><i>198</i>&nbsp;        selectedCard.setOnMouseExited(e -&gt; {</b>
+<b class="nc"><i>199</i>&nbsp;            ScaleTransition st = new ScaleTransition(Duration.millis(200), selectedCard);</b>
+<b class="nc"><i>200</i>&nbsp;            st.setToX(1);</b>
+<b class="nc"><i>201</i>&nbsp;            st.setToY(1);</b>
+<b class="nc"><i>202</i>&nbsp;            st.play();</b>
+<b class="nc"><i>203</i>&nbsp;        });</b>
+<b class="nc"><i>204</i>&nbsp;    }</b>
+<i>205</i>&nbsp;
+<i>206</i>&nbsp;    /**
+<i>207</i>&nbsp;     * This method shows the LateralGodCard pane and sets the appropriate text
+<i>208</i>&nbsp;     * @param reducedGod the ReducedGod that should be shown
+<i>209</i>&nbsp;     */
+<i>210</i>&nbsp;    public void clickGod(ReducedGod reducedGod){
+<b class="nc"><i>211</i>&nbsp;        currentGod = reducedGod;</b>
+<b class="nc"><i>212</i>&nbsp;        GodAsset ga = GodAsset.fromReducedGod(reducedGod);</b>
+<b class="nc"><i>213</i>&nbsp;        selectedCard.setImage(cachedCards.get(ga));</b>
+<b class="nc"><i>214</i>&nbsp;        godName.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_NAME&quot;)));</b>
+<b class="nc"><i>215</i>&nbsp;        godSubtitle.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_SUBTITLE&quot;)));</b>
+<b class="nc"><i>216</i>&nbsp;        godDescription.setText(I18n.string(I18nKey.valueOf(ga.godName.toUpperCase()+&quot;_DESCRIPTION&quot;)));</b>
+<b class="nc"><i>217</i>&nbsp;        sideBarTransitionIn.play();</b>
+<b class="nc"><i>218</i>&nbsp;        sideBarVisible = true;</b>
+<b class="nc"><i>219</i>&nbsp;    }</b>
+<i>220</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

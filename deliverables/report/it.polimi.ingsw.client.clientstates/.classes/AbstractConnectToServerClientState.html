@@ -42,26 +42,26 @@
   <td class="name">AbstractConnectToServerClientState</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 1)
+    (1/ 1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/ 3)
+    (3/ 3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    41,7%
   </span>
   <span class="absValue">
-    (0/ 12)
+    (5/ 12)
   </span>
 </td>
 </tr>
@@ -100,18 +100,18 @@
 <i>26</i>&nbsp;     * @param client the client
 <i>27</i>&nbsp;     */
 <i>28</i>&nbsp;    public AbstractConnectToServerClientState(Client client) {
-<b class="nc"><i>29</i>&nbsp;        super(client);</b>
-<b class="nc"><i>30</i>&nbsp;    }</b>
+<b class="fc"><i>29</i>&nbsp;        super(client);</b>
+<b class="fc"><i>30</i>&nbsp;    }</b>
 <i>31</i>&nbsp;
 <i>32</i>&nbsp;    @Override
 <i>33</i>&nbsp;    public void setup() {
-<b class="nc"><i>34</i>&nbsp;        triggerRender();</b>
-<b class="nc"><i>35</i>&nbsp;    }</b>
+<b class="fc"><i>34</i>&nbsp;        triggerRender();</b>
+<b class="fc"><i>35</i>&nbsp;    }</b>
 <i>36</i>&nbsp;
 <i>37</i>&nbsp;    @Override
 <i>38</i>&nbsp;    public void notifyUiInteraction() {
 <i>39</i>&nbsp;        try {
-<b class="nc"><i>40</i>&nbsp;            Connection connection = new Connection(host, port);</b>
+<b class="fc"><i>40</i>&nbsp;            Connection connection = new Connection(host, port);</b>
 <b class="nc"><i>41</i>&nbsp;            client.setConnection(connection);</b>
 <b class="nc"><i>42</i>&nbsp;            client.moveToState(ClientState.SET_NICKNAME);</b>
 <b class="nc"><i>43</i>&nbsp;        } catch (IOException e) {</b>
@@ -127,7 +127,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

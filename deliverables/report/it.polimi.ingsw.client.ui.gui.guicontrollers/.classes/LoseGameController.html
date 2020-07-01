@@ -87,33 +87,45 @@
 <b class="nc"><i>13</i>&nbsp;public class LoseGameController extends AbstractController {</b>
 <b class="nc"><i>14</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(LoseGameController.class.getName());</b>
 <i>15</i>&nbsp;
-<i>16</i>&nbsp;    @FXML
-<i>17</i>&nbsp;    private void handleSpectate(ActionEvent event){
-<b class="nc"><i>18</i>&nbsp;        ((LoseGameGUIClientState)state).spectate();</b>
-<b class="nc"><i>19</i>&nbsp;    }</b>
-<i>20</i>&nbsp;
-<i>21</i>&nbsp;    @FXML
-<i>22</i>&nbsp;    private void handleReconnect(ActionEvent event){
-<b class="nc"><i>23</i>&nbsp;        ((LoseGameGUIClientState)state).reconnect();</b>
-<b class="nc"><i>24</i>&nbsp;    }</b>
-<i>25</i>&nbsp;
-<i>26</i>&nbsp;    @FXML
-<i>27</i>&nbsp;    private void handleMenu(ActionEvent event){
-<b class="nc"><i>28</i>&nbsp;            ((LoseGameGUIClientState)state).returnToMenu();</b>
-<b class="nc"><i>29</i>&nbsp;    }</b>
-<i>30</i>&nbsp;
-<i>31</i>&nbsp;    @Override
-<i>32</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>33</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<i>34</i>&nbsp;
-<b class="nc"><i>35</i>&nbsp;    }</b>
-<i>36</i>&nbsp;}
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * This method sends to the ClientState the information that the player wants to keep spectating the game
+<i>18</i>&nbsp;     * @param event the mouse click event
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    @FXML
+<i>21</i>&nbsp;    private void handleSpectate(ActionEvent event){
+<b class="nc"><i>22</i>&nbsp;        ((LoseGameGUIClientState)state).spectate();</b>
+<b class="nc"><i>23</i>&nbsp;    }</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * This method sends to the ClientState the information that the player wants to connect to a new game
+<i>27</i>&nbsp;     * @param event the mouse click event
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    @FXML
+<i>30</i>&nbsp;    private void handleReconnect(ActionEvent event){
+<b class="nc"><i>31</i>&nbsp;        ((LoseGameGUIClientState)state).reconnect();</b>
+<b class="nc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * This method sends to the ClientState the information that the player wants to return to the menu
+<i>36</i>&nbsp;     * @param event the mouse click event
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    @FXML
+<i>39</i>&nbsp;    private void handleMenu(ActionEvent event){
+<b class="nc"><i>40</i>&nbsp;            ((LoseGameGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    @Override
+<i>44</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>45</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

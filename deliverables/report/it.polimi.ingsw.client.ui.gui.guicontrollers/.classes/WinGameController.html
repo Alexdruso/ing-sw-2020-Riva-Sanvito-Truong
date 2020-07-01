@@ -93,40 +93,50 @@
 <i>19</i>&nbsp;    @FXML Label mainPrompt;
 <i>20</i>&nbsp;    @FXML Label winnerName;
 <i>21</i>&nbsp;
-<i>22</i>&nbsp;    @FXML void handleReconnect(ActionEvent event){
-<b class="nc"><i>23</i>&nbsp;        ((WinGameGUIClientState)state).reconnect();</b>
-<b class="nc"><i>24</i>&nbsp;    }</b>
-<i>25</i>&nbsp;    @FXML void handleMenu(ActionEvent event){
-<b class="nc"><i>26</i>&nbsp;        ((WinGameGUIClientState)state).returnToMenu();</b>
-<b class="nc"><i>27</i>&nbsp;    }</b>
-<i>28</i>&nbsp;
-<i>29</i>&nbsp;    /**
-<i>30</i>&nbsp;     * This method sets the prompt and the label for the winning player
-<i>31</i>&nbsp;     */
-<i>32</i>&nbsp;    public void setWinnerPrompts(){
-<b class="nc"><i>33</i>&nbsp;        mainPrompt.setText(I18n.string(I18nKey.VICTORIOUS));</b>
-<b class="nc"><i>34</i>&nbsp;        winnerName.setText(I18n.string(I18nKey.CONGRATULATIONS_YOU_WON));</b>
-<b class="nc"><i>35</i>&nbsp;    }</b>
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    /**
-<i>38</i>&nbsp;     * This method sets the prompt and the label for the losing players
-<i>39</i>&nbsp;     */
-<i>40</i>&nbsp;    public void setLoserPrompts(){
-<b class="nc"><i>41</i>&nbsp;        mainPrompt.setText(I18n.string(I18nKey.LOSER));</b>
-<b class="nc"><i>42</i>&nbsp;        winnerName.setText(String.format(I18n.string(I18nKey.S_WON), client.getCurrentActiveUser().getNickname()));</b>
-<b class="nc"><i>43</i>&nbsp;    }</b>
-<i>44</i>&nbsp;
-<i>45</i>&nbsp;    @Override
-<i>46</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>47</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
-<b class="nc"><i>48</i>&nbsp;    }</b>
-<i>49</i>&nbsp;}
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * This method sends to the ClientState the information that the player wants to join another game
+<i>25</i>&nbsp;     * @param event the mouse click event
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    @FXML void handleReconnect(ActionEvent event){
+<b class="nc"><i>28</i>&nbsp;        ((WinGameGUIClientState)state).reconnect();</b>
+<b class="nc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * This method sends to the ClientState the information that the player wants to go back to the menu
+<i>33</i>&nbsp;     * @param event the mouse click event
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    @FXML void handleMenu(ActionEvent event){
+<b class="nc"><i>36</i>&nbsp;        ((WinGameGUIClientState)state).returnToMenu();</b>
+<b class="nc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * This method sets the prompt and the label for the winning player
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    public void setWinnerPrompts(){
+<b class="nc"><i>43</i>&nbsp;        mainPrompt.setText(I18n.string(I18nKey.VICTORIOUS));</b>
+<b class="nc"><i>44</i>&nbsp;        winnerName.setText(I18n.string(I18nKey.CONGRATULATIONS_YOU_WON));</b>
+<b class="nc"><i>45</i>&nbsp;    }</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /**
+<i>48</i>&nbsp;     * This method sets the prompt and the label for the losing players
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public void setLoserPrompts(){
+<b class="nc"><i>51</i>&nbsp;        mainPrompt.setText(I18n.string(I18nKey.LOSER));</b>
+<b class="nc"><i>52</i>&nbsp;        winnerName.setText(String.format(I18n.string(I18nKey.S_WON), client.getCurrentActiveUser().getNickname()));</b>
+<b class="nc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    @Override
+<i>56</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>57</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<b class="nc"><i>58</i>&nbsp;    }</b>
+<i>59</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>

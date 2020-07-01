@@ -87,24 +87,28 @@
 <b class="nc"><i>13</i>&nbsp;public class CreditsController extends AbstractController{</b>
 <b class="nc"><i>14</i>&nbsp;    private static final Logger LOGGER = Logger.getLogger(CreditsController.class.getName());</b>
 <i>15</i>&nbsp;
-<i>16</i>&nbsp;    @FXML
-<i>17</i>&nbsp;    void handleMenuButton(ActionEvent event){
-<b class="nc"><i>18</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MainMenu.fxml&quot;, client);</b>
-<b class="nc"><i>19</i>&nbsp;        sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();</b>
-<b class="nc"><i>20</i>&nbsp;    }</b>
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;    @Override
-<i>23</i>&nbsp;    public void handleError(String message) {
-<b class="nc"><i>24</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * Handles menu button on screen
+<i>18</i>&nbsp;     * @param event the mouse click event
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    @FXML
+<i>21</i>&nbsp;    void handleMenuButton(ActionEvent event){
+<b class="nc"><i>22</i>&nbsp;        SceneLoaderBuilder sceneLoaderBuilder = new SceneLoaderBuilder(&quot;/fxml/MainMenu.fxml&quot;, client);</b>
+<b class="nc"><i>23</i>&nbsp;        sceneLoaderBuilder.setAttemptLoadFromSaved(true).build().executeSceneChange();</b>
+<b class="nc"><i>24</i>&nbsp;    }</b>
 <i>25</i>&nbsp;
-<b class="nc"><i>26</i>&nbsp;    }</b>
-<i>27</i>&nbsp;}
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public void handleError(String message) {
+<b class="nc"><i>28</i>&nbsp;        LOGGER.log(Level.SEVERE, message);</b>
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-06-28 23:52</div>
+    <div style="float:right;">generated on 2020-07-01 21:56</div>
 </div>
 </body>
 </html>
