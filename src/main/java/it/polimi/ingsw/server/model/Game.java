@@ -474,7 +474,7 @@ public class Game extends LambdaObservable<Transmittable> {
      * and notifies the request message, while assigning the last god to the remaining player.
      *
      * @param reducedGod the chosen god
-     * @param user       teh user of the player
+     * @param user       the user of the player
      */
     public void setGod(ReducedGod reducedGod, User user) {
         Player player = getPlayerFromUser(user);

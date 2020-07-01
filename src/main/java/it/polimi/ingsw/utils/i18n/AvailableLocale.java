@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.Locale;
 
 /**
- * An enum containing all the available locales for
+ * An enum containing all the available locales for the application.
  */
 public enum AvailableLocale {
     /**

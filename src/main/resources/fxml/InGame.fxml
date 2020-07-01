@@ -189,7 +189,7 @@
             </AnchorPane>
             <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <children>
-                  <Label fx:id="mainLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="688.0" styleClass="h1" text="Dolor et rerum minus nulla eum ut. Quos sint minima et. Ipsa eos eum laudantium nihil." textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="mainLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="78.0" prefWidth="688.0" styleClass="h1" text="placeholder" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
                   <Label fx:id="prompt" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" styleClass="h3" text="Label" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="10.0" />

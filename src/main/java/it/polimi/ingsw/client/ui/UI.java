@@ -28,6 +28,7 @@ public interface UI {
     AbstractClientState getClientState(ClientState clientState, Client client);
 
     /**
+     * Gets an instance of a UI-specific ClientTurnState.
      *
      * @param clientTurnState the requested client turn state
      * @param client          the client

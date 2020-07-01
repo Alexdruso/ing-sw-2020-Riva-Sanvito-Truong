@@ -31,7 +31,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="welcomeLabel" alignment="BASELINE_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="Voluptatem tempore reiciendis reiciendis ut rem dolores. Non praesentium eaque aut assumenda omnis est omnis saepe. Quia debitis magnam est minus et." textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="welcomeLabel" alignment="BASELINE_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="83.0" prefWidth="880.0" styleClass="h1" text="placeholder" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
                   <Label alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="h3" text="%ask_start_player_prompt" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets />

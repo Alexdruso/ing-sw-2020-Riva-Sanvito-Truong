@@ -30,7 +30,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="waitPromptLabel" alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="204.0" maxWidth="827.0" prefHeight="70.0" prefWidth="827.0" styleClass="h1" text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWwAAAAAAA" wrapText="true" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="waitPromptLabel" alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="204.0" maxWidth="827.0" prefHeight="70.0" prefWidth="827.0" styleClass="h1" text="placeholder" wrapText="true" VBox.vgrow="ALWAYS" />
                   <Label styleClass="h3" text="%wait_player_choose_god_prompt" VBox.vgrow="ALWAYS" />
                   <AnchorPane prefHeight="316.0" prefWidth="930.0" VBox.vgrow="NEVER">
                      <children>

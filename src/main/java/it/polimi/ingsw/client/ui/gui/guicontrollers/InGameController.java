@@ -48,7 +48,7 @@ public class InGameController extends AbstractController{
     private boolean isComponentSelectionDisplayed = false;
 
     /**
-     * This enum represents all the possible board elements that should be renderized on screen
+     * This enum represents all the possible board elements that should be rendered on screen
      */
     private enum BoardElement {
         /**
@@ -60,7 +60,7 @@ public class InGameController extends AbstractController{
          */
         BLOCK_1,
         /**
-         * A block on the second leve
+         * A block on the second level
          */
         BLOCK_2,
         /**

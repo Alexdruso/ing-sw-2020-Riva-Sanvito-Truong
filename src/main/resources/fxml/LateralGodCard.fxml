@@ -33,7 +33,7 @@
                      <children>
                         <Label fx:id="godName" prefHeight="100.0" prefWidth="565.0" styleClass="god-name" text="God Name" />
                         <Label fx:id="godSubtitle" styleClass="h3" text="God Subtitle" />
-                        <Label fx:id="godDescription" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="136.0" prefWidth="494.0" styleClass="normal-text" text="Nihil est hic id unde totam sint cupiditate. Cum consequatur eum hic. Sed numquam officiis velit necessitatibus sunt voluptatibus aliquid eos. Qui ratione corporis iste temporibus earum." wrapText="true" VBox.vgrow="ALWAYS">
+                        <Label fx:id="godDescription" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="136.0" prefWidth="494.0" styleClass="normal-text" text="placeholder" wrapText="true" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

@@ -27,7 +27,7 @@
           <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="65.0" prefWidth="776.0" styleClass="h1" text="Dolor et rerum minus nulla eum ut. Quos sint minima et. Ipsa eos eum laudantium nihil." textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <Label fx:id="chooseGodsPrompt" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="65.0" prefWidth="776.0" styleClass="h1" text="placeholder" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <ScrollPane id="god-icon-flowpane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="442.0" prefWidth="880.0" VBox.vgrow="SOMETIMES">

@@ -132,7 +132,7 @@ public class SceneLoader {
     private SavedScene loadAndSave(GUI gui) {
         SavedScene savedScene;
         try{
-            savedScene = loadNewFXML(fxmlFile, clientState, geti18n());
+            savedScene = loadNewFXML(fxmlFile, clientState, getI18n());
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             return null;
@@ -179,7 +179,7 @@ public class SceneLoader {
      * This method retrieves the ResourceBundle for the currently set locale
      * @return the ResourceBundle
      */
-    private static ResourceBundle geti18n(){
+    private static ResourceBundle getI18n(){
         return I18n.getResourceBundle();
     }
 
