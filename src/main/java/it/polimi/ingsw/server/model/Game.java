@@ -777,6 +777,8 @@ public class Game extends LambdaObservable<Transmittable> {
         Arrays.stream(losingPlayer.getWorkers()).forEach(this::removeWorkerFromCell);
         //rotate the players removing the current turn player
         players.poll();
+        //remove the losing player's god from the other players
+        players.forEach(player -> player.getTurnEventsManager().removeTurnEventsSetByOpponent(losingPlayer));
         //now check if the game is still going on
         if (players.size() == 1) {
             triggerWinningTurn();
